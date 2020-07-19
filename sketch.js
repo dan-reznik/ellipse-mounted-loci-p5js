@@ -128,9 +128,9 @@ function setup() {
   gui = createGui('Please Select');
   gui.addObject(g_ui);
   document.getElementById("Xn")
-    .addEventListener('change', ui_changed);
+    .addEventListener('input', ui_changed);
    document.getElementById("a")
-    .addEventListener('change', ui_changed);
+    .addEventListener('input', ui_changed);
   document.getElementsByClassName("qs_select")[0]
     .addEventListener('change', ui_changed);
 }
