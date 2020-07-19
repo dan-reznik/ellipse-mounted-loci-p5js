@@ -1,0 +1,23 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+.chk {
+  font-size: 14px;
+}
+
+.chkBold {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.lab {
+  font-size: 16px;
+  font-weight: bold;
+}
