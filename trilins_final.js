@@ -1550,7 +1550,7 @@ function trilin_X97(orbit, [a, b, c]) {
    let cotB=cosB/sinB;
    let cotA=cosA/sinA;
    /* end vars */
-   let v1 = cotA*(cosB*cosC+sinB*sinC);
+   let v1 = cotA/(cosB*cosC+sinB*sinC);
    let v2 = cotB/(cosA*cosC+sinA*sinC);
    let v3 = cotC/(cosA*cosB+sinA*sinB);
    let tris = [v1,v2,v3];
@@ -1784,9 +1784,9 @@ function trilin_X114(orbit, [a, b, c]) {
    let c4=c2*c2;
    let b4=b2*b2;
    /* end vars */
-   let v1 = ((-(a2*b2)+b4-a2*c2+c4)*(2*a4-a2*b2+b4-a2*c2-4*b*c2+c4))/a;
-   let v2 = ((a4-a2*b2-b2*c2+c4)*(a4-a2*b2+2*b4-4*a2*c-b2*c2+c4))/b;
-   let v3 = ((a4+b4-a2*c2-b2*c2)*(a4-4*a*b2+b4-a2*c2-b2*c2+2*c4))/c;
+   let v1 = ((-(a2*b2)+b4-a2*c2+c4)*(2*a4-a2*b2+b4-a2*c2-2*b2*c2+c4))/a;
+   let v2 = ((a4-a2*b2-b2*c2+c4)*(a4-a2*b2+2*b4-2*a2*c2-b2*c2+c4))/b;
+   let v3 = ((a4+b4-a2*c2-b2*c2)*(a4-2*a2*b2+b4-a2*c2-b2*c2+2*c4))/c;
    let tris = [v1,v2,v3];
    return trilin_to_cartesian(orbit, [a, b, c], tris);
 }
@@ -2820,9 +2820,9 @@ function trilin_X169(orbit, [a, b, c]) {
    let b3=b2*b;
    let a3=a2*a;
    /* end vars */
-   let v1 = a3-a2*(b+c)-2*(b-c)*(b+c)+a*(b2+c2);
-   let v2 = b3-b2*(a+c)-2*(-a+c)*(a+c)+b*(a2+c2);
-   let v3 = -2*(a-b)*(a+b)+(a2+b2)*c-(a+b)*c2+c3;
+   let v1 = a3-a2*(b+c)-(b-c)*(b-c)*(b+c)+a*(b2+c2);
+   let v2 = b3-b2*(a+c)-(-a+c)*(-a+c)*(a+c)+b*(a2+c2);
+   let v3 = -((a-b)*(a-b)*(a+b))+(a2+b2)*c-(a+b)*c2+c3;
    let tris = [v1,v2,v3];
    return trilin_to_cartesian(orbit, [a, b, c], tris);
 }
