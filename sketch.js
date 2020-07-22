@@ -21,7 +21,8 @@ g_ui = {
    aMin: 1.001,
    aMax: 4,
    aStep: 0.001,
-   mounting: ["major", "minor", "mixed", "ctrMajor",
+   mounting: ["billiard",
+      "major", "minor", "mixed", "ctrMajor",
       "ctrMinor", "fs", "fsCtr", "fsLeft",
       "fsRight", "fsTop", "cornerTL_BL", "cornerTL_TR",
       "cornerTL_vtxL", "cornerTL_vtxT", "cornerTL_vtxB",
@@ -30,31 +31,37 @@ g_ui = {
    Xn1: 0, Xn1Min: 0, Xn1Max: 200, Xn1Step: 1,
    Xn2: 0, Xn2Min: 0, Xn2Max: 200, Xn2Step: 1,
    Xn3: 0, Xn3Min: 0, Xn3Max: 200, Xn3Step: 1,
-   degStep: [1,0.1,0.05,0.01]
+   degStep0: [1, 0.1, 0.05, 0.01]
 };
 
-function make_one_locus(n, tdegStep0) {
+function make_one_locus(n, tdegStep) {
    let tDegMax = 180;
    let locus_Xn = [];
    let trilin_fn = get_fn_trilin(n);
-   // console.log(trilin_fn);
-   for (let tDeg = 0; tDeg < tDegMax; tDeg += tdegStep0) {
-      let ons = orbit_normals(g_ui.a, tDeg);
-      // esse o call magico
-      let xn = get_Xn_low(ons.o, ons.s, trilin_fn);
-      locus_Xn.push(xn);
+   if (g_ui.mounting == "billiard")
+      for (let tDeg = 0; tDeg < tDegMax; tDeg += tdegStep) {
+         let ons = orbit_normals(g_ui.a, tDeg);
+         let xn = get_Xn_low(ons.o, ons.s, trilin_fn);
+         locus_Xn.push(xn);
+      } else {
+      console.log(g_ui.mounting);
+      let [v1, v2] = getV1V2(g_ui.a, g_ui.mounting, .001)
+      for (let tDeg = 0; tDeg < tDegMax; tDeg += tdegStep) {
+         let xn = get_Xn_mounted(g_ui.a, tDeg, v1, v2, trilin_fn)
+         locus_Xn.push(xn);
+      }
    }
    return locus_Xn;
 }
 
 function create_locus() {
-   let tdegStep0 = 0.1;
+   let tdegStep = g_ui.degStep0;
    if (g_ui.Xn1 > 0)
-      g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep0);
+      g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep);
    if (g_ui.Xn2 > 0)
-      g_locus_Xn2 = make_one_locus(g_ui.Xn2, tdegStep0);
+      g_locus_Xn2 = make_one_locus(g_ui.Xn2, tdegStep);
    if (g_ui.Xn3 > 0)
-      g_locus_Xn3 = make_one_locus(g_ui.Xn3, tdegStep0);
+      g_locus_Xn3 = make_one_locus(g_ui.Xn3, tdegStep);
 }
 
 function create_checkboxes() {
