@@ -16,7 +16,7 @@ let g_locus_Xn1 = [];
 let g_locus_Xn2 = [];
 let g_locus_Xn3 = [];
 
-let g_ui = {
+g_ui = {
    a: 1.618,
    aMin: 1.001,
    aMax: 4,
@@ -29,15 +29,16 @@ let g_ui = {
    ],
    Xn1: 0, Xn1Min: 0, Xn1Max: 200, Xn1Step: 1,
    Xn2: 0, Xn2Min: 0, Xn2Max: 200, Xn2Step: 1,
-   Xn3: 0, Xn3Min: 0, Xn3Max: 200, Xn3Step: 1
+   Xn3: 0, Xn3Min: 0, Xn3Max: 200, Xn3Step: 1,
+   degStep: [1,0.1,0.05,0.01]
 };
 
-function make_one_locus(n, tDegStep) {
+function make_one_locus(n, tdegStep0) {
    let tDegMax = 180;
    let locus_Xn = [];
    let trilin_fn = get_fn_trilin(n);
    // console.log(trilin_fn);
-   for (let tDeg = 0; tDeg < tDegMax; tDeg += tDegStep) {
+   for (let tDeg = 0; tDeg < tDegMax; tDeg += tdegStep0) {
       let ons = orbit_normals(g_ui.a, tDeg);
       // esse o call magico
       let xn = get_Xn_low(ons.o, ons.s, trilin_fn);
@@ -47,13 +48,13 @@ function make_one_locus(n, tDegStep) {
 }
 
 function create_locus() {
-   let tDegStep = 0.1;
+   let tdegStep0 = 0.1;
    if (g_ui.Xn1 > 0)
-      g_locus_Xn1 = make_one_locus(g_ui.Xn1, tDegStep);
+      g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep0);
    if (g_ui.Xn2 > 0)
-      g_locus_Xn2 = make_one_locus(g_ui.Xn2, tDegStep);
+      g_locus_Xn2 = make_one_locus(g_ui.Xn2, tdegStep0);
    if (g_ui.Xn3 > 0)
-      g_locus_Xn3 = make_one_locus(g_ui.Xn3, tDegStep);
+      g_locus_Xn3 = make_one_locus(g_ui.Xn3, tdegStep0);
 }
 
 function create_checkboxes() {
