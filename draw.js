@@ -198,6 +198,24 @@ function draw_orbit(ons, dr_sidelengths = true) {
   pop();
 }
 
+function draw_mounted(tri, sides, dr_sidelengths = true) {
+  const lgt = 0.2;
+  push();
+  // should be draw_tri_filled for obtuse
+  draw_tri(tri, clr_dark_blue);
+  for (let i = 0; i < 3; i++) {
+    draw_point(tri[i], i == 0 ? clr_dark_red : [0, 0, 0]);
+    if (dr_sidelengths) {
+      let midpoint = vavg(tri[i], tri[(i + 1) % 3]);
+      draw_point(midpoint, [0, 0, 0]);
+      draw_text(sprintf("%.3f", sides[(i + 2) % 3]), // sides out of phase
+        midpoint, // median
+        [0, 0, 0]);
+    }
+  }
+  pop();
+}
+
 function draw_tri([p1, p2, p3], rgb, wgt = 0.015) {
   push();
   noFill();

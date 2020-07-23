@@ -31,23 +31,23 @@ g_ui = {
    Xn1: 0, Xn1Min: 0, Xn1Max: 200, Xn1Step: 1,
    Xn2: 0, Xn2Min: 0, Xn2Max: 200, Xn2Step: 1,
    Xn3: 0, Xn3Min: 0, Xn3Max: 200, Xn3Step: 1,
-   degStep0: [1, 0.1, 0.05, 0.01]
+   degStep0: [1, 0.1, 0.05, 0.01],
+   animStep0: [0.125,0.25, 0.5, 1]
 };
 
 function make_one_locus(n, tdegStep) {
-   let tDegMax = 180;
+   const eps = 0.001;
    let locus_Xn = [];
    let trilin_fn = get_fn_trilin(n);
    if (g_ui.mounting == "billiard")
-      for (let tDeg = 0; tDeg < tDegMax; tDeg += tdegStep) {
+      for (let tDeg = 0; tDeg < 180; tDeg += tdegStep) {
          let ons = orbit_normals(g_ui.a, tDeg);
          let xn = get_Xn_low(ons.o, ons.s, trilin_fn);
          locus_Xn.push(xn);
       } else {
-      console.log(g_ui.mounting);
-      let [v1, v2] = getV1V2(g_ui.a, g_ui.mounting, .001)
-      for (let tDeg = 0; tDeg < tDegMax; tDeg += tdegStep) {
-         let xn = get_Xn_mounted(g_ui.a, tDeg, v1, v2, trilin_fn)
+      let [v1, v2] = getV1V2(g_ui.a, g_ui.mounting, eps);
+      for (let tDeg = 0; tDeg < 360; tDeg += tdegStep) {
+         let [v3,xn] = get_Xn_mounted(g_ui.a, tDeg + eps, v1, v2, trilin_fn);
          locus_Xn.push(xn);
       }
    }
@@ -55,7 +55,7 @@ function make_one_locus(n, tdegStep) {
 }
 
 function create_locus() {
-   let tdegStep = g_ui.degStep0;
+   let tdegStep = +g_ui.degStep0;
    if (g_ui.Xn1 > 0)
       g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep);
    if (g_ui.Xn2 > 0)
@@ -131,25 +131,52 @@ function setup() {
       .addEventListener('change', ui_changed);
 }
 
+function draw_mounted_tri(a, tDeg, v1, v2, n) {
+   //let [v3,xn] = get_Xn_mounted(a, tDeg, v1, v2, get_fn_trilin(n));
+   let t = toRad(tDeg);
+   let v3 = [a*Math.cos(t),Math.sin(t)];
+   let tri = [v1, v2, v3];
+   let sides = tri_sides(tri);
+   draw_mounted(tri, sides, false);
+   return { o: tri, s: sides };
+}
+
 function draw() {
    background(220, 220, 200);
-   let ons = orbit_normals(g_ui.a, g_tDeg);
+
    push();
    translate(g_ctr[0], g_ctr[1]);
    scale(g_width / g_scale);
    draw_billiard(g_ui.a);
-   draw_orbit(ons, true);
 
-   // COME BACK TO THIS
-   if (g_ui.Xn1 > 0)
-      draw_locus(g_locus_Xn1, ons, g_ui.Xn1, clr_dark_red);
-   if (g_ui.Xn2 > 0)
-      draw_locus(g_locus_Xn2, ons, g_ui.Xn2, clr_dark_green);
-   if (g_ui.Xn3 > 0)
-      draw_locus(g_locus_Xn3, ons, g_ui.Xn3, clr_blue);
+   if (g_ui.mounting == "billiard") {
+      let ons = orbit_normals(g_ui.a, g_tDeg);
+      draw_orbit(ons, true);
+      if (g_ui.Xn1 > 0)
+         draw_locus(g_locus_Xn1, ons, g_ui.Xn1, clr_dark_red);
+      if (g_ui.Xn2 > 0)
+         draw_locus(g_locus_Xn2, ons, g_ui.Xn2, clr_dark_green);
+      if (g_ui.Xn3 > 0)
+         draw_locus(g_locus_Xn3, ons, g_ui.Xn3, clr_blue);
+   } else { // ellipse-mounted
+      let [v1, v2] = getV1V2(g_ui.a, g_ui.mounting, 0.001);
+      if (g_ui.Xn1 > 0) {
+         let os = draw_mounted_tri(g_ui.a, g_tDeg, v1, v2, g_ui.Xn1);
+         draw_locus(g_locus_Xn1, os, g_ui.Xn1, clr_dark_red);
+         //draw_locus_only(g_locus_Xn1, clr_dark_red);
+      }
+      if (g_ui.Xn2 > 0) {
+         let os = draw_mounted_tri(g_ui.a, g_tDeg, v1, v2, g_ui.Xn2);
+         draw_locus_only(g_locus_Xn2, clr_dark_green);
+      }
+      if (g_ui.Xn3 > 0) {
+         let os = draw_mounted_tri(g_ui.a, g_tDeg, v1, v2, g_ui.Xn3);
+         draw_locus_only(g_locus_Xn3, clr_blue);
+      }
+   }
    pop();
 
-   if (g_loop) g_tDeg += (g_loop_ccw ? 0.125 : -0.125);
+   if (g_loop) g_tDeg += (g_loop_ccw ? (+g_ui.animStep0) : -(+g_ui.animStep0));
 }
 
 
