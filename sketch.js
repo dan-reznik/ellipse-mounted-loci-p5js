@@ -58,27 +58,27 @@ function create_locus() {
 }
 
 function create_checkboxes() {
-   let xstep = 75;
-   let ystep = 22;
+   /*let xstep = 75;
+   let ystep = 22;*/
    let chks = [];
 
-   let y = ystep / 2;
-   g_main_title = create_main_title(y);
+   /*let y = ystep / 2;*/
+   g_main_title = create_main_title();
 
    //y += ystep;
    //g_radio_xn = create_radio_xn(0, y);
 
-   y += 3 * ystep;
-   create_title("© 2020 Iverton Darlan & Dan Reznik -- dreznik _at_ gmail _dot_ com", 0, y, false);
-   y += ystep;
-   create_title("Visit our <a href=https://dan-reznik.github.io/Elliptical-Billiards-Triangular-Orbits/videos.html>Media Page</a>", 0, y, false);
-   y += ystep;
+   /*y += 3 * ystep;*/
+   create_title("© 2020 Iverton Darlan & Dan Reznik -- dreznik _at_ gmail _dot_ com", false);
+  /* y += ystep;*/
+   create_title("Visit our <a href=https://dan-reznik.github.io/Elliptical-Billiards-Triangular-Orbits/videos.html>Media Page</a>", false);
+   /*y += ystep;*/
    //create_title("Visit <a href=http://mathworld.wolfram.com/ target=_blank>MathWorld</a> and <a href=https://faculty.evansville.edu/ck6/encyclopedia/ETC.html target=_blank>ETC</a>", 0, y, false);
 }
 
 function windowResized() {
-   g_width = windowWidth;
-   g_height = windowHeight;
+   g_width = 0.90*windowWidth;
+   g_height = 0.75*windowHeight;
    let pos = g_main_title.position();
    g_main_title.position(g_width / 2 - 160, pos[1]);
    resizeCanvas(windowWidth, windowHeight);
@@ -92,8 +92,8 @@ function ui_changed(e) {
 }
 
 function setup() {
-   g_width = windowWidth;
-   g_height = windowHeight;
+   g_width = 0.78*windowWidth;
+   g_height = 0.70*windowHeight;
    g_url_params = getURLParams();
    //http://p5js.org?year=2014&month=May&day=15
    //text(params.day, 10, 20);
@@ -110,7 +110,7 @@ function setup() {
    g_mouse = g_ctr0;
 
    //Create a new GUI with a label
-   let gui = createGui('Please Select');
+   /*let gui = createGui('Please Select');
    gui.addObject(g_ui);
    document.getElementById("Xn1")
       .addEventListener('input', ui_changed);
@@ -122,7 +122,8 @@ function setup() {
       .addEventListener('input', ui_changed);
    document.getElementsByClassName("qs_select")[0]
       .addEventListener('change', ui_changed);
-}
+      */
+   }
 
 function draw() {
    background(220, 220, 200);
