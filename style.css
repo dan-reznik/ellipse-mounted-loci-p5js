@@ -2,11 +2,93 @@ html,
 body {
   margin: 0;
   padding: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: lightsteelblue;
 }
 
-canvas {
-  display: block;
+/*Grid Item*/
+.title { grid-area: title; }
+.selector { grid-area: selector; }
+.graphic { grid-area: graphic; }
+
+/* Grid Container*/
+.grid-container {
+  display: grid;
+  height: 90%;
+  width: 97.5%;
+  padding: 1%;
+  grid-gap: 1% 0.5%;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 28% 72%;
+  grid-template-areas:
+		"selector title"
+		"selector graphic"
+    ;
+  background-color: lightsteelblue;
 }
+
+/* Grid Item */
+.item {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.item.title{
+  text-align: center;
+}
+
+.item.selector{
+  font-weight: bold;
+}
+
+/*selector menu*/
+.menu{
+  background-color: white;
+  height: 100%;
+}
+
+/*slider's*/
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;
+  width: 98%;
+  height: 15px;
+  border-radius: 5px;  
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
 
 .chk {
   font-size: 14px;

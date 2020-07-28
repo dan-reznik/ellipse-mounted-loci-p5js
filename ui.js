@@ -15,10 +15,10 @@ function create_chk_bold(n, x, y, val=false) {
   return chk;
 }
 
-function create_title(lab, x, y, prep = true) {
+function create_title(lab, prep = true) {
   let p = createP((prep ? '>>> ' : "") + lab);
   p.parent('ui');
-  p.position(x, y);
+  /*p.position(x, y);*/
   p.class('lab');
   return lab;
 }
@@ -69,7 +69,7 @@ function create_radio_xn(x, y) {
   return radio;
 }
 
-function create_title_ctr(lab, x, y, par, clr = 'red') {
+function create_title_ctr(lab, par, clr = 'red') {
   let p = createP(lab);
   p.parent(par);
   p.style('color', clr)
@@ -78,13 +78,22 @@ function create_title_ctr(lab, x, y, par, clr = 'red') {
 
 function create_main_title(y) {
   let div = createDiv();
-  let x = g_width / 2 - 160;
+  /*let x = g_width / 2 - 160;*/
   div.parent('ui');
-  div.position(x, y);
+  /*div.position(x, y);*/
   div.style('text-align', 'center');
   div.class('lab');
-  create_title_ctr("Loci of Centers of Ellipse-Mounted Triangles", 0, 0, div, 'blue');
-  create_title_ctr("Left Click: stop/go, Right Click: reverse<br>Drag: move billiard, Wheel: zoom", 0, 0, div, 'red');
+  create_title_ctr("Loci of Centers of Ellipse-Mounted Triangles", div, 'blue');
+  create_title_ctr("Left Click: stop/go, Right Click: reverse<br>Drag: move billiard, Wheel: zoom", div, 'red');
   return div;
 }
 
+function show_slider_output_value(sliderId, outputId){
+  var slider = document.getElementById(sliderId);
+  var output = document.getElementById(outputId);
+  output.innerHTML = slider.value;
+
+  slider.oninput = function() {
+    output.innerHTML = this.value;
+  }
+}
