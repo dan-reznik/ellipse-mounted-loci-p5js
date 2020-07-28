@@ -88,3 +88,12 @@ function create_main_title(y) {
   return div;
 }
 
+function show_slider_output_value(sliderId, outputId){
+  var slider = document.getElementById(sliderId);
+  var output = document.getElementById(outputId);
+  output.innerHTML = slider.value;
+
+  slider.oninput = function() {
+    output.innerHTML = this.value;
+  }
+}

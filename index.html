@@ -9,19 +9,7 @@
   <script src="p5.dom.min.js"></script>
   <script src="quicksettings.min.js"></script>
   <script src="p5.gui.js" type="text/javascript"></script>
-  
-  <script>
-    function show_slider_output_value(sliderId, outputId){
-      var slider = document.getElementById(sliderId);
-      var output = document.getElementById(outputId);
-      output.innerHTML = slider.value;
-      
-      slider.oninput = function() {
-        output.innerHTML = this.value;
-      }
-    }
-  </script>
-  
+    
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta charset="utf-8">
 </head>
@@ -44,25 +32,33 @@
     Please Select
     <div class='menu'>
       <div class="slidecontainer">
-        <p>a: <span id="output_a"></span></p>
-        <input type="range" min="1" max="100" value="50" class="slider" id="input_a">
-        <script>show_slider_output_value("myRange1","demo1")</script>
+        <!--sliders-->
+        <!--Functions show_slider_output_value, -->
+        <p>a: <span id="demo_a"></span></p>
+        <input type="range" min=1.001 max=4 value=1.618 step=0.001 class="slider" id="input_a">
+        <script>show_slider_output_value("input_a","demo_a")</script>
 
-        <p>Xn1: <span id="output_Xn1"></span></p>
-        <input type="range" min="1" max="100" value="50" class="slider" id="myRange2">
-        <script>show_slider_output_value("myRange2","demo2")</script>
+        <p>Xn1: <span id="demo_Xn1"></span></p>
+        <input type="range" min="1" max="100" value="50" class="slider" id="input_Xn1">
+        <script>show_slider_output_value("input_Xn1","demo_Xn1")</script>
         
-        <p>Xn2: <span id="output_Xn1"></span></p>
-        <input type="range" min="1" max="100" value="50" class="slider" id="myRange3">
-        <script>show_slider_output_value("myRange3","demo3")</script>
+        <p>Xn2: <span id="demo_Xn2"></span></p>
+        <input type="range" min="1" max="100" value="50" class="slider" id="input_Xn2">
+        <script>show_slider_output_value("input_Xn2","demo_Xn2")</script>
 
-        <p>Xn3: <span id="output_Xn1"></span></p>
-        <input type="range" min="1" max="100" value="50" class="slider" id="myRange4">
-        <script>show_slider_output_value("myRange4","demo4")</script>
-
+        <p>Xn3: <span id="demo_Xn3"></span></p>
+        <input type="range" min="1" max="100" value="50" class="slider" id="input_Xn3">
+        <script>show_slider_output_value("input_Xn3","demo_Xn3")</script>
         
-
-
+        <!--dropdown-->
+        <p>degStep0</p>
+        <select id="aStep">
+          <option value="1">1</option>
+          <option value="0.1">0.1</option>
+          <option value="0.5">0.05</option>
+          <option value="0.01">0.01</option>
+        </select>
+        
       </div>
     </div>
   </div>

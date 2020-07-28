@@ -109,6 +109,27 @@ function setup() {
    g_ctr = g_ctr0;
    g_mouse = g_ctr0;
 
+   //sliders
+   //a
+   slider = document.getElementById("input_a");
+   output = document.getElementById("demo_a");
+   output.innerHTML = slider.value;
+   g_ui.a = slider.value
+
+   slider.oninput = function() {
+      output.innerHTML = this.value;
+      g_ui.a = slider.value
+   }
+
+   //Xn1
+   
+   dropdown = document.getElementById("aStep")
+   g_ui.aStep = dropdown.value
+
+   dropdown.oninput = function() {
+      g_ui.aStep = dropdown.value
+   }
+
    //Create a new GUI with a label
    /*let gui = createGui('Please Select');
    gui.addObject(g_ui);
