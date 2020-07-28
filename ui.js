@@ -15,9 +15,9 @@ function create_chk_bold(n, x, y, val=false) {
   return chk;
 }
 
-function create_title(lab, prep = true) {
+function create_title(lab, prep = true, parent = "ui") {
   let p = createP((prep ? '>>> ' : "") + lab);
-  p.parent('ui');
+  p.parent(parent);
   /*p.position(x, y);*/
   p.class('lab');
   return lab;

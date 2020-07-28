@@ -39,15 +39,24 @@
         <script>show_slider_output_value("input_a","demo_a")</script>
 
         <p>Xn1: <span id="demo_Xn1"></span></p>
-        <input type="range" min="0" max="200" value="0" class="slider" step="1" id="input_Xn1">
-        <script>show_slider_output_value("input_Xn1","demo_Xn1")</script>
-        
+        <div class="input_Xn_div">
+          <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn1">
+          <input type="checkbox" class="checkbox" id="checkbox_Xn1" checked=true>
+        </div>
+          <script>show_slider_output_value("input_Xn1","demo_Xn1")</script>
+
         <p>Xn2: <span id="demo_Xn2"></span></p>
-        <input type="range" min="0" max="200" value="0" class="slider" step="1" id="input_Xn2">
+        <div class="input_Xn_div">
+          <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn2">
+          <input type="checkbox" class="checkbox" id="checkbox_Xn2">
+        </div>
         <script>show_slider_output_value("input_Xn2","demo_Xn2")</script>
 
         <p>Xn3: <span id="demo_Xn3"></span></p>
-        <input type="range" min="0" max="200" value="0" class="slider" step="1" id="input_Xn3">
+        <div class="input_Xn_div">
+          <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn3">
+          <input type="checkbox" class="checkbox" id="checkbox_Xn3">
+        </div>
         <script>show_slider_output_value("input_Xn3","demo_Xn3")</script>
         
         <!--dropdown-->
@@ -65,6 +74,20 @@
           <option value="major">major</option>
           <option value="minor">minor</option>
           <option value="mixed">mixed</option>
+          <option value="ctrMajor">ctrMajor</option>
+          <option value="ctrMinor">ctrMinor</option>
+          <option value="fs">fs</option>
+          <option value="fsCtr">fsCtr</option>
+          <option value="fsLeft">fsLeft</option>
+          <option value="fsRight">fsRight</option>
+          <option value="fsTop">fsTop</option>
+          <option value="cornerTL_BL">cornerTL_BL</option>
+          <option value="cornerTL_TR">cornerTL_TR</option>
+          <option value="cornerTL_vtxL">cornerTL_vtxL</option>
+          <option value="cornerTL_vtxT">cornerTL_vtxT</option>
+          <option value="cornerTL_vtxB">cornerTL_vtxB</option>
+          <option value="cornerTL_ctr">cornerTL_ctr</option>
+          <option value="cornerTL_BR">cornerTL_BR</option>
         </select>
 
         <p>degStep0</p>
@@ -76,6 +99,8 @@
         </select>
         
       </div>
+      
+      <div id="made_by"></div>
     </div>
   </div>
 	<div class="item graphic">
