@@ -30,7 +30,8 @@ g_ui = {
    Xn1: 0, Xn1Min: 0, Xn1Max: 200, Xn1Step: 1,
    Xn2: 0, Xn2Min: 0, Xn2Max: 200, Xn2Step: 1,
    Xn3: 0, Xn3Min: 0, Xn3Max: 200, Xn3Step: 1,
-   degStep: [1,0.1,0.05,0.01]
+   degStep0: [1, 0.1, 0.05, 0.01],
+   animStep0: [0.125,0.25, 0.5, 1]
 };
 
 function make_one_locus(n, tdegStep0) {
@@ -123,11 +124,11 @@ function setup() {
 
    //Xn1
    
-   dropdown = document.getElementById("aStep")
-   g_ui.aStep = dropdown.value
+   dropdown = document.getElementById("animStep0")
+   g_ui.animStep0 = dropdown.value
 
    dropdown.oninput = function() {
-      g_ui.aStep = dropdown.value
+      g_ui.animStep0 = dropdown.value
    }
 
    //Create a new GUI with a label
