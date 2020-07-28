@@ -39,24 +39,43 @@
         <script>show_slider_output_value("input_a","demo_a")</script>
 
         <p>Xn1: <span id="demo_Xn1"></span></p>
-        <input type="range" min="1" max="100" value="50" class="slider" id="input_Xn1">
+        <input type="range" min="0" max="200" value="0" class="slider" step="1" id="input_Xn1">
         <script>show_slider_output_value("input_Xn1","demo_Xn1")</script>
         
         <p>Xn2: <span id="demo_Xn2"></span></p>
-        <input type="range" min="1" max="100" value="50" class="slider" id="input_Xn2">
+        <input type="range" min="0" max="200" value="0" class="slider" step="1" id="input_Xn2">
         <script>show_slider_output_value("input_Xn2","demo_Xn2")</script>
 
         <p>Xn3: <span id="demo_Xn3"></span></p>
-        <input type="range" min="1" max="100" value="50" class="slider" id="input_Xn3">
+        <input type="range" min="0" max="200" value="0" class="slider" step="1" id="input_Xn3">
         <script>show_slider_output_value("input_Xn3","demo_Xn3")</script>
         
         <!--dropdown-->
         <p>animStep0</p>
-        <select id="animStep0">
+        <select id="input_animStep0">
           <option value="0.125">0.125</option>
           <option value="0.25">0.25</option>
           <option value="0.5">0.5</option>
           <option value="1">1</option>
+        </select>
+
+        <p>mounting</p>
+        <select id="input_mounting">
+          <option value="billiard">billiard</option>
+<<<<<<< HEAD
+          <option value="major">major</option>
+          <option value="minor">minor</option>
+          <option value="mixed">mixed</option>
+=======
+>>>>>>> fd86b088085be0b13a377528b80bca2db05cd702
+        </select>
+
+        <p>degStep0</p>
+        <select id="input_degStep0">
+          <option value="1">1</option>
+          <option value="0.1">0.1</option>
+          <option value="0.05">0.05</option>
+          <option value="0.01">0.01</option>
         </select>
         
       </div>
