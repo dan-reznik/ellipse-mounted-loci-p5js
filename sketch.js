@@ -98,6 +98,27 @@ function ui_changed(e) {
    //log.textContent = e.target.value;
 }
 
+function selector_output(input_ID, dictionary, dictionary_key, output_ID = ""){
+   var selector = document.getElementById(input_ID);
+   dictionary[dictionary_key] = selector.value
+   if(output_ID != ""){
+      var output = document.getElementById(output_ID);
+      output.innerHTML = selector.value;
+      selector.oninput = function() {
+         output.innerHTML = this.value;
+         dictionary[dictionary_key] = selector.value
+         //console.log(selector)
+         //console.log(input_ID)
+         ui_changed()
+      }
+   } else {
+      selector.oninput = function() {
+         dictionary[dictionary_key] = selector.value
+         ui_changed
+      }
+   }
+}
+
 function setup() {
    g_width = 0.78*windowWidth;
    g_height = 0.70*windowHeight;
@@ -118,24 +139,24 @@ function setup() {
 
    //sliders
    //a
-   slider = document.getElementById("input_a");
-   output = document.getElementById("demo_a");
-   output.innerHTML = slider.value;
-   g_ui.a = slider.value
-
-   slider.oninput = function() {
-      output.innerHTML = this.value;
-      g_ui.a = slider.value
-   }
-
+   selector_output("input_a", g_ui, "a", output_ID = "demo_a")
    //Xn1
-   
-   dropdown = document.getElementById("animStep0")
-   g_ui.animStep0 = dropdown.value
+   selector_output("input_Xn1", g_ui, "Xn1", output_ID = "demo_Xn1")
+   //Xn2
+   selector_output("input_Xn2", g_ui, "Xn2", output_ID = "demo_Xn2")
+   //Xn3
+   selector_output("input_Xn3", g_ui, "Xn3", output_ID = "demo_Xn3")
 
-   dropdown.oninput = function() {
-      g_ui.animStep0 = dropdown.value
-   }
+   //dropbox
+   //animStep0
+   selector_output("input_animStep0", g_ui, "animStep0", output_ID = "")
+
+   //mounting
+   selector_output("input_mounting", g_ui, "mounting", output_ID = "")
+
+   //degStep0
+   selector_output("input_degStep0", g_ui, "degStep0", output_ID = "")
+
 
    //Create a new GUI with a label
    /*let gui = createGui('Please Select');
