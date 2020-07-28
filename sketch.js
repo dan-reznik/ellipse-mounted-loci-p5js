@@ -212,7 +212,6 @@ function draw() {
       var check_Xn2 = document.getElementById("checkbox_Xn2")
       var check_Xn3 = document.getElementById("checkbox_Xn3")
 
->>>>>>> f3493ce17b6c943dfb92659adb34c1a581676e1d
       if (check_Xn1.checked)
          draw_locus(g_locus_Xn1, ons, g_ui.Xn1, clr_dark_red);
       if (check_Xn2.checked)
