@@ -28,9 +28,9 @@ g_ui = {
       "cornerTL_vtxL", "cornerTL_vtxT", "cornerTL_vtxB",
       "cornerTL_ctr", "cornerTL_BR"
    ],
-   Xn1: 0, Xn1Min: 0, Xn1Max: 200, Xn1Step: 1,
-   Xn2: 0, Xn2Min: 0, Xn2Max: 200, Xn2Step: 1,
-   Xn3: 0, Xn3Min: 0, Xn3Max: 200, Xn3Step: 1,
+   Xn1: 1, Xn1Min: 1, Xn1Max: 200, Xn1Step: 1,
+   Xn2: 1, Xn2Min: 1, Xn2Max: 200, Xn2Step: 1,
+   Xn3: 1, Xn3Min: 1, Xn3Max: 200, Xn3Step: 1,
    degStep0: [1, 0.1, 0.05, 0.01],
    animStep0: [0.125,0.25, 0.5, 1]
 };
@@ -76,9 +76,9 @@ function create_checkboxes() {
    //g_radio_xn = create_radio_xn(0, y);
 
    /*y += 3 * ystep;*/
-   create_title("© 2020 Iverton Darlan & Dan Reznik -- dreznik _at_ gmail _dot_ com", false);
+   create_title("© 2020 Iverton Darlan & Dan Reznik\nEmail: dreznik@gmail.com", false, "made_by");
   /* y += ystep;*/
-   create_title("Visit our <a href=https://dan-reznik.github.io/Elliptical-Billiards-Triangular-Orbits/videos.html>Media Page</a>", false);
+   create_title("Visit our <a href=https://dan-reznik.github.io/Elliptical-Billiards-Triangular-Orbits/videos.html>Media Page</a>", false, "made_by");
    /*y += ystep;*/
    //create_title("Visit <a href=http://mathworld.wolfram.com/ target=_blank>MathWorld</a> and <a href=https://faculty.evansville.edu/ck6/encyclopedia/ETC.html target=_blank>ETC</a>", 0, y, false);
 }
@@ -112,16 +112,16 @@ function selector_output(input_ID, dictionary, dictionary_key, output_ID = ""){
          ui_changed()
       }
    } else {
-      selector.oninput = function() {
+      selector.onchange = function() {
          dictionary[dictionary_key] = selector.value
-         ui_changed
+         ui_changed()
       }
    }
 }
 
 function setup() {
    g_width = 0.78*windowWidth;
-   g_height = 0.70*windowHeight;
+   g_height = 0.79*windowHeight;
    g_url_params = getURLParams();
    //http://p5js.org?year=2014&month=May&day=15
    //text(params.day, 10, 20);
@@ -132,6 +132,15 @@ function setup() {
    create_checkboxes();
    canvas = createCanvas(g_width, g_height);
    canvas.parent('canvas');
+   //mouseOverCanvas
+   canvas_div = document.getElementById("canvas")
+   this.mouseIsOver = false
+   canvas_div.onmouseover = function() {
+      this.mouseIsOver = true
+   }
+   canvas_div.onmouseout = function() {
+      this.mouseIsOver = false
+   }
    //frameRate(15);
    g_ctr0 = [g_width / 2, g_height / 2];
    g_ctr = g_ctr0;
@@ -191,28 +200,31 @@ function draw() {
    translate(g_ctr[0], g_ctr[1]);
    scale(g_width / g_scale);
    draw_billiard(g_ui.a);
+   var check_Xn1 = document.getElementById("checkbox_Xn1")
+   var check_Xn2 = document.getElementById("checkbox_Xn2")
+   var check_Xn3 = document.getElementById("checkbox_Xn3")
 
    if (g_ui.mounting == "billiard") {
       let ons = orbit_normals(g_ui.a, g_tDeg);
       draw_orbit(ons, true);
-      if (g_ui.Xn1 > 0)
+      if (check_Xn1.checked)
          draw_locus(g_locus_Xn1, ons, g_ui.Xn1, clr_dark_red);
-      if (g_ui.Xn2 > 0)
+      if (check_Xn2.checked)
          draw_locus(g_locus_Xn2, ons, g_ui.Xn2, clr_dark_green);
-      if (g_ui.Xn3 > 0)
+      if (check_Xn3.checked)
          draw_locus(g_locus_Xn3, ons, g_ui.Xn3, clr_blue);
    } else { // ellipse-mounted
       let [v1, v2] = getV1V2(g_ui.a, g_ui.mounting, 0.001);
-      if (g_ui.Xn1 > 0) {
+      if (check_Xn1.checked) {
          let os = draw_mounted_tri(g_ui.a, g_tDeg, v1, v2, g_ui.Xn1);
          draw_locus(g_locus_Xn1, os, g_ui.Xn1, clr_dark_red);
          //draw_locus_only(g_locus_Xn1, clr_dark_red);
       }
-      if (g_ui.Xn2 > 0) {
+      if (check_Xn2.checked) {
          let os = draw_mounted_tri(g_ui.a, g_tDeg, v1, v2, g_ui.Xn2);
          draw_locus_only(g_locus_Xn2, clr_dark_green);
       }
-      if (g_ui.Xn3 > 0) {
+      if (check_Xn3.checked) {
          let os = draw_mounted_tri(g_ui.a, g_tDeg, v1, v2, g_ui.Xn3);
          draw_locus_only(g_locus_Xn3, clr_blue);
       }
@@ -259,7 +271,7 @@ function mouseReleased() {
 }
 
 function mouseDragged() {
-   if (g_click_ell) {
+   if (canvas_div.mouseIsOver) {
       g_dragged = true;
       //noLoop();
       //g_loop = false;
