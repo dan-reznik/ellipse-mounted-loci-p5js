@@ -166,6 +166,7 @@ function setup() {
    //degStep0
    selector_output("input_degStep0", g_ui, "degStep0", output_ID = "")
 
+   ui_changed()
 
    //Create a new GUI with a label
    /*let gui = createGui('Please Select');
@@ -207,6 +208,11 @@ function draw() {
    if (g_ui.mounting == "billiard") {
       let ons = orbit_normals(g_ui.a, g_tDeg);
       draw_orbit(ons, true);
+      var check_Xn1 = document.getElementById("checkbox_Xn1")
+      var check_Xn2 = document.getElementById("checkbox_Xn2")
+      var check_Xn3 = document.getElementById("checkbox_Xn3")
+
+>>>>>>> f3493ce17b6c943dfb92659adb34c1a581676e1d
       if (check_Xn1.checked)
          draw_locus(g_locus_Xn1, ons, g_ui.Xn1, clr_dark_red);
       if (check_Xn2.checked)
