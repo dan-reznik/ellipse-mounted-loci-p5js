@@ -151,9 +151,30 @@ function play_reverse_buttons() {
      }
    });
 
+   reverse_button.checked = false
    reverse_button.addEventListener("click", function(){
-      g_loop_ccw = !g_loop_ccw;
-     })
+      if(this.checked){
+         this.checked = false;
+         this.innerHTML = "Backward"
+         g_loop_ccw = !g_loop_ccw;
+     }else if (!this.checked) {
+         this.checked = true;
+         this.innerHTML = "Forward";
+         g_loop_ccw = !g_loop_ccw;
+     }
+   });
+}
+
+function export_PNG(){
+var export_png_button = document.getElementById('Export_PNG')
+
+   export_png_button.addEventListener("click", function(){
+      canvas = document.getElementById('defaultCanvas0')
+      link = document.getElementById('link');
+      link.setAttribute('download', 'graphic.png');
+      link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+      link.click();
+   });
 }
 
 function setup() {
@@ -207,6 +228,7 @@ function setup() {
    selector_output("input_degStep0", g_ui, "degStep0", output_ID = "")
 
    play_reverse_buttons()
+   export_PNG()
    ui_changed()
 
    //Create a new GUI with a label

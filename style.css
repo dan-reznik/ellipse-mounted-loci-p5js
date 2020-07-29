@@ -43,6 +43,7 @@ body {
 }
 
 .item.title p{
+  text-align: center;
   margin-top: 5px;
   margin-bottom: 5px;
 }
