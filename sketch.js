@@ -21,7 +21,21 @@ g_ui = {
    aMin: 1.001,
    aMax: 4,
    aStep: 0.001,
-   mounting: ["billiard",
+   mounting_Xn1: ["billiard",
+      "major", "minor", "mixed", "ctrMajor",
+      "ctrMinor", "fs", "fsCtr", "fsLeft",
+      "fsRight", "fsTop", "cornerTL_BL", "cornerTL_TR",
+      "cornerTL_vtxL", "cornerTL_vtxT", "cornerTL_vtxB",
+      "cornerTL_ctr", "cornerTL_BR"
+   ],
+   mounting_Xn2: ["billiard",
+      "major", "minor", "mixed", "ctrMajor",
+      "ctrMinor", "fs", "fsCtr", "fsLeft",
+      "fsRight", "fsTop", "cornerTL_BL", "cornerTL_TR",
+      "cornerTL_vtxL", "cornerTL_vtxT", "cornerTL_vtxB",
+      "cornerTL_ctr", "cornerTL_BR"
+   ],
+   mounting_Xn3: ["billiard",
       "major", "minor", "mixed", "ctrMajor",
       "ctrMinor", "fs", "fsCtr", "fsLeft",
       "fsRight", "fsTop", "cornerTL_BL", "cornerTL_TR",
@@ -35,17 +49,17 @@ g_ui = {
    animStep0: [0.125,0.25, 0.5, 1]
 };
 
-function make_one_locus(n, tdegStep) {
+function make_one_locus(n, tdegStep, mounting) {
    const eps = 0.001;
    let locus_Xn = [];
    let trilin_fn = get_fn_trilin(n);
-   if (g_ui.mounting == "billiard")
+   if (g_ui[mounting] == "billiard")
       for (let tDeg = 0; tDeg < 180; tDeg += tdegStep) {
          let ons = orbit_normals(g_ui.a, tDeg);
          let xn = get_Xn_low(ons.o, ons.s, trilin_fn);
          locus_Xn.push(xn);
       } else {
-      let [v1, v2] = getV1V2(g_ui.a, g_ui.mounting, eps);
+      let [v1, v2] = getV1V2(g_ui.a, g_ui[mounting], eps);
       for (let tDeg = 0; tDeg < 360; tDeg += tdegStep) {
          let [v3,xn] = get_Xn_mounted(g_ui.a, tDeg + eps, v1, v2, trilin_fn);
          locus_Xn.push(xn);
@@ -56,12 +70,9 @@ function make_one_locus(n, tdegStep) {
 
 function create_locus() {
    let tdegStep = +g_ui.degStep0;
-   if (g_ui.Xn1 > 0)
-      g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep);
-   if (g_ui.Xn2 > 0)
-      g_locus_Xn2 = make_one_locus(g_ui.Xn2, tdegStep);
-   if (g_ui.Xn3 > 0)
-      g_locus_Xn3 = make_one_locus(g_ui.Xn3, tdegStep);
+   g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep, "mounting_Xn1");
+   g_locus_Xn2 = make_one_locus(g_ui.Xn2, tdegStep, "mounting_Xn2");
+   g_locus_Xn3 = make_one_locus(g_ui.Xn3, tdegStep, "mounting_Xn3");
 }
 
 function create_checkboxes() {
@@ -76,7 +87,7 @@ function create_checkboxes() {
    //g_radio_xn = create_radio_xn(0, y);
 
    /*y += 3 * ystep;*/
-   create_title("© 2020 Iverton Darlan & Dan Reznik\nEmail: dreznik@gmail.com", false, "made_by");
+   create_title("© 2020 Iverton Darlan & Dan Reznik", false);
   /* y += ystep;*/
    create_title("Visit our <a href=https://dan-reznik.github.io/Elliptical-Billiards-Triangular-Orbits/videos.html>Media Page</a>", false, "made_by");
    /*y += ystep;*/
@@ -84,8 +95,9 @@ function create_checkboxes() {
 }
 
 function windowResized() {
-   g_width = 0.90*windowWidth;
-   g_height = 0.75*windowHeight;
+   g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
+   g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
+   console.log(g_width)
    let pos = g_main_title.position();
    g_main_title.position(g_width / 2 - 160, pos[1]);
    resizeCanvas(windowWidth, windowHeight);
@@ -114,14 +126,40 @@ function selector_output(input_ID, dictionary, dictionary_key, output_ID = ""){
    } else {
       selector.onchange = function() {
          dictionary[dictionary_key] = selector.value
+         console.log(dictionary[dictionary_key])
          ui_changed()
       }
    }
 }
 
+function play_reverse_buttons() {
+   var play_button = document.getElementById('play_pause')
+   var reverse_button = document.getElementById('reverse')
+
+   play_button.play = true
+   play_button.addEventListener("click", function(){
+      if(this.play && g_loop){
+         this.play = false;
+         this.innerHTML = "Play"
+         noLoop();
+         g_loop = false;
+     }else if (!this.play && !g_loop) {
+         this.play = true;
+         this.innerHTML = "Pause";
+         loop();
+         g_loop = true;
+     }
+   });
+
+   reverse_button.addEventListener("click", function(){
+      g_loop_ccw = !g_loop_ccw;
+     })
+}
+
 function setup() {
-   g_width = 0.78*windowWidth;
-   g_height = 0.79*windowHeight;
+   g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
+   g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
+   console.log(g_width)
    g_url_params = getURLParams();
    //http://p5js.org?year=2014&month=May&day=15
    //text(params.day, 10, 20);
@@ -161,11 +199,14 @@ function setup() {
    selector_output("input_animStep0", g_ui, "animStep0", output_ID = "")
 
    //mounting
-   selector_output("input_mounting", g_ui, "mounting", output_ID = "")
+   selector_output("input_mounting_Xn1", g_ui, "mounting_Xn1", output_ID = "")
+   selector_output("input_mounting_Xn2", g_ui, "mounting_Xn2", output_ID = "")
+   selector_output("input_mounting_Xn3", g_ui, "mounting_Xn3", output_ID = "")
 
    //degStep0
    selector_output("input_degStep0", g_ui, "degStep0", output_ID = "")
 
+   play_reverse_buttons()
    ui_changed()
 
    //Create a new GUI with a label
@@ -204,34 +245,60 @@ function draw() {
    var check_Xn1 = document.getElementById("checkbox_Xn1")
    var check_Xn2 = document.getElementById("checkbox_Xn2")
    var check_Xn3 = document.getElementById("checkbox_Xn3")
+   var check_mounting_Xn1 = document.getElementById("mounting_Xn1")
+   var check_mounting_Xn2 = document.getElementById("mounting_Xn2")
+   var check_mounting_Xn3 = document.getElementById("mounting_Xn3")
 
-   if (g_ui.mounting == "billiard") {
+   if (g_ui.mounting_Xn1 == "billiard") {
       let ons = orbit_normals(g_ui.a, g_tDeg);
-      draw_orbit(ons, true);
-      var check_Xn1 = document.getElementById("checkbox_Xn1")
-      var check_Xn2 = document.getElementById("checkbox_Xn2")
-      var check_Xn3 = document.getElementById("checkbox_Xn3")
-
+      if(check_mounting_Xn1.checked)
+         draw_orbit(ons, true);
       if (check_Xn1.checked)
          draw_locus(g_locus_Xn1, ons, g_ui.Xn1, clr_dark_red);
+
+   } else { // ellipse-mounted
+      let [v1_Xn1, v2_Xn1] = getV1V2(g_ui.a, g_ui.mounting_Xn1, 0.001);
+
+      if(check_mounting_Xn1.checked)
+         draw_mounted_tri(g_ui.a, g_tDeg, v1_Xn1, v2_Xn1, g_ui.Xn1);
+      if (check_Xn1.checked) {
+         //draw_locus(g_locus_Xn1, os, g_ui.Xn1, clr_dark_red);
+         draw_locus_only(g_locus_Xn1, clr_dark_red);
+      }
+   }
+
+   if (g_ui.mounting_Xn2 == "billiard") {
+      let ons = orbit_normals(g_ui.a, g_tDeg);
+      if(check_mounting_Xn2.checked)
+         draw_orbit(ons, true);
       if (check_Xn2.checked)
          draw_locus(g_locus_Xn2, ons, g_ui.Xn2, clr_dark_green);
-      if (check_Xn3.checked)
-         draw_locus(g_locus_Xn3, ons, g_ui.Xn3, clr_blue);
+
    } else { // ellipse-mounted
-      let [v1, v2] = getV1V2(g_ui.a, g_ui.mounting, 0.001);
-      if (check_Xn1.checked) {
-         let os = draw_mounted_tri(g_ui.a, g_tDeg, v1, v2, g_ui.Xn1);
-         draw_locus(g_locus_Xn1, os, g_ui.Xn1, clr_dark_red);
-         //draw_locus_only(g_locus_Xn1, clr_dark_red);
-      }
+      let [v1_Xn2, v2_Xn2] = getV1V2(g_ui.a, g_ui.mounting_Xn2, 0.001);
+
+      if(check_mounting_Xn2.checked)
+         draw_mounted_tri(g_ui.a, g_tDeg, v1_Xn2, v2_Xn2, g_ui.Xn2);
       if (check_Xn2.checked) {
-         let os = draw_mounted_tri(g_ui.a, g_tDeg, v1, v2, g_ui.Xn2);
+         //draw_locus(g_locus_Xn1, os, g_ui.Xn1, clr_dark_green);
          draw_locus_only(g_locus_Xn2, clr_dark_green);
       }
+   }
+   if (g_ui.mounting_Xn3 == "billiard") {
+      let ons = orbit_normals(g_ui.a, g_tDeg);
+      if(check_mounting_Xn3.checked)
+         draw_orbit(ons, true);
+      if (check_Xn3.checked)
+         draw_locus(g_locus_Xn3, ons, g_ui.Xn3, clr_dark_blue);
+
+   } else { // ellipse-mounted
+      let [v1_Xn3, v2_Xn3] = getV1V2(g_ui.a, g_ui.mounting_Xn3, 0.001);
+
+      if(check_mounting_Xn3.checked)
+         draw_mounted_tri(g_ui.a, g_tDeg, v1_Xn3, v2_Xn3, g_ui.Xn3);
       if (check_Xn3.checked) {
-         let os = draw_mounted_tri(g_ui.a, g_tDeg, v1, v2, g_ui.Xn3);
-         draw_locus_only(g_locus_Xn3, clr_blue);
+         //draw_locus(g_locus_Xn1, os, g_ui.Xn1, clr_dark_blue);
+         draw_locus_only(g_locus_Xn3, clr_dark_blue);
       }
    }
    pop();
@@ -246,11 +313,11 @@ function mouse_in_ell(a, b = 1) {
    return in_ell(a, b, p);
 }
 
-function mousePressed() {
-   g_ctr0 = g_ctr;
-   g_dragged = false;
-   g_mouse = [mouseX, mouseY];
-   g_click_ell = mouse_in_ell(g_ui.a);
+/*function mousePressed() {
+   var g_ctr0 = g_ctr;
+   var g_dragged = false;
+   var g_mouse = [mouseX, mouseY];
+   var g_click_ell = mouse_in_ell(g_ui.a);
    if (g_click_ell && g_loop) {
       noLoop();
       g_loop = false;
@@ -263,7 +330,7 @@ function mousePressed() {
       return (false);
    } else
       return (true);
-}
+}*/
 
 
 function mouseReleased() {

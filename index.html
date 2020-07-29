@@ -37,69 +37,136 @@
         <p>a: <span id="demo_a"></span></p>
         <input type="range" min=1.001 max=4 value=1.618 step=0.001 class="slider" id="input_a">
         <script>show_slider_output_value("input_a","demo_a")</script>
-
-        <p>Xn1: <span id="demo_Xn1"></span></p>
-        <div class="input_Xn_div">
-          <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn1">
+        
+        <div class="input_Xn first">
+          <p>Xn1: <span id="demo_Xn1"></span></p>
+          <select id="input_mounting_Xn1" class="input_mounting">
+            <option value="billiard">billiard</option>
+            <option value="major">major</option>
+            <option value="minor">minor</option>
+            <option value="mixed">mixed</option>
+            <option value="ctrMajor">ctrMajor</option>
+            <option value="ctrMinor">ctrMinor</option>
+            <option value="fs">fs</option>
+            <option value="fsCtr">fsCtr</option>
+            <option value="fsLeft">fsLeft</option>
+            <option value="fsRight">fsRight</option>
+            <option value="fsTop">fsTop</option>
+            <option value="cornerTL_BL">cornerTL_BL</option>
+            <option value="cornerTL_TR">cornerTL_TR</option>
+            <option value="cornerTL_vtxL">cornerTL_vtxL</option>
+            <option value="cornerTL_vtxT">cornerTL_vtxT</option>
+            <option value="cornerTL_vtxB">cornerTL_vtxB</option>
+            <option value="cornerTL_ctr">cornerTL_ctr</option>
+            <option value="cornerTL_BR">cornerTL_BR</option>
+          </select>
+          <div id="sub-check">
+            <input type="checkbox" id="brocard_Xn1" name="brocard_Xn1">
+            <label for="brocard_Xn1"> Enable Brocard</label><br>
+            <input type="checkbox" id="mounting_Xn1" checked=true name="mounting_Xn1">
+            <label for="mounting_Xn1"> Enable Mounting</label>
+          </div>
+        </div>
+        <div class="input_Xn second">
           <input type="checkbox" class="checkbox" id="checkbox_Xn1" checked=true>
+          <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn1">
         </div>
           <script>show_slider_output_value("input_Xn1","demo_Xn1")</script>
 
-        <p>Xn2: <span id="demo_Xn2"></span></p>
-        <div class="input_Xn_div">
-          <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn2">
-          <input type="checkbox" class="checkbox" id="checkbox_Xn2">
+        <div class="input_Xn first">
+          <p>Xn2: <span id="demo_Xn2"></span></p>
+          <select id="input_mounting_Xn2" class="input_mounting">
+            <option value="billiard">billiard</option>
+            <option value="major">major</option>
+            <option value="minor">minor</option>
+            <option value="mixed">mixed</option>
+            <option value="ctrMajor">ctrMajor</option>
+            <option value="ctrMinor">ctrMinor</option>
+            <option value="fs">fs</option>
+            <option value="fsCtr">fsCtr</option>
+            <option value="fsLeft">fsLeft</option>
+            <option value="fsRight">fsRight</option>
+            <option value="fsTop">fsTop</option>
+            <option value="cornerTL_BL">cornerTL_BL</option>
+            <option value="cornerTL_TR">cornerTL_TR</option>
+            <option value="cornerTL_vtxL">cornerTL_vtxL</option>
+            <option value="cornerTL_vtxT">cornerTL_vtxT</option>
+            <option value="cornerTL_vtxB">cornerTL_vtxB</option>
+            <option value="cornerTL_ctr">cornerTL_ctr</option>
+            <option value="cornerTL_BR">cornerTL_BR</option>
+          </select>
+          <div id="sub-check">
+            <input type="checkbox" id="brocard_Xn2" name="brocard_Xn2">
+            <label for="brocard_Xn2"> Enable Brocard</label><br>
+            <input type="checkbox" id="mounting_Xn2" name="mounting_Xn2">
+            <label for="mounting_Xn2"> Enable Mounting</label>
+          </div>
         </div>
-        <script>show_slider_output_value("input_Xn2","demo_Xn2")</script>
+        <div class="input_Xn second">
+          <input type="checkbox" class="checkbox" id="checkbox_Xn2">
+          <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn2">
+        </div>
+      <script>show_slider_output_value("input_Xn2","demo_Xn2")</script>
 
-        <p>Xn3: <span id="demo_Xn3"></span></p>
-        <div class="input_Xn_div">
-          <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn3">
+        <div class="input_Xn first">
+          <p>Xn3: <span id="demo_Xn3"></span></p>
+          <select id="input_mounting_Xn3" class="input_mounting">
+            <option value="billiard">billiard</option>
+            <option value="major">major</option>
+            <option value="minor">minor</option>
+            <option value="mixed">mixed</option>
+            <option value="ctrMajor">ctrMajor</option>
+            <option value="ctrMinor">ctrMinor</option>
+            <option value="fs">fs</option>
+            <option value="fsCtr">fsCtr</option>
+            <option value="fsLeft">fsLeft</option>
+            <option value="fsRight">fsRight</option>
+            <option value="fsTop">fsTop</option>
+            <option value="cornerTL_BL">cornerTL_BL</option>
+            <option value="cornerTL_TR">cornerTL_TR</option>
+            <option value="cornerTL_vtxL">cornerTL_vtxL</option>
+            <option value="cornerTL_vtxT">cornerTL_vtxT</option>
+            <option value="cornerTL_vtxB">cornerTL_vtxB</option>
+            <option value="cornerTL_ctr">cornerTL_ctr</option>
+            <option value="cornerTL_BR">cornerTL_BR</option>
+          </select>
+          <div id="sub-check">
+            <input type="checkbox" id="brocard_Xn3" name="brocard_Xn3">
+            <label for="brocard_Xn3"> Enable Brocard</label><br>
+            <input type="checkbox" id="mounting_Xn3" name="mounting_Xn3">
+            <label for="mounting_Xn3"> Enable Mounting</label>
+          </div>
+        </div>
+        <div class="input_Xn second">
           <input type="checkbox" class="checkbox" id="checkbox_Xn3">
+          <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn3">
         </div>
         <script>show_slider_output_value("input_Xn3","demo_Xn3")</script>
         
+        <button id="play_pause" class="width100">Pause</button>
+        <button id="reverse" class="width100">Reverse</button>
+
+        <div class="line"></div>
+
         <!--dropdown-->
-        <p>animStep0</p>
-        <select id="input_animStep0">
+        <p class="selector_name">animStep0</p>
+        <select id="input_animStep0" class="width100">
           <option value="0.125">0.125</option>
           <option value="0.25">0.25</option>
           <option value="0.5">0.5</option>
           <option value="1">1</option>
         </select>
 
-        <p>mounting</p>
-        <select id="input_mounting">
-          <option value="billiard">billiard</option>
-          <option value="major">major</option>
-          <option value="minor">minor</option>
-          <option value="mixed">mixed</option>
-          <option value="ctrMajor">ctrMajor</option>
-          <option value="ctrMinor">ctrMinor</option>
-          <option value="fs">fs</option>
-          <option value="fsCtr">fsCtr</option>
-          <option value="fsLeft">fsLeft</option>
-          <option value="fsRight">fsRight</option>
-          <option value="fsTop">fsTop</option>
-          <option value="cornerTL_BL">cornerTL_BL</option>
-          <option value="cornerTL_TR">cornerTL_TR</option>
-          <option value="cornerTL_vtxL">cornerTL_vtxL</option>
-          <option value="cornerTL_vtxT">cornerTL_vtxT</option>
-          <option value="cornerTL_vtxB">cornerTL_vtxB</option>
-          <option value="cornerTL_ctr">cornerTL_ctr</option>
-          <option value="cornerTL_BR">cornerTL_BR</option>
-        </select>
-
-        <p>degStep0</p>
-        <select id="input_degStep0">
+        <p class="selector_name">degStep0</p>
+        <select id="input_degStep0" class="width100">
           <option value="1">1</option>
           <option value="0.1">0.1</option>
           <option value="0.05">0.05</option>
           <option value="0.01">0.01</option>
-        </select>
-        
+        </select>  
+    
       </div>
-      
+
       <div id="made_by"></div>
     </div>
   </div>
