@@ -313,11 +313,11 @@ function mouse_in_ell(a, b = 1) {
    return in_ell(a, b, p);
 }
 
-/*function mousePressed() {
-   var g_ctr0 = g_ctr;
-   var g_dragged = false;
-   var g_mouse = [mouseX, mouseY];
-   var g_click_ell = mouse_in_ell(g_ui.a);
+function mousePressed() {
+   g_ctr0 = g_ctr;
+   g_dragged = false;
+   g_mouse = [mouseX, mouseY];
+   /*var g_click_ell = mouse_in_ell(g_ui.a);
    if (g_click_ell && g_loop) {
       noLoop();
       g_loop = false;
@@ -329,8 +329,8 @@ function mouse_in_ell(a, b = 1) {
       g_loop = true;
       return (false);
    } else
-      return (true);
-}*/
+      return (true);*/
+}
 
 
 function mouseReleased() {
