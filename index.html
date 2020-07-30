@@ -11,6 +11,7 @@
   <script src="p5.gui.js" type="text/javascript"></script>
     
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta charset="utf-8">
 </head>
 
@@ -29,49 +30,50 @@
     <div id="ui"></div>
   </div>
 	<div class="item selector">
-    Please Select
-    <div class='menu'>
-      <div class="slidecontainer">
         <!--sliders-->
         <!--Functions show_slider_output_value, -->
-        <p>a: <span id="demo_a"></span></p>
+        <p>a / b: <span id="demo_a"></span></p>
         <input type="range" min=1.001 max=4 value=1.618 step=0.001 class="slider" id="input_a">
         <script>show_slider_output_value("input_a","demo_a")</script>
         
-        <div class="input_Xn first">
-          <p>Xn1: <span id="demo_Xn1"></span></p>
-          <select id="input_mounting_Xn1" class="input_mounting">
-            <option value="billiard">billiard</option>
-            <option value="major">major</option>
-            <option value="minor">minor</option>
-            <option value="mixed">mixed</option>
-            <option value="ctrMajor">ctrMajor</option>
-            <option value="ctrMinor">ctrMinor</option>
-            <option value="fs">fs</option>
-            <option value="fsCtr">fsCtr</option>
-            <option value="fsLeft">fsLeft</option>
-            <option value="fsRight">fsRight</option>
-            <option value="fsTop">fsTop</option>
-            <option value="cornerTL_BL">cornerTL_BL</option>
-            <option value="cornerTL_TR">cornerTL_TR</option>
-            <option value="cornerTL_vtxL">cornerTL_vtxL</option>
-            <option value="cornerTL_vtxT">cornerTL_vtxT</option>
-            <option value="cornerTL_vtxB">cornerTL_vtxB</option>
-            <option value="cornerTL_ctr">cornerTL_ctr</option>
-            <option value="cornerTL_BR">cornerTL_BR</option>
-          </select>
-          <div id="sub-check">
-            <input type="checkbox" id="brocard_Xn1" name="brocard_Xn1">
-            <label for="brocard_Xn1"> Enable Brocard</label><br>
-            <input type="checkbox" id="mounting_Xn1" checked=true name="mounting_Xn1">
-            <label for="mounting_Xn1"> Enable Mounting</label>
+        <!--component xn1_selector-->
+        <div class="component xn1_selector">
+          <div class="input_Xn first">
+            <p>Xn1<input type="checkbox" class="checkbox" id="checkbox_Xn1" checked=true>: <span id="demo_Xn1"></span></p>
+            <select id="input_mounting_Xn1" class="input_mounting">
+              <option value="billiard">billiard</option>
+              <option value="major">major</option>
+              <option value="minor">minor</option>
+              <option value="mixed">mixed</option>
+              <option value="ctrMajor">ctrMajor</option>
+              <option value="ctrMinor">ctrMinor</option>
+              <option value="fs">fs</option>
+              <option value="fsCtr">fsCtr</option>
+              <option value="fsLeft">fsLeft</option>
+              <option value="fsRight">fsRight</option>
+              <option value="fsTop">fsTop</option>
+              <option value="cornerTL_BL">cornerTL_BL</option>
+              <option value="cornerTL_TR">cornerTL_TR</option>
+              <option value="cornerTL_vtxL">cornerTL_vtxL</option>
+              <option value="cornerTL_vtxT">cornerTL_vtxT</option>
+              <option value="cornerTL_vtxB">cornerTL_vtxB</option>
+              <option value="cornerTL_ctr">cornerTL_ctr</option>
+              <option value="cornerTL_BR">cornerTL_BR</option>
+            </select>
+            <div id="sub-check">
+              <input type="checkbox" id="brocard_Xn1" name="brocard_Xn1">
+              <label for="brocard_Xn1"> Brocard</label><br>
+              <input type="checkbox" id="mounting_Xn1" checked=true name="mounting_Xn1">
+              <label for="mounting_Xn1"> Draw Tri</label>
+            </div>
           </div>
+
+          <div class="input_Xn second">
+            <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn1">
+          </div>
+            <script>show_slider_output_value("input_Xn1","demo_Xn1")</script>
         </div>
-        <div class="input_Xn second">
-          <input type="checkbox" class="checkbox" id="checkbox_Xn1" checked=true>
-          <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn1">
-        </div>
-          <script>show_slider_output_value("input_Xn1","demo_Xn1")</script>
+        <!--end component xn1_selector-->
 
         <div class="input_Xn first">
           <p>Xn2: <span id="demo_Xn2"></span></p>
@@ -97,16 +99,16 @@
           </select>
           <div id="sub-check">
             <input type="checkbox" id="brocard_Xn2" name="brocard_Xn2">
-            <label for="brocard_Xn2"> Enable Brocard</label><br>
+            <label for="brocard_Xn2"> Brocard</label><br>
             <input type="checkbox" id="mounting_Xn2" name="mounting_Xn2">
-            <label for="mounting_Xn2"> Enable Mounting</label>
+            <label for="mounting_Xn2"> Draw Tri</label>
           </div>
         </div>
         <div class="input_Xn second">
           <input type="checkbox" class="checkbox" id="checkbox_Xn2">
           <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn2">
         </div>
-      <script>show_slider_output_value("input_Xn2","demo_Xn2")</script>
+        <script>show_slider_output_value("input_Xn2","demo_Xn2")</script>
 
         <div class="input_Xn first">
           <p>Xn3: <span id="demo_Xn3"></span></p>
@@ -132,9 +134,9 @@
           </select>
           <div id="sub-check">
             <input type="checkbox" id="brocard_Xn3" name="brocard_Xn3">
-            <label for="brocard_Xn3"> Enable Brocard</label><br>
+            <label for="brocard_Xn3"> Brocard</label><br>
             <input type="checkbox" id="mounting_Xn3" name="mounting_Xn3">
-            <label for="mounting_Xn3"> Enable Mounting</label>
+            <label for="mounting_Xn3"> Draw Tri</label>
           </div>
         </div>
         <div class="input_Xn second">
@@ -143,11 +145,14 @@
         </div>
         <script>show_slider_output_value("input_Xn3","demo_Xn3")</script>
         
-        <button id="play_pause" class="width100">Pause</button>
-        <button id="reverse" class="width100">Backward</button>
+        <div class="play_controls">
+          <button class="fa fa-backward" id="backward"></button>
+          <button class="fa fa-play-circle-o" id="play_pause"></button>
+          <button class="fa fa-forward" id="forward"></button>
+        </div>
         <button id="Export_PNG" class="width100">Export PNG</button>
         <a id="link"></a>
-
+        
         <div class="line"></div>
 
         <!--dropdown-->
@@ -166,9 +171,6 @@
           <option value="0.05">0.05</option>
           <option value="0.01">0.01</option>
         </select>  
-    
-      </div>
-
       <div id="made_by"></div>
     </div>
   </div>

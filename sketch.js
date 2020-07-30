@@ -132,49 +132,49 @@ function selector_output(input_ID, dictionary, dictionary_key, output_ID = ""){
    }
 }
 
-function play_reverse_buttons() {
-   var play_button = document.getElementById('play_pause')
-   var reverse_button = document.getElementById('reverse')
+function export_PNG(){
+   var export_png_button = document.getElementById('Export_PNG')
+   var today = new Date();
+   let double_digit = function(myNumber){return ("0" + myNumber).slice(-2)}
+   var date_time = double_digit(today.getDate().toString()) + double_digit((today.getMonth()+1).toString()) +
+       today.getFullYear().toString() + '_' + double_digit(today.getHours().toString()) + 
+       double_digit(today.getMinutes().toString()) + double_digit(today.getSeconds().toString());
+   export_png_button.addEventListener("click", function(){
+      canvas = document.getElementById('defaultCanvas0')
+      link = document.getElementById('link');
+      link.setAttribute('download', 'tri_app_'+date_time+'.png');
+      link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+      link.click(); 
+   });
+}
 
-   play_button.play = true
+function play_controls(){
+   var play_button = document.getElementById("play_pause");
+   var backward_button = document.getElementById("backward");
+   var forward_button = document.getElementById("forward");
+   var play_class = "fa fa-play-circle-o";
+   var stop_class = "fa fa-pause-circle-o";
+   /*var backward_class = "fa fa-backward";
+   var forward_class = "fa fa-forward";*/
+
+   play_button.isPlaying = true;
+   play_button.className = stop_class;
    play_button.addEventListener("click", function(){
-      if(this.play && g_loop){
-         this.play = false;
-         this.innerHTML = "Play"
+      if(this.isPlaying && g_loop){
+         this.isPlaying = false;
+         this.className = play_class;
          noLoop();
          g_loop = false;
-     }else if (!this.play && !g_loop) {
-         this.play = true;
-         this.innerHTML = "Pause";
+     }else if (!this.isPlaying && !g_loop) {
+         this.isPlaying = true;
+         this.className = stop_class;
          loop();
          g_loop = true;
      }
    });
 
-   reverse_button.checked = false
-   reverse_button.addEventListener("click", function(){
-      if(this.checked){
-         this.checked = false;
-         this.innerHTML = "Backward"
-         g_loop_ccw = !g_loop_ccw;
-     }else if (!this.checked) {
-         this.checked = true;
-         this.innerHTML = "Forward";
-         g_loop_ccw = !g_loop_ccw;
-     }
-   });
-}
-
-function export_PNG(){
-var export_png_button = document.getElementById('Export_PNG')
-
-   export_png_button.addEventListener("click", function(){
-      canvas = document.getElementById('defaultCanvas0')
-      link = document.getElementById('link');
-      link.setAttribute('download', 'graphic.png');
-      link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
-      link.click();
-   });
+   backward_button.addEventListener("click", function(){g_loop_ccw = false;});
+   forward_button.addEventListener("click", function(){g_loop_ccw = true;});
 }
 
 function setup() {
@@ -227,8 +227,9 @@ function setup() {
    //degStep0
    selector_output("input_degStep0", g_ui, "degStep0", output_ID = "")
 
-   play_reverse_buttons()
    export_PNG()
+   play_controls()
+
    ui_changed()
 
    //Create a new GUI with a label

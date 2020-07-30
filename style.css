@@ -49,10 +49,10 @@ body {
 }
 
 /*selector menu*/
-.menu{
-  background-color: white;
-  display: block;
-  flex-grow : 1;
+
+.component .xn1_selector{
+  border-style: solid;
+  background-color: blue;
 }
 
 /*checkbox*/
@@ -68,8 +68,7 @@ body {
 }
 
 .input_Xn.first p:first-of-type{
-  font-weight: bold;
-  width: 65px;
+  width: 80px;
 }
 
 #input_a{
@@ -97,7 +96,7 @@ p{
 }
 
 #sub-check{
-  font-size: 10px;
+  font-size: 12px;
   width: fit-content;
   margin-top: auto;
   margin-bottom: auto;
@@ -210,4 +209,30 @@ p.lab{
 .lab {
   font-size: 16px;
   font-weight: bold;
+}
+
+.play_controls{
+  text-align: center;
+  margin-top: 20px;
+  height: 40px;
+}
+
+.play_controls button{
+  display: inline-block;
+  width: 70px;
+  height: 100%;
+  background: none !important;
+  border:none;
+  outline: none;
+}
+
+.play_controls button{
+  align-items: center;
+  height: 100%;
+  font-size: 30px;
+}
+
+.play_controls button:focus,
+.play_controls button:active {
+  outline: none;
 }
