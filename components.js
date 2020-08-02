@@ -6,6 +6,15 @@ var html = function(xn_number){
         border-width: 1px;
         border-radius: 5px;
     }
+    .demo_Xn{
+        border-style: solid;
+        border-width: 1px;
+        width: 30px;
+        height: 15px;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: 3px;
+    }
 
     .component.xn_selector{
         display: flex; 
@@ -20,10 +29,6 @@ var html = function(xn_number){
         margin-top: 5x;
     }
 
-    .input_Xn.first p:first-of-type{
-        width: 80px;
-    }
-
     p{
         display: block;
         margin-top: auto;
@@ -32,7 +37,7 @@ var html = function(xn_number){
 
     .input_mounting{
         display: block;
-        height: 80%;
+        height: 40%;
         margin-top: auto;
         margin-bottom: auto;
         margin-left: 5px;
@@ -40,9 +45,23 @@ var html = function(xn_number){
     }
 
     .checkbox {
+        display: inline-block;
         zoom: 1.5;
-        margin-top: auto;
-        margin-bottom: auto;
+        vertical-align: middle;
+    }
+    
+    .sub_checkbox {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .subcheck_label{
+        margin-top: 7px;
+    }
+
+    label{
+        display: inline-block;
+        vertical-align: middle;
     }
 
     #sub-check{
@@ -52,16 +71,14 @@ var html = function(xn_number){
         width: fit-content;
         margin-top: auto;
         margin-bottom: auto;
-    }
-
-    #sub-check>*{
-        margin-top: auto;
-        margin-bottom: auto;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     /*slider's*/
     .input_Xn.second{
-        display: block;
+        display: flex;
+        flex-direction: row;
         height: 25px;
     }
     .slidecontainer {
@@ -93,8 +110,8 @@ var html = function(xn_number){
     .slider::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 15px;
         border-radius: 50%; 
         background: black;
         cursor: pointer;
@@ -111,40 +128,47 @@ var html = function(xn_number){
 </style>
 <div class="component xn_selector">
   <div class="input_Xn first">
-    <p>Xn`+xn_number+`<input type="checkbox" class="checkbox" id="checkbox_Xn`+xn_number+`" checked=true>: <span id="demo_Xn`+xn_number+`"></span></p>
-    <select id="input_mounting_Xn`+xn_number+`" class="input_mounting">
-      <option value="billiard">billiard</option>
-      <option value="major">major</option>
-      <option value="minor">minor</option>
-      <option value="mixed">mixed</option>
-      <option value="ctrMajor">ctrMajor</option>
-      <option value="ctrMinor">ctrMinor</option>
-      <option value="fs">fs</option>
-      <option value="fsCtr">fsCtr</option>
-      <option value="fsLeft">fsLeft</option>
-      <option value="fsRight">fsRight</option>
-      <option value="fsTop">fsTop</option>
-      <option value="cornerTL_BL">cornerTL_BL</option>
-      <option value="cornerTL_TR">cornerTL_TR</option>
-      <option value="cornerTL_vtxL">cornerTL_vtxL</option>
-      <option value="cornerTL_vtxT">cornerTL_vtxT</option>
-      <option value="cornerTL_vtxB">cornerTL_vtxB</option>
-      <option value="cornerTL_ctr">cornerTL_ctr</option>
-      <option value="cornerTL_BR">cornerTL_BR</option>
-    </select>
+    <div>
+        <div>
+            <input type="checkbox" class="checkbox" id="checkbox_Xn`+xn_number+`" checked=true>
+            <label for="checkbox_Xn`+xn_number+`"> Xn`+xn_number+`</label>
+         </div>
+        <select id="input_mounting_Xn`+xn_number+`" class="input_mounting">
+        <option value="billiard">billiard</option>
+        <option value="major">major</option>
+        <option value="minor">minor</option>
+        <option value="mixed">mixed</option>
+        <option value="ctrMajor">ctrMajor</option>
+        <option value="ctrMinor">ctrMinor</option>
+        <option value="fs">fs</option>
+        <option value="fsCtr">fsCtr</option>
+        <option value="fsLeft">fsLeft</option>
+        <option value="fsRight">fsRight</option>
+        <option value="fsTop">fsTop</option>
+        <option value="cornerTL_BL">cornerTL_BL</option>
+        <option value="cornerTL_TR">cornerTL_TR</option>
+        <option value="cornerTL_vtxL">cornerTL_vtxL</option>
+        <option value="cornerTL_vtxT">cornerTL_vtxT</option>
+        <option value="cornerTL_vtxB">cornerTL_vtxB</option>
+        <option value="cornerTL_ctr">cornerTL_ctr</option>
+        <option value="cornerTL_BR">cornerTL_BR</option>
+        </select>
+    </div>
     <div id="sub-check">
+        <select id="input_locus_type_`+xn_number+`">
+            <option value="trilins">tri ctr</option>
+            <option value="brocard_1">Ω1</option>
+            <option value="brocard_2">Ω2</option>
+        </select>
       <div class="subcheck_label">
-        <input type="checkbox" id="brocard_Xn`+xn_number+`" name="brocard_Xn`+xn_number+`">
-        <label for="brocard_Xn`+xn_number+`"> Brocard</label>
-      </div>
-      <div class="subcheck_label">
-        <input type="checkbox" id="mounting_Xn`+xn_number+`" checked=true name="mounting_Xn`+xn_number+`">
+        <input class = "sub_checkbox" type="checkbox" id="mounting_Xn`+xn_number+`" checked=true name="mounting_Xn`+xn_number+`">
         <label for="mounting_Xn`+xn_number+`"> Draw Tri</label>
       </div>    
     </div>
   </div>
 
   <div class="input_Xn second">
+    <span class = "demo_Xn" id="demo_Xn`+xn_number+`"></span>
     <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn`+xn_number+`">
   </div>
     <script>show_slider_output_value("input_Xn`+xn_number+`","demo_Xn`+xn_number+`")</script>

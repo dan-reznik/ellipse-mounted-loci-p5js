@@ -21,11 +21,11 @@ body {
 /* Grid Container*/
 .grid-container {
   display: grid;
-  height: 95%;
-  width: 97.5%;
+  height: 95.9%;
+  width: 98%;
   padding: 1%;
   grid-gap: 1% 0.5%;
-  grid-template-columns: minmax(120px, 275px) minmax(500px, 95%);
+  grid-template-columns: minmax(150px, 200px) minmax(200px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "title title"

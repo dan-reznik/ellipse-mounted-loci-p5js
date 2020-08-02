@@ -90,17 +90,28 @@ function draw_locus_only(locus, rgb, stroke_w = 0.01) {
   pop();
 }
 
-function draw_locus(locus, ons, xnum, rgb, stroke_w = 0.01) {
+function get_brocard_orbit_sides(orbit, sides, n) {
+  return get_Xn_low(orbit, sides, get_brocard(n));
+}
+
+function draw_locus(locus, ons, xnum, rgb, stroke_w = 0.01, locus_type) {
   push();
   strokeWeight(stroke_w);
   stroke(rgb);
   for (let i = 0; i < locus.length - 1; i++)
     line(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
+
   let xn = get_Xn(ons.o, ons.s, xnum); // trilin_fn(ons.o, ons.s);
+  if(locus_type == 'trilins')
+    xn = get_Xn(ons.o, ons.s, xnum); // trilin_fn(ons.o, ons.s);
+  else if(locus_type == 'brocard_1')
+    xn = get_brocard_orbit_sides(ons.o, ons.s, 1); // trilin_fn(ons.o, ons.s);
+  else if(locus_type == 'brocard_2')
+    xn = get_brocard_orbit_sides(ons.o, ons.s, 2); // trilin_fn(ons.o, ons.s);
   draw_point(xn, rgb);
   draw_text('X' + xnum, xn, rgb);
   pop();
-}
+  }
 
 function draw_labeled_point(ons, xnum, trilin_fn, rgb) {
   push();

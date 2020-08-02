@@ -49,10 +49,28 @@ g_ui = {
    animStep0: [0.125,0.25, 0.5, 1]
 };
 
-function make_one_locus(n, tdegStep, mounting) {
+function get_brocard(n) {
+   let brocard_name = sprintf("trilin_brocard%d",n);
+   return window[brocard_name];
+}
+
+function make_one_locus(n, tdegStep, mounting, locus_type) {
    const eps = 0.001;
    let locus_Xn = [];
-   let trilin_fn = get_fn_trilin(n);
+   //console.log(locus_type);
+
+   let trilin_fn = get_fn_trilin(n)
+   switch (locus_type) {
+      case 'brocard_1': 
+         trilin_fn = get_brocard(1);
+         break;
+      case 'brocard_2': 
+         trilin_fn = get_brocard(2);
+         break;
+      default: trilin_fn = get_fn_trilin(n);
+   }
+   //console.log(trilin_fn);
+
    if (g_ui[mounting] == "billiard")
       for (let tDeg = 0; tDeg < 180; tDeg += tdegStep) {
          let ons = orbit_normals(g_ui.a, tDeg);
@@ -70,9 +88,13 @@ function make_one_locus(n, tdegStep, mounting) {
 
 function create_locus() {
    let tdegStep = +g_ui.degStep0;
-   g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep, "mounting_Xn1");
-   g_locus_Xn2 = make_one_locus(g_ui.Xn2, tdegStep, "mounting_Xn2");
-   g_locus_Xn3 = make_one_locus(g_ui.Xn3, tdegStep, "mounting_Xn3");
+   var locus_type_1 = document.getElementById("input_locus_type_1").value;
+   var locus_type_2 = document.getElementById("input_locus_type_2").value;
+   var locus_type_3 = document.getElementById("input_locus_type_3").value;
+   //console.log(locus_type_1)
+   g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep, "mounting_Xn1", locus_type_1);
+   g_locus_Xn2 = make_one_locus(g_ui.Xn2, tdegStep, "mounting_Xn2", locus_type_2);
+   g_locus_Xn3 = make_one_locus(g_ui.Xn3, tdegStep, "mounting_Xn3", locus_type_3);
 }
 
 function create_checkboxes() {
@@ -97,7 +119,8 @@ function create_checkboxes() {
 function windowResized() {
    g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
    g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
-   console.log(g_height);
+   g_ctr0 = [g_width / 2, g_height / 2];
+   g_ctr = g_ctr0;
    //let pos = g_main_title.position();
    //g_main_title.position(g_width / 2 - 160, pos[1]);
    resizeCanvas(g_width, g_height);
@@ -177,6 +200,12 @@ function play_controls(){
    forward_button.addEventListener("click", function(){g_loop_ccw = true;});
 }
 
+function locus_type_onchange(){
+   document.getElementById("input_locus_type_1").addEventListener("change", function(){ui_changed();});
+   document.getElementById("input_locus_type_2").addEventListener("change", function(){ui_changed();});
+   document.getElementById("input_locus_type_3").addEventListener("change", function(){ui_changed();});
+}
+
 function setup() {
    g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
    g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
@@ -229,6 +258,7 @@ function setup() {
 
    export_PNG()
    play_controls()
+   locus_type_onchange()
 
    ui_changed()
 
@@ -271,14 +301,17 @@ function draw() {
    var check_mounting_Xn1 = document.getElementById("mounting_Xn1")
    var check_mounting_Xn2 = document.getElementById("mounting_Xn2")
    var check_mounting_Xn3 = document.getElementById("mounting_Xn3")
+   var locus_type_1 = document.getElementById("input_locus_type_1").value
+   var locus_type_2 = document.getElementById("input_locus_type_2").value
+   var locus_type_3 = document.getElementById("input_locus_type_3").value
 
    if (g_ui.mounting_Xn1 == "billiard") {
       let ons = orbit_normals(g_ui.a, g_tDeg);
       if(check_mounting_Xn1.checked)
          draw_orbit(ons, true);
       if (check_Xn1.checked)
-         draw_locus(g_locus_Xn1, ons, g_ui.Xn1, clr_dark_red);
-
+         draw_locus(g_locus_Xn1, ons, g_ui.Xn1, clr_dark_red, 0.01, locus_type_1);
+      
    } else { // ellipse-mounted
       let [v1_Xn1, v2_Xn1] = getV1V2(g_ui.a, g_ui.mounting_Xn1, 0.001);
 
@@ -295,7 +328,7 @@ function draw() {
       if(check_mounting_Xn2.checked)
          draw_orbit(ons, true);
       if (check_Xn2.checked)
-         draw_locus(g_locus_Xn2, ons, g_ui.Xn2, clr_dark_green);
+         draw_locus(g_locus_Xn2, ons, g_ui.Xn2, clr_dark_green, 0.01, locus_type_2);
 
    } else { // ellipse-mounted
       let [v1_Xn2, v2_Xn2] = getV1V2(g_ui.a, g_ui.mounting_Xn2, 0.001);
@@ -312,7 +345,7 @@ function draw() {
       if(check_mounting_Xn3.checked)
          draw_orbit(ons, true);
       if (check_Xn3.checked)
-         draw_locus(g_locus_Xn3, ons, g_ui.Xn3, clr_dark_blue);
+         draw_locus(g_locus_Xn3, ons, g_ui.Xn3, clr_dark_blue, 0.01, locus_type_3);
 
    } else { // ellipse-mounted
       let [v1_Xn3, v2_Xn3] = getV1V2(g_ui.a, g_ui.mounting_Xn3, 0.001);

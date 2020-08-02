@@ -22,6 +22,11 @@ function get_fn_trilin(n) {
   return window[fn_name];
 }
 
+function get_brocard(n) {
+   let brocard_name = sprintf("trilin_brocard%d",n);
+   return window[brocard_name];
+}
+
 function get_Xn(orbit, sides, n) {
   return get_Xn_low(orbit, sides, get_fn_trilin(n));
 }
