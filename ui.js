@@ -84,7 +84,7 @@ function create_main_title(y) {
   div.style('text-align', 'center');
   div.class('lab');
   create_title_ctr("Loci of Centers of Ellipse-Mounted Triangles", div, 'blue');
-  create_title_ctr("Left Click: stop/go, Right Click: reverse<br>Drag: move billiard, Wheel: zoom", div, 'red');
+  //create_title_ctr("Left Click: stop/go, Right Click: reverse<br>Drag: move billiard, Wheel: zoom", div, 'red');
   return div;
 }
 

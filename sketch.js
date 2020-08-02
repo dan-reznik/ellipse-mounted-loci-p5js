@@ -97,10 +97,10 @@ function create_checkboxes() {
 function windowResized() {
    g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
    g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
-   console.log(g_width)
-   let pos = g_main_title.position();
-   g_main_title.position(g_width / 2 - 160, pos[1]);
-   resizeCanvas(windowWidth, windowHeight);
+   console.log(g_height);
+   //let pos = g_main_title.position();
+   //g_main_title.position(g_width / 2 - 160, pos[1]);
+   resizeCanvas(g_width, g_height);
 }
 
 function ui_changed(e) {
@@ -126,7 +126,7 @@ function selector_output(input_ID, dictionary, dictionary_key, output_ID = ""){
    } else {
       selector.onchange = function() {
          dictionary[dictionary_key] = selector.value
-         console.log(dictionary[dictionary_key])
+         //console.log(dictionary[dictionary_key])
          ui_changed()
       }
    }
@@ -180,7 +180,7 @@ function play_controls(){
 function setup() {
    g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
    g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
-   console.log(g_width)
+   //console.log(g_width)
    g_url_params = getURLParams();
    //http://p5js.org?year=2014&month=May&day=15
    //text(params.day, 10, 20);

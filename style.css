@@ -4,6 +4,7 @@ body {
   padding: 0;
   height: 100vh;
   width: 100vw;
+  min-height: 650px;
   background-color: lightsteelblue;
 }
 
@@ -24,10 +25,10 @@ body {
   width: 97.5%;
   padding: 1%;
   grid-gap: 1% 0.5%;
-  grid-template-columns: 22% 78%;
-  grid-template-rows: 18% 82%;
+  grid-template-columns: minmax(120px, 275px) minmax(500px, 95%);
+  grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
-		"selector title"
+    "title title"
 		"selector graphic"
     ;
   background-color: lightsteelblue;
@@ -50,12 +51,13 @@ body {
 
 /*selector menu*/
 
-.component .xn1_selector{
+/*.component.xn1_selector{
   border-style: solid;
-  background-color: blue;
-}
+  border-width: 1px;
+  border-radius: 5px;
+}*/
 
-/*checkbox*/
+/*checkbox
 .input_Xn{
   display: flex; 
   flex-direction: row;
@@ -69,10 +71,6 @@ body {
 
 .input_Xn.first p:first-of-type{
   width: 80px;
-}
-
-#input_a{
-  margin-bottom: 10px;
 }
 
 p{
@@ -105,49 +103,33 @@ p{
 #sub-check>*{
   margin-top: auto;
   margin-bottom: auto;
-}
+}*/
 /*end check box*/
 
-/*slider's*/
-.input_Xn.second{
-  height: 30px;
-  margin-bottom: 5px;
-  margin-top: 5px;
-}
-.slidecontainer {
-  width: 100%; /* Width of the outside container */
-  height: 85%;
+.selector_input{
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  height: 46px;
 }
 
-/* The slider itself */
-.slider {
-  -webkit-appearance: none;
-  width: 98%;
-  height: 5px;
-  border-radius: 5px;  
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-  margin-top: auto;
-  margin-bottom: auto;
+p.lab{
+  text-align: center;
 }
 
-/* Mouse-over effects */
-.slider:hover {
-  opacity: 1; /* Fully shown on mouse-over */
+#input_a{
+  margin-bottom: 10px;
 }
 
-/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%; 
-  background: black;
-  cursor: pointer;
+
+
+.width100{
+  display: block;
+  width: 90%;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #input_Xn1::-webkit-slider-thumb{
@@ -160,39 +142,6 @@ p{
 
 #input_Xn3::-webkit-slider-thumb{
   background: blue;
-}
-
-.slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-}
-
-p.lab{
-  text-align: center;
-}
-
-.width100{
-  display: block;
-  width: 90%;
-  margin-bottom: 8px;
-  margin-top: 8px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.selector_name{
-  font-weight: bold;
-}
-
-.line {
-  margin:25px 0;
-  height:2px;
-  background:
-    repeating-linear-gradient(to right,black 0,black 5px,transparent 10px,transparent 7px)
-    /*5px red then 2px transparent -> repeat this!*/
 }
 
 /*end menu*/
@@ -212,27 +161,37 @@ p.lab{
 }
 
 .play_controls{
+  display: flex;
+  flex-direction: row;
   text-align: center;
-  margin-top: 20px;
-  height: 40px;
+  margin-top: 2px;
+  height: 28px;
 }
 
 .play_controls button{
+  flex: auto;
   display: inline-block;
-  width: 70px;
+  width: 35px;
   height: 100%;
   background: none !important;
   border:none;
   outline: none;
-}
-
-.play_controls button{
   align-items: center;
-  height: 100%;
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .play_controls button:focus,
 .play_controls button:active {
   outline: none;
+}
+
+#export_button{
+  height: 25px;
+  margin-bottom: 5px;
+}
+
+/*title*/
+.title>*{
+  margin-left: auto;
+  margin-right: auto;
 }
