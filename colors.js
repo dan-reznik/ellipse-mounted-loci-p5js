@@ -1,4 +1,5 @@
 clr_black=[0,0,0];
+clr_white=[255,255,255];
 clr_red = [240, 0, 0];
 clr_blue = [0,0,240];
 clr_green =[0,240,0];

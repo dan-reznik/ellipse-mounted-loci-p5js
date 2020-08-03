@@ -101,15 +101,21 @@ function draw_locus(locus, ons, xnum, rgb, stroke_w = 0.01, locus_type) {
   for (let i = 0; i < locus.length - 1; i++)
     line(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
 
-  let xn = get_Xn(ons.o, ons.s, xnum); // trilin_fn(ons.o, ons.s);
-  if(locus_type == 'trilins')
-    xn = get_Xn(ons.o, ons.s, xnum); // trilin_fn(ons.o, ons.s);
-  else if(locus_type == 'brocard_1')
-    xn = get_brocard_orbit_sides(ons.o, ons.s, 1); // trilin_fn(ons.o, ons.s);
-  else if(locus_type == 'brocard_2')
-    xn = get_brocard_orbit_sides(ons.o, ons.s, 2); // trilin_fn(ons.o, ons.s);
+  var xn;
+  switch(locus_type) {
+    case "trilins": xn = get_Xn(ons.o,ons.s,xnum); break;
+    case "brocard_1": xn = trilin_brocard1(ons.o, ons.s); break;
+    case "brocard_2": xn = trilin_brocard2(ons.o, ons.s); break;
+  }
   draw_point(xn, rgb);
-  draw_text('X' + xnum, xn, rgb);
+  if(locus_type == 'trilins') {
+    draw_text('X' + xnum, xn, rgb);
+  } else if(locus_type == 'brocard_1') {
+    draw_text('Ω' + 1, xn, rgb);
+  } else if(locus_type == 'brocard_2') {
+    draw_text('Ω' + 2, xn, rgb);
+  }
+  
   pop();
   }
 
@@ -190,11 +196,14 @@ function draw_billiard(a) {
   //draw_center();
 }
 
-function draw_orbit(ons, dr_sidelengths = true) {
+function draw_orbit(ons, clr, dr_sidelengths = true, dr_dashed = false) {
   const lgt = 0.2;
   push();
   // should be draw_tri_filled for obtuse
-  draw_tri(ons.o, clr_dark_blue)
+  if (dr_dashed)
+  draw_tri_dashed(ons.o, clr);
+  else
+  draw_tri(ons.o, clr)
   for (let i = 0; i < 3; i++) {
     draw_normal(ons.o[i], ons.n[i], lgt);
     draw_point(ons.o[i], i == 0 ? clr_dark_red : [0, 0, 0]);
@@ -209,13 +218,17 @@ function draw_orbit(ons, dr_sidelengths = true) {
   pop();
 }
 
-function draw_mounted(tri, sides, dr_sidelengths = true) {
+function draw_mounted(ons, clr, dr_sidelengths = true, dr_dashed=false) {
   const lgt = 0.2;
   push();
-  // should be draw_tri_filled for obtuse
-  draw_tri(tri, clr_dark_blue);
+  let tri = ons.o;
+  let sides = ons.s;
+  if(dr_dashed)
+     draw_tri_dashed(tri, clr);
+  else
+     draw_tri(tri, clr);
   for (let i = 0; i < 3; i++) {
-    draw_point(tri[i], i == 0 ? clr_dark_red : [0, 0, 0]);
+    draw_point(tri[i], i == 0 ? clr_orange : [0, 0, 0]);
     if (dr_sidelengths) {
       let midpoint = vavg(tri[i], tri[(i + 1) % 3]);
       draw_point(midpoint, [0, 0, 0]);
@@ -227,12 +240,65 @@ function draw_mounted(tri, sides, dr_sidelengths = true) {
   pop();
 }
 
+function linedash_old(x1, y1, x2, y2, delta, style = '-') {
+  // delta is both the length of a dash, the distance between 2 dots/dashes, and the diameter of a round
+  let distance = dist(x1,y1,x2,y2);
+  let dashNumber = distance/delta;
+  let xDelta = (x2-x1)/dashNumber;
+  let yDelta = (y2-y1)/dashNumber;
+
+  for (let i = 0; i < dashNumber; i+= 2) {
+    let xi1 = i*xDelta + x1;
+    let yi1 = i*yDelta + y1;
+    let xi2 = (i+1)*xDelta + x1;
+    let yi2 = (i+1)*yDelta + y1;
+
+    if (style == '-') { line(xi1, yi1, xi2, yi2); }
+    else if (style == '.') { point(xi1, yi1); }
+    else if (style == 'o') { ellipse(xi1, yi1, delta/2); }
+  }
+}
+
+
+function linedash(p1, p2, drho) {
+  let flag = true;
+  for (let rho = 0; rho < 1-drho; rho += drho) {
+    if (flag) {
+      let from = vinterp(p1, p2, rho);
+      let to = vinterp(p1, p2, rho + drho);
+      line(from[0], from[1], to[0], to[1]);
+    } else
+       rho -= 0.5*drho;
+    flag = !flag;
+  }
+}
+
 function draw_tri([p1, p2, p3], rgb, wgt = 0.015) {
   push();
   noFill();
   stroke(rgb);
   strokeWeight(wgt);
   triangle(p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]);
+  pop();
+}
+
+function draw_tri([p1, p2, p3], rgb, wgt = 0.015) {
+  push();
+  noFill();
+  stroke(rgb);
+  strokeWeight(wgt);
+  triangle(p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]);
+  pop();
+}
+
+function draw_tri_dashed([p1, p2, p3], rgb, wgt = 0.015) {
+  push();
+  noFill();
+  stroke(rgb);
+  strokeWeight(wgt);
+  linedash(p1, p2, 0.05);
+  linedash(p2, p3, 0.05);
+  linedash(p3, p1, 0.05);
   pop();
 }
 
