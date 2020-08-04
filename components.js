@@ -1,4 +1,4 @@
-var html = function(xn_number){
+var html = function(xn_number, trilins_selected, tri_selected){
     return `
 <style>
     .component.xn_selector{
@@ -44,10 +44,10 @@ var html = function(xn_number){
         margin-right: 5px;
     }
 
-    .checkbox {
-        display: inline-block;
-        zoom: 1.5;
-        vertical-align: middle;
+    #Locus_label{
+        height: 25px;
+        text-align: center;
+        font-size: 18px;
     }
     
     .sub_checkbox {
@@ -129,9 +129,9 @@ var html = function(xn_number){
 <div class="component xn_selector">
   <div class="input_Xn first">
     <div>
-        <div>
-            <input type="checkbox" class="checkbox" id="checkbox_Xn`+xn_number+`" checked=true>
-            <label for="checkbox_Xn`+xn_number+`"> Xn`+xn_number+`</label>
+        <div id='Locus_label'>
+            <!--<input type="checkbox" class="checkbox" id="checkbox_Xn`+xn_number+`" checked=true>-->
+            <label for="checkbox_Xn`+xn_number+`"> Locus `+xn_number+`</label>
          </div>
         <select id="input_mounting_Xn`+xn_number+`" class="input_mounting">
         <option value="billiard">billiard</option>
@@ -156,12 +156,13 @@ var html = function(xn_number){
     </div>
     <div id="sub-check">
         <select id="input_locus_type_`+xn_number+`">
-            <option value="trilins">tri ctr</option>
+            <option value="none">none</option>
+            <option value="trilins" `+trilins_selected+`>tri ctr</option>
             <option value="brocard_1">Ω1</option>
             <option value="brocard_2">Ω2</option>
         </select>
       <div class="subcheck_label">
-        <input class = "sub_checkbox" type="checkbox" id="mounting_Xn`+xn_number+`" checked=true name="mounting_Xn`+xn_number+`">
+        <input class = "sub_checkbox" type="checkbox" id="mounting_Xn`+xn_number+`" `+tri_selected+` name="mounting_Xn`+xn_number+`">
         <label for="mounting_Xn`+xn_number+`"> Draw Tri</label>
       </div>    
     </div>
@@ -181,7 +182,17 @@ class MySelector extends HTMLElement {
         //const shadow = this.attachShadow({ mode: 'open'});
         //shadow.innerHTML = `
         const xn_number = this.getAttribute('number');
-        this.innerHTML = html(xn_number);
+        const xn_selected = this.getAttribute('selected');
+        var trilins_selected = ''
+        var tri_selected = false
+        if (xn_selected == 'true'){
+            trilins_selected = 'selected="selected"';
+            tri_selected = 'checked="checked"';
+        } else{
+            trilins_selected = '';
+            tri_selected = '';
+        }
+        this.innerHTML = html(xn_number, trilins_selected, tri_selected);
     }
 }
 customElements.define('my-selector', MySelector)

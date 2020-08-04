@@ -196,8 +196,24 @@ function play_controls() {
       }
    });
 
-   backward_button.addEventListener("click", function () { g_loop_ccw = false; });
-   forward_button.addEventListener("click", function () { g_loop_ccw = true; });
+   backward_button.addEventListener("click", function () { 
+      g_loop_ccw = false; 
+      if(play_button.isPlaying = true){
+         play_button.isPlaying = true;
+         play_button.className = stop_class;
+         loop();
+         g_loop = true;
+      }
+   });
+   forward_button.addEventListener("click", function () { 
+      g_loop_ccw = true;
+      if(play_button.isPlaying = true){
+         play_button.isPlaying = true;
+         play_button.className = stop_class;
+         loop();
+         g_loop = true;
+      }
+   });
 }
 
 function locus_type_onchange() {
@@ -293,30 +309,30 @@ function get_mounted_tri(a, tDeg, v1, v2) {
 //    draw_mounted(ons.o, ons.s, false);
 // }
 
-function draw_mounted_tri(n, a, tDeg, locus, clr, locus_type, dr_tri, dr_locus,
+function draw_mounted_tri(n, a, tDeg, locus, clr, locus_type, dr_tri,
    mounting) {
    let [v1, v2] = getV1V2(a, mounting, 0.001);
    let ons = get_mounted_tri(a, tDeg, v1, v2);
    if (dr_tri)
       draw_mounted(ons, clr, true, true);
-   if (dr_locus)
+   if (locus_type != 'none')
       draw_locus(locus, ons, n, clr, 0.01, locus_type);
       //draw_locus_only(locus, clr);
 }
 
-function draw_billiard_locus(n, a, tDeg, locus, clr, locus_type, dr_tri, dr_locus) {
+function draw_billiard_locus(n, a, tDeg, locus, clr, locus_type, dr_tri) {
    let ons = orbit_normals(a, tDeg);
    if (dr_tri)
       draw_orbit(ons, clr, true, true);
-   if (dr_locus)
+   if (locus_type != 'none')
       draw_locus(locus, ons, n, clr, 0.01, locus_type);
 }
 
-function draw_billiard_or_mounted(n, a, tDeg, locus, clr, locus_type, dr_tri, dr_locus, mounting) {
+function draw_billiard_or_mounted(n, a, tDeg, locus, clr, locus_type, dr_tri, mounting) {
    if (mounting == "billiard") {
-      draw_billiard_locus(n, a, tDeg, locus, clr, locus_type, dr_tri, dr_locus);
+      draw_billiard_locus(n, a, tDeg, locus, clr, locus_type, dr_tri);
    } else  {
-      draw_mounted_tri(n, a, tDeg, locus, clr, locus_type, dr_tri, dr_locus, mounting);
+      draw_mounted_tri(n, a, tDeg, locus, clr, locus_type, dr_tri, mounting);
    }
 }
 
@@ -328,9 +344,9 @@ function draw() {
    translate(g_ctr[0], g_ctr[1]);
    scale(g_width / g_scale);
    draw_billiard(+g_ui.a);
-   var check_Xn1 = document.getElementById("checkbox_Xn1")
-   var check_Xn2 = document.getElementById("checkbox_Xn2")
-   var check_Xn3 = document.getElementById("checkbox_Xn3")
+   //var check_Xn1 = document.getElementById("checkbox_Xn1")
+   //var check_Xn2 = document.getElementById("checkbox_Xn2")
+   //var check_Xn3 = document.getElementById("checkbox_Xn3")
    var check_mounting_Xn1 = document.getElementById("mounting_Xn1")
    var check_mounting_Xn2 = document.getElementById("mounting_Xn2")
    var check_mounting_Xn3 = document.getElementById("mounting_Xn3")
@@ -338,18 +354,25 @@ function draw() {
    var locus_type_2 = document.getElementById("input_locus_type_2").value
    var locus_type_3 = document.getElementById("input_locus_type_3").value
 
+   if(locus_type_1 == 'none')
+      check_mounting_Xn1.checked = false;
+   if(locus_type_2 == 'none')
+      check_mounting_Xn2.checked = false;
+   if(locus_type_3 == 'none')
+      check_mounting_Xn3.checked = false;
+
    // function draw_billiard_locus(n,a,tDeg,locus,locus_type,draw_tri,draw_locus) {
    draw_billiard_or_mounted(g_ui.Xn1, +g_ui.a, g_tDeg,
          g_locus_Xn1, clr_red, locus_type_1,
-         check_mounting_Xn1.checked, check_Xn1.checked, g_ui.mounting_Xn1);
+         check_mounting_Xn1.checked, g_ui.mounting_Xn1);
 
    draw_billiard_or_mounted(g_ui.Xn2, +g_ui.a, g_tDeg,
             g_locus_Xn2, clr_green, locus_type_2,
-            check_mounting_Xn2.checked, check_Xn2.checked, g_ui.mounting_Xn2);
+            check_mounting_Xn2.checked, g_ui.mounting_Xn2);
 
    draw_billiard_or_mounted(g_ui.Xn3, +g_ui.a, g_tDeg,
                g_locus_Xn3, clr_blue, locus_type_3,
-               check_mounting_Xn3.checked, check_Xn3.checked, g_ui.mounting_Xn3);
+               check_mounting_Xn3.checked, g_ui.mounting_Xn3);
 
    pop();
 
