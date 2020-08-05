@@ -206,7 +206,7 @@ function draw_orbit(ons, clr, dr_sidelengths = true, dr_dashed = false) {
   draw_tri(ons.o, clr)
   for (let i = 0; i < 3; i++) {
     draw_normal(ons.o[i], ons.n[i], lgt);
-    draw_point(ons.o[i], i == 0 ? clr_dark_red : [0, 0, 0]);
+    draw_point(ons.o[i], i == 0 ? clr_black : clr);
     if (dr_sidelengths) {
       let midpoint = vavg(ons.o[i], ons.o[(i + 1) % 3]);
       draw_point(midpoint, [0, 0, 0]);
@@ -228,7 +228,7 @@ function draw_mounted(ons, clr, dr_sidelengths = true, dr_dashed=false) {
   else
      draw_tri(tri, clr);
   for (let i = 0; i < 3; i++) {
-    draw_point(tri[i], i == 0 ? clr_orange : [0, 0, 0]);
+    draw_point(tri[i], i == 0 ? clr_black : clr);
     if (dr_sidelengths) {
       let midpoint = vavg(tri[i], tri[(i + 1) % 3]);
       draw_point(midpoint, [0, 0, 0]);
