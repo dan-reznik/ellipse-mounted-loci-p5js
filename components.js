@@ -9,8 +9,8 @@ var html = function(xn_number, trilins_selected, tri_selected){
     .demo_Xn{
         border-style: solid;
         border-width: 1px;
-        width: 30px;
-        height: 15px;
+        width: 32px;
+        height: 20px;
         margin-top: auto;
         margin-bottom: auto;
         margin-left: 3px;
