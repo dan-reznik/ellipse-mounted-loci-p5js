@@ -113,7 +113,7 @@ function make_one_locus(n, tDegStep, mounting, locus_type) {
          }
       }
    }
-   console.log(locus_Xn.length)
+   //console.log(locus_Xn.length)
    return locus_Xn;
 }
 
