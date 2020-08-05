@@ -26,7 +26,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
         flex-direction: row;
         flex-wrap: wrap;
         height: auto;
-        margin-top: 5x;
+        margin-top: 5px;
     }
 
     p{
