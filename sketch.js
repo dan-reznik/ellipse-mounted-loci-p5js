@@ -12,7 +12,8 @@ let g_url_params = {};
 let g_loop = true;
 let g_tDeg = 0;
 //let g_a = 1.618034;
-let g_locus_Xn1 = [];
+//let g_locus_Xn1 = [];
+let g_locus_Xn1_branched = [];
 let g_locus_Xn2 = [];
 let g_locus_Xn3 = [];
 
@@ -62,59 +63,9 @@ function get_fn_any(locus_type, n) {
    }
 }
 
-function make_one_locus(n, tDegStep, mounting, locus_type) {
-   const eps = 0.001;
-   const a = +g_ui.a;
-   let locus_Xn = [];
-   let trilin_fn = get_fn_any(locus_type, n);
-   let xn_next;
-   const d_max = 0.1;
-   const d_min = 0.01;
-   const tDegStepMin = 0.01;
-   const tDegStepMax = 1.0;
- 
-   if (g_ui[mounting] == "billiard") {
-      let ons = orbit_normals(a, 0);
-      let xn = get_Xn_low(ons.o, ons.s, trilin_fn); 
-      locus_Xn.push(xn);
-      let tDeg = tDegStep;
-      while (tDeg < 180) {
-         ons = orbit_normals(a, tDeg);
-         xn_next = get_Xn_low(ons.o, ons.s, trilin_fn);
-         if (tDegStep < tDegStepMax && edist(xn, xn_next) < d_min) {
-            tDegStep *= 2;
-            tDeg += tDegStep;
-         } else if (tDegStep > tDegStepMin && edist(xn, xn_next) > d_max) {
-            tDegStep *= .5;
-            tDeg -= tDegStep;
-         } else {
-            xn = xn_next;
-            locus_Xn.push(xn);
-            tDeg += tDegStep;
-         }
-      }
-   } else {
-      let [v1, v2] = getV1V2(a, g_ui[mounting], eps);
-      let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, trilin_fn);
-      locus_Xn.push(xn);
-      let tDeg = tDegStep;
-      while (tDeg < 360) {
-         [v3, xn_next] = get_Xn_mounted(a, tDeg + eps, v1, v2, trilin_fn);
-         if (tDegStep < tDegStepMax && edist(xn, xn_next) < d_min) {
-            tDegStep *= 2;
-            tDeg += tDegStep;
-         } else if (tDegStep > tDegStepMin && edist(xn, xn_next) > d_max) {
-            tDegStep *= .5;
-            tDeg -= tDegStep;
-         } else {
-            xn = xn_next;
-            locus_Xn.push(xn);
-            tDeg += tDegStep;
-         }
-      }
-   }
-   console.log(locus_Xn.length)
-   return locus_Xn;
+function get_Xn_orbit(a, tDeg, trilin_fn) {
+   let ons = orbit_normals(a, tDeg);
+   return get_Xn_low(ons.o, ons.s, trilin_fn);
 }
 
 function create_locus() {
@@ -123,12 +74,14 @@ function create_locus() {
    var locus_type_2 = document.getElementById("input_locus_type_2").value;
    var locus_type_3 = document.getElementById("input_locus_type_3").value;
    //console.log(locus_type_1)
-   if (locus_type_1 != "none")
-      g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep, "mounting_Xn1", locus_type_1);
+   if (locus_type_1 != "none") {
+      //g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep, "mounting_Xn1", locus_type_1);
+      g_locus_Xn1_branched = make_locus_branched(+g_ui.a, g_ui.Xn1, tdegStep, g_ui.mounting_Xn1, locus_type_1);
+   }
    if (locus_type_2 != "none")
-      g_locus_Xn2 = make_one_locus(g_ui.Xn2, tdegStep, "mounting_Xn2", locus_type_2);
+      g_locus_Xn2 = make_one_locus(+g_ui.a, g_ui.Xn2, tdegStep, g_ui.mounting_Xn2, locus_type_2);
    if (locus_type_3 != "none")
-      g_locus_Xn3 = make_one_locus(g_ui.Xn3, tdegStep, "mounting_Xn3", locus_type_3);
+      g_locus_Xn3 = make_one_locus(+g_ui.a, g_ui.Xn3, tdegStep, g_ui.mounting_Xn3, locus_type_3);
 }
 
 function create_checkboxes() {
@@ -260,7 +213,7 @@ function setup() {
    g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
    g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
    //console.log(g_width)
-   g_url_params = getURLParams();
+   //g_url_params = getURLParams();
    //http://p5js.org?year=2014&month=May&day=15
    //text(params.day, 10, 20);
    //text(params.month, 10, 40);
@@ -328,48 +281,11 @@ function setup() {
       */
 }
 
-function get_mounted_tri(a, tDeg, v1, v2) {
-   let t = toRad(tDeg);
-   v3 = [a * Math.cos(t), Math.sin(t)];
-   let tri = [v3, v1, v2];
-   let sides = tri_sides(tri);
-   let normals = tri.map(v => ell_norm(a, v));
-   return { o: tri, n: normals, s: sides };
-}
-
 // function draw_mounted_tri(a, tDeg, v1, v2) {
 //    //let [v3,xn] = get_Xn_mounted(a, tDeg, v1, v2, get_fn_trilin(n));
 //    let ons = get_mounted_tri(a,tDeg,v1,v2)
 //    draw_mounted(ons.o, ons.s, false);
 // }
-
-function draw_mounted_locus(n, a, tDeg, locus, clr, locus_type, dr_tri,
-   mounting) {
-   let [v1, v2] = getV1V2(a, mounting, 0.001);
-   let ons = get_mounted_tri(a, tDeg, v1, v2);
-   if (dr_tri)
-      draw_mounted(ons, clr, false, true);
-   if (locus_type != 'none')
-      draw_locus(locus, ons, n, clr, 0.01, locus_type);
-      //draw_locus_only(locus, clr);
-}
-
-function draw_billiard_locus(n, a, tDeg, locus, clr, locus_type, dr_tri) {
-   let ons = orbit_normals(a, tDeg);
-   if (dr_tri)
-      draw_orbit(ons, clr, false, true);
-   if (locus_type != 'none')
-      draw_locus(locus, ons, n, clr, 0.01, locus_type);
-}
-
-function draw_billiard_or_mounted(n, a, tDeg, locus, clr, locus_type, dr_tri, mounting) {
-   if (mounting == "billiard") {
-      draw_billiard_locus(n, a, tDeg, locus, clr, locus_type, dr_tri);
-   } else  {
-      draw_mounted_locus(n, a, tDeg, locus, clr, locus_type, dr_tri, mounting);
-   }
-}
-
 
 function draw() {
    background(220, 220, 200);
@@ -396,8 +312,11 @@ function draw() {
       check_mounting_Xn3.checked = false;
 
    // function draw_billiard_locus(n,a,tDeg,locus,locus_type,draw_tri,draw_locus) {
-   draw_billiard_or_mounted(g_ui.Xn1, +g_ui.a, g_tDeg,
-         g_locus_Xn1, clr_red, locus_type_1,
+   //draw_billiard_or_mounted(g_ui.Xn1, +g_ui.a, g_tDeg,
+   //      g_locus_Xn1, clr_red, locus_type_1,
+   //      check_mounting_Xn1.checked, g_ui.mounting_Xn1);
+   draw_billiard_or_mounted_branched(g_ui.Xn1, +g_ui.a, g_tDeg,
+         g_locus_Xn1_branched, clr_red, locus_type_1,
          check_mounting_Xn1.checked, g_ui.mounting_Xn1);
 
    draw_billiard_or_mounted(g_ui.Xn2, +g_ui.a, g_tDeg,

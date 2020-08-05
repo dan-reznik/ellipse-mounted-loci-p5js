@@ -94,12 +94,41 @@ function get_brocard_orbit_sides(orbit, sides, n) {
   return get_Xn_low(orbit, sides, get_brocard(n));
 }
 
+function draw_one_locus_branch(locus) {
+  for (let i = 0; i < locus.length - 1; i++)
+  line(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
+}
+
+function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, locus_type) {
+  var xn;
+  switch(locus_type) {
+    case "trilins": xn = get_Xn(ons.o,ons.s,xnum); break;
+    case "brocard_1": xn = trilin_brocard1(ons.o, ons.s); break;
+    case "brocard_2": xn = trilin_brocard2(ons.o, ons.s); break;
+  }
+  push();
+  strokeWeight(stroke_w);
+  stroke(rgb);
+  locus_branches.map(l=>draw_one_locus_branch(l));
+
+  draw_point(xn, rgb);
+  if(locus_type == 'trilins') {
+    draw_text('X' + xnum, xn, rgb);
+  } else if(locus_type == 'brocard_1') {
+    draw_text('Ω' + 1, xn, rgb);
+  } else if(locus_type == 'brocard_2') {
+    draw_text('Ω' + 2, xn, rgb);
+  }
+  
+  pop();
+  }
+
+
 function draw_locus(locus, ons, xnum, rgb, stroke_w = 0.01, locus_type) {
   push();
   strokeWeight(stroke_w);
   stroke(rgb);
-  for (let i = 0; i < locus.length - 1; i++)
-    line(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
+  draw_one_locus_branch(locus);
 
   var xn;
   switch(locus_type) {

@@ -137,3 +137,12 @@ function ant_intouch_triangle(orbit,[a,b,c]) {
   ant_s = triangle_sides(ant);
   return intouch_triangle(ant_s,ants_s);
 }
+
+function get_mounted_tri(a, tDeg, v1, v2) {
+  let t = toRad(tDeg);
+  v3 = [a * Math.cos(t), Math.sin(t)];
+  let tri = [v3, v1, v2];
+  let sides = tri_sides(tri);
+  let normals = tri.map(v => ell_norm(a, v));
+  return { o: tri, n: normals, s: sides };
+}
