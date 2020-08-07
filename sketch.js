@@ -14,8 +14,8 @@ let g_tDeg = 0;
 //let g_a = 1.618034;
 //let g_locus_Xn1 = [];
 let g_locus_Xn1_branched = [];
-let g_locus_Xn2 = [];
-let g_locus_Xn3 = [];
+let g_locus_Xn2_branched = [];
+let g_locus_Xn3_branched = [];
 
 g_ui = {
    a: 1.618,
@@ -79,9 +79,11 @@ function create_locus() {
       g_locus_Xn1_branched = make_locus_branched(+g_ui.a, g_ui.Xn1, tdegStep, g_ui.mounting_Xn1, locus_type_1);
    }
    if (locus_type_2 != "none")
-      g_locus_Xn2 = make_one_locus(+g_ui.a, g_ui.Xn2, tdegStep, g_ui.mounting_Xn2, locus_type_2);
+      //g_locus_Xn2 = make_one_locus(+g_ui.a, g_ui.Xn2, tdegStep, g_ui.mounting_Xn2, locus_type_2);
+      g_locus_Xn2_branched = make_locus_branched(+g_ui.a, g_ui.Xn2, tdegStep, g_ui.mounting_Xn2, locus_type_2);
    if (locus_type_3 != "none")
-      g_locus_Xn3 = make_one_locus(+g_ui.a, g_ui.Xn3, tdegStep, g_ui.mounting_Xn3, locus_type_3);
+      //g_locus_Xn3 = make_one_locus(+g_ui.a, g_ui.Xn3, tdegStep, g_ui.mounting_Xn3, locus_type_3);
+      g_locus_Xn3_branched = make_locus_branched(+g_ui.a, g_ui.Xn3, tdegStep, g_ui.mounting_Xn3, locus_type_3);
 }
 
 function create_checkboxes() {
@@ -351,12 +353,12 @@ function draw() {
          g_locus_Xn1_branched, clr_red, locus_type_1,
          check_mounting_Xn1.checked, g_ui.mounting_Xn1);
 
-   draw_billiard_or_mounted(g_ui.Xn2, +g_ui.a, g_tDeg,
-            g_locus_Xn2, clr_green, locus_type_2,
+   draw_billiard_or_mounted_branched(g_ui.Xn2, +g_ui.a, g_tDeg,
+            g_locus_Xn2_branched, clr_green, locus_type_2,
             check_mounting_Xn2.checked, g_ui.mounting_Xn2);
 
-   draw_billiard_or_mounted(g_ui.Xn3, +g_ui.a, g_tDeg,
-               g_locus_Xn3, clr_blue, locus_type_3,
+   draw_billiard_or_mounted_branched(g_ui.Xn3, +g_ui.a, g_tDeg,
+               g_locus_Xn3_branched, clr_blue, locus_type_3,
                check_mounting_Xn3.checked, g_ui.mounting_Xn3);
 
    pop();

@@ -6,15 +6,6 @@ var html = function(xn_number, trilins_selected, tri_selected){
         border-width: 1px;
         border-radius: 5px;
     }
-    .demo_Xn{
-        border-style: solid;
-        border-width: 1px;
-        width: 32px;
-        height: 20px;
-        margin-top: auto;
-        margin-bottom: auto;
-        margin-left: 3px;
-    }
 
     .component.xn_selector{
         display: flex; 
@@ -26,6 +17,15 @@ var html = function(xn_number, trilins_selected, tri_selected){
         flex-direction: row;
         flex-wrap: wrap;
         height: auto;
+    }
+    .demo_Xn{
+        border-style: solid;
+        border-width: 1px;
+        width: 32px;
+        height: 20px;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: 3px;
     }
 
     p{
@@ -68,7 +68,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
     /* The slider itself */
     .slider {
         -webkit-appearance: none;
-        width: 98%;
+        flex-grow: 1;
         height: 5px;
         border-radius: 5px;  
         background: #d3d3d3;
@@ -104,17 +104,16 @@ var html = function(xn_number, trilins_selected, tri_selected){
         cursor: pointer;
     }
 
-    button {
-        display: inline-block;
+    .plus_minus {
         background: none !important;
         border:none;
         height: 100%;
-        width: 50px;
+        width: 30px;
         font-size: 17px;
     }
 
-    button:focus,
-    button:active {
+    .plus_minus:focus,
+    .plus_minus:active {
         outline: none;
     }
 
@@ -133,10 +132,10 @@ var html = function(xn_number, trilins_selected, tri_selected){
     </div>
 
     <div class="input_Xn">
+        <button id="minus_Xn`+xn_number+`" class="plus_minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
         <input type="text" class = "demo_Xn" id="demo_Xn`+xn_number+`" value="1">
-        <button id="minus_Xn`+xn_number+`"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+        <button id="plus_Xn`+xn_number+`" class="plus_minus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
         <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn`+xn_number+`">
-        <button id="plus_Xn`+xn_number+`"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
     </div>
 
     <div class="input_Xn">
