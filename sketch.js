@@ -46,7 +46,7 @@ g_ui = {
    Xn1: 1, Xn1Min: 1, Xn1Max: 200, Xn1Step: 1,
    Xn2: 1, Xn2Min: 1, Xn2Max: 200, Xn2Step: 1,
    Xn3: 1, Xn3Min: 1, Xn3Max: 200, Xn3Step: 1,
-   degStep0: [1, 0.1, 0.05, 0.01],
+   degStep0: 1,//[1, 0.1, 0.05, 0.01],
    animStep0: [0.125, 0.25, 0.5, 1]
 };
 
@@ -122,7 +122,7 @@ function ui_changed(e) {
 
 function selector_output(input_ID, dictionary, dictionary_key, output_ID = "") {
    var selector = document.getElementById(input_ID);
-   dictionary[dictionary_key] = selector.value
+   dictionary[dictionary_key] = selector.value;
    if (output_ID != "") {
       var output = document.getElementById(output_ID);
       output.innerHTML = selector.value;
@@ -134,13 +134,55 @@ function selector_output(input_ID, dictionary, dictionary_key, output_ID = "") {
          ui_changed()
       }
    } else {
-      selector.onchange = function () {
-         dictionary[dictionary_key] = selector.value
-         //console.log(dictionary[dictionary_key])
-         ui_changed()
+         selector.onchange = function () {
+            dictionary[dictionary_key] = selector.value
+            //console.log(dictionary[dictionary_key])
+            ui_changed()
+         }
       }
-   }
 }
+
+function slider_text_changed(sliderId, dictionary, dictionary_key, textId, minus_id, plus_id) {
+   var slider = document.getElementById(sliderId);
+   var text = document.getElementById(textId);
+   var minus = document.getElementById(minus_id);
+   var plus = document.getElementById(plus_id);
+
+   minus.addEventListener("click", function(){
+      if(slider.value > 1){
+         slider.value--;
+         text.value = slider.value;
+      }
+      dictionary[dictionary_key] = slider.value;
+      ui_changed();
+   })
+
+   plus.addEventListener("click", function(){
+      if(slider.value < 200){
+         slider.value++;
+         text.value = slider.value;
+      }
+      dictionary[dictionary_key] = slider.value;
+      ui_changed();
+   })
+
+   slider.addEventListener("input", function () {
+       text.value = this.value;
+       dictionary[dictionary_key] = this.value
+       ui_changed();
+   })
+   text.addEventListener("input", function () {
+       if (isNaN(this.value))
+           this.value = this.value.slice(0, -1);
+       else if (this.value > 200)
+           this.value = "200"
+       else if (this.value < 1)
+           this.value = "1"
+       slider.value = +this.value;
+       dictionary[dictionary_key] = this.value
+       ui_changed()
+   })
+ }
 
 function export_PNG() {
    var export_png_button = document.getElementById('Export_PNG')
@@ -150,7 +192,7 @@ function export_PNG() {
       today.getFullYear().toString() + '_' + double_digit(today.getHours().toString()) +
       double_digit(today.getMinutes().toString()) + double_digit(today.getSeconds().toString());
    export_png_button.addEventListener("click", function () {
-      canvas = document.getElementById('defaultCanvas0')
+      canvas = document.getElementById('defaultCanvas0');
       link = document.getElementById('link');
       link.setAttribute('download', 'tri_app_' + date_time + '.png');
       link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
@@ -239,13 +281,13 @@ function setup() {
 
    //sliders
    //a
-   selector_output("input_a", g_ui, "a", output_ID = "demo_a")
+   selector_output("input_a", g_ui, "a", "demo_a")
    //Xn1
-   selector_output("input_Xn1", g_ui, "Xn1", output_ID = "demo_Xn1")
+   slider_text_changed("input_Xn1", g_ui, "Xn1", "demo_Xn1", "minus_Xn1", "plus_Xn1");
    //Xn2
-   selector_output("input_Xn2", g_ui, "Xn2", output_ID = "demo_Xn2")
+   slider_text_changed("input_Xn2", g_ui, "Xn2", "demo_Xn2", "minus_Xn2", "plus_Xn2");
    //Xn3
-   selector_output("input_Xn3", g_ui, "Xn3", output_ID = "demo_Xn3")
+   slider_text_changed("input_Xn3", g_ui, "Xn3", "demo_Xn3", "minus_Xn3", "plus_Xn3");
 
    //dropbox
    //animStep0
@@ -255,9 +297,6 @@ function setup() {
    selector_output("input_mounting_Xn1", g_ui, "mounting_Xn1", output_ID = "")
    selector_output("input_mounting_Xn2", g_ui, "mounting_Xn2", output_ID = "")
    selector_output("input_mounting_Xn3", g_ui, "mounting_Xn3", output_ID = "")
-
-   //degStep0
-   selector_output("input_degStep0", g_ui, "degStep0", output_ID = "")
 
    export_PNG()
    play_controls()
@@ -303,13 +342,6 @@ function draw() {
    var locus_type_1 = document.getElementById("input_locus_type_1").value
    var locus_type_2 = document.getElementById("input_locus_type_2").value
    var locus_type_3 = document.getElementById("input_locus_type_3").value
-
-   if(locus_type_1 == 'none')
-      check_mounting_Xn1.checked = false;
-   if(locus_type_2 == 'none')
-      check_mounting_Xn2.checked = false;
-   if(locus_type_3 == 'none')
-      check_mounting_Xn3.checked = false;
 
    // function draw_billiard_locus(n,a,tDeg,locus,locus_type,draw_tri,draw_locus) {
    //draw_billiard_or_mounted(g_ui.Xn1, +g_ui.a, g_tDeg,

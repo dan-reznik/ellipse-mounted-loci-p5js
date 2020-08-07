@@ -21,12 +21,11 @@ var html = function(xn_number, trilins_selected, tri_selected){
         flex-direction: column;
     }
 
-    .input_Xn.first{
+    .input_Xn{
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         height: auto;
-        margin-top: 5px;
     }
 
     p{
@@ -46,7 +45,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
 
     #Locus_label{
         height: 25px;
-        text-align: center;
+        text-align: left;
         font-size: 18px;
     }
     
@@ -64,27 +63,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
         vertical-align: middle;
     }
 
-    #sub-check{
-        display: flex;
-        flex-direction: column;
-        font-size: 12px;
-        width: fit-content;
-        margin-top: auto;
-        margin-bottom: auto;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
     /*slider's*/
-    .input_Xn.second{
-        display: flex;
-        flex-direction: row;
-        height: 25px;
-    }
-    .slidecontainer {
-        width: 100%; /* Width of the outside container */
-        height: 85%;
-    }
 
     /* The slider itself */
     .slider {
@@ -125,54 +104,82 @@ var html = function(xn_number, trilins_selected, tri_selected){
         cursor: pointer;
     }
 
+    button {
+        display: inline-block;
+        background: none !important;
+        border:none;
+        height: 100%;
+        width: 50px;
+        font-size: 17px;
+    }
+
+    button:focus,
+    button:active {
+        outline: none;
+    }
+
 </style>
 <div class="component xn_selector">
-  <div class="input_Xn first">
-    <div>
+    <div class="input_Xn">
         <div id='Locus_label'>
-            <!--<input type="checkbox" class="checkbox" id="checkbox_Xn`+xn_number+`" checked=true>-->
-            <label for="checkbox_Xn`+xn_number+`"> Locus `+xn_number+`</label>
+            <label for="checkbox_Xn`+xn_number+`"> Locus `+xn_number+`: </label>
+            <select id="input_locus_type_`+xn_number+`">
+                <option value="none">none</option>
+                <option value="trilins" `+trilins_selected+`>tri ctr</option>
+                <option value="brocard_1">Ω1</option>
+                <option value="brocard_2">Ω2</option>
+            </select>
          </div>
-        <select id="input_mounting_Xn`+xn_number+`" class="input_mounting">
-        <option value="billiard">billiard</option>
-        <option value="major">major</option>
-        <option value="minor">minor</option>
-        <option value="mixed">mixed</option>
-        <option value="ctrMajor">ctrMajor</option>
-        <option value="ctrMinor">ctrMinor</option>
-        <option value="fs">fs</option>
-        <option value="fsCtr">fsCtr</option>
-        <option value="fsLeft">fsLeft</option>
-        <option value="fsRight">fsRight</option>
-        <option value="fsTop">fsTop</option>
-        <option value="cornerTL_BL">cornerTL_BL</option>
-        <option value="cornerTL_TR">cornerTL_TR</option>
-        <option value="cornerTL_vtxL">cornerTL_vtxL</option>
-        <option value="cornerTL_vtxT">cornerTL_vtxT</option>
-        <option value="cornerTL_vtxB">cornerTL_vtxB</option>
-        <option value="cornerTL_ctr">cornerTL_ctr</option>
-        <option value="cornerTL_BR">cornerTL_BR</option>
-        </select>
     </div>
-    <div id="sub-check">
-        <select id="input_locus_type_`+xn_number+`">
-            <option value="none">none</option>
-            <option value="trilins" `+trilins_selected+`>tri ctr</option>
-            <option value="brocard_1">Ω1</option>
-            <option value="brocard_2">Ω2</option>
-        </select>
-      <div class="subcheck_label">
-        <input class = "sub_checkbox" type="checkbox" id="mounting_Xn`+xn_number+`" `+tri_selected+` name="mounting_Xn`+xn_number+`">
-        <label for="mounting_Xn`+xn_number+`"> Draw Tri</label>
-      </div>    
-    </div>
-  </div>
 
-  <div class="input_Xn second">
-    <span class = "demo_Xn" id="demo_Xn`+xn_number+`"></span>
-    <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn`+xn_number+`">
-  </div>
-    <script>show_slider_output_value("input_Xn`+xn_number+`","demo_Xn`+xn_number+`")</script>
+    <div class="input_Xn">
+        <input type="text" class = "demo_Xn" id="demo_Xn`+xn_number+`" value="1">
+        <button id="minus_Xn`+xn_number+`"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+        <input type="range" min="1" max="200" value="1" class="slider" step="1" id="input_Xn`+xn_number+`">
+        <button id="plus_Xn`+xn_number+`"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+    </div>
+
+    <div class="input_Xn">
+        <label for="input_tri`+xn_number+`"> Tri: </label>
+        <select id="input_tri" name="input_tri">
+            <option value="referencia">referencia</option>
+            <option value="medial">medial</option>
+            <option value="anticompl">anticompl</option>
+            <option value="excentral">excentral</option>
+            <option value="ortico">ortico</option>
+            <option value="intouch">intouch</option>
+            <option value="extouch">extouch</option>
+        </select>
+        <div class="subcheck_label">
+            <input class = "sub_checkbox" type="checkbox" id="mounting_Xn`+xn_number+`" `+tri_selected+` name="mounting_Xn`+xn_number+`">
+            <label for="mounting_Xn`+xn_number+`"> Draw</label>
+        </div>
+    </div>
+
+    <div class="input_Xn">
+        <label for="input_mounting_Xn`+xn_number+`"> Mount: </label>
+        <select id="input_mounting_Xn`+xn_number+`" class="input_mounting" name="input_mounting_Xn`+xn_number+`">
+            <option value="billiard">billiard</option>
+            <option value="major">major</option>
+            <option value="minor">minor</option>
+            <option value="mixed">mixed</option>
+            <option value="ctrMajor">ctrMajor</option>
+            <option value="ctrMinor">ctrMinor</option>
+            <option value="fs">fs</option>
+            <option value="fsCtr">fsCtr</option>
+            <option value="fsLeft">fsLeft</option>
+            <option value="fsRight">fsRight</option>
+            <option value="fsTop">fsTop</option>
+            <option value="cornerTL_BL">cornerTL_BL</option>
+            <option value="cornerTL_TR">cornerTL_TR</option>
+            <option value="cornerTL_vtxL">cornerTL_vtxL</option>
+            <option value="cornerTL_vtxT">cornerTL_vtxT</option>
+            <option value="cornerTL_vtxB">cornerTL_vtxB</option>
+            <option value="cornerTL_ctr">cornerTL_ctr</option>
+            <option value="cornerTL_BR">cornerTL_BR</option>
+        </select>
+    </div>
+
 </div>
 `;
 }
