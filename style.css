@@ -9,6 +9,14 @@ body {
 }
 
 /*Grid Item*/
+.config_buttons{
+  grid-area: config;
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+.config_buttons>*{
+  flex-grow: 1;
+}
 .title { grid-area: title; }
 .selector { 
   grid-area: selector;
@@ -29,10 +37,10 @@ body {
   width: 100%;
   padding: 1%;
   grid-gap: 1% 0.5%;
-  grid-template-columns: minmax(105px, 230px) minmax(200px, 95%);
+  grid-template-columns: minmax(170px, 230px) minmax(200px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
-    "title title"
+    "config title"
 		"selector graphic"
     ;
   background-color: lightsteelblue;
@@ -111,12 +119,21 @@ p{
 /*end check box*/
 
 .selector_input{
-  display: flex; 
+  display: flex;
   flex-direction: column;
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
   height: 52px;
+}
+
+#speed_box{
+  display: inline-flex;
+  flex-wrap: wrap;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  height: 33px;
 }
 
 .input_Xn{

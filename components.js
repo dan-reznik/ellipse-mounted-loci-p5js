@@ -174,8 +174,8 @@ var html = function(xn_number, trilins_selected, tri_selected){
     </div>
 
     <div class="input_Xn">
-        <label for="input_tri`+xn_number+`"> Tri: </label>
-        <select id="input_tri`+xn_number+`" name="input_tri">
+        <label for="tri_type_`+xn_number+`"> Tri: </label>
+        <select id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
             <option value="reference">reference</option>
             <option value="medial">medial</option>
             <option value="anticompl">anticompl</option>
@@ -192,7 +192,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
 
     <div class="input_Xn">
         <label for="input_mounting_Xn`+xn_number+`"> Mount: </label>
-        <class="input_mounting">
+        <div class="input_mounting">
             <select id="input_mounting_Xn`+xn_number+`" name="input_mounting_Xn`+xn_number+`">
                 <option value="billiard">billiard</option>
                 <option value="major">major</option>

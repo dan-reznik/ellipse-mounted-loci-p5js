@@ -104,9 +104,9 @@ function create_locus(locus_type_changed) {
    var locus_type_2 = document.getElementById("input_locus_type_2").value;
    var locus_type_3 = document.getElementById("input_locus_type_3").value;
 
-   var tri_type_1 = document.getElementById("input_tri1").value;
-   var tri_type_2 = document.getElementById("input_tri2").value;
-   var tri_type_3 = document.getElementById("input_tri3").value;
+   var tri_type_1 = document.getElementById("tri_type_1").value;
+   var tri_type_2 = document.getElementById("tri_type_2").value;
+   var tri_type_3 = document.getElementById("tri_type_3").value;
    //console.log(tri_type_1,tri_type_2,tri_type_3);
 
    //console.log(locus_type_1)
@@ -312,6 +312,12 @@ function locus_type_onchange() {
    document.getElementById("input_locus_type_3").addEventListener("change", function () { ui_changed("3"); });
 }
 
+function tri_type_onchange(){
+   document.getElementById("tri_type_1").addEventListener("change", function () { ui_changed("1"); });
+   document.getElementById("tri_type_2").addEventListener("change", function () { ui_changed("2"); });
+   document.getElementById("tri_type_3").addEventListener("change", function () { ui_changed("3"); });
+}
+
 function setup() {
    g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
    g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
@@ -363,6 +369,7 @@ function setup() {
    play_controls()
    locus_type_onchange()
    tri_onchange()
+   tri_type_onchange()
 
    ui_changed("1")
 
@@ -404,9 +411,9 @@ function draw() {
    var locus_type_1 = document.getElementById("input_locus_type_1").value
    var locus_type_2 = document.getElementById("input_locus_type_2").value
    var locus_type_3 = document.getElementById("input_locus_type_3").value
-   var tri_type_1 = document.getElementById("input_tri1").value
-   var tri_type_2 = document.getElementById("input_tri2").value
-   var tri_type_3 = document.getElementById("input_tri3").value
+   var tri_type_1 = document.getElementById("tri_type_1").value
+   var tri_type_2 = document.getElementById("tri_type_2").value
+   var tri_type_3 = document.getElementById("tri_type_3").value
 
    // function draw_billiard_locus(n,a,tDeg,locus,locus_type,draw_tri,draw_locus) {
    //draw_billiard_or_mounted(g_ui.Xn1, +g_ui.a, g_tDeg,
