@@ -29,7 +29,7 @@ body {
   width: 100%;
   padding: 1%;
   grid-gap: 1% 0.5%;
-  grid-template-columns: minmax(150px, 210px) minmax(200px, 95%);
+  grid-template-columns: minmax(105px, 230px) minmax(200px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "title title"
