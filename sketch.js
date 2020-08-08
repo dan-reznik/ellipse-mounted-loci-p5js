@@ -74,16 +74,20 @@ function create_locus(locus_type_changed) {
    var locus_type_2 = document.getElementById("input_locus_type_2").value;
    var locus_type_3 = document.getElementById("input_locus_type_3").value;
    //console.log(locus_type_1)
-   if (locus_type_1 != "none" && locus_type_changed == "1") {
+   if (locus_type_1 != "none" && ["1","0"].includes(locus_type_changed)){
+      //console.log(locus_type_changed)
       //g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep, "mounting_Xn1", locus_type_1);
       g_locus_Xn1_branched = make_locus_branched(+g_ui.a, g_ui.Xn1, tdegStep, g_ui.mounting_Xn1, locus_type_1);
    }
-   if (locus_type_2 != "none" && locus_type_changed == "2")
+   if (locus_type_2 != "none" && ["2","0"].includes(locus_type_changed)){
+      console.log(locus_type_changed)
       //g_locus_Xn2 = make_one_locus(+g_ui.a, g_ui.Xn2, tdegStep, g_ui.mounting_Xn2, locus_type_2);
       g_locus_Xn2_branched = make_locus_branched(+g_ui.a, g_ui.Xn2, tdegStep, g_ui.mounting_Xn2, locus_type_2);
-   if (locus_type_3 != "none" && locus_type_changed == "3")
+   }
+   if (locus_type_3 != "none" && ["3","0"].includes(locus_type_changed)){
       //g_locus_Xn3 = make_one_locus(+g_ui.a, g_ui.Xn3, tdegStep, g_ui.mounting_Xn3, locus_type_3);
       g_locus_Xn3_branched = make_locus_branched(+g_ui.a, g_ui.Xn3, tdegStep, g_ui.mounting_Xn3, locus_type_3);
+   }
 }
 
 function create_checkboxes() {
@@ -116,13 +120,12 @@ function windowResized() {
 }
 
 function ui_changed(locus_type_changed, e) {
-   //console.log(g_ui.a);
    create_locus(locus_type_changed);
    redraw();
    //log.textContent = e.target.value;
 }
 
-function selector_output(input_ID, dictionary, dictionary_key, output_ID = "", locus_number) {
+function selector_output(input_ID, dictionary, dictionary_key, output_ID = "", locus_number="0") {
    var selector = document.getElementById(input_ID);
    dictionary[dictionary_key] = selector.value;
    if (output_ID != "") {
@@ -251,6 +254,22 @@ function play_controls() {
    });
 }
 
+function tri_onchange(){
+   var tri_check_1 = document.getElementById('mounting_Xn1')
+   var tri_check_2 = document.getElementById('mounting_Xn2')
+   var tri_check_3 = document.getElementById('mounting_Xn3')
+
+   tri_check_1.addEventListener("click", function(){
+      redraw("1");
+   })
+   tri_check_2.addEventListener("click", function(){
+      redraw("2");
+   })
+   tri_check_3.addEventListener("click", function(){
+      redraw("3");
+   })
+}
+
 function locus_type_onchange() {
    document.getElementById("input_locus_type_1").addEventListener("change", function () { ui_changed("1"); });
    document.getElementById("input_locus_type_2").addEventListener("change", function () { ui_changed("2"); });
@@ -307,8 +326,9 @@ function setup() {
    export_PNG()
    play_controls()
    locus_type_onchange()
+   tri_onchange()
 
-   ui_changed(1)
+   ui_changed("1")
 
    //Create a new GUI with a label
    /*let gui = createGui('Please Select');

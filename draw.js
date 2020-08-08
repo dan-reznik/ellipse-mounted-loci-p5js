@@ -230,9 +230,9 @@ function draw_orbit(ons, clr, dr_sidelengths = true, dr_dashed = false) {
   push();
   // should be draw_tri_filled for obtuse
   if (dr_dashed)
-  draw_tri_dashed(ons.o, clr);
+    draw_tri_dashed(ons.o, clr);
   else
-  draw_tri(ons.o, clr)
+    draw_tri(ons.o, clr)
   for (let i = 0; i < 3; i++) {
     draw_normal(ons.o[i], ons.n[i], lgt);
     draw_point(ons.o[i], i == 0 ? clr_black : clr);
