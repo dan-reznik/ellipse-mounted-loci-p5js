@@ -225,7 +225,7 @@ function draw_billiard(a) {
   //draw_center();
 }
 
-function draw_orbit(ons, clr, dr_sidelengths = true, dr_dashed = false) {
+function draw_orbit(ons, clr, dr_sidelengths = true, dr_dashed = false, dr_normals = true) {
   const lgt = 0.2;
   push();
   // should be draw_tri_filled for obtuse
@@ -234,7 +234,7 @@ function draw_orbit(ons, clr, dr_sidelengths = true, dr_dashed = false) {
   else
     draw_tri(ons.o, clr)
   for (let i = 0; i < 3; i++) {
-    draw_normal(ons.o[i], ons.n[i], lgt);
+    if (dr_normals) draw_normal(ons.o[i], ons.n[i], lgt);
     draw_point(ons.o[i], i == 0 ? clr_black : clr);
     if (dr_sidelengths) {
       let midpoint = vavg(ons.o[i], ons.o[(i + 1) % 3]);

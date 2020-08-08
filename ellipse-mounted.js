@@ -30,10 +30,12 @@ function getV1V2(a, mounting, eps) {
 //   -2, getSecondBrocardTrilin[tri, sides],
 //   _, getNewCenters[tri, sides, {Xn}][[1, 3]]];
 
-function get_Xn_mounted(a, tDeg, v1, v2, trilin_fn) {
+function get_Xn_mounted(a, tDeg, v1, v2, trilin_fn, tri_type) {
     let t = toRad(tDeg);
     let v3 = [a*Math.cos(t),Math.sin(t)];
     let tri = [v1,v2,v3];
-    let xn = get_Xn_low(tri, tri_sides(tri), trilin_fn);
+    let sides = tri_sides(tri);
+    let ons_derived = get_derived_tri(tri,sides,tri_type);
+    let xn = get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
     return [v3,xn];
 }

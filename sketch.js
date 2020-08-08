@@ -63,30 +63,66 @@ function get_fn_any(locus_type, n) {
    }
 }
 
-function get_Xn_orbit(a, tDeg, trilin_fn) {
+function get_derived_tri(orbit,sides,tri_type) {
+   var tri;
+   switch(tri_type){
+      case "excentral":
+         tri = excentral_triangle(orbit,sides);
+         break;
+      case "anticompl":
+         tri = anticompl_triangle(orbit,sides);
+         break;
+      case "orthic":
+         tri = orthic_triangle(orbit,sides);
+         break;
+      case "intouch":
+         tri = intouch_triangle(orbit,sides);
+         break;
+      case "extouch":
+         tri = extouch_triangle(orbit,sides);
+         break;
+         // reference 
+      case "medial":
+         tri = medial_triangle(orbit,sides);
+         break;
+         // reference 
+      default: return {o:orbit,s:sides};
+   }
+   return {o:tri,s:tri_sides(tri)};
+}
+
+function get_Xn_orbit(a, tDeg, trilin_fn, tri_type) {
    let ons = orbit_normals(a, tDeg);
-   return get_Xn_low(ons.o, ons.s, trilin_fn);
+   let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
+   return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
 }
 
 function create_locus(locus_type_changed) {
    let tdegStep = +g_ui.degStep0;
+   let a = +g_ui.a;
    var locus_type_1 = document.getElementById("input_locus_type_1").value;
    var locus_type_2 = document.getElementById("input_locus_type_2").value;
    var locus_type_3 = document.getElementById("input_locus_type_3").value;
+
+   var tri_type_1 = document.getElementById("input_tri1").value;
+   var tri_type_2 = document.getElementById("input_tri2").value;
+   var tri_type_3 = document.getElementById("input_tri3").value;
+   //console.log(tri_type_1,tri_type_2,tri_type_3);
+
    //console.log(locus_type_1)
-   if (locus_type_1 != "none" && ["1","0"].includes(locus_type_changed)){
-      //console.log(locus_type_changed)
-      //g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep, "mounting_Xn1", locus_type_1);
-      g_locus_Xn1_branched = make_locus_branched(+g_ui.a, g_ui.Xn1, tdegStep, g_ui.mounting_Xn1, locus_type_1);
+   if (locus_type_1 != "none" && ["1", "0"].includes(locus_type_changed)) {
+
+      g_locus_Xn1_branched = make_locus_branched(a, g_ui.Xn1, tdegStep,
+         g_ui.mounting_Xn1, locus_type_1, tri_type_1);
    }
-   if (locus_type_2 != "none" && ["2","0"].includes(locus_type_changed)){
-      console.log(locus_type_changed)
-      //g_locus_Xn2 = make_one_locus(+g_ui.a, g_ui.Xn2, tdegStep, g_ui.mounting_Xn2, locus_type_2);
-      g_locus_Xn2_branched = make_locus_branched(+g_ui.a, g_ui.Xn2, tdegStep, g_ui.mounting_Xn2, locus_type_2);
+   if (locus_type_2 != "none" && ["2", "0"].includes(locus_type_changed)) {
+
+      g_locus_Xn2_branched = make_locus_branched(a, g_ui.Xn2, tdegStep,
+         g_ui.mounting_Xn2, locus_type_2, tri_type_2);
    }
-   if (locus_type_3 != "none" && ["3","0"].includes(locus_type_changed)){
-      //g_locus_Xn3 = make_one_locus(+g_ui.a, g_ui.Xn3, tdegStep, g_ui.mounting_Xn3, locus_type_3);
-      g_locus_Xn3_branched = make_locus_branched(+g_ui.a, g_ui.Xn3, tdegStep, g_ui.mounting_Xn3, locus_type_3);
+   if (locus_type_3 != "none" && ["3", "0"].includes(locus_type_changed)) {
+      g_locus_Xn3_branched = make_locus_branched(a, g_ui.Xn3, tdegStep,
+         g_ui.mounting_Xn3, locus_type_3, tri_type_3);
    }
 }
 
@@ -119,7 +155,7 @@ function windowResized() {
    resizeCanvas(g_width, g_height);
 }
 
-function ui_changed(locus_type_changed, e) {
+function ui_changed(locus_type_changed) {
    create_locus(locus_type_changed);
    redraw();
    //log.textContent = e.target.value;
@@ -368,6 +404,9 @@ function draw() {
    var locus_type_1 = document.getElementById("input_locus_type_1").value
    var locus_type_2 = document.getElementById("input_locus_type_2").value
    var locus_type_3 = document.getElementById("input_locus_type_3").value
+   var tri_type_1 = document.getElementById("input_tri1").value
+   var tri_type_2 = document.getElementById("input_tri2").value
+   var tri_type_3 = document.getElementById("input_tri3").value
 
    // function draw_billiard_locus(n,a,tDeg,locus,locus_type,draw_tri,draw_locus) {
    //draw_billiard_or_mounted(g_ui.Xn1, +g_ui.a, g_tDeg,
@@ -375,15 +414,15 @@ function draw() {
    //      check_mounting_Xn1.checked, g_ui.mounting_Xn1);
    draw_billiard_or_mounted_branched(g_ui.Xn1, +g_ui.a, g_tDeg,
       g_locus_Xn1_branched, clr_red, locus_type_1,
-      check_mounting_Xn1.checked, g_ui.mounting_Xn1);
+      check_mounting_Xn1.checked, g_ui.mounting_Xn1, tri_type_1);
 
    draw_billiard_or_mounted_branched(g_ui.Xn2, +g_ui.a, g_tDeg,
       g_locus_Xn2_branched, clr_green, locus_type_2,
-      check_mounting_Xn2.checked, g_ui.mounting_Xn2);
+      check_mounting_Xn2.checked, g_ui.mounting_Xn2, tri_type_2);
 
    draw_billiard_or_mounted_branched(g_ui.Xn3, +g_ui.a, g_tDeg,
       g_locus_Xn3_branched, clr_blue, locus_type_3,
-      check_mounting_Xn3.checked, g_ui.mounting_Xn3);
+      check_mounting_Xn3.checked, g_ui.mounting_Xn3, tri_type_3);
 
    pop();
 
