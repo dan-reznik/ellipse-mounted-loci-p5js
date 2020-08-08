@@ -175,7 +175,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
 
     <div class="input_Xn">
         <label for="input_tri`+xn_number+`"> Tri: </label>
-        <select id="input_tri" name="input_tri">
+        <select id="input_tri`+xn_number+`" name="input_tri">
             <option value="reference">reference</option>
             <option value="medial">medial</option>
             <option value="anticompl">anticompl</option>
