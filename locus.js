@@ -101,7 +101,7 @@ function draw_mounted_locus(n, a, tDeg, locus, clr, locus_type, dr_tri,
           }
        }
     }
-    console.log(locus_Xn.length)
+    //console.log(locus_Xn.length)
     return locus_Xn;
  }
 
@@ -169,6 +169,6 @@ function make_locus_branched(a, n, tDegStep, mounting, locus_type) {
         locus_array = create_locus_branches(a, tDegStep, 360, trilin_fn,
             (a0, tDeg0, trilin_fn0) => { let [v3,xn] = get_Xn_mounted(a0, tDeg0, v1, v2, trilin_fn0); return xn; });
     }
-    console.log(locus_array.length, locus_array.map(l => l.length));
+    //console.log(locus_array.length, locus_array.map(l => l.length));
     return locus_array;
 }

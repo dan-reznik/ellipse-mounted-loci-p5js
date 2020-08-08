@@ -68,20 +68,20 @@ function get_Xn_orbit(a, tDeg, trilin_fn) {
    return get_Xn_low(ons.o, ons.s, trilin_fn);
 }
 
-function create_locus() {
+function create_locus(locus_type_changed) {
    let tdegStep = +g_ui.degStep0;
    var locus_type_1 = document.getElementById("input_locus_type_1").value;
    var locus_type_2 = document.getElementById("input_locus_type_2").value;
    var locus_type_3 = document.getElementById("input_locus_type_3").value;
    //console.log(locus_type_1)
-   if (locus_type_1 != "none") {
+   if (locus_type_1 != "none" && locus_type_changed=="1") {
       //g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep, "mounting_Xn1", locus_type_1);
       g_locus_Xn1_branched = make_locus_branched(+g_ui.a, g_ui.Xn1, tdegStep, g_ui.mounting_Xn1, locus_type_1);
    }
-   if (locus_type_2 != "none")
+   if (locus_type_2 != "none" && locus_type_changed=="2")
       //g_locus_Xn2 = make_one_locus(+g_ui.a, g_ui.Xn2, tdegStep, g_ui.mounting_Xn2, locus_type_2);
       g_locus_Xn2_branched = make_locus_branched(+g_ui.a, g_ui.Xn2, tdegStep, g_ui.mounting_Xn2, locus_type_2);
-   if (locus_type_3 != "none")
+   if (locus_type_3 != "none" && locus_type_changed=="3")
       //g_locus_Xn3 = make_one_locus(+g_ui.a, g_ui.Xn3, tdegStep, g_ui.mounting_Xn3, locus_type_3);
       g_locus_Xn3_branched = make_locus_branched(+g_ui.a, g_ui.Xn3, tdegStep, g_ui.mounting_Xn3, locus_type_3);
 }
@@ -115,14 +115,14 @@ function windowResized() {
    resizeCanvas(g_width, g_height);
 }
 
-function ui_changed(e) {
+function ui_changed(locus_type_changed,e) {
    //console.log(g_ui.a);
-   create_locus();
+   create_locus(locus_type_changed);
    redraw();
    //log.textContent = e.target.value;
 }
 
-function selector_output(input_ID, dictionary, dictionary_key, output_ID = "") {
+function selector_output(input_ID, dictionary, dictionary_key, output_ID = "", locus_number) {
    var selector = document.getElementById(input_ID);
    dictionary[dictionary_key] = selector.value;
    if (output_ID != "") {
@@ -133,18 +133,18 @@ function selector_output(input_ID, dictionary, dictionary_key, output_ID = "") {
          dictionary[dictionary_key] = selector.value
          //console.log(selector)
          //console.log(input_ID)
-         ui_changed()
+         ui_changed(locus_number)
       }
    } else {
          selector.onchange = function () {
             dictionary[dictionary_key] = selector.value
             //console.log(dictionary[dictionary_key])
-            ui_changed()
+            ui_changed(locus_number)
          }
       }
 }
 
-function slider_text_changed(sliderId, dictionary, dictionary_key, textId, minus_id, plus_id) {
+function slider_text_changed(sliderId, dictionary, dictionary_key, textId, minus_id, plus_id, locus_number) {
    var slider = document.getElementById(sliderId);
    var text = document.getElementById(textId);
    var minus = document.getElementById(minus_id);
@@ -156,7 +156,7 @@ function slider_text_changed(sliderId, dictionary, dictionary_key, textId, minus
          text.value = slider.value;
       }
       dictionary[dictionary_key] = slider.value;
-      ui_changed();
+      ui_changed(locus_number);
    })
 
    plus.addEventListener("click", function(){
@@ -165,13 +165,13 @@ function slider_text_changed(sliderId, dictionary, dictionary_key, textId, minus
          text.value = slider.value;
       }
       dictionary[dictionary_key] = slider.value;
-      ui_changed();
+      ui_changed(locus_number);
    })
 
    slider.addEventListener("input", function () {
        text.value = this.value;
        dictionary[dictionary_key] = this.value
-       ui_changed();
+       ui_changed(locus_number);
    })
    text.addEventListener("input", function () {
        if (isNaN(this.value))
@@ -182,7 +182,7 @@ function slider_text_changed(sliderId, dictionary, dictionary_key, textId, minus
            this.value = "1"
        slider.value = +this.value;
        dictionary[dictionary_key] = this.value
-       ui_changed()
+       ui_changed(locus_number);
    })
  }
 
@@ -194,10 +194,14 @@ function export_PNG() {
       today.getFullYear().toString() + '_' + double_digit(today.getHours().toString()) +
       double_digit(today.getMinutes().toString()) + double_digit(today.getSeconds().toString());
    export_png_button.addEventListener("click", function () {
-      canvas = document.getElementById('defaultCanvas0');
+      //canvas = document.getElementById('defaultCanvas0');
+      element = document.getElementById('defaultCanvas0');
       link = document.getElementById('link');
       link.setAttribute('download', 'tri_app_' + date_time + '.png');
-      link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+
+      html2canvas(element).then(function(canvas){
+         link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+      })
       link.click();
    });
 }
@@ -248,9 +252,9 @@ function play_controls() {
 }
 
 function locus_type_onchange() {
-   document.getElementById("input_locus_type_1").addEventListener("change", function () { ui_changed(); });
-   document.getElementById("input_locus_type_2").addEventListener("change", function () { ui_changed(); });
-   document.getElementById("input_locus_type_3").addEventListener("change", function () { ui_changed(); });
+   document.getElementById("input_locus_type_1").addEventListener("change", function () { ui_changed("1"); });
+   document.getElementById("input_locus_type_2").addEventListener("change", function () { ui_changed("2"); });
+   document.getElementById("input_locus_type_3").addEventListener("change", function () { ui_changed("3"); });
 }
 
 function setup() {
@@ -285,20 +289,20 @@ function setup() {
    //a
    selector_output("input_a", g_ui, "a", "demo_a")
    //Xn1
-   slider_text_changed("input_Xn1", g_ui, "Xn1", "demo_Xn1", "minus_Xn1", "plus_Xn1");
+   slider_text_changed("input_Xn1", g_ui, "Xn1", "demo_Xn1", "minus_Xn1", "plus_Xn1", "1");
    //Xn2
-   slider_text_changed("input_Xn2", g_ui, "Xn2", "demo_Xn2", "minus_Xn2", "plus_Xn2");
+   slider_text_changed("input_Xn2", g_ui, "Xn2", "demo_Xn2", "minus_Xn2", "plus_Xn2", "2");
    //Xn3
-   slider_text_changed("input_Xn3", g_ui, "Xn3", "demo_Xn3", "minus_Xn3", "plus_Xn3");
+   slider_text_changed("input_Xn3", g_ui, "Xn3", "demo_Xn3", "minus_Xn3", "plus_Xn3", "3");
 
    //dropbox
    //animStep0
    selector_output("input_animStep0", g_ui, "animStep0", output_ID = "")
 
    //mounting
-   selector_output("input_mounting_Xn1", g_ui, "mounting_Xn1", output_ID = "")
-   selector_output("input_mounting_Xn2", g_ui, "mounting_Xn2", output_ID = "")
-   selector_output("input_mounting_Xn3", g_ui, "mounting_Xn3", output_ID = "")
+   selector_output("input_mounting_Xn1", g_ui, "mounting_Xn1", output_ID = "", "1")
+   selector_output("input_mounting_Xn2", g_ui, "mounting_Xn2", output_ID = "", "2")
+   selector_output("input_mounting_Xn3", g_ui, "mounting_Xn3", output_ID = "", "3")
 
    export_PNG()
    play_controls()
