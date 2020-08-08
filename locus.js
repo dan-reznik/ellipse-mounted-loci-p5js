@@ -118,39 +118,44 @@ function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
     let xn_next;
     let xn;
     let tDeg = eps;
-    // seek first finite xn
+      // seek first finite xn
     do {
         xn = xn_fn(a, tDeg, trilin_fn);
         tDeg += tDegStepMax;
-    } while (magn(xn) > r_max);
-    locus_Xn = [xn];
-    locus_array.push(locus_Xn);
-    // repositions tDeg at the next location
-    tDeg += tDegStep - tDegStepMax;
-    while (tDeg < tDegMax) {
-        xn_next = xn_fn(a, tDeg, trilin_fn);
-        // should I start a new branch?
-        if (magn(xn_next) > r_max) {
-            // seek next finite xn_next
-            do {
-                xn = xn_fn(a, tDeg, trilin_fn);
-                tDeg += tDegStepMax;
-            } while (magn(xn) > r_max);
-            // creates new branch
-            locus_Xn = [xn];
-            locus_array.push(locus_Xn);
-            tDeg += tDegStep - tDegStepMax;
-        } else {
-            if (tDegStep < tDegStepMax && edist(xn, xn_next) < d_min) {
-                tDegStep *= 2;
-                tDeg += tDegStep;
-            } else if (tDegStep > tDegStepMin && edist(xn, xn_next) > d_max) {
-                tDegStep *= .5;
-                tDeg -= tDegStep;
+    } while (tDeg<tDegMax && magn(xn) > r_max); // interrupt loop if cannot find valid
+    if (tDeg > tDegMax) {
+        locus_Xn = [[0, 0]];
+        locus_array.push(loxus_Xn);
+    } else {
+        locus_Xn = [xn];
+        locus_array.push(locus_Xn);
+        // repositions tDeg at the next location
+        tDeg += tDegStep - tDegStepMax;
+        while (tDeg < tDegMax) {
+            xn_next = xn_fn(a, tDeg, trilin_fn);
+            // should I start a new branch?
+            if (magn(xn_next) > r_max) {
+                // seek next finite xn_next
+                do {
+                    xn = xn_fn(a, tDeg, trilin_fn);
+                    tDeg += tDegStepMax;
+                } while (tDeg<tDegMax && magn(xn) > r_max);
+                // creates new branch
+                locus_Xn = [xn];
+                locus_array.push(locus_Xn);
+                tDeg += tDegStep - tDegStepMax;
             } else {
-                xn = xn_next;
-                locus_Xn.push(xn);
-                tDeg += tDegStep;
+                if (tDegStep < tDegStepMax && edist(xn, xn_next) < d_min) {
+                    tDegStep *= 2;
+                    tDeg += tDegStep;
+                } else if (tDegStep > tDegStepMin && edist(xn, xn_next) > d_max) {
+                    tDegStep *= .5;
+                    tDeg -= tDegStep;
+                } else {
+                    xn = xn_next;
+                    locus_Xn.push(xn);
+                    tDeg += tDegStep;
+                }
             }
         }
     }
