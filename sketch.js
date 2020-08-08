@@ -74,14 +74,14 @@ function create_locus(locus_type_changed) {
    var locus_type_2 = document.getElementById("input_locus_type_2").value;
    var locus_type_3 = document.getElementById("input_locus_type_3").value;
    //console.log(locus_type_1)
-   if (locus_type_1 != "none" && locus_type_changed=="1") {
+   if (locus_type_1 != "none" && locus_type_changed == "1") {
       //g_locus_Xn1 = make_one_locus(g_ui.Xn1, tdegStep, "mounting_Xn1", locus_type_1);
       g_locus_Xn1_branched = make_locus_branched(+g_ui.a, g_ui.Xn1, tdegStep, g_ui.mounting_Xn1, locus_type_1);
    }
-   if (locus_type_2 != "none" && locus_type_changed=="2")
+   if (locus_type_2 != "none" && locus_type_changed == "2")
       //g_locus_Xn2 = make_one_locus(+g_ui.a, g_ui.Xn2, tdegStep, g_ui.mounting_Xn2, locus_type_2);
       g_locus_Xn2_branched = make_locus_branched(+g_ui.a, g_ui.Xn2, tdegStep, g_ui.mounting_Xn2, locus_type_2);
-   if (locus_type_3 != "none" && locus_type_changed=="3")
+   if (locus_type_3 != "none" && locus_type_changed == "3")
       //g_locus_Xn3 = make_one_locus(+g_ui.a, g_ui.Xn3, tdegStep, g_ui.mounting_Xn3, locus_type_3);
       g_locus_Xn3_branched = make_locus_branched(+g_ui.a, g_ui.Xn3, tdegStep, g_ui.mounting_Xn3, locus_type_3);
 }
@@ -115,7 +115,7 @@ function windowResized() {
    resizeCanvas(g_width, g_height);
 }
 
-function ui_changed(locus_type_changed,e) {
+function ui_changed(locus_type_changed, e) {
    //console.log(g_ui.a);
    create_locus(locus_type_changed);
    redraw();
@@ -136,12 +136,12 @@ function selector_output(input_ID, dictionary, dictionary_key, output_ID = "", l
          ui_changed(locus_number)
       }
    } else {
-         selector.onchange = function () {
-            dictionary[dictionary_key] = selector.value
-            //console.log(dictionary[dictionary_key])
-            ui_changed(locus_number)
-         }
+      selector.onchange = function () {
+         dictionary[dictionary_key] = selector.value
+         //console.log(dictionary[dictionary_key])
+         ui_changed(locus_number)
       }
+   }
 }
 
 function slider_text_changed(sliderId, dictionary, dictionary_key, textId, minus_id, plus_id, locus_number) {
@@ -150,8 +150,8 @@ function slider_text_changed(sliderId, dictionary, dictionary_key, textId, minus
    var minus = document.getElementById(minus_id);
    var plus = document.getElementById(plus_id);
 
-   minus.addEventListener("click", function(){
-      if(slider.value > 1){
+   minus.addEventListener("click", function () {
+      if (slider.value > 1) {
          slider.value--;
          text.value = slider.value;
       }
@@ -159,8 +159,8 @@ function slider_text_changed(sliderId, dictionary, dictionary_key, textId, minus
       ui_changed(locus_number);
    })
 
-   plus.addEventListener("click", function(){
-      if(slider.value < 200){
+   plus.addEventListener("click", function () {
+      if (slider.value < 200) {
          slider.value++;
          text.value = slider.value;
       }
@@ -169,22 +169,22 @@ function slider_text_changed(sliderId, dictionary, dictionary_key, textId, minus
    })
 
    slider.addEventListener("input", function () {
-       text.value = this.value;
-       dictionary[dictionary_key] = this.value
-       ui_changed(locus_number);
+      text.value = this.value;
+      dictionary[dictionary_key] = this.value
+      ui_changed(locus_number);
    })
    text.addEventListener("input", function () {
-       if (isNaN(this.value))
-           this.value = this.value.slice(0, -1);
-       else if (this.value > 200)
-           this.value = "200"
-       else if (this.value < 1)
-           this.value = "1"
-       slider.value = +this.value;
-       dictionary[dictionary_key] = this.value
-       ui_changed(locus_number);
+      if (isNaN(this.value))
+         this.value = this.value.slice(0, -1);
+      else if (this.value > 200)
+         this.value = "200"
+      else if (this.value < 1)
+         this.value = "1"
+      slider.value = +this.value;
+      dictionary[dictionary_key] = this.value
+      ui_changed(locus_number);
    })
- }
+}
 
 function export_PNG() {
    var export_png_button = document.getElementById('Export_PNG')
@@ -195,11 +195,11 @@ function export_PNG() {
       double_digit(today.getMinutes().toString()) + double_digit(today.getSeconds().toString());
    export_png_button.addEventListener("click", function () {
       //canvas = document.getElementById('defaultCanvas0');
-      element = document.getElementById('defaultCanvas0');
+      element = document.body;
       link = document.getElementById('link');
       link.setAttribute('download', 'tri_app_' + date_time + '.png');
 
-      html2canvas(element).then(function(canvas){
+      html2canvas(element, {allowTaint: true}).then(function (canvas) {
          link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
       })
       link.click();
@@ -231,18 +231,18 @@ function play_controls() {
       }
    });
 
-   backward_button.addEventListener("click", function () { 
-      g_loop_ccw = false; 
-      if(play_button.isPlaying = true){
+   backward_button.addEventListener("click", function () {
+      g_loop_ccw = false;
+      if (play_button.isPlaying = true) {
          play_button.isPlaying = true;
          play_button.className = stop_class;
          loop();
          g_loop = true;
       }
    });
-   forward_button.addEventListener("click", function () { 
+   forward_button.addEventListener("click", function () {
       g_loop_ccw = true;
-      if(play_button.isPlaying = true){
+      if (play_button.isPlaying = true) {
          play_button.isPlaying = true;
          play_button.className = stop_class;
          loop();
@@ -354,16 +354,16 @@ function draw() {
    //      g_locus_Xn1, clr_red, locus_type_1,
    //      check_mounting_Xn1.checked, g_ui.mounting_Xn1);
    draw_billiard_or_mounted_branched(g_ui.Xn1, +g_ui.a, g_tDeg,
-         g_locus_Xn1_branched, clr_red, locus_type_1,
-         check_mounting_Xn1.checked, g_ui.mounting_Xn1);
+      g_locus_Xn1_branched, clr_red, locus_type_1,
+      check_mounting_Xn1.checked, g_ui.mounting_Xn1);
 
    draw_billiard_or_mounted_branched(g_ui.Xn2, +g_ui.a, g_tDeg,
-            g_locus_Xn2_branched, clr_green, locus_type_2,
-            check_mounting_Xn2.checked, g_ui.mounting_Xn2);
+      g_locus_Xn2_branched, clr_green, locus_type_2,
+      check_mounting_Xn2.checked, g_ui.mounting_Xn2);
 
    draw_billiard_or_mounted_branched(g_ui.Xn3, +g_ui.a, g_tDeg,
-               g_locus_Xn3_branched, clr_blue, locus_type_3,
-               check_mounting_Xn3.checked, g_ui.mounting_Xn3);
+      g_locus_Xn3_branched, clr_blue, locus_type_3,
+      check_mounting_Xn3.checked, g_ui.mounting_Xn3);
 
    pop();
 
