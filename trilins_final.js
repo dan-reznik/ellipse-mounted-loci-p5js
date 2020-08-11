@@ -1918,26 +1918,20 @@ function trilin_X122(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let sinC=getSin(cosC);
-   let cos2C=cosDoubleAngle(cosC);
-   let sin2C=sinDoubleAngle(sinC,cosC);
    let cosB=lawOfCosines(b,a,c);
    let sinB=getSin(cosB);
-   let cos2B=cosDoubleAngle(cosB);
-   let sin2B=sinDoubleAngle(sinB,cosB);
    let cosA=lawOfCosines(a,b,c);
    let sinA=getSin(cosA);
-   let cos2A=cosDoubleAngle(cosA);
-   let sin2A=sinDoubleAngle(sinA,cosA);
-   let tan2C=sin2C/cos2C;
-   let tan2B=sin2B/cos2B;
+   let tanC=sinC/cosC;
+   let tanB=sinB/cosB;
    let a2=a*a;
-   let tan2A=sin2A/cos2A;
+   let tanA=sinA/cosA;
    let c2=c*c;
    let b2=b*b;
    /* end vars */
-   let v1 = ((b2-c2)*(b2-c2)*(cosA-cosB*cosC))/tan2A;
-   let v2 = ((-a2+c2)*(-a2+c2)*(cosB-cosA*cosC))/tan2B;
-   let v3 = ((a2-b2)*(a2-b2)*(-(cosA*cosB)+cosC))/tan2C;
+   let v1 = ((b2-c2)*(b2-c2)*(cosA-cosB*cosC))/(tanA*tanA);
+   let v2 = ((-a2+c2)*(-a2+c2)*(cosB-cosA*cosC))/(tanB*tanB);
+   let v3 = ((a2-b2)*(a2-b2)*(-(cosA*cosB)+cosC))/(tanC*tanC);
    let tris = [v1,v2,v3];
    return trilin_to_cartesian(orbit, [a, b, c], tris);
 }
