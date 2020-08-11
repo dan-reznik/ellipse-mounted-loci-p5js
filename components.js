@@ -195,6 +195,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
         <div class="input_mounting">
             <select id="input_mounting_Xn`+xn_number+`" name="input_mounting_Xn`+xn_number+`">
                 <option value="billiard">billiard</option>
+                <option value="homothetic">homothetic</option>
                 <option value="major">major</option>
                 <option value="minor">minor</option>
                 <option value="mixed">mixed</option>
