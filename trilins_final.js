@@ -22,11 +22,6 @@ function get_fn_trilin(n) {
   return window[fn_name];
 }
 
-function get_brocard(n) {
-   let brocard_name = sprintf("trilin_brocard%d",n);
-   return window[brocard_name];
-}
-
 function get_Xn(orbit, sides, n) {
   return get_Xn_low(orbit, sides, get_fn_trilin(n));
 }
@@ -46,6 +41,8 @@ function triAreaHeron(a, b, c) {
 function lawOfCosines(a, b, c) { return (b*b+c*c-a*a)/(2.0*b*c); }
 
 function getSin(theCos) { return sqrt(1.0 - theCos*theCos); }
+
+function sinDoubleAngle(sinAngle,cosAngle) { return 2*sinAngle*cosAngle; }
 
 function cosDoubleAngle(cosAngle) { return 2*cosAngle*cosAngle - 1.0; }
 function cosHalfAngle(cosAngle) { return sqrt((1.0+cosAngle)/2); }
@@ -778,17 +775,17 @@ function trilin_X48(orbit, [a, b, c]) {
 function trilin_X49(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
-   let cos2C=cosDoubleAngle(cosC);
-   let sin2C=getSin(cos2C);
    let sinC=getSin(cosC);
+   let cos2C=cosDoubleAngle(cosC);
+   let sin2C=sinDoubleAngle(sinC,cosC);
    let cosB=lawOfCosines(b,a,c);
-   let cos2B=cosDoubleAngle(cosB);
-   let sin2B=getSin(cos2B);
    let sinB=getSin(cosB);
+   let cos2B=cosDoubleAngle(cosB);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
-   let sin2A=getSin(cos2A);
    let sinA=getSin(cosA);
+   let cos2A=cosDoubleAngle(cosA);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let cos3C=cosTripleAngle(sinC,cosC,sin2C,cos2C);
    let cos3B=cosTripleAngle(sinB,cosB,sin2B,cos2B);
    let cos3A=cosTripleAngle(sinA,cosA,sin2A,cos2A);
@@ -803,17 +800,17 @@ function trilin_X49(orbit, [a, b, c]) {
 function trilin_X50(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
-   let cos2C=cosDoubleAngle(cosC);
-   let sin2C=getSin(cos2C);
    let sinC=getSin(cosC);
+   let cos2C=cosDoubleAngle(cosC);
+   let sin2C=sinDoubleAngle(sinC,cosC);
    let cosB=lawOfCosines(b,a,c);
-   let cos2B=cosDoubleAngle(cosB);
-   let sin2B=getSin(cos2B);
    let sinB=getSin(cosB);
+   let cos2B=cosDoubleAngle(cosB);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
-   let sin2A=getSin(cos2A);
    let sinA=getSin(cosA);
+   let cos2A=cosDoubleAngle(cosA);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let sin3C=sinTripleAngle(sinC,cosC,sin2C,cos2C);
    let sin3B=sinTripleAngle(sinB,cosB,sin2B,cos2B);
    let sin3A=sinTripleAngle(sinA,cosA,sin2A,cos2A);
@@ -1427,14 +1424,14 @@ function trilin_X91(orbit, [a, b, c]) {
 function trilin_X92(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
-   let cos2C=cosDoubleAngle(cosC);
-   let sin2C=getSin(cos2C);
+   let sinC=getSin(cosC);
+   let sin2C=sinDoubleAngle(sinC,cosC);
    let cosB=lawOfCosines(b,a,c);
-   let cos2B=cosDoubleAngle(cosB);
-   let sin2B=getSin(cos2B);
+   let sinB=getSin(cosB);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
-   let sin2A=getSin(cos2A);
+   let sinA=getSin(cosA);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let csc2C=1/sin2C;
    let csc2B=1/sin2B;
    let csc2A=1/sin2A;
@@ -1449,19 +1446,19 @@ function trilin_X92(orbit, [a, b, c]) {
 function trilin_X93(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
-   let cos2C=cosDoubleAngle(cosC);
-   let sin2C=getSin(cos2C);
    let sinC=getSin(cosC);
+   let cos2C=cosDoubleAngle(cosC);
+   let sin2C=sinDoubleAngle(sinC,cosC);
    let cos3C=cosTripleAngle(sinC,cosC,sin2C,cos2C);
    let cosB=lawOfCosines(b,a,c);
-   let cos2B=cosDoubleAngle(cosB);
-   let sin2B=getSin(cos2B);
    let sinB=getSin(cosB);
+   let cos2B=cosDoubleAngle(cosB);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let cos3B=cosTripleAngle(sinB,cosB,sin2B,cos2B);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
-   let sin2A=getSin(cos2A);
    let sinA=getSin(cosA);
+   let cos2A=cosDoubleAngle(cosA);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let cos3A=cosTripleAngle(sinA,cosA,sin2A,cos2A);
    let sec3C=1/cos3C;
    let sec3B=1/cos3B;
@@ -1477,19 +1474,19 @@ function trilin_X93(orbit, [a, b, c]) {
 function trilin_X94(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
-   let cos2C=cosDoubleAngle(cosC);
-   let sin2C=getSin(cos2C);
    let sinC=getSin(cosC);
+   let cos2C=cosDoubleAngle(cosC);
+   let sin2C=sinDoubleAngle(sinC,cosC);
    let sin3C=sinTripleAngle(sinC,cosC,sin2C,cos2C);
    let cosB=lawOfCosines(b,a,c);
-   let cos2B=cosDoubleAngle(cosB);
-   let sin2B=getSin(cos2B);
    let sinB=getSin(cosB);
+   let cos2B=cosDoubleAngle(cosB);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let sin3B=sinTripleAngle(sinB,cosB,sin2B,cos2B);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
-   let sin2A=getSin(cos2A);
    let sinA=getSin(cosA);
+   let cos2A=cosDoubleAngle(cosA);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let sin3A=sinTripleAngle(sinA,cosA,sin2A,cos2A);
    let csc3C=1/sin3C;
    let csc3B=1/sin3B;
@@ -1871,17 +1868,14 @@ function trilin_X119(orbit, [a, b, c]) {
    let cosC=lawOfCosines(c,a,b);
    let sinC=getSin(cosC);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
+   let sinA=getSin(cosA);
    let cosB=lawOfCosines(b,a,c);
    let sinB=getSin(cosB);
-   let cos2C=cosDoubleAngle(cosC);
-   let cos2B=cosDoubleAngle(cosB);
-   let sinA=getSin(cosA);
    let cscC=1/sinC;
-   let sin2A=getSin(cos2A);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let cscB=1/sinB;
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let cscA=1/sinA;
    /* end vars */
    let v1 = (-1+cosB+cosC)*cscA*(sin2B+sin2C+2*(-1+cosA)*(sinB+sinC));
@@ -1923,14 +1917,17 @@ function trilin_X121(orbit, [a, b, c]) {
 function trilin_X122(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
+   let sinC=getSin(cosC);
    let cos2C=cosDoubleAngle(cosC);
-   let sin2C=getSin(cos2C);
+   let sin2C=sinDoubleAngle(sinC,cosC);
    let cosB=lawOfCosines(b,a,c);
+   let sinB=getSin(cosB);
    let cos2B=cosDoubleAngle(cosB);
-   let sin2B=getSin(cos2B);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let cosA=lawOfCosines(a,b,c);
+   let sinA=getSin(cosA);
    let cos2A=cosDoubleAngle(cosA);
-   let sin2A=getSin(cos2A);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let tan2C=sin2C/cos2C;
    let tan2B=sin2B/cos2B;
    let a2=a*a;
@@ -1951,19 +1948,16 @@ function trilin_X123(orbit, [a, b, c]) {
    let sinC=getSin(cosC);
    let cosA=lawOfCosines(a,b,c);
    let sinA=getSin(cosA);
-   let cos2A=cosDoubleAngle(cosA);
    let cosB=lawOfCosines(b,a,c);
    let sinB=getSin(cosB);
-   let cos2C=cosDoubleAngle(cosC);
-   let cos2B=cosDoubleAngle(cosB);
    let cscC=1/sinC;
    let tanA=sinA/cosA;
-   let sin2A=getSin(cos2A);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let cscB=1/sinB;
    let tanC=sinC/cosC;
    let tanB=sinB/cosB;
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let secA=1/cosA;
    let secC=1/cosC;
    let secB=1/cosB;
@@ -2021,17 +2015,17 @@ function trilin_X126(orbit, [a, b, c]) {
 function trilin_X127(orbit, [a, b, c]) {
    /* begin vars */
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
+   let sinA=getSin(cosA);
    let cosC=lawOfCosines(c,a,b);
-   let cos2C=cosDoubleAngle(cosC);
+   let sinC=getSin(cosC);
    let cosB=lawOfCosines(b,a,c);
-   let cos2B=cosDoubleAngle(cosB);
+   let sinB=getSin(cosB);
    let a2=a*a;
-   let sin2A=getSin(cos2A);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let c2=c*c;
    let b2=b*b;
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    /* end vars */
    let v1 = b*c*(sin2B-sin2C)*((b2-c2)*sin2A-b2*sin2B+c2*sin2C);
    let v2 = a*c*(-sin2A+sin2C)*(a2*sin2A+(-a2+c2)*sin2B-c2*sin2C);
@@ -2063,15 +2057,15 @@ function trilin_X129(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
-   let cos2C=cosDoubleAngle(cosC);
-   let cos2B=cosDoubleAngle(cosB);
+   let sinC=getSin(cosC);
+   let sinB=getSin(cosB);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
+   let sinA=getSin(cosA);
    let secC=1/cosC;
    let secB=1/cosB;
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
-   let sin2A=getSin(cos2A);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let secA=1/cosA;
    /* end vars */
    let v1 = secA*sin2A*(sin2B+sin2C)*(-(sin2A*sin2A*sin2B*sin2B)+Math.pow(sin2B,4)-sin2A*sin2A*sin2C*sin2C+Math.pow(sin2C,4))*(Math.pow(sin2A,4)+sin2B*(sin2B-sin2C)*(sin2B-sin2C)*sin2C+sin2A*sin2A*(-sin2B*sin2B+sin2B*sin2C-sin2C*sin2C));
@@ -2086,15 +2080,12 @@ function trilin_X130(orbit, [a, b, c]) {
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
-   let cos2C=cosDoubleAngle(cosC);
-   let cos2B=cosDoubleAngle(cosB);
+   let sinA=getSin(cosA);
    let sinC=getSin(cosC);
    let sinB=getSin(cosB);
-   let sinA=getSin(cosA);
-   let sin2A=getSin(cos2A);
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
+   let sin2A=sinDoubleAngle(sinA,cosA);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    /* end vars */
    let v1 = (sin2B-sin2C)*(sin2B-sin2C)*(sin2B+sin2C)*(sin2A*sin2A+sin2B*sin2C)*sinA;
    let v2 = (-sin2A+sin2C)*(-sin2A+sin2C)*(sin2A+sin2C)*(sin2B*sin2B+sin2A*sin2C)*sinB;
@@ -2107,13 +2098,16 @@ function trilin_X131(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
+   let sinC=getSin(cosC);
+   let sinB=getSin(cosB);
+   let cosA=lawOfCosines(a,b,c);
+   let sinA=getSin(cosA);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let cos2C=cosDoubleAngle(cosC);
    let cos2B=cosDoubleAngle(cosB);
-   let cosA=lawOfCosines(a,b,c);
    let cos2A=cosDoubleAngle(cosA);
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
-   let sin2A=getSin(cos2A);
    let tan2C=sin2C/cos2C;
    let tan2B=sin2B/cos2B;
    let tan2A=sin2A/cos2A;
@@ -2138,15 +2132,15 @@ function trilin_X132(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
-   let cos2C=cosDoubleAngle(cosC);
-   let cos2B=cosDoubleAngle(cosB);
+   let sinC=getSin(cosC);
+   let sinB=getSin(cosB);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
+   let sinA=getSin(cosA);
    let secC=1/cosC;
    let secB=1/cosB;
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
-   let sin2A=getSin(cos2A);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let secA=1/cosA;
    /* end vars */
    let v1 = secA*(sin2A*sin2A+sin2A*(sin2A-sin2B-sin2C)+(sin2B-sin2C)*(sin2B-sin2C))*(-(sin2A*sin2B)+sin2B*sin2B-sin2A*sin2C+sin2C*sin2C);
@@ -2160,15 +2154,15 @@ function trilin_X133(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
-   let cos2C=cosDoubleAngle(cosC);
-   let cos2B=cosDoubleAngle(cosB);
+   let sinC=getSin(cosC);
+   let sinB=getSin(cosB);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
+   let sinA=getSin(cosA);
    let secC=1/cosC;
    let secB=1/cosB;
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
-   let sin2A=getSin(cos2A);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let secA=1/cosA;
    /* end vars */
    let v1 = secA*(2*sin2A-sin2B-sin2C)*(sin2A*sin2B+(sin2B-sin2C)*(sin2B-sin2C)+sin2A*sin2C-2*sin2B*sin2C);
@@ -2182,15 +2176,15 @@ function trilin_X134(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
-   let cos2C=cosDoubleAngle(cosC);
-   let cos2B=cosDoubleAngle(cosB);
+   let sinC=getSin(cosC);
+   let sinB=getSin(cosB);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
+   let sinA=getSin(cosA);
    let secC=1/cosC;
    let secB=1/cosB;
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
-   let sin2A=getSin(cos2A);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let secA=1/cosA;
    /* end vars */
    let v1 = secA*sin2A*(sin2B*sin2B-sin2C*sin2C)*Math.pow(-sin2A*sin2A+sin2B*sin2B+sin2C*sin2C,2)*((sin2A*sin2A-sin2B*sin2B)*sin2C*Math.pow(sin2A*sin2A+sin2B*sin2B-sin2C*sin2C,2)-sin2B*(sin2A*sin2A-sin2C*sin2C)*Math.pow(sin2A*sin2A-sin2B*sin2B+sin2C*sin2C,2));
@@ -2204,18 +2198,21 @@ function trilin_X135(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
+   let sinA=getSin(cosA);
    let cosB=lawOfCosines(b,a,c);
    let cos2B=cosDoubleAngle(cosB);
+   let sinC=getSin(cosC);
    let cos2C=cosDoubleAngle(cosC);
+   let cos2A=cosDoubleAngle(cosA);
+   let sinB=getSin(cosB);
    let secC=1/cosC;
-   let sin2A=getSin(cos2A);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let secB=1/cosB;
    let sec2B=1/cos2B;
-   let sin2C=getSin(cos2C);
+   let sin2C=sinDoubleAngle(sinC,cosC);
    let sec2C=1/cos2C;
    let sec2A=1/cos2A;
-   let sin2B=getSin(cos2B);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let secA=1/cosA;
    /* end vars */
    let v1 = secA*(sin2B/(-sec2A+sec2C)+sin2C/(sec2A-sec2B));
@@ -2246,14 +2243,14 @@ function trilin_X137(orbit, [a, b, c]) {
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
-   let cos2C=cosDoubleAngle(cosC);
-   let cos2B=cosDoubleAngle(cosB);
+   let sinA=getSin(cosA);
+   let sinC=getSin(cosC);
+   let sinB=getSin(cosB);
    let secC=1/cosC;
    let secB=1/cosB;
-   let sin2A=getSin(cos2A);
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
+   let sin2A=sinDoubleAngle(sinA,cosA);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let secA=1/cosA;
    /* end vars */
    let v1 = secA*(sin2B-sin2C)*(sin2B-sin2C)*(sin2B+sin2C)*(sin2A*sin2A-sin2B*sin2B-sin2B*sin2C-sin2C*sin2C);
@@ -2267,15 +2264,15 @@ function trilin_X138(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
-   let cos2C=cosDoubleAngle(cosC);
+   let sinC=getSin(cosC);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
-   let cos2B=cosDoubleAngle(cosB);
+   let sinA=getSin(cosA);
+   let sinB=getSin(cosB);
    let secC=1/cosC;
    let secB=1/cosB;
-   let sin2C=getSin(cos2C);
-   let sin2A=getSin(cos2A);
-   let sin2B=getSin(cos2B);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2A=sinDoubleAngle(sinA,cosA);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let secA=1/cosA;
    /* end vars */
    let v1 = secA*(sin2B/(-sin2A*sin2A+2*sin2B*sin2B-sin2C*sin2C)+sin2C/(-sin2A*sin2A-sin2B*sin2B+2*sin2C*sin2C));
@@ -2290,14 +2287,14 @@ function trilin_X139(orbit, [a, b, c]) {
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
-   let cos2C=cosDoubleAngle(cosC);
-   let cos2B=cosDoubleAngle(cosB);
+   let sinA=getSin(cosA);
+   let sinC=getSin(cosC);
+   let sinB=getSin(cosB);
    let secC=1/cosC;
    let secB=1/cosB;
-   let sin2A=getSin(cos2A);
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
+   let sin2A=sinDoubleAngle(sinA,cosA);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let secA=1/cosA;
    /* end vars */
    let v1 = secA*(sin2B-sin2C)*(sin2B-sin2C)*(sin2B+sin2C)*(-sin2A*sin2A+sin2B*sin2B+sin2C*sin2C)*(-Math.pow(sin2A,4)+Math.pow(sin2B,4)+Math.pow(sin2C,4)+sin2B*sin2C*(-sin2A*sin2A+sin2B*sin2B+sin2C*sin2C));
@@ -2641,14 +2638,14 @@ function trilin_X158(orbit, [a, b, c]) {
 function trilin_X159(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
-   let cos2C=cosDoubleAngle(cosC);
+   let sinC=getSin(cosC);
    let cosB=lawOfCosines(b,a,c);
-   let cos2B=cosDoubleAngle(cosB);
+   let sinB=getSin(cosB);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
-   let sin2A=getSin(cos2A);
+   let sinA=getSin(cosA);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let c2=c*c;
    let b2=b*b;
    let a2=a*a;
@@ -2663,15 +2660,15 @@ function trilin_X159(orbit, [a, b, c]) {
 function trilin_X160(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
-   let cos2C=cosDoubleAngle(cosC);
+   let sinC=getSin(cosC);
    let cosB=lawOfCosines(b,a,c);
-   let cos2B=cosDoubleAngle(cosB);
+   let sinB=getSin(cosB);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
+   let sinA=getSin(cosA);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
    let a2=a*a;
-   let sin2A=getSin(cos2A);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let c2=c*c;
    let b2=b*b;
    /* end vars */
@@ -2685,14 +2682,14 @@ function trilin_X160(orbit, [a, b, c]) {
 function trilin_X161(orbit, [a, b, c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
-   let cos2C=cosDoubleAngle(cosC);
+   let sinC=getSin(cosC);
    let cosB=lawOfCosines(b,a,c);
-   let cos2B=cosDoubleAngle(cosB);
+   let sinB=getSin(cosB);
    let cosA=lawOfCosines(a,b,c);
-   let cos2A=cosDoubleAngle(cosA);
-   let sin2C=getSin(cos2C);
-   let sin2B=getSin(cos2B);
-   let sin2A=getSin(cos2A);
+   let sinA=getSin(cosA);
+   let sin2C=sinDoubleAngle(sinC,cosC);
+   let sin2B=sinDoubleAngle(sinB,cosB);
+   let sin2A=sinDoubleAngle(sinA,cosA);
    let c2=c*c;
    let b2=b*b;
    let a2=a*a;
