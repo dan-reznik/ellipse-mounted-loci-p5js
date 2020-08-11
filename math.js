@@ -29,12 +29,15 @@ function quadRoots(a, b, c) {
 
 ray = (p0, phat, d) => [p0[0]+phat[0]*d, p0[1]+phat[1]*d];
 
-function rot([x, y], st, ct) {
+function rotSinCos([x, y], st, ct) {
   return [ct * x - st * y, st * x + ct * y];
 }
 
+rot = (v,th) => rotSinCos(v,Math.sin(th),Math.cos(th)) 
+
 vdiff = (u, v) => [u[0] - v[0], u[1] - v[1]];
 vscale = (u, s) => [u[0]*s, u[1]*s];
+vscale_xy = (u, sx, sy) => [u[0]*sx, u[1]*sy];
 vsum = (u, v) => [u[0] + v[0], u[1] + v[1]];
 vavg = (u,v) => [(u[0] + v[0])/2, (u[1] + v[1])/2];
 magn2 = (p) => p[0] * p[0] + p[1] * p[1];

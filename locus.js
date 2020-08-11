@@ -43,6 +43,17 @@
        draw_locus_branched(locus_branches, ons_derived, n, clr, 0.01, locus_type);
  }
  
+  function draw_homothetic_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type) {
+    let ons = orbit_homothetic(a, tDeg);
+    let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
+    if (dr_tri) {
+       draw_orbit(ons, clr, false, true,false);
+       if (tri_type!="reference") draw_orbit(ons_derived, clr, false, false, false);
+    }
+    if (locus_type != 'none')
+       draw_locus_branched(locus_branches, ons_derived, n, clr, 0.01, locus_type);
+ }
+
 /*  function draw_billiard_or_mounted(n, a, tDeg, locus, clr, locus_type, dr_tri, mounting) {
     if (mounting == "billiard") {
        draw_billiard_locus(n, a, tDeg, locus, clr, locus_type, dr_tri);
@@ -51,65 +62,18 @@
     }
  } */
  
- function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type) {
-    if (mounting == "billiard") {
-       draw_billiard_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type);
-    } else  {
-       draw_mounted_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type);
+function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type) {
+    switch (mounting) {
+        case "billiard":
+            draw_billiard_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type);
+            break;
+        case "homothetic":
+            draw_homothetic_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type);
+            break;
+        default:
+            draw_mounted_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type);
     }
- }
-
- /* function make_one_locus(a, n, tDegStep, mounting, locus_type) {
-    const eps = 0.001;
-    let locus_Xn = [];
-    let trilin_fn = get_fn_any(locus_type, n);
-    let xn_next;
-    const d_max = 0.1;
-    const d_min = 0.01;
-    const tDegStepMin = 0.01;
-    const tDegStepMax = 1.0;
-  
-    if (mounting == "billiard") {
-       let xn = get_Xn_orbit(a, 0, trilin_fn); 
-       locus_Xn.push(xn);
-       let tDeg = tDegStep;
-       while (tDeg < 180) {
-          xn_next = get_Xn_orbit(a, tDeg, trilin_fn);
-          if (tDegStep < tDegStepMax && edist(xn, xn_next) < d_min) {
-             tDegStep *= 2;
-             tDeg += tDegStep;
-          } else if (tDegStep > tDegStepMin && edist(xn, xn_next) > d_max) {
-             tDegStep *= .5;
-             tDeg -= tDegStep;
-          } else {
-             xn = xn_next;
-             locus_Xn.push(xn);
-             tDeg += tDegStep;
-          }
-       }
-    } else {
-       let [v1, v2] = getV1V2(a, mounting, eps);
-       let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, trilin_fn);
-       locus_Xn.push(xn);
-       let tDeg = tDegStep;
-       while (tDeg < 360) {
-          [v3, xn_next] = get_Xn_mounted(a, tDeg + eps, v1, v2, trilin_fn);
-          if (tDegStep < tDegStepMax && edist(xn, xn_next) < d_min) {
-             tDegStep *= 2;
-             tDeg += tDegStep;
-          } else if (tDegStep > tDegStepMin && edist(xn, xn_next) > d_max) {
-             tDegStep *= .5;
-             tDeg -= tDegStep;
-          } else {
-             xn = xn_next;
-             locus_Xn.push(xn);
-             tDeg += tDegStep;
-          }
-       }
-    }
-    //console.log(locus_Xn.length)
-    return locus_Xn;
- } */
+}
 
 function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
     const eps = 0.001;
@@ -171,15 +135,23 @@ function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
 function make_locus_branched(a, n, tDegStep, mounting, locus_type, tri_type) {
     let trilin_fn = get_fn_any(locus_type, n);
     let locus_array;
-    if (mounting == "billiard")
-        locus_array = create_locus_branches(a, tDegStep, 180, trilin_fn,
-            (a0, tDeg0, trilin_fn0) => get_Xn_orbit(a0,tDeg0,trilin_fn0,tri_type));
-    else { // non-billiard
-        const eps = 0.001;
-        let [v1, v2] = getV1V2(a, mounting, eps);
-        //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, trilin_fn);
-        locus_array = create_locus_branches(a, tDegStep, 360, trilin_fn,
-            (a0, tDeg0, trilin_fn0) => { let [v3,xn] = get_Xn_mounted(a0, tDeg0, v1, v2, trilin_fn0, tri_type); return xn; });
+    switch (mounting) {
+        case "billiard":
+            locus_array = create_locus_branches(a, tDegStep, 180, trilin_fn,
+                (a0, tDeg0, trilin_fn0) => get_Xn_orbit(a0, tDeg0, trilin_fn0, tri_type));
+            break;
+        // &&& WORK HERE
+        case "homothetic":
+            locus_array = create_locus_branches(a, tDegStep, 180, trilin_fn,
+                (a0, tDeg0, trilin_fn0) => get_Xn_homothetic(a0, tDeg0, trilin_fn0, tri_type));
+            break;
+
+        default: // non-billiard
+            const eps = 0.001;
+            let [v1, v2] = getV1V2(a, mounting, eps);
+            //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, trilin_fn);
+            locus_array = create_locus_branches(a, tDegStep, 360, trilin_fn,
+                (a0, tDeg0, trilin_fn0) => { let [v3, xn] = get_Xn_mounted(a0, tDeg0, v1, v2, trilin_fn0, tri_type); return xn; });
     }
     //console.log(locus_array.length, locus_array.map(l => l.length));
     return locus_array;

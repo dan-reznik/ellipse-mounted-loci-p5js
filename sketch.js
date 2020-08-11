@@ -97,9 +97,24 @@ function get_Xn_orbit(a, tDeg, trilin_fn, tri_type) {
    return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
 }
 
+function orbit_homothetic(a,tDeg) {
+   let tri0 = regularPoly(3);
+   //console.log(tri0);
+   let triRot = rotPoly(tri0,toRad(tDeg));
+   let triScale = scalePoly(triRot,a,1);
+   return {o:triScale,s:tri_sides(triScale)};
+}
+
+function get_Xn_homothetic(a, tDeg, trilin_fn, tri_type) {
+   let ons = orbit_homothetic(a, tDeg);
+   let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
+   return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
+}
+
 function create_locus(locus_type_changed) {
    let tdegStep = +g_ui.degStep0;
    let a = +g_ui.a;
+   // iverton estes valores devem vir de g_ui.locus_type_xxx
    var locus_type_1 = document.getElementById("input_locus_type_1").value;
    var locus_type_2 = document.getElementById("input_locus_type_2").value;
    var locus_type_3 = document.getElementById("input_locus_type_3").value;
@@ -405,6 +420,7 @@ function draw() {
    //var check_Xn1 = document.getElementById("checkbox_Xn1")
    //var check_Xn2 = document.getElementById("checkbox_Xn2")
    //var check_Xn3 = document.getElementById("checkbox_Xn3")
+   // Iverton: os valores abaixo devem vir do g_ui
    var check_mounting_Xn1 = document.getElementById("mounting_Xn1")
    var check_mounting_Xn2 = document.getElementById("mounting_Xn2")
    var check_mounting_Xn3 = document.getElementById("mounting_Xn3")

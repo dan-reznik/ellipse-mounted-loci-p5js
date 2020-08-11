@@ -53,8 +53,8 @@ function orbit_normals(a, tDeg) {
   let n1 = ell_norm(a, p1);
   let ca = cos_alpha(a, p1[0]);
   let sa = sqrt(1 - ca * ca);
-  let nrot = rot(n1, sa, ca);
-  let nrotNeg = rot(n1, -sa, ca);
+  let nrot = rotSinCos(n1, sa, ca);
+  let nrotNeg = rotSinCos(n1, -sa, ca);
   let p2 = ellInterRay(a, p1, nrot);
   let p3 = ellInterRay(a, p1, nrotNeg);
   let n2 = ell_norm(a, p2);
