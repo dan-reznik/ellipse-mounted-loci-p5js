@@ -410,7 +410,7 @@ function get_diff_default(g_ui_reset, key){
 
 function config_url_onclick(g_ui_reset){
    document.getElementById('config_URL').addEventListener("click", function(){      
-      var link_params = "http://127.0.0.1:5500/?";
+      var link_params = location.protocol + '//' + location.host + location.pathname + '?';
       link_params += get_diff_default(g_ui_reset,"a");
       link_params += get_diff_default(g_ui_reset,"locus_type_1");
       link_params += get_diff_default(g_ui_reset,"locus_type_2");
