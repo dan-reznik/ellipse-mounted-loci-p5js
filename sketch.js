@@ -17,40 +17,35 @@ let g_locus_Xn1_branched = [];
 let g_locus_Xn2_branched = [];
 let g_locus_Xn3_branched = [];
 
-function reset_ui(){
-   let g_ui_reset = {
-      a: 1.618,
-      locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none',
-      Xn1: 1, Xn2: 1, Xn3: 1,
-      tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference',
-      draw_tri_1: true, draw_tri_2: false, draw_tri_3: false,
-      mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard',
-      animStep0: 0.125
-   };
-   document.getElementById("a").value = g_ui_reset["a"];
-   document.getElementById("demo_a").innerHTML = g_ui_reset["a"];
-   document.getElementById("locus_type_1").value = g_ui_reset["locus_type_1"];
-   document.getElementById("locus_type_2").value = g_ui_reset["locus_type_2"];
-   document.getElementById("locus_type_3").value = g_ui_reset["locus_type_3"];
-   document.getElementById("Xn1").value = g_ui_reset["Xn1"];
-   document.getElementById("demo_Xn1").value = g_ui_reset["Xn1"];
-   document.getElementById("Xn2").value = g_ui_reset["Xn2"];
-   document.getElementById("demo_Xn2").value = g_ui_reset["Xn2"];
-   document.getElementById("Xn3").value = g_ui_reset["Xn3"];
-   document.getElementById("demo_Xn3").value = g_ui_reset["Xn3"];
-   document.getElementById("tri_type_1").value = g_ui_reset["tri_type_1"];
-   document.getElementById("tri_type_2").value = g_ui_reset["tri_type_2"];
-   document.getElementById("tri_type_3").value = g_ui_reset["tri_type_3"];
-   document.getElementById("draw_tri_1").checked = g_ui_reset["draw_tri_1"];
-   document.getElementById("draw_tri_2").checked = g_ui_reset["draw_tri_2"];
-   document.getElementById("draw_tri_3").checked = g_ui_reset["draw_tri_3"];
-   document.getElementById("mounting_Xn1").value = g_ui_reset["mounting_Xn1"];
-   document.getElementById("mounting_Xn2").value = g_ui_reset["mounting_Xn2"];
-   document.getElementById("mounting_Xn3").value = g_ui_reset["mounting_Xn3"];
-   document.getElementById("animStep0").value = g_ui_reset["animStep0"];
+let g_ui = {};
 
-   g_ui = g_ui_reset;
-   ui_changed("1");
+function set_ui_variables(dictionary){
+   document.getElementById("a").value = dictionary["a"];
+   document.getElementById("demo_a").innerHTML = dictionary["a"];
+   document.getElementById("locus_type_1").value = dictionary["locus_type_1"];
+   document.getElementById("locus_type_2").value = dictionary["locus_type_2"];
+   document.getElementById("locus_type_3").value = dictionary["locus_type_3"];
+   document.getElementById("Xn1").value = dictionary["Xn1"];
+   document.getElementById("demo_Xn1").value = dictionary["Xn1"];
+   document.getElementById("Xn2").value = dictionary["Xn2"];
+   document.getElementById("demo_Xn2").value = dictionary["Xn2"];
+   document.getElementById("Xn3").value = dictionary["Xn3"];
+   document.getElementById("demo_Xn3").value = dictionary["Xn3"];
+   document.getElementById("tri_type_1").value = dictionary["tri_type_1"];
+   document.getElementById("tri_type_2").value = dictionary["tri_type_2"];
+   document.getElementById("tri_type_3").value = dictionary["tri_type_3"];
+   document.getElementById("draw_tri_1").checked = dictionary["draw_tri_1"];
+   document.getElementById("draw_tri_2").checked = dictionary["draw_tri_2"];
+   document.getElementById("draw_tri_3").checked = dictionary["draw_tri_3"];
+   document.getElementById("mounting_Xn1").value = dictionary["mounting_Xn1"];
+   document.getElementById("mounting_Xn2").value = dictionary["mounting_Xn2"];
+   document.getElementById("mounting_Xn3").value = dictionary["mounting_Xn3"];
+   document.getElementById("animStep0").value = dictionary["animStep0"];
+}
+
+function reset_ui(g_ui_reset){
+   set_ui_variables(g_ui_reset)
+   Object.assign(g_ui, g_ui_reset)
    windowResized();
 };
 
@@ -355,7 +350,7 @@ function mouseOverCanvas(){
    canvas_div.addEventListener('mouseout', function(){this.mouseIsOver = false;});
 }
 
-function set_ui_variables(){
+function set_ui_variables_behavior(){
    //a
    selector_output("a", "demo_a")
    //Xn1
@@ -374,30 +369,96 @@ function set_ui_variables(){
    selector_output("mounting_Xn3", output_ID = "", "3")
 }
 
-function reset_UI_onclick(){
+function reset_UI_onclick(g_ui_reset){
    document.getElementById('reset_UI').addEventListener('click', function(){
-      reset_ui();
+      reset_ui(g_ui_reset);
+      ui_changed("1");
    });
 }
 
-function config_url_onclick(){
-   document.getElementById('config_URL').addEventListener('click', function(){
-      copy_button();
+function copyToClipboard(text) {
+   if (window.clipboardData && window.clipboardData.setData) {
+       // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+       return clipboardData.setData("Text", text);
+
+   }
+   else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+       var textarea = document.createElement("textarea");
+       textarea.textContent = text;
+       textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
+       document.body.appendChild(textarea);
+       textarea.select();
+       try {
+           return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+       }
+       catch (ex) {
+           console.warn("Copy to clipboard failed.", ex);
+           return false;
+       }
+       finally {
+           document.body.removeChild(textarea);
+       }
+   }
+}
+
+function get_diff_default(g_ui_reset, key){
+   if (g_ui[key] !== g_ui_reset[key])
+      return key+'='+g_ui[key]+'&';
+   else
+      return '';
+}
+
+function config_url_onclick(g_ui_reset){
+   document.getElementById('config_URL').addEventListener("click", function(){      
+      var link_params = "http://127.0.0.1:5500/?";
+      link_params += get_diff_default(g_ui_reset,"a");
+      link_params += get_diff_default(g_ui_reset,"locus_type_1");
+      link_params += get_diff_default(g_ui_reset,"locus_type_2");
+      link_params += get_diff_default(g_ui_reset,"locus_type_3");
+      link_params += get_diff_default(g_ui_reset,"Xn1");
+      link_params += get_diff_default(g_ui_reset,"Xn2");
+      link_params += get_diff_default(g_ui_reset,"Xn3");
+      link_params += get_diff_default(g_ui_reset,"tri_type_1");
+      link_params += get_diff_default(g_ui_reset,"tri_type_2");
+      link_params += get_diff_default(g_ui_reset,"tri_type_3");
+      link_params += get_diff_default(g_ui_reset,"draw_tri_1");
+      link_params += get_diff_default(g_ui_reset,"draw_tri_2");
+      link_params += get_diff_default(g_ui_reset,"draw_tri_3");
+      link_params += get_diff_default(g_ui_reset,"mounting_Xn1");
+      link_params += get_diff_default(g_ui_reset,"mounting_Xn2");
+      link_params += get_diff_default(g_ui_reset,"mounting_Xn3");
+      link_params += get_diff_default(g_ui_reset,"animStep0");
+      copyToClipboard(link_params);
    });
+}
+
+function set_url_params(g_url_params){
+   let original_keys = Object.keys(g_ui);
+   let link_keys = Object.keys(g_url_params);
+   link_keys.forEach(function(key) {
+      if(original_keys.includes(key))
+         g_ui[key] = g_url_params[key];
+   });
+   set_ui_variables(g_ui);
+   ui_changed("0");
 }
 
 function setup() {
+   let g_ui_reset = {
+      a: 1.618,
+      locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none',
+      Xn1: 1, Xn2: 1, Xn3: 1,
+      tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference',
+      draw_tri_1: true, draw_tri_2: false, draw_tri_3: false,
+      mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard',
+      animStep0: 0.125
+   };
+   reset_ui(g_ui_reset);
+   let g_url_params = getURLParams();
+   set_url_params(g_url_params);
+
    g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
    g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
-   //console.log(g_width)
-   //g_url_params = getURLParams();
-   //http://p5js.org?year=2014&month=May&day=15
-   //text(params.day, 10, 20);
-   //text(params.month, 10, 40);
-   //text(params.year, 10, 60);
-   //console.log("what are they",g_url_params);
-   reset_ui();
-
    create_checkboxes();
    canvas = createCanvas(g_width, g_height);
    canvas.parent('canvas');
@@ -407,7 +468,7 @@ function setup() {
    g_ctr = g_ctr0;
    g_mouse = g_ctr0;
 
-   set_ui_variables()
+   set_ui_variables_behavior()
 
    copy_image()
    export_PNG()
@@ -416,8 +477,8 @@ function setup() {
    tri_onchange()
    tri_type_onchange()
 
-   reset_UI_onclick();
-   config_url_onclick();
+   reset_UI_onclick(g_ui_reset);
+   config_url_onclick(g_ui_reset);
 
    ui_changed("1")
 }
