@@ -33,8 +33,8 @@
 
 <section class="grid-container">
   <div class="item config_buttons">
-    <button>reset UI</button>
-    <button>config URL</button>
+    <button id='reset_UI'>reset UI</button>
+    <button id='config_URL'>copy config URL</button>
   </div>
 	<div class="item title">
     <div id="ui"></div>
@@ -46,7 +46,7 @@
           <p class='input_Xn'>a/b: <span id="demo_a"></span></p>
           <div class='input_Xn'>
             <div class='slider_container'>
-              <input type="range" min=1.001 max=4 value=1.618 step=0.001 class="slider" id="input_a">
+              <input type="range" min=1.001 max=4 value=1.618 step=0.001 class="slider" id="a">
             </div>
           </div>
         </div>
@@ -64,8 +64,8 @@
 
         <!--dropdown-->
         <div class="input_Xn" id='speed_box'>
-          <label for="input_animStep0"> Speed: </label>
-          <select id="input_animStep0" name="input_animStep0">
+          <label for="animStep0"> Speed: </label>
+          <select id="animStep0" name="animStep0">
             <option value="0.125">slow</option>
             <option value="0.5">medium</option>
             <option value="1">fast</option>

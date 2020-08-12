@@ -1,3 +1,10 @@
+function reset_UI_onclick(){
+  document.getElementById('reset_UI').addEventListener('click', function(){
+    g_ui = reset_g_ui();
+    ui_changed('1');
+  });
+}
+
 function create_chk(n, x, y, bf=false, val=false) {
   let chk = createCheckbox(n, val);
   chk.parent('ui');

@@ -147,7 +147,7 @@ p.lab{
   text-align: center;
 }
 
-#input_a{
+#a{
   margin-bottom: 10px;
   width: 98%;
 }
@@ -161,15 +161,15 @@ p.lab{
   margin-right: auto;
 }
 
-#input_Xn1::-webkit-slider-thumb{
+#Xn1::-webkit-slider-thumb{
   background: red;
 }
 
-#input_Xn2::-webkit-slider-thumb{
+#Xn2::-webkit-slider-thumb{
   background: green;
 }
 
-#input_Xn3::-webkit-slider-thumb{
+#Xn3::-webkit-slider-thumb{
   background: blue;
 }
 

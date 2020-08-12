@@ -17,16 +17,41 @@ let g_locus_Xn1_branched = [];
 let g_locus_Xn2_branched = [];
 let g_locus_Xn3_branched = [];
 
-g_ui = {
-   a: 1.618,
+function reset_ui(){
+   let g_ui_reset = {
+      a: 1.618,
+      locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none',
+      Xn1: 1, Xn2: 1, Xn3: 1,
+      tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference',
+      draw_tri_1: true, draw_tri_2: false, draw_tri_3: false,
+      mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard',
+      animStep0: 0.125
+   };
+   document.getElementById("a").value = g_ui_reset["a"];
+   document.getElementById("demo_a").innerHTML = g_ui_reset["a"];
+   document.getElementById("locus_type_1").value = g_ui_reset["locus_type_1"];
+   document.getElementById("locus_type_2").value = g_ui_reset["locus_type_2"];
+   document.getElementById("locus_type_3").value = g_ui_reset["locus_type_3"];
+   document.getElementById("Xn1").value = g_ui_reset["Xn1"];
+   document.getElementById("demo_Xn1").value = g_ui_reset["Xn1"];
+   document.getElementById("Xn2").value = g_ui_reset["Xn2"];
+   document.getElementById("demo_Xn2").value = g_ui_reset["Xn2"];
+   document.getElementById("Xn3").value = g_ui_reset["Xn3"];
+   document.getElementById("demo_Xn3").value = g_ui_reset["Xn3"];
+   document.getElementById("tri_type_1").value = g_ui_reset["tri_type_1"];
+   document.getElementById("tri_type_2").value = g_ui_reset["tri_type_2"];
+   document.getElementById("tri_type_3").value = g_ui_reset["tri_type_3"];
+   document.getElementById("draw_tri_1").checked = g_ui_reset["draw_tri_1"];
+   document.getElementById("draw_tri_2").checked = g_ui_reset["draw_tri_2"];
+   document.getElementById("draw_tri_3").checked = g_ui_reset["draw_tri_3"];
+   document.getElementById("mounting_Xn1").value = g_ui_reset["mounting_Xn1"];
+   document.getElementById("mounting_Xn2").value = g_ui_reset["mounting_Xn2"];
+   document.getElementById("mounting_Xn3").value = g_ui_reset["mounting_Xn3"];
+   document.getElementById("animStep0").value = g_ui_reset["animStep0"];
 
-   locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none',
-   Xn1: 1, Xn2: 1, Xn3: 1,
-   tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference',
-   draw_tri_1: true, draw_tri_2: false, draw_tri_3: false,
-   mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard',
-
-   animStep0: 0.125
+   g_ui = g_ui_reset;
+   ui_changed("1");
+   windowResized();
 };
 
 function get_brocard(n) {
@@ -78,7 +103,6 @@ function get_Xn_orbit(a, tDeg, trilin_fn, tri_type) {
 
 function orbit_homothetic(a,tDeg) {
    let tri0 = regularPoly(3);
-   //console.log(tri0);
    let triRot = rotPoly(tri0,toRad(tDeg));
    let triScale = scalePoly(triRot,a,1);
    return {o:triScale,s:tri_sides(triScale)};
@@ -145,66 +169,64 @@ function ui_changed(locus_type_changed) {
    //log.textContent = e.target.value;
 }
 
-function selector_output(input_ID, dictionary, dictionary_key, output_ID = "", locus_number="0") {
+
+
+function selector_output(input_ID, output_ID = "", locus_number="0") {
    var selector = document.getElementById(input_ID);
-   dictionary[dictionary_key] = selector.value;
+   selector.value = g_ui[input_ID];
    if (output_ID != "") {
       var output = document.getElementById(output_ID);
-      output.innerHTML = selector.value;
-      selector.oninput = function () {
+      output.innerHTML = g_ui[input_ID];
+      selector.addEventListener('input', function(){
+         g_ui[input_ID] = this.value;
          output.innerHTML = this.value;
-         dictionary[dictionary_key] = selector.value
-         //console.log(selector)
-         //console.log(input_ID)
          ui_changed(locus_number)
-      }
+      });
    } else {
-      selector.onchange = function () {
-         dictionary[dictionary_key] = selector.value
-         //console.log(dictionary[dictionary_key])
+      selector.addEventListener('change', function(){
+         g_ui[input_ID] = selector.value
          ui_changed(locus_number)
-      }
+      })
    }
 }
 
-function slider_text_changed(sliderId, dictionary, dictionary_key, textId, minus_id, plus_id, locus_number) {
+function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) {
    var slider = document.getElementById(sliderId);
    var text = document.getElementById(textId);
-   var minus = document.getElementById(minus_id);
-   var plus = document.getElementById(plus_id);
 
-   minus.addEventListener("click", function () {
-      if (slider.value > 1) {
+   document.getElementById(minus_id).addEventListener("click", function () {
+      if (g_ui[sliderId] > 1) {
+         g_ui[sliderId]--;
          slider.value--;
-         text.value = slider.value;
+         text.value--;
+         ui_changed(locus_number);
       }
-      dictionary[dictionary_key] = slider.value;
-      ui_changed(locus_number);
-   })
+   });
 
-   plus.addEventListener("click", function () {
-      if (slider.value < 200) {
+   document.getElementById(plus_id).addEventListener("click", function () {
+      if (g_ui[sliderId] < 200) {
+         g_ui[sliderId]++;
          slider.value++;
-         text.value = slider.value;
+         text.value++;
+         ui_changed(locus_number);
       }
-      dictionary[dictionary_key] = slider.value;
-      ui_changed(locus_number);
-   })
+   });
 
    slider.addEventListener("input", function () {
+      g_ui[sliderId] = this.value;
       text.value = this.value;
-      dictionary[dictionary_key] = this.value
       ui_changed(locus_number);
-   })
+   });
+
    text.addEventListener("input", function () {
       if (isNaN(this.value))
          this.value = this.value.slice(0, -1);
       else if (this.value > 200)
-         this.value = "200"
+         this.value = "200";
       else if (this.value < 1)
-         this.value = "1"
-      slider.value = +this.value;
-      dictionary[dictionary_key] = this.value
+         this.value = "1";
+      g_ui[sliderId] = this.value;
+      slider.value = this.value;
       ui_changed(locus_number);
    })
 }
@@ -333,6 +355,37 @@ function mouseOverCanvas(){
    canvas_div.addEventListener('mouseout', function(){this.mouseIsOver = false;});
 }
 
+function set_ui_variables(){
+   //a
+   selector_output("a", "demo_a")
+   //Xn1
+   slider_text_changed("Xn1", "demo_Xn1", "minus_Xn1", "plus_Xn1", "1");
+   //Xn2
+   slider_text_changed("Xn2", "demo_Xn2", "minus_Xn2", "plus_Xn2", "2");
+   //Xn3
+   slider_text_changed("Xn3", "demo_Xn3", "minus_Xn3", "plus_Xn3", "3");
+
+   //animStep0
+   selector_output("animStep0", output_ID = "")
+
+   //mounting
+   selector_output("mounting_Xn1", output_ID = "", "1")
+   selector_output("mounting_Xn2", output_ID = "", "2")
+   selector_output("mounting_Xn3", output_ID = "", "3")
+}
+
+function reset_UI_onclick(){
+   document.getElementById('reset_UI').addEventListener('click', function(){
+      reset_ui();
+   });
+}
+
+function config_url_onclick(){
+   document.getElementById('config_URL').addEventListener('click', function(){
+      copy_button();
+   });
+}
+
 function setup() {
    g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
    g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
@@ -343,6 +396,7 @@ function setup() {
    //text(params.month, 10, 40);
    //text(params.year, 10, 60);
    //console.log("what are they",g_url_params);
+   reset_ui();
 
    create_checkboxes();
    canvas = createCanvas(g_width, g_height);
@@ -353,22 +407,7 @@ function setup() {
    g_ctr = g_ctr0;
    g_mouse = g_ctr0;
 
-   //a
-   selector_output("input_a", g_ui, "a", "demo_a")
-   //Xn1
-   slider_text_changed("input_Xn1", g_ui, "Xn1", "demo_Xn1", "minus_Xn1", "plus_Xn1", "1");
-   //Xn2
-   slider_text_changed("input_Xn2", g_ui, "Xn2", "demo_Xn2", "minus_Xn2", "plus_Xn2", "2");
-   //Xn3
-   slider_text_changed("input_Xn3", g_ui, "Xn3", "demo_Xn3", "minus_Xn3", "plus_Xn3", "3");
-
-   //animStep0
-   selector_output("input_animStep0", g_ui, "animStep0", output_ID = "")
-
-   //mounting
-   selector_output("mounting_Xn1", g_ui, "mounting_Xn1", output_ID = "", "1")
-   selector_output("mounting_Xn2", g_ui, "mounting_Xn2", output_ID = "", "2")
-   selector_output("mounting_Xn3", g_ui, "mounting_Xn3", output_ID = "", "3")
+   set_ui_variables()
 
    copy_image()
    export_PNG()
@@ -376,6 +415,9 @@ function setup() {
    locus_type_onchange()
    tri_onchange()
    tri_type_onchange()
+
+   reset_UI_onclick();
+   config_url_onclick();
 
    ui_changed("1")
 }
