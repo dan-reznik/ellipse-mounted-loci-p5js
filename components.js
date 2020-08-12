@@ -156,7 +156,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
     <div class="input_Xn">
         <div id='Locus_label'>
             <label for="checkbox_Xn`+xn_number+`"> Locus `+xn_number+`: </label>
-            <select id="input_locus_type_`+xn_number+`">
+            <select id="locus_type_`+xn_number+`">
                 <option value="none">none</option>
                 <option value="trilins" `+trilins_selected+`>tri ctr</option>
                 <option value="brocard_1">Ω1</option>
@@ -188,15 +188,15 @@ var html = function(xn_number, trilins_selected, tri_selected){
             <option value="extouch">extouch</option>
         </select>
         <div class="subcheck_label">
-            <input class = "sub_checkbox" type="checkbox" id="mounting_Xn`+xn_number+`" `+tri_selected+` name="mounting_Xn`+xn_number+`">
-            <label for="mounting_Xn`+xn_number+`"> Draw</label>
+            <input class = "sub_checkbox" type="checkbox" id="draw_tri_`+xn_number+`" `+tri_selected+` name="draw_tri_`+xn_number+`">
+            <label for="draw_tri_`+xn_number+`"> Draw</label>
         </div>
     </div>
 
     <div class="input_Xn">
-        <label for="input_mounting_Xn`+xn_number+`"> Mount: </label>
+        <label for="mounting_Xn`+xn_number+`"> Mount: </label>
         <div class="input_mounting">
-            <select id="input_mounting_Xn`+xn_number+`" name="input_mounting_Xn`+xn_number+`">
+            <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
                 <option value="billiard">billiard</option>
                 <option value="homothetic">homothetic</option>
                 <option value="major">major</option>

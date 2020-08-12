@@ -19,35 +19,14 @@ let g_locus_Xn3_branched = [];
 
 g_ui = {
    a: 1.618,
-   aMin: 1.001,
-   aMax: 4,
-   aStep: 0.001,
-   mounting_Xn1: ["billiard",
-      "major", "minor", "mixed", "ctrMajor",
-      "ctrMinor", "fs", "fsCtr", "fsLeft",
-      "fsRight", "fsTop", "cornerTL_BL", "cornerTL_TR",
-      "cornerTL_vtxL", "cornerTL_vtxT", "cornerTL_vtxB",
-      "cornerTL_ctr", "cornerTL_BR"
-   ],
-   mounting_Xn2: ["billiard",
-      "major", "minor", "mixed", "ctrMajor",
-      "ctrMinor", "fs", "fsCtr", "fsLeft",
-      "fsRight", "fsTop", "cornerTL_BL", "cornerTL_TR",
-      "cornerTL_vtxL", "cornerTL_vtxT", "cornerTL_vtxB",
-      "cornerTL_ctr", "cornerTL_BR"
-   ],
-   mounting_Xn3: ["billiard",
-      "major", "minor", "mixed", "ctrMajor",
-      "ctrMinor", "fs", "fsCtr", "fsLeft",
-      "fsRight", "fsTop", "cornerTL_BL", "cornerTL_TR",
-      "cornerTL_vtxL", "cornerTL_vtxT", "cornerTL_vtxB",
-      "cornerTL_ctr", "cornerTL_BR"
-   ],
-   Xn1: 1, Xn1Min: 1, Xn1Max: 200, Xn1Step: 1,
-   Xn2: 1, Xn2Min: 1, Xn2Max: 200, Xn2Step: 1,
-   Xn3: 1, Xn3Min: 1, Xn3Max: 200, Xn3Step: 1,
-   degStep0: 1,//[1, 0.1, 0.05, 0.01],
-   animStep0: [0.125, 0.25, 0.5, 1]
+
+   locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none',
+   Xn1: 1, Xn2: 1, Xn3: 1,
+   tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference',
+   draw_tri_1: true, draw_tri_2: false, draw_tri_3: false,
+   mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard',
+
+   animStep0: 0.125
 };
 
 function get_brocard(n) {
@@ -112,32 +91,22 @@ function get_Xn_homothetic(a, tDeg, trilin_fn, tri_type) {
 }
 
 function create_locus(locus_type_changed) {
-   let tdegStep = +g_ui.degStep0;
+   let tdegStep = +1; //valor inicial de degStep0
    let a = +g_ui.a;
-   // iverton estes valores devem vir de g_ui.locus_type_xxx
-   var locus_type_1 = document.getElementById("input_locus_type_1").value;
-   var locus_type_2 = document.getElementById("input_locus_type_2").value;
-   var locus_type_3 = document.getElementById("input_locus_type_3").value;
 
-   var tri_type_1 = document.getElementById("tri_type_1").value;
-   var tri_type_2 = document.getElementById("tri_type_2").value;
-   var tri_type_3 = document.getElementById("tri_type_3").value;
-   //console.log(tri_type_1,tri_type_2,tri_type_3);
-
-   //console.log(locus_type_1)
    if (locus_type_1 != "none" && ["1", "0"].includes(locus_type_changed)) {
 
       g_locus_Xn1_branched = make_locus_branched(a, g_ui.Xn1, tdegStep,
-         g_ui.mounting_Xn1, locus_type_1, tri_type_1);
+         g_ui.mounting_Xn1, g_ui.locus_type_1, g_ui.tri_type_1);
    }
    if (locus_type_2 != "none" && ["2", "0"].includes(locus_type_changed)) {
 
       g_locus_Xn2_branched = make_locus_branched(a, g_ui.Xn2, tdegStep,
-         g_ui.mounting_Xn2, locus_type_2, tri_type_2);
+         g_ui.mounting_Xn2, g_ui.locus_type_2, g_ui.tri_type_2);
    }
    if (locus_type_3 != "none" && ["3", "0"].includes(locus_type_changed)) {
       g_locus_Xn3_branched = make_locus_branched(a, g_ui.Xn3, tdegStep,
-         g_ui.mounting_Xn3, locus_type_3, tri_type_3);
+         g_ui.mounting_Xn3, g_ui.locus_type_3, g_ui.tri_type_3);
    }
 }
 
@@ -240,14 +209,23 @@ function slider_text_changed(sliderId, dictionary, dictionary_key, textId, minus
    })
 }
 
+function copy_image() {
+   var copy_image_button = document.getElementById('copy_image');
+
+   copy_image_button.addEventListener("click", function () {
+      canvas = document.getElementById('defaultCanvas0');
+      canvas.toBlob(blob => navigator.clipboard.write([new ClipboardItem({'image/png': blob})]));
+   });
+}
+
 function export_PNG() {
-   var export_png_button = document.getElementById('Export_PNG')
    var today = new Date();
    let double_digit = function (myNumber) { return ("0" + myNumber).slice(-2) }
    var date_time = double_digit(today.getDate().toString()) + double_digit((today.getMonth() + 1).toString()) +
       today.getFullYear().toString() + '_' + double_digit(today.getHours().toString()) +
       double_digit(today.getMinutes().toString()) + double_digit(today.getSeconds().toString());
-   export_png_button.addEventListener("click", function () {
+
+   document.getElementById('Export_PNG').addEventListener("click", function () {
       //canvas = document.getElementById('defaultCanvas0');
       element = document.body;
       link = document.getElementById('link');
@@ -266,8 +244,6 @@ function play_controls() {
    var forward_button = document.getElementById("forward");
    var play_class = "fa fa-play-circle-o";
    var stop_class = "fa fa-pause-circle-o";
-   /*var backward_class = "fa fa-backward";
-   var forward_class = "fa fa-forward";*/
 
    play_button.isPlaying = true;
    play_button.className = stop_class;
@@ -306,31 +282,55 @@ function play_controls() {
 }
 
 function tri_onchange(){
-   var tri_check_1 = document.getElementById('mounting_Xn1')
-   var tri_check_2 = document.getElementById('mounting_Xn2')
-   var tri_check_3 = document.getElementById('mounting_Xn3')
-
-   tri_check_1.addEventListener("click", function(){
+   document.getElementById('draw_tri_1').addEventListener("click", function(){
+      g_ui.draw_tri_1 = this.checked;
       redraw("1");
    })
-   tri_check_2.addEventListener("click", function(){
+   document.getElementById('draw_tri_2').addEventListener("click", function(){
+      g_ui.draw_tri_2 = this.checked;
       redraw("2");
    })
-   tri_check_3.addEventListener("click", function(){
+   document.getElementById('draw_tri_3').addEventListener("click", function(){
+      g_ui.draw_tri_3 = this.checked;
       redraw("3");
    })
 }
 
 function locus_type_onchange() {
-   document.getElementById("input_locus_type_1").addEventListener("change", function () { ui_changed("1"); });
-   document.getElementById("input_locus_type_2").addEventListener("change", function () { ui_changed("2"); });
-   document.getElementById("input_locus_type_3").addEventListener("change", function () { ui_changed("3"); });
+   document.getElementById("locus_type_1").addEventListener("change", function () { 
+      g_ui.locus_type_1 = this.value;
+      ui_changed("1"); 
+   });
+   document.getElementById("locus_type_2").addEventListener("change", function () { 
+      g_ui.locus_type_2 = this.value;
+      ui_changed("2"); 
+   });
+   document.getElementById("locus_type_3").addEventListener("change", function () { 
+      g_ui.locus_type_3 = this.value;
+      ui_changed("3"); 
+   });
 }
 
 function tri_type_onchange(){
-   document.getElementById("tri_type_1").addEventListener("change", function () { ui_changed("1"); });
-   document.getElementById("tri_type_2").addEventListener("change", function () { ui_changed("2"); });
-   document.getElementById("tri_type_3").addEventListener("change", function () { ui_changed("3"); });
+   document.getElementById("tri_type_1").addEventListener("change", function () { 
+      g_ui.tri_type_1 = this.value;
+      ui_changed("1"); 
+   });
+   document.getElementById("tri_type_2").addEventListener("change", function () { 
+      g_ui.tri_type_2 = this.value;
+      ui_changed("2"); 
+   });
+   document.getElementById("tri_type_3").addEventListener("change", function () { 
+      g_ui.tri_type_3 = this.value;
+      ui_changed("3"); 
+   });
+}
+
+function mouseOverCanvas(){
+   canvas_div = document.getElementById("canvas")
+   canvas_div.mouseIsOver = false
+   canvas_div.addEventListener('mouseover', function(){this.mouseIsOver = true;});
+   canvas_div.addEventListener('mouseout', function(){this.mouseIsOver = false;});
 }
 
 function setup() {
@@ -347,21 +347,12 @@ function setup() {
    create_checkboxes();
    canvas = createCanvas(g_width, g_height);
    canvas.parent('canvas');
-   //mouseOverCanvas
-   canvas_div = document.getElementById("canvas")
-   this.mouseIsOver = false
-   canvas_div.onmouseover = function () {
-      this.mouseIsOver = true
-   }
-   canvas_div.onmouseout = function () {
-      this.mouseIsOver = false
-   }
+   mouseOverCanvas();
    //frameRate(15);
    g_ctr0 = [g_width / 2, g_height / 2];
    g_ctr = g_ctr0;
    g_mouse = g_ctr0;
 
-   //sliders
    //a
    selector_output("input_a", g_ui, "a", "demo_a")
    //Xn1
@@ -371,15 +362,15 @@ function setup() {
    //Xn3
    slider_text_changed("input_Xn3", g_ui, "Xn3", "demo_Xn3", "minus_Xn3", "plus_Xn3", "3");
 
-   //dropbox
    //animStep0
    selector_output("input_animStep0", g_ui, "animStep0", output_ID = "")
 
    //mounting
-   selector_output("input_mounting_Xn1", g_ui, "mounting_Xn1", output_ID = "", "1")
-   selector_output("input_mounting_Xn2", g_ui, "mounting_Xn2", output_ID = "", "2")
-   selector_output("input_mounting_Xn3", g_ui, "mounting_Xn3", output_ID = "", "3")
+   selector_output("mounting_Xn1", g_ui, "mounting_Xn1", output_ID = "", "1")
+   selector_output("mounting_Xn2", g_ui, "mounting_Xn2", output_ID = "", "2")
+   selector_output("mounting_Xn3", g_ui, "mounting_Xn3", output_ID = "", "3")
 
+   copy_image()
    export_PNG()
    play_controls()
    locus_type_onchange()
@@ -387,28 +378,7 @@ function setup() {
    tri_type_onchange()
 
    ui_changed("1")
-
-   //Create a new GUI with a label
-   /*let gui = createGui('Please Select');
-   gui.addObject(g_ui);
-   document.getElementById("Xn1")
-      .addEventListener('input', ui_changed);
-   document.getElementById("Xn2")
-      .addEventListener('input', ui_changed);
-   document.getElementById("Xn3")
-      .addEventListener('input', ui_changed);
-   document.getElementById("a")
-      .addEventListener('input', ui_changed);
-   document.getElementsByClassName("qs_select")[0]
-      .addEventListener('change', ui_changed);
-      */
 }
-
-// function draw_mounted_tri(a, tDeg, v1, v2) {
-//    //let [v3,xn] = get_Xn_mounted(a, tDeg, v1, v2, get_fn_trilin(n));
-//    let ons = get_mounted_tri(a,tDeg,v1,v2)
-//    draw_mounted(ons.o, ons.s, false);
-// }
 
 function draw() {
    background(220, 220, 200);
@@ -417,35 +387,18 @@ function draw() {
    translate(g_ctr[0], g_ctr[1]);
    scale(g_width / g_scale);
    draw_billiard(+g_ui.a);
-   //var check_Xn1 = document.getElementById("checkbox_Xn1")
-   //var check_Xn2 = document.getElementById("checkbox_Xn2")
-   //var check_Xn3 = document.getElementById("checkbox_Xn3")
-   // Iverton: os valores abaixo devem vir do g_ui
-   var check_mounting_Xn1 = document.getElementById("mounting_Xn1")
-   var check_mounting_Xn2 = document.getElementById("mounting_Xn2")
-   var check_mounting_Xn3 = document.getElementById("mounting_Xn3")
-   var locus_type_1 = document.getElementById("input_locus_type_1").value
-   var locus_type_2 = document.getElementById("input_locus_type_2").value
-   var locus_type_3 = document.getElementById("input_locus_type_3").value
-   var tri_type_1 = document.getElementById("tri_type_1").value
-   var tri_type_2 = document.getElementById("tri_type_2").value
-   var tri_type_3 = document.getElementById("tri_type_3").value
 
-   // function draw_billiard_locus(n,a,tDeg,locus,locus_type,draw_tri,draw_locus) {
-   //draw_billiard_or_mounted(g_ui.Xn1, +g_ui.a, g_tDeg,
-   //      g_locus_Xn1, clr_red, locus_type_1,
-   //      check_mounting_Xn1.checked, g_ui.mounting_Xn1);
    draw_billiard_or_mounted_branched(g_ui.Xn1, +g_ui.a, g_tDeg,
-      g_locus_Xn1_branched, clr_red, locus_type_1,
-      check_mounting_Xn1.checked, g_ui.mounting_Xn1, tri_type_1);
+      g_locus_Xn1_branched, clr_red, g_ui.locus_type_1,
+      g_ui.draw_tri_1, g_ui.mounting_Xn1, g_ui.tri_type_1);
 
    draw_billiard_or_mounted_branched(g_ui.Xn2, +g_ui.a, g_tDeg,
-      g_locus_Xn2_branched, clr_green, locus_type_2,
-      check_mounting_Xn2.checked, g_ui.mounting_Xn2, tri_type_2);
+      g_locus_Xn2_branched, clr_green, g_ui.locus_type_2,
+      g_ui.draw_tri_2, g_ui.mounting_Xn2, g_ui.tri_type_2);
 
    draw_billiard_or_mounted_branched(g_ui.Xn3, +g_ui.a, g_tDeg,
-      g_locus_Xn3_branched, clr_blue, locus_type_3,
-      check_mounting_Xn3.checked, g_ui.mounting_Xn3, tri_type_3);
+      g_locus_Xn3_branched, clr_blue, g_ui.locus_type_3,
+      g_ui.draw_tri_3, g_ui.mounting_Xn3, g_ui.tri_type_3);
 
    pop();
 
