@@ -37,7 +37,7 @@ body {
   width: 100%;
   padding: 1%;
   grid-gap: 1% 0.5%;
-  grid-template-columns: minmax(170px, 230px) minmax(200px, 95%);
+  grid-template-columns: minmax(175px, 230px) minmax(310px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config title"
@@ -223,4 +223,8 @@ p.lab{
 .title>*{
   margin-left: auto;
   margin-right: auto;
+}
+
+.image_export{
+  width: 50%;
 }
