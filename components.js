@@ -144,8 +144,11 @@ var html = function(xn_number, trilins_selected, tri_selected){
     }
 
     .input_mounting{
-        flex-grow: 1;
         height: 100%;
+    }
+
+    #Bbox{
+        flex-grow: 1;
     }
 
 </style>
@@ -215,6 +218,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
                 <option value="cornerTL_BR">cornerTL_BR</option>
             </select>
         </div>
+        <button id='Bbox'>Bbox</button>
     </div>
 
 </div>
