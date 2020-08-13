@@ -196,6 +196,7 @@ function get_xmin(ps) {
  function locus_bbox(a, locus_type, locus_branched, ar, scale0) {
     var bbox, scale=scale0;
     const adj = 1.1;
+    const r_max = 10;
     if (locus_type != "none") {
        bbox = get_locus_bbox(locus_branched);
        do_it = true
@@ -203,6 +204,11 @@ function get_xmin(ps) {
           bbox.ymax2 = 1;
        if (bbox.xmax2 < a)
           bbox.xmax2 = a;
+          // max bbox
+       if (bbox.ymax2 > r_max)
+          bbox.ymax2 = r_max;
+       if (bbox.ymax2 > r_max)
+          bbox.xmax2 = r_max;
        var scale_min;
        if (bbox.ymax2 > bbox.xmax2) {
           scale = adj * 2 * bbox.ymax2 * ar;
