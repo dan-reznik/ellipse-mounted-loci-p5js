@@ -3,7 +3,8 @@ var g_height;
 var g_main_title;
 var g_ctr, g_mouse, g_ctr0;
 
-let g_scale = 7;
+let g_scale0 = 6;
+let g_scale = g_scale0;
 let g_dragged = false;
 let g_click_ell = false;
 let g_loop_ccw = true;
@@ -498,8 +499,8 @@ function Bbox_onclick(n) {
          //console.log("scale_min",scale_min,"g_scale",g_scale);
           if (g_scale < scale_min)
             g_scale = scale_min;
-         if (g_scale < 7)
-            g_scale = 7;
+         if (g_scale < g_scale0)
+            g_scale = g_scale0;
          recenter();
          redraw();
       }
