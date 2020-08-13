@@ -94,7 +94,7 @@ function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
         tDeg += tDegStepMax;
     } while (tDeg<tDegMax && magn(xn) > r_max); // interrupt loop if cannot find valid
     if (tDeg > tDegMax) {
-        let kx = r_max * 0.2;
+        let kx = r_max * 0.05;
         locus_array = [[[-kx, -kx],[kx,kx]],[[-kx,kx],[kx,-kx]]];
     } else {
         locus_Xn = [xn];
