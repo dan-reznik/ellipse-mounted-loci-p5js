@@ -447,39 +447,7 @@ function set_url_params(g_url_params){
    ui_changed("0");
 }
 
-function get_xmin(ps) {
-   xs = ps.map(p=>p[0]);
-   return Math.min(...xs);
-}
-function get_ymin(ps) {
-   ys = ps.map(p=>p[1]);
-   return Math.min(...ys);
-}
 
-function get_xmax(ps) {
-   xs = ps.map(p=>p[0]);
-   return Math.max(...xs);
-}
-function get_ymax(ps) {
-   ys = ps.map(p=>p[1]);
-   return Math.max(...ys);
-}
-
-function get_locus_bbox(locus_branched) {
-   let xmins = locus_branched.map(br => get_xmin(br));
-   let xmin = Math.min(...xmins);
-   let xmaxs = locus_branched.map(br => get_xmax(br));
-   let xmax = Math.max(...xmaxs);
-   let ymins = locus_branched.map(br => get_ymin(br));
-   let ymin = Math.min(...ymins);
-   let ymaxs = locus_branched.map(br => get_ymax(br));
-   let ymax = Math.max(...ymaxs);
-
-   let xmax2 = Math.max(Math.abs(xmin),Math.abs(xmax));
-   let ymax2 = Math.max(Math.abs(ymin),Math.abs(ymax));
-
-   return {xmin:xmin,xmax:xmax,xmax2:xmax2,ymin:ymin,ymax:ymax,ymax2:ymax2};
-}
 
 function Bbox_onclick(n) {
    document.getElementById('Bbox_' + n).addEventListener('click', function () {
