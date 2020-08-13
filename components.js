@@ -147,9 +147,10 @@ var html = function(xn_number, trilins_selected, tri_selected){
         height: 100%;
     }
 
-    #Bbox{
+    .Bbox{
         flex-grow: 1;
-    }
+        margin-right: 5px;
+    };
 
 </style>
 <div class="component xn_selector">
@@ -218,7 +219,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
                 <option value="cornerTL_BR">cornerTL_BR</option>
             </select>
         </div>
-        <button id='Bbox'>Bbox</button>
+        <button class='Bbox' id='Bbox_`+xn_number+`'>Bbox</button>
     </div>
 
 </div>

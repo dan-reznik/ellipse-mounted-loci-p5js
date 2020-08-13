@@ -443,6 +443,12 @@ function set_url_params(g_url_params){
    ui_changed("0");
 }
 
+function Bbox_onclick(n){
+   document.getElementById('Bbox_'+n).addEventListener('click', function(){
+      console.log("click Bbox_"+n);
+   })
+}
+
 function setup() {
    let g_ui_reset = {
       a: 1.618,
@@ -476,6 +482,9 @@ function setup() {
    locus_type_onchange()
    tri_onchange()
    tri_type_onchange()
+   Bbox_onclick("1");
+   Bbox_onclick("2");
+   Bbox_onclick("3");
 
    reset_UI_onclick(g_ui_reset);
    config_url_onclick(g_ui_reset);
