@@ -447,8 +447,6 @@ function set_url_params(g_url_params){
    ui_changed("0");
 }
 
-
-
 function Bbox_onclick(n) {
    document.getElementById('Bbox_' + n).addEventListener('click', function () {
       var bbox;
@@ -500,6 +498,8 @@ function Bbox_onclick(n) {
          //console.log("scale_min",scale_min,"g_scale",g_scale);
           if (g_scale < scale_min)
             g_scale = scale_min;
+         if (g_scale < 7)
+            g_scale = 7;
          recenter();
          redraw();
       }
