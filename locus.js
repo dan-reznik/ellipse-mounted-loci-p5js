@@ -190,3 +190,37 @@ function get_xmin(ps) {
  
     return {xmin:xmin,xmax:xmax,xmax2:xmax2,ymin:ymin,ymax:ymax,ymax2:ymax2};
  }
+
+ function locus_bbox(a, locus_type, locus_branched, ar, scale0) {
+    var bbox, scale=scale0;
+    const adj = 1.1;
+    if (locus_type != "none") {
+       bbox = get_locus_bbox(locus_branched);
+       do_it = true
+       if (bbox.ymax2 < 1)
+          bbox.ymax2 = 1;
+       if (bbox.xmax2 < a)
+          bbox.xmax2 = a;
+       var scale_min;
+       if (bbox.ymax2 > bbox.xmax2) {
+          scale = adj * 2 * bbox.ymax2 * ar;
+          // g_width/(adj * 2 * bbox.ymax2 * g_width / g_height) =
+          // = g_height/(2*adj*bbox.ymax2))
+          // g_scale > 2*adj*bbox.xmax2;
+          // bbox.xmax2 * g_width/g_scale < (g_width/2)/adj
+          scale_min = 2 * adj * bbox.xmax2;
+       } else { // bbox.xmax2
+          //console.log("case 2","bbox.xmax2",bbox.xmax2,"a",a);
+          scale = adj * 2 * bbox.xmax2;
+          // bbox.ymax2 * g_width/g_scale < (g_height/2)/adj
+          // g_scale > 2*adj*bbox.ymax2*g_width/g_height;
+          scale_min = 2 * adj * bbox.ymax2 * ar;
+       };
+       //console.log("scale_min",scale_min,"g_scale",g_scale);
+       if (scale < scale_min)
+          scale = scale_min;
+       if (scale < scale0)
+          scale = scale0;
+    }
+    return(scale);
+ }

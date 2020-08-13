@@ -448,63 +448,17 @@ function set_url_params(g_url_params){
    ui_changed("0");
 }
 
+function bbox_rescale(n) {
+      let locus_types = [g_ui.locus_type_1, g_ui.locus_type_2, g_ui.locus_type_3];
+      let loci = [g_locus_Xn1_branched, g_locus_Xn2_branched, g_locus_Xn3_branched];
+      g_scale = locus_bbox(+g_ui.a, locus_types[n - 1], loci[n - 1], g_width / g_height, g_scale0);
+      recenter();
+      redraw();
+}
+
 function Bbox_onclick(n) {
-   document.getElementById('Bbox_' + n).addEventListener('click', function () {
-      var bbox;
-      let a = +g_ui.a;
-      const adj = 1.1;
-      let do_it = false;
-      switch (n) {
-         case "1":
-            if (g_ui.locus_type_1 != "none") {
-               bbox = get_locus_bbox(g_locus_Xn1_branched);
-               do_it = true;
-            }
-            break;
-         case "2":
-            if (g_ui.locus_type_2 != "none") {
-               bbox = get_locus_bbox(g_locus_Xn2_branched);
-               do_it = true;
-            }
-            break;
-         case "3":
-            if (g_ui.locus_type_3 != "none") {
-               bbox = get_locus_bbox(g_locus_Xn3_branched);
-               do_it = true;
-            }
-            break;
-         default: console.log("bbox_onclick: error");
-      }
-      //console.log(bbox);
-      if (do_it) {
-         if (bbox.ymax2 < 1)
-            bbox.ymax2 = 1;
-         if (bbox.xmax2 < a)
-            bbox.xmax2 = a;
-         var scale_min;    
-         if (bbox.ymax2 > bbox.xmax2) {
-            g_scale = adj * 2 * bbox.ymax2 * g_width / g_height;
-            // g_width/(adj * 2 * bbox.ymax2 * g_width / g_height) =
-            // = g_height/(2*adj*bbox.ymax2))
-            // g_scale > 2*adj*bbox.xmax2;
-            // bbox.xmax2 * g_width/g_scale < (g_width/2)/adj
-            scale_min = 2 * adj * bbox.xmax2;
-         } else { // bbox.xmax2
-            //console.log("case 2","bbox.xmax2",bbox.xmax2,"a",a);
-            g_scale = adj * 2 * bbox.xmax2;
-            // bbox.ymax2 * g_width/g_scale < (g_height/2)/adj
-           // g_scale > 2*adj*bbox.ymax2*g_width/g_height;
-            scale_min = 2 * adj * bbox.ymax2 * g_width / g_height;
-         };
-         //console.log("scale_min",scale_min,"g_scale",g_scale);
-          if (g_scale < scale_min)
-            g_scale = scale_min;
-         if (g_scale < g_scale0)
-            g_scale = g_scale0;
-         recenter();
-         redraw();
-      }
-   });
+   document.getElementById('Bbox_' + n).addEventListener('click',
+      () => bbox_rescale(n));
 }
 
 function setup() {
