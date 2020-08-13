@@ -46,7 +46,7 @@ function set_ui_variables(dictionary){
 function reset_ui(g_ui_reset){
    set_ui_variables(g_ui_reset)
    Object.assign(g_ui, g_ui_reset)
-   windowResized();
+   recenter();
 };
 
 function get_brocard(n) {
@@ -148,11 +148,15 @@ function create_checkboxes() {
    //create_title("Visit <a href=http://mathworld.wolfram.com/ target=_blank>MathWorld</a> and <a href=https://faculty.evansville.edu/ck6/encyclopedia/ETC.html target=_blank>ETC</a>", 0, y, false);
 }
 
-function windowResized() {
+function recenter() {
    g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
    g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
    g_ctr0 = [g_width / 2, g_height / 2];
    g_ctr = g_ctr0;
+}
+
+function windowResized() {
+   recenter();
    //let pos = g_main_title.position();
    //g_main_title.position(g_width / 2 - 160, pos[1]);
    resizeCanvas(g_width, g_height);
@@ -443,10 +447,95 @@ function set_url_params(g_url_params){
    ui_changed("0");
 }
 
-function Bbox_onclick(n){
-   document.getElementById('Bbox_'+n).addEventListener('click', function(){
-      console.log("click Bbox_"+n);
-   })
+function get_xmin(ps) {
+   xs = ps.map(p=>p[0]);
+   return Math.min(...xs);
+}
+function get_ymin(ps) {
+   ys = ps.map(p=>p[1]);
+   return Math.min(...ys);
+}
+
+function get_xmax(ps) {
+   xs = ps.map(p=>p[0]);
+   return Math.max(...xs);
+}
+function get_ymax(ps) {
+   ys = ps.map(p=>p[1]);
+   return Math.max(...ys);
+}
+
+function get_locus_bbox(locus_branched) {
+   let xmins = locus_branched.map(br => get_xmin(br));
+   let xmin = Math.min(...xmins);
+   let xmaxs = locus_branched.map(br => get_xmax(br));
+   let xmax = Math.max(...xmaxs);
+   let ymins = locus_branched.map(br => get_ymin(br));
+   let ymin = Math.min(...ymins);
+   let ymaxs = locus_branched.map(br => get_ymax(br));
+   let ymax = Math.max(...ymaxs);
+
+   let xmax2 = Math.max(Math.abs(xmin),Math.abs(xmax));
+   let ymax2 = Math.max(Math.abs(ymin),Math.abs(ymax));
+
+   return {xmin:xmin,xmax:xmax,xmax2:xmax2,ymin:ymin,ymax:ymax,ymax2:ymax2};
+}
+
+function Bbox_onclick(n) {
+   document.getElementById('Bbox_' + n).addEventListener('click', function () {
+      var bbox;
+      let a = +g_ui.a;
+      const adj = 1.05;
+      let do_it = false;
+      switch (n) {
+         case "1":
+            if (g_ui.locus_type_1 != "none") {
+               bbox = get_locus_bbox(g_locus_Xn1_branched);
+               do_it = true;
+            }
+            break;
+         case "2":
+            if (g_ui.locus_type_2 != "none") {
+               bbox = get_locus_bbox(g_locus_Xn2_branched);
+               do_it = true;
+            }
+            break;
+         case "3":
+            if (g_ui.locus_type_3 != "none") {
+               bbox = get_locus_bbox(g_locus_Xn3_branched);
+               do_it = true;
+            }
+            break;
+         default: console.log("bbox_onclick: error");
+      }
+      //console.log(bbox);
+      if (do_it) {
+         if (bbox.ymax2 < 1)
+            bbox.ymax2 = 1;
+         if (bbox.xmax2 < a)
+            bbox.xmax2 = a;
+         var scale_min;    
+         if (bbox.ymax2 > bbox.xmax2) {
+            g_scale = adj * 2 * bbox.ymax2 * g_width / g_height;
+            // g_width/(adj * 2 * bbox.ymax2 * g_width / g_height) =
+            // = g_height/(2*adj*bbox.ymax2))
+            // g_scale > 2*adj*bbox.xmax2;
+            // bbox.xmax2 * g_width/g_scale < (g_width/2)/adj
+            scale_min = 2 * adj * bbox.xmax2;
+         } else { // bbox.xmax2
+            //console.log("case 2","bbox.xmax2",bbox.xmax2,"a",a);
+            g_scale = adj * 2 * bbox.xmax2;
+            // bbox.ymax2 * g_width/g_scale < (g_height/2)/adj
+           // g_scale > 2*adj*bbox.ymax2*g_width/g_height;
+            scale_min = 2 * adj * bbox.ymax2 * g_width / g_height;
+         };
+         //console.log("scale_min",scale_min,"g_scale",g_scale);
+          if (g_scale < scale_min)
+            g_scale = scale_min;
+         recenter();
+         redraw();
+      }
+   });
 }
 
 function setup() {
@@ -492,8 +581,6 @@ function setup() {
    ui_changed("1")
 }
 
-g_first=true;
-
 function draw() {
    background(220, 220, 200);
 
@@ -517,7 +604,6 @@ function draw() {
    pop();
 
   
-   if (g_first) { console.log(g_width,g_height); g_first = false; }
    draw_text_full("(c) 2020 Darlan & Reznik", [g_width-150,g_height-24], clr_blue);
    draw_text_full("dan-reznik.github.io/ellipse-mounted-loci-p5js/",
    [g_width-260,g_height-10], clr_blue);   
@@ -579,6 +665,7 @@ function mouseWheel(event) {
       g_scale *= 0.95;
    //uncomment to block page scrolling
    if (!g_loop) redraw();
+   console.log(g_scale);
    return false;
    //}
 }

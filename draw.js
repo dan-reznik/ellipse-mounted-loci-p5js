@@ -213,6 +213,12 @@ function draw_center() {
   draw_point([0, 0], [150, 0, 0])
 }
 
+function draw_foci(a) {
+  let c = Math.sqrt(a*a-1);
+  draw_point([c, 0], [0, 0, 0])
+  draw_point([-c, 0], [0, 0, 0])
+}
+
 function draw_boundary(a) {
   push();
   strokeWeight(0.0125);
@@ -233,6 +239,7 @@ function draw_circle_low([cx, cy], r, rgb, dr_ctr = true) {
 function draw_billiard(a) {
   draw_boundary(a);
   draw_axes(a);
+  draw_foci(a);
   //draw_center();
 }
 
