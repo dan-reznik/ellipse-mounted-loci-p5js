@@ -25,17 +25,6 @@ function pedal_triangle([alpha,beta,gamma],
   return generic_triangle(orbit,[a,b,c],[t1,t2,t3]);
 }
 
-// http://mathworld.wolfram.com/ExtangentsTriangle.html
-function extangents_triangle(orbit,sides) {
-  let [x,y,z]=tri_cosines(sides);
-  let m=[
-    [-x-1,x+z,x+y],
-    [y+z,-y-1,y+x],
-    [z+y,z+x,-z-1]
-    ];
-  return generic_triangle(orbit,sides,m);
-}
-
 function excentral_triangle(orbit,sides) {
   let ts=[[-1,1,1],[1,-1,1],[1,1,-1]];
   return generic_triangle(orbit,sides,ts);
@@ -50,6 +39,7 @@ function minus_excentral_triangle(orbit,sides) {
     let exc = excentral_triangle(orbit,sides);
   return minus_excentral_triangle0(orbit,sides,exc);
 }
+
 
 function medial_triangle(orbit,[a,b,c]) {
   let ts=[[0,1/b,1/c],[1/a,0,1/c],[1/a,1/b,0]];
@@ -69,6 +59,46 @@ function orthic_triangle(orbit,sides) {
           [secA,0,secC],
           [secA,secB,0]];
  return generic_triangle(orbit,sides,ts);
+}
+
+
+function exc_symmedial_triangle(o,s) {
+  let exc = excentral_triangle(o,s);
+  let exc_s = tri_sides(exc);
+  return(symmedial_triangle(exc,exc_s));
+}
+
+function extouch_triangle(orbit,[a,b,c]) {
+  let ts=[[0,(a-b+c)/b,(a+b-c)/c],
+          [(-a+b+c)/a,0,(a+b-c)/c],
+          [(-a+b+c)/a,(a-b+c)/b,0]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function intouch_triangle(orbit,[a,b,c]) {
+  let ts=[[0,            (a*c)/(a-b+c),(a*b)/(a+b-c)],
+          [(b*c)/(b-a+c),0            ,(a*b)/(a+b-c)],
+          [(b*c)/(b-a+c),(a*c)/(a-b+c),0            ]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function ant_intouch_triangle(orbit,[a,b,c]) {
+  ant = anticompl_triangle(orbit,[a,b,c]);
+  ant_s = triangle_sides(ant);
+  return intouch_triangle(ant_s,ants_s);
+}
+
+// still to include: extangents_triangle, euler_triangle, feuerbach_triangle, symmedial_triangle
+
+// http://mathworld.wolfram.com/ExtangentsTriangle.html
+function extangents_triangle(orbit,sides) {
+  let [x,y,z]=tri_cosines(sides);
+  let m=[
+    [-x-1,x+z,x+y],
+    [y+z,-y-1,y+x],
+    [z+y,z+x,-z-1]
+    ];
+  return generic_triangle(orbit,sides,m);
 }
 
 // http://mathworld.wolfram.com/EulerTriangle.html
@@ -112,31 +142,6 @@ function symmedial_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
-function exc_symmedial_triangle(o,s) {
-  let exc = excentral_triangle(o,s);
-  let exc_s = tri_sides(exc);
-  return(symmedial_triangle(exc,exc_s));
-}
-
-function extouch_triangle(orbit,[a,b,c]) {
-  let ts=[[0,(a-b+c)/b,(a+b-c)/c],
-          [(-a+b+c)/a,0,(a+b-c)/c],
-          [(-a+b+c)/a,(a-b+c)/b,0]];
-  return generic_triangle(orbit,[a,b,c],ts);
-}
-
-function intouch_triangle(orbit,[a,b,c]) {
-  let ts=[[0,            (a*c)/(a-b+c),(a*b)/(a+b-c)],
-          [(b*c)/(b-a+c),0            ,(a*b)/(a+b-c)],
-          [(b*c)/(b-a+c),(a*c)/(a-b+c),0            ]];
-  return generic_triangle(orbit,[a,b,c],ts);
-}
-
-function ant_intouch_triangle(orbit,[a,b,c]) {
-  ant = anticompl_triangle(orbit,[a,b,c]);
-  ant_s = triangle_sides(ant);
-  return intouch_triangle(ant_s,ants_s);
-}
 
 function get_mounted_tri(a, tDeg, v1, v2) {
   let t = toRad(tDeg);

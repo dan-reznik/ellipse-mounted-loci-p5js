@@ -20,7 +20,7 @@ let g_locus_Xn3_branched = [];
 
 let g_ui = {};
 
-function set_ui_variables(dictionary){
+function set_ui_variables(dictionary) {
    document.getElementById("a").value = dictionary["a"];
    document.getElementById("demo_a").innerHTML = dictionary["a"];
    document.getElementById("locus_type_1").value = dictionary["locus_type_1"];
@@ -44,7 +44,7 @@ function set_ui_variables(dictionary){
    document.getElementById("animStep0").value = dictionary["animStep0"];
 }
 
-function reset_ui(g_ui_reset){
+function reset_ui(g_ui_reset) {
    set_ui_variables(g_ui_reset)
    Object.assign(g_ui, g_ui_reset)
    recenter();
@@ -63,50 +63,62 @@ function get_fn_any(locus_type, n) {
    }
 }
 
-function get_derived_tri(orbit,sides,tri_type) {
+function get_derived_tri(orbit, sides, tri_type) {
    var tri;
-   switch(tri_type){
+   switch (tri_type) {
       case "excentral":
-         tri = excentral_triangle(orbit,sides);
+         tri = excentral_triangle(orbit, sides);
          break;
       case "anticompl":
-         tri = anticompl_triangle(orbit,sides);
+         tri = anticompl_triangle(orbit, sides);
          break;
       case "orthic":
-         tri = orthic_triangle(orbit,sides);
+         tri = orthic_triangle(orbit, sides);
          break;
       case "intouch":
-         tri = intouch_triangle(orbit,sides);
+         tri = intouch_triangle(orbit, sides);
          break;
       case "extouch":
-         tri = extouch_triangle(orbit,sides);
+         tri = extouch_triangle(orbit, sides);
          break;
-         // reference 
+      // reference 
       case "medial":
-         tri = medial_triangle(orbit,sides);
+         tri = medial_triangle(orbit, sides);
          break;
-         // reference 
-      default: return {o:orbit,s:sides};
+      case "extangents":
+         tri = extangents_triangle(orbit, sides);
+         break;
+      case "euler":
+         tri = euler_triangle(orbit, sides);
+         break;
+      case "feuerbach":
+         tri = feuerbach_triangle(orbit, sides);
+         break;
+      case "symmedial":
+         tri = symmedial_triangle(orbit, sides);
+         break;
+      // reference 
+      default: return { o: orbit, s: sides };
    }
-   return {o:tri,s:tri_sides(tri)};
+   return { o: tri, s: tri_sides(tri) };
 }
 
 function get_Xn_orbit(a, tDeg, trilin_fn, tri_type) {
    let ons = orbit_normals(a, tDeg);
-   let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
+   let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
    return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
 }
 
-function orbit_homothetic(a,tDeg) {
+function orbit_homothetic(a, tDeg) {
    let tri0 = regularPoly(3);
-   let triRot = rotPoly(tri0,toRad(tDeg));
-   let triScale = scalePoly(triRot,a,1);
-   return {o:triScale,s:tri_sides(triScale)};
+   let triRot = rotPoly(tri0, toRad(tDeg));
+   let triScale = scalePoly(triRot, a, 1);
+   return { o: triScale, s: tri_sides(triScale) };
 }
 
 function get_Xn_homothetic(a, tDeg, trilin_fn, tri_type) {
    let ons = orbit_homothetic(a, tDeg);
-   let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
+   let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
    return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
 }
 
@@ -171,19 +183,19 @@ function ui_changed(locus_type_changed) {
 
 
 
-function selector_output(input_ID, output_ID = "", locus_number="0") {
+function selector_output(input_ID, output_ID = "", locus_number = "0") {
    var selector = document.getElementById(input_ID);
    selector.value = g_ui[input_ID];
    if (output_ID != "") {
       var output = document.getElementById(output_ID);
       output.innerHTML = g_ui[input_ID];
-      selector.addEventListener('input', function(){
+      selector.addEventListener('input', function () {
          g_ui[input_ID] = this.value;
          output.innerHTML = this.value;
          ui_changed(locus_number)
       });
    } else {
-      selector.addEventListener('change', function(){
+      selector.addEventListener('change', function () {
          g_ui[input_ID] = selector.value
          ui_changed(locus_number)
       })
@@ -236,7 +248,7 @@ function copy_image() {
 
    copy_image_button.addEventListener("click", function () {
       canvas = document.getElementById('defaultCanvas0');
-      canvas.toBlob(blob => navigator.clipboard.write([new ClipboardItem({'image/png': blob})]));
+      canvas.toBlob(blob => navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]));
    });
 }
 
@@ -253,7 +265,7 @@ function export_PNG() {
       link = document.getElementById('link');
       link.setAttribute('download', 'tri_app_' + date_time + '.png');
 
-      html2canvas(element, {allowTaint: true}).then(function (canvas) {
+      html2canvas(element, { allowTaint: true }).then(function (canvas) {
          link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
       })
       link.click();
@@ -303,59 +315,59 @@ function play_controls() {
    });
 }
 
-function tri_onchange(){
-   document.getElementById('draw_tri_1').addEventListener("click", function(){
+function tri_onchange() {
+   document.getElementById('draw_tri_1').addEventListener("click", function () {
       g_ui.draw_tri_1 = this.checked;
       redraw("1");
    })
-   document.getElementById('draw_tri_2').addEventListener("click", function(){
+   document.getElementById('draw_tri_2').addEventListener("click", function () {
       g_ui.draw_tri_2 = this.checked;
       redraw("2");
    })
-   document.getElementById('draw_tri_3').addEventListener("click", function(){
+   document.getElementById('draw_tri_3').addEventListener("click", function () {
       g_ui.draw_tri_3 = this.checked;
       redraw("3");
    })
 }
 
 function locus_type_onchange() {
-   document.getElementById("locus_type_1").addEventListener("change", function () { 
+   document.getElementById("locus_type_1").addEventListener("change", function () {
       g_ui.locus_type_1 = this.value;
-      ui_changed("1"); 
+      ui_changed("1");
    });
-   document.getElementById("locus_type_2").addEventListener("change", function () { 
+   document.getElementById("locus_type_2").addEventListener("change", function () {
       g_ui.locus_type_2 = this.value;
-      ui_changed("2"); 
+      ui_changed("2");
    });
-   document.getElementById("locus_type_3").addEventListener("change", function () { 
+   document.getElementById("locus_type_3").addEventListener("change", function () {
       g_ui.locus_type_3 = this.value;
-      ui_changed("3"); 
+      ui_changed("3");
    });
 }
 
-function tri_type_onchange(){
-   document.getElementById("tri_type_1").addEventListener("change", function () { 
+function tri_type_onchange() {
+   document.getElementById("tri_type_1").addEventListener("change", function () {
       g_ui.tri_type_1 = this.value;
-      ui_changed("1"); 
+      ui_changed("1");
    });
-   document.getElementById("tri_type_2").addEventListener("change", function () { 
+   document.getElementById("tri_type_2").addEventListener("change", function () {
       g_ui.tri_type_2 = this.value;
-      ui_changed("2"); 
+      ui_changed("2");
    });
-   document.getElementById("tri_type_3").addEventListener("change", function () { 
+   document.getElementById("tri_type_3").addEventListener("change", function () {
       g_ui.tri_type_3 = this.value;
-      ui_changed("3"); 
+      ui_changed("3");
    });
 }
 
-function mouseOverCanvas(){
+function mouseOverCanvas() {
    canvas_div = document.getElementById("canvas")
    canvas_div.mouseIsOver = false
-   canvas_div.addEventListener('mouseover', function(){this.mouseIsOver = true;});
-   canvas_div.addEventListener('mouseout', function(){this.mouseIsOver = false;});
+   canvas_div.addEventListener('mouseover', function () { this.mouseIsOver = true; });
+   canvas_div.addEventListener('mouseout', function () { this.mouseIsOver = false; });
 }
 
-function set_ui_variables_behavior(){
+function set_ui_variables_behavior() {
    //a
    selector_output("a", "demo_a")
    //Xn1
@@ -374,8 +386,8 @@ function set_ui_variables_behavior(){
    selector_output("mounting_Xn3", output_ID = "", "3")
 }
 
-function reset_UI_onclick(g_ui_reset){
-   document.getElementById('reset_UI').addEventListener('click', function(){
+function reset_UI_onclick(g_ui_reset) {
+   document.getElementById('reset_UI').addEventListener('click', function () {
       reset_ui(g_ui_reset);
       ui_changed("1");
    });
@@ -383,65 +395,65 @@ function reset_UI_onclick(g_ui_reset){
 
 function copyToClipboard(text) {
    if (window.clipboardData && window.clipboardData.setData) {
-       // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
-       return clipboardData.setData("Text", text);
+      // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+      return clipboardData.setData("Text", text);
 
    }
    else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
-       var textarea = document.createElement("textarea");
-       textarea.textContent = text;
-       textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
-       document.body.appendChild(textarea);
-       textarea.select();
-       try {
-           return document.execCommand("copy");  // Security exception may be thrown by some browsers.
-       }
-       catch (ex) {
-           console.warn("Copy to clipboard failed.", ex);
-           return false;
-       }
-       finally {
-           document.body.removeChild(textarea);
-       }
+      var textarea = document.createElement("textarea");
+      textarea.textContent = text;
+      textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+         return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+      }
+      catch (ex) {
+         console.warn("Copy to clipboard failed.", ex);
+         return false;
+      }
+      finally {
+         document.body.removeChild(textarea);
+      }
    }
 }
 
-function get_diff_default(g_ui_reset, key){
+function get_diff_default(g_ui_reset, key) {
    if (g_ui[key] !== g_ui_reset[key])
-      return key+'='+g_ui[key]+'&';
+      return key + '=' + g_ui[key] + '&';
    else
       return '';
 }
 
-function config_url_onclick(g_ui_reset){
-   document.getElementById('config_URL').addEventListener("click", function(){      
+function config_url_onclick(g_ui_reset) {
+   document.getElementById('config_URL').addEventListener("click", function () {
       var link_params = location.protocol + '//' + location.host + location.pathname + '?';
-      link_params += get_diff_default(g_ui_reset,"a");
-      link_params += get_diff_default(g_ui_reset,"locus_type_1");
-      link_params += get_diff_default(g_ui_reset,"locus_type_2");
-      link_params += get_diff_default(g_ui_reset,"locus_type_3");
-      link_params += get_diff_default(g_ui_reset,"Xn1");
-      link_params += get_diff_default(g_ui_reset,"Xn2");
-      link_params += get_diff_default(g_ui_reset,"Xn3");
-      link_params += get_diff_default(g_ui_reset,"tri_type_1");
-      link_params += get_diff_default(g_ui_reset,"tri_type_2");
-      link_params += get_diff_default(g_ui_reset,"tri_type_3");
-      link_params += get_diff_default(g_ui_reset,"draw_tri_1");
-      link_params += get_diff_default(g_ui_reset,"draw_tri_2");
-      link_params += get_diff_default(g_ui_reset,"draw_tri_3");
-      link_params += get_diff_default(g_ui_reset,"mounting_Xn1");
-      link_params += get_diff_default(g_ui_reset,"mounting_Xn2");
-      link_params += get_diff_default(g_ui_reset,"mounting_Xn3");
-      link_params += get_diff_default(g_ui_reset,"animStep0");
+      link_params += get_diff_default(g_ui_reset, "a");
+      link_params += get_diff_default(g_ui_reset, "locus_type_1");
+      link_params += get_diff_default(g_ui_reset, "locus_type_2");
+      link_params += get_diff_default(g_ui_reset, "locus_type_3");
+      link_params += get_diff_default(g_ui_reset, "Xn1");
+      link_params += get_diff_default(g_ui_reset, "Xn2");
+      link_params += get_diff_default(g_ui_reset, "Xn3");
+      link_params += get_diff_default(g_ui_reset, "tri_type_1");
+      link_params += get_diff_default(g_ui_reset, "tri_type_2");
+      link_params += get_diff_default(g_ui_reset, "tri_type_3");
+      link_params += get_diff_default(g_ui_reset, "draw_tri_1");
+      link_params += get_diff_default(g_ui_reset, "draw_tri_2");
+      link_params += get_diff_default(g_ui_reset, "draw_tri_3");
+      link_params += get_diff_default(g_ui_reset, "mounting_Xn1");
+      link_params += get_diff_default(g_ui_reset, "mounting_Xn2");
+      link_params += get_diff_default(g_ui_reset, "mounting_Xn3");
+      link_params += get_diff_default(g_ui_reset, "animStep0");
       copyToClipboard(link_params);
    });
 }
 
-function set_url_params(g_url_params){
+function set_url_params(g_url_params) {
    let original_keys = Object.keys(g_ui);
    let link_keys = Object.keys(g_url_params);
-   link_keys.forEach(function(key) {
-      if(original_keys.includes(key))
+   link_keys.forEach(function (key) {
+      if (original_keys.includes(key))
          g_ui[key] = g_url_params[key];
    });
    set_ui_variables(g_ui);
@@ -449,11 +461,11 @@ function set_url_params(g_url_params){
 }
 
 function bbox_rescale(n) {
-      let locus_types = [g_ui.locus_type_1, g_ui.locus_type_2, g_ui.locus_type_3];
-      let loci = [g_locus_Xn1_branched, g_locus_Xn2_branched, g_locus_Xn3_branched];
-      g_scale = locus_bbox(+g_ui.a, locus_types[n - 1], loci[n - 1], g_width / g_height, g_scale0);
-      recenter();
-      redraw();
+   let locus_types = [g_ui.locus_type_1, g_ui.locus_type_2, g_ui.locus_type_3];
+   let loci = [g_locus_Xn1_branched, g_locus_Xn2_branched, g_locus_Xn3_branched];
+   g_scale = locus_bbox(+g_ui.a, locus_types[n - 1], loci[n - 1], g_width / g_height, g_scale0);
+   recenter();
+   redraw();
 }
 
 function Bbox_onclick(n) {
@@ -525,10 +537,10 @@ function draw() {
 
    pop();
 
-  
-   draw_text_full("(c) 2020 Darlan & Reznik", [g_width-150,g_height-24], clr_blue);
+
+   draw_text_full("(c) 2020 Darlan & Reznik", [g_width - 150, g_height - 24], clr_blue);
    draw_text_full("dan-reznik.github.io/ellipse-mounted-loci-p5js/",
-   [g_width-260,g_height-10], clr_blue);   
+      [g_width - 260, g_height - 10], clr_blue);
    if (g_loop) g_tDeg += (g_loop_ccw ? (+g_ui.animStep0) : -(+g_ui.animStep0));
 }
 
