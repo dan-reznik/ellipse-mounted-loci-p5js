@@ -425,6 +425,7 @@ function config_url_onclick(g_ui_reset) {
       link_params += get_diff_default(g_ui_reset, "mounting_Xn2");
       link_params += get_diff_default(g_ui_reset, "mounting_Xn3");
       link_params += get_diff_default(g_ui_reset, "animStep0");
+      link_params = link_params.slice(0,-1);
       copyToClipboard(link_params);
    });
 }
@@ -433,8 +434,14 @@ function set_url_params(g_url_params) {
    let original_keys = Object.keys(g_ui);
    let link_keys = Object.keys(g_url_params);
    link_keys.forEach(function (key) {
-      if (original_keys.includes(key))
-         g_ui[key] = g_url_params[key];
+      if (original_keys.includes(key)){
+         if(['a', 'Xn1', 'Xn2', 'Xn3', 'animStep0'].includes(key))
+            g_ui[key] = +g_url_params[key];
+         else if(['draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(key))
+            g_ui[key] = (g_url_params[key] == true);
+         else
+            g_ui[key] = g_url_params[key];
+      }
    });
    set_ui_variables(g_ui);
    ui_changed("0");
