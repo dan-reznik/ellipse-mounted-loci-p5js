@@ -92,7 +92,7 @@ function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
     do {
         xn = xn_fn(a, tDeg, trilin_fn);
         tDeg += tDegStepMax;
-    } while (tDeg<tDegMax && magn(xn) > r_max); // interrupt loop if cannot find valid
+    } while (tDeg<tDegMax && (vNaN(xn) || magn(xn) > r_max)); // interrupt loop if cannot find valid
     if (tDeg > tDegMax) {
         let kx = r_max * 0.05;
         locus_array = [[[-kx, -kx],[kx,kx]],[[-kx,kx],[kx,-kx]]];
@@ -104,12 +104,12 @@ function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
         while (tDeg < tDegMax) {
             xn_next = xn_fn(a, tDeg, trilin_fn);
             // should I start a new branch?
-            if (magn(xn_next) > r_max) {
+            if (vNaN(xn_next) || magn(xn_next) > r_max) {
                 // seek next finite xn_next
                 do {
                     xn = xn_fn(a, tDeg, trilin_fn);
                     tDeg += tDegStepMax;
-                } while (tDeg<tDegMax && magn(xn) > r_max);
+                } while (tDeg<tDegMax && (vNaN(xn) || magn(xn) > r_max));
                 // creates new branch
                 if (tDeg<tDegMax) { // prevent infinite point from being added
                     locus_Xn = [xn];

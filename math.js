@@ -35,6 +35,7 @@ function rotSinCos([x, y], st, ct) {
 
 rot = (v,th) => rotSinCos(v,Math.sin(th),Math.cos(th)) 
 
+vNaN = (p) => isNaN(p[0])||isNaN(p[1]);
 vdiff = (u, v) => [u[0] - v[0], u[1] - v[1]];
 vscale = (u, s) => [u[0]*s, u[1]*s];
 vscale_xy = (u, sx, sy) => [u[0]*sx, u[1]*sy];
