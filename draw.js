@@ -196,6 +196,17 @@ function draw_text(txt, p, rgb) {
   pop();
 }
 
+function draw_text_full(txt, p, rgb) {
+  push();
+  //textSize(0.1);
+  strokeWeight(0);
+  fill(rgb);
+  //textAlign(CENTER, BOTTOM);
+  textStyle(NORMAL);
+  text(txt, p[0], p[1] - 0.02);
+  pop();
+}
+
 // DRAW BILLIARD
 
 function draw_center() {

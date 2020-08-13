@@ -483,6 +483,8 @@ function setup() {
    ui_changed("1")
 }
 
+g_first=true;
+
 function draw() {
    background(220, 220, 200);
 
@@ -505,6 +507,11 @@ function draw() {
 
    pop();
 
+  
+   if (g_first) { console.log(g_width,g_height); g_first = false; }
+   draw_text_full("(c) 2020 Darlan & Reznik", [g_width-150,g_height-24], clr_blue);
+   draw_text_full("dan-reznik.github.io/ellipse-mounted-loci-p5js/",
+   [g_width-260,g_height-10], clr_blue);   
    if (g_loop) g_tDeg += (g_loop_ccw ? (+g_ui.animStep0) : -(+g_ui.animStep0));
 }
 
