@@ -135,7 +135,7 @@ function trilin_X9_ext_exc(orbit, sides) {
   let x9_ext_exc = trilin_X9(ext, ext_sides);
   if (g_never) {
     g_never = false;
-    console.log({
+    //console.log({
       ext: ext,
       ext_sides: ext_sides,
       x9: x9_ext_exc

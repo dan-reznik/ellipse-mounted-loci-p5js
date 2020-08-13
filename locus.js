@@ -94,8 +94,8 @@ function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
         tDeg += tDegStepMax;
     } while (tDeg<tDegMax && magn(xn) > r_max); // interrupt loop if cannot find valid
     if (tDeg > tDegMax) {
-        locus_Xn = [[0, 0]];
-        locus_array.push(locus_Xn);
+        let kx = r_max * 0.2;
+        locus_array = [[[-kx, -kx],[kx,kx]],[[-kx,kx],[kx,-kx]]];
     } else {
         locus_Xn = [xn];
         locus_array.push(locus_Xn);
@@ -111,9 +111,11 @@ function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
                     tDeg += tDegStepMax;
                 } while (tDeg<tDegMax && magn(xn) > r_max);
                 // creates new branch
-                locus_Xn = [xn];
-                locus_array.push(locus_Xn);
-                tDeg += tDegStep - tDegStepMax;
+                if (tDeg<tDegMax) { // prevent infinite point from being added
+                    locus_Xn = [xn];
+                    locus_array.push(locus_Xn);
+                    tDeg += tDegStep - tDegStepMax;
+                }
             } else {
                 if (tDegStep < tDegStepMax && edist(xn, xn_next) < d_min) {
                     tDegStep *= 2;
@@ -222,5 +224,6 @@ function get_xmin(ps) {
        if (scale < scale0)
           scale = scale0;
     }
+    //console.log("bbox",bbox,"scale",scale);
     return(scale);
  }

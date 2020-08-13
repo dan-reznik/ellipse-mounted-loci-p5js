@@ -457,8 +457,7 @@ function bbox_rescale(n) {
 }
 
 function Bbox_onclick(n) {
-   document.getElementById('Bbox_' + n).addEventListener('click',
-      () => bbox_rescale(n));
+   document.getElementById('Bbox_' + n).addEventListener('click', () => bbox_rescale(n));
 }
 
 function setup() {
@@ -588,7 +587,6 @@ function mouseWheel(event) {
       g_scale *= 0.95;
    //uncomment to block page scrolling
    if (!g_loop) redraw();
-   console.log(g_scale);
    return false;
    //}
 }
