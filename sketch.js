@@ -64,43 +64,23 @@ function get_fn_any(locus_type, n) {
 }
 
 function get_derived_tri(orbit, sides, tri_type) {
-   var tri;
-   switch (tri_type) {
-      case "excentral":
-         tri = excentral_triangle(orbit, sides);
-         break;
-      case "anticompl":
-         tri = anticompl_triangle(orbit, sides);
-         break;
-      case "orthic":
-         tri = orthic_triangle(orbit, sides);
-         break;
-      case "intouch":
-         tri = intouch_triangle(orbit, sides);
-         break;
-      case "extouch":
-         tri = extouch_triangle(orbit, sides);
-         break;
-      // reference 
-      case "medial":
-         tri = medial_triangle(orbit, sides);
-         break;
-      case "extangents":
-         tri = extangents_triangle(orbit, sides);
-         break;
-      case "euler":
-         tri = euler_triangle(orbit, sides);
-         break;
-      case "feuerbach":
-         tri = feuerbach_triangle(orbit, sides);
-         break;
-      case "symmedial":
-         tri = symmedial_triangle(orbit, sides);
-         break;
-      // reference 
-      default: return { o: orbit, s: sides };
-   }
-   return { o: tri, s: tri_sides(tri) };
+   const tri_fns = {
+      excentral  : excentral_triangle,
+      anticompl  : anticompl_triangle,
+      orthic     : orthic_triangle,
+      intouch    : intouch_triangle,
+      extouch    : extouch_triangle,
+      medial     : medial_triangle,
+      extangents : extangents_triangle,
+      euler      : euler_triangle,
+      feuerbach  : feuerbach_triangle,
+      symmedial  : symmedial_triangle
+   };
+   if (tri_type in tri_fns) {
+      let tri = tri_fns[tri_type](orbit,sides);
+      return { o: tri, s: tri_sides(tri) };
+   } else
+      return { o: orbit, s: sides };
 }
 
 function get_Xn_orbit(a, tDeg, trilin_fn, tri_type) {
