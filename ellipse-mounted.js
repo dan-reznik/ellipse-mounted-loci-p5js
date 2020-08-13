@@ -45,12 +45,6 @@ function getV1V2(a, mounting, eps) {
      } */
 }
 
-//getCtrOrBrocard[tri_, sides_, Xn_] :=
-//  Switch[Xn,
-//  -1, getFirstBrocardTrilin[tri, sides],
-//   -2, getSecondBrocardTrilin[tri, sides],
-//   _, getNewCenters[tri, sides, {Xn}][[1, 3]]];
-
 function get_Xn_mounted(a, tDeg, v1, v2, trilin_fn, tri_type) {
     let t = toRad(tDeg);
     let v3 = [a * Math.cos(t), Math.sin(t)];
