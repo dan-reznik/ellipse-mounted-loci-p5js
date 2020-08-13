@@ -485,7 +485,7 @@ function Bbox_onclick(n) {
    document.getElementById('Bbox_' + n).addEventListener('click', function () {
       var bbox;
       let a = +g_ui.a;
-      const adj = 1.05;
+      const adj = 1.1;
       let do_it = false;
       switch (n) {
          case "1":
