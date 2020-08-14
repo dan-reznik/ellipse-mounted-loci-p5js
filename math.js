@@ -4,7 +4,8 @@ toRad = (tDeg) => tDeg * PI / 180;
 
 triple_cos = (cosT) => 4*(cosT*cosT*cosT)-3*cosT;
 double_cos = (cosT) => 2*cosT*cosT-1;
-double_sin = (cosT,sinT) => 2*cosT*sinT; // 2 sA cA
+double_sin = (cosT,sinT) => 2*cosT*sinT; // 2 sA c
+sqr = (v) => v*v;
 
 law_of_cosines = (a,b,c) => (b*b+c*c-a*a)/(2*b*c);
 
@@ -81,4 +82,7 @@ function inter_lines([x1,y1],[x2,y2],[x3,y3],[x4,y4]) {
   return [x1+t*(x2-x1), y1+t*(y2-y1)];
 }
 
-
+function cos_third(c) {
+  // return ((c + I*s)^(-1/3) + (c + I s)^(1/3))/2;
+  return Math.cos(Math.acos(c)/3)
+ }

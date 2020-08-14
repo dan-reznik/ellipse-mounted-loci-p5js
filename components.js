@@ -188,10 +188,14 @@ var html = function(xn_number, trilins_selected, tri_selected){
             <option value="intouch">intouch</option>
             <option value="extouch">extouch</option>
             <option value="tangential">tangential</option>
-            <option value="extangents">extangents</option>
             <option value="euler">euler</option>
             <option value="feuerbach">feuerbach</option>
             <option value="symmedial">symmedial</option>
+            <option value="extangents">extangents</option>
+            <option value="circummedial">circum-medial</option>
+            <option value="circummidarc">circum-midarc</option>
+            <option value="circumorthic">circum-orthic</option>
+            <option value="morley1">1st morley</option>
         </select>
         <div class="subcheck_label">
             <input class = "sub_checkbox" type="checkbox" id="draw_tri_`+xn_number+`" `+tri_selected+` name="draw_tri_`+xn_number+`">

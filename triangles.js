@@ -144,6 +144,54 @@ function symmedial_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
+function circumorthic_triangle(orbit,[a,b,c]) {
+  let [x,y,z]=tri_cosines([a,b,c]);
+  let ts=[
+    [-a*y*z,(b*y+c*z)*z,(b*y+c*z)*y],
+    [(c*z+a*x)*z,-b*z*x,(c*z+a*x)*x],
+    [(a*x+b*y)*y,(a*x+b*y)*x,-c*x*y]
+  ];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function circummedial_triangle(orbit,[a,b,c]) {
+  let abc = a*b*c;
+  let ab2 = sqr(a*a+b*b);
+  let bc2 = sqr(b*b+c*c);
+  let ca2 = sqr(c*c+a*a);
+  let ts=[
+    [-abc,c*bc2,b*bc2],
+    [c*ca2,-abc,a*ca2],
+    [b*ab2,a*ab2,-abc]
+  ];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function circummidarc_triangle(orbit,[a,b,c]) {
+    let ts=[[-a,b+c,b+c],[a+c,-b,a+c],[a+b,a+b,-c]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+/*
+firstMorleyTriangle[orbit_, {a_, b_, c_}] := Module[{cs, cs3},
+   cs = lawOfCosines3[a, b, c];
+   cs3 = cosThird /@ cs;
+   trilinearMatrixToCartesian[orbit, {a, b, c},
+    {{1, 2 cs3[[3]], 2 cs3[[2]]},
+     {2 cs3[[3]], 1, 2 cs3[[1]]},
+     {2 cs3[[2]], 2 cs3[[1]], 1}}]];
+*/
+function first_morley_triangle(orbit,sides) {
+  let cs=tri_cosines(sides);
+  c3 = cs.map(cos_third);
+  ts=[
+    [1,2*c3[2],2*c3[1]],
+    [2*c3[2],1,2*c3[0]],
+    [2*c3[1],2*c3[0],1]];
+  return generic_triangle(orbit,sides,ts);
+}
+
+//
 
 function get_mounted_tri(a, tDeg, v1, v2) {
   let t = toRad(tDeg);
@@ -156,17 +204,21 @@ function get_mounted_tri(a, tDeg, v1, v2) {
 
 function get_derived_tri(orbit, sides, tri_type) {
   const tri_fns = {
-     excentral  : excentral_triangle,
-     medial     : medial_triangle,
-     anticompl  : anticompl_triangle,
-     orthic     : orthic_triangle,
-     intouch    : intouch_triangle,
-     extouch    : extouch_triangle,
-     tangential : tangential_triangle,
-     extangents : extangents_triangle,
-     euler      : euler_triangle,
-     feuerbach  : feuerbach_triangle,
-     symmedial  : symmedial_triangle
+     excentral    : excentral_triangle,
+     medial       : medial_triangle,
+     anticompl    : anticompl_triangle,
+     orthic       : orthic_triangle,
+     intouch      : intouch_triangle,
+     extouch      : extouch_triangle,
+     tangential   : tangential_triangle,
+     extangents   : extangents_triangle,
+     euler        : euler_triangle,
+     feuerbach    : feuerbach_triangle,
+     symmedial    : symmedial_triangle,
+     circumorthic : circumorthic_triangle,
+     circummedial : circummedial_triangle,
+     circummidarc : circummidarc_triangle,
+     morley1      : first_morley_triangle
   };
   if (tri_type in tri_fns) {
      let tri = tri_fns[tri_type](orbit,sides);
