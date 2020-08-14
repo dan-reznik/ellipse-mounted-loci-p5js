@@ -192,6 +192,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
             <option value="euler">euler</option>
             <option value="feuerbach">feuerbach</option>
             <option value="symmedial">symmedial</option>
+            <option value="intangents">intangents</option>
             <option value="extangents">extangents</option>
             <option value="circummedial">circum-medial</option>
             <option value="circummidarc">circum-midarc</option>

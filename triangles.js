@@ -215,6 +215,12 @@ function fourth_brocard_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
+function intangents_triangle(orbit,sides) {
+  let [cA,cB,cC]=tri_cosines(sides);
+  ts=[[1+cA,cA-cC,cA-cB],[cB-cC,1+cB,cB-cA],[cC-cB,cC-cA,1+cC]];
+  return generic_triangle(orbit,sides,ts);
+}
+
 function lemoine_triangle(orbit,[a,b,c]) {
   let a2=a*a,b2=b*b,c2=c*c;
   let d1=-2*a2+b2-2*c2;
@@ -359,6 +365,7 @@ function get_derived_tri(orbit, sides, tri_type) {
      extouch      : extouch_triangle,
      tangential   : tangential_triangle,
      extangents   : extangents_triangle,
+     intangents   : intangents_triangle,
      euler        : euler_triangle,
      feuerbach    : feuerbach_triangle,
      symmedial    : symmedial_triangle,
