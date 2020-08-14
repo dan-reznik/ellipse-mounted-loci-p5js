@@ -196,6 +196,8 @@ var html = function(xn_number, trilins_selected, tri_selected){
             <option value="circummedial">circum-medial</option>
             <option value="circummidarc">circum-midarc</option>
             <option value="circumorthic">circum-orthic</option>
+            <option value="fuhrmann">fuhrmann</option>
+            <option value="macbeath">macbeath</option>
             <option value="morley1">1st morley</option>
         </select>
         <div class="subcheck_label">

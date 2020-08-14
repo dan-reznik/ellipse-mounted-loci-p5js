@@ -143,6 +143,15 @@ function feuerbach_triangle(orbit,sides) {
   return generic_triangle(orbit,sides,ts);
 }
 
+function macbeath_triangle(orbit,[a,b,c]) {
+  let [cA,cB,cC]=tri_cosines([a,b,c]);
+   
+  ts=[[0,c*c*cC/cB,b*b],
+      [c*c,0,a*a*cA/cC],
+      [b*b*cB/cA,a*a,0]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
 // http://mathworld.wolfram.com/SymmedialTriangle.html
 function symmedial_triangle(orbit,[a,b,c]) {
   let ts=[[0,b,c],[a,0,c],[a,b,0]];
@@ -174,6 +183,17 @@ function circummedial_triangle(orbit,[a,b,c]) {
 
 function circummidarc_triangle(orbit,[a,b,c]) {
     let ts=[[-a,b+c,b+c],[a+c,-b,a+c],[a+b,a+b,-c]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function fuhrmann_triangle(orbit,[a,b,c]) {
+  let a2=a*a,b2=b*b,c2=c*c;
+  
+  let ts=[
+    [a,(-a2+c2+b*c)/b,(-a2+b2+b*c)/c],
+    [(-b2+c2+a*c)/a,b,(a2-b2+a*c)/c],
+    [(b2-c2+a*b)/a,(a2-c2+a*b)/b,c]
+  ];
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
@@ -224,7 +244,9 @@ function get_derived_tri(orbit, sides, tri_type) {
      circummedial : circummedial_triangle,
      circummidarc : circummidarc_triangle,
      morley1      : first_morley_triangle,
-     incentral    : incentral_triangle
+     incentral    : incentral_triangle,
+     fuhrmann     : fuhrmann_triangle,
+     macbeath     : macbeath_triangle
   };
   if (tri_type in tri_fns) {
      let tri = tri_fns[tri_type](orbit,sides);
