@@ -557,7 +557,7 @@ function draw() {
       g_ui.draw_tri_1, g_ui.mounting_Xn1, g_ui.tri_type_1);
 
    draw_billiard_or_mounted_branched(g_ui.Xn2, +g_ui.a, g_tDeg,
-      g_locus_Xn2_branched, clr_green, g_ui.locus_type_2,
+      g_locus_Xn2_branched, clr_dark_green, g_ui.locus_type_2,
       g_ui.draw_tri_2, g_ui.mounting_Xn2, g_ui.tri_type_2);
 
    draw_billiard_or_mounted_branched(g_ui.Xn3, +g_ui.a, g_tDeg,

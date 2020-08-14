@@ -2,6 +2,7 @@
 
 toRad = (tDeg) => tDeg * PI / 180;
 
+half_cos = (cosT) => Math.sqrt((1.0+cosT)/2);
 triple_cos = (cosT) => 4*(cosT*cosT*cosT)-3*cosT;
 double_cos = (cosT) => 2*cosT*cosT-1;
 double_sin = (cosT,sinT) => 2*cosT*sinT; // 2 sA c

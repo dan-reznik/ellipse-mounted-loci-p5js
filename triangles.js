@@ -1,7 +1,21 @@
-const { atomicMassDependencies } = require("mathjs");
-
 function rotate_tri_left([p1,p2,p3]) {
   return [p2,p3,p1];
+}
+
+function tri_area([a, b, c]) {
+  let s = (a + b + c)/2.0;
+  return sqrt(s*(s-a)*(s-b)*(s-c));
+}
+
+function get_conway([a,b,c]) {
+  let a2=a*a,b2=b*b,c2=c*c;
+  let area=tri_area([a,b,c]);
+  let S = 2*area;
+  let Sa = (b2+c2-a2)/2;
+  let Sb = (c2+a2-b2)/2;
+  let Sc = (a2+b2-c2)/2;
+  let Sw = (a2+b2+c2)/2;
+  return {area:area,S:S,Sa:Sa,Sb:Sb,Sc:Sc,Sw:Sw};
 }
 
 function rotate_tri_right([p1,p2,p3]) {
@@ -171,6 +185,36 @@ function steiner_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
+function first_brocard_triangle(orbit,[a,b,c]) {
+  let a3=a*a*a,b3=b*b*b,c3=c*c*c;
+  let abc=a*b*c;
+  ts=[[abc,c3,b3],[c3,abc,a3],[b3,a3,abc]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function second_brocard_triangle(orbit,[a,b,c]) {
+  let [cA,cB,cC]=tri_cosines([a,b,c]);
+  let ab=a*b,ac=a*c,bc=b*c;
+  ts=[[2*b*c*cA,ab,ac],[ab,2*a*c*cB,bc],[ac,bc,2*a*b*cC]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function third_brocard_triangle(orbit,[a,b,c]) {
+  let a2=a*a,b2=b*b,c2=c*c;
+  let a3=a*a2,b3=b*b2,c3=c*c2;
+  ts=[
+    [b2*c2,a*b3,a*c3],
+    [a3*b,a2*c2,b*c3],
+    [a3*c,b3*c,a2*b2]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function fourth_brocard_triangle(orbit,[a,b,c]) {
+  let [cA,cB,cC]=tri_cosines([a,b,c]);
+  ts=[[a/cA,2*c,2*b],[2*c,b/cB,2*a],[2*b,2*a,c/cC]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
 function lemoine_triangle(orbit,[a,b,c]) {
   let a2=a*a,b2=b*b,c2=c*c;
   let d1=-2*a2+b2-2*c2;
@@ -190,6 +234,18 @@ function symmedial_triangle(orbit,[a,b,c]) {
   let ts=[[0,b,c],[a,0,c],[a,b,0]];
   return generic_triangle(orbit,[a,b,c],ts);
 }
+
+function bci_triangle(orbit,[a,b,c]) {
+  let cs=tri_cosines([a,b,c]);
+  let [cha,chb,chc] = cs.map(half_cos);
+  let ts=[
+    [1,1+2*chc,1+2*chb],
+    [1+2*chc,1,1+2*cha],
+    [1+2*chb,1+2*cha,1]
+  ];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
 
 function circumorthic_triangle(orbit,[a,b,c]) {
   let [x,y,z]=tri_cosines([a,b,c]);
@@ -248,6 +304,21 @@ function yffcontact_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
+function johnson_triangle(orbit,[a,b,c]) {
+  let abc=a*b*c;
+  let conway = get_conway([a,b,c]);
+  let s2=conway.S*conway.S;
+  let kac=s2+conway.Sa*conway.Sc;
+  let kab=s2+conway.Sa*conway.Sb;
+  let kbc=s2+conway.Sb*conway.Sc;
+
+  let ts=[
+    [-abc*conway.Sa,c*kac,b*kab],
+    [c*kbc,-abc*conway.Sb,a*kab],
+    [b*kbc,a*kac,-abc*conway.Sc]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
 /*
 firstMorleyTriangle[orbit_, {a_, b_, c_}] := Module[{cs, cs3},
    cs = lawOfCosines3[a, b, c];
@@ -300,8 +371,14 @@ function get_derived_tri(orbit, sides, tri_type) {
      macbeath     : macbeath_triangle,
      steiner      : steiner_triangle,
      lemoine      : lemoine_triangle,
+     johnson      : johnson_triangle,
+     bci          : bci_triangle,
      yffcontact   : yffcontact_triangle,
-     reflection   : reflection_triangle
+     reflection   : reflection_triangle,
+     brocard1     : first_brocard_triangle,
+     brocard2     : second_brocard_triangle,
+     brocard3     : third_brocard_triangle,
+     brocard4     : fourth_brocard_triangle
   };
   if (tri_type in tri_fns) {
      let tri = tri_fns[tri_type](orbit,sides);

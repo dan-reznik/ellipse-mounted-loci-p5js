@@ -202,6 +202,12 @@ var html = function(xn_number, trilins_selected, tri_selected){
             <option value="lemoine">lemoine</option>
             <option value="yffcontact">yff contact</option>
             <option value="reflection">reflection</option>
+            <option value="johnson">johnson</option>
+            <option value="bci">BCI</option>
+            <option value="brocard1">1st brocard</option>
+            <option value="brocard2">2nd brocard</option>
+            <option value="brocard3">3rd brocard</option>
+            <option value="brocard4">4th brocard</option>
             <option value="morley1">1st morley</option>
         </select>
         <div class="subcheck_label">
