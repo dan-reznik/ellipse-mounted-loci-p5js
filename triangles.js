@@ -399,6 +399,39 @@ function first_morley_triangle(orbit,sides) {
   return generic_triangle(orbit,sides,ts);
 }
 
+function outer_vecten_triangle(orbit,[a,b,c]) {
+  let [cA,cB,cC]=tri_cosines([a,b,c]);
+  let [sA,sB,sC]= [cA,cB,cC].map(c=>Math.sqrt(1-c*c));
+  ts=[
+   [-a/2,a*(sC+cC)/2,a*(sB+cB)/2],
+   [b*(sC+cC)/2,-b/2,b*(sA+cA)/2],
+   [c*(sB+cB)/2,c*(sA+cA)/2,-c/2]
+  ];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function inner_vecten_triangle(orbit,[a,b,c]) {
+  let [cA,cB,cC]=tri_cosines([a,b,c]);
+  let [sA,sB,sC]= [cA,cB,cC].map(c=>Math.sqrt(1-c*c));
+  ts=[
+   [a/2,a*(sC-cC)/2,a*(sB-cB)/2],
+   [b*(sC-cC)/2,b/2,b*(sA-cA)/2],
+   [c*(sB-cB)/2,c*(sA-cA)/2,c/2]
+  ];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function mixtilinear_triangle(orbit,sides) {
+  let [cA,cB,cC]=tri_cosines(sides);
+  ts=[
+   [(cA-cB-cC+1)/2,1,1],
+   [1,(-cA+cB-cC+1)/2,1],
+   [1,1,(-cA-cB+cC+1)/2]
+  ];
+  return generic_triangle(orbit,sides,ts);
+}
+
+
 //
 
 function get_mounted_tri(a, tDeg, v1, v2) {
@@ -444,7 +477,10 @@ function get_derived_tri(orbit, sides, tri_type) {
      brocard3     : third_brocard_triangle,
      brocard4     : fourth_brocard_triangle,
      neuberg1     : first_neuberg_triangle,
-     neuberg2     : second_neuberg_triangle
+     neuberg2     : second_neuberg_triangle,
+     outervecten  : outer_vecten_triangle,
+     innervecten  : inner_vecten_triangle,
+     mixtilinear  : mixtilinear_triangle
   };
   if (tri_type in tri_fns) {
      let tri = tri_fns[tri_type](orbit,sides);
