@@ -113,7 +113,7 @@ function create_checkboxes() {
    /*y += 3 * ystep;*/
    create_title("© 2020 Iverton Darlan & Dan Reznik", false);
    /* y += ystep;*/
-   create_title("<a href=https://dan-reznik.github.io/ellipse-mounted-triangles/>Learn more</a>", false, "made_by");
+   //create_title("<a href=https://dan-reznik.github.io/ellipse-mounted-triangles/>Learn more</a>", false, "made_by");
    /*y += ystep;*/
    //create_title("Visit <a href=http://mathworld.wolfram.com/ target=_blank>MathWorld</a> and <a href=https://faculty.evansville.edu/ck6/encyclopedia/ETC.html target=_blank>ETC</a>", 0, y, false);
 }
