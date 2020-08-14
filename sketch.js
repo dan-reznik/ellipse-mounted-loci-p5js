@@ -551,18 +551,19 @@ function draw() {
    translate(g_ctr[0], g_ctr[1]);
    scale(g_width / g_scale);
    draw_billiard(+g_ui.a);
+   let stroke_w = sqrt(g_scale/g_scale0)*.01;
 
    draw_billiard_or_mounted_branched(g_ui.Xn1, +g_ui.a, g_tDeg,
       g_locus_Xn1_branched, clr_red, g_ui.locus_type_1,
-      g_ui.draw_tri_1, g_ui.mounting_Xn1, g_ui.tri_type_1);
+      g_ui.draw_tri_1, g_ui.mounting_Xn1, g_ui.tri_type_1, stroke_w);
 
    draw_billiard_or_mounted_branched(g_ui.Xn2, +g_ui.a, g_tDeg,
       g_locus_Xn2_branched, clr_dark_green, g_ui.locus_type_2,
-      g_ui.draw_tri_2, g_ui.mounting_Xn2, g_ui.tri_type_2);
+      g_ui.draw_tri_2, g_ui.mounting_Xn2, g_ui.tri_type_2, stroke_w);
 
    draw_billiard_or_mounted_branched(g_ui.Xn3, +g_ui.a, g_tDeg,
       g_locus_Xn3_branched, clr_blue, g_ui.locus_type_3,
-      g_ui.draw_tri_3, g_ui.mounting_Xn3, g_ui.tri_type_3);
+      g_ui.draw_tri_3, g_ui.mounting_Xn3, g_ui.tri_type_3, stroke_w);
 
    pop();
 

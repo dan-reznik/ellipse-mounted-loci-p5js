@@ -113,17 +113,17 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
 
   draw_point(xn, rgb);
   if(locus_type == 'trilins') {
-    draw_text('X' + xnum, xn, rgb);
+    draw_text2('X' + xnum, xn, rgb, stroke_w);
   } else if(locus_type == 'brocard_1') {
-    draw_text('Ω' + 1, xn, rgb);
+    draw_text2('Ω' + 1, xn, rgb, stroke_w);
   } else if(locus_type == 'brocard_2') {
-    draw_text('Ω' + 2, xn, rgb);
+    draw_text2('Ω' + 2, xn, rgb, stroke_w);
   }
   
   pop();
   }
 
-
+/*
 function draw_locus(locus, ons, xnum, rgb, stroke_w = 0.01, locus_type) {
   push();
   strokeWeight(stroke_w);
@@ -146,8 +146,10 @@ function draw_locus(locus, ons, xnum, rgb, stroke_w = 0.01, locus_type) {
   }
   
   pop();
-  }
+}
+*/
 
+/*
 function draw_labeled_point(ons, xnum, trilin_fn, rgb) {
   push();
   strokeWeight(0.01);
@@ -157,6 +159,7 @@ function draw_labeled_point(ons, xnum, trilin_fn, rgb) {
   draw_text('X' + xnum, xn, rgb);
   pop();
 }
+*/
 
 // DRAW
 
@@ -188,6 +191,18 @@ function draw_point([x, y], rgb) {
 function draw_text(txt, p, rgb) {
   push();
   textSize(0.1);
+  strokeWeight(0);
+  fill(rgb);
+  textAlign(CENTER, BOTTOM);
+  textStyle(NORMAL);
+  text(txt, p[0], p[1] - 0.02);
+  pop();
+}
+
+function draw_text2(txt, p, rgb, stroke_w) {
+  push();
+  // hack to scale up
+  textSize(0.1*stroke_w/0.01);
   strokeWeight(0);
   fill(rgb);
   textAlign(CENTER, BOTTOM);
