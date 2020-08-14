@@ -111,7 +111,8 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
   stroke(rgb);
   locus_branches.map(l=>draw_one_locus_branch(l));
 
-  draw_point(xn, rgb);
+  draw_point2(xn, rgb,stroke_w);
+
   if(locus_type == 'trilins') {
     draw_text2('X' + xnum, xn, rgb, stroke_w);
   } else if(locus_type == 'brocard_1') {
@@ -196,6 +197,14 @@ function draw_text(txt, p, rgb) {
   textAlign(CENTER, BOTTOM);
   textStyle(NORMAL);
   text(txt, p[0], p[1] - 0.02);
+  pop();
+}
+
+function draw_point2([x, y], rgb, stroke_w) {
+  push();
+  fill(rgb);
+  strokeWeight(0);
+  circle(x, y, 0.05*sqrt(stroke_w/0.01));
   pop();
 }
 
