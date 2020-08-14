@@ -154,6 +154,15 @@ function macbeath_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
+function reflection_triangle(orbit,[a,b,c]) {
+  let [cA,cB,cC]=tri_cosines([a,b,c]);
+   
+  ts=[[-1,2*cC,2*cB],
+      [2*cC,-1,2*cA],
+      [2*cB,2*cA,-1]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
 function steiner_triangle(orbit,[a,b,c]) {
   let ba2=b*b-a*a;
   let ac2=a*a-c*c;
@@ -291,7 +300,8 @@ function get_derived_tri(orbit, sides, tri_type) {
      macbeath     : macbeath_triangle,
      steiner      : steiner_triangle,
      lemoine      : lemoine_triangle,
-     yffcontact   : yffcontact_triangle
+     yffcontact   : yffcontact_triangle,
+     reflection   : reflection_triangle
   };
   if (tri_type in tri_fns) {
      let tri = tri_fns[tri_type](orbit,sides);
