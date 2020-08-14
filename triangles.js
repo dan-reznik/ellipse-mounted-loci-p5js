@@ -46,6 +46,11 @@ function medial_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
+function incentral_triangle(orbit,sides) {
+  let ts=[[0,1,1],[1,0,1],[1,1,0]];
+  return generic_triangle(orbit,sides,ts);
+}
+
 function anticompl_triangle(orbit,[a,b,c]) {
   let ts=[[-1/a,1/b,1/c],[1/a,-1/b,1/c],[1/a,1/b,-1/c]];
   return generic_triangle(orbit,[a,b,c],ts);
@@ -218,7 +223,8 @@ function get_derived_tri(orbit, sides, tri_type) {
      circumorthic : circumorthic_triangle,
      circummedial : circummedial_triangle,
      circummidarc : circummidarc_triangle,
-     morley1      : first_morley_triangle
+     morley1      : first_morley_triangle,
+     incentral    : incentral_triangle
   };
   if (tri_type in tri_fns) {
      let tri = tri_fns[tri_type](orbit,sides);
