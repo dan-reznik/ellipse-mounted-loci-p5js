@@ -113,6 +113,8 @@ function tangential_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
+
+
 // http://mathworld.wolfram.com/ExtangentsTriangle.html
 function extangents_triangle(orbit,sides) {
   let [x,y,z]=tri_cosines(sides);
@@ -357,6 +359,17 @@ function yffcentral_triangle(orbit,sides) {
   return generic_triangle(orbit,sides,ts);
 }
 
+function tangential_midarc_triangle(orbit,sides) {
+  let cs=tri_cosines(sides);
+  let [x,y,z] = cs.map(half_cos);
+  let ts = [
+    [-y * z, z * (z + x), y * (y + x)],
+    [z * (z + y), -z * x, x * (x + y)],
+    [y * (y + z), x * (x + z), -y *x]
+  ];
+  return generic_triangle(orbit,sides,ts);
+}
+
 function halfaltitude_triangle(orbit,sides) {
   let [cA,cB,cC]=tri_cosines(sides);
   let ts=[
@@ -454,43 +467,44 @@ function get_mounted_tri(a, tDeg, v1, v2) {
 
 function get_derived_tri(orbit, sides, tri_type) {
   const tri_fns = {
-     excentral    : excentral_triangle,
-     medial       : medial_triangle,
-     anticompl    : anticompl_triangle,
-     orthic       : orthic_triangle,
-     intouch      : intouch_triangle,
-     extouch      : extouch_triangle,
-     tangential   : tangential_triangle,
-     extangents   : extangents_triangle,
-     intangents   : intangents_triangle,
-     euler        : euler_triangle,
-     halfaltitude : halfaltitude_triangle,
-     feuerbach    : feuerbach_triangle,
-     symmedial    : symmedial_triangle,
-     circumorthic : circumorthic_triangle,
-     circummedial : circummedial_triangle,
-     circummidarc : circummidarc_triangle,
-     morley1      : first_morley_triangle,
-     incentral    : incentral_triangle,
-     fuhrmann     : fuhrmann_triangle,
-     macbeath     : macbeath_triangle,
-     steiner      : steiner_triangle,
-     lemoine      : lemoine_triangle,
-     johnson      : johnson_triangle,
-     bci          : bci_triangle,
-     yffcontact   : yffcontact_triangle,
-     yffcentral   : yffcentral_triangle,
-     reflection   : reflection_triangle,
-     brocard1     : first_brocard_triangle,
-     brocard2     : second_brocard_triangle,
-     brocard3     : third_brocard_triangle,
-     brocard4     : fourth_brocard_triangle,
-     neuberg1     : first_neuberg_triangle,
-     neuberg2     : second_neuberg_triangle,
-     outervecten  : outer_vecten_triangle,
-     innervecten  : inner_vecten_triangle,
-     mixtilinear  : mixtilinear_triangle,
-     lucascentral : lucas_central_triangle
+     excentral        : excentral_triangle,
+     medial           : medial_triangle,
+     anticompl        : anticompl_triangle,
+     orthic           : orthic_triangle,
+     intouch          : intouch_triangle,
+     extouch          : extouch_triangle,
+     tangential       : tangential_triangle,
+     tangentialmidarc : tangential_midarc_triangle,
+     extangents       : extangents_triangle,
+     intangents       : intangents_triangle,
+     euler            : euler_triangle,
+     halfaltitude     : halfaltitude_triangle,
+     feuerbach        : feuerbach_triangle,
+     symmedial        : symmedial_triangle,
+     circumorthic     : circumorthic_triangle,
+     circummedial     : circummedial_triangle,
+     circummidarc     : circummidarc_triangle,
+     morley1          : first_morley_triangle,
+     incentral        : incentral_triangle,
+     fuhrmann         : fuhrmann_triangle,
+     macbeath         : macbeath_triangle,
+     steiner          : steiner_triangle,
+     lemoine          : lemoine_triangle,
+     johnson          : johnson_triangle,
+     bci              : bci_triangle,
+     yffcontact       : yffcontact_triangle,
+     yffcentral       : yffcentral_triangle,
+     reflection       : reflection_triangle,
+     brocard1         : first_brocard_triangle,
+     brocard2         : second_brocard_triangle,
+     brocard3         : third_brocard_triangle,
+     brocard4         : fourth_brocard_triangle,
+     neuberg1         : first_neuberg_triangle,
+     neuberg2         : second_neuberg_triangle,
+     outervecten      : outer_vecten_triangle,
+     innervecten      : inner_vecten_triangle,
+     mixtilinear      : mixtilinear_triangle,
+     lucascentral     : lucas_central_triangle
   };
   if (tri_type in tri_fns) {
      let tri = tri_fns[tri_type](orbit,sides);
