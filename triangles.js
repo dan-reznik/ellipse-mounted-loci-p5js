@@ -215,6 +215,42 @@ function fourth_brocard_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
+function first_neuberg_triangle(orbit,[a,b,c]) {
+  let a2=a*a,b2=b*b,c2=c*c;
+  let abc=a*b*c;
+  let abc2=a2+b2+c2;
+  let kmid = abc*abc2;
+  let a4=a2*a2,b4=b2*b2,c4=c2*c2;
+  let bc2=sqr(b*c),ca2=sqr(a*c),ba2=sqr(b*a);
+  k1=c*(-a4+ca2-b4+bc2);
+  k2=b*(-a4+ba2-c4+bc2);
+  k3=a*(-b4+ba2-c4+ca2);
+  ts=[
+    [kmid,k1,k2],
+    [k1,kmid,k3],
+    [k2,k3,kmid]
+  ];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function second_neuberg_triangle(orbit,[a,b,c]) {
+  let a2=a*a,b2=b*b,c2=c*c;
+  let abc=a*b*c;
+  let abc2=a2+b2+c2;
+  let kmid = abc*abc2;
+  let a4=a2*a2,b4=b2*b2,c4=c2*c2;
+  let bc2=sqr(b*c),ca2=sqr(a*c),ba2=sqr(b*a);
+  k1=c*(c4-ca2-bc2-2*ba2);
+  k2=b*(b4-ba2-bc2-2*ca2);
+  k3=a*(a4-ba2-ca2-2*bc2);
+  ts=[
+    [kmid,k1,k2],
+    [k1,kmid,k3],
+    [k2,k3,kmid]
+  ];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
 function intangents_triangle(orbit,sides) {
   let [cA,cB,cC]=tri_cosines(sides);
   ts=[[1+cA,cA-cC,cA-cB],[cB-cC,1+cB,cB-cA],[cC-cB,cC-cA,1+cC]];
@@ -310,6 +346,25 @@ function yffcontact_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
+function yffcentral_triangle(orbit,sides) {
+  let cs=tri_cosines(sides);
+  let [x,y,z] = cs.map(half_cos);
+  let ts=[
+    [y*z,z*(x+z),y*(x+y)],
+    [z*(y+z),z*x,x*(y+x)],
+    [y*(z+y),x*(z+x),x*y]
+  ];
+  return generic_triangle(orbit,sides,ts);
+}
+
+function halfaltitude_triangle(orbit,sides) {
+  let [cA,cB,cC]=tri_cosines(sides);
+  let ts=[
+     [1,cC,cB],[cC,1,cA],[cB,cA,1]
+  ];
+  return generic_triangle(orbit,sides,ts);
+}
+
 function johnson_triangle(orbit,[a,b,c]) {
   let abc=a*b*c;
   let conway = get_conway([a,b,c]);
@@ -367,6 +422,7 @@ function get_derived_tri(orbit, sides, tri_type) {
      extangents   : extangents_triangle,
      intangents   : intangents_triangle,
      euler        : euler_triangle,
+     halfaltitude : halfaltitude_triangle,
      feuerbach    : feuerbach_triangle,
      symmedial    : symmedial_triangle,
      circumorthic : circumorthic_triangle,
@@ -381,11 +437,14 @@ function get_derived_tri(orbit, sides, tri_type) {
      johnson      : johnson_triangle,
      bci          : bci_triangle,
      yffcontact   : yffcontact_triangle,
+     yffcentral   : yffcentral_triangle,
      reflection   : reflection_triangle,
      brocard1     : first_brocard_triangle,
      brocard2     : second_brocard_triangle,
      brocard3     : third_brocard_triangle,
-     brocard4     : fourth_brocard_triangle
+     brocard4     : fourth_brocard_triangle,
+     neuberg1     : first_neuberg_triangle,
+     neuberg2     : second_neuberg_triangle
   };
   if (tri_type in tri_fns) {
      let tri = tri_fns[tri_type](orbit,sides);
