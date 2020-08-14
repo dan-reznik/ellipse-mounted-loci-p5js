@@ -217,7 +217,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
         <option value="steiner">steiner</option>
         <option value="symmedial">symmedial</option>
         <option value="tangential">tangential</option>
-        <option value="tangentialmidarc">tangential mid-arc</option>
+        <option value="tangentialmidarc">tang'l mid-arc</option>
         <option value="yffcentral">yff central</option>
         <option value="yffcontact">yff contact</option>  
         </select>
