@@ -12,8 +12,6 @@ let g_url_params = {};
 
 let g_loop = true;
 let g_tDeg = 0;
-//let g_a = 1.618034;
-//let g_locus_Xn1 = [];
 let g_locus_Xn1_branched = [];
 let g_locus_Xn2_branched = [];
 let g_locus_Xn3_branched = [];
@@ -47,7 +45,6 @@ function set_ui_variables(dictionary) {
 function reset_ui(g_ui_reset) {
    set_ui_variables(g_ui_reset)
    Object.assign(g_ui, g_ui_reset)
-   recenter();
 };
 
 function get_brocard(n) {
@@ -347,6 +344,18 @@ function mouseOverCanvas() {
    canvas_div.addEventListener('mouseout', function () { this.mouseIsOver = false; });
 }
 
+function bbox_rescale(n) {
+   let locus_types = [g_ui.locus_type_1, g_ui.locus_type_2, g_ui.locus_type_3];
+   let loci = [g_locus_Xn1_branched, g_locus_Xn2_branched, g_locus_Xn3_branched];
+   g_scale = locus_bbox(+g_ui.a, locus_types[n - 1], loci[n - 1], g_width / g_height, g_scale0);
+   recenter();
+   redraw();
+}
+
+function Bbox_onclick(n) {
+   document.getElementById('Bbox_' + n).addEventListener('click', () => bbox_rescale(n));
+}
+
 function set_ui_variables_behavior() {
    //a
    selector_output("a", "demo_a")
@@ -370,6 +379,7 @@ function reset_UI_onclick(g_ui_reset) {
    document.getElementById('reset_UI').addEventListener('click', function () {
       reset_ui(g_ui_reset);
       ui_changed("1");
+      bbox_rescale("1");
    });
 }
 
@@ -399,8 +409,34 @@ function copyToClipboard(text) {
 }
 
 function get_diff_default(g_ui_reset, key) {
+   let original_to_url_params = {
+      a: 'a',
+      locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3',
+      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
+      tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3',
+      draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3',
+      mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3',
+      animStep0: 'aS'
+   };
    if (g_ui[key] !== g_ui_reset[key])
-      return key + '=' + g_ui[key] + '&';
+      return original_to_url_params[key] + '=' + g_ui[key] + '&';
+   else
+      return '';
+}
+
+function get_diff_default_canvas(key){
+   let canvas_to_url_params = {
+      'g_scale': 'sc',
+      'g_ctr[0]': 'cx',
+      'g_ctr[1]': 'cy'
+   };
+   let canvas_params_reset = {
+      g_scale: locus_bbox(+g_ui.a, g_ui.locus_type_1, g_locus_Xn1_branched, g_width / g_height, g_scale0),
+      'g_ctr[0]': g_width / 2,
+      'g_ctr[1]': g_height / 2
+   };
+   if (eval(key) !== canvas_params_reset[key])
+      return canvas_to_url_params[key] + '=' + eval(key) + '&';
    else
       return '';
 }
@@ -408,6 +444,9 @@ function get_diff_default(g_ui_reset, key) {
 function config_url_onclick(g_ui_reset) {
    document.getElementById('config_URL').addEventListener("click", function () {
       var link_params = location.protocol + '//' + location.host + location.pathname + '?';
+      link_params += get_diff_default_canvas('g_scale');
+      link_params += get_diff_default_canvas('g_ctr[0]');
+      link_params += get_diff_default_canvas('g_ctr[1]');
       link_params += get_diff_default(g_ui_reset, "a");
       link_params += get_diff_default(g_ui_reset, "locus_type_1");
       link_params += get_diff_default(g_ui_reset, "locus_type_2");
@@ -431,35 +470,64 @@ function config_url_onclick(g_ui_reset) {
 }
 
 function set_url_params(g_url_params) {
-   let original_keys = Object.keys(g_ui);
+   let url_params_to_canvas = {
+      sc: 'g_scale',
+      cx: 'g_ctr[0]',
+      cy: 'g_ctr[1]'
+   }
+   let url_params_to_ui = {
+      a: 'a',
+      lc1: 'locus_type_1', lc2: 'locus_type_2', lc3: 'locus_type_3',
+      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
+      tr1: 'tri_type_1', tr2: 'tri_type_2', tr3: 'tri_type_3',
+      dr1: 'draw_tri_1', dr2: 'draw_tri_2', dr3: 'draw_tri_3',
+      mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3',
+      aS: 'animStep0'
+   };
+   let url_params_to_canvas_keys = Object.keys(url_params_to_canvas)
+   let url_params_to_ui_keys = Object.keys(url_params_to_ui)
    let link_keys = Object.keys(g_url_params);
+   var url_change_canvas = false;
+
    link_keys.forEach(function (key) {
-      if (original_keys.includes(key)){
-         if(['a', 'Xn1', 'Xn2', 'Xn3', 'animStep0'].includes(key))
-            g_ui[key] = +g_url_params[key];
-         else if(['draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(key))
-            g_ui[key] = (g_url_params[key] == true);
-         else
-            g_ui[key] = g_url_params[key];
+      if (url_params_to_ui_keys.includes(key)){
+         ui_key = url_params_to_ui[key];
+         if(['a', 'Xn1', 'Xn2', 'Xn3', 'animStep0'].includes(ui_key))
+            g_ui[ui_key] = +g_url_params[key];
+         else if(['draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(ui_key))
+            g_ui[ui_key] = (g_url_params[key] == true);
+         else{
+            g_ui[ui_key] = g_url_params[key];
+         }
+      }
+      if (url_params_to_canvas_keys.includes(key)){
+         url_change_canvas = true;
+         eval(url_params_to_canvas[key]+'='+g_url_params[key]);
       }
    });
    set_ui_variables(g_ui);
-   ui_changed("0");
-}
-
-function bbox_rescale(n) {
-   let locus_types = [g_ui.locus_type_1, g_ui.locus_type_2, g_ui.locus_type_3];
-   let loci = [g_locus_Xn1_branched, g_locus_Xn2_branched, g_locus_Xn3_branched];
-   g_scale = locus_bbox(+g_ui.a, locus_types[n - 1], loci[n - 1], g_width / g_height, g_scale0);
-   recenter();
-   redraw();
-}
-
-function Bbox_onclick(n) {
-   document.getElementById('Bbox_' + n).addEventListener('click', () => bbox_rescale(n));
+   if(!url_change_canvas){
+      if(g_ui["locus_type_1"] !== 'none'){
+         ui_changed("1");
+         bbox_rescale("1");
+      }
+      if(g_ui["locus_type_2"] !== 'none'){
+         ui_changed("2");
+         bbox_rescale("2");
+      }
+      if(g_ui["locus_type_3"] !== 'none'){
+         ui_changed("3");
+         bbox_rescale("3");
+      }
+   }
 }
 
 function setup() {
+   g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
+   g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
+   g_ctr0 = [g_width / 2, g_height / 2];
+   g_ctr = g_ctr0;
+   g_mouse = g_ctr0;
    let g_ui_reset = {
       a: 1.618,
       locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none',
@@ -472,17 +540,11 @@ function setup() {
    reset_ui(g_ui_reset);
    let g_url_params = getURLParams();
    set_url_params(g_url_params);
-
-   g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
-   g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
    create_checkboxes();
    canvas = createCanvas(g_width, g_height);
    canvas.parent('canvas');
    mouseOverCanvas();
    //frameRate(15);
-   g_ctr0 = [g_width / 2, g_height / 2];
-   g_ctr = g_ctr0;
-   g_mouse = g_ctr0;
 
    set_ui_variables_behavior()
 
