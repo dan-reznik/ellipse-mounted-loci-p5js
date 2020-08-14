@@ -187,6 +187,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
             <option value="orthic">orthic</option>
             <option value="intouch">intouch</option>
             <option value="extouch">extouch</option>
+            <option value="tangential">tangential</option>
             <option value="extangents">extangents</option>
             <option value="euler">euler</option>
             <option value="feuerbach">feuerbach</option>

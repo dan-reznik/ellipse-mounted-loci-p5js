@@ -153,3 +153,24 @@ function get_mounted_tri(a, tDeg, v1, v2) {
   let normals = tri.map(v => ell_norm(a, v));
   return { o: tri, n: normals, s: sides };
 }
+
+function get_derived_tri(orbit, sides, tri_type) {
+  const tri_fns = {
+     excentral  : excentral_triangle,
+     medial     : medial_triangle,
+     anticompl  : anticompl_triangle,
+     orthic     : orthic_triangle,
+     intouch    : intouch_triangle,
+     extouch    : extouch_triangle,
+     tangential : tangential_triangle,
+     extangents : extangents_triangle,
+     euler      : euler_triangle,
+     feuerbach  : feuerbach_triangle,
+     symmedial  : symmedial_triangle
+  };
+  if (tri_type in tri_fns) {
+     let tri = tri_fns[tri_type](orbit,sides);
+     return { o: tri, s: tri_sides(tri) };
+  } else
+     return { o: orbit, s: sides };
+}

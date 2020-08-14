@@ -60,27 +60,6 @@ function get_fn_any(locus_type, n) {
    }
 }
 
-function get_derived_tri(orbit, sides, tri_type) {
-   const tri_fns = {
-      excentral  : excentral_triangle,
-      medial     : medial_triangle,
-      anticompl  : anticompl_triangle,
-      orthic     : orthic_triangle,
-      intouch    : intouch_triangle,
-      extouch    : extouch_triangle,
-      tangential : tangential_triangle,
-      extangents : extangents_triangle,
-      euler      : euler_triangle,
-      feuerbach  : feuerbach_triangle,
-      symmedial  : symmedial_triangle
-   };
-   if (tri_type in tri_fns) {
-      let tri = tri_fns[tri_type](orbit,sides);
-      return { o: tri, s: tri_sides(tri) };
-   } else
-      return { o: orbit, s: sides };
-}
-
 function get_Xn_orbit(a, tDeg, trilin_fn, tri_type) {
    let ons = orbit_normals(a, tDeg);
    let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
@@ -134,7 +113,7 @@ function create_checkboxes() {
    /*y += 3 * ystep;*/
    create_title("© 2020 Iverton Darlan & Dan Reznik", false);
    /* y += ystep;*/
-   create_title("<a href=https://dan-reznik.github.io/ellipse-mounted-triangles/>How does it Work?</a>", false, "made_by");
+   create_title("<a href=https://dan-reznik.github.io/ellipse-mounted-triangles/>Learn more</a>", false, "made_by");
    /*y += ystep;*/
    //create_title("Visit <a href=http://mathworld.wolfram.com/ target=_blank>MathWorld</a> and <a href=https://faculty.evansville.edu/ck6/encyclopedia/ETC.html target=_blank>ETC</a>", 0, y, false);
 }
