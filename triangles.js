@@ -1,3 +1,5 @@
+const { atomicMassDependencies } = require("mathjs");
+
 function rotate_tri_left([p1,p2,p3]) {
   return [p2,p3,p1];
 }
@@ -152,6 +154,28 @@ function macbeath_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
+function steiner_triangle(orbit,[a,b,c]) {
+  let ba2=b*b-a*a;
+  let ac2=a*a-c*c;
+  let cb2=c*c-b*b;
+  ts=[[0,ba2*c,b*ac2],[ba2*c,0,a*cb2],[-b*ac2,-a*cb2,0]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function lemoine_triangle(orbit,[a,b,c]) {
+  let a2=a*a,b2=b*b,c2=c*c;
+  let d1=-2*a2+b2-2*c2;
+  let d2=a2-2*b2-2*c2;
+  let d3=-2*a2-2*b2+c2;
+  
+  ts=[
+    [0,(a*c)/d1,(a*b)/d3],
+    [(b*c)/d2,0,(a*b)/d3],
+    [(b*c)/d2,(a*c)/d1,0]
+  ];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
 // http://mathworld.wolfram.com/SymmedialTriangle.html
 function symmedial_triangle(orbit,[a,b,c]) {
   let ts=[[0,b,c],[a,0,c],[a,b,0]];
@@ -193,6 +217,24 @@ function fuhrmann_triangle(orbit,[a,b,c]) {
     [a,(-a2+c2+b*c)/b,(-a2+b2+b*c)/c],
     [(-b2+c2+a*c)/a,b,(a2-b2+a*c)/c],
     [(b2-c2+a*b)/a,(a2-c2+a*b)/b,c]
+  ];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+/*
+{
+  {0, safeDiv[a c, c - a], safeDiv[a b, a - b]},(* 
+   error in mathworld http://mathworld.wolfram.com/
+   YffContactTriangle.html which shows this as {0,ac/(c-a),ab/(b- a)}*)
+   {safeDiv[b c, b - c], 0, safeDiv[a b, a - b]},
+   {safeDiv[b c, b - c], safeDiv[a c, c - a], 0}}];
+   */
+
+function yffcontact_triangle(orbit,[a,b,c]) {
+  let ts=[
+    [0,(a*c)/(c-a),(a*b)/(a-b)],
+    [(b*c)/(b-c),0,(a*b)/(a-b)],
+    [(b*c)/(b-c),(a*c)/(c-a),0]
   ];
   return generic_triangle(orbit,[a,b,c],ts);
 }
@@ -246,7 +288,10 @@ function get_derived_tri(orbit, sides, tri_type) {
      morley1      : first_morley_triangle,
      incentral    : incentral_triangle,
      fuhrmann     : fuhrmann_triangle,
-     macbeath     : macbeath_triangle
+     macbeath     : macbeath_triangle,
+     steiner      : steiner_triangle,
+     lemoine      : lemoine_triangle,
+     yffcontact   : yffcontact_triangle
   };
   if (tri_type in tri_fns) {
      let tri = tri_fns[tri_type](orbit,sides);
