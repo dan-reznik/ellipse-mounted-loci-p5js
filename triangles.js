@@ -380,6 +380,15 @@ function johnson_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
+function lucas_central_triangle(orbit,[a,b,c]) {
+  let cwy = get_conway([a,b,c]);
+  let ts=[
+    [a*(2*cwy.S+cwy.Sa),b*cwy.Sb,c*cwy.Sc],
+    [a * cwy.Sa, b * (2 * cwy.S + cwy.Sb), c * cwy.Sc],
+    [a*cwy.Sa,b*cwy.Sb,c*(2*cwy.S+cwy.Sc)]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
 /*
 firstMorleyTriangle[orbit_, {a_, b_, c_}] := Module[{cs, cs3},
    cs = lawOfCosines3[a, b, c];
@@ -480,7 +489,8 @@ function get_derived_tri(orbit, sides, tri_type) {
      neuberg2     : second_neuberg_triangle,
      outervecten  : outer_vecten_triangle,
      innervecten  : inner_vecten_triangle,
-     mixtilinear  : mixtilinear_triangle
+     mixtilinear  : mixtilinear_triangle,
+     lucascentral : lucas_central_triangle
   };
   if (tri_type in tri_fns) {
      let tri = tri_fns[tri_type](orbit,sides);
