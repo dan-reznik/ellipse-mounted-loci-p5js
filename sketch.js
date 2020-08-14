@@ -63,11 +63,12 @@ function get_fn_any(locus_type, n) {
 function get_derived_tri(orbit, sides, tri_type) {
    const tri_fns = {
       excentral  : excentral_triangle,
+      medial     : medial_triangle,
       anticompl  : anticompl_triangle,
       orthic     : orthic_triangle,
       intouch    : intouch_triangle,
       extouch    : extouch_triangle,
-      medial     : medial_triangle,
+      tangential : tangential_triangle,
       extangents : extangents_triangle,
       euler      : euler_triangle,
       feuerbach  : feuerbach_triangle,

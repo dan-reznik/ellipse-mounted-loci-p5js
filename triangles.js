@@ -61,7 +61,6 @@ function orthic_triangle(orbit,sides) {
  return generic_triangle(orbit,sides,ts);
 }
 
-
 function exc_symmedial_triangle(o,s) {
   let exc = excentral_triangle(o,s);
   let exc_s = tri_sides(exc);
@@ -88,7 +87,10 @@ function ant_intouch_triangle(orbit,[a,b,c]) {
   return intouch_triangle(ant_s,ants_s);
 }
 
-// still to include: extangents_triangle, euler_triangle, feuerbach_triangle, symmedial_triangle
+function tangential_triangle(orbit,[a,b,c]) {
+  let ts=[[-a, b, c],[a, -b, c],[a, b, -c]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
 
 // http://mathworld.wolfram.com/ExtangentsTriangle.html
 function extangents_triangle(orbit,sides) {
