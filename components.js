@@ -215,13 +215,13 @@ var html = function(xn_number, trilins_selected, tri_selected){
                 <option value="fsLeft">fsLeft</option>
                 <option value="fsRight">fsRight</option>
                 <option value="fsTop">fsTop</option>
-                <option value="cornerTL_BL">cornerTL_BL</option>
-                <option value="cornerTL_TR">cornerTL_TR</option>
-                <option value="cornerTL_vtxL">cornerTL_vtxL</option>
-                <option value="cornerTL_vtxT">cornerTL_vtxT</option>
-                <option value="cornerTL_vtxB">cornerTL_vtxB</option>
-                <option value="cornerTL_ctr">cornerTL_ctr</option>
-                <option value="cornerTL_BR">cornerTL_BR</option>
+                <option value="TL_BL">TL_BL</option>
+                <option value="TL_TR">TL_TR</option>
+                <option value="TL_vtxL">TL_vtxL</option>
+                <option value="TL_vtxT">TL_vtxT</option>
+                <option value="TL_vtxB">TL_vtxB</option>
+                <option value="TL_ctr">TL_ctr</option>
+                <option value="TL_BR">TL_BR</option>
             </select>
         </div>
         <button class='Bbox' id='Bbox_`+xn_number+`'>Bbox</button>

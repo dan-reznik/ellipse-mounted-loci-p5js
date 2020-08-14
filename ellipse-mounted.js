@@ -13,13 +13,13 @@ function getV1V2(a, mounting, eps) {
         mixed: [[a, 0], [0, -1]],
         ctrMajor: [[eps, 0], [a, 0]],
         ctrMinor: [[eps, 0], [0, -1]],
-        cornerTL_BL: [[-a, -1], [-a, 1]],
-        cornerTL_TR: [[-a, -1], [a, -1]],
-        cornerTL_vtxL: [[-a, -1], [-a, 0]],
-        cornerTL_vtxT: [[-a, -1], [0, -1]],
-        cornerTL_vtxB: [[-a, -1], [0, 1]],
-        cornerTL_ctr: [[-a, -1], [eps, eps]],
-        cornerTL_BR: [[-a, -1], [a, 1]]
+        TL_BL: [[-a, -1], [-a, 1]],
+        TL_TR: [[-a, -1], [a, -1]],
+        TL_vtxL: [[-a, -1], [-a, 0]],
+        TL_vtxT: [[-a, -1], [0, -1]],
+        TL_vtxB: [[-a, -1], [0, 1]],
+        TL_ctr: [[-a, -1], [eps, eps]],
+        TL_BR: [[-a, -1], [a, 1]]
     };
     return mounting in dict ? dict[mounting] : [[-a, 1], [a, -1]];
     /*  
