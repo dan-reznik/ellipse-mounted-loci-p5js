@@ -169,6 +169,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
          slider.value--;
          text.value--;
          ui_changed(locus_number);
+         slider.focus();
       }
    });
 
@@ -178,6 +179,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
          slider.value++;
          text.value++;
          ui_changed(locus_number);
+         slider.focus();
       }
    });
 
@@ -188,15 +190,25 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
    });
 
    text.addEventListener("input", function () {
-      if (isNaN(this.value))
-         this.value = this.value.slice(0, -1);
-      else if (this.value > 200)
-         this.value = "200";
-      else if (this.value < 1)
-         this.value = "1";
-      g_ui[sliderId] = this.value;
-      slider.value = this.value;
-      ui_changed(locus_number);
+      console.log("tchau")
+      if(this.value !== ''){
+         if (this.value > 200)
+            this.value = "200";
+         else if (this.value < 1)
+            this.value = "1";
+      }
+   })
+   text.addEventListener('keypress', function (e) {
+      if (e.keyCode < 48 || e.keyCode > 57)
+        e.preventDefault();
+      if(e.keyCode==13){
+         if(this.value == '')
+            this.value = '1';
+         g_ui[sliderId] = this.value;
+         slider.value = this.value;
+         ui_changed(locus_number);
+         slider.focus();
+      }
    })
 }
 
@@ -502,11 +514,14 @@ function set_url_params(g_url_params) {
    }
 }
 
+function recenter_onclick(){
+   document.getElementById('recenter').addEventListener('click', function(){
+      recenter();
+   });
+}
+
 function setup() {
-   g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
-   g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
-   g_ctr0 = [g_width / 2, g_height / 2];
-   g_ctr = g_ctr0;
+   recenter();
    g_mouse = g_ctr0;
    let g_ui_reset = {
       a: 1.618,
@@ -527,7 +542,8 @@ function setup() {
    //frameRate(15);
 
    set_ui_variables_behavior()
-
+   ui_changed("1")
+   recenter();
    copy_image()
    export_PNG()
    play_controls()
@@ -537,11 +553,10 @@ function setup() {
    Bbox_onclick("1");
    Bbox_onclick("2");
    Bbox_onclick("3");
+   recenter_onclick();
 
    reset_UI_onclick(g_ui_reset);
    config_url_onclick(g_ui_reset);
-
-   ui_changed("1")
 }
 
 function draw() {
