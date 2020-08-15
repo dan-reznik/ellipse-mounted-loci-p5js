@@ -498,18 +498,21 @@ function set_url_params(g_url_params) {
       }
    });
    set_ui_variables(g_ui);
-   if(!url_change_canvas){
-      if(g_ui["locus_type_3"] !== 'none'){
+   if(g_ui["locus_type_3"] !== 'none'){
+      ui_changed("3");
+      if(!url_change_canvas)
          bbox_rescale("3");
-      }
-      if(g_ui["locus_type_2"] !== 'none'){
-         bbox_rescale("2");
-      }
-      if(g_ui["locus_type_1"] !== 'none'){
-         bbox_rescale("1");
-      }
    }
-   ui_changed("0");
+   if(g_ui["locus_type_2"] !== 'none'){
+      ui_changed("2");
+      if(!url_change_canvas)
+         bbox_rescale("2");
+   }
+   if(g_ui["locus_type_1"] !== 'none'){
+      ui_changed("1");
+      if(!url_change_canvas)
+         bbox_rescale("1");
+   } 
 }
 
 function recenter_onclick(){
