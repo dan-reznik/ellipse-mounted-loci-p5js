@@ -428,7 +428,7 @@ function get_diff_default_canvas(key){
       'g_ctr[1]': g_height / 2
    };
    if (eval(key) !== canvas_params_reset[key])
-      return canvas_to_url_params[key] + '=' + eval(key) + '&';
+      return canvas_to_url_params[key] + '=' + eval(key).toFixed(3) + '&';
    else
       return '';
 }
