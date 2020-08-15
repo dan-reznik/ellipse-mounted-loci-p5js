@@ -518,6 +518,7 @@ function set_url_params(g_url_params) {
 function recenter_onclick(){
    document.getElementById('recenter').addEventListener('click', function(){
       recenter();
+      g_scale = g_scale0;
    });
 }
 
