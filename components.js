@@ -180,6 +180,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
     <div class="input_Xn">
         <label for="tri_type_`+xn_number+`"> Tri: </label>
         <select id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
+        <option value="reference">*reference*</option>
         <option value="anticompl">anticompl</option>
         <option value="bci">bci</option>
         <option value="brocard1">1st brocard</option>
@@ -212,7 +213,6 @@ var html = function(xn_number, trilins_selected, tri_selected){
         <option value="neuberg2">2nd neuberg</option>  
         <option value="orthic">orthic</option>
         <option value="outervecten">outer vecten</option>
-        <option value="reference">reference</option>
         <option value="reflection">reflection</option>
         <option value="steiner">steiner</option>
         <option value="symmedial">symmedial</option>
