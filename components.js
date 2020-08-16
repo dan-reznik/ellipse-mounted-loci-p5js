@@ -204,7 +204,6 @@ var html = function(xn_number, trilins_selected, tri_selected){
         <option value="johnson">johnson</option>
         <option value="lemoine">lemoine</option>
         <option value="lucascentral">lucas central</option>
-        <option value="macbeath">macbeath</option
         <option value="macbeath">macbeath</option>
         <option value="medial">medial</option>
         <option value="mixtilinear">mixtilinear</option>
