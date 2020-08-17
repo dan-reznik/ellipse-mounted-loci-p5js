@@ -83,17 +83,12 @@ function get_Xn_orbit(a, tDeg, trilin_fn, tri_type) {
   return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
 }
 
+
 function orbit_homothetic(a, tDeg) {
   let tri0 = regularPoly(3);
   let triRot = rotPoly(tri0, toRad(tDeg));
   let triScale = scalePoly(triRot, a, 1);
   return { o: triScale, s: tri_sides(triScale) };
-}
-
-function get_Xn_homothetic(a, tDeg, trilin_fn, tri_type) {
-  let ons = orbit_homothetic(a, tDeg);
-  let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
-  return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
 }
 
 function orbit_incircle(a, tDeg) {
@@ -114,8 +109,39 @@ function orbit_incircle(a, tDeg) {
   return { o: tri, s: tri_sides(tri) };
 }
 
-function get_Xn_incircle(a, tDeg, trilin_fn, tri_type) {
-  let ons = orbit_incircle(a, tDeg);
+function orbit_inellipse(a, tDeg) {
+  const b = 1;
+  const a2 = a * a, b2 = b * b, c2 = a2 - b2, a3 = a * a2; b3 = b * b2;
+  const R = a + b;
+  const t = toRad(tDeg);
+  const [x1, y1] = [R * Math.cos(t), R * Math.sin(t)];
+  const x1s = x1 * x1, y1s = y1 * y1;
+  const kx = Math.sqrt(a3 * (a + 2 * b) - c2 * x1s);
+  const ky = Math.sqrt(c2 * y1s + b3 * (2 * a + b));
+  const qx = a / ((-a + b) * x1s + a2 * (a + b));
+  const qy = b / ((a - b) * y1s + b2 * (a + b));
+  const x2 = (-b2 * x1 + y1 * kx) * qx;
+  const y2 = -(y1 * a2 + x1 * ky) * qy;
+  const x3 = -(b2 * x1 + y1 * kx) * qx;
+  const y3 = (-y1 * a2 + x1 * ky) * qy;
+  const tri = [[x1, y1], [x2, y2], [x3, y3]];
+  return { o: tri, s: tri_sides(tri) };
+}
+
+function get_Xn_non_billiard(a, tDeg, orbit_fn, trilin_fn, tri_type) {
+  let ons = orbit_fn(a, tDeg);
   let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
   return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
+}
+
+function get_Xn_homothetic(a, tDeg, trilin_fn, tri_type) {
+  return get_Xn_non_billiard(a, tDeg, orbit_homothetic, trilin_fn, tri_type);
+}
+
+function get_Xn_incircle(a, tDeg, trilin_fn, tri_type) {
+  return get_Xn_non_billiard(a, tDeg, orbit_incircle, trilin_fn, tri_type);
+}
+
+function get_Xn_inellipse(a, tDeg, trilin_fn, tri_type) {
+  return get_Xn_non_billiard(a, tDeg, orbit_inellipse, trilin_fn, tri_type);
 }
