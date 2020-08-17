@@ -230,8 +230,10 @@ var html = function(xn_number, trilins_selected, tri_selected){
         <label for="mounting_Xn`+xn_number+`"> Mount: </label>
         <div class="input_mounting">
             <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
-                <option value="billiard">billiard</option>
-                <option value="homothetic">homothetic</option>
+                <option value="billiard">*billiard*</option>
+                <option value="homothetic">*homothetic*</option>
+                <option value="incircle">*incircle*</option>
+                <option value="inellipse">*inellipse*</option>
                 <option value="major">major</option>
                 <option value="minor">minor</option>
                 <option value="mixed">mixed</option>
