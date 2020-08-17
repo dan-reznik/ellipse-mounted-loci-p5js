@@ -222,22 +222,23 @@ function copy_image() {
 }
 
 function export_PNG() {
-   var today = new Date();
    let double_digit = function (myNumber) { return ("0" + myNumber).slice(-2) }
-   var date_time = double_digit(today.getDate().toString()) + double_digit((today.getMonth() + 1).toString()) +
-      today.getFullYear().toString() + '_' + double_digit(today.getHours().toString()) +
-      double_digit(today.getMinutes().toString()) + double_digit(today.getSeconds().toString());
+   let element = document.body;
 
    document.getElementById('Export_PNG').addEventListener("click", function () {
+      var today = new Date();
+      var date_time = double_digit(today.getDate().toString()) + double_digit((today.getMonth() + 1).toString()) +
+      today.getFullYear().toString() + '_' + double_digit(today.getHours().toString()) +
+      double_digit(today.getMinutes().toString()) + double_digit(today.getSeconds().toString());
       //canvas = document.getElementById('defaultCanvas0');
-      element = document.body;
-      link = document.getElementById('link');
+      let link = document.getElementById('link');
       link.setAttribute('download', 'tri_app_' + date_time + '.png');
 
       html2canvas(element, { allowTaint: true }).then(function (canvas) {
+         console.log("oi")
          link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+         link.click();
       })
-      link.click();
    });
 }
 
