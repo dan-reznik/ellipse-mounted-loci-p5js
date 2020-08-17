@@ -76,3 +76,46 @@ function get_envelope(a,tDeg,trilFn1,trilFn2,dt=0.0001) {
   let p2_dt=trilFn2(ons_dt.o, ons_dt.s);
   return inter_lines(p1,p2,p1_dt,p2_dt);
 }
+
+function get_Xn_orbit(a, tDeg, trilin_fn, tri_type) {
+  let ons = orbit_normals(a, tDeg);
+  let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
+  return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
+}
+
+function orbit_homothetic(a, tDeg) {
+  let tri0 = regularPoly(3);
+  let triRot = rotPoly(tri0, toRad(tDeg));
+  let triScale = scalePoly(triRot, a, 1);
+  return { o: triScale, s: tri_sides(triScale) };
+}
+
+function get_Xn_homothetic(a, tDeg, trilin_fn, tri_type) {
+  let ons = orbit_homothetic(a, tDeg);
+  let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
+  return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
+}
+
+function orbit_incircle(a, tDeg) {
+  const b = 1;
+  const a2 = a * a, b2 = b * b, a3 = a * a2, b3 = b * b2, a4 = a2 * a2, b4 = b2 * b2;
+  const a2b2 = a2 * b2;
+  const t = toRad(tDeg);
+  const [x1, y1] = [a * Math.cos(t), Math.sin(t)];
+  const [x1s, y1s] = [x1 * x1, y1 * y1];
+  const k = Math.sqrt(a3 * (a + 2 * b) * x1s + a2 * b * (b + 2 * a) * y1s);
+  const x2 = 2 * a2b2 * (-a2 * b * x1 + k * y1);
+  const y2 = -2 * a * b3 * (a2 * b * y1 + k * x1);
+  const x3 = -2 * a2b2 * (a2 * b * x1 + k * y1);
+  const y3 = 2 * b3 * a * (-a2 * b * y1 + k * x1);
+  const q2 = 2 * b2 * (a + b) * ((a2 - b2) * x1s + a2 * b2);
+  const q3 = (b2 * a4 - y1s * a4 + 2 * a2 * b4 + a2 * b2 * x1s - 2 * x1s * b4) * (a + b);
+  const tri = [[x1, y1], vscale([x2, y2], 1 / q2), vscale([x3, y3], 1 / q3)];
+  return { o: tri, s: tri_sides(tri) };
+}
+
+function get_Xn_incircle(a, tDeg, trilin_fn, tri_type) {
+  let ons = orbit_incircle(a, tDeg);
+  let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
+  return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
+}

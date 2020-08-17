@@ -60,25 +60,6 @@ function get_fn_any(locus_type, n) {
    }
 }
 
-function get_Xn_orbit(a, tDeg, trilin_fn, tri_type) {
-   let ons = orbit_normals(a, tDeg);
-   let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
-   return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
-}
-
-function orbit_homothetic(a, tDeg) {
-   let tri0 = regularPoly(3);
-   let triRot = rotPoly(tri0, toRad(tDeg));
-   let triScale = scalePoly(triRot, a, 1);
-   return { o: triScale, s: tri_sides(triScale) };
-}
-
-function get_Xn_homothetic(a, tDeg, trilin_fn, tri_type) {
-   let ons = orbit_homothetic(a, tDeg);
-   let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
-   return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
-}
-
 function create_locus(locus_type_changed) {
    let tdegStep = +1; //valor inicial de degStep0
    let a = +g_ui.a;

@@ -43,6 +43,17 @@
        draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type);
  }
 
+ function draw_incircle_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w) {
+    let ons = orbit_incircle(a, tDeg);
+    let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
+    if (dr_tri) {
+       draw_orbit(ons, clr, false, true,false);
+       if (tri_type!="reference") draw_orbit(ons_derived, clr, false, false, false);
+    }
+    if (locus_type != 'none')
+       draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type);
+ }
+
 /*  function draw_billiard_or_mounted(n, a, tDeg, locus, clr, locus_type, dr_tri, mounting) {
     if (mounting == "billiard") {
        draw_billiard_locus(n, a, tDeg, locus, clr, locus_type, dr_tri);
@@ -60,6 +71,10 @@ function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locu
             break;
         case "homothetic":
             draw_homothetic_locus_branched(n, a, tDeg, locus_branches,
+                clr, locus_type, dr_tri, tri_type, stroke_w);
+            break;
+        case "incircle":
+            draw_incircle_locus_branched(n, a, tDeg, locus_branches,
                 clr, locus_type, dr_tri, tri_type, stroke_w);
             break;
         default:
@@ -139,6 +154,10 @@ function make_locus_branched(a, n, tDegStep, mounting, locus_type, tri_type) {
         case "homothetic":
             locus_array = create_locus_branches(a, tDegStep, 180, trilin_fn,
                 (a0, tDeg0, trilin_fn0) => get_Xn_homothetic(a0, tDeg0, trilin_fn0, tri_type));
+            break;
+        case "incircle":
+            locus_array = create_locus_branches(a, tDegStep, 180, trilin_fn,
+                (a0, tDeg0, trilin_fn0) => get_Xn_incircle(a0, tDeg0, trilin_fn0, tri_type));
             break;
 
         default: // non-billiard
