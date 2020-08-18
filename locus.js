@@ -92,7 +92,7 @@ function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
     const eps = 0.001;
     const d_max = 0.1;
     const d_min = 0.01;
-    const tDegStepMin = 0.005;
+    const tDegStepMin = 0.001;
     const tDegStepMax = 1.0;
     const r_max = 10.0;
 
@@ -146,26 +146,35 @@ function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
     }
     return locus_array;
 }
+
+// why so many ellipses, lemma 4, tan t*
+function billiard_tDegMax(a,b) {
+    const a2 = a*a, b2 = b*b;
+    const delta = Math.sqrt(a2*a2 - a2*b2 + b2*b2);
+    const tan_tstar = (b/a2)*Math.sqrt(2*delta - a2 + 2*b2);
+    return 1+toDeg(Math.PI-Math.atan(tan_tstar));
+}
+
  // no asymptotes
 function make_locus_branched(a, n, tDegStep, mounting, locus_type, tri_type) {
     let trilin_fn = get_fn_any(locus_type, n);
     let locus_array;
     switch (mounting) {
         case "billiard":
-            locus_array = create_locus_branches(a, tDegStep, 180, trilin_fn,
+            locus_array = create_locus_branches(a, tDegStep, billiard_tDegMax(a,1), trilin_fn,
                 (a0, tDeg0, trilin_fn0) => get_Xn_orbit(a0, tDeg0, trilin_fn0, tri_type));
             break;
         // &&& WORK HERE
         case "homothetic":
-            locus_array = create_locus_branches(a, tDegStep, 180, trilin_fn,
+            locus_array = create_locus_branches(a, tDegStep, 181, trilin_fn,
                 (a0, tDeg0, trilin_fn0) => get_Xn_homothetic(a0, tDeg0, trilin_fn0, tri_type));
             break;
         case "incircle":
-            locus_array = create_locus_branches(a, tDegStep, 180, trilin_fn,
+            locus_array = create_locus_branches(a, tDegStep, 181, trilin_fn,
                 (a0, tDeg0, trilin_fn0) => get_Xn_incircle(a0, tDeg0, trilin_fn0, tri_type));
             break;
         case "inellipse":
-             locus_array = create_locus_branches(a, tDegStep, 180, trilin_fn,
+             locus_array = create_locus_branches(a, tDegStep, 181, trilin_fn,
                     (a0, tDeg0, trilin_fn0) => get_Xn_inellipse(a0, tDeg0, trilin_fn0, tri_type));
             break;
 
