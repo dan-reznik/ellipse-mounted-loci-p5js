@@ -171,12 +171,21 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
    });
 
    text.addEventListener("input", function () {
-      console.log("tchau")
       if(this.value !== ''){
          if (this.value > 200)
             this.value = "200";
          else if (this.value < 1)
             this.value = "1";
+      }
+   })
+   text.addEventListener('keydown', function (e) {
+      if(e.keyCode==9){
+         if(this.value == '')
+            this.value = '1';
+         g_ui[sliderId] = this.value;
+         slider.value = this.value;
+         ui_changed(locus_number);
+         slider.focus();
       }
    })
    text.addEventListener('keypress', function (e) {
@@ -216,7 +225,6 @@ function export_PNG() {
       link.setAttribute('download', 'tri_app_' + date_time + '.png');
 
       html2canvas(element, { allowTaint: true }).then(function (canvas) {
-         console.log("oi")
          link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
          link.click();
       })
@@ -409,34 +417,45 @@ function get_diff_default_canvas(key){
       'g_ctr[0]': g_width / 2,
       'g_ctr[1]': g_height / 2
    };
-   if (eval(key) !== canvas_params_reset[key])
-      return canvas_to_url_params[key] + '=' + eval(key).toFixed(3) + '&';
+   if (eval(key) !== canvas_params_reset[key]){
+      if(key == 'g_scale')
+         return canvas_to_url_params[key] + '=' + eval(key).toFixed(3) + '&';
+      else
+         return canvas_to_url_params[key] + '=' + eval(key).toFixed(0) + '&';
+   }
    else
       return '';
 }
 
 function config_url_onclick(g_ui_reset) {
    document.getElementById('config_URL').addEventListener("click", function () {
-      var link_params = location.protocol + '//' + location.host + location.pathname + '?';
+      //var link_params = location.protocol + '//' + location.host + location.pathname + '?';
+      var link_params = location.host + location.pathname + '?';
       link_params += get_diff_default_canvas('g_scale');
       link_params += get_diff_default_canvas('g_ctr[0]');
       link_params += get_diff_default_canvas('g_ctr[1]');
       link_params += get_diff_default(g_ui_reset, "a");
-      link_params += get_diff_default(g_ui_reset, "locus_type_1");
-      link_params += get_diff_default(g_ui_reset, "locus_type_2");
-      link_params += get_diff_default(g_ui_reset, "locus_type_3");
-      link_params += get_diff_default(g_ui_reset, "Xn1");
-      link_params += get_diff_default(g_ui_reset, "Xn2");
-      link_params += get_diff_default(g_ui_reset, "Xn3");
-      link_params += get_diff_default(g_ui_reset, "tri_type_1");
-      link_params += get_diff_default(g_ui_reset, "tri_type_2");
-      link_params += get_diff_default(g_ui_reset, "tri_type_3");
-      link_params += get_diff_default(g_ui_reset, "draw_tri_1");
-      link_params += get_diff_default(g_ui_reset, "draw_tri_2");
-      link_params += get_diff_default(g_ui_reset, "draw_tri_3");
-      link_params += get_diff_default(g_ui_reset, "mounting_Xn1");
-      link_params += get_diff_default(g_ui_reset, "mounting_Xn2");
-      link_params += get_diff_default(g_ui_reset, "mounting_Xn3");
+      if(g_ui.locus_type_1 != 'none'){
+         link_params += get_diff_default(g_ui_reset, "locus_type_1");
+         link_params += get_diff_default(g_ui_reset, "Xn1");
+         link_params += get_diff_default(g_ui_reset, "tri_type_1");
+         link_params += get_diff_default(g_ui_reset, "draw_tri_1");
+         link_params += get_diff_default(g_ui_reset, "mounting_Xn1");
+      }
+      if(g_ui.locus_type_2 != 'none'){
+         link_params += get_diff_default(g_ui_reset, "locus_type_2");
+         link_params += get_diff_default(g_ui_reset, "Xn2");
+         link_params += get_diff_default(g_ui_reset, "tri_type_2");
+         link_params += get_diff_default(g_ui_reset, "draw_tri_2");
+         link_params += get_diff_default(g_ui_reset, "mounting_Xn2");
+      }
+      if(g_ui.locus_type_3 != 'none'){
+         link_params += get_diff_default(g_ui_reset, "locus_type_3");
+         link_params += get_diff_default(g_ui_reset, "Xn3");
+         link_params += get_diff_default(g_ui_reset, "tri_type_3");
+         link_params += get_diff_default(g_ui_reset, "draw_tri_3");
+         link_params += get_diff_default(g_ui_reset, "mounting_Xn3");
+      }
       link_params += get_diff_default(g_ui_reset, "animStep0");
       link_params = link_params.slice(0,-1);
       copyToClipboard(link_params);

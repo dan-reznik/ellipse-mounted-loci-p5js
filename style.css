@@ -124,7 +124,6 @@ p{
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
-  height: 52px;
 }
 
 #speed_box{
@@ -141,6 +140,11 @@ p{
   flex-direction: row;
   flex-wrap: wrap;
   height: auto;
+}
+
+#demo_a{
+  display: block;
+  width: 40px;
 }
 
 p.lab{
@@ -160,6 +164,7 @@ p.lab{
   margin-left: auto;
   margin-right: auto;
 }
+
 
 #Xn1::-webkit-slider-thumb{
   background: red;

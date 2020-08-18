@@ -17,12 +17,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta charset="utf-8">
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@nytimes">
-  <meta name="twitter:creator" content="@SarahMaslinNir">
-  <meta name="twitter:title" content="Parade of Fans for Houston’s Funeral">
-  <meta name="twitter:description" content="NEWARK - The guest list and parade of limousines with celebrities emerging from them seemed more suited to a red carpet event in Hollywood or New York than than a gritty stretch of Sussex Avenue near the former site of the James M. Baxter Terrace public housing project here.">
-  <meta name="twitter:image" content="http://graphics8.nytimes.com/images/2012/02/19/us/19whitney-span/19whitney-span-articleLarge.jpg">
 </head>
 
 <body oncontextmenu="return false;">
@@ -56,10 +50,24 @@
         <!--sliders-->
         <!--Functions show_slider_output_value, -->
         <div class="selector_input">
-          <p class='input_Xn'>a/b: <span id="demo_a"></span></p>
           <div class='input_Xn'>
+            <p class='input_Xn'>a/b: <span id="demo_a"></span></p>
             <div class='slider_container'>
               <input type="range" min=1.001 max=4 value=1.618 step=0.001 class="slider" id="a">
+            </div>
+          </div>
+          <div class='input_Xn'>
+            <div>
+              <input class = "sub_checkbox" type="checkbox" id="anim_a" `+tri_selected+` name="anima">
+              <label for="anim_a"> Anim</label>
+            </div>
+            <div>
+              <label for="speed_a"> Speed </label>
+              <select id="speed_a" name="speed_a">
+                <option value="0.125">slow</option>
+                <option value="0.5">med</option>
+                <option value="1">fast</option>
+              </select>
             </div>
           </div>
         </div>
