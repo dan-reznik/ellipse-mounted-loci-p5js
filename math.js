@@ -1,6 +1,7 @@
 // MATH UTILS
 
 toRad = (tDeg) => tDeg * PI / 180;
+toDeg = (tRad) => tRad * 180/ PI;
 
 half_cos = (cosT) => Math.sqrt((1.0+cosT)/2);
 triple_cos = (cosT) => 4*(cosT*cosT*cosT)-3*cosT;
