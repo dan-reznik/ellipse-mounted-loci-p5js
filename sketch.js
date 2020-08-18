@@ -407,7 +407,7 @@ function copyToClipboard(text) {
 
 function get_diff_default(g_ui_reset, key) {
    let original_to_url_params = {
-      a: 'a', a_an: 'a_anim', a_sp: 'a_speed',
+      a: 'a', a_anim: 'a_an', a_speed: 'a_sp',
       locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3',
       Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
       tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3',
@@ -415,8 +415,16 @@ function get_diff_default(g_ui_reset, key) {
       mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3',
       animStep0: 'aS'
    };
-   if (g_ui[key] !== g_ui_reset[key])
-      return original_to_url_params[key] + '=' + g_ui[key] + '&';
+   if (g_ui[key] !== g_ui_reset[key]){
+      if(key == 'a'){
+         console.log((+g_ui[key]).toFixed(3))
+         return original_to_url_params[key] + '=' + (+g_ui[key]).toFixed(3) + '&';
+      }
+      else if(key == 'a_speed')
+         return original_to_url_params[key] + '=' + abs(g_ui[key]) + '&';
+      else
+         return original_to_url_params[key] + '=' + g_ui[key] + '&';
+   }
    else
       return '';
 }
@@ -502,8 +510,12 @@ function set_url_params(g_url_params) {
    link_keys.forEach(function (key) {
       if (url_params_to_ui_keys.includes(key)){
          ui_key = url_params_to_ui[key];
-         if(['a', 'Xn1', 'Xn2', 'Xn3', 'animStep0'].includes(ui_key))
+         if(['a', 'Xn1', 'Xn2', 'Xn3', 'animStep0'].includes(ui_key)){
+            console.log(ui_key)
+            console.log(+g_url_params[ui_key])
             g_ui[ui_key] = +g_url_params[key];
+            console.log(g_ui[ui_key])
+         }
          else if(['a_anim', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(ui_key))
             g_ui[ui_key] = (g_url_params[key] == 'true');
          else{
@@ -551,6 +563,7 @@ function ui_changed_type(){
 
 function a_anim(){
    a_slider = document.getElementById('a')
+   g_ui.a_speed = +g_ui.a_speed;
    if(g_ui.a_anim == true){
       if(g_ui.a_speed > 0)
          if(4-g_ui.a <= g_ui.a_speed){
@@ -625,7 +638,6 @@ function draw() {
    push();
    translate(g_ctr[0], g_ctr[1]);
    scale(g_width / g_scale);
-   a_anim();
    draw_billiard(+g_ui.a);
    let stroke_w = sqrt(g_scale/g_scale0)*.01;
 
@@ -640,6 +652,8 @@ function draw() {
    draw_billiard_or_mounted_branched(g_ui.Xn3, +g_ui.a, g_tDeg,
       g_locus_Xn3_branched, clr_blue, g_ui.locus_type_3,
       g_ui.draw_tri_3, g_ui.mounting_Xn3, g_ui.tri_type_3, stroke_w);
+   
+   a_anim();
 
    pop();
 
