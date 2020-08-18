@@ -488,7 +488,7 @@ function set_url_params(g_url_params) {
          if(['a', 'Xn1', 'Xn2', 'Xn3', 'animStep0'].includes(ui_key))
             g_ui[ui_key] = +g_url_params[key];
          else if(['draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(ui_key))
-            g_ui[ui_key] = (g_url_params[key] == true);
+            g_ui[ui_key] = (g_url_params[key] == 'true');
          else{
             g_ui[ui_key] = g_url_params[key];
          }
