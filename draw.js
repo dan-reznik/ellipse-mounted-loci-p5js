@@ -75,17 +75,13 @@ function draw_excircles(o, s, rgb) {
   exc.map((e, i) => draw_circle_low(e, edist(e, ext[i]), rgb));
 }
 
-
-
-
-
 // CLOSER TO UI
 
 function draw_locus_only(locus, rgb, stroke_w = 0.01) {
   push();
   strokeWeight(stroke_w);
   stroke(rgb);
-  for (let i = 0; i < locus.length - 1; i++)
+  for (let i = 0; i < locus.length; i++)
     line(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
   pop();
 }
@@ -95,9 +91,21 @@ function get_brocard_orbit_sides(orbit, sides, n) {
 }
 
 function draw_one_locus_branch(locus) {
-  for (let i = 0; i < locus.length - 1; i++)
+  for (let i = 0; i < locus.length; i++)
   line(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
 }
+
+function draw_one_locus_branch_filled(locus, fill_rgb) {
+  push();
+  fill(fill_rgb);
+  beginShape();
+  for (let i = 0; i < locus.length; i++)
+     vertex(locus[i][0],locus[i][1]);
+  endShape();
+  pop();
+}
+
+
 
 function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, locus_type) {
   var xn;
@@ -106,10 +114,13 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
     case "brocard_1": xn = trilin_brocard1(ons.o, ons.s); break;
     case "brocard_2": xn = trilin_brocard2(ons.o, ons.s); break;
   }
+  const rgba_str = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},.1)`;
+  //console.log(rgba_str);
   push();
   strokeWeight(stroke_w);
   stroke(rgb);
-  locus_branches.map(l=>draw_one_locus_branch(l));
+
+  locus_branches.map(l=>draw_one_locus_branch_filled(l,rgba_str));
 
   draw_point2(xn, rgb,stroke_w);
 

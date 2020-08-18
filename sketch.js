@@ -295,7 +295,7 @@ function tri_onchange() {
    })
    document.getElementById('draw_tri_2').addEventListener("click", function () {
       g_ui.draw_tri_2 = this.checked;
-      console.log(g_ui.draw_tri_2)
+      //(g_ui.draw_tri_2)
       redraw("2");
    })
    document.getElementById('draw_tri_3').addEventListener("click", function () {
@@ -429,7 +429,7 @@ function get_diff_default(g_ui_reset, key) {
    };
    if (g_ui[key] !== g_ui_reset[key]){
       if(key == 'a'){
-         console.log((+g_ui[key]).toFixed(3))
+         //console.log((+g_ui[key]).toFixed(3))
          return original_to_url_params[key] + '=' + (+g_ui[key]).toFixed(3) + '&';
       }
       else if(key == 'a_speed')
@@ -523,10 +523,10 @@ function set_url_params(g_url_params) {
       if (url_params_to_ui_keys.includes(key)){
          ui_key = url_params_to_ui[key];
          if(['a', 'Xn1', 'Xn2', 'Xn3', 'animStep0'].includes(ui_key)){
-            console.log(ui_key)
-            console.log(+g_url_params[ui_key])
+            //(ui_key)
+            //console.log(+g_url_params[ui_key])
             g_ui[ui_key] = +g_url_params[key];
-            console.log(g_ui[ui_key])
+            //console.log(g_ui[ui_key])
          }
          else if(['a_anim', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(ui_key))
             g_ui[ui_key] = (g_url_params[key] == 'true');
@@ -579,7 +579,7 @@ function a_anim(){
    g_ui.a_speed = +g_ui.a_speed;
    g_ui.a = +g_ui.a
    if(g_ui.a_anim == true){
-      console.log(g_ui.a)
+      //console.log(g_ui.a)
       if(g_ui.a_speed > 0)
          if(4-g_ui.a <= g_ui.a_speed){
             g_ui.a = 4;
