@@ -144,7 +144,13 @@ var html = function(xn_number, trilins_selected, tri_selected){
     }
 
     .input_mounting{
+        display: inline-block;
         height: 100%;
+        width: 76px;
+    }
+
+    .input_mounting>select{
+        width: 100%;
     }
 
     .Bbox{
@@ -156,13 +162,39 @@ var html = function(xn_number, trilins_selected, tri_selected){
 <div class="component xn_selector">
     <div class="input_Xn">
         <div id='Locus_label'>
-            <label for="checkbox_Xn`+xn_number+`"> Locus `+xn_number+`: </label>
+            <label for="checkbox_Xn`+xn_number+`"> Loc`+xn_number+`</label>
             <select id="locus_type_`+xn_number+`">
                 <option value="none">none</option>
                 <option value="trilins" `+trilins_selected+`>tri ctr</option>
                 <option value="brocard_1">Ω1</option>
                 <option value="brocard_2">Ω2</option>
             </select>
+            <label for="mounting_Xn`+xn_number+`"> Mnt</label>
+        <div class="input_mounting">
+            <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
+                <option value="billiard">*billiard*</option>
+                <option value="homothetic">*homothetic*</option>
+                <option value="incircle">*incircle*</option>
+                <option value="inellipse">*inellipse*</option>
+                <option value="major">major</option>
+                <option value="minor">minor</option>
+                <option value="mixed">mixed</option>
+                <option value="ctrMajor">ctrMajor</option>
+                <option value="ctrMinor">ctrMinor</option>
+                <option value="fs">fs</option>
+                <option value="fsCtr">fsCtr</option>
+                <option value="fsLeft">fsLeft</option>
+                <option value="fsRight">fsRight</option>
+                <option value="fsTop">fsTop</option>
+                <option value="TL_BL">TL_BL</option>
+                <option value="TL_TR">TL_TR</option>
+                <option value="TL_vtxL">TL_vtxL</option>
+                <option value="TL_vtxT">TL_vtxT</option>
+                <option value="TL_vtxB">TL_vtxB</option>
+                <option value="TL_ctr">TL_ctr</option>
+                <option value="TL_BR">TL_BR</option>
+            </select>
+        </div>
          </div>
     </div>
 
@@ -178,7 +210,10 @@ var html = function(xn_number, trilins_selected, tri_selected){
     </div>
 
     <div class="input_Xn">
-        <label for="tri_type_`+xn_number+`"> Tri: </label>
+        <div>
+            <label for="draw_tri_`+xn_number+`"> Tri </label>
+            <input class = "sub_checkbox" type="checkbox" id="draw_tri_`+xn_number+`" `+tri_selected+` name="draw_tri_`+xn_number+`">
+            </div>
         <select id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
         <option value="reference">*reference*</option>
         <option value="anticompl">anticompl</option>
@@ -220,42 +255,8 @@ var html = function(xn_number, trilins_selected, tri_selected){
         <option value="yffcentral">yff central</option>
         <option value="yffcontact">yff contact</option>  
         </select>
-        <div class="subcheck_label">
-            <input class = "sub_checkbox" type="checkbox" id="draw_tri_`+xn_number+`" `+tri_selected+` name="draw_tri_`+xn_number+`">
-            <label for="draw_tri_`+xn_number+`"> Draw</label>
-        </div>
-    </div>
-
-    <div class="input_Xn">
-        <label for="mounting_Xn`+xn_number+`"> Mount: </label>
-        <div class="input_mounting">
-            <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
-                <option value="billiard">*billiard*</option>
-                <option value="homothetic">*homothetic*</option>
-                <option value="incircle">*incircle*</option>
-                <option value="inellipse">*inellipse*</option>
-                <option value="major">major</option>
-                <option value="minor">minor</option>
-                <option value="mixed">mixed</option>
-                <option value="ctrMajor">ctrMajor</option>
-                <option value="ctrMinor">ctrMinor</option>
-                <option value="fs">fs</option>
-                <option value="fsCtr">fsCtr</option>
-                <option value="fsLeft">fsLeft</option>
-                <option value="fsRight">fsRight</option>
-                <option value="fsTop">fsTop</option>
-                <option value="TL_BL">TL_BL</option>
-                <option value="TL_TR">TL_TR</option>
-                <option value="TL_vtxL">TL_vtxL</option>
-                <option value="TL_vtxT">TL_vtxT</option>
-                <option value="TL_vtxB">TL_vtxB</option>
-                <option value="TL_ctr">TL_ctr</option>
-                <option value="TL_BR">TL_BR</option>
-            </select>
-        </div>
         <button class='Bbox' id='Bbox_`+xn_number+`'>Bbox</button>
     </div>
-
 </div>
 `;
 }
