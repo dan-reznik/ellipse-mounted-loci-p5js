@@ -20,6 +20,8 @@ let g_ui = {};
 
 function set_ui_variables(dictionary) {
    document.getElementById("a").value = dictionary["a"];
+   document.getElementById("a_anim").checked = dictionary["a_anim"];
+   document.getElementById("a_speed").value = dictionary["a_speed"];
    document.getElementById("demo_a").innerHTML = dictionary["a"];
    document.getElementById("locus_type_1").value = dictionary["locus_type_1"];
    document.getElementById("locus_type_2").value = dictionary["locus_type_2"];
@@ -281,11 +283,24 @@ function tri_onchange() {
    })
    document.getElementById('draw_tri_2').addEventListener("click", function () {
       g_ui.draw_tri_2 = this.checked;
+      console.log(g_ui.draw_tri_2)
       redraw("2");
    })
    document.getElementById('draw_tri_3').addEventListener("click", function () {
       g_ui.draw_tri_3 = this.checked;
       redraw("3");
+   })
+}
+
+function a_anim_onchange(){
+   document.getElementById('a_anim').addEventListener("click", function () {
+      g_ui.a_anim = this.checked;
+   })
+}
+
+function a_speed_onchange(){
+   document.getElementById('a_speed').addEventListener("change", function () {
+      g_ui.a_speed = +this.value;
    })
 }
 
@@ -392,7 +407,7 @@ function copyToClipboard(text) {
 
 function get_diff_default(g_ui_reset, key) {
    let original_to_url_params = {
-      a: 'a',
+      a: 'a', a_an: 'a_anim', a_sp: 'a_speed',
       locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3',
       Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
       tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3',
@@ -435,6 +450,8 @@ function config_url_onclick(g_ui_reset) {
       link_params += get_diff_default_canvas('g_ctr[0]');
       link_params += get_diff_default_canvas('g_ctr[1]');
       link_params += get_diff_default(g_ui_reset, "a");
+      link_params += get_diff_default(g_ui_reset, "a_anim");
+      link_params += get_diff_default(g_ui_reset, "a_speed");
       if(g_ui.locus_type_1 != 'none'){
          link_params += get_diff_default(g_ui_reset, "locus_type_1");
          link_params += get_diff_default(g_ui_reset, "Xn1");
@@ -469,7 +486,7 @@ function set_url_params(g_url_params) {
       cy: 'g_ctr[1]'
    }
    let url_params_to_ui = {
-      a: 'a',
+      a: 'a', a_an: 'a_anim', a_sp: 'a_speed',
       lc1: 'locus_type_1', lc2: 'locus_type_2', lc3: 'locus_type_3',
       Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
       tr1: 'tri_type_1', tr2: 'tri_type_2', tr3: 'tri_type_3',
@@ -487,7 +504,7 @@ function set_url_params(g_url_params) {
          ui_key = url_params_to_ui[key];
          if(['a', 'Xn1', 'Xn2', 'Xn3', 'animStep0'].includes(ui_key))
             g_ui[ui_key] = +g_url_params[key];
-         else if(['draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(ui_key))
+         else if(['a_anim', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(ui_key))
             g_ui[ui_key] = (g_url_params[key] == 'true');
          else{
             g_ui[ui_key] = g_url_params[key];
@@ -523,11 +540,49 @@ function recenter_onclick(){
    });
 }
 
+function ui_changed_type(){
+   if(g_ui.locus_type_1 != 'none')
+      ui_changed('1')
+   if(g_ui.locus_type_2 != 'none')
+      ui_changed('2')
+   if(g_ui.locus_type_3 != 'none')
+      ui_changed('3')
+}
+
+function a_anim(){
+   a_slider = document.getElementById('a')
+   if(g_ui.a_anim == true){
+      if(g_ui.a_speed > 0)
+         if(4-g_ui.a <= g_ui.a_speed){
+            g_ui.a = 4;
+            a_slider.value = g_ui.a;
+            g_ui.a_speed = -g_ui.a_speed;
+            ui_changed_type()
+         }
+         else{
+            g_ui.a += g_ui.a_speed;
+            a_slider.value = g_ui.a;
+            ui_changed_type()    
+         }
+      else
+         if(g_ui.a+g_ui.a_speed<=1.001){
+            g_ui.a = 1.001;
+            a_slider.value = g_ui.a;
+            g_ui.a_speed = -g_ui.a_speed;
+            ui_changed_type()        
+         }
+         else{
+            g_ui.a += g_ui.a_speed;
+            a_slider.value = g_ui.a;
+            ui_changed_type()        }
+   } 
+}
+
 function setup() {
    recenter();
    g_mouse = g_ctr0;
    let g_ui_reset = {
-      a: 1.618,
+      a: 1.618, a_anim: false, a_speed: 0.01,
       locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none',
       Xn1: 1, Xn2: 1, Xn3: 1,
       tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference',
@@ -552,6 +607,8 @@ function setup() {
    play_controls()
    locus_type_onchange()
    tri_onchange()
+   a_anim_onchange();
+   a_speed_onchange();
    tri_type_onchange()
    Bbox_onclick("1");
    Bbox_onclick("2");
@@ -568,6 +625,7 @@ function draw() {
    push();
    translate(g_ctr[0], g_ctr[1]);
    scale(g_width / g_scale);
+   a_anim();
    draw_billiard(+g_ui.a);
    let stroke_w = sqrt(g_scale/g_scale0)*.01;
 
