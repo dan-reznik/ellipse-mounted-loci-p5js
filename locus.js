@@ -166,15 +166,15 @@ function make_locus_branched(a, n, tDegStep, mounting, locus_type, tri_type) {
             break;
         // &&& WORK HERE
         case "homothetic":
-            locus_array = create_locus_branches(a, tDegStep, 180, trilin_fn,
+            locus_array = create_locus_branches(a, tDegStep, 181, trilin_fn,
                 (a0, tDeg0, trilin_fn0) => get_Xn_homothetic(a0, tDeg0, trilin_fn0, tri_type));
             break;
         case "incircle":
-            locus_array = create_locus_branches(a, tDegStep, 180, trilin_fn,
+            locus_array = create_locus_branches(a, tDegStep, 181, trilin_fn,
                 (a0, tDeg0, trilin_fn0) => get_Xn_incircle(a0, tDeg0, trilin_fn0, tri_type));
             break;
         case "inellipse":
-             locus_array = create_locus_branches(a, tDegStep, 180, trilin_fn,
+             locus_array = create_locus_branches(a, tDegStep, 181, trilin_fn,
                     (a0, tDeg0, trilin_fn0) => get_Xn_inellipse(a0, tDeg0, trilin_fn0, tri_type));
             break;
 
