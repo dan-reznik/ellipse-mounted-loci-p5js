@@ -25,4 +25,4 @@ clr_sea_green = [46,139,87];
 clr_chocolate = [210,105,30];
 clr_brown = [205,133,63]; // [160,82,45];
 clr_almond = [255,248,220];
-clr_background = [245,245,225];
+clr_background = [252, 233, 215];
