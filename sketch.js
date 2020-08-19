@@ -472,37 +472,23 @@ function config_url_onclick(g_ui_reset) {
       link_params += get_diff_default_canvas('g_ctr[0]');
       link_params += get_diff_default_canvas('g_ctr[1]');
       link_params += get_diff_default(g_ui_reset, "a");
-      if(g_ui.a_anim == true){
-         link_params += get_diff_default(g_ui_reset, "a_anim");
-         link_params += get_diff_default(g_ui_reset, "a_speed");
-      }
-      if(g_ui.locus_type_1 != 'none'){
-         link_params += get_diff_default(g_ui_reset, "locus_type_1");
-         link_params += get_diff_default(g_ui_reset, "Xn1");
-         link_params += get_diff_default(g_ui_reset, "mounting_Xn1");
-      }
-      if(g_ui.draw_tri_1 == true){
-         link_params += get_diff_default(g_ui_reset, "draw_tri_1");
-         link_params += get_diff_default(g_ui_reset, "tri_type_1");
-      }
-      if(g_ui.locus_type_2 != 'none'){
-         link_params += get_diff_default(g_ui_reset, "locus_type_2");
-         link_params += get_diff_default(g_ui_reset, "Xn2");
-         link_params += get_diff_default(g_ui_reset, "mounting_Xn2");
-      }
-      if(g_ui.draw_tri_2 == true){
-         link_params += get_diff_default(g_ui_reset, "draw_tri_2");
-         link_params += get_diff_default(g_ui_reset, "tri_type_2");
-      }
-      if(g_ui.locus_type_3 != 'none'){
-         link_params += get_diff_default(g_ui_reset, "locus_type_3");
-         link_params += get_diff_default(g_ui_reset, "Xn3");
-         link_params += get_diff_default(g_ui_reset, "mounting_Xn3");
-      }
-      if(g_ui.draw_tri_3 == true){
-         link_params += get_diff_default(g_ui_reset, "draw_tri_3");
-         link_params += get_diff_default(g_ui_reset, "tri_type_3");
-      }
+      link_params += get_diff_default(g_ui_reset, "a_anim");
+      link_params += get_diff_default(g_ui_reset, "a_speed");
+      link_params += get_diff_default(g_ui_reset, "locus_type_1");
+      link_params += get_diff_default(g_ui_reset, "Xn1");
+      link_params += get_diff_default(g_ui_reset, "mounting_Xn1");
+      link_params += get_diff_default(g_ui_reset, "draw_tri_1");
+      link_params += get_diff_default(g_ui_reset, "tri_type_1");
+      link_params += get_diff_default(g_ui_reset, "locus_type_2");
+      link_params += get_diff_default(g_ui_reset, "Xn2");
+      link_params += get_diff_default(g_ui_reset, "mounting_Xn2");
+      link_params += get_diff_default(g_ui_reset, "draw_tri_2");
+      link_params += get_diff_default(g_ui_reset, "tri_type_2");
+      link_params += get_diff_default(g_ui_reset, "locus_type_3");
+      link_params += get_diff_default(g_ui_reset, "Xn3");
+      link_params += get_diff_default(g_ui_reset, "mounting_Xn3");
+      link_params += get_diff_default(g_ui_reset, "draw_tri_3");
+      link_params += get_diff_default(g_ui_reset, "tri_type_3");
       link_params += get_diff_default(g_ui_reset, "animStep0");
       link_params = link_params.slice(0,-1);
       copyToClipboard(link_params);
