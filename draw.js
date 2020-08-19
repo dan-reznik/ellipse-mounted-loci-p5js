@@ -260,10 +260,12 @@ function draw_foci(a) {
   draw_point([-c, 0], [0, 0, 0])
 }
 
-function draw_boundary(a) {
+function draw_boundary(a,b,rgb) {
   push();
+  noFill();
+  stroke(rgb);
   strokeWeight(0.0125);
-  ellipse(0, 0, 2 * a, 2)
+  ellipse(0, 0, 2*a, 2*b)
   pop();
 }
 
@@ -277,8 +279,8 @@ function draw_circle_low([cx, cy], r, rgb, dr_ctr = true) {
   pop();
 }
 
-function draw_billiard(a) {
-  draw_boundary(a);
+function draw_ellipse(a) {
+  draw_boundary(a,1,clr_black);
   draw_axes(a);
   draw_foci(a);
   //draw_center();

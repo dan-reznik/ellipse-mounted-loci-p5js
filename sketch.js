@@ -660,7 +660,7 @@ function draw() {
    push();
    translate(g_ctr[0], g_ctr[1]);
    scale(g_width / g_scale);
-   draw_billiard(+g_ui.a);
+   draw_ellipse(+g_ui.a);
    let stroke_w = sqrt(g_scale/g_scale0)*.01;
 
    draw_billiard_or_mounted_branched(g_ui.Xn1, +g_ui.a, g_tDeg,

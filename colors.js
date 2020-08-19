@@ -23,3 +23,4 @@ clr_dark_gold =[184,134,11];
 clr_tourquoise = [0,206,209];
 clr_sea_green = [46,139,87];
 clr_chocolate = [210,105,30];
+clr_brown = [205,133,63]; // [160,82,45];
