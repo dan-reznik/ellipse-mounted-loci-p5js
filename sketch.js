@@ -55,6 +55,8 @@ function get_brocard(n) {
 }
 
 function get_fn_any(locus_type, n) {
+   if (locus_type.substr(0,1)=="f_")
+      locus_type = locus_type.substr(2);
    switch (locus_type) {
       case 'brocard_1': return get_brocard(1);
       case 'brocard_2': return get_brocard(2);

@@ -164,9 +164,12 @@ var html = function(xn_number, trilins_selected, tri_selected){
             <label for="checkbox_Xn`+xn_number+`"> Loc`+xn_number+`</label>
             <select id="locus_type_`+xn_number+`">
                 <option value="none">none</option>
-                <option value="trilins" `+trilins_selected+`>tri ctr</option>
+                <option value="trilins" `+trilins_selected+`>Xn</option>
                 <option value="brocard_1">Ω1</option>
                 <option value="brocard_2">Ω2</option>
+                <option value="f_trilins">Xn,fill</option>
+                <option value="f_brocard_1">Ω1,fill</option>
+                <option value="f_brocard_2">Ω2,fill</option>
             </select>
         </div>
         <div class='Locus_mnt_label'>
