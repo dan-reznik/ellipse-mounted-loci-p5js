@@ -128,6 +128,29 @@ function orbit_inellipse(a, tDeg) {
   return { o: tri, s: tri_sides(tri) };
 }
 
+function orbit_dual(a, tDeg) {
+  const b = 1;
+  const a2 = a * a, b2 = b * b, c2 = a2 - b2;
+  const a4 = a2 * a2, b4 = b2 * b2, a6 = a2*a4, b6=b2*b4;
+  const t = toRad(tDeg);
+  const [x1, y1] = [a * Math.cos(t), b * Math.sin(t)];
+  const x1s = x1 * x1, y1s = y1 * y1;
+  
+  const s0 = c2*Math.pow(a2 + b2,3);
+  const sx = Math.sqrt(s0*x1s + a2*b6*(2*a2 + b2)); 
+  const sy = Math.sqrt(-s0*y1s + a6*b2*(a2 + 2*b2));
+  const kx = (a2*b)/((a4*x1s + a2*b4 - b4*x1s)*(a2 + b2));
+  const ky = (a*b2)/(((b2 - y1s)*a4 + b4*y1s)*(a2 + b2));
+   
+  const x2 = (-a4*b*x1 + y1*sx)*kx;
+  const y2 = -(a*b4*y1 + x1*sy)*ky;
+  const x3 = -(a4*b*x1 + y1*sx)*kx;
+  const y3 = (-b4*a*y1 + x1*sy)*ky;
+   
+   const tri = [[x1, y1], [x2, y2], [x3, y3]];
+   return { o: tri, s: tri_sides(tri) };
+}
+
 function get_Xn_non_billiard(a, tDeg, orbit_fn, trilin_fn, tri_type) {
   let ons = orbit_fn(a, tDeg);
   let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
@@ -144,4 +167,8 @@ function get_Xn_incircle(a, tDeg, trilin_fn, tri_type) {
 
 function get_Xn_inellipse(a, tDeg, trilin_fn, tri_type) {
   return get_Xn_non_billiard(a, tDeg, orbit_inellipse, trilin_fn, tri_type);
+}
+
+function get_Xn_dual(a, tDeg, trilin_fn, tri_type) {
+  return get_Xn_non_billiard(a, tDeg, orbit_dual, trilin_fn, tri_type);
 }

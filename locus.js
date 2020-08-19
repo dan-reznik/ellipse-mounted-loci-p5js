@@ -55,6 +55,10 @@
     draw_non_billiard_locus_branched(n, a, tDeg, orbit_inellipse, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w)
  }
 
+ function draw_dual_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w) {
+    draw_non_billiard_locus_branched(n, a, tDeg, orbit_dual, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w)
+ }
+
 /*  function draw_billiard_or_mounted(n, a, tDeg, locus, clr, locus_type, dr_tri, mounting) {
     if (mounting == "billiard") {
        draw_billiard_locus(n, a, tDeg, locus, clr, locus_type, dr_tri);
@@ -81,6 +85,10 @@ function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locu
         case "inellipse":
             draw_inellipse_locus_branched(n, a, tDeg, locus_branches,
                 clr, locus_type, dr_tri, tri_type, stroke_w);
+            break;
+        case "dual":
+            draw_dual_locus_branched(n, a, tDeg, locus_branches,
+                    clr, locus_type, dr_tri, tri_type, stroke_w);
             break;
         default:
             draw_mounted_locus_branched(n, a, tDeg, locus_branches, clr,
@@ -177,6 +185,10 @@ function make_locus_branched(a, n, tDegStep, mounting, locus_type, tri_type) {
              locus_array = create_locus_branches(a, tDegStep, 181, trilin_fn,
                     (a0, tDeg0, trilin_fn0) => get_Xn_inellipse(a0, tDeg0, trilin_fn0, tri_type));
             break;
+        case "dual":
+             locus_array = create_locus_branches(a, tDegStep, 181, trilin_fn,
+                    (a0, tDeg0, trilin_fn0) => get_Xn_dual(a0, tDeg0, trilin_fn0, tri_type));
+               break;
 
         default: // non-billiard
             const eps = 0.001;
