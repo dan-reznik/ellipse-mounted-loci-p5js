@@ -655,7 +655,7 @@ function setup() {
 }
 
 function draw() {
-   background(220, 220, 200);
+   background(...clr_background); // (220, 220, 200);
 
    push();
    translate(g_ctr[0], g_ctr[1]);
