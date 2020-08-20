@@ -285,3 +285,7 @@ function get_xmin(ps) {
     //console.log("bbox",bbox,"scale",scale);
     return(scale);
  }
+
+function trunc_locus_xy(locus_branched,digs) {
+   return locus_branched.map(b => b.map(p => trunc_xy(p,digs)));
+}

@@ -3,6 +3,8 @@
 toRad = (tDeg) => tDeg * PI / 180;
 toDeg = (tRad) => tRad * 180/ PI;
 
+trunc_xy = ([x,y],digs) => [+(x.toFixed(digs)),+(y.toFixed(digs))];
+
 half_cos = (cosT) => Math.sqrt((1.0+cosT)/2);
 triple_cos = (cosT) => 4*(cosT*cosT*cosT)-3*cosT;
 double_cos = (cosT) => 2*cosT*cosT-1;

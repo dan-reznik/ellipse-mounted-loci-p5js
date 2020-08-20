@@ -241,7 +241,7 @@ function export_PNG() {
       double_digit(today.getMinutes().toString()) + double_digit(today.getSeconds().toString());
       //canvas = document.getElementById('defaultCanvas0');
       let link = document.createElement('a');
-      link.setAttribute('download', 'tri_app_' + date_time + '.png');
+      link.setAttribute('download', 'locus_image_' + date_time + '.png');
       html2canvas(element, { allowTaint: true })
          .then(function (canvas) {
             link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
@@ -736,14 +736,14 @@ function exportToJsonFile(jsonData) {
 
 function export_JSON_onclick(){
    document.getElementById('Export_JSON').addEventListener('click', function(){
-      var canvas_ui = {'canvas_scale':g_scale, 'ellipse_X_center':g_ctr[0], 'ellipse_Y_center':g_ctr[1]}
+      var canvas_ui = {'canvas_scale':g_scale, 'cx':g_ctr[0], 'cy':g_ctr[1]}
       var ui_object = {...canvas_ui, ...g_ui};
       if(g_ui.locus_type_1 != 'none')
-         ui_object = {...ui_object, ...{'Xn1_branched_points': g_locus_Xn1_branched}};
+         ui_object = {...ui_object, ...{'locus1': trunc_locus_xy(g_locus_Xn1_branched,4)}};
       if(g_ui.locus_type_2 != 'none')
-         ui_object = {...ui_object, ...{'Xn2_branched_points': g_locus_Xn2_branched}};
+         ui_object = {...ui_object, ...{'locus2': trunc_locus_xy(g_locus_Xn2_branched,4)}};
       if(g_ui.locus_type_3 != 'none')
-         ui_object = {...ui_object, ...{'Xn3_branched_points': g_locus_Xn3_branched}};
+         ui_object = {...ui_object, ...{'locus3': trunc_locus_xy(g_locus_Xn3_branched,4)}};
       exportToJsonFile(ui_object);
    })
 }
