@@ -430,7 +430,7 @@ function copyToClipboard(text) {
 
 function get_diff_default(g_ui_reset, key) {
    let original_to_url_params = {
-      a: 'a', a_anim: 'a_an', a_speed: 'a_sp',
+      a: 'a', a_anim: 'aan', a_speed: 'asp', a_min: 'amn', a_max: 'amx',
       locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3',
       Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
       tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3',
@@ -483,6 +483,8 @@ function config_url_onclick(g_ui_reset) {
       link_params += get_diff_default(g_ui_reset, "a");
       link_params += get_diff_default(g_ui_reset, "a_anim");
       link_params += get_diff_default(g_ui_reset, "a_speed");
+      link_params += get_diff_default(g_ui_reset, "a_min");
+      link_params += get_diff_default(g_ui_reset, "a_max");
       link_params += get_diff_default(g_ui_reset, "locus_type_1");
       link_params += get_diff_default(g_ui_reset, "Xn1");
       link_params += get_diff_default(g_ui_reset, "mounting_Xn1");
@@ -511,7 +513,7 @@ function set_url_params(g_url_params) {
       cy: 'g_ctr[1]'
    }
    let url_params_to_ui = {
-      a: 'a', a_an: 'a_anim', a_sp: 'a_speed',
+      a: 'a', aan: 'a_anim', asp: 'a_speed', amn: 'a_min', amx: 'a_max',
       lc1: 'locus_type_1', lc2: 'locus_type_2', lc3: 'locus_type_3',
       Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
       tr1: 'tri_type_1', tr2: 'tri_type_2', tr3: 'tri_type_3',
