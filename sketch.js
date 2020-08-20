@@ -650,8 +650,14 @@ function a_text_input(){
       }
    })
    a_min.addEventListener('keypress', function (e) {
-      if (e.keyCode < 48 || e.keyCode > 57)
-        e.preventDefault();
+      if(this.value.includes('.')){
+         if(e.keyCode < 48 || e.keyCode > 57)
+            e.preventDefault();
+      }
+      else{
+         if((e.keyCode < 48 || e.keyCode > 57) && e.keyCode != 46)
+            e.preventDefault();
+      }      
       if(e.keyCode==13){
          if(this.value == '')
             this.value = 1.001;
@@ -688,8 +694,14 @@ function a_text_input(){
       }
    })
    a_max.addEventListener('keypress', function (e) {
-      if (e.keyCode < 48 || e.keyCode > 57)
-        e.preventDefault();
+      if(this.value.includes('.')){
+         if(e.keyCode < 48 || e.keyCode > 57)
+            e.preventDefault();
+      }
+      else{
+         if((e.keyCode < 48 || e.keyCode > 57) && e.keyCode != 46)
+            e.preventDefault();
+      }   
       if(e.keyCode==13){
          if(this.value == '')
             this.value = 4.000;
