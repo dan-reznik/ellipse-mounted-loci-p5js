@@ -103,6 +103,9 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
         <option value="yffcontact">yff contact</option>  
         </select>
         <button class='Bbox' id='Bbox_`+xn_number+`'>bbox</button>
+        <div id='conic_type'>
+            <p id='conic_type_`+xn_number+`'></p>
+        </div>
     </div>
 </div>
 `;

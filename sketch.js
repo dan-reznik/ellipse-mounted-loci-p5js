@@ -168,6 +168,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
          slider.value--;
          text.value--;
          ui_changed(locus_number);
+         conic_type_onchange(locus_number);
          slider.focus();
       }
    });
@@ -178,6 +179,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
          slider.value++;
          text.value++;
          ui_changed(locus_number);
+         conic_type_onchange(locus_number);
          slider.focus();
       }
    });
@@ -186,6 +188,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
       g_ui[sliderId] = this.value;
       text.value = this.value;
       ui_changed(locus_number);
+      conic_type_onchange(locus_number);
    });
 
    text.addEventListener("input", function () {
@@ -203,6 +206,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
          g_ui[sliderId] = this.value;
          slider.value = this.value;
          ui_changed(locus_number);
+         conic_type_onchange(locus_number);
          e.preventDefault();
          slider.focus();
       }
@@ -216,6 +220,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
          g_ui[sliderId] = this.value;
          slider.value = this.value;
          ui_changed(locus_number);
+         conic_type_onchange(locus_number);
          slider.focus();
       }
    })
@@ -335,14 +340,17 @@ function locus_type_onchange() {
    document.getElementById("locus_type_1").addEventListener("change", function () {
       g_ui.locus_type_1 = this.value;
       ui_changed("1");
+      conic_type_onchange("1");
    });
    document.getElementById("locus_type_2").addEventListener("change", function () {
       g_ui.locus_type_2 = this.value;
       ui_changed("2");
+      conic_type_onchange("2");
    });
    document.getElementById("locus_type_3").addEventListener("change", function () {
       g_ui.locus_type_3 = this.value;
       ui_changed("3");
+      conic_type_onchange("3");
    });
 }
 
@@ -529,7 +537,6 @@ function set_url_params(g_url_params) {
    let url_params_to_ui_keys = Object.keys(url_params_to_ui)
    let link_keys = Object.keys(g_url_params);
    var url_change_canvas = false;
-console.log(g_url_params)
    link_keys.forEach(function (key) {
       if (url_params_to_ui_keys.includes(key)){
          ui_key = url_params_to_ui[key];
@@ -748,6 +755,20 @@ function export_JSON_onclick(){
    })
 }
 
+function conic_type_onchange(locus_type){
+   var conic_type = document.getElementById('conic_type_'+ locus_type)
+   switch(locus_type){
+      case '1': conic_type.innerHTML = (g_ui.locus_type_1 == 'none')?"X":locus_conic(g_locus_Xn1_branched); break;
+      case '2': conic_type.innerHTML = (g_ui.locus_type_2 == 'none')?"X":locus_conic(g_locus_Xn2_branched); break;
+      case '3': conic_type.innerHTML = (g_ui.locus_type_3 == 'none')?"X":locus_conic(g_locus_Xn3_branched); break;
+      default:
+         document.getElementById('conic_type_1').innerHTML = "X";
+         document.getElementById('conic_type_2').innerHTML = "X";
+         document.getElementById('conic_type_3').innerHTML = "X";
+         break;
+   }
+}
+
 function setup() {
    recenter();
    g_mouse = g_ctr0;
@@ -781,10 +802,14 @@ function setup() {
    tri_type_onchange();
    a_text_input();
    ell_onchange();
+   conic_type_onchange();
    export_JSON_onclick();
    Bbox_onclick("1");
    Bbox_onclick("2");
    Bbox_onclick("3");
+   conic_type_onchange("1");
+   conic_type_onchange("2");
+   conic_type_onchange("3");
    recenter_onclick();
 
    reset_UI_onclick(g_ui_reset);

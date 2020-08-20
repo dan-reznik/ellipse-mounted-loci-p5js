@@ -77,6 +77,13 @@ body {
   border-radius: 5px;
 }
 
+.input_Xn #conic_type{
+  text-align: center;
+  width: 25px;
+  border-style: solid;
+  border-width: 2px;
+};
+
 .input_Xn{
   display: flex;
   flex-direction: row;
@@ -209,6 +216,7 @@ p.lab{
     flex-wrap: wrap;
     margin-bottom: 2px;
     margin-top: 2px;
+    margin-right: 4px;
 }
 
 .input_Xn.text{
@@ -328,7 +336,6 @@ label{
     display: inline-block;
     flex-grow: 1;
     height: 100%;
-    margin-right: 4px;
 }
 
 .input_mounting>select{
