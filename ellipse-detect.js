@@ -24,8 +24,22 @@ function least_squares_conic(ps) {
 
     const ctr = vscale([2*cs[2]*cs[3] - cs[1]*cs[4], 
         2*cs[0]*cs[4] - cs[1]*cs[3]],1/(-4*delta));
-    return{cs:cs,err2:err2,is_conic:is_conic,is_ell:is_ell,is_circle,
+    return{cs:cs,err2:err2,is_conic:is_conic,is_ell:is_ell,is_circ,
         major:major,minor:minor,ctr:ctr};
+}
+
+function least_squares_centered_ellipse(ps) {
+    // mtx: N x 2
+    const mtx = ps.map(p => { const [x,y]=p; return [x*x,y*y]; });
+    // rhs: N x 1
+    const rhs = Array(ps.length).fill(-1);
+    // cs: 2 x 1
+    const cs = solve(mtx,rhs);
+    // Norm[mtx.cs-b]
+    const norms = mtx.map((line,i) => dot(line,cs)-rhs[i]);
+    const err = sum_sqr(norms);
+    const [a, b] = cs.map(c=>Math.sqrt(Math.abs(1/c)));
+    return {is_ell:negl(err),a:a,b:b,is_circ:negl(a-b)};
 }
 
 function sample_ellipse(a,b,n) {
@@ -68,9 +82,10 @@ function locus_conic(locus_branched) {
     if (locus_branched.length==1) {
         //const locus_samples = sample_array(locus_branched[0],50);
         //const lsc = least_squares_conic(locus_samples);
-        const lsc = least_squares_conic(locus_branched[0]);
-        if (lsc.is_circle) ret_val = "C";
-        if (lsc.is_ell) ret_val = "E";
+        const lsc = least_squares_centered_ellipse(locus_branched[0]);
+        if (lsc.is_circ) ret_val = "C";
+        else 
+            if (lsc.is_ell) ret_val = "E";
     }
     return ret_val;
 }
