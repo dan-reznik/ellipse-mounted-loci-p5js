@@ -231,6 +231,7 @@ function copy_image() {
 
    copy_image_button.addEventListener("click", function () {
       canvas = document.getElementById('defaultCanvas0');
+      canvas.focus();
       canvas.toBlob(blob => navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]));
    });
 }
