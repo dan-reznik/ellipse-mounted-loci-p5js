@@ -20,7 +20,7 @@ let g_ui = {};
 
 function set_ui_variables(dictionary) {
    document.getElementById("a").value = dictionary["a"];
-   document.getElementById("a_anim").checked = dictionary["a_anim"];
+   document.getElementById("ell").checked = dictionary["ell"];
    document.getElementById("a_speed").value = dictionary["a_speed"];
    document.getElementById("a_min").value = dictionary["a_min"];
    document.getElementById("a_max").value = dictionary["a_max"];
@@ -296,34 +296,35 @@ function play_controls() {
 function tri_onchange() {
    document.getElementById('draw_tri_1').addEventListener("click", function () {
       g_ui.draw_tri_1 = this.checked;
-      redraw("1");
+      redraw();
    })
    document.getElementById('draw_tri_2').addEventListener("click", function () {
       g_ui.draw_tri_2 = this.checked;
       //(g_ui.draw_tri_2)
-      redraw("2");
+      redraw();
    })
    document.getElementById('draw_tri_3').addEventListener("click", function () {
       g_ui.draw_tri_3 = this.checked;
-      redraw("3");
+      redraw();
    })
 }
 
-function a_anim_onchange(){
-   document.getElementById('a_anim').addEventListener("click", function () {
-      g_ui.a_anim = this.checked;
-      if(g_ui.a_anim == true){
-         g_ui.a = +g_ui.a_min;
-         a_slider.value = g_ui.a;
-         a_text.innerHTML = a_slider.value;
-         ui_changed_type()
-      }
+function ell_onchange(){
+   document.getElementById('ell').addEventListener("click", function () {
+      g_ui.ell = this.checked;
+      redraw()
    })
 }
 
 function a_speed_onchange(){
    document.getElementById('a_speed').addEventListener("change", function () {
       g_ui.a_speed = this.value;
+      if(g_ui.a_speed != 0.000){
+         g_ui.a = +g_ui.a_min;
+         a_slider.value = g_ui.a;
+         a_text.innerHTML = a_slider.value;
+         ui_changed_type()
+      }
    })
 }
 
@@ -430,7 +431,7 @@ function copyToClipboard(text) {
 
 function get_diff_default(g_ui_reset, key) {
    let original_to_url_params = {
-      a: 'a', a_anim: 'aan', a_speed: 'asp', a_min: 'amn', a_max: 'amx',
+      a: 'a', a_speed: 'asp', a_min: 'amn', a_max: 'amx', ell: 'ell',
       locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3',
       Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
       tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3',
@@ -481,10 +482,10 @@ function config_url_onclick(g_ui_reset) {
       link_params += get_diff_default_canvas('g_ctr[0]');
       link_params += get_diff_default_canvas('g_ctr[1]');
       link_params += get_diff_default(g_ui_reset, "a");
-      link_params += get_diff_default(g_ui_reset, "a_anim");
       link_params += get_diff_default(g_ui_reset, "a_speed");
       link_params += get_diff_default(g_ui_reset, "a_min");
       link_params += get_diff_default(g_ui_reset, "a_max");
+      link_params += get_diff_default(g_ui_reset, "ell");
       link_params += get_diff_default(g_ui_reset, "locus_type_1");
       link_params += get_diff_default(g_ui_reset, "Xn1");
       link_params += get_diff_default(g_ui_reset, "mounting_Xn1");
@@ -513,7 +514,7 @@ function set_url_params(g_url_params) {
       cy: 'g_ctr[1]'
    }
    let url_params_to_ui = {
-      a: 'a', aan: 'a_anim', asp: 'a_speed', amn: 'a_min', amx: 'a_max',
+      a: 'a', asp: 'a_speed', amn: 'a_min', amx: 'a_max', ell: 'ell',
       lc1: 'locus_type_1', lc2: 'locus_type_2', lc3: 'locus_type_3',
       Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
       tr1: 'tri_type_1', tr2: 'tri_type_2', tr3: 'tri_type_3',
@@ -535,7 +536,7 @@ function set_url_params(g_url_params) {
             g_ui[ui_key] = +g_url_params[key];
             //console.log(g_ui[ui_key])
          }
-         else if(['a_anim', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(ui_key))
+         else if(['ell','draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(ui_key))
             g_ui[ui_key] = (g_url_params[key] == 'true');
          else{
             g_ui[ui_key] = g_url_params[key];
@@ -587,7 +588,7 @@ function a_anim(){
    g_ui.a = +g_ui.a;
    g_ui.a_max = +g_ui.a_max;
    g_ui.a_min = +g_ui.a_min;
-   if(g_ui.a_anim == true){
+   if(g_ui.a_speed != 0.000){
       //console.log(g_ui.a)
       if(g_ui.a_speed > 0)
          if(g_ui.a_max-g_ui.a <= g_ui.a_speed){
@@ -705,7 +706,7 @@ function setup() {
    recenter();
    g_mouse = g_ctr0;
    let g_ui_reset = {
-      a: 1.618, a_anim: false, a_speed: 0.01, a_min: 1.001, a_max: 4.000,
+      a: 1.618, a_speed: "0.000", a_min: 1.001, a_max: 4.000, ell: true,
       locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none',
       Xn1: 1, Xn2: 1, Xn3: 1,
       tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference',
@@ -730,10 +731,10 @@ function setup() {
    play_controls()
    locus_type_onchange()
    tri_onchange()
-   a_anim_onchange();
    a_speed_onchange();
    tri_type_onchange();
    a_text_input();
+   ell_onchange();
    Bbox_onclick("1");
    Bbox_onclick("2");
    Bbox_onclick("3");
@@ -749,7 +750,8 @@ function draw() {
    push();
    translate(g_ctr[0], g_ctr[1]);
    scale(g_width / g_scale);
-   draw_ellipse(+g_ui.a);
+   if(g_ui.ell)
+      draw_ellipse(+g_ui.a);
    let stroke_w = sqrt(g_scale/g_scale0)*.01;
    draw_billiard_or_mounted_branched(g_ui.Xn1, +g_ui.a, g_tDeg,
       g_locus_Xn1_branched, clr_red, g_ui.locus_type_1,
