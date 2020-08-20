@@ -22,6 +22,8 @@ function set_ui_variables(dictionary) {
    document.getElementById("a").value = dictionary["a"];
    document.getElementById("a_anim").checked = dictionary["a_anim"];
    document.getElementById("a_speed").value = dictionary["a_speed"];
+   document.getElementById("a_min").value = dictionary["a_min"];
+   document.getElementById("a_max").value = dictionary["a_max"];
    document.getElementById("demo_a").innerHTML = dictionary["a"];
    document.getElementById("locus_type_1").value = dictionary["locus_type_1"];
    document.getElementById("locus_type_2").value = dictionary["locus_type_2"];
@@ -201,6 +203,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
          g_ui[sliderId] = this.value;
          slider.value = this.value;
          ui_changed(locus_number);
+         e.preventDefault();
          slider.focus();
       }
    })
@@ -309,6 +312,12 @@ function tri_onchange() {
 function a_anim_onchange(){
    document.getElementById('a_anim').addEventListener("click", function () {
       g_ui.a_anim = this.checked;
+      if(g_ui.a_anim == true){
+         g_ui.a = +g_ui.a_min;
+         a_slider.value = g_ui.a;
+         a_text.innerHTML = a_slider.value;
+         ui_changed_type()
+      }
    })
 }
 
@@ -573,12 +582,14 @@ function a_anim(){
    a_slider = document.getElementById('a')
    a_text = document.getElementById('demo_a')
    g_ui.a_speed = +g_ui.a_speed;
-   g_ui.a = +g_ui.a
+   g_ui.a = +g_ui.a;
+   g_ui.a_max = +g_ui.a_max;
+   g_ui.a_min = +g_ui.a_min;
    if(g_ui.a_anim == true){
       //console.log(g_ui.a)
       if(g_ui.a_speed > 0)
-         if(4-g_ui.a <= g_ui.a_speed){
-            g_ui.a = 4;
+         if(g_ui.a_max-g_ui.a <= g_ui.a_speed){
+            g_ui.a = g_ui.a_max;
             a_slider.value = g_ui.a;
             a_text.innerHTML = a_slider.value;
             g_ui.a_speed = -g_ui.a_speed;
@@ -591,8 +602,8 @@ function a_anim(){
             ui_changed_type()    
          }
       else
-         if(g_ui.a+g_ui.a_speed<=1.001){
-            g_ui.a = 1.001;
+         if(g_ui.a+g_ui.a_speed<=g_ui.a_min){
+            g_ui.a = g_ui.a_min;
             a_slider.value = g_ui.a;
             a_text.innerHTML = a_slider.value;
             g_ui.a_speed = -g_ui.a_speed;
@@ -607,11 +618,92 @@ function a_anim(){
    } 
 }
 
+function a_text_input(){
+   var a_min = document.getElementById('a_min');
+   var a_max = document.getElementById('a_max');
+   a_min.addEventListener('focusout', function () {
+      if (this.value < 1.001)
+         this.value = 1.001;
+      else if (this.value > a_max.value)
+         this.value = a_max.value;
+      g_ui['a_min'] = this.value;
+      ui_changed_type();   
+   })
+   a_min.addEventListener('keydown', function (e) {
+      if(e.keyCode==9){
+         if(this.value == '')
+            this.value = 1.001;
+         else{
+            if (this.value < 1.001)
+               this.value = 1.001;
+            else if (this.value > a_max.value)
+               this.value = a_max.value;
+         }
+         g_ui['a_min'] = this.value;
+         ui_changed_type();
+      }
+   })
+   a_min.addEventListener('keypress', function (e) {
+      if (e.keyCode < 48 || e.keyCode > 57)
+        e.preventDefault();
+      if(e.keyCode==13){
+         if(this.value == '')
+            this.value = 1.001;
+         else{
+            if (this.value < 1.001)
+               this.value = 1.001;
+            else if (this.value > a_max.value)
+               this.value = a_max.value;
+         }
+         g_ui['a_min'] = this.value;
+         ui_changed_type();
+      }
+   })
+   a_max.addEventListener('focusout', function () {
+      if (this.value > 4.000)
+         this.value = 4.000;
+      else if (this.value < a_min.value)
+         this.value = a_min.value;
+      g_ui['a_max'] = this.value;
+      ui_changed_type();
+   })
+   a_max.addEventListener('keydown', function (e) {
+      if(e.keyCode==9){
+         if(this.value == '')
+            this.value = 4.000;
+         else{
+            if (this.value > 4.000)
+               this.value = 4.000;
+            else if (this.value < a_min.value)
+               this.value = a_min.value;
+         }
+         g_ui['a_max'] = this.value;
+         ui_changed_type();
+      }
+   })
+   a_max.addEventListener('keypress', function (e) {
+      if (e.keyCode < 48 || e.keyCode > 57)
+        e.preventDefault();
+      if(e.keyCode==13){
+         if(this.value == '')
+            this.value = 4.000;
+         else{
+            if (this.value > 4.000)
+               this.value = 4.000;
+            else if (this.value < a_min.value)
+               this.value = a_min.value;
+         }
+         g_ui['a_max'] = this.value;
+         ui_changed_type();
+      }
+   })
+}
+
 function setup() {
    recenter();
    g_mouse = g_ctr0;
    let g_ui_reset = {
-      a: 1.618, a_anim: false, a_speed: 0.01,
+      a: 1.618, a_anim: false, a_speed: 0.01, a_min: 1.001, a_max: 4.000,
       locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none',
       Xn1: 1, Xn2: 1, Xn3: 1,
       tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference',
@@ -638,7 +730,8 @@ function setup() {
    tri_onchange()
    a_anim_onchange();
    a_speed_onchange();
-   tri_type_onchange()
+   tri_type_onchange();
+   a_text_input();
    Bbox_onclick("1");
    Bbox_onclick("2");
    Bbox_onclick("3");
