@@ -1,4 +1,4 @@
-var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
+ovar html = function(xn_number, trilins_selected, tri_selected, rgb_color){
     return `
 <div class="component xn_selector">
     <div class="input_Xn">
@@ -58,8 +58,8 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
 
     <div class="input_Xn">
         <div>
-            <label for="draw_tri_`+xn_number+`"> Tri </label>
-            <input class = "sub_checkbox" type="checkbox" id="draw_tri_`+xn_number+`" `+tri_selected+` name="draw_tri_`+xn_number+`">
+sit            <label for="draw_tri_`+xn_number+`">tri</label>
+            <input class = "sub_checkbox" type="checkbox" id="draw_tri_`+xn_number+`"`+tri_selected+`name="draw_tri_`+xn_number+`">
             </div>
         <select id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
         <option value="reference">*reference*</option>
