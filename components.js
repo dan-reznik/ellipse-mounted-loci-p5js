@@ -3,7 +3,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
 <div class="component xn_selector">
     <div class="input_Xn">
         <div style="display: inline-flex;">
-            <label for="checkbox_Xn`+xn_number+`" style="color: `+rgb_color+`;"> Loc`+xn_number+`</label>
+            <label for="checkbox_Xn`+xn_number+`" style="color: `+rgb_color+`;"> loc`+xn_number+`</label>
             <select id="locus_type_`+xn_number+`" name="checkbox_Xn`+xn_number+`">
                 <option value="none">none</option>
                 <option value="trilins" `+trilins_selected+`>Xn</option>
@@ -15,7 +15,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
             </select>
         </div>
         <div style="display: inline-flex;">
-            <label for="mounting_Xn`+xn_number+`"> Mnt</label>
+            <label for="mounting_Xn`+xn_number+`"> mnt</label>
             <div class="input_mounting"">
                 <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
                     <option value="billiard">*billiard*</option>

@@ -253,6 +253,7 @@ label{
 .sub_checkbox {
     display: inline-block;
     vertical-align: middle;
+    margin-left: 0px;
 }
 
 label{
@@ -325,8 +326,9 @@ label{
 
 .input_mounting{
     display: inline-block;
+    flex-grow: 1;
     height: 100%;
-    
+    margin-right: 4px;
 }
 
 .input_mounting>select{
