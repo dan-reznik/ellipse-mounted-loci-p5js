@@ -60,7 +60,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
         <div>
             <label for="draw_tri_`+xn_number+`">tri</label>
             <input class = "sub_checkbox" type="checkbox" id="draw_tri_`+xn_number+`" `+tri_selected+` name="draw_tri_`+xn_number+`">
-            </div>
+        </div>
         <select id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
         <option value="reference">*reference*</option>
         <option value="anticompl">anticompl</option>
