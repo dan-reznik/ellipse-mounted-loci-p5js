@@ -131,19 +131,6 @@ p.lab{
   margin-right: auto;
 }
 
-
-#Xn1::-webkit-slider-thumb{
-  background: red;
-}
-
-#Xn2::-webkit-slider-thumb{
-  background: green;
-}
-
-#Xn3::-webkit-slider-thumb{
-  background: blue;
-}
-
 /*end menu*/
 
 .chk {
@@ -273,9 +260,21 @@ label{
 /*slider's*/
 
 /* The slider itself */
+#Xn1::-webkit-slider-thumb{
+  background: red;
+}
+
+#Xn2::-webkit-slider-thumb{
+  background: green;
+}
+
+#Xn3::-webkit-slider-thumb{
+  background: blue;
+}
+
 .slider {
     -webkit-appearance: none;
-    width: 98%;
+    width: 94%;
     height: 5px;
     border-radius: 5px;  
     background: #d3d3d3;
