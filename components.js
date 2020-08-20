@@ -16,8 +16,8 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        height: auto;
         margin-bottom: 2px;
+        margin-top: 2px;
     }
 
     .input_Xn.text{
