@@ -21,11 +21,12 @@
        draw_locus(locus, ons, n, clr, 0.01, locus_type);
  } */
  
-function draw_billiard_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w) {
+function draw_billiard_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type,
+    stroke_w, dr_caustic) {
     let ons = orbit_normals(a, tDeg);
     let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
     if (dr_tri) {
-        draw_boundary(...caustic_billiard(a),clr_brown);
+        if (dr_caustic) draw_boundary(...caustic_billiard(a),clr_brown);
         draw_orbit(ons, clr, false, true);
         if (tri_type != "reference") draw_orbit(ons_derived, clr, false, false, false);
     }
@@ -33,7 +34,8 @@ function draw_billiard_locus_branched(n, a, tDeg, locus_branches, clr, locus_typ
         draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type);
 }
 
- function draw_non_billiard_locus_branched(n, a, tDeg, orbit_fn, mounting, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w) {
+ function draw_non_billiard_locus_branched(n, a, tDeg, orbit_fn, mounting, locus_branches, clr, locus_type, dr_tri, tri_type,
+    stroke_w, dr_caustic) {
     let ons = orbit_fn(a, tDeg);
     const dict_caustic = {
         homothetic:caustic_homothetic,
@@ -43,9 +45,8 @@ function draw_billiard_locus_branched(n, a, tDeg, locus_branches, clr, locus_typ
     };
     let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
     if (dr_tri) {
-        if(mounting in dict_caustic) {
+        if(mounting in dict_caustic && dr_caustic) 
             draw_boundary(...dict_caustic[mounting](a),clr_brown);
-        }
        draw_orbit(ons, clr, false, true,false);
        if (tri_type!="reference") draw_orbit(ons_derived, clr, false, false, false);
     }
@@ -80,7 +81,7 @@ function draw_billiard_locus_branched(n, a, tDeg, locus_branches, clr, locus_typ
  } */
  
 function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type,
-    stroke_w) {
+    stroke_w, draw_caustic) {
     const dict_orbit_fn = {
         homothetic:orbit_homothetic,
         incircle:orbit_incircle,
@@ -90,14 +91,14 @@ function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locu
     switch (mounting) {
         case "billiard":
             draw_billiard_locus_branched(n, a, tDeg, locus_branches,
-                clr, locus_type, dr_tri, tri_type, stroke_w);
+                clr, locus_type, dr_tri, tri_type, stroke_w, draw_caustic);
             break;
         case "homothetic":
         case "incircle":
         case "inellipse":
         case "dual":
             draw_non_billiard_locus_branched(n, a, tDeg, dict_orbit_fn[mounting],
-                mounting, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w)
+                mounting, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w, draw_caustic)
             break;
         default:
             draw_mounted_locus_branched(n, a, tDeg, locus_branches, clr,
