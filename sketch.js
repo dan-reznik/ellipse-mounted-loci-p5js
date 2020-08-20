@@ -479,7 +479,7 @@ function get_diff_default_canvas(key){
       if(key == 'g_scale')
          return canvas_to_url_params[key] + '=' + eval(key).toFixed(3) + '&';
       else
-         return canvas_to_url_params[key] + '=' + eval(key).toFixed(0) + '&';
+         return canvas_to_url_params[key] + '=' + eval(key).toFixed(3) + '&';
    }
    else
       return '';
@@ -635,10 +635,10 @@ function a_text_input(){
    var a_min = document.getElementById('a_min');
    var a_max = document.getElementById('a_max');
    a_min.addEventListener('focusout', function () {
-      if (this.value < 1.001)
+      if (+this.value < 1.001)
          this.value = 1.001;
-      else if (this.value > a_max.value)
-         this.value = a_max.value;
+      else if (+this.value > +a_max.value)
+         this.value = +a_max.value;
       g_ui['a_min'] = this.value;
       ui_changed_type();   
    })
@@ -647,16 +647,18 @@ function a_text_input(){
          if(this.value == '')
             this.value = 1.001;
          else{
-            if (this.value < 1.001)
+            if (+this.value < 1.001)
                this.value = 1.001;
-            else if (this.value > a_max.value)
-               this.value = a_max.value;
+            else if (+this.value > +a_max.value)
+               this.value = +a_max.value;
          }
          g_ui['a_min'] = this.value;
          ui_changed_type();
       }
    })
    a_min.addEventListener('keypress', function (e) {
+      if(this.value.length>4)
+         e.preventDefault();
       if(this.value.includes('.')){
          if(e.keyCode < 48 || e.keyCode > 57)
             e.preventDefault();
@@ -669,20 +671,20 @@ function a_text_input(){
          if(this.value == '')
             this.value = 1.001;
          else{
-            if (this.value < 1.001)
+            if (+this.value < 1.001)
                this.value = 1.001;
-            else if (this.value > a_max.value)
-               this.value = a_max.value;
+            else if (+this.value > +a_max.value)
+               this.value = +a_max.value;
          }
          g_ui['a_min'] = this.value;
          ui_changed_type();
       }
    })
    a_max.addEventListener('focusout', function () {
-      if (this.value > 4.000)
+      if (+this.value > 4.000)
          this.value = 4.000;
-      else if (this.value < a_min.value)
-         this.value = a_min.value;
+      else if (+this.value < +a_min.value)
+         this.value = +a_min.value;
       g_ui['a_max'] = this.value;
       ui_changed_type();
    })
@@ -691,16 +693,18 @@ function a_text_input(){
          if(this.value == '')
             this.value = 4.000;
          else{
-            if (this.value > 4.000)
+            if (+this.value > 4.000)
                this.value = 4.000;
-            else if (this.value < a_min.value)
-               this.value = a_min.value;
+            else if (+this.value < +a_min.value)
+               this.value = +a_min.value;
          }
          g_ui['a_max'] = this.value;
          ui_changed_type();
       }
    })
    a_max.addEventListener('keypress', function (e) {
+      if(this.value.length>4)
+         e.preventDefault();
       if(this.value.includes('.')){
          if(e.keyCode < 48 || e.keyCode > 57)
             e.preventDefault();
@@ -713,10 +717,10 @@ function a_text_input(){
          if(this.value == '')
             this.value = 4.000;
          else{
-            if (this.value > 4.000)
+            if (+this.value > 4.000)
                this.value = 4.000;
-            else if (this.value < a_min.value)
-               this.value = a_min.value;
+            else if (+this.value < +a_min.value)
+               this.value = +a_min.value;
          }
          g_ui['a_max'] = this.value;
          ui_changed_type();
@@ -758,13 +762,13 @@ function export_JSON_onclick(){
 function conic_type_onchange(locus_type){
    var conic_type = document.getElementById('conic_type_'+ locus_type)
    switch(locus_type){
-      case '1': conic_type.innerHTML = (g_ui.locus_type_1 == 'none')?"X":locus_conic(g_locus_Xn1_branched); break;
-      case '2': conic_type.innerHTML = (g_ui.locus_type_2 == 'none')?"X":locus_conic(g_locus_Xn2_branched); break;
-      case '3': conic_type.innerHTML = (g_ui.locus_type_3 == 'none')?"X":locus_conic(g_locus_Xn3_branched); break;
+      case '1': conic_type.innerHTML = (g_ui.locus_type_1 == 'none')?"":locus_conic(g_locus_Xn1_branched); break;
+      case '2': conic_type.innerHTML = (g_ui.locus_type_2 == 'none')?"":locus_conic(g_locus_Xn2_branched); break;
+      case '3': conic_type.innerHTML = (g_ui.locus_type_3 == 'none')?"":locus_conic(g_locus_Xn3_branched); break;
       default:
-         document.getElementById('conic_type_1').innerHTML = "X";
-         document.getElementById('conic_type_2').innerHTML = "X";
-         document.getElementById('conic_type_3').innerHTML = "X";
+         document.getElementById('conic_type_1').innerHTML = "";
+         document.getElementById('conic_type_2').innerHTML = "";
+         document.getElementById('conic_type_3').innerHTML = "";
          break;
    }
 }
