@@ -287,5 +287,5 @@ function get_xmin(ps) {
  }
 
 function trunc_locus_xy(locus_branched,digs) {
-   locus_branched.map(b => b.map(p => trunc_xy(p,digs)));
+   return locus_branched.map(b => b.map(p => trunc_xy(p,digs)));
 }
