@@ -656,7 +656,6 @@ function draw() {
    scale(g_width / g_scale);
    draw_ellipse(+g_ui.a);
    let stroke_w = sqrt(g_scale/g_scale0)*.01;
-
    draw_billiard_or_mounted_branched(g_ui.Xn1, +g_ui.a, g_tDeg,
       g_locus_Xn1_branched, clr_red, g_ui.locus_type_1,
       g_ui.draw_tri_1, g_ui.mounting_Xn1, g_ui.tri_type_1, stroke_w);

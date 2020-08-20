@@ -42,7 +42,10 @@
       <!--<a href="https://twitter.com/intent/tweet?url=myUrl&text=myTitle" target="_blank" class="twitter-share-button"><img src="ellipse.png"/> </a>
       <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>-->
     </div>
-    <button id='config_URL'>copy config URL</button>
+    <div style="display: flex; flex-direction: column;">
+      <button id='config_URL' style="flex-grow: 1;">copy config URL</button>
+      <button id="copy_image">copy image</button>
+    </div>
   </div>
 	<div class="item title">
     <div id="ui"></div>
@@ -73,15 +76,15 @@
           </div>
         </div>
         <!--component xn1_selector-->
-        <my-selector number='1' selected=true></my-selector>
+        <my-selector id='component_1' number='1' selected=true color='rgb(0,0,240)'></my-selector>
         <!--end component xn1_selector-->
 
         <!--component xn2_selector-->
-        <my-selector number='2' selected=false></my-selector>
+        <my-selector id='component_2' number='2' selected=false color='rgb(0,170,0)'></my-selector>
         <!--end component xn2_selector-->
 
         <!--component xn3_selector-->
-        <my-selector number='3' selected=false></my-selector>
+        <my-selector id='component_3' number='3' selected=false color='rgb(240,0,0)'></my-selector>
         <!--end component xn3_selector-->
 
         <!--dropdown-->
@@ -92,19 +95,18 @@
             <option value="0.5">medium</option>
             <option value="1">fast</option>
           </select>
+          <!--play controls-->
+          <div class="play_controls">
+            <button class="fa fa-backward" id="backward"></button>
+            <button class="fa fa-play-circle-o" id="play_pause"></button>
+            <button class="fa fa-forward" id="forward"></button>
+          </div>
+          <!--end play contorls-->
         </div>
         <!--end drop down*/-->
-
-        <!--play controls-->
-        <div class="play_controls">
-          <button class="fa fa-backward" id="backward"></button>
-          <button class="fa fa-play-circle-o" id="play_pause"></button>
-          <button class="fa fa-forward" id="forward"></button>
-        </div>
-        <!--end play contorls-->
         <div class='input_Xn'>
-          <button class='image_export' id="copy_image">copy image</button>
-          <button class='image_export' id="Export_PNG">Export PNG</button>
+          <button class='export' id="Export_JSON">Export JSON</button>
+          <button class='export' id="Export_PNG">Export PNG</button>
           <a id="link"></a>
         </div>
 

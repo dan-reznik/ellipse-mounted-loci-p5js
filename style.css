@@ -205,7 +205,7 @@ p.lab{
 .play_controls button{
   flex: auto;
   display: inline-block;
-  width: 35px;
+  width: 34px;
   height: 100%;
   background: none !important;
   border:none;
@@ -230,6 +230,6 @@ p.lab{
   margin-right: auto;
 }
 
-.image_export{
+.export{
   width: 50%;
 }

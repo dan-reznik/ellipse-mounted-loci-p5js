@@ -1,4 +1,4 @@
-var html = function(xn_number, trilins_selected, tri_selected){
+var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
     return `
 <style>
     .component.xn_selector{
@@ -49,16 +49,12 @@ var html = function(xn_number, trilins_selected, tri_selected){
         height: 20px;
         margin-top: auto;
         margin-bottom: auto;
-        margin-left: 5px;
-        margin-right: 5px;
-    }
-
-    .Locus_mnt_label{
-        text-align: left;
-        font-size: 18px;
+        margin-left: 2px;
+        margin-right: 2px;
     }
 
     label{
+        font-size: 15px;
         margin-top: auto;
         margin-bottom: auto;
     }
@@ -66,12 +62,6 @@ var html = function(xn_number, trilins_selected, tri_selected){
     .sub_checkbox {
         display: inline-block;
         vertical-align: middle;
-    }
-
-    .subcheck_label{
-        flex-grow: 1;
-        margin: auto;
-        justify-self: center;
     }
 
     label{
@@ -145,7 +135,7 @@ var html = function(xn_number, trilins_selected, tri_selected){
     .input_mounting{
         display: inline-block;
         height: 100%;
-        width: 70px;
+        
     }
 
     .input_mounting>select{
@@ -160,9 +150,9 @@ var html = function(xn_number, trilins_selected, tri_selected){
 </style>
 <div class="component xn_selector">
     <div class="input_Xn">
-        <div class='Locus_mnt_label'>
-            <label for="checkbox_Xn`+xn_number+`"> Loc`+xn_number+`</label>
-            <select id="locus_type_`+xn_number+`">
+        <div style="display: inline-flex;">
+            <label for="checkbox_Xn`+xn_number+`" style="color: `+rgb_color+`;"> Loc`+xn_number+`</label>
+            <select id="locus_type_`+xn_number+`" name="checkbox_Xn`+xn_number+`">
                 <option value="none">none</option>
                 <option value="trilins" `+trilins_selected+`>Xn</option>
                 <option value="brocard_1">Ω1</option>
@@ -172,35 +162,35 @@ var html = function(xn_number, trilins_selected, tri_selected){
                 <option value="f_brocard_2">Ω2,fill</option>
             </select>
         </div>
-        <div class='Locus_mnt_label'>
-                <label for="mounting_Xn`+xn_number+`"> Mnt</label>
-                <div class="input_mounting">
-                    <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
-                        <option value="billiard">*billiard*</option>
-                        <option value="homothetic">*homothetic*</option>
-                        <option value="incircle">*incircle*</option>
-                        <option value="inellipse">*inellipse*</option>
-                        <option value="dual">*dual*</option>
-                        <option value="major">major</option>
-                        <option value="minor">minor</option>
-                        <option value="mixed">mixed</option>
-                        <option value="ctrMajor">ctrMajor</option>
-                        <option value="ctrMinor">ctrMinor</option>
-                        <option value="fs">fs</option>
-                        <option value="fsCtr">fsCtr</option>
-                        <option value="fsLeft">fsLeft</option>
-                        <option value="fsRight">fsRight</option>
-                        <option value="fsTop">fsTop</option>
-                        <option value="TL_BL">TL_BL</option>
-                        <option value="TL_TR">TL_TR</option>
-                        <option value="TL_vtxL">TL_vtxL</option>
-                        <option value="TL_vtxT">TL_vtxT</option>
-                        <option value="TL_vtxB">TL_vtxB</option>
-                        <option value="TL_ctr">TL_ctr</option>
-                        <option value="TL_BR">TL_BR</option>
-                    </select>
-                </div>
+        <div style="display: inline-flex;">
+            <label for="mounting_Xn`+xn_number+`"> Mnt</label>
+            <div class="input_mounting"">
+                <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
+                    <option value="billiard">*billiard*</option>
+                    <option value="homothetic">*homothetic*</option>
+                    <option value="incircle">*incircle*</option>
+                    <option value="inellipse">*inellipse*</option>
+                    <option value="dual">*dual*</option>
+                    <option value="major">major</option>
+                    <option value="minor">minor</option>
+                    <option value="mixed">mixed</option>
+                    <option value="ctrMajor">ctrMajor</option>
+                    <option value="ctrMinor">ctrMinor</option>
+                    <option value="fs">fs</option>
+                    <option value="fsCtr">fsCtr</option>
+                    <option value="fsLeft">fsLeft</option>
+                    <option value="fsRight">fsRight</option>
+                    <option value="fsTop">fsTop</option>
+                    <option value="TL_BL">TL_BL</option>
+                    <option value="TL_TR">TL_TR</option>
+                    <option value="TL_vtxL">TL_vtxL</option>
+                    <option value="TL_vtxT">TL_vtxT</option>
+                    <option value="TL_vtxB">TL_vtxB</option>
+                    <option value="TL_ctr">TL_ctr</option>
+                    <option value="TL_BR">TL_BR</option>
+                </select>
             </div>
+        </div>
     </div>
 
     <div class="input_Xn text">
@@ -272,6 +262,7 @@ class MySelector extends HTMLElement {
         //shadow.innerHTML = `
         const xn_number = this.getAttribute('number');
         const xn_selected = this.getAttribute('selected');
+        const rgb_color = this.getAttribute('color');
         var trilins_selected = ''
         var tri_selected = false
         if (xn_selected == 'true'){
@@ -281,7 +272,7 @@ class MySelector extends HTMLElement {
             trilins_selected = '';
             tri_selected = '';
         }
-        this.innerHTML = html(xn_number, trilins_selected, tri_selected);
+        this.innerHTML = html(xn_number, trilins_selected, tri_selected, rgb_color);
     }
 }
 customElements.define('my-selector', MySelector)
