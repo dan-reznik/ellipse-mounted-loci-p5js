@@ -242,10 +242,14 @@ function export_PNG() {
       //canvas = document.getElementById('defaultCanvas0');
       let link = document.createElement('a');
       link.setAttribute('download', 'tri_app_' + date_time + '.png');
-      html2canvas(element, { allowTaint: true }).then(function (canvas) {
-         link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
-         link.click();
-      })
+      html2canvas(element, { allowTaint: true })
+         .then(function (canvas) {
+            link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+            link.click();
+         })
+         .catch(err => {
+            console.error('Failed to read clipboard contents: ', err);
+        });
    });
 }
 
