@@ -127,7 +127,6 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
     locus_branches.map(l=>draw_one_locus_branch_filled(l,rgba_str));
   } else
     locus_branches.map(l=>draw_one_locus_branch(l));
-
   draw_point2(xn, rgb,stroke_w);
 
   if(locus_type == 'trilins') {

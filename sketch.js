@@ -240,9 +240,8 @@ function export_PNG() {
       today.getFullYear().toString() + '_' + double_digit(today.getHours().toString()) +
       double_digit(today.getMinutes().toString()) + double_digit(today.getSeconds().toString());
       //canvas = document.getElementById('defaultCanvas0');
-      let link = document.getElementById('link');
+      let link = document.createElement('a');
       link.setAttribute('download', 'tri_app_' + date_time + '.png');
-
       html2canvas(element, { allowTaint: true }).then(function (canvas) {
          link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
          link.click();
@@ -702,6 +701,32 @@ function a_text_input(){
    })
 }
 
+function exportToJsonFile(jsonData) {
+   let dataStr = JSON.stringify(jsonData);
+   let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+   let exportFileDefaultName = 'data.json';
+
+   let linkElement = document.createElement('a');
+   linkElement.setAttribute('href', dataUri);
+   linkElement.setAttribute('download', exportFileDefaultName);
+   linkElement.click();
+}
+
+function export_JSON_onclick(){
+   document.getElementById('Export_JSON').addEventListener('click', function(){
+      var canvas_ui = {'canvas_scale':g_scale, 'ellipse_X_center':g_ctr[0], 'ellipse_Y_center':g_ctr[1]}
+      var ui_object = {...canvas_ui, ...g_ui};
+      if(g_ui.locus_type_1 != 'none')
+         ui_object = {...ui_object, ...{'Xn1_branched_points': g_locus_Xn1_branched}};
+      if(g_ui.locus_type_2 != 'none')
+         ui_object = {...ui_object, ...{'Xn2_branched_points': g_locus_Xn2_branched}};
+      if(g_ui.locus_type_3 != 'none')
+         ui_object = {...ui_object, ...{'Xn3_branched_points': g_locus_Xn3_branched}};
+      exportToJsonFile(ui_object);
+   })
+}
+
 function setup() {
    recenter();
    g_mouse = g_ctr0;
@@ -735,6 +760,7 @@ function setup() {
    tri_type_onchange();
    a_text_input();
    ell_onchange();
+   export_JSON_onclick();
    Bbox_onclick("1");
    Bbox_onclick("2");
    Bbox_onclick("3");
