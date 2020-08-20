@@ -2,6 +2,7 @@
 
 toRad = (tDeg) => tDeg * PI / 180;
 toDeg = (tRad) => tRad * 180/ PI;
+negl = (v) => Math.abs(v)<1.0e-9;
 
 trunc_xy = ([x,y],digs) => [+(x.toFixed(digs)),+(y.toFixed(digs))];
 
@@ -20,6 +21,14 @@ function sum(v) {
   return acc;
 }
 
+function sum_sqr(v) {
+  let acc=0;
+  for(let i=0;i<v.length;i++)
+    acc+=v[i]*v[i];
+  return acc;
+}
+
+
 function dot(v,u) {
   let acc=0;
   for(let i=0;i<v.length;i++)
@@ -28,8 +37,14 @@ function dot(v,u) {
 }
 
 function quadRoots(a, b, c) {
-  let det = sqrt(b * b - 4 * a * c);
-  return [(-b - det) / (2 * a), (-b + det) / (2 * a)];
+  let discr2 = b * b - 4 * a * c;
+  if (discr2 < 0) {
+    console.log("quadRoots: negative discriminant!");
+    return [0, 0];
+  } else {
+    let discr = Math.sqrt(discr2);
+    return [(-b - discr) / (2 * a), (-b + discr) / (2 * a)];
+  }
 }
 
 ray = (p0, phat, d) => [p0[0]+phat[0]*d, p0[1]+phat[1]*d];
