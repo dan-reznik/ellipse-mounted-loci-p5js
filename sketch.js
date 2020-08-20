@@ -721,7 +721,12 @@ function exportToJsonFile(jsonData) {
    let dataStr = JSON.stringify(jsonData);
    let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
 
-   let exportFileDefaultName = 'data.json';
+   let double_digit = function (myNumber) { return ("0" + myNumber).slice(-2) }
+   var today = new Date();
+   var date_time = double_digit(today.getDate().toString()) + double_digit((today.getMonth() + 1).toString()) +
+   today.getFullYear().toString() + '_' + double_digit(today.getHours().toString()) +
+   double_digit(today.getMinutes().toString()) + double_digit(today.getSeconds().toString());
+   let exportFileDefaultName = 'locus_json_' + date_time + '.json';
 
    let linkElement = document.createElement('a');
    linkElement.setAttribute('href', dataUri);
