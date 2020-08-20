@@ -448,7 +448,7 @@ function get_diff_default(g_ui_reset, key) {
          return original_to_url_params[key] + '=' + (+g_ui[key]).toFixed(3) + '&';
       }
       else if(key == 'a_speed')
-         return original_to_url_params[key] + '=' + abs(g_ui[key]) + '&';
+         return original_to_url_params[key] + '=' + abs(g_ui[key]).toFixed(3) + '&';
       else
          return original_to_url_params[key] + '=' + g_ui[key] + '&';
    }
@@ -529,7 +529,7 @@ function set_url_params(g_url_params) {
    let url_params_to_ui_keys = Object.keys(url_params_to_ui)
    let link_keys = Object.keys(g_url_params);
    var url_change_canvas = false;
-
+console.log(g_url_params)
    link_keys.forEach(function (key) {
       if (url_params_to_ui_keys.includes(key)){
          ui_key = url_params_to_ui[key];
