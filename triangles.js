@@ -126,6 +126,20 @@ function extangents_triangle(orbit,sides) {
   return generic_triangle(orbit,sides,m);
 }
 
+function hexyl_triangle(orbit,sides) {
+  let [x,y,z]=tri_cosines(sides);
+  const diag = x+y+z-1;
+  const v1=x+y-z-1;
+  const v2=x-y+z-1;
+  const v3=-x+y+z-1;
+  let m=[
+    [diag,v1,v2],
+    [v1,diag,v3],
+    [v2,v3,diag]
+    ];
+  return generic_triangle(orbit,sides,m);
+}
+
 // http://mathworld.wolfram.com/EulerTriangle.html
 function euler_triangle(orbit,sides) {
   let [cA,cB,cC]=tri_cosines(sides);
@@ -479,6 +493,7 @@ function get_derived_tri(orbit, sides, tri_type) {
      intangents       : intangents_triangle,
      euler            : euler_triangle,
      halfaltitude     : halfaltitude_triangle,
+     hexyl            : hexyl_triangle,
      feuerbach        : feuerbach_triangle,
      symmedial        : symmedial_triangle,
      circumorthic     : circumorthic_triangle,

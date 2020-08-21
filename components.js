@@ -79,6 +79,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
         <option value="feuerbach">feuerbach</option>
         <option value="fuhrmann">fuhrmann</option>
         <option value="halfaltitude">half-altitude</option>
+        <option value="hexyl">hexyl</option>
         <option value="incentral">incentral</option>
         <option value="innervecten">inner vecten</option>
         <option value="intangents">intangents</option>
