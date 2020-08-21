@@ -105,3 +105,18 @@ function cos_third(c) {
   // return ((c + I*s)^(-1/3) + (c + I s)^(1/3))/2;
   return Math.cos(Math.acos(c)/3)
  }
+
+ function cos_third_minus_2_pi(c) {
+  // return ((c + I*s)^(-1/3) + (c + I s)^(1/3))/2;
+  return Math.cos((Math.acos(c)-2*PI)/3);
+ }
+
+ function cos_third_minus_4_pi(c) {
+  // return ((c + I*s)^(-1/3) + (c + I s)^(1/3))/2;
+  return Math.cos((Math.acos(c)-4*PI)/3);
+ }
+
+ function sec_third(c) {
+  // return ((c + I*s)^(-1/3) + (c + I s)^(1/3))/2;
+  return 1/cos_third(c);
+ }
