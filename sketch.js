@@ -490,6 +490,7 @@ function copyToClipboard(text) {
 }
 
 function get_diff_default(g_ui_reset, key) {
+<<<<<<< HEAD
   let original_to_url_params = {
     a: "a",
     a_speed: "asp",
@@ -547,6 +548,57 @@ function get_diff_default_canvas(key) {
       return canvas_to_url_params[key] + "=" + eval(key).toFixed(3) + "&";
     else return canvas_to_url_params[key] + "=" + eval(key).toFixed(3) + "&";
   } else return "";
+=======
+   let original_to_url_params = {
+      a: 'a', a_speed: 'asp', a_min: 'amn', a_max: 'amx', ell: 'ell',
+      locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3',
+      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
+      tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3',
+      draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3',
+      mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3',
+      animStep0: 'aS'
+   };
+   let animStep0_to_url_value = {
+      "0.125": 'slow', "0.500": 'medium', "1.000": 'fast' 
+   }
+   let a_speed_to_url_value = {
+      "0.000": 'anim', "0.005": 'slow', "0.010": 'med', "0.050": 'fast'
+   }
+   if (g_ui[key] !== g_ui_reset[key]){
+      if(key == 'a'){
+         return original_to_url_params[key] + '=' + (+g_ui[key]).toFixed(3) + '&';
+      }
+      else if(key == 'animStep0')
+         return original_to_url_params[key] + '=' + animStep0_to_url_value[abs(g_ui[key]).toFixed(3)] + '&';
+      else if(key == 'a_speed')
+         return original_to_url_params[key] + '=' + a_speed_to_url_value[abs(g_ui[key]).toFixed(3)] + '&';
+      else
+         return original_to_url_params[key] + '=' + g_ui[key] + '&';
+   }
+   else
+      return '';
+}
+
+function get_diff_default_canvas(key){
+   let canvas_to_url_params = {
+      'g_scale': 'sc',
+      'g_ctr[0]': 'cx',
+      'g_ctr[1]': 'cy'
+   };
+   let canvas_params_reset = {
+      g_scale: locus_bbox(+g_ui.a, g_ui.locus_type_1, g_locus_Xn1_branched, g_width / g_height, g_scale0),
+      'g_ctr[0]': g_width / 2,
+      'g_ctr[1]': g_height / 2
+   };
+   if (eval(key) !== canvas_params_reset[key]){
+      if(key == 'g_scale')
+         return canvas_to_url_params[key] + '=' + eval(key).toFixed(3) + '&';
+      else
+         return canvas_to_url_params[key] + '=' + eval(key).toFixed(3) + '&';
+   }
+   else
+      return '';
+>>>>>>> c69c103eb8d5e3da20d85e3faf112c2775325ddb
 }
 
 function config_url_onclick(g_ui_reset) {
@@ -583,6 +635,7 @@ function config_url_onclick(g_ui_reset) {
 }
 
 function set_url_params(g_url_params) {
+<<<<<<< HEAD
   let url_params_to_canvas = {
     sc: "g_scale",
     cx: "g_ctr[0]",
@@ -629,6 +682,154 @@ function set_url_params(g_url_params) {
         g_ui[ui_key] = g_url_params[key] == "true";
       else {
         g_ui[ui_key] = g_url_params[key];
+=======
+   let url_params_to_canvas = {
+      sc: 'g_scale',
+      cx: 'g_ctr[0]',
+      cy: 'g_ctr[1]'
+   }
+   let url_params_to_ui = {
+      a: 'a', asp: 'a_speed', amn: 'a_min', amx: 'a_max', ell: 'ell',
+      lc1: 'locus_type_1', lc2: 'locus_type_2', lc3: 'locus_type_3',
+      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
+      tr1: 'tri_type_1', tr2: 'tri_type_2', tr3: 'tri_type_3',
+      dr1: 'draw_tri_1', dr2: 'draw_tri_2', dr3: 'draw_tri_3',
+      mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3',
+      aS: 'animStep0'
+   };
+   let animStep0_to_ui = {
+      slow: "0.125", medium: "0.500", fast: "1.000"
+   }
+   let a_speed_to_ui = {
+      anim: "0.000", slow: "0.005", med: "0.010", fast: "0.050"
+   }
+   let url_params_to_canvas_keys = Object.keys(url_params_to_canvas)
+   let url_params_to_ui_keys = Object.keys(url_params_to_ui)
+   let link_keys = Object.keys(g_url_params);
+   var url_change_canvas = false;
+   link_keys.forEach(function (key) {
+      if (url_params_to_ui_keys.includes(key)){
+         ui_key = url_params_to_ui[key];
+         if(['a', 'Xn1', 'Xn2', 'Xn3'].includes(ui_key)){
+            g_ui[ui_key] = +g_url_params[key];
+         }
+         else if(['ell','draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(ui_key))
+            g_ui[ui_key] = (g_url_params[key] == 'true');
+         else if(ui_key == 'animStep0'){
+            key_value = g_url_params[key]
+            g_ui[ui_key] = (Object.keys(animStep0_to_ui).includes(key_value))?animStep0_to_ui[key_value]:animStep0_to_ui['slow'];
+         }
+         else if(ui_key == 'a_speed'){
+            key_value = g_url_params[key]
+            g_ui[ui_key] = (Object.keys(a_speed_to_ui).includes(key_value))?a_speed_to_ui[key_value]:a_speed_to_ui['anim'];
+         }
+         else{
+            g_ui[ui_key] = g_url_params[key];
+         }
+      }
+      if (url_params_to_canvas_keys.includes(key)){
+         url_change_canvas = true;
+         eval(url_params_to_canvas[key]+'='+g_url_params[key]);
+      }
+   });
+   set_ui_variables(g_ui);
+   if(g_ui["locus_type_3"] !== 'none'){
+      ui_changed("3");
+      if(!url_change_canvas)
+         bbox_rescale("3");
+   }
+   if(g_ui["locus_type_2"] !== 'none'){
+      ui_changed("2");
+      if(!url_change_canvas)
+         bbox_rescale("2");
+   }
+   if(g_ui["locus_type_1"] !== 'none'){
+      ui_changed("1");
+      if(!url_change_canvas)
+         bbox_rescale("1");
+   } 
+}
+
+function recenter_onclick(){
+   document.getElementById('recenter').addEventListener('click', function(){
+      recenter();
+      g_scale = g_scale0;
+   });
+}
+
+function ui_changed_type(){
+   if(g_ui.locus_type_1 != 'none')
+      ui_changed('1')
+   if(g_ui.locus_type_2 != 'none')
+      ui_changed('2')
+   if(g_ui.locus_type_3 != 'none')
+      ui_changed('3')
+}
+
+function a_anim(){
+   a_slider = document.getElementById('a')
+   a_text = document.getElementById('demo_a')
+   g_ui.a_speed = +g_ui.a_speed;
+   g_ui.a = +g_ui.a;
+   g_ui.a_max = +g_ui.a_max;
+   g_ui.a_min = +g_ui.a_min;
+   if(g_ui.a_speed != 0.000){
+      //console.log(g_ui.a)
+      if(g_ui.a_speed > 0)
+         if(g_ui.a_max-g_ui.a <= g_ui.a_speed){
+            g_ui.a = g_ui.a_max;
+            a_slider.value = g_ui.a;
+            a_text.innerHTML = a_slider.value;
+            g_ui.a_speed = -g_ui.a_speed;
+            ui_changed_type()
+         }
+         else{
+            g_ui.a += g_ui.a_speed;
+            a_slider.value = g_ui.a;
+            a_text.innerHTML = a_slider.value;
+            ui_changed_type()    
+         }
+      else
+         if(g_ui.a+g_ui.a_speed<=g_ui.a_min){
+            g_ui.a = g_ui.a_min;
+            a_slider.value = g_ui.a;
+            a_text.innerHTML = a_slider.value;
+            g_ui.a_speed = -g_ui.a_speed;
+            ui_changed_type()        
+         }
+         else{
+            g_ui.a += g_ui.a_speed;
+            a_slider.value = g_ui.a;
+            a_text.innerHTML = a_slider.value;
+            ui_changed_type()        
+         }
+   } 
+}
+
+function a_text_input(){
+   var a_min = document.getElementById('a_min');
+   var a_max = document.getElementById('a_max');
+   a_min.addEventListener('focusout', function () {
+      if (+this.value < 1.001)
+         this.value = 1.001;
+      else if (+this.value > +a_max.value)
+         this.value = +a_max.value;
+      g_ui['a_min'] = this.value;
+      ui_changed_type();   
+   })
+   a_min.addEventListener('keydown', function (e) {
+      if(e.keyCode==9){
+         if(this.value == '')
+            this.value = 1.001;
+         else{
+            if (+this.value < 1.001)
+               this.value = 1.001;
+            else if (+this.value > +a_max.value)
+               this.value = +a_max.value;
+         }
+         g_ui['a_min'] = this.value;
+         ui_changed_type();
+>>>>>>> c69c103eb8d5e3da20d85e3faf112c2775325ddb
       }
     }
     if (url_params_to_canvas_keys.includes(key)) {
@@ -801,6 +1002,7 @@ function exportToJsonFile(jsonData) {
   linkElement.click();
 }
 
+<<<<<<< HEAD
 function export_JSON_onclick() {
   document.getElementById("Export_JSON").addEventListener("click", function () {
     var canvas_ui = { canvas_scale: g_scale, cx: g_ctr[0], cy: g_ctr[1] };
@@ -822,6 +1024,53 @@ function export_JSON_onclick() {
       };
     exportToJsonFile(ui_object);
   });
+=======
+function setup() {
+   recenter();
+   g_mouse = g_ctr0;
+   let g_ui_reset = {
+      a: 1.618, a_speed: "0.000", a_min: 1.001, a_max: 4.000, ell: true,
+      locus_type_1: 'none', locus_type_2: 'none', locus_type_3: 'none',
+      Xn1: 1, Xn2: 1, Xn3: 1,
+      tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference',
+      draw_tri_1: false, draw_tri_2: false, draw_tri_3: false,
+      mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard',
+      animStep0: "0.500"
+   };
+   reset_ui(g_ui_reset);
+   let g_url_params = getURLParams();
+   set_url_params(g_url_params);
+   create_checkboxes();
+   canvas = createCanvas(g_width, g_height);
+   canvas.parent('canvas');
+   mouseOverCanvas();
+   //frameRate(15);
+
+   set_ui_variables_behavior()
+   ui_changed("1")
+   recenter();
+   copy_image()
+   export_PNG()
+   play_controls()
+   locus_type_onchange()
+   tri_onchange()
+   a_speed_onchange();
+   tri_type_onchange();
+   a_text_input();
+   ell_onchange();
+   conic_type_onchange();
+   export_JSON_onclick();
+   Bbox_onclick("1");
+   Bbox_onclick("2");
+   Bbox_onclick("3");
+   conic_type_onchange("1");
+   conic_type_onchange("2");
+   conic_type_onchange("3");
+   recenter_onclick();
+
+   reset_UI_onclick(g_ui_reset);
+   config_url_onclick(g_ui_reset);
+>>>>>>> c69c103eb8d5e3da20d85e3faf112c2775325ddb
 }
 
 function conic_type_onchange(locus_type) {
