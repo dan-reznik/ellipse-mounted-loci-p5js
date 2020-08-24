@@ -126,6 +126,20 @@ function extangents_triangle(orbit,sides) {
   return generic_triangle(orbit,sides,m);
 }
 
+function hexyl_triangle(orbit,sides) {
+  let [x,y,z]=tri_cosines(sides);
+  const diag = x+y+z-1;
+  const v1=x+y-z-1;
+  const v2=x-y+z-1;
+  const v3=-x+y+z-1;
+  let m=[
+    [diag,v1,v2],
+    [v1,diag,v3],
+    [v2,v3,diag]
+    ];
+  return generic_triangle(orbit,sides,m);
+}
+
 // http://mathworld.wolfram.com/EulerTriangle.html
 function euler_triangle(orbit,sides) {
   let [cA,cB,cC]=tri_cosines(sides);
@@ -402,6 +416,30 @@ function lucas_central_triangle(orbit,[a,b,c]) {
   return generic_triangle(orbit,[a,b,c],ts);
 }
 
+function lucas_inner_triangle(orbit,[a,b,c]) {
+  let cwy = get_conway([a,b,c]);
+  let ts=[
+    [a*(4*cwy.Sa+3*cwy.S),2*b*(2*cwy.Sb+cwy.S),2*c*(2*cwy.Sc+cwy.S)],
+    [2*a*(2*cwy.Sa+cwy.S),b*(4*cwy.Sb +3*cwy.S),2*c*(2*cwy.Sc+cwy.S)],
+    [2*a*(2*cwy.Sa+cwy.S),2*b*(2*cwy.Sb+cwy.S),c*(4*cwy.Sc+3*cwy.S)]];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
+function lucas_tangents_triangle(orbit,[a,b,c]) {
+  let [cA,cB,cC]=tri_cosines([a,b,c]);
+  let abc=a*b*c;
+  let area2=2*tri_area([a,b,c]);
+  let v1=a*(area2+b*c*cA);
+  let v2=c*(area2+a*b*cC);
+  let v3=b*(area2+a*c*cB);
+  let ts=[
+    [abc*cA,v3,v2],
+    [v1,abc*cB,v2],
+    [v1,v3,abc*cC]
+  ];
+  return generic_triangle(orbit,[a,b,c],ts);
+}
+
 /*
 firstMorleyTriangle[orbit_, {a_, b_, c_}] := Module[{cs, cs3},
    cs = lawOfCosines3[a, b, c];
@@ -419,6 +457,36 @@ function first_morley_triangle(orbit,sides) {
     [2*c3[2],1,2*c3[0]],
     [2*c3[1],2*c3[0],1]];
   return generic_triangle(orbit,sides,ts);
+}
+
+function first_morley_adjunct_triangle(orbit,sides) {
+  let cs=tri_cosines(sides);
+  let cs3=cs.map(c=>1/cos_third(c));
+  ts=[
+    [2,cs3[2],cs3[1]],
+    [cs3[2],2,cs3[0]],
+    [cs3[1],cs3[0],2]];
+    return generic_triangle(orbit,sides,ts);
+}
+
+function second_morley_adjunct_triangle(orbit,sides) {
+  let cs=tri_cosines(sides);
+  let cs3=cs.map(c=>1/cos_third_minus_2_pi(c));
+  ts= [
+    [2,cs3[2],cs3[1]],
+    [cs3[2],2,cs3[0]],
+    [cs3[1],cs3[0],2]];
+    return generic_triangle(orbit,sides,ts);
+}
+
+function third_morley_adjunct_triangle(orbit,sides) {
+  let cs=tri_cosines(sides);
+  let cs3=cs.map(c=>1/cos_third_minus_4_pi(c));
+  ts= [
+    [2,cs3[2],cs3[1]],
+    [cs3[2],2,cs3[0]],
+    [cs3[1],cs3[0],2]];
+    return generic_triangle(orbit,sides,ts);   
 }
 
 function outer_vecten_triangle(orbit,[a,b,c]) {
@@ -479,12 +547,15 @@ function get_derived_tri(orbit, sides, tri_type) {
      intangents       : intangents_triangle,
      euler            : euler_triangle,
      halfaltitude     : halfaltitude_triangle,
+     hexyl            : hexyl_triangle,
      feuerbach        : feuerbach_triangle,
      symmedial        : symmedial_triangle,
      circumorthic     : circumorthic_triangle,
      circummedial     : circummedial_triangle,
      circummidarc     : circummidarc_triangle,
-     morley1          : first_morley_triangle,
+     morley1          : first_morley_adjunct_triangle,
+     morley2          : second_morley_adjunct_triangle,
+     morley3          : third_morley_adjunct_triangle,
      incentral        : incentral_triangle,
      fuhrmann         : fuhrmann_triangle,
      macbeath         : macbeath_triangle,
@@ -504,8 +575,11 @@ function get_derived_tri(orbit, sides, tri_type) {
      outervecten      : outer_vecten_triangle,
      innervecten      : inner_vecten_triangle,
      mixtilinear      : mixtilinear_triangle,
-     lucascentral     : lucas_central_triangle
+     lucascentral     : lucas_central_triangle,
+     lucasinner       : lucas_inner_triangle,
+     lucastangents    : lucas_tangents_triangle
   };
+
   if (tri_type in tri_fns) {
      let tri = tri_fns[tri_type](orbit,sides);
      return { o: tri, s: tri_sides(tri) };

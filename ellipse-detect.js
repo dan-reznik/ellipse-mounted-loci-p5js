@@ -79,7 +79,8 @@ function sample_locus(locus,n) {
 
 function locus_conic(locus_branched) {
     let ret_val = "X";
-    if (locus_branched.length==1) {
+    // single branch and branch cannot be "X" w few vertices
+    if (locus_branched.length==1 && locus_branched[0].length>20) {
         //const locus_samples = sample_array(locus_branched[0],50);
         //const lsc = least_squares_conic(locus_samples);
         const lsc = least_squares_centered_ellipse(locus_branched[0]);

@@ -1610,6 +1610,14 @@ function trilin_X101(orbit, [a, b, c]) {
    return trilin_to_cartesian(orbit, [a, b, c], tris);
 }
 
+// ETC: a/[2a^4 - (b + c) a^3 - (b - c)^2 a^2 + (b - c)^2 (b + c) a - (b^2 - c^2)^2] 
+// the "+" after a2 and before (b-c)^2 was missing!
+//Hold@{a/(2 a4-(b+c)a3-(b-c)^2 a2 + (b-c)^2 (b+c)a-(b2-c2)^2),
+//b/(2 b4-(c+a)b3-(c-a)^2 b2 + (c-a)^2 (c+a)b-(c2-a2)^2),
+//c/(2 c4-(a+b)c3-(a-b)^2 c2 + (a-b)^2 (a+b)c-(a2-b2)^2)
+// {"X(102)", "a/(2*a4 - a3*(b + c) - a*a2*Power(b - c,4)*(b + c) - Power(b2 - c2,2))|
+//b/(2*b4 - b3*(a + c) - b*b2*Power(-a + c,4)*(a + c) - Power(-a2 + c2,2))|
+// c/(-Power(a2 - b2,2) - Power(a - b,4)*(a + b)*c*c2 - (a + b)*c3 + 2*c4)", "Λ(INCENTER,ORTHOCENTER)"}
 function trilin_X102(orbit, [a, b, c]) {
    /* begin vars */
    let c2=c*c;
@@ -1622,9 +1630,11 @@ function trilin_X102(orbit, [a, b, c]) {
    let a3=a2*a;
    let a4=a2*a2;
    /* end vars */
-   let v1 = a/(2*a4-a3*(b+c)-a*a2*Math.pow(b-c,4)*(b+c)-(b2-c2)*(b2-c2));
-   let v2 = b/(2*b4-b3*(a+c)-b*b2*Math.pow(-a+c,4)*(a+c)-(-a2+c2)*(-a2+c2));
-   let v3 = c/(-(a2-b2)*(a2-b2)-Math.pow(a-b,4)*(a+b)*c*c2-(a+b)*c3+2*c4);
+   // a/(2 a4-(b+c)a3-(b-c)^2 a2 + (b-c)^2 (b+c)a-(b2-c2)^2)
+   // corrected by hand
+   let v1 = a/(2*a4-(b+c)*a3-Math.pow(b-c,2)*a2+ Math.pow(b-c,2)*(b+c)*a-Math.pow(b2-c2,2));
+   let v2 = b/(2*b4-(c+a)*b3-Math.pow(c-a,2)*b2+ Math.pow(c-a,2)*(c+a)*b-Math.pow(c2-a2,2));
+   let v3 = c/(2*c4-(a+b)*c3-Math.pow(a-b,2)*c2+ Math.pow(a-b,2)*(a+b)*c-Math.pow(a2-b2,2));
    let tris = [v1,v2,v3];
    return trilin_to_cartesian(orbit, [a, b, c], tris);
 }
