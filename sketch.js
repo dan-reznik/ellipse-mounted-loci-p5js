@@ -451,13 +451,20 @@ function get_diff_default(g_ui_reset, key) {
       mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3',
       animStep0: 'aS'
    };
+   let animStep0_to_url_value = {
+      "0.125": 'slow', "0.500": 'medium', "1.000": 'fast' 
+   }
+   let a_speed_to_url_value = {
+      "0.000": 'anim', "0.005": 'slow', "0.010": 'med', "0.050": 'fast'
+   }
    if (g_ui[key] !== g_ui_reset[key]){
       if(key == 'a'){
-         //console.log((+g_ui[key]).toFixed(3))
          return original_to_url_params[key] + '=' + (+g_ui[key]).toFixed(3) + '&';
       }
+      else if(key == 'animStep0')
+         return original_to_url_params[key] + '=' + animStep0_to_url_value[abs(g_ui[key]).toFixed(3)] + '&';
       else if(key == 'a_speed')
-         return original_to_url_params[key] + '=' + abs(g_ui[key]).toFixed(3) + '&';
+         return original_to_url_params[key] + '=' + a_speed_to_url_value[abs(g_ui[key]).toFixed(3)] + '&';
       else
          return original_to_url_params[key] + '=' + g_ui[key] + '&';
    }
@@ -534,6 +541,12 @@ function set_url_params(g_url_params) {
       mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3',
       aS: 'animStep0'
    };
+   let animStep0_to_ui = {
+      slow: "0.125", medium: "0.500", fast: "1.000"
+   }
+   let a_speed_to_ui = {
+      anim: "0.000", slow: "0.005", med: "0.010", fast: "0.050"
+   }
    let url_params_to_canvas_keys = Object.keys(url_params_to_canvas)
    let url_params_to_ui_keys = Object.keys(url_params_to_ui)
    let link_keys = Object.keys(g_url_params);
@@ -541,14 +554,19 @@ function set_url_params(g_url_params) {
    link_keys.forEach(function (key) {
       if (url_params_to_ui_keys.includes(key)){
          ui_key = url_params_to_ui[key];
-         if(['a', 'Xn1', 'Xn2', 'Xn3', 'animStep0'].includes(ui_key)){
-            //(ui_key)
-            //console.log(+g_url_params[ui_key])
+         if(['a', 'Xn1', 'Xn2', 'Xn3'].includes(ui_key)){
             g_ui[ui_key] = +g_url_params[key];
-            //console.log(g_ui[ui_key])
          }
          else if(['ell','draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(ui_key))
             g_ui[ui_key] = (g_url_params[key] == 'true');
+         else if(ui_key == 'animStep0'){
+            key_value = g_url_params[key]
+            g_ui[ui_key] = (Object.keys(animStep0_to_ui).includes(key_value))?animStep0_to_ui[key_value]:animStep0_to_ui['slow'];
+         }
+         else if(ui_key == 'a_speed'){
+            key_value = g_url_params[key]
+            g_ui[ui_key] = (Object.keys(a_speed_to_ui).includes(key_value))?a_speed_to_ui[key_value]:a_speed_to_ui['anim'];
+         }
          else{
             g_ui[ui_key] = g_url_params[key];
          }
@@ -779,12 +797,12 @@ function setup() {
    g_mouse = g_ctr0;
    let g_ui_reset = {
       a: 1.618, a_speed: "0.000", a_min: 1.001, a_max: 4.000, ell: true,
-      locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none',
+      locus_type_1: 'none', locus_type_2: 'none', locus_type_3: 'none',
       Xn1: 1, Xn2: 1, Xn3: 1,
       tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference',
-      draw_tri_1: true, draw_tri_2: false, draw_tri_3: false,
+      draw_tri_1: false, draw_tri_2: false, draw_tri_3: false,
       mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard',
-      animStep0: 0.5
+      animStep0: "0.500"
    };
    reset_ui(g_ui_reset);
    let g_url_params = getURLParams();
