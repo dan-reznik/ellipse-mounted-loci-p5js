@@ -15,6 +15,7 @@ let g_tDeg = 0;
 let g_locus_Xn1_branched = [];
 let g_locus_Xn2_branched = [];
 let g_locus_Xn3_branched = [];
+let g_locus_Xn4_branched = [];
 
 let g_ui = {};
 
@@ -28,21 +29,27 @@ function set_ui_variables(dictionary) {
    document.getElementById("locus_type_1").value = dictionary["locus_type_1"];
    document.getElementById("locus_type_2").value = dictionary["locus_type_2"];
    document.getElementById("locus_type_3").value = dictionary["locus_type_3"];
+   document.getElementById("locus_type_4").value = dictionary["locus_type_4"];
    document.getElementById("Xn1").value = dictionary["Xn1"];
    document.getElementById("demo_Xn1").value = dictionary["Xn1"];
    document.getElementById("Xn2").value = dictionary["Xn2"];
    document.getElementById("demo_Xn2").value = dictionary["Xn2"];
    document.getElementById("Xn3").value = dictionary["Xn3"];
    document.getElementById("demo_Xn3").value = dictionary["Xn3"];
+   document.getElementById("Xn4").value = dictionary["Xn4"];
+   document.getElementById("demo_Xn4").value = dictionary["Xn4"];
    document.getElementById("tri_type_1").value = dictionary["tri_type_1"];
    document.getElementById("tri_type_2").value = dictionary["tri_type_2"];
    document.getElementById("tri_type_3").value = dictionary["tri_type_3"];
+   document.getElementById("tri_type_4").value = dictionary["tri_type_4"];
    document.getElementById("draw_tri_1").checked = dictionary["draw_tri_1"];
    document.getElementById("draw_tri_2").checked = dictionary["draw_tri_2"];
    document.getElementById("draw_tri_3").checked = dictionary["draw_tri_3"];
+   document.getElementById("draw_tri_4").checked = dictionary["draw_tri_4"];
    document.getElementById("mounting_Xn1").value = dictionary["mounting_Xn1"];
    document.getElementById("mounting_Xn2").value = dictionary["mounting_Xn2"];
    document.getElementById("mounting_Xn3").value = dictionary["mounting_Xn3"];
+   document.getElementById("mounting_Xn4").value = dictionary["mounting_Xn4"];
    document.getElementById("animStep0").value = dictionary["animStep0"];
 }
 
@@ -84,6 +91,10 @@ function create_locus(locus_type_changed) {
       g_locus_Xn3_branched = make_locus_branched(a, g_ui.Xn3, tdegStep,
          g_ui.mounting_Xn3, g_ui.locus_type_3, g_ui.tri_type_3);
    }
+   if (locus_type_4 != "none" && ["4", "0"].includes(locus_type_changed)) {
+      g_locus_Xn4_branched = make_locus_branched(a, g_ui.Xn4, tdegStep,
+         g_ui.mounting_Xn4, g_ui.locus_type_4, g_ui.tri_type_4);
+   }
 }
 
 function create_checkboxes() {
@@ -113,6 +124,10 @@ function recenter() {
 }
 
 function windowResized() {
+   if(g_ui["locus_type_4"] !== 'none'){
+      ui_changed("4");
+      bbox_rescale("4");
+   }
    if(g_ui["locus_type_3"] !== 'none'){
       ui_changed("3");
       bbox_rescale("3");
@@ -316,6 +331,10 @@ function tri_onchange() {
       g_ui.draw_tri_3 = this.checked;
       redraw();
    })
+   document.getElementById('draw_tri_4').addEventListener("click", function () {
+      g_ui.draw_tri_4 = this.checked;
+      redraw();
+   })
 }
 
 function ell_onchange(){
@@ -353,6 +372,11 @@ function locus_type_onchange() {
       ui_changed("3");
       conic_type_onchange("3");
    });
+   document.getElementById("locus_type_4").addEventListener("change", function () {
+      g_ui.locus_type_4 = this.value;
+      ui_changed("4");
+      conic_type_onchange("4");
+   });
 }
 
 function tri_type_onchange() {
@@ -368,6 +392,10 @@ function tri_type_onchange() {
       g_ui.tri_type_3 = this.value;
       ui_changed("3");
    });
+   document.getElementById("tri_type_4").addEventListener("change", function () {
+      g_ui.tri_type_4 = this.value;
+      ui_changed("4");
+   });
 }
 
 function mouseOverCanvas() {
@@ -378,8 +406,8 @@ function mouseOverCanvas() {
 }
 
 function bbox_rescale(n) {
-   let locus_types = [g_ui.locus_type_1, g_ui.locus_type_2, g_ui.locus_type_3];
-   let loci = [g_locus_Xn1_branched, g_locus_Xn2_branched, g_locus_Xn3_branched];
+   let locus_types = [g_ui.locus_type_1, g_ui.locus_type_2, g_ui.locus_type_3, g_ui.locus_type_4];
+   let loci = [g_locus_Xn1_branched, g_locus_Xn2_branched, g_locus_Xn3_branched, g_locus_Xn4_branched];
    g_scale = locus_bbox(+g_ui.a, locus_types[n - 1], loci[n - 1], g_width / g_height, g_scale0);
    recenter();
    redraw();
@@ -398,6 +426,8 @@ function set_ui_variables_behavior() {
    slider_text_changed("Xn2", "demo_Xn2", "minus_Xn2", "plus_Xn2", "2");
    //Xn3
    slider_text_changed("Xn3", "demo_Xn3", "minus_Xn3", "plus_Xn3", "3");
+   //Xn4
+   slider_text_changed("Xn4", "demo_Xn4", "minus_Xn4", "plus_Xn4", "4");
 
    //animStep0
    selector_output("animStep0", output_ID = "")
@@ -406,6 +436,7 @@ function set_ui_variables_behavior() {
    selector_output("mounting_Xn1", output_ID = "", "1")
    selector_output("mounting_Xn2", output_ID = "", "2")
    selector_output("mounting_Xn3", output_ID = "", "3")
+   selector_output("mounting_Xn4", output_ID = "", "4")
 }
 
 function reset_UI_onclick(g_ui_reset) {
@@ -444,11 +475,11 @@ function copyToClipboard(text) {
 function get_diff_default(g_ui_reset, key) {
    let original_to_url_params = {
       a: 'a', a_speed: 'asp', a_min: 'amn', a_max: 'amx', ell: 'ell',
-      locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3',
-      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
-      tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3',
-      draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3',
-      mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3',
+      locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3', locus_type_4: 'lc4',
+      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4',
+      tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3', tri_type_4: 'tr4',
+      draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3', draw_tri_4: 'dr4',
+      mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3', mounting_Xn4: 'mt4',
       animStep0: 'aS'
    };
    let animStep0_to_url_value = {
@@ -520,6 +551,11 @@ function config_url_onclick(g_ui_reset) {
       link_params += get_diff_default(g_ui_reset, "mounting_Xn3");
       link_params += get_diff_default(g_ui_reset, "draw_tri_3");
       link_params += get_diff_default(g_ui_reset, "tri_type_3");
+      link_params += get_diff_default(g_ui_reset, "locus_type_4");
+      link_params += get_diff_default(g_ui_reset, "Xn4");
+      link_params += get_diff_default(g_ui_reset, "mounting_Xn4");
+      link_params += get_diff_default(g_ui_reset, "draw_tri_4");
+      link_params += get_diff_default(g_ui_reset, "tri_type_4");
       link_params += get_diff_default(g_ui_reset, "animStep0");
       link_params = link_params.slice(0,-1);
       copyToClipboard(link_params);
@@ -534,11 +570,11 @@ function set_url_params(g_url_params) {
    }
    let url_params_to_ui = {
       a: 'a', asp: 'a_speed', amn: 'a_min', amx: 'a_max', ell: 'ell',
-      lc1: 'locus_type_1', lc2: 'locus_type_2', lc3: 'locus_type_3',
-      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3',
-      tr1: 'tri_type_1', tr2: 'tri_type_2', tr3: 'tri_type_3',
-      dr1: 'draw_tri_1', dr2: 'draw_tri_2', dr3: 'draw_tri_3',
-      mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3',
+      lc1: 'locus_type_1', lc2: 'locus_type_2', lc3: 'locus_type_3', lc4: 'locus_type_4',
+      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4',
+      tr1: 'tri_type_1', tr2: 'tri_type_2', tr3: 'tri_type_3', tr4: 'tri_type_4',
+      dr1: 'draw_tri_1', dr2: 'draw_tri_2', dr3: 'draw_tri_3', dr4: 'draw_tri_4',
+      mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3', mt4: 'mounting_Xn4',
       aS: 'animStep0'
    };
    let animStep0_to_ui = {
@@ -554,10 +590,10 @@ function set_url_params(g_url_params) {
    link_keys.forEach(function (key) {
       if (url_params_to_ui_keys.includes(key)){
          ui_key = url_params_to_ui[key];
-         if(['a', 'Xn1', 'Xn2', 'Xn3'].includes(ui_key)){
+         if(['a', 'Xn1', 'Xn2', 'Xn3', 'Xn4'].includes(ui_key)){
             g_ui[ui_key] = +g_url_params[key];
          }
-         else if(['ell','draw_tri_1', 'draw_tri_2', 'draw_tri_3'].includes(ui_key))
+         else if(['ell','draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4'].includes(ui_key))
             g_ui[ui_key] = (g_url_params[key] == 'true');
          else if(ui_key == 'animStep0'){
             key_value = g_url_params[key]
@@ -577,6 +613,11 @@ function set_url_params(g_url_params) {
       }
    });
    set_ui_variables(g_ui);
+   if(g_ui["locus_type_4"] !== 'none'){
+      ui_changed("4");
+      if(!url_change_canvas)
+         bbox_rescale("4");
+   }
    if(g_ui["locus_type_3"] !== 'none'){
       ui_changed("3");
       if(!url_change_canvas)
@@ -608,6 +649,8 @@ function ui_changed_type(){
       ui_changed('2')
    if(g_ui.locus_type_3 != 'none')
       ui_changed('3')
+   if(g_ui.locus_type_4 != 'none')
+      ui_changed('4')
 }
 
 function a_anim(){
@@ -654,8 +697,8 @@ function a_text_input(){
    var a_min = document.getElementById('a_min');
    var a_max = document.getElementById('a_max');
    a_min.addEventListener('focusout', function () {
-      if (+this.value < 1.001)
-         this.value = 1.001;
+      if (+this.value < 1.01)
+         this.value = 1.01;
       else if (+this.value > +a_max.value)
          this.value = +a_max.value;
       g_ui['a_min'] = this.value;
@@ -664,10 +707,10 @@ function a_text_input(){
    a_min.addEventListener('keydown', function (e) {
       if(e.keyCode==9){
          if(this.value == '')
-            this.value = 1.001;
+            this.value = 1.01;
          else{
-            if (+this.value < 1.001)
-               this.value = 1.001;
+            if (+this.value < 1.01)
+               this.value = 1.01;
             else if (+this.value > +a_max.value)
                this.value = +a_max.value;
          }
@@ -676,7 +719,7 @@ function a_text_input(){
       }
    })
    a_min.addEventListener('keypress', function (e) {
-      if(this.value.length>4)
+      if(this.value.length>3)
          e.preventDefault();
       if(this.value.includes('.')){
          if(e.keyCode < 48 || e.keyCode > 57)
@@ -688,10 +731,10 @@ function a_text_input(){
       }      
       if(e.keyCode==13){
          if(this.value == '')
-            this.value = 1.001;
+            this.value = 1.01;
          else{
-            if (+this.value < 1.001)
-               this.value = 1.001;
+            if (+this.value < 1.01)
+               this.value = 1.01;
             else if (+this.value > +a_max.value)
                this.value = +a_max.value;
          }
@@ -700,8 +743,8 @@ function a_text_input(){
       }
    })
    a_max.addEventListener('focusout', function () {
-      if (+this.value > 4.000)
-         this.value = 4.000;
+      if (+this.value > 4.00)
+         this.value = '4.00';
       else if (+this.value < +a_min.value)
          this.value = +a_min.value;
       g_ui['a_max'] = this.value;
@@ -710,10 +753,10 @@ function a_text_input(){
    a_max.addEventListener('keydown', function (e) {
       if(e.keyCode==9){
          if(this.value == '')
-            this.value = 4.000;
+            this.value = '4.00';
          else{
             if (+this.value > 4.000)
-               this.value = 4.000;
+               this.value = '4.00';
             else if (+this.value < +a_min.value)
                this.value = +a_min.value;
          }
@@ -722,7 +765,7 @@ function a_text_input(){
       }
    })
    a_max.addEventListener('keypress', function (e) {
-      if(this.value.length>4)
+      if(this.value.length>3)
          e.preventDefault();
       if(this.value.includes('.')){
          if(e.keyCode < 48 || e.keyCode > 57)
@@ -734,10 +777,10 @@ function a_text_input(){
       }   
       if(e.keyCode==13){
          if(this.value == '')
-            this.value = 4.000;
+            this.value = '4.00';
          else{
             if (+this.value > 4.000)
-               this.value = 4.000;
+               this.value = '4.00';
             else if (+this.value < +a_min.value)
                this.value = +a_min.value;
          }
@@ -774,6 +817,8 @@ function export_JSON_onclick(){
          ui_object = {...ui_object, ...{'locus2': trunc_locus_xy(g_locus_Xn2_branched,4)}};
       if(g_ui.locus_type_3 != 'none')
          ui_object = {...ui_object, ...{'locus3': trunc_locus_xy(g_locus_Xn3_branched,4)}};
+      if(g_ui.locus_type_4 != 'none')
+         ui_object = {...ui_object, ...{'locus4': trunc_locus_xy(g_locus_Xn4_branched,4)}};
       exportToJsonFile(ui_object);
    })
 }
@@ -784,10 +829,12 @@ function conic_type_onchange(locus_type){
       case '1': conic_type.innerHTML = (g_ui.locus_type_1 == 'none')?"":locus_conic(g_locus_Xn1_branched); break;
       case '2': conic_type.innerHTML = (g_ui.locus_type_2 == 'none')?"":locus_conic(g_locus_Xn2_branched); break;
       case '3': conic_type.innerHTML = (g_ui.locus_type_3 == 'none')?"":locus_conic(g_locus_Xn3_branched); break;
+      case '4': conic_type.innerHTML = (g_ui.locus_type_4 == 'none')?"":locus_conic(g_locus_Xn4_branched); break;
       default:
          document.getElementById('conic_type_1').innerHTML = "";
          document.getElementById('conic_type_2').innerHTML = "";
          document.getElementById('conic_type_3').innerHTML = "";
+         document.getElementById('conic_type_4').innerHTML = "";
          break;
    }
 }
@@ -796,12 +843,12 @@ function setup() {
    recenter();
    g_mouse = g_ctr0;
    let g_ui_reset = {
-      a: 1.618, a_speed: "0.000", a_min: 1.001, a_max: 4.000, ell: true,
-      locus_type_1: 'none', locus_type_2: 'none', locus_type_3: 'none',
-      Xn1: 1, Xn2: 1, Xn3: 1,
-      tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference',
-      draw_tri_1: false, draw_tri_2: false, draw_tri_3: false,
-      mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard',
+      a: 1.618, a_speed: "0.000", a_min: '1.01', a_max: '4.00', ell: true,
+      locus_type_1: 'none', locus_type_2: 'none', locus_type_3: 'none', locus_type_4: 'none',
+      Xn1: 1, Xn2: 1, Xn3: 1, Xn4: 1,
+      tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference', tri_type_4: 'reference',
+      draw_tri_1: false, draw_tri_2: false, draw_tri_3: false, draw_tri_4: false,
+      mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
       animStep0: "0.500"
    };
    reset_ui(g_ui_reset);
@@ -834,9 +881,11 @@ function setup() {
    Bbox_onclick("1");
    Bbox_onclick("2");
    Bbox_onclick("3");
+   Bbox_onclick("4");
    conic_type_onchange("1");
    conic_type_onchange("2");
    conic_type_onchange("3");
+   conic_type_onchange("4");
    recenter_onclick();
 
    reset_UI_onclick(g_ui_reset);
@@ -863,6 +912,10 @@ function draw() {
    draw_billiard_or_mounted_branched(g_ui.Xn3, +g_ui.a, g_tDeg,
       g_locus_Xn3_branched, clr_blue, g_ui.locus_type_3,
       g_ui.draw_tri_3, g_ui.mounting_Xn3, g_ui.tri_type_3, stroke_w, g_ui.ell);
+
+   draw_billiard_or_mounted_branched(g_ui.Xn4, +g_ui.a, g_tDeg,
+      g_locus_Xn4_branched, clr_purple, g_ui.locus_type_4,
+      g_ui.draw_tri_4, g_ui.mounting_Xn4, g_ui.tri_type_4, stroke_w, g_ui.ell);
    
    a_anim();
 
