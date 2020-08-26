@@ -107,11 +107,9 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
         <option value="yffcentral">yff central</option>
         <option value="yffcontact">yff contact</option>  
         </select>
-        <div style='display: inline-flex'>
-            <button class='Bbox' id='Bbox_`+xn_number+`'>bbox</button>
-            <div id='conic_type'>
-                <p id='conic_type_`+xn_number+`'></p>
-            </div>
+        <button class='Bbox' id='Bbox_`+xn_number+`'>bbox</button>
+        <div id='conic_type'>
+            <p id='conic_type_`+xn_number+`'></p>
         </div>
     </div>
 </div>
