@@ -344,7 +344,6 @@ label{
 }
 
 .Bbox{
-    flex-grow: 1;
     margin-right: 5px;
     margin-left: 5px;
 };
