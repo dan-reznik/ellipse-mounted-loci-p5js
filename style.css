@@ -344,6 +344,8 @@ label{
 }
 
 .Bbox{
+    display: inline-block;
+    width: 43px;
     margin-right: 5px;
     margin-left: 5px;
 };
