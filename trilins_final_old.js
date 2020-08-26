@@ -26,13 +26,10 @@ function get_Xn(orbit, sides, n) {
   return get_Xn_low(orbit, sides, get_fn_trilin(n));
 }
 
-const sqrt3 = Math.sqrt(3.0);
-const phi = (Math.sqrt(5)+1.0)/2;
 const cPi3 = Math.cos(Math.PI/3);
 const sPi3 = Math.sin(Math.PI/3);
 const cPi6 = Math.cos(Math.PI/6);
 const sPi6 = Math.sin(Math.PI/6);
-const Pi = Math.PI;
 
 function oneOv(x) { return 1.0/x; }
 
@@ -45,9 +42,9 @@ function lawOfCosines(a, b, c) { return (b*b+c*c-a*a)/(2.0*b*c); }
 
 function getSin(theCos) { return sqrt(1.0 - theCos*theCos); }
 
-function cosDoubleAngle(cosAngle) { return 2*cosAngle*cosAngle - 1.0; }
 function sinDoubleAngle(sinAngle,cosAngle) { return 2*sinAngle*cosAngle; }
 
+function cosDoubleAngle(cosAngle) { return 2*cosAngle*cosAngle - 1.0; }
 function cosHalfAngle(cosAngle) { return sqrt((1.0+cosAngle)/2); }
 function sinHalfAngle(cosAngle) { return sqrt((1.0-cosAngle)/2); }
 
@@ -55,16 +52,6 @@ function getSinApmB(sa, sb, ca, cb) { return [sa*cb + sb*ca, sa*cb - sb*ca]; }
 
 function getSinApmB1(sa, sb, ca, cb) { return sa*cb + sb*ca; }
 function getSinApmB2(sa, sb, ca, cb) { return sa*cb - sb*ca; }
-
-function cosThirdAngle(c) {
-  let th = Math.acos(c);
-  return Math.cos(th/3);
-}
-
-function sinThirdAngle(s) {
-  let th = Math.asin(s);
-  return Math.sin(th/3);
-}
 
 function sinCosTripleAngle(s, c, s2, c2) {
   let c3 = c2*c - s2*s;
@@ -80,24 +67,6 @@ function sinTripleAngle(s, c, s2, c2) {
   return s2*c + s*c2;
 }
 
-function getJ(R,SW) {
-  return Math.sqrt(9*R*R-2*SW);
-}
-
-function getE(S,SW) {
-  // return (S*SW*SW)/Math.sqrt(S*S+SW*SW);
-  // moses: Sin[w]=S/Sqrt[S^2+SW^2]
-  // since e = Sqrt[1-4 Sin[w]^2], then:
-  // e = Sqrt[1-4/(1+(SW/S)^2)]
-  let ratio=SW/S;
-  return Math.sqrt(1-4/(1+ratio*ratio));
-}
-
-
-
-function getCotPrime(a,b,c) {
-  return Math.cot((2*a*Math.PI)/(a+b+c));
-}
 
 function trilin_X1(orbit, [a, b, c]) {
    /* begin vars */
@@ -1641,6 +1610,14 @@ function trilin_X101(orbit, [a, b, c]) {
    return trilin_to_cartesian(orbit, [a, b, c], tris);
 }
 
+// ETC: a/[2a^4 - (b + c) a^3 - (b - c)^2 a^2 + (b - c)^2 (b + c) a - (b^2 - c^2)^2] 
+// the "+" after a2 and before (b-c)^2 was missing!
+//Hold@{a/(2 a4-(b+c)a3-(b-c)^2 a2 + (b-c)^2 (b+c)a-(b2-c2)^2),
+//b/(2 b4-(c+a)b3-(c-a)^2 b2 + (c-a)^2 (c+a)b-(c2-a2)^2),
+//c/(2 c4-(a+b)c3-(a-b)^2 c2 + (a-b)^2 (a+b)c-(a2-b2)^2)
+// {"X(102)", "a/(2*a4 - a3*(b + c) - a*a2*Power(b - c,4)*(b + c) - Power(b2 - c2,2))|
+//b/(2*b4 - b3*(a + c) - b*b2*Power(-a + c,4)*(a + c) - Power(-a2 + c2,2))|
+// c/(-Power(a2 - b2,2) - Power(a - b,4)*(a + b)*c*c2 - (a + b)*c3 + 2*c4)", "Λ(INCENTER,ORTHOCENTER)"}
 function trilin_X102(orbit, [a, b, c]) {
    /* begin vars */
    let c2=c*c;
@@ -1653,9 +1630,11 @@ function trilin_X102(orbit, [a, b, c]) {
    let a3=a2*a;
    let a4=a2*a2;
    /* end vars */
-   let v1 = a/(2*a4-a2*(b-c)*(b-c)-a3*(b+c)+a*(b-c)*(b-c)*(b+c)-(b2-c2)*(b2-c2));
-   let v2 = b/(2*b4-b2*(-a+c)*(-a+c)-b3*(a+c)+b*(-a+c)*(-a+c)*(a+c)-(-a2+c2)*(-a2+c2));
-   let v3 = c/(-(a2-b2)*(a2-b2)+(a-b)*(a-b)*(a+b)*c-(a-b)*(a-b)*c2-(a+b)*c3+2*c4);
+   // a/(2 a4-(b+c)a3-(b-c)^2 a2 + (b-c)^2 (b+c)a-(b2-c2)^2)
+   // corrected by hand
+   let v1 = a/(2*a4-(b+c)*a3-Math.pow(b-c,2)*a2+ Math.pow(b-c,2)*(b+c)*a-Math.pow(b2-c2,2));
+   let v2 = b/(2*b4-(c+a)*b3-Math.pow(c-a,2)*b2+ Math.pow(c-a,2)*(c+a)*b-Math.pow(c2-a2,2));
+   let v3 = c/(2*c4-(a+b)*c3-Math.pow(a-b,2)*c2+ Math.pow(a-b,2)*(a+b)*c-Math.pow(a2-b2,2));
    let tris = [v1,v2,v3];
    return trilin_to_cartesian(orbit, [a, b, c], tris);
 }
@@ -1960,9 +1939,9 @@ function trilin_X122(orbit, [a, b, c]) {
    let c2=c*c;
    let b2=b*b;
    /* end vars */
-   let v1 = ((b2-c2)*(b2-c2)*(cosA-cosB*cosC))/tanA*tanA;
-   let v2 = ((-a2+c2)*(-a2+c2)*(cosB-cosA*cosC))/tanB*tanB;
-   let v3 = ((a2-b2)*(a2-b2)*(-(cosA*cosB)+cosC))/tanC*tanC;
+   let v1 = ((b2-c2)*(b2-c2)*(cosA-cosB*cosC))/(tanA*tanA);
+   let v2 = ((-a2+c2)*(-a2+c2)*(cosB-cosA*cosC))/(tanB*tanB);
+   let v3 = ((a2-b2)*(a2-b2)*(-(cosA*cosB)+cosC))/(tanC*tanC);
    let tris = [v1,v2,v3];
    return trilin_to_cartesian(orbit, [a, b, c], tris);
 }
@@ -2136,7 +2115,6 @@ function trilin_X131(orbit, [a, b, c]) {
    let tan2C=sin2C/cos2C;
    let tan2B=sin2B/cos2B;
    let tan2A=sin2A/cos2A;
-   let area=triAreaHeron(a,b,c);
    let secC=1/cosC;
    let secB=1/cosB;
    let sumS2=sin2A+sin2B+sin2C;
@@ -2144,7 +2122,7 @@ function trilin_X131(orbit, [a, b, c]) {
    let sec2B=1/cos2B;
    let sumT2=tan2A+tan2B+tan2C;
    let sec2A=1/cos2A;
-   let S=2*area;
+   let S=2*triAreaHeron(a,b,c);
    let secA=1/cosA;
    /* end vars */
    let v1 = secA*(-(S*sec2A)+sumT2)*(-((sec2B+sec2C)*sumS2)+2*sumT2);
@@ -3073,11 +3051,10 @@ function trilin_X183(orbit, [a, b, c]) {
    let sinC=getSin(cosC);
    let cosB=lawOfCosines(b,a,c);
    let sinB=getSin(cosB);
-   let area=triAreaHeron(a,b,c);
    let c2=c*c;
    let b2=b*b;
    let a2=a*a;
-   let S=2*area;
+   let S=2*triAreaHeron(a,b,c);
    let cosA=lawOfCosines(a,b,c);
    let sinA=getSin(cosA);
    let tanC=sinC/cosC;
