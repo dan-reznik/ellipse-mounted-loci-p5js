@@ -37,7 +37,7 @@ body {
   width: 100%;
   padding: 1%;
   grid-gap: 1% 0.5%;
-  grid-template-columns: minmax(230px, 230px) minmax(405px, 95%);
+  grid-template-columns: minmax(230px, 240px) minmax(405px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config title"
