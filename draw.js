@@ -115,8 +115,8 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
   
   switch(locus_type) {
     case "trilins": xn = get_Xn_bary(ons.o,ons.s,xnum); break;
-    case "brocard_1": xn = bary_brocard1(ons.o, ons.s); break;
-    case "brocard_2": xn = bary_brocard2(ons.o, ons.s); break;
+    case "brocard_1": xn = trilin_brocard1(ons.o, ons.s); break;
+    case "brocard_2": xn = trilin_brocard2(ons.o, ons.s); break;
   }
   //console.log(rgba_str);
   push();
