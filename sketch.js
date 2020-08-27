@@ -59,7 +59,7 @@ function reset_ui(g_ui_reset) {
 };
 
 function get_brocard(n) {
-   let brocard_name = sprintf("trilin_brocard%d", n);
+   let brocard_name = sprintf("bary_brocard%d", n);
    return window[brocard_name];
 }
 
@@ -69,7 +69,7 @@ function get_fn_any(locus_type, n) {
    switch (locus_type) {
       case 'brocard_1': return get_brocard(1);
       case 'brocard_2': return get_brocard(2);
-      default: return get_fn_trilin(n);
+      default: return get_fn_bary(n);
    }
 }
 

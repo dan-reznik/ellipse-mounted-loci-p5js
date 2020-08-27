@@ -77,10 +77,10 @@ function get_envelope(a,tDeg,trilFn1,trilFn2,dt=0.0001) {
   return inter_lines(p1,p2,p1_dt,p2_dt);
 }
 
-function get_Xn_orbit(a, tDeg, trilin_fn, tri_type) {
+function get_Xn_orbit(a, tDeg, bary_fn, tri_type) {
   let ons = orbit_normals(a, tDeg);
   let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
-  return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
+  return get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
 }
 
 
@@ -151,10 +151,10 @@ function orbit_dual(a, tDeg) {
    return { o: tri, s: tri_sides(tri) };
 }
 
-function get_Xn_non_billiard(a, tDeg, orbit_fn, trilin_fn, tri_type) {
+function get_Xn_non_billiard(a, tDeg, orbit_fn, bary_fn, tri_type) {
   let ons = orbit_fn(a, tDeg);
   let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
-  return get_Xn_low(ons_derived.o, ons_derived.s, trilin_fn);
+  return get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
 }
 
 function get_Xn_homothetic(a, tDeg, trilin_fn, tri_type) {

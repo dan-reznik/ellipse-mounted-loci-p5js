@@ -87,7 +87,7 @@ function draw_locus_only(locus, rgb, stroke_w = 0.01) {
 }
 
 function get_brocard_orbit_sides(orbit, sides, n) {
-  return get_Xn_low(orbit, sides, get_brocard(n));
+  return get_Xn_low_bary(orbit, sides, get_brocard(n));
 }
 
 function draw_one_locus_branch(locus) {
@@ -114,9 +114,9 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
      locus_type = locus_type.substr(2);
   
   switch(locus_type) {
-    case "trilins": xn = get_Xn(ons.o,ons.s,xnum); break;
-    case "brocard_1": xn = trilin_brocard1(ons.o, ons.s); break;
-    case "brocard_2": xn = trilin_brocard2(ons.o, ons.s); break;
+    case "trilins": xn = get_Xn_bary(ons.o,ons.s,xnum); break;
+    case "brocard_1": xn = bary_brocard1(ons.o, ons.s); break;
+    case "brocard_2": xn = bary_brocard2(ons.o, ons.s); break;
   }
   //console.log(rgba_str);
   push();
