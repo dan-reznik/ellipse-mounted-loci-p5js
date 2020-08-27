@@ -189,7 +189,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
    });
 
    document.getElementById(plus_id).addEventListener("click", function () {
-      if (g_ui[sliderId] < 200) {
+      if (g_ui[sliderId] < 1000) {
          g_ui[sliderId]++;
          slider.value++;
          text.value++;
@@ -208,8 +208,8 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
 
    text.addEventListener("input", function () {
       if(this.value !== ''){
-         if (this.value > 200)
-            this.value = "200";
+         if (this.value > 1000)
+            this.value = "1000";
          else if (this.value < 1)
             this.value = "1";
       }
