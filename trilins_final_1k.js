@@ -116,7 +116,7 @@ function trilin_to_cartesian(
  }
  
  function getCotPrime(a,b,c) {
-   return Math.cot((2*a*Math.PI)/(a+b+c));
+   return 1/Math.tan((2*a*Math.PI)/(a+b+c));
  }
  
  function bary_X1(orbit, [a,b,c]) {
