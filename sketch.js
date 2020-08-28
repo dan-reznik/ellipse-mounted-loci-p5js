@@ -842,23 +842,32 @@ function conic_type_onchange(locus_type){
 }
 
 function setup() {
-   recenter();
-   g_mouse = g_ctr0;
-   let g_ui_reset = {
-      a: 1.618, a_speed: "0.000", a_min: '1.01', a_max: '4.00', ell: true,
-      locus_type_1: 'none', locus_type_2: 'none', locus_type_3: 'none', locus_type_4: 'none',
+   var g_ui_reset = {
+   a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, ell: true,
+   locus_type_1: 'none', locus_type_2: 'none', locus_type_3: 'none', locus_type_4: 'none',
+   Xn1: 1, Xn2: 1, Xn3: 1, Xn4: 1,
+   tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference', tri_type_4: 'reference',
+   draw_tri_1: false, draw_tri_2: false, draw_tri_3: false, draw_tri_4: false,
+   mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
+   animStep0: "0.500"
+   };
+   var g_ui_reset_initial_values = {
+      a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, ell: true,
+      locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none', locus_type_4: 'none',
       Xn1: 1, Xn2: 1, Xn3: 1, Xn4: 1,
       tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference', tri_type_4: 'reference',
-      draw_tri_1: false, draw_tri_2: false, draw_tri_3: false, draw_tri_4: false,
+      draw_tri_1: true, draw_tri_2: false, draw_tri_3: false, draw_tri_4: false,
       mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
       animStep0: "0.500"
    };
+   recenter();
+   g_mouse = g_ctr0;
    reset_ui(g_ui_reset);
    let g_url_params = getURLParams();
    if(Object.keys(g_url_params).length === 0){
-    g_ui.locus_type_1 = 'trilins';
-    g_ui.draw_tri_1 = true;
-    set_ui_variables(g_ui);
+      reset_ui(g_ui_reset_initial_values);
+      ui_changed("1");
+      bbox_rescale("1");
    } else 
     set_url_params(g_url_params);
    create_checkboxes();
@@ -890,8 +899,8 @@ function setup() {
    conic_type_onchange("4");
    recenter_onclick();
 
-   reset_UI_onclick(g_ui_reset);
-   config_url_onclick(g_ui_reset);
+   reset_UI_onclick(g_ui_reset_initial_values);
+   config_url_onclick(g_ui_reset_initial_values);
 }
 
 function draw() {
