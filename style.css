@@ -12,11 +12,9 @@ body {
 .config_buttons{
   grid-area: config;
   display: inline-flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
-.config_buttons>*{
-  flex-grow: 1;
-}
+
 .title { grid-area: title; }
 .selector { 
   grid-area: selector;
@@ -37,7 +35,7 @@ body {
   width: 100%;
   padding: 1%;
   grid-gap: 1% 0.5%;
-  grid-template-columns: minmax(230px, 240px) minmax(405px, 95%);
+  grid-template-columns: minmax(240px, 240px) minmax(405px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config title"
@@ -49,6 +47,16 @@ body {
 /* Grid Item */
 .item {
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+.config_buttons>*{
+  display: flex; 
+  flex-direction: column; 
+  height: 100%;
+}
+
+.config_buttons>*>*{
+  height: 100%;
 }
 
 .item.title{
@@ -181,10 +189,6 @@ p.lab{
 .title>*{
   margin-left: auto;
   margin-right: auto;
-}
-
-.export{
-  width: 50%;
 }
 
 /*Selector menu styles*/

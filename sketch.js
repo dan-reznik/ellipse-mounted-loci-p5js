@@ -169,6 +169,8 @@ function selector_output(input_ID, output_ID = "", locus_number = "0") {
       selector.addEventListener('change', function () {
          g_ui[input_ID] = selector.value
          ui_changed(locus_number)
+         if(input_ID != 'animStep0')
+            conic_type_onchange(locus_number)
       })
    }
 }

@@ -32,22 +32,42 @@
 
 <section class="grid-container">
   <div class="item config_buttons">
-    <div style="display: flex; flex-direction: column;">
-      <button id='reset_UI' style="flex-grow: 1;">reset UI</button>
-      <button id='recenter'>recenter</button>  
-      <!--<a href="https://twitter.com/intent/tweet" class="twitter-share-button" target="_blank" data-text="Hi! I think that" data-url="https://github.com.br" data-via="DReznik" data-hashtags="ellipses" data-lang="en" data-show-count="false"><img src="ellipse.png"/></a>-->
-      <!--<a href="https://twitter.com/intent/tweet?url=myUrl&text=myTitle" target="_blank" class="twitter-share-button"><img src="ellipse.png"/> </a>
-      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>-->
+    <div style="display: flex; flex-direction: column; height: 100%;">
+      <button id='reset_UI'>reset UI</button>
+      <button id='recenter'>center UI</button>
     </div>
-    <div style="display: flex; flex-direction: column;">
-      <button id='config_URL' style="flex-grow: 1;">copy config URL</button>
+    <div style="display: flex; flex-direction: column; height: 100%;">
+      <button id='config_URL'>copy config</button>
       <button id="copy_image">copy image</button>
     </div>
+    <div style="display: flex; flex-direction: column; height: 100%;">
+      <button id="Export_PNG">export .png</button>
+      <button id="Export_JSON">export .json</button>
+    </div>
+
   </div>
 	<div class="item title">
     <div id="ui"></div>
   </div>
 	<div class="item selector">
+
+        <!--dropdown-->
+        <div class="input_Xn" id='speed_box'>
+          <label for="animStep0">speed</label>
+          <select id="animStep0" name="animStep0">
+            <option value="0.125">slow</option>
+            <option value="0.500">medium</option>
+            <option value="1.000">fast</option>
+          </select>
+          <!--play controls-->
+          <div class="play_controls">
+            <button class="fa fa-backward" id="backward"></button>
+            <button class="fa fa-play-circle-o" id="play_pause"></button>
+            <button class="fa fa-forward" id="forward"></button>
+          </div>
+          <!--end play contorls-->
+        </div>
+        <!--end drop down*/-->
         <!--sliders-->
         <!--Functions show_slider_output_value, -->
         <div class="selector_input">
@@ -91,28 +111,6 @@
         <!--component xn3_selector-->
         <my-selector id='component_4' number='4' selected=false color='rgb(128,0,128)'></my-selector>
         <!--end component xn3_selector-->
-
-        <!--dropdown-->
-        <div class="input_Xn" id='speed_box'>
-          <label for="animStep0">speed</label>
-          <select id="animStep0" name="animStep0">
-            <option value="0.125">slow</option>
-            <option value="0.500">medium</option>
-            <option value="1.000">fast</option>
-          </select>
-          <!--play controls-->
-          <div class="play_controls">
-            <button class="fa fa-backward" id="backward"></button>
-            <button class="fa fa-play-circle-o" id="play_pause"></button>
-            <button class="fa fa-forward" id="forward"></button>
-          </div>
-          <!--end play contorls-->
-        </div>
-        <!--end drop down*/-->
-        <div class='input_Xn'>
-          <button class='export' id="Export_PNG">export png</button>
-          <button class='export' id="Export_JSON">export json</button>
-        </div>
 
       <div id="made_by"></div>
     </div>
