@@ -106,7 +106,7 @@ function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locu
     }
 }
 
-function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
+function create_locus_branches(a,tDegStep,tDegMax,bary_fn,xn_fn) {
     const eps = 0.001;
     const d_max = 0.1;
     const d_min = 0.01;
@@ -121,7 +121,7 @@ function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
     let tDeg = eps;
       // seek first finite xn
     do {
-        xn = xn_fn(a, tDeg, trilin_fn);
+        xn = xn_fn(a, tDeg, bary_fn);
         tDeg += tDegStepMax;
     } while (tDeg<tDegMax && (vNaN(xn) || magn(xn) > r_max)); // interrupt loop if cannot find valid
     if (tDeg > tDegMax) {
@@ -133,12 +133,12 @@ function create_locus_branches(a,tDegStep,tDegMax,trilin_fn,xn_fn) {
         // repositions tDeg at the next location
         tDeg += tDegStep - tDegStepMax;
         while (tDeg < tDegMax) {
-            xn_next = xn_fn(a, tDeg, trilin_fn);
+            xn_next = xn_fn(a, tDeg, bary_fn);
             // should I start a new branch?
             if (vNaN(xn_next) || magn(xn_next) > r_max) {
                 // seek next finite xn_next
                 do {
-                    xn = xn_fn(a, tDeg, trilin_fn);
+                    xn = xn_fn(a, tDeg, bary_fn);
                     tDeg += tDegStepMax;
                 } while (tDeg<tDegMax && (vNaN(xn) || magn(xn) > r_max));
                 // creates new branch
@@ -175,37 +175,37 @@ function billiard_tDegMax(a,b) {
 
  // no asymptotes
 function make_locus_branched(a, n, tDegStep, mounting, locus_type, tri_type) {
-    let trilin_fn = get_fn_any(locus_type, n);
+    let bary_fn = get_fn_any(locus_type, n);
     let locus_array;
     switch (mounting) {
         case "billiard":
-            locus_array = create_locus_branches(a, tDegStep, billiard_tDegMax(a,1), trilin_fn,
-                (a0, tDeg0, trilin_fn0) => get_Xn_orbit(a0, tDeg0, trilin_fn0, tri_type));
+            locus_array = create_locus_branches(a, tDegStep, billiard_tDegMax(a,1), bary_fn,
+                (a0, tDeg0, bary_fn0) => get_Xn_orbit(a0, tDeg0, bary_fn0, tri_type));
             break;
         // &&& WORK HERE
         case "homothetic":
-            locus_array = create_locus_branches(a, tDegStep, 181, trilin_fn,
-                (a0, tDeg0, trilin_fn0) => get_Xn_homothetic(a0, tDeg0, trilin_fn0, tri_type));
+            locus_array = create_locus_branches(a, tDegStep, 181, bary_fn,
+                (a0, tDeg0, bary_fn0) => get_Xn_homothetic(a0, tDeg0, bary_fn0, tri_type));
             break;
         case "incircle":
-            locus_array = create_locus_branches(a, tDegStep, 181, trilin_fn,
-                (a0, tDeg0, trilin_fn0) => get_Xn_incircle(a0, tDeg0, trilin_fn0, tri_type));
+            locus_array = create_locus_branches(a, tDegStep, 181, bary_fn,
+                (a0, tDeg0, bary_fn0) => get_Xn_incircle(a0, tDeg0, bary_fn0, tri_type));
             break;
         case "inellipse":
-             locus_array = create_locus_branches(a, tDegStep, 181, trilin_fn,
-                    (a0, tDeg0, trilin_fn0) => get_Xn_inellipse(a0, tDeg0, trilin_fn0, tri_type));
+             locus_array = create_locus_branches(a, tDegStep, 181, bary_fn,
+                    (a0, tDeg0, bary_fn0) => get_Xn_inellipse(a0, tDeg0, bary_fn0, tri_type));
             break;
         case "dual":
-             locus_array = create_locus_branches(a, tDegStep, 181, trilin_fn,
-                    (a0, tDeg0, trilin_fn0) => get_Xn_dual(a0, tDeg0, trilin_fn0, tri_type));
+             locus_array = create_locus_branches(a, tDegStep, 181, bary_fn,
+                    (a0, tDeg0, bary_fn0) => get_Xn_dual(a0, tDeg0, bary_fn0, tri_type));
                break;
 
         default: // non-billiard
             const eps = 0.001;
             let [v1, v2] = getV1V2(a, mounting, eps);
-            //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, trilin_fn);
-            locus_array = create_locus_branches(a, tDegStep, 360, trilin_fn,
-                (a0, tDeg0, trilin_fn0) => { let [v3, xn] = get_Xn_mounted(a0, tDeg0, v1, v2, trilin_fn0, tri_type); return xn; });
+            //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, bary_fn);
+            locus_array = create_locus_branches(a, tDegStep, 360, bary_fn,
+                (a0, tDeg0, bary_fn0) => { let [v3, xn] = get_Xn_mounted(a0, tDeg0, v1, v2, bary_fn0, tri_type); return xn; });
     }
     //console.log(locus_array.length, locus_array.map(l => l.length));
     return locus_array;

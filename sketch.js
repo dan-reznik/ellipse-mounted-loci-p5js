@@ -59,7 +59,7 @@ function reset_ui(g_ui_reset) {
 };
 
 function get_brocard(n) {
-   let brocard_name = sprintf("trilin_brocard%d", n);
+   let brocard_name = sprintf("bary_brocard%d", n);
    return window[brocard_name];
 }
 

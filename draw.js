@@ -105,19 +105,19 @@ function draw_one_locus_branch_filled(locus, fill_rgb) {
   pop();
 }
 
-
-
 function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, locus_type) {
-  var xn;
   const is_filled = locus_type.substr(0,2)=="f_";
   if (is_filled)
      locus_type = locus_type.substr(2);
   
+  let bs;
   switch(locus_type) {
-    case "trilins": xn = get_Xn_bary(ons.o,ons.s,xnum); break;
-    case "brocard_1": xn = trilin_brocard1(ons.o, ons.s); break;
-    case "brocard_2": xn = trilin_brocard2(ons.o, ons.s); break;
+    case "brocard_1": bs = bary_brocard1(ons.o,ons.s); break;
+    case "brocard_2": bs = bary_brocard2(ons.o,ons.s); break;
+    // "trilins"
+    default: bs = get_Xn_bary(ons.o,ons.s,xnum); break;
   }
+  let xn = barys_to_cartesian(ons.o, bs);
   //console.log(rgba_str);
   push();
   strokeWeight(stroke_w);

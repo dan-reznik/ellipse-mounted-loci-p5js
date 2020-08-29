@@ -90,3 +90,23 @@ function locus_conic(locus_branched) {
     }
     return ret_val;
 }
+
+function get_ellipses(a, mnt, imax=1000) {
+    const tDegStep = 5.0;
+    let locus, XEC, ellipses = [], circles = [];
+    for (let i = 1; i <= imax; i++) {
+      locus = make_locus_branched(a, i, tDegStep, mnt, "f_trilins", "reference");
+      let XEC = locus_conic(locus);
+      switch(XEC) {
+        case "E": ellipses.push(i); break;
+        case "C": circles.push(i); break;
+        default: break;
+      };
+    }
+    console.log("ellipses:",ellipses.length,JSON.stringify(ellipses));
+    console.log("circles:",circles.length,JSON.stringify(circles));
+    return {ellipses:ellipses,circles:circles};
+  }
+
+
+
