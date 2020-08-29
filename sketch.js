@@ -485,7 +485,7 @@ function get_diff_default(g_ui_reset, key) {
       animStep0: 'aS'
    };
    let animStep0_to_url_value = {
-      "0.125": 'slow', "0.500": 'medium', "1.000": 'fast' 
+      "0.125": 'slow', "0.500": 'med', "1.000": 'fast' 
    }
    let a_speed_to_url_value = {
       "0.000": 'anim', "0.005": 'slow', "0.010": 'med', "0.050": 'fast'
