@@ -110,14 +110,19 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
   if (is_filled)
      locus_type = locus_type.substr(2);
   
-  let bs;
+  let bs, xn;
   switch(locus_type) {
-    case "brocard_1": bs = bary_brocard1(ons.o,ons.s); break;
-    case "brocard_2": bs = bary_brocard2(ons.o,ons.s); break;
+    case "brocard_1":
+      bs = bary_brocard1(ons.o,ons.s);
+      xn = barys_to_cartesian(ons.o, bs);
+      break;
+    case "brocard_2":
+      bs = bary_brocard2(ons.o,ons.s);
+      xn = barys_to_cartesian(ons.o, bs);
+      break;
     // "trilins"
-    default: bs = get_Xn_bary(ons.o,ons.s,xnum); break;
+    default: xn = get_Xn_bary(ons.o,ons.s,xnum); 
   }
-  let xn = barys_to_cartesian(ons.o, bs);
   //console.log(rgba_str);
   push();
   strokeWeight(stroke_w);
