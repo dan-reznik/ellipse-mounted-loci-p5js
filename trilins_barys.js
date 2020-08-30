@@ -41,9 +41,14 @@ function trilin_to_cartesian(
     let fn_name = sprintf("bary_X%d",n);
     return window[fn_name];
   }
-  
-  
-  
-  function get_Xn_bary(orbit, sides, n) {
+    
+ /* function get_Xn_bary(orbit, sides, n) {
+    const bs = fn_bary(sides);
     return get_Xn_low_bary(orbit, sides, get_fn_bary(n));
+  }
+  */
+
+  function get_Xn_bary(sides, n) {
+    const fn_bary = get_fn_bary(n);
+    return fn_bary(sides);
   }
