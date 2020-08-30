@@ -277,10 +277,10 @@ function draw_circle_low([cx, cy], r, rgb, dr_ctr = true) {
   pop();
 }
 
-function draw_ellipse(a) {
+function draw_ellipse(a,dr_foci=true) {
   draw_boundary(a,1,clr_black);
   draw_axes(a);
-  draw_foci(a);
+  if(dr_foci) draw_foci(a);
   //draw_center();
 }
 
