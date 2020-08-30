@@ -60,6 +60,7 @@ vdiff = (u, v) => [u[0] - v[0], u[1] - v[1]];
 vscale = (u, s) => [u[0]*s, u[1]*s];
 vscale_xy = (u, sx, sy) => [u[0]*sx, u[1]*sy];
 vsum = (u, v) => [u[0] + v[0], u[1] + v[1]];
+vrot = (u) => [-u[1],u[0]]
 vsum3 = (u, v, w) => [u[0] + v[0] + w[0], u[1] + v[1] + w[1]];
 vavg = (u,v) => [(u[0] + v[0])/2, (u[1] + v[1])/2];
 magn2 = (p) => p[0] * p[0] + p[1] * p[1];
