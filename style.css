@@ -350,6 +350,7 @@ label{
 
 .Bbox{
     display: inline-block;
+    flex-grow: 1;
     width: 43px;
     margin-right: 5px;
     margin-left: 5px;
