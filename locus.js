@@ -12,98 +12,54 @@
        //draw_locus_only(locus, clr);
  }
  
- 
- /* function draw_billiard_locus(n, a, tDeg, locus, clr, locus_type, dr_tri) {
-    let ons = orbit_normals(a, tDeg);
-    if (dr_tri)
-       draw_orbit(ons, clr, false, true);
-    if (locus_type != 'none')
-       draw_locus(locus, ons, n, clr, 0.01, locus_type);
- } */
- 
-function draw_billiard_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type,
-    stroke_w, dr_caustic) {
-    let ons = orbit_normals(a, tDeg);
-    let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
-    if (dr_tri) {
-        if (dr_caustic) draw_boundary(...caustic_billiard(a),clr_brown);
-        draw_orbit(ons, clr, false, true);
-        if (tri_type != "reference") draw_orbit(ons_derived, clr, false, false, false);
-    }
-    if (locus_type != 'none')
-        draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type);
-}
+ const dict_caustic = {
+    billiard:caustic_billiard,
+    homothetic:caustic_homothetic,
+    incircle:caustic_incircle,
+    inellipse:caustic_inellipse,
+    dual:caustic_dual,
+    poristic:caustic_poristic
+};
 
- function draw_non_billiard_locus_branched(n, a, tDeg, orbit_fn, mounting, locus_branches, clr, locus_type, dr_tri, tri_type,
+ function draw_poncelet_locus_branched(n, a, tDeg, orbit_fn, mounting, locus_branches, clr, locus_type, dr_tri, tri_type,
     stroke_w, dr_caustic) {
     let ons = orbit_fn(a, tDeg);
-    const dict_caustic = {
-        homothetic:caustic_homothetic,
-        incircle:caustic_incircle,
-        inellipse:caustic_inellipse,
-        dual:caustic_dual
-    };
     let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
     if (dr_tri) {
-        if(mounting in dict_caustic && dr_caustic) 
+        if(mounting in dict_caustic && dr_caustic) {
             draw_boundary(...dict_caustic[mounting](a),clr_brown);
+            if (mounting=="poristic") {
+                const d = chapple_d(1,a+1);
+                push();
+                translate(-d,0);
+                draw_boundary(1+a,1+a,clr_brown);
+                pop();
+            }
+        }
        draw_orbit(ons, clr, false, true,false);
        if (tri_type!="reference") draw_orbit(ons_derived, clr, false, false, false);
     }
     if (locus_type != 'none')
        draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type);
  }
- 
- /*
-  function draw_homothetic_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w) {
-    draw_non_billiard_locus_branched(n, a, tDeg, orbit_homothetic, "homothetic" locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w)
- }
 
- function draw_incircle_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w) {
-    draw_non_billiard_locus_branched(n, a, tDeg, orbit_incircle, "incircle",locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w)
- }
-
- function draw_inellipse_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w) {
-    draw_non_billiard_locus_branched(n, a, tDeg, orbit_inellipse, "inellipse", locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w)
- }
-
- function draw_dual_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w) {
-    draw_non_billiard_locus_branched(n, a, tDeg, orbit_dual, "dual", locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w)
- }
- */
-
-/*  function draw_billiard_or_mounted(n, a, tDeg, locus, clr, locus_type, dr_tri, mounting) {
-    if (mounting == "billiard") {
-       draw_billiard_locus(n, a, tDeg, locus, clr, locus_type, dr_tri);
-    } else  {
-       draw_mounted_locus(n, a, tDeg, locus, clr, locus_type, dr_tri, mounting);
-    }
- } */
+ const dict_orbit_fn = {
+    billiard:orbit_normals,
+    homothetic:orbit_homothetic,
+    incircle:orbit_incircle,
+    inellipse:orbit_inellipse,
+    dual:orbit_dual,
+    poristic:orbit_poristic
+};
  
 function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type,
     stroke_w, draw_caustic) {
-    const dict_orbit_fn = {
-        homothetic:orbit_homothetic,
-        incircle:orbit_incircle,
-        inellipse:orbit_inellipse,
-        dual:orbit_dual
-    };
-    switch (mounting) {
-        case "billiard":
-            draw_billiard_locus_branched(n, a, tDeg, locus_branches,
-                clr, locus_type, dr_tri, tri_type, stroke_w, draw_caustic);
-            break;
-        case "homothetic":
-        case "incircle":
-        case "inellipse":
-        case "dual":
-            draw_non_billiard_locus_branched(n, a, tDeg, dict_orbit_fn[mounting],
-                mounting, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w, draw_caustic)
-            break;
-        default:
+        if (mounting in dict_orbit_fn)
+            draw_poncelet_locus_branched(n, a, tDeg, dict_orbit_fn[mounting],
+            mounting, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w, draw_caustic)
+    else
             draw_mounted_locus_branched(n, a, tDeg, locus_branches, clr,
                 locus_type, dr_tri, mounting, tri_type, stroke_w);
-    }
 }
 
 function create_locus_branches(a,tDegStep,tDegMax,bary_fn,xn_fn) {
@@ -173,39 +129,33 @@ function billiard_tDegMax(a,b) {
     return 1+toDeg(Math.PI-Math.atan(tan_tstar));
 }
 
+const dict_get_Xn = {
+    billiard:get_Xn_orbit,
+    homothetic:get_Xn_homothetic,
+    incircle:get_Xn_incircle,
+    inellipse:get_Xn_inellipse,
+    dual:get_Xn_dual,
+    poristic:get_Xn_poristic
+};
+
  // no asymptotes
 function make_locus_branched(a, n, tDegStep, mounting, locus_type, tri_type) {
     let bary_fn = get_fn_any(locus_type, n);
     let locus_array;
-    switch (mounting) {
-        case "billiard":
-            locus_array = create_locus_branches(a, tDegStep, billiard_tDegMax(a,1), bary_fn,
-                (a0, tDeg0, bary_fn0) => get_Xn_orbit(a0, tDeg0, bary_fn0, tri_type));
-            break;
-        // &&& WORK HERE
-        case "homothetic":
-            locus_array = create_locus_branches(a, tDegStep, 181, bary_fn,
-                (a0, tDeg0, bary_fn0) => get_Xn_homothetic(a0, tDeg0, bary_fn0, tri_type));
-            break;
-        case "incircle":
-            locus_array = create_locus_branches(a, tDegStep, 181, bary_fn,
-                (a0, tDeg0, bary_fn0) => get_Xn_incircle(a0, tDeg0, bary_fn0, tri_type));
-            break;
-        case "inellipse":
-             locus_array = create_locus_branches(a, tDegStep, 181, bary_fn,
-                    (a0, tDeg0, bary_fn0) => get_Xn_inellipse(a0, tDeg0, bary_fn0, tri_type));
-            break;
-        case "dual":
-             locus_array = create_locus_branches(a, tDegStep, 181, bary_fn,
-                    (a0, tDeg0, bary_fn0) => get_Xn_dual(a0, tDeg0, bary_fn0, tri_type));
-               break;
-
-        default: // non-billiard
+    if(mounting in dict_get_Xn) {
+        const tDegMax = mounting=="billiard"?billiard_tDegMax(a,1):181;
+        const xn_fn = dict_get_Xn[mounting];
+        locus_array = create_locus_branches(a, tDegStep, tDegMax, bary_fn,
+        (a0, tDeg0, bary_fn0) => xn_fn(a0, tDeg0, bary_fn0, tri_type));
+    } else {// non-billiard
             const eps = 0.001;
             let [v1, v2] = getV1V2(a, mounting, eps);
             //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, bary_fn);
             locus_array = create_locus_branches(a, tDegStep, 360, bary_fn,
-                (a0, tDeg0, bary_fn0) => { let [v3, xn] = get_Xn_mounted(a0, tDeg0, v1, v2, bary_fn0, tri_type); return xn; });
+                (a0, tDeg0, bary_fn0) => { 
+                    let [v3, xn] = get_Xn_mounted(a0, tDeg0, v1, v2, bary_fn0, tri_type);
+                    return xn;
+                });
     }
     //console.log(locus_array.length, locus_array.map(l => l.length));
     return locus_array;

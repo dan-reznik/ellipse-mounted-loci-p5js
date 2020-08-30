@@ -31,3 +31,8 @@ function caustic_dual(a) {
     const ap = bp/a;
     return [ap,bp];
 }
+
+// assume incircle at 0,0
+function caustic_poristic(a) {
+    return [1,1];
+}

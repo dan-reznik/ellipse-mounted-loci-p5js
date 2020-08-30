@@ -151,6 +151,44 @@ function orbit_dual(a, tDeg) {
    return { o: tri, s: tri_sides(tri) };
 }
 
+/*
+poristicVertices[R_, r_, t_] := Module[{d, w, ct, st, p1, p2, p3, d0},
+  d = Sqrt[R (R - 2 r)];
+  ct = Cos@t;
+  st = Sin@t;
+  w = Sqrt[R^2 - (d ct + r)^2];
+  d0 = (d ct + r);
+  p1 = {ct d0 - w st + d, d0 st + w ct};
+  p2 = {ct d0 + w st + d, d0 st - w ct};
+  p3 = {R (2 d R - (R^2 + d^2) ct), 
+      R (d^2 - R^2) st}/(R^2 - 2 d R ct + d^2) + {d, 0};
+  {p1, p2, p3}];
+*/
+
+function chapple_d(r,R) {
+  return sqrt(R*R - 2*r*R);
+}
+
+function orbit_poristic(a, tDeg) {
+  const R=1+a;
+  const r = 1; // assume
+  const R2 = R*R;
+  const d = chapple_d(r,R); // chapple & euler
+  const d2 = d*d;
+  const t = toRad(tDeg);
+  const ct = cos(t);
+  const st = sin(t);
+  const w = sqrt(R2 - (d*ct + r)**2);
+  const d0 = d*ct + r;
+  const p1 = [ct*d0 - w*st, d0*st + w*ct];
+  const p2 = [ct*d0 + w*st, d0*st - w*ct];
+  let p3 = [2*d*R - (R2 + d2)*ct, (d2 - R2)*st];
+  p3 = vscale(p3,R/(R2 - 2*d*R*ct + d2));
+  //p3 = vsum(p3,[d, 0]);
+  const tri = [p1, p2, p3].map(p=>vdiff(p,[d,0]));
+  return { o: tri, s: tri_sides(tri) };
+}
+
 function get_Xn_non_billiard(a, tDeg, orbit_fn, bary_fn, tri_type) {
   let ons = orbit_fn(a, tDeg);
   let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
@@ -171,4 +209,8 @@ function get_Xn_inellipse(a, tDeg, trilin_fn, tri_type) {
 
 function get_Xn_dual(a, tDeg, trilin_fn, tri_type) {
   return get_Xn_non_billiard(a, tDeg, orbit_dual, trilin_fn, tri_type);
+}
+
+function get_Xn_poristic(a, tDeg, trilin_fn, tri_type) {
+  return get_Xn_non_billiard(a, tDeg, orbit_poristic, trilin_fn, tri_type);
 }

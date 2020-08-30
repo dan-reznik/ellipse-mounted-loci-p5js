@@ -23,6 +23,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
                     <option value="incircle">*incircle*</option>
                     <option value="inellipse">*inellipse*</option>
                     <option value="dual">*dual*</option>
+                    <option value="poristic">*poristic*</option>
                     <option value="major">major</option>
                     <option value="minor">minor</option>
                     <option value="mixed">mixed</option>
