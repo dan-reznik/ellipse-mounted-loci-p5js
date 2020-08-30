@@ -113,11 +113,11 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
   let bs, xn;
   switch(locus_type) {
     case "brocard_1":
-      bs = bary_brocard1(ons.o,ons.s);
+      bs = bary_brocard1(ons.s);
       xn = barys_to_cartesian(ons.o, bs);
       break;
     case "brocard_2":
-      bs = bary_brocard2(ons.o,ons.s);
+      bs = bary_brocard2(ons.s);
       xn = barys_to_cartesian(ons.o, bs);
       break;
     // "trilins"

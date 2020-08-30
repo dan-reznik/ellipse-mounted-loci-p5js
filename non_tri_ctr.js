@@ -12,10 +12,10 @@ function trilin_brocard2(orbit, [a, b, c]) {
 
 // tri is ignored but needs to be compatible with bary_Xnnn
 
-function bary_brocard1(tri,[a,b,c]) {
+function bary_brocard1([a,b,c]) {
    return [(a*c)**2,(a*b)**2,(b*c)**2];
 }
 
-function bary_brocard2(tri,[a,b,c]) {
+function bary_brocard2([a,b,c]) {
    return [(a*b)**2,(b*c)**2,(a*c)**2];
 }
