@@ -18,7 +18,7 @@ let g_locus_Xn3_branched = [];
 let g_locus_Xn4_branched = [];
 
 let g_ui = {};
-let g_ui_ell = {detect_1: '', detect_2: '', detect_3: ''}
+let g_ui_ell = {detect_1: 'X', detect_2: 'X', detect_3: 'X', detect_4: 'X'}
 
 function set_ui_variables(dictionary) {
    document.getElementById("a").value = dictionary["a"];
@@ -166,18 +166,18 @@ function a_oninput(input_ID, output_ID){
    });
 }
 
-function selector_output(input_ID, output_ID = "", locus_number = "0") {
+function selector_output(input_ID, output_ID = "", ell_detect = "0") {
    var selector = document.getElementById(input_ID);
    selector.value = g_ui[input_ID];
    selector.addEventListener('change', function () {
       g_ui[input_ID] = selector.value
-      ui_changed(locus_number)
+      ui_changed(ell_detect)
       if(input_ID != 'animStep0')
-         conic_type_onchange(locus_number)
+         conic_type_onchange(ell_detect)
    })
 }
 
-function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) {
+function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
    var slider = document.getElementById(sliderId);
    var text = document.getElementById(textId);
 
@@ -186,8 +186,8 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
          g_ui[sliderId]--;
          slider.value--;
          text.value--;
-         ui_changed(locus_number);
-         conic_type_onchange(locus_number);
+         ui_changed(ell_detect);
+         conic_type_onchange(ell_detect);
          slider.focus();
       }
    });
@@ -197,8 +197,8 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
          g_ui[sliderId]++;
          slider.value++;
          text.value++;
-         ui_changed(locus_number);
-         conic_type_onchange(locus_number);
+         ui_changed(ell_detect);
+         conic_type_onchange(ell_detect);
          slider.focus();
       }
    });
@@ -206,8 +206,8 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
    slider.addEventListener("input", function () {
       g_ui[sliderId] = this.value;
       text.value = this.value;
-      ui_changed(locus_number);
-      conic_type_onchange(locus_number);
+      ui_changed(ell_detect);
+      conic_type_onchange(ell_detect);
    });
 
    text.addEventListener("input", function () {
@@ -224,8 +224,8 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
             this.value = '1';
          g_ui[sliderId] = this.value;
          slider.value = this.value;
-         ui_changed(locus_number);
-         conic_type_onchange(locus_number);
+         ui_changed(ell_detect);
+         conic_type_onchange(ell_detect);
          e.preventDefault();
          slider.focus();
       }
@@ -238,8 +238,8 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) 
             this.value = '1';
          g_ui[sliderId] = this.value;
          slider.value = this.value;
-         ui_changed(locus_number);
-         conic_type_onchange(locus_number);
+         ui_changed(ell_detect);
+         conic_type_onchange(ell_detect);
          slider.focus();
       }
    })
@@ -848,29 +848,29 @@ function conic_type_onchange(locus_type){
    switch(locus_type){
       case '1': 
          conic_type.innerHTML = (g_ui.locus_type_1 == 'none')?"":locus_conic(g_locus_Xn1_branched); 
-         g_ui_ell.detect_1 = (conic_type.innerHTML=='X')?"":conic_type.innerHTML
+         g_ui_ell.detect_1 = conic_type.innerHTML
          break;
       case '2': 
          conic_type.innerHTML = (g_ui.locus_type_2 == 'none')?"":locus_conic(g_locus_Xn2_branched); 
-         g_ui_ell.detect_2 = (conic_type.innerHTML=="X")?"":conic_type.innerHTML
+         g_ui_ell.detect_2 = conic_type.innerHTML
          break;
       case '3': 
          conic_type.innerHTML = (g_ui.locus_type_3 == 'none')?"":locus_conic(g_locus_Xn3_branched); 
-         g_ui_ell.detect_3 = (conic_type.innerHTML=="X")?"":conic_type.innerHTML
+         g_ui_ell.detect_3 = conic_type.innerHTML
          break;
       case '4': 
          conic_type.innerHTML = (g_ui.locus_type_4 == 'none')?"":locus_conic(g_locus_Xn4_branched); 
-         g_ui_ell.detect_4 = (conic_type.innerHTML=="X")?"":conic_type.innerHTML
+         g_ui_ell.detect_4 = conic_type.innerHTML
          break;
       default:
-         document.getElementById('conic_type_1').innerHTML = "";
-         g_ui_ell.detect_1 = ""
-         document.getElementById('conic_type_2').innerHTML = "";
-         g_ui_ell.detect_2 = ""
-         document.getElementById('conic_type_3').innerHTML = "";
-         g_ui_ell.detect_3 = ""
-         document.getElementById('conic_type_4').innerHTML = "";
-         g_ui_ell.detect_4 = ""
+         document.getElementById('conic_type_1').innerHTML = "X";
+         g_ui_ell.detect_1 = "X"
+         document.getElementById('conic_type_2').innerHTML = "X";
+         g_ui_ell.detect_2 = "X"
+         document.getElementById('conic_type_3').innerHTML = "X";
+         g_ui_ell.detect_3 = "X"
+         document.getElementById('conic_type_4').innerHTML = "X";
+         g_ui_ell.detect_4 = "X"
          break;
    }
 }

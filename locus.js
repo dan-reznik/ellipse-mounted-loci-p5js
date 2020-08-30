@@ -1,5 +1,5 @@
  function draw_mounted_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri,
-    mounting, tri_type, stroke_w, locus_number) {
+    mounting, tri_type, stroke_w, ell_detect) {
     let [v1, v2] = getV1V2(a, mounting, 0.001);
     let ons = get_mounted_tri(a, tDeg, v1, v2);
     let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
@@ -8,7 +8,7 @@
        if (tri_type!="reference") draw_mounted(ons_derived, clr, false, false);
     }
     if (locus_type != 'none')
-       draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type, locus_number);
+       draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type, ell_detect);
        //draw_locus_only(locus, clr);
  }
  
@@ -22,7 +22,7 @@
 };
 
  function draw_poncelet_locus_branched(n, a, tDeg, orbit_fn, mounting, locus_branches, clr, locus_type, dr_tri, tri_type,
-    stroke_w, dr_caustic, locus_number) {
+    stroke_w, dr_caustic, ell_detect) {
     let ons = orbit_fn(a, tDeg);
     let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
     if (dr_tri) {
@@ -40,7 +40,7 @@
        if (tri_type!="reference") draw_orbit(ons_derived, clr, false, false, false);
     }
     if (locus_type != 'none')
-       draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type, locus_number);
+       draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type, ell_detect);
  }
 
  const dict_orbit_fn = {
@@ -53,13 +53,13 @@
 };
  
 function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type,
-    stroke_w, draw_caustic, locus_number) {
+    stroke_w, draw_caustic, ell_detect) {
         if (mounting in dict_orbit_fn)
             draw_poncelet_locus_branched(n, a, tDeg, dict_orbit_fn[mounting],
-            mounting, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w, draw_caustic, locus_number)
+            mounting, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w, draw_caustic, ell_detect)
     else
             draw_mounted_locus_branched(n, a, tDeg, locus_branches, clr,
-                locus_type, dr_tri, mounting, tri_type, stroke_w, locus_number);
+                locus_type, dr_tri, mounting, tri_type, stroke_w, ell_detect);
 }
 
 function create_locus_branches(a,tDegStep,tDegMax,bary_fn,xn_fn) {
@@ -178,8 +178,17 @@ function get_xmin(ps) {
     ys = ps.map(p=>p[1]);
     return Math.max(...ys);
  }
+
+ function get_locus_bbox(locus) {
+    const xmin = get_xmin(locus);
+    const xmax = get_xmax(locus);
+    const ymin = get_ymin(locus);
+    const ymax = get_ymax(locus);
+    const area = (xmax-xmin)*(ymax-ymin);    
+    return {xmin:xmin,xmax:xmax,ymin:ymin,ymax:ymax,area:area};
+ }
  
- function get_locus_bbox(locus_branched) {
+ function get_locus_branched_bbox(locus_branched) {
     let xmins = locus_branched.map(br => get_xmin(br));
     let xmin = Math.min(...xmins);
     let xmaxs = locus_branched.map(br => get_xmax(br));
@@ -200,7 +209,7 @@ function get_xmin(ps) {
     const adj = 1.1;
     const r_max = 10;
     if (locus_type != "none") {
-       bbox = get_locus_bbox(locus_branched);
+       bbox = get_locus_branched_bbox(locus_branched);
        do_it = true
        if (bbox.ymax2 < 1)
           bbox.ymax2 = 1;
