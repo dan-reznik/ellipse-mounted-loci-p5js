@@ -193,7 +193,7 @@ function draw_line([frx, fry], [tox, toy], rgb) {
 function draw_axes(a) {
   push();
   strokeWeight(0.0125);
-  stroke(clr_light_gray);
+  stroke(clr_invert_ui(clr_light_gray));
   line(-a, 0, a, 0);
   line(0, -1, 0, 1);
   pop();
@@ -281,7 +281,7 @@ function draw_circle_low([cx, cy], r, rgb, dr_ctr = true) {
 }
 
 function draw_ellipse(a, dr_foci = true) {
-  draw_boundary(a, 1, clr_black);
+  draw_boundary(a, 1, clr_invert_ui(clr_black));
   draw_axes(a);
   if (dr_foci) draw_foci(a);
   //draw_center();
@@ -297,7 +297,7 @@ function draw_orbit(ons, clr, dr_sidelengths = true, dr_dashed = false, dr_norma
     draw_tri(ons.o, clr)
   for (let i = 0; i < 3; i++) {
     if (dr_normals) draw_normal(ons.o[i], ons.n[i], lgt);
-    draw_point(ons.o[i], i == 0 ? clr_black : clr);
+    draw_point(ons.o[i], clr_invert_ui(i == 0 ? clr_black : clr));
     if (dr_sidelengths) {
       let midpoint = vavg(ons.o[i], ons.o[(i + 1) % 3]);
       draw_point(midpoint, [0, 0, 0]);
@@ -319,7 +319,7 @@ function draw_mounted(ons, clr, dr_sidelengths = true, dr_dashed = false) {
   else
     draw_tri(tri, clr);
   for (let i = 0; i < 3; i++) {
-    draw_point(tri[i], i == 0 ? clr_black : clr);
+    draw_point(tri[i], clr_invert_ui(i == 0 ? clr_black : clr));
     if (dr_sidelengths) {
       let midpoint = vavg(tri[i], tri[(i + 1) % 3]);
       draw_point(midpoint, [0, 0, 0]);
@@ -393,13 +393,12 @@ function draw_env(ons, a, tDeg, env_locus, rgb,
   let [i1, i2] = ellInterRayBoth(a, p1, vnorm(vdiff(p2, p1)));
   let env = get_envelope(a, tDeg, trilFn1, trilFn2);
 
-  draw_line(i1, i2, clr_light_gray);
-  draw_line(p1, p2, clr_light_gray);
+  const clr_line = clr_invert_ui(clr_light_gray);
+  draw_line(i1, i2, clr_line);
+  draw_line(p1, p2, clr_line);
 
   draw_locus_only(env_locus, rgb, 0.01);
   draw_point(env, rgb);
-
-
   draw_text("C", env, rgb)
   //draw_line(p1, p2, rgb);
 }

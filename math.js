@@ -1,4 +1,5 @@
 // MATH UTILS
+clr_invert_ui = (rgb) => rgb.map(c=>255-c)
 
 toRad = (tDeg) => tDeg * PI / 180;
 toDeg = (tRad) => tRad * 180/ PI;

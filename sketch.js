@@ -937,7 +937,7 @@ function setup() {
 }
 
 function draw() {
-   background(...clr_background); // (220, 220, 200);
+   background(...clr_invert_ui(clr_background)); // (220, 220, 200);
 
    push();
    translate(g_ctr[0], g_ctr[1]);
@@ -946,19 +946,19 @@ function draw() {
       draw_ellipse(g_ui.mounting_Xn1=="poristic"?1:+g_ui.a,g_ui.mounting_Xn1!=="poristic");
    let stroke_w = sqrt(g_scale/g_scale0)*.01;
    draw_billiard_or_mounted_branched(g_ui.Xn1, +g_ui.a, g_tDeg,
-      g_locus_Xn1_branched, clr_red, g_ui.locus_type_1,
+      g_locus_Xn1_branched, clr_invert_ui(clr_red), g_ui.locus_type_1,
       g_ui.draw_tri_1, g_ui.mounting_Xn1, g_ui.tri_type_1, stroke_w, g_ui.ell, g_ui_ell.detect_1);
 
    draw_billiard_or_mounted_branched(g_ui.Xn2, +g_ui.a, g_tDeg,
-      g_locus_Xn2_branched, clr_dark_green, g_ui.locus_type_2,
+      g_locus_Xn2_branched, clr_invert_ui(clr_dark_green), g_ui.locus_type_2,
       g_ui.draw_tri_2, g_ui.mounting_Xn2, g_ui.tri_type_2, stroke_w, g_ui.ell, g_ui_ell.detect_2);
 
    draw_billiard_or_mounted_branched(g_ui.Xn3, +g_ui.a, g_tDeg,
-      g_locus_Xn3_branched, clr_blue, g_ui.locus_type_3,
+      g_locus_Xn3_branched, clr_invert_ui(clr_blue), g_ui.locus_type_3,
       g_ui.draw_tri_3, g_ui.mounting_Xn3, g_ui.tri_type_3, stroke_w, g_ui.ell, g_ui_ell.detect_3);
 
    draw_billiard_or_mounted_branched(g_ui.Xn4, +g_ui.a, g_tDeg,
-      g_locus_Xn4_branched, clr_purple, g_ui.locus_type_4,
+      g_locus_Xn4_branched, clr_invert_ui(clr_purple), g_ui.locus_type_4,
       g_ui.draw_tri_4, g_ui.mounting_Xn4, g_ui.tri_type_4, stroke_w, g_ui.ell, g_ui_ell.detect_4);
    
    a_anim();
@@ -966,9 +966,9 @@ function draw() {
    pop();
 
 
-   draw_text_full("(c) 2020 Darlan & Reznik", [g_width - 150, g_height - 24], clr_blue);
+   draw_text_full("(c) 2020 Darlan & Reznik", [g_width - 150, g_height - 24], clr_invert_ui(clr_blue));
    draw_text_full("dan-reznik.github.io/ellipse-mounted-loci-p5js/",
-      [g_width - 260, g_height - 10], clr_blue);
+      [g_width - 260, g_height - 10], clr_invert_ui(clr_blue));
    if (g_loop) g_tDeg += (g_loop_ccw ? (+g_ui.animStep0) : -(+g_ui.animStep0));
 }
 

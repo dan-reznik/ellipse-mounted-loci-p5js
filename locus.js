@@ -27,14 +27,15 @@
     let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
     if (dr_tri) {
         if(mounting in dict_caustic && dr_caustic) {
+            const clr_caustic = clr_invert_ui(clr_brown);
             if (mounting=="poristic") {
                 const d = chapple_d(1,a+1);
                 push();
                 translate(-d,0);
-                draw_boundary(1+a,1+a,clr_brown);
+                draw_boundary(1+a,1+a,clr_caustic);
                 pop();
             } else
-            draw_boundary(...dict_caustic[mounting](a),clr_brown);
+            draw_boundary(...dict_caustic[mounting](a),clr_caustic);
         }
        draw_orbit(ons, clr, false, true,false);
        if (tri_type!="reference") draw_orbit(ons_derived, clr, false, false, false);
