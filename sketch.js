@@ -490,6 +490,7 @@ function get_diff_default(g_ui_reset, key) {
    let a_speed_to_url_value = {
       "0.000": 'anim', "0.005": 'slow', "0.010": 'med', "0.050": 'fast'
    }
+   console.log(key, g_ui[key], g_ui_reset[key]);
    if (g_ui[key] !== g_ui_reset[key]){
       if(key == 'a'){
          return original_to_url_params[key] + '=' + (+g_ui[key]).toFixed(3) + '&';
@@ -900,7 +901,7 @@ function setup() {
    recenter_onclick();
 
    reset_UI_onclick(g_ui_reset_initial_values);
-   config_url_onclick(g_ui_reset_initial_values);
+   config_url_onclick(g_ui_reset);
 }
 
 function draw() {
