@@ -1,5 +1,5 @@
  function draw_mounted_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri,
-    mounting, tri_type, stroke_w) {
+    mounting, tri_type, stroke_w, locus_number) {
     let [v1, v2] = getV1V2(a, mounting, 0.001);
     let ons = get_mounted_tri(a, tDeg, v1, v2);
     let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
@@ -8,7 +8,7 @@
        if (tri_type!="reference") draw_mounted(ons_derived, clr, false, false);
     }
     if (locus_type != 'none')
-       draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type);
+       draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type, locus_number);
        //draw_locus_only(locus, clr);
  }
  
@@ -22,7 +22,7 @@
 };
 
  function draw_poncelet_locus_branched(n, a, tDeg, orbit_fn, mounting, locus_branches, clr, locus_type, dr_tri, tri_type,
-    stroke_w, dr_caustic) {
+    stroke_w, dr_caustic, locus_number) {
     let ons = orbit_fn(a, tDeg);
     let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
     if (dr_tri) {
@@ -40,7 +40,7 @@
        if (tri_type!="reference") draw_orbit(ons_derived, clr, false, false, false);
     }
     if (locus_type != 'none')
-       draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type);
+       draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type, locus_number);
  }
 
  const dict_orbit_fn = {
@@ -53,13 +53,13 @@
 };
  
 function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type,
-    stroke_w, draw_caustic) {
+    stroke_w, draw_caustic, locus_number) {
         if (mounting in dict_orbit_fn)
             draw_poncelet_locus_branched(n, a, tDeg, dict_orbit_fn[mounting],
-            mounting, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w, draw_caustic)
+            mounting, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w, draw_caustic, locus_number)
     else
             draw_mounted_locus_branched(n, a, tDeg, locus_branches, clr,
-                locus_type, dr_tri, mounting, tri_type, stroke_w);
+                locus_type, dr_tri, mounting, tri_type, stroke_w, locus_number);
 }
 
 function create_locus_branches(a,tDegStep,tDegMax,bary_fn,xn_fn) {

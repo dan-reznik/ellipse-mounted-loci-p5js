@@ -105,7 +105,7 @@ function draw_one_locus_branch_filled(locus, fill_rgb) {
   pop();
 }
 
-function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, locus_type) {
+function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, locus_type, locus_number) {
   const is_filled = locus_type.substr(0,2)=="f_";
   if (is_filled)
      locus_type = locus_type.substr(2);
@@ -129,11 +129,11 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
   draw_point2(xn, rgb,stroke_w);
 
   if(locus_type == 'trilins') {
-    draw_text2('X' + xnum, xn, rgb, stroke_w);
+    draw_text2('X'+xnum+'('+locus_number+')', xn, rgb, stroke_w);
   } else if(locus_type == 'brocard_1') {
-    draw_text2('Ω' + 1, xn, rgb, stroke_w);
+    draw_text2('Ω'+1+'('+locus_number+')', xn, rgb, stroke_w);
   } else if(locus_type == 'brocard_2') {
-    draw_text2('Ω' + 2, xn, rgb, stroke_w);
+    draw_text2('Ω'+2+'('+locus_number+')', xn, rgb, stroke_w);
   }
   
   pop();

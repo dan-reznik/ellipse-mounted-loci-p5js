@@ -18,6 +18,7 @@ let g_locus_Xn3_branched = [];
 let g_locus_Xn4_branched = [];
 
 let g_ui = {};
+let g_ui_ell = {detect_1: '', detect_2: '', detect_3: ''}
 
 function set_ui_variables(dictionary) {
    document.getElementById("a").value = dictionary["a"];
@@ -152,27 +153,28 @@ function ui_changed(locus_type_changed) {
    //log.textContent = e.target.value;
 }
 
-
+function a_oninput(input_ID, output_ID){
+   var selector = document.getElementById(input_ID);
+   selector.value = g_ui[input_ID];
+   var output = document.getElementById(output_ID);
+   output.innerHTML = g_ui[input_ID];
+   selector.addEventListener('input', function () {
+      console.log("oi")
+      g_ui[input_ID] = this.value;
+      output.innerHTML = this.value;
+      ui_changed('0')
+   });
+}
 
 function selector_output(input_ID, output_ID = "", locus_number = "0") {
    var selector = document.getElementById(input_ID);
    selector.value = g_ui[input_ID];
-   if (output_ID != "") {
-      var output = document.getElementById(output_ID);
-      output.innerHTML = g_ui[input_ID];
-      selector.addEventListener('input', function () {
-         g_ui[input_ID] = this.value;
-         output.innerHTML = this.value;
-         ui_changed(locus_number)
-      });
-   } else {
-      selector.addEventListener('change', function () {
-         g_ui[input_ID] = selector.value
-         ui_changed(locus_number)
-         if(input_ID != 'animStep0')
-            conic_type_onchange(locus_number)
-      })
-   }
+   selector.addEventListener('change', function () {
+      g_ui[input_ID] = selector.value
+      ui_changed(locus_number)
+      if(input_ID != 'animStep0')
+         conic_type_onchange(locus_number)
+   })
 }
 
 function slider_text_changed(sliderId, textId, minus_id, plus_id, locus_number) {
@@ -353,7 +355,10 @@ function a_speed_onchange(){
          g_ui.a = +g_ui.a_min;
          a_slider.value = g_ui.a;
          a_text.innerHTML = a_slider.value;
-         ui_changed_type()
+         if(g_ui.locus_type_1 != 'none')  ui_changed('1');
+         if(g_ui.locus_type_2 != 'none')  ui_changed('2');
+         if(g_ui.locus_type_3 != 'none')  ui_changed('3');
+         if(g_ui.locus_type_4 != 'none')  ui_changed('4');
       }
    })
 }
@@ -385,18 +390,22 @@ function tri_type_onchange() {
    document.getElementById("tri_type_1").addEventListener("change", function () {
       g_ui.tri_type_1 = this.value;
       ui_changed("1");
+      conic_type_onchange("1");
    });
    document.getElementById("tri_type_2").addEventListener("change", function () {
       g_ui.tri_type_2 = this.value;
       ui_changed("2");
+      conic_type_onchange("2");
    });
    document.getElementById("tri_type_3").addEventListener("change", function () {
       g_ui.tri_type_3 = this.value;
       ui_changed("3");
+      conic_type_onchange("3");
    });
    document.getElementById("tri_type_4").addEventListener("change", function () {
       g_ui.tri_type_4 = this.value;
       ui_changed("4");
+      conic_type_onchange("4");
    });
 }
 
@@ -421,7 +430,7 @@ function Bbox_onclick(n) {
 
 function set_ui_variables_behavior() {
    //a
-   selector_output("a", "demo_a")
+   a_oninput("a", "demo_a")
    //Xn1
    slider_text_changed("Xn1", "demo_Xn1", "minus_Xn1", "plus_Xn1", "1");
    //Xn2
@@ -646,14 +655,22 @@ function recenter_onclick(){
 }
 
 function ui_changed_type(){
-   if(g_ui.locus_type_1 != 'none')
-      ui_changed('1')
-   if(g_ui.locus_type_2 != 'none')
-      ui_changed('2')
-   if(g_ui.locus_type_3 != 'none')
-      ui_changed('3')
-   if(g_ui.locus_type_4 != 'none')
-      ui_changed('4')
+   if(g_ui.locus_type_1 != 'none'){
+      ui_changed('1');
+      conic_type_onchange('1')
+   }
+   if(g_ui.locus_type_2 != 'none'){
+      ui_changed('2');
+      conic_type_onchange('2')
+   }
+   if(g_ui.locus_type_3 != 'none'){
+      ui_changed('3');
+      conic_type_onchange('3')
+   }
+   if(g_ui.locus_type_4 != 'none'){
+      ui_changed('4');
+      conic_type_onchange('4')
+   }
 }
 
 function a_anim(){
@@ -829,15 +846,31 @@ function export_JSON_onclick(){
 function conic_type_onchange(locus_type){
    var conic_type = document.getElementById('conic_type_'+ locus_type)
    switch(locus_type){
-      case '1': conic_type.innerHTML = (g_ui.locus_type_1 == 'none')?"":locus_conic(g_locus_Xn1_branched); break;
-      case '2': conic_type.innerHTML = (g_ui.locus_type_2 == 'none')?"":locus_conic(g_locus_Xn2_branched); break;
-      case '3': conic_type.innerHTML = (g_ui.locus_type_3 == 'none')?"":locus_conic(g_locus_Xn3_branched); break;
-      case '4': conic_type.innerHTML = (g_ui.locus_type_4 == 'none')?"":locus_conic(g_locus_Xn4_branched); break;
+      case '1': 
+         conic_type.innerHTML = (g_ui.locus_type_1 == 'none')?"":locus_conic(g_locus_Xn1_branched); 
+         g_ui_ell.detect_1 = conic_type.innerHTML
+         break;
+      case '2': 
+         conic_type.innerHTML = (g_ui.locus_type_2 == 'none')?"":locus_conic(g_locus_Xn2_branched); 
+         g_ui_ell.detect_2 = conic_type.innerHTML
+         break;
+      case '3': 
+         conic_type.innerHTML = (g_ui.locus_type_3 == 'none')?"":locus_conic(g_locus_Xn3_branched); 
+         g_ui_ell.detect_3 = conic_type.innerHTML
+         break;
+      case '4': 
+         conic_type.innerHTML = (g_ui.locus_type_4 == 'none')?"":locus_conic(g_locus_Xn4_branched); 
+         g_ui_ell.detect_4 = conic_type.innerHTML
+         break;
       default:
          document.getElementById('conic_type_1').innerHTML = "";
+         g_ui_ell.detect_1 = ""
          document.getElementById('conic_type_2').innerHTML = "";
+         g_ui_ell.detect_2 = ""
          document.getElementById('conic_type_3').innerHTML = "";
+         g_ui_ell.detect_3 = ""
          document.getElementById('conic_type_4').innerHTML = "";
+         g_ui_ell.detect_4 = ""
          break;
    }
 }
@@ -888,7 +921,6 @@ function setup() {
    tri_type_onchange();
    a_text_input();
    ell_onchange();
-   conic_type_onchange();
    export_JSON_onclick();
    Bbox_onclick("1");
    Bbox_onclick("2");
@@ -915,19 +947,19 @@ function draw() {
    let stroke_w = sqrt(g_scale/g_scale0)*.01;
    draw_billiard_or_mounted_branched(g_ui.Xn1, +g_ui.a, g_tDeg,
       g_locus_Xn1_branched, clr_red, g_ui.locus_type_1,
-      g_ui.draw_tri_1, g_ui.mounting_Xn1, g_ui.tri_type_1, stroke_w, g_ui.ell);
+      g_ui.draw_tri_1, g_ui.mounting_Xn1, g_ui.tri_type_1, stroke_w, g_ui.ell, g_ui_ell.detect_1);
 
    draw_billiard_or_mounted_branched(g_ui.Xn2, +g_ui.a, g_tDeg,
       g_locus_Xn2_branched, clr_dark_green, g_ui.locus_type_2,
-      g_ui.draw_tri_2, g_ui.mounting_Xn2, g_ui.tri_type_2, stroke_w, g_ui.ell);
+      g_ui.draw_tri_2, g_ui.mounting_Xn2, g_ui.tri_type_2, stroke_w, g_ui.ell, g_ui_ell.detect_2);
 
    draw_billiard_or_mounted_branched(g_ui.Xn3, +g_ui.a, g_tDeg,
       g_locus_Xn3_branched, clr_blue, g_ui.locus_type_3,
-      g_ui.draw_tri_3, g_ui.mounting_Xn3, g_ui.tri_type_3, stroke_w, g_ui.ell);
+      g_ui.draw_tri_3, g_ui.mounting_Xn3, g_ui.tri_type_3, stroke_w, g_ui.ell, g_ui_ell.detect_3);
 
    draw_billiard_or_mounted_branched(g_ui.Xn4, +g_ui.a, g_tDeg,
       g_locus_Xn4_branched, clr_purple, g_ui.locus_type_4,
-      g_ui.draw_tri_4, g_ui.mounting_Xn4, g_ui.tri_type_4, stroke_w, g_ui.ell);
+      g_ui.draw_tri_4, g_ui.mounting_Xn4, g_ui.tri_type_4, stroke_w, g_ui.ell, g_ui_ell.detect_4);
    
    a_anim();
 
