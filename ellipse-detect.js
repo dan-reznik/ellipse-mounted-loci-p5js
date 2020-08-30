@@ -17,7 +17,7 @@ function least_squares_conic(ps) {
     // g^2 - (cs[0]+cs[2]) g + (cs[0]*cs[2]-cs[1]*cs[1]/4) = 0
     const [ga, gb, gc] = [1, -cs[0] - cs[2], cs[0] * cs[2] - cs[1] * cs[1] / 4];
     [g1, g2] = quadRoots(ga, gb, gc);
-    console.log({ ga: ga, gb: gb, gc: gc, g1: g1, g2: g2, delta: delta });
+    //console.log({ ga: ga, gb: gb, gc: gc, g1: g1, g2: g2, delta: delta });
     const ax1 = Math.sqrt(Math.abs(S / (g1 * delta)));
     const ax2 = Math.sqrt(Math.abs(S / (g2 * delta)));
     const major = ax1 >= ax2 ? ax1 : ax2;
