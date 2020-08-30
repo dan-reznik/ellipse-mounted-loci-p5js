@@ -129,11 +129,12 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
   draw_point2(xn, rgb,stroke_w);
 
   if(locus_type == 'trilins') {
-    draw_text2('X'+xnum+'('+locus_number+')', xn, rgb, stroke_w);
+    locus_number = (locus_number!="")?('('+locus_number+')'):""
+    draw_text2('X'+xnum+locus_number, xn, rgb, stroke_w);
   } else if(locus_type == 'brocard_1') {
-    draw_text2('Ω'+1+'('+locus_number+')', xn, rgb, stroke_w);
+    draw_text2('Ω'+1+locus_number, xn, rgb, stroke_w);
   } else if(locus_type == 'brocard_2') {
-    draw_text2('Ω'+2+'('+locus_number+')', xn, rgb, stroke_w);
+    draw_text2('Ω'+2+locus_number, xn, rgb, stroke_w);
   }
   
   pop();

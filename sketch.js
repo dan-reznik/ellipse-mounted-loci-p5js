@@ -848,19 +848,19 @@ function conic_type_onchange(locus_type){
    switch(locus_type){
       case '1': 
          conic_type.innerHTML = (g_ui.locus_type_1 == 'none')?"":locus_conic(g_locus_Xn1_branched); 
-         g_ui_ell.detect_1 = conic_type.innerHTML
+         g_ui_ell.detect_1 = (conic_type.innerHTML=='X')?"":conic_type.innerHTML
          break;
       case '2': 
          conic_type.innerHTML = (g_ui.locus_type_2 == 'none')?"":locus_conic(g_locus_Xn2_branched); 
-         g_ui_ell.detect_2 = conic_type.innerHTML
+         g_ui_ell.detect_2 = (conic_type.innerHTML=="X")?"":conic_type.innerHTML
          break;
       case '3': 
          conic_type.innerHTML = (g_ui.locus_type_3 == 'none')?"":locus_conic(g_locus_Xn3_branched); 
-         g_ui_ell.detect_3 = conic_type.innerHTML
+         g_ui_ell.detect_3 = (conic_type.innerHTML=="X")?"":conic_type.innerHTML
          break;
       case '4': 
          conic_type.innerHTML = (g_ui.locus_type_4 == 'none')?"":locus_conic(g_locus_Xn4_branched); 
-         g_ui_ell.detect_4 = conic_type.innerHTML
+         g_ui_ell.detect_4 = (conic_type.innerHTML=="X")?"":conic_type.innerHTML
          break;
       default:
          document.getElementById('conic_type_1').innerHTML = "";
