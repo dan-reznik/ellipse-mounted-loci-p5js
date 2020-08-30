@@ -81,7 +81,7 @@ function draw_locus_only(locus, rgb, stroke_w = 0.01) {
   push();
   strokeWeight(stroke_w);
   stroke(rgb);
-  for (let i = 0; i < locus.length-1; i++)
+  for (let i = 0; i < locus.length - 1; i++)
     line(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
   pop();
 }
@@ -91,8 +91,8 @@ function get_brocard_orbit_sides(orbit, sides, n) {
 }
 
 function draw_one_locus_branch(locus) {
-  for (let i = 0; i < locus.length-1; i++)
-  line(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
+  for (let i = 0; i < locus.length - 1; i++)
+    line(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
 }
 
 function draw_one_locus_branch_filled(locus, fill_rgb) {
@@ -100,43 +100,45 @@ function draw_one_locus_branch_filled(locus, fill_rgb) {
   fill(fill_rgb);
   beginShape();
   for (let i = 0; i < locus.length; i++)
-     vertex(locus[i][0],locus[i][1]);
+    vertex(locus[i][0], locus[i][1]);
   endShape();
   pop();
 }
 
 function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, locus_type, ell_detect) {
-  const is_filled = locus_type.substr(0,2)=="f_";
+  const is_filled = locus_type.substr(0, 2) == "f_";
   if (is_filled)
-     locus_type = locus_type.substr(2);
-  
+    locus_type = locus_type.substr(2);
+
   let bs;
-  switch(locus_type) {
+  switch (locus_type) {
     case "brocard_1": bs = bary_brocard1(ons.s); break;
     case "brocard_2": bs = bary_brocard2(ons.s); break;
-    default: bs = get_Xn_bary(ons.s,xnum); // "trilins"
+    default: bs = get_Xn_bary(ons.s, xnum); // "trilins"
   }
   const xn = barys_to_cartesian(ons.o, bs);
   //console.log(rgba_str);
   push();
   strokeWeight(stroke_w);
   stroke(rgb);
-  if(is_filled) {
+  if (is_filled) {
     const rgba_str = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},.1)`;
-    locus_branches.map(l=>draw_one_locus_branch_filled(l,rgba_str));
+    locus_branches.map(l => draw_one_locus_branch_filled(l, rgba_str));
   } else
-    locus_branches.map(l=>draw_one_locus_branch(l));
-  draw_point2(xn, rgb,stroke_w);
+    locus_branches.map(l => draw_one_locus_branch(l));
+  draw_point2(xn, rgb, stroke_w);
 
-  if(locus_type == 'trilins') {
-    ell_detect = (ell_detect!="X")?('('+ell_detect+')'):""
-    draw_text2('X'+xnum+ell_detect, xn, rgb, stroke_w);
-  } else if(locus_type == 'brocard_1') {
-    draw_text2('Ω'+1+ell_detect, xn, rgb, stroke_w);
-  } else if(locus_type == 'brocard_2') {
-    draw_text2('Ω'+2+ell_detect, xn, rgb, stroke_w);
+  const ell_detect_suffix = ell_detect == "X" ? "" : '(' + ell_detect + ')';
+
+  if (locus_type == 'trilins') {
+
+    draw_text2('X' + xnum + ell_detect_suffix, xn, rgb, stroke_w);
+  } else if (locus_type == 'brocard_1') {
+    draw_text2('Ω1' + ell_detect_suffix, xn, rgb, stroke_w);
+  } else if (locus_type == 'brocard_2') {
+    draw_text2('Ω2' + ell_detect_suffix, xn, rgb, stroke_w);
   }
-  
+
   pop();
 }
 
@@ -220,14 +222,14 @@ function draw_point2([x, y], rgb, stroke_w) {
   push();
   fill(rgb);
   strokeWeight(0);
-  circle(x, y, 0.05*sqrt(stroke_w/0.01));
+  circle(x, y, 0.05 * sqrt(stroke_w / 0.01));
   pop();
 }
 
 function draw_text2(txt, p, rgb, stroke_w) {
   push();
   // hack to scale up
-  textSize(0.1*stroke_w/0.01);
+  textSize(0.1 * stroke_w / 0.01);
   strokeWeight(0);
   fill(rgb);
   textAlign(CENTER, BOTTOM);
@@ -254,17 +256,17 @@ function draw_center() {
 }
 
 function draw_foci(a) {
-  let c = Math.sqrt(a*a-1);
+  let c = Math.sqrt(a * a - 1);
   draw_point([c, 0], [0, 0, 0])
   draw_point([-c, 0], [0, 0, 0])
 }
 
-function draw_boundary(a,b,rgb) {
+function draw_boundary(a, b, rgb) {
   push();
   noFill();
   stroke(rgb);
   strokeWeight(0.0125);
-  ellipse(0, 0, 2*a, 2*b)
+  ellipse(0, 0, 2 * a, 2 * b)
   pop();
 }
 
@@ -278,10 +280,10 @@ function draw_circle_low([cx, cy], r, rgb, dr_ctr = true) {
   pop();
 }
 
-function draw_ellipse(a,dr_foci=true) {
-  draw_boundary(a,1,clr_black);
+function draw_ellipse(a, dr_foci = true) {
+  draw_boundary(a, 1, clr_black);
   draw_axes(a);
-  if(dr_foci) draw_foci(a);
+  if (dr_foci) draw_foci(a);
   //draw_center();
 }
 
@@ -307,15 +309,15 @@ function draw_orbit(ons, clr, dr_sidelengths = true, dr_dashed = false, dr_norma
   pop();
 }
 
-function draw_mounted(ons, clr, dr_sidelengths = true, dr_dashed=false) {
+function draw_mounted(ons, clr, dr_sidelengths = true, dr_dashed = false) {
   const lgt = 0.2;
   push();
   let tri = ons.o;
   let sides = ons.s;
-  if(dr_dashed)
-     draw_tri_dashed(tri, clr);
+  if (dr_dashed)
+    draw_tri_dashed(tri, clr);
   else
-     draw_tri(tri, clr);
+    draw_tri(tri, clr);
   for (let i = 0; i < 3; i++) {
     draw_point(tri[i], i == 0 ? clr_black : clr);
     if (dr_sidelengths) {
@@ -330,13 +332,13 @@ function draw_mounted(ons, clr, dr_sidelengths = true, dr_dashed=false) {
 }
 
 function linedash(p1, p2, dd) {
-  let d12 = edist(p1,p2);
-  let phat = vnorm(vdiff(p2,p1));
+  let d12 = edist(p1, p2);
+  let phat = vnorm(vdiff(p2, p1));
   let flag = true;
-  for (let d = 0; d < d12-dd; d += dd) {
+  for (let d = 0; d < d12 - dd; d += dd) {
     if (flag) {
-      let from = vsum(p1,vscale(phat,d));
-      let to = vsum(from,vscale(phat,dd));
+      let from = vsum(p1, vscale(phat, d));
+      let to = vsum(from, vscale(phat, dd));
       line(from[0], from[1], to[0], to[1]);
     } else d += dd;
     flag = !flag;
@@ -385,18 +387,18 @@ function draw_normal(p, n, lgt) {
 }
 
 function draw_env(ons, a, tDeg, env_locus, rgb,
-                  trilFn1, trilFn2) {
+  trilFn1, trilFn2) {
   let p1 = trilFn1(ons.o, ons.s);
   let p2 = trilFn2(ons.o, ons.s);
-  let [i1,i2] = ellInterRayBoth(a, p1, vnorm(vdiff(p2,p1)));
-   let env = get_envelope(a, tDeg, trilFn1, trilFn2);
-  
+  let [i1, i2] = ellInterRayBoth(a, p1, vnorm(vdiff(p2, p1)));
+  let env = get_envelope(a, tDeg, trilFn1, trilFn2);
+
   draw_line(i1, i2, clr_light_gray);
   draw_line(p1, p2, clr_light_gray);
 
   draw_locus_only(env_locus, rgb, 0.01);
   draw_point(env, rgb);
-  
+
 
   draw_text("C", env, rgb)
   //draw_line(p1, p2, rgb);
