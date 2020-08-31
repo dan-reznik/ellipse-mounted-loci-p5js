@@ -69,7 +69,7 @@ function create_locus_branches(a,tDegStep,tDegMax,bary_fn,xn_fn) {
     const d_min = 0.01;
     const tDegStepMin = 0.001;
     const tDegStepMax = 1.0;
-    const r_max = 10.0;
+    const r_max = 20.0;
 
     let locus_array = [];
     let locus_Xn = [];
