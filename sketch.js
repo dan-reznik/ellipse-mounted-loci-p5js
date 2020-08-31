@@ -935,6 +935,10 @@ function setup() {
    conic_type_onchange("2");
    conic_type_onchange("3");
    conic_type_onchange("4");
+   Bbox_onclick('1');
+   Bbox_onclick('2');
+   Bbox_onclick('3');
+   Bbox_onclick('4');
    recenter_onclick();
 
    reset_UI_onclick(g_ui_reset_initial_values);
