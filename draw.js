@@ -180,10 +180,10 @@ function draw_center() {
   draw_point([0, 0], [150, 0, 0])
 }
 
-function draw_foci(a, clr) {
+function draw_foci(a, clr, stroke_w) {
   let c = Math.sqrt(a * a - 1);
-  draw_point([c, 0], clr);
-  draw_point([-c, 0], clr);
+  draw_point([c, 0], clr, stroke_w);
+  draw_point([-c, 0], clr, stroke_w);
 }
 
 function draw_boundary(a, b, rgb, stroke_w) {
@@ -208,7 +208,7 @@ function draw_circle_low([cx, cy], r, rgb, dr_ctr = true) {
 function draw_ellipse(a, stroke_w, dr_foci) {
   draw_boundary(a, 1, clr_invert_ui(clr_black), stroke_w);
   draw_axes(a, stroke_w);
-  if (dr_foci) draw_foci(a, clr_invert_ui(clr_black));
+  if (dr_foci) draw_foci(a, clr_invert_ui(clr_black), stroke_w);
   //draw_center();
 }
 
@@ -285,17 +285,6 @@ function draw_tri2([p1, p2, p3], rgb, stroke_w) {
   stroke(rgb);
   strokeWeight(stroke_w);
   triangle(p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]);
-  pop();
-}
-
-function draw_tri_dashed([p1, p2, p3], rgb, wgt = 0.015) {
-  push();
-  noFill();
-  stroke(rgb);
-  strokeWeight(wgt);
-  linedash(p1, p2, 0.025);
-  linedash(p2, p3, 0.025);
-  linedash(p3, p1, 0.025);
   pop();
 }
 
