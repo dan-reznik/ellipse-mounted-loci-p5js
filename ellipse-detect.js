@@ -20,7 +20,7 @@ function least_squares_conic(ps) {
     const ax2 = Math.sqrt(Math.abs(S / (g2 * delta)));
     const major = ax1 >= ax2 ? ax1 : ax2;
     const minor = ax1 >= ax2 ? ax2 : ax1;
-    
+
     const ctr = vscale([2 * cs[2] * cs[3] - cs[1] * cs[4],
     2 * cs[0] * cs[4] - cs[1] * cs[3]], 1 / (-4 * delta));
 
@@ -91,19 +91,34 @@ function sample_locus(locus, n) {
     return samples;
 }
 
+function longest_branch(locus_branched) {
+    l_max = 0;
+    i_max = 0;
+    for (let i = 0; i<locus_branched.length;i++)
+       if(locus_branched[i].length>l_max) {
+           l_max = locus_branched[i].length;
+           i_max = i;
+       }
+    return(locus_branched[i_max]);
+}
+
 function locus_conic(locus_branched) {
     let ret_val = "X";
-    if ([1,2].includes(locus_branched.length) && locus_branched[0].length > 20) {
-        const bbox = get_locus_bbox(locus_branched[0]);
-        if (negl(bbox.area))
-            ret_val = "*";
-        else {
-            //const locus_samples = sample_array(locus_branched[0],50);
-            //const lsc = least_squares_conic(locus_samples);
-            //const lsc = least_squares_centered_ellipse(locus_branched[0]);
-            // translates locus since least_squares_conic is ill defined if zero-centered curve
-            const lsc = least_squares_conic(locus_branched[0].map(v => vdiff(v, [bbox.xmin, bbox.ymin])));
-            ret_val = lsc.conic_type;
+    if (locus_branched.length > 0) {
+        const l_max = longest_branch(locus_branched);
+        // only one or two branches
+        if (l_max.length > 20) {
+            const bbox = get_locus_bbox(l_max);
+            if (negl(bbox.area))
+                ret_val = "*";
+            else {
+                //const locus_samples = sample_array(locus_branched[0],50);
+                //const lsc = least_squares_conic(locus_samples);
+                //const lsc = least_squares_centered_ellipse(locus_branched[0]);
+                // translates locus since least_squares_conic is ill defined if zero-centered curve
+                const lsc = least_squares_conic(l_max.map(v => vdiff(v, [bbox.xmin, bbox.ymin])));
+                ret_val = lsc.conic_type;
+            }
         }
     }
     return ret_val;
