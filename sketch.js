@@ -172,8 +172,11 @@ function a_oninput(input_ID, output_ID){
    var output = document.getElementById(output_ID);
    output.innerHTML = g_ui[input_ID];
    selector.addEventListener('input', function () {
-      console.log("oi")
       g_ui[input_ID] = this.value;
+      if(g_ui.locus_type_1 != 'none') conic_type_onchange("1");
+      if(g_ui.locus_type_2 != 'none') conic_type_onchange("2");
+      if(g_ui.locus_type_3 != 'none') conic_type_onchange("3");
+      if(g_ui.locus_type_4 != 'none') conic_type_onchange("4");
       output.innerHTML = this.value;
       ui_changed('0')
    });
