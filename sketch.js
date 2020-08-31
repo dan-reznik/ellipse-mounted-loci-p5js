@@ -92,19 +92,22 @@ function create_locus(locus_type_changed) {
 
       g_locus_Xn1_branched = make_locus_branched(a, g_ui.Xn1, tdegStep, g_r_max,
          g_ui.mounting_Xn1, g_ui.locus_type_1, g_ui.tri_type_1);
+      g_ui_ell.detect_1 = locus_conic(g_locus_Xn1_branched); 
    }
    if (locus_type_2 != "none" && ["2", "0"].includes(locus_type_changed)) {
-
       g_locus_Xn2_branched = make_locus_branched(a, g_ui.Xn2, tdegStep, g_r_max,
          g_ui.mounting_Xn2, g_ui.locus_type_2, g_ui.tri_type_2);
+      g_ui_ell.detect_2 = locus_conic(g_locus_Xn2_branched);
    }
    if (locus_type_3 != "none" && ["3", "0"].includes(locus_type_changed)) {
       g_locus_Xn3_branched = make_locus_branched(a, g_ui.Xn3, tdegStep, g_r_max,
          g_ui.mounting_Xn3, g_ui.locus_type_3, g_ui.tri_type_3);
+      g_ui_ell.detect_3 = locus_conic(g_locus_Xn3_branched);
    }
    if (locus_type_4 != "none" && ["4", "0"].includes(locus_type_changed)) {
       g_locus_Xn4_branched = make_locus_branched(a, g_ui.Xn4, tdegStep, g_r_max,
          g_ui.mounting_Xn4, g_ui.locus_type_4, g_ui.tri_type_4);
+      g_ui_ell.detect_4 = locus_conic(g_locus_Xn4_branched);
    }
 }
 
@@ -857,19 +860,18 @@ function conic_type_onchange(locus_type){
    var conic_type = document.getElementById('conic_type_'+ locus_type)
    switch(locus_type){
       case '1': 
-         conic_type.innerHTML = (g_ui.locus_type_1 == 'none')?"":locus_conic(g_locus_Xn1_branched); 
-         g_ui_ell.detect_1 = conic_type.innerHTML
+         conic_type.innerHTML = (g_ui.locus_type_1 == 'none')?"":g_ui_ell.detect_1;
          break;
       case '2': 
-         conic_type.innerHTML = (g_ui.locus_type_2 == 'none')?"":locus_conic(g_locus_Xn2_branched); 
+         conic_type.innerHTML = (g_ui.locus_type_2 == 'none')?"":g_ui_ell.detect_2; 
          g_ui_ell.detect_2 = conic_type.innerHTML
          break;
       case '3': 
-         conic_type.innerHTML = (g_ui.locus_type_3 == 'none')?"":locus_conic(g_locus_Xn3_branched); 
+         conic_type.innerHTML = (g_ui.locus_type_3 == 'none')?"":g_ui_ell.detect_3; 
          g_ui_ell.detect_3 = conic_type.innerHTML
          break;
       case '4': 
-         conic_type.innerHTML = (g_ui.locus_type_4 == 'none')?"":locus_conic(g_locus_Xn4_branched); 
+         conic_type.innerHTML = (g_ui.locus_type_4 == 'none')?"":g_ui_ell.detect_4; 
          g_ui_ell.detect_4 = conic_type.innerHTML
          break;
       default:
