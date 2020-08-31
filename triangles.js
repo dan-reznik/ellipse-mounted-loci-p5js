@@ -496,10 +496,10 @@ function mixtilinear_triangle(sides) {
 }
 
 //
-function get_mounted_tri(a, tDeg, v1, v2) {
+function get_mounted_tri(a, tDeg, v2, v3) {
   let t = toRad(tDeg);
-  v3 = [a * Math.cos(t), Math.sin(t)];
-  let tri = [v3, v1, v2];
+  v1 = [a * Math.cos(t), Math.sin(t)];
+  let tri = [v1, v2, v3];
   let sides = tri_sides(tri);
   let normals = tri.map(v => ell_norm(a, v));
   return { o: tri, n: normals, s: sides };

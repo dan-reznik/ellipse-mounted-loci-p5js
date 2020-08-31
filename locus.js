@@ -1,6 +1,6 @@
  function draw_mounted_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri,
     mounting, tri_type, stroke_w, ell_detect) {
-    let [v1, v2] = getV1V2(a, mounting, 0.001);
+    let [v1, v2] = getV2V3(a, mounting, 0.001);
     let ons = get_mounted_tri(a, tDeg, v1, v2);
     let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
     if (dr_tri) {
@@ -150,11 +150,11 @@ function make_locus_branched(a, n, tDegStep, mounting, locus_type, tri_type) {
         (a0, tDeg0, bary_fn0) => xn_fn(a0, tDeg0, bary_fn0, tri_type));
     } else {// non-poncelet
             const eps = 0.001;
-            let [v1, v2] = getV1V2(a, mounting, eps);
+            let [v2, v3] = getV2V3(a, mounting, eps);
             //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, bary_fn);
             locus_array = create_locus_branches(a, tDegStep, 360, bary_fn,
                 (a0, tDeg0, bary_fn0) => { 
-                    let [v3, xn] = get_Xn_mounted(a0, tDeg0, v1, v2, bary_fn0, tri_type);
+                    let [v1, xn] = get_Xn_mounted(a0, tDeg0, v2, v3, bary_fn0, tri_type);
                     return xn;
                 });
     }

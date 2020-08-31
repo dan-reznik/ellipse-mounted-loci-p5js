@@ -1,4 +1,4 @@
-function getV1V2(a, mounting, eps) {
+function getV2V3(a, mounting, eps) {
     c = Math.sqrt(a * a - 1);
     f1 = [-c, 0];
     f2 = [c, 0];
@@ -45,12 +45,12 @@ function getV1V2(a, mounting, eps) {
      } */
 }
 
-function get_Xn_mounted(a, tDeg, v1, v2, bary_fn, tri_type) {
+function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type) {
     let t = toRad(tDeg);
-    let v3 = [a * Math.cos(t), Math.sin(t)];
+    let v1 = [a * Math.cos(t), Math.sin(t)];
     let tri = [v1, v2, v3];
     let sides = tri_sides(tri);
     let ons_derived = get_derived_tri(tri, sides, tri_type);
     let xn = get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
-    return [v3, xn];
+    return [v1, xn];
 }
