@@ -144,7 +144,7 @@ function make_locus_branched(a, n, tDegStep, mounting, locus_type, tri_type) {
     let bary_fn = get_fn_any(locus_type, n);
     let locus_array;
     if(mounting in dict_get_Xn) {
-        const tDegMax = locus_type=="vtx"?360:(mounting=="billiard"?billiard_tDegMax(a,1):181);
+        const tDegMax = ["vtx","f_vtx"].includes(locus_type)?360:(mounting=="billiard"?billiard_tDegMax(a,1):181);
         const xn_fn = dict_get_Xn[mounting];
         locus_array = create_locus_branches(a, tDegStep, tDegMax, bary_fn,
         (a0, tDeg0, bary_fn0) => xn_fn(a0, tDeg0, bary_fn0, tri_type));
