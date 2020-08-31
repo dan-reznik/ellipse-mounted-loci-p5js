@@ -276,6 +276,10 @@ label{
   background: blue;
 }
 
+#Xn4::-webkit-slider-thumb{
+  background: purple;
+}
+
 .slider {
     -webkit-appearance: none;
     width: 94%;
