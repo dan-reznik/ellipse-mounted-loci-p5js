@@ -167,7 +167,7 @@ function draw_text2(txt, p, rgb, stroke_w) {
   fill(rgb);
   textAlign(CENTER, BOTTOM);
   textStyle(NORMAL);
-  text(txt, p[0], p[1] - 0.02);
+  text(txt, p[0], p[1] - 0.03);
   pop();
 }
 
