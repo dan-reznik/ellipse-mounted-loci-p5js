@@ -162,12 +162,12 @@ function draw_point2([x, y], rgb, stroke_w) {
 function draw_text2(txt, p, rgb, stroke_w) {
   push();
   // hack to scale up
-  textSize(0.1 * stroke_w / 0.01);
+  textSize(6 * stroke_w);
   strokeWeight(0);
   fill(rgb);
   textAlign(CENTER, BOTTOM);
   textStyle(NORMAL);
-  text(txt, p[0], p[1] - 0.02);
+  text(txt, p[0], p[1] - 0.03);
   pop();
 }
 
