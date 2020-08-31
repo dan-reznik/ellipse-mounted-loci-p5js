@@ -190,8 +190,8 @@ function draw_center() {
 
 function draw_foci(a, clr, stroke_w) {
   let c = Math.sqrt(a * a - 1);
-  draw_point([c, 0], clr, stroke_w);
-  draw_point([-c, 0], clr, stroke_w);
+  draw_point2([c, 0], clr, stroke_w/2);
+  draw_point2([-c, 0], clr, stroke_w/2);
 }
 
 function draw_boundary(a, b, rgb, stroke_w) {
