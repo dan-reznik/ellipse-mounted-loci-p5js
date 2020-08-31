@@ -111,21 +111,23 @@ function locus_conic(locus_branched) {
 
 function get_ellipses(a, mnt, imax = 1000) {
     const tDegStep = 5.0;
-    let locus, XEC, ellipses = [], circles = [], points = [], hyperbolas = [];
+    let locus, XEC, ellipses = [], circles = [], points = [], hyperbolas = [], parabolas = [];
     for (let i = 1; i <= imax; i++) {
         locus = make_locus_branched(a, i, tDegStep, mnt, "f_trilins", "reference");
         let type = locus_conic(locus);
         switch (type) {
             case "E": ellipses.push(i); break;
             case "H": hyperbolas.push(i); break;
+            case "P": parabolas.push(i); break;
             case "C": circles.push(i); break;
-            case "P": points.push(i); break;
+            case "*": points.push(i); break;
             default: break;
         };
     }
     console.log("ellipses:", ellipses.length, JSON.stringify(ellipses));
     console.log("hyperbolas:", hyperbolas.length, JSON.stringify(hyperbolas));
+    console.log("parabolas:", parabolas.length, JSON.stringify(parabolas));
     console.log("circles:", circles.length, JSON.stringify(circles));
     console.log("points:", points.length, JSON.stringify(points));
-    return { ellipses: ellipses, hyperbolas: hyperbolas, circles: circles, points: points };
+    return { ellipses: ellipses, hyperbolas: hyperbolas, parabolas: parabolas, circles: circles, points: points };
 }
