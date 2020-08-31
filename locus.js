@@ -4,8 +4,8 @@
     let ons = get_mounted_tri(a, tDeg, v1, v2);
     let ons_derived = get_derived_tri(ons.o,ons.s,tri_type);
     if (dr_tri) {
-       draw_mounted(ons, clr, false, true);
-       if (tri_type!="reference") draw_mounted(ons_derived, clr, false, false);
+       draw_mounted(ons, clr, stroke_w, false, true);
+       if (tri_type!="reference") draw_mounted(ons_derived, clr, stroke_w, false, false);
     }
     if (locus_type != 'none')
        draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type, ell_detect);
@@ -37,8 +37,8 @@
             } else
             draw_boundary(...dict_caustic[mounting](a),clr_caustic);
         }
-       draw_orbit(ons, clr, false, true,false);
-       if (tri_type!="reference") draw_orbit(ons_derived, clr, false, false, false);
+       draw_orbit(ons, clr, stroke_w, false, true,false);
+       if (tri_type!="reference") draw_orbit(ons_derived, clr, stroke_w, false, false, false);
     }
     if (locus_type != 'none')
        draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type, ell_detect);

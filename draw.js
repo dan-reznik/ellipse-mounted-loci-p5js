@@ -29,7 +29,7 @@ function draw_excircles(o, s, rgb) {
 
 // CLOSER TO UI
 
-function draw_locus_only(locus, rgb, stroke_w = 0.01) {
+function draw_locus_only(locus, rgb, stroke_w) {
   push();
   strokeWeight(stroke_w);
   stroke(rgb);
@@ -57,7 +57,7 @@ function draw_one_locus_branch_filled(locus, fill_rgb) {
   pop();
 }
 
-function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, locus_type, ell_detect) {
+function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w, locus_type, ell_detect) {
   const is_filled = locus_type.substr(0, 2) == "f_";
   if (is_filled)
     locus_type = locus_type.substr(2);
@@ -105,44 +105,6 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
   pop();
 }
 
-/*
-function draw_locus(locus, ons, xnum, rgb, stroke_w = 0.01, locus_type) {
-  push();
-  strokeWeight(stroke_w);
-  stroke(rgb);
-  draw_one_locus_branch(locus);
-
-  var xn;
-  switch(locus_type) {
-    case "trilins": xn = get_Xn(ons.o,ons.s,xnum); break;
-    case "brocard_1": xn = trilin_brocard1(ons.o, ons.s); break;
-    case "brocard_2": xn = trilin_brocard2(ons.o, ons.s); break;
-  }
-  draw_point(xn, rgb);
-  if(locus_type == 'trilins') {
-    draw_text('X' + xnum, xn, rgb);
-  } else if(locus_type == 'brocard_1') {
-    draw_text('Ω' + 1, xn, rgb);
-  } else if(locus_type == 'brocard_2') {
-    draw_text('Ω' + 2, xn, rgb);
-  }
-  
-  pop();
-}
-*/
-
-/*
-function draw_labeled_point(ons, xnum, trilin_fn, rgb) {
-  push();
-  strokeWeight(0.01);
-  stroke(rgb);
-  let xn = trilin_fn(ons.o, ons.s);
-  draw_point(xn, rgb);
-  draw_text('X' + xnum, xn, rgb);
-  pop();
-}
-*/
-
 // DRAW
 
 function draw_line([frx, fry], [tox, toy], rgb) {
@@ -153,20 +115,20 @@ function draw_line([frx, fry], [tox, toy], rgb) {
   pop();
 }
 
-function draw_axes(a) {
+function draw_axes(a, stroke_w) {
   push();
-  strokeWeight(0.0125);
+  strokeWeight(stroke_w);
   stroke(clr_invert_ui(clr_light_gray));
   line(-a, 0, a, 0);
   line(0, -1, 0, 1);
   pop();
 }
 
-function draw_point([x, y], rgb) {
+function draw_point([x, y], rgb, stroke_w=.05) {
   push();
   fill(rgb);
   strokeWeight(0);
-  circle(x, y, 0.05);
+  circle(x, y, stroke_w);
   pop();
 }
 
@@ -224,11 +186,11 @@ function draw_foci(a, clr) {
   draw_point([-c, 0], clr);
 }
 
-function draw_boundary(a, b, rgb) {
+function draw_boundary(a, b, rgb, stroke_w) {
   push();
   noFill();
   stroke(rgb);
-  strokeWeight(0.0125);
+  strokeWeight(stroke_w);
   ellipse(0, 0, 2 * a, 2 * b)
   pop();
 }
@@ -243,52 +205,52 @@ function draw_circle_low([cx, cy], r, rgb, dr_ctr = true) {
   pop();
 }
 
-function draw_ellipse(a, dr_foci = true) {
-  draw_boundary(a, 1, clr_invert_ui(clr_black));
-  draw_axes(a);
+function draw_ellipse(a, stroke_w, dr_foci) {
+  draw_boundary(a, 1, clr_invert_ui(clr_black), stroke_w);
+  draw_axes(a, stroke_w);
   if (dr_foci) draw_foci(a, clr_invert_ui(clr_black));
   //draw_center();
 }
 
-function draw_orbit(ons, clr, dr_sidelengths = true, dr_dashed = false, dr_normals = true) {
+// precisa de stroke_w &&&
+function draw_orbit(ons, clr, stroke_w, dr_sidelengths = true, dr_dashed = false, dr_normals = true) {
   const lgt = 0.2;
   push();
   // should be draw_tri_filled for obtuse
   if (dr_dashed)
-    draw_tri_dashed(ons.o, clr);
+    draw_tri_dashed2(ons.o, clr, stroke_w);
   else
-    draw_tri(ons.o, clr)
+    draw_tri2(ons.o, clr, stroke_w)
   for (let i = 0; i < 3; i++) {
     if (dr_normals) draw_normal(ons.o[i], ons.n[i], lgt);
-    draw_point(ons.o[i], clr_invert_ui(i == 0 ? clr_black : clr));
+    draw_point2(ons.o[i], clr_invert_ui(i == 0 ? clr_black : clr), stroke_w);
     if (dr_sidelengths) {
       let midpoint = vavg(ons.o[i], ons.o[(i + 1) % 3]);
-      draw_point(midpoint, [0, 0, 0]);
-      draw_text(sprintf("%.3f", ons.s[(i + 2) % 3]), // sides out of phase
-        midpoint, // median
-        [0, 0, 0]);
+      draw_point2(midpoint, clr_invert_ui(clr_black), stroke_w);
+      draw_text2(sprintf("%.3f", ons.s[(i + 2) % 3]), // sides out of phase
+        midpoint, clr_invert_ui(clr_black), stroke_w);
     }
   }
   pop();
 }
 
-function draw_mounted(ons, clr, dr_sidelengths = true, dr_dashed = false) {
+function draw_mounted(ons, clr, stroke_w, dr_sidelengths = true, dr_dashed = false) {
   const lgt = 0.2;
   push();
   let tri = ons.o;
   let sides = ons.s;
   if (dr_dashed)
-    draw_tri_dashed(tri, clr);
+    draw_tri_dashed2(tri, clr, stroke_w);
   else
-    draw_tri(tri, clr);
+    draw_tri2(tri, clr, stroke_w);
   for (let i = 0; i < 3; i++) {
-    draw_point(tri[i], clr_invert_ui(i == 0 ? clr_black : clr));
+    draw_point2(tri[i], clr_invert_ui(i == 0 ? clr_black : clr), stroke_w);
     if (dr_sidelengths) {
       let midpoint = vavg(tri[i], tri[(i + 1) % 3]);
-      draw_point(midpoint, [0, 0, 0]);
-      draw_text(sprintf("%.3f", sides[(i + 2) % 3]), // sides out of phase
+      draw_point2(midpoint, clr_invert_ui(clr_black), stroke_w);
+      draw_text2(sprintf("%.3f", sides[(i + 2) % 3]), // sides out of phase
         midpoint, // median
-        [0, 0, 0]);
+        clr_invert_ui(clr_black), stroke_w);
     }
   }
   pop();
@@ -317,11 +279,11 @@ function draw_tri([p1, p2, p3], rgb, wgt = 0.015) {
   pop();
 }
 
-function draw_tri([p1, p2, p3], rgb, wgt = 0.015) {
+function draw_tri2([p1, p2, p3], rgb, stroke_w) {
   push();
   noFill();
   stroke(rgb);
-  strokeWeight(wgt);
+  strokeWeight(stroke_w);
   triangle(p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]);
   pop();
 }
@@ -331,6 +293,17 @@ function draw_tri_dashed([p1, p2, p3], rgb, wgt = 0.015) {
   noFill();
   stroke(rgb);
   strokeWeight(wgt);
+  linedash(p1, p2, 0.025);
+  linedash(p2, p3, 0.025);
+  linedash(p3, p1, 0.025);
+  pop();
+}
+
+function draw_tri_dashed2([p1, p2, p3], rgb, stroke_w) {
+  push();
+  noFill();
+  stroke(rgb);
+  strokeWeight(stroke_w);
   linedash(p1, p2, 0.025);
   linedash(p2, p3, 0.025);
   linedash(p3, p1, 0.025);
