@@ -83,7 +83,6 @@ function get_Xn_orbit(a, tDeg, bary_fn, tri_type) {
   return get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
 }
 
-
 function orbit_homothetic(a, tDeg) {
   let tri0 = regularPoly(3);
   let triRot = rotPoly(tri0, toRad(tDeg));

@@ -52,3 +52,11 @@ function trilin_to_cartesian(
     const fn_bary = get_fn_bary(n);
     return fn_bary(sides);
   }
+
+ function bary_brocard1([a,b,c]) {
+    return [(a*c)**2,(a*b)**2,(b*c)**2];
+ }
+ 
+ function bary_brocard2([a,b,c]) {
+    return [(a*b)**2,(b*c)**2,(a*c)**2];
+ }

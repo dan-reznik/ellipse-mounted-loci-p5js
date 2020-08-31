@@ -8,54 +8,6 @@ function draw_generic_triangle(ons, rgb, tri_fn) {
   draw_generic_triangle_low(tri, rgb);
 }
 
-function draw_intouch(ons, rgb) {
-  draw_generic_triangle(ons, rgb, intouch_triangle);
-}
-
-function draw_ant_intouch(ons, rgb) {
-  draw_generic_triangle(ons, rgb, ant_intouch_triangle);
-}
-
-function draw_feuerbach(ons, rgb) {
-  draw_generic_triangle(ons, rgb, feuerbach_triangle);
-}
-
-function draw_excentral(ons, rgb) {
-  draw_generic_triangle(ons, rgb, excentral_triangle);
-}
-
-function draw_minus_excentral(ons, rgb) {
-  draw_generic_triangle(ons, rgb, minus_excentral_triangle);
-}
-
-function draw_medial(ons, rgb) {
-  draw_generic_triangle(ons, rgb, medial_triangle);
-}
-
-function draw_extouch(ons, rgb) {
-  draw_generic_triangle(ons, rgb, extouch_triangle);
-}
-
-function draw_anticompl(ons, rgb) {
-  draw_generic_triangle(ons, rgb, anticompl_triangle);
-}
-
-function draw_symmedial(ons, rgb) {
-  draw_generic_triangle(ons, rgb, symmedial_triangle);
-}
-
-function draw_exc_symmedial(ons, rgb) {
-  draw_generic_triangle(ons, rgb, exc_symmedial_triangle);
-}
-
-function draw_orthic(ons, rgb) {
-  draw_generic_triangle(ons, rgb, orthic_triangle);
-}
-
-function draw_euler_tri(ons, rgb) {
-  draw_generic_triangle(ons, rgb, euler_triangle);
-}
-
 function draw_euler_line(ons, rgb) {
   let x3 = trilin_X3(ons.o, ons.s);
   let x4 = trilin_X4(ons.o, ons.s);
@@ -109,14 +61,20 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
   const is_filled = locus_type.substr(0, 2) == "f_";
   if (is_filled)
     locus_type = locus_type.substr(2);
-
-  let bs;
-  switch (locus_type) {
-    case "brocard_1": bs = bary_brocard1(ons.s); break;
-    case "brocard_2": bs = bary_brocard2(ons.s); break;
-    default: bs = get_Xn_bary(ons.s, xnum); // "trilins"
+  
+  let xn;
+  if (locus_type == "vtx")
+    xn = ons.o[0];
+  else {
+    let bs;
+    switch (locus_type) {
+      case "brocard_1": bs = bary_brocard1(ons.s); break;
+      case "brocard_2": bs = bary_brocard2(ons.s); break;
+      // case "vtx": bs = get_derived_tri_v1_barys(ons.s); break;
+      default: bs = get_Xn_bary(ons.s, xnum); // "trilins"
+    }
+    xn = barys_to_cartesian(ons.o, bs);
   }
-  const xn = barys_to_cartesian(ons.o, bs);
   //console.log(rgba_str);
   push();
   strokeWeight(stroke_w);
@@ -130,15 +88,20 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w = 0.01, lo
 
   const ell_detect_suffix = ell_detect == "X" ? "" : '(' + ell_detect + ')';
 
-  if (locus_type == 'trilins') {
-
-    draw_text2('X' + xnum + ell_detect_suffix, xn, rgb, stroke_w);
-  } else if (locus_type == 'brocard_1') {
-    draw_text2('Ω1' + ell_detect_suffix, xn, rgb, stroke_w);
-  } else if (locus_type == 'brocard_2') {
-    draw_text2('Ω2' + ell_detect_suffix, xn, rgb, stroke_w);
+  switch (locus_type) {
+    case 'trilins':
+      draw_text2('X' + xnum + ell_detect_suffix, xn, rgb, stroke_w);
+      break;
+    case 'brocard_1':
+      draw_text2('Ω1' + ell_detect_suffix, xn, rgb, stroke_w);
+      break;
+    case 'brocard_2':
+      draw_text2('Ω2' + ell_detect_suffix, xn, rgb, stroke_w);
+      break;
+    case 'vtx':
+      draw_text2('V1' + ell_detect_suffix, xn, rgb, stroke_w);
+      break;
   }
-
   pop();
 }
 

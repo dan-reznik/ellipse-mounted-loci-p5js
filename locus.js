@@ -144,11 +144,11 @@ function make_locus_branched(a, n, tDegStep, mounting, locus_type, tri_type) {
     let bary_fn = get_fn_any(locus_type, n);
     let locus_array;
     if(mounting in dict_get_Xn) {
-        const tDegMax = mounting=="billiard"?billiard_tDegMax(a,1):181;
+        const tDegMax = locus_type=="vtx"?360:(mounting=="billiard"?billiard_tDegMax(a,1):181);
         const xn_fn = dict_get_Xn[mounting];
         locus_array = create_locus_branches(a, tDegStep, tDegMax, bary_fn,
         (a0, tDeg0, bary_fn0) => xn_fn(a0, tDeg0, bary_fn0, tri_type));
-    } else {// non-billiard
+    } else {// non-poncelet
             const eps = 0.001;
             let [v1, v2] = getV1V2(a, mounting, eps);
             //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, bary_fn);

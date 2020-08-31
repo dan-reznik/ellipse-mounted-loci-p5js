@@ -67,11 +67,20 @@ function get_brocard(n) {
 function get_fn_any(locus_type, n) {
    if (locus_type.substr(0,2)=="f_")
       locus_type = locus_type.substr(2);
+   let fn;
    switch (locus_type) {
-      case 'brocard_1': return get_brocard(1);
-      case 'brocard_2': return get_brocard(2);
-      default: return get_fn_bary(n);
+      case 'brocard_1':
+        fn = get_brocard(1);
+        break;
+      case 'brocard_2':
+        fn = get_brocard(2);
+        break;
+      case 'vtx':
+        fn = get_tri_v1_barys;
+        break;
+      default: fn = get_fn_bary(n);
    }
+   return fn;
 }
 
 function create_locus(locus_type_changed) {
