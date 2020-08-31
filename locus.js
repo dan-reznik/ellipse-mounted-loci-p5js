@@ -63,13 +63,12 @@ function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locu
                 locus_type, dr_tri, mounting, tri_type, stroke_w, ell_detect);
 }
 
-function create_locus_branches(a,tDegStep,tDegMax,bary_fn,xn_fn) {
+function create_locus_branches(a,tDegStep,tDegMax,r_max,bary_fn,xn_fn) {
     const eps = 0.001;
     const d_max = 0.1;
     const d_min = 0.01;
     const tDegStepMin = 0.001;
     const tDegStepMax = 1.0;
-    const r_max = 20.0;
 
     let locus_array = [];
     let locus_Xn = [];
@@ -140,19 +139,19 @@ const dict_get_Xn = {
 };
 
  // no asymptotes
-function make_locus_branched(a, n, tDegStep, mounting, locus_type, tri_type) {
+function make_locus_branched(a, n, tDegStep, r_max, mounting, locus_type, tri_type) {
     let bary_fn = get_fn_any(locus_type, n);
     let locus_array;
     if(mounting in dict_get_Xn) {
         const tDegMax = ["vtx","f_vtx"].includes(locus_type)?360:(mounting=="billiard"?billiard_tDegMax(a,1):181);
         const xn_fn = dict_get_Xn[mounting];
-        locus_array = create_locus_branches(a, tDegStep, tDegMax, bary_fn,
+        locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max, bary_fn,
         (a0, tDeg0, bary_fn0) => xn_fn(a0, tDeg0, bary_fn0, tri_type));
     } else {// non-poncelet
             const eps = 0.001;
             let [v2, v3] = getV2V3(a, mounting, eps);
             //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, bary_fn);
-            locus_array = create_locus_branches(a, tDegStep, 360, bary_fn,
+            locus_array = create_locus_branches(a, tDegStep, 360, r_max, bary_fn,
                 (a0, tDeg0, bary_fn0) => { 
                     let [v1, xn] = get_Xn_mounted(a0, tDeg0, v2, v3, bary_fn0, tri_type);
                     return xn;
@@ -205,10 +204,9 @@ function get_xmin(ps) {
     return {xmin:xmin,xmax:xmax,xmax2:xmax2,ymin:ymin,ymax:ymax,ymax2:ymax2};
  }
 
- function locus_bbox(a, locus_type, locus_branched, ar, scale0) {
+ function locus_bbox(a, locus_type, locus_branched, ar, scale0, r_max) {
     var bbox, scale=scale0;
     const adj = 1.1;
-    const r_max = 10;
     if (locus_type != "none") {
        bbox = get_locus_branched_bbox(locus_branched);
        do_it = true

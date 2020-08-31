@@ -2,6 +2,7 @@ var g_width;
 var g_height;
 var g_main_title;
 var g_ctr, g_mouse, g_ctr0;
+var g_r_max = 20.0; 
 
 let g_scale0 = 6;
 let g_scale = g_scale0;
@@ -89,20 +90,20 @@ function create_locus(locus_type_changed) {
 
    if (locus_type_1 != "none" && ["1", "0"].includes(locus_type_changed)) {
 
-      g_locus_Xn1_branched = make_locus_branched(a, g_ui.Xn1, tdegStep,
+      g_locus_Xn1_branched = make_locus_branched(a, g_ui.Xn1, tdegStep, g_r_max,
          g_ui.mounting_Xn1, g_ui.locus_type_1, g_ui.tri_type_1);
    }
    if (locus_type_2 != "none" && ["2", "0"].includes(locus_type_changed)) {
 
-      g_locus_Xn2_branched = make_locus_branched(a, g_ui.Xn2, tdegStep,
+      g_locus_Xn2_branched = make_locus_branched(a, g_ui.Xn2, tdegStep, g_r_max,
          g_ui.mounting_Xn2, g_ui.locus_type_2, g_ui.tri_type_2);
    }
    if (locus_type_3 != "none" && ["3", "0"].includes(locus_type_changed)) {
-      g_locus_Xn3_branched = make_locus_branched(a, g_ui.Xn3, tdegStep,
+      g_locus_Xn3_branched = make_locus_branched(a, g_ui.Xn3, tdegStep, g_r_max,
          g_ui.mounting_Xn3, g_ui.locus_type_3, g_ui.tri_type_3);
    }
    if (locus_type_4 != "none" && ["4", "0"].includes(locus_type_changed)) {
-      g_locus_Xn4_branched = make_locus_branched(a, g_ui.Xn4, tdegStep,
+      g_locus_Xn4_branched = make_locus_branched(a, g_ui.Xn4, tdegStep, g_r_max,
          g_ui.mounting_Xn4, g_ui.locus_type_4, g_ui.tri_type_4);
    }
 }
@@ -428,7 +429,7 @@ function mouseOverCanvas() {
 function bbox_rescale(n) {
    let locus_types = [g_ui.locus_type_1, g_ui.locus_type_2, g_ui.locus_type_3, g_ui.locus_type_4];
    let loci = [g_locus_Xn1_branched, g_locus_Xn2_branched, g_locus_Xn3_branched, g_locus_Xn4_branched];
-   g_scale = locus_bbox(+g_ui.a, locus_types[n - 1], loci[n - 1], g_width / g_height, g_scale0);
+   g_scale = locus_bbox(+g_ui.a, locus_types[n - 1], loci[n - 1], g_width / g_height, g_scale0, g_r_max);
    recenter();
    redraw();
 }
@@ -531,7 +532,7 @@ function get_diff_default_canvas(key){
       'g_ctr[1]': 'cy'
    };
    let canvas_params_reset = {
-      g_scale: locus_bbox(+g_ui.a, g_ui.locus_type_1, g_locus_Xn1_branched, g_width / g_height, g_scale0),
+      g_scale: locus_bbox(+g_ui.a, g_ui.locus_type_1, g_locus_Xn1_branched, g_width / g_height, g_scale0, g_r_max),
       'g_ctr[0]': g_width / 2,
       'g_ctr[1]': g_height / 2
    };
