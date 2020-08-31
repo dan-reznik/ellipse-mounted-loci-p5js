@@ -667,6 +667,11 @@ function recenter_onclick(){
    document.getElementById('recenter').addEventListener('click', function(){
       recenter();
       g_scale = g_scale0;
+      
+      if(g_ui.locus_type_4 != 'none') ui_changed('4')
+      if(g_ui.locus_type_3 != 'none') ui_changed('3')
+      if(g_ui.locus_type_2 != 'none') ui_changed('2')
+      if(g_ui.locus_type_1 != 'none') ui_changed('1')
    });
 }
 
