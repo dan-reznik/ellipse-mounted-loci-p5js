@@ -515,7 +515,6 @@ function get_diff_default(g_ui_reset, key) {
    let a_speed_to_url_value = {
       "0.000": 'anim', "0.005": 'slow', "0.010": 'med', "0.050": 'fast'
    }
-   console.log(key, g_ui[key], g_ui_reset[key]);
    if (g_ui[key] !== g_ui_reset[key]){
       if(key == 'a'){
          return original_to_url_params[key] + '=' + (+g_ui[key]).toFixed(3) + '&';
@@ -546,7 +545,7 @@ function get_diff_default_canvas(key){
       if(key == 'g_scale')
          return canvas_to_url_params[key] + '=' + eval(key).toFixed(3) + '&';
       else
-         return canvas_to_url_params[key] + '=' + eval(key).toFixed(3) + '&';
+         return canvas_to_url_params[key] + '=' + eval(key).toFixed(0) + '&';
    }
    else
       return '';
@@ -614,7 +613,6 @@ function set_url_params(g_url_params) {
    let url_params_to_canvas_keys = Object.keys(url_params_to_canvas)
    let url_params_to_ui_keys = Object.keys(url_params_to_ui)
    let link_keys = Object.keys(g_url_params);
-   var url_change_canvas = false;
    link_keys.forEach(function (key) {
       if (url_params_to_ui_keys.includes(key)){
          ui_key = url_params_to_ui[key];
@@ -636,31 +634,23 @@ function set_url_params(g_url_params) {
          }
       }
       if (url_params_to_canvas_keys.includes(key)){
-         url_change_canvas = true;
          eval(url_params_to_canvas[key]+'='+g_url_params[key]);
       }
    });
    set_ui_variables(g_ui);
    if(g_ui["locus_type_4"] !== 'none'){
       ui_changed("4");
-      if(!url_change_canvas)
-         bbox_rescale("4");
    }
    if(g_ui["locus_type_3"] !== 'none'){
       ui_changed("3");
-      if(!url_change_canvas)
-         bbox_rescale("3");
    }
    if(g_ui["locus_type_2"] !== 'none'){
       ui_changed("2");
-      if(!url_change_canvas)
-         bbox_rescale("2");
    }
    if(g_ui["locus_type_1"] !== 'none'){
       ui_changed("1");
-      if(!url_change_canvas)
-         bbox_rescale("1");
    } 
+   console.log(g_ctr)
 }
 
 function recenter_onclick(){
@@ -931,7 +921,6 @@ function setup() {
    //frameRate(15);
    set_ui_variables_behavior()
    ui_changed("1")
-   recenter();
    copy_image()
    export_PNG()
    play_controls()
@@ -942,10 +931,6 @@ function setup() {
    a_text_input();
    ell_onchange();
    export_JSON_onclick();
-   Bbox_onclick("1");
-   Bbox_onclick("2");
-   Bbox_onclick("3");
-   Bbox_onclick("4");
    conic_type_onchange("1");
    conic_type_onchange("2");
    conic_type_onchange("3");
