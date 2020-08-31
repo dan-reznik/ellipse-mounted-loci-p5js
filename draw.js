@@ -115,6 +115,14 @@ function draw_line([frx, fry], [tox, toy], rgb) {
   pop();
 }
 
+function draw_line2([frx, fry], [tox, toy], rgb, stroke_w) {
+  push();
+  stroke(rgb);
+  strokeWeight(stroke_w);
+  line(frx, fry, tox, toy);
+  pop();
+}
+
 function draw_axes(a, stroke_w) {
   push();
   strokeWeight(stroke_w);
@@ -222,7 +230,7 @@ function draw_orbit(ons, clr, stroke_w, dr_sidelengths = true, dr_dashed = false
   else
     draw_tri2(ons.o, clr, stroke_w)
   for (let i = 0; i < 3; i++) {
-    if (dr_normals) draw_normal(ons.o[i], ons.n[i], lgt);
+    if (dr_normals) draw_normal(ons.o[i], ons.n[i], lgt, stroke_w);
     draw_point2(ons.o[i], clr_invert_ui(i == 0 ? clr_black : clr), stroke_w);
     if (dr_sidelengths) {
       let midpoint = vavg(ons.o[i], ons.o[(i + 1) % 3]);
@@ -307,8 +315,8 @@ function draw_tri_filled([p1, p2, p3], rgb, alpha = 0.1) {
   pop();
 }
 
-function draw_normal(p, n, lgt) {
-  draw_line(p, ray(p, n, lgt), [0, 0, 0]);
+function draw_normal(p, n, lgt, stroke_w) {
+  draw_line2(p, ray(p, n, lgt), clr_invert_ui(clr_black), stroke_w);
 }
 
 function draw_env(ons, a, tDeg, env_locus, rgb,
