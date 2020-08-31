@@ -4,6 +4,7 @@ clr_invert_ui = (rgb) => rgb.map(c=>255-c)
 toRad = (tDeg) => tDeg * PI / 180;
 toDeg = (tRad) => tRad * 180/ PI;
 negl = (v) => (Math.abs(v)<1.0e-9);
+negl2 = (v) => (v*v<1.0e-9);
 
 trunc_xy = ([x,y],digs) => [+(x.toFixed(digs)),+(y.toFixed(digs))];
 

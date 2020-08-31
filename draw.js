@@ -218,10 +218,10 @@ function draw_center() {
   draw_point([0, 0], [150, 0, 0])
 }
 
-function draw_foci(a) {
+function draw_foci(a, clr) {
   let c = Math.sqrt(a * a - 1);
-  draw_point([c, 0], [0, 0, 0])
-  draw_point([-c, 0], [0, 0, 0])
+  draw_point([c, 0], clr);
+  draw_point([-c, 0], clr);
 }
 
 function draw_boundary(a, b, rgb) {
@@ -246,7 +246,7 @@ function draw_circle_low([cx, cy], r, rgb, dr_ctr = true) {
 function draw_ellipse(a, dr_foci = true) {
   draw_boundary(a, 1, clr_invert_ui(clr_black));
   draw_axes(a);
-  if (dr_foci) draw_foci(a);
+  if (dr_foci) draw_foci(a, clr_invert_ui(clr_black));
   //draw_center();
 }
 

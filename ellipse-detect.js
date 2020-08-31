@@ -9,9 +9,7 @@ function least_squares_conic(ps) {
             cs[3] * x + cs[4] * y + 1;
     });
     const err2 = sum_sqr(errs);
-    const is_conic = negl(err2)
     const delta = cs[0] * cs[2] - cs[1] * cs[1] / 4;
-    const is_ell = is_conic && delta > 0;
     const S = (-cs[1] * cs[1] + 4 * cs[0] * cs[2] - cs[2] * cs[3] * cs[3] +
         cs[1] * cs[3] * cs[4] - cs[0] * cs[4] * cs[4]) / 4.0;
     // g^2 - (cs[0]+cs[2]) g + (cs[0]*cs[2]-cs[1]*cs[1]/4) = 0
@@ -22,18 +20,27 @@ function least_squares_conic(ps) {
     const ax2 = Math.sqrt(Math.abs(S / (g2 * delta)));
     const major = ax1 >= ax2 ? ax1 : ax2;
     const minor = ax1 >= ax2 ? ax2 : ax1;
-    const is_circ = is_ell && negl(major - minor);
-
+    
     const ctr = vscale([2 * cs[2] * cs[3] - cs[1] * cs[4],
     2 * cs[0] * cs[4] - cs[1] * cs[3]], 1 / (-4 * delta));
+
+    const is_conic = negl(err2);
+    let conic_type = "X";
+    if (is_conic) {
+        if (negl(delta)) conic_type = "P";
+        else if (delta > 0) conic_type = negl2(major - minor) ? "C" : "E";
+        else conic_type = "H";
+    }
+
     return {
         is_conic: is_conic,
-        is_ell: is_ell, is_circ:is_circ,
+        conic_type: conic_type,
         a: major, b: minor,
         cs: cs, err2: err2, ctr: ctr
     };
 }
 
+/*
 function least_squares_centered_ellipse(ps) {
     // mtx: N x 2
     const mtx = ps.map(p => { const [x, y] = p; return [x * x, y * y]; });
@@ -47,6 +54,7 @@ function least_squares_centered_ellipse(ps) {
     const [a, b] = cs.map(c => Math.sqrt(Math.abs(1 / c)));
     return { is_ell: negl(err), a: a, b: b, is_circ: negl(a - b) };
 }
+*/
 
 function sample_ellipse(a, b, n) {
     // doesn't exist! Math.seed(0)
@@ -85,20 +93,17 @@ function sample_locus(locus, n) {
 
 function locus_conic(locus_branched) {
     let ret_val = "X";
-    // single branch and branch cannot be "X" w few vertices
-    if (locus_branched.length == 1 && locus_branched[0].length > 20) {
+    if ([1,2].includes(locus_branched.length) && locus_branched[0].length > 20) {
         const bbox = get_locus_bbox(locus_branched[0]);
         if (negl(bbox.area))
-            ret_val = "P";
+            ret_val = "*";
         else {
             //const locus_samples = sample_array(locus_branched[0],50);
             //const lsc = least_squares_conic(locus_samples);
             //const lsc = least_squares_centered_ellipse(locus_branched[0]);
             // translates locus since least_squares_conic is ill defined if zero-centered curve
-            const lsc = least_squares_conic(locus_branched[0].map(v=>vsum(v,[bbox.xmin,bbox.ymin])));
-            if (lsc.is_circ) ret_val = "C";
-            else
-                if (lsc.is_ell) ret_val = "E";
+            const lsc = least_squares_conic(locus_branched[0].map(v => vdiff(v, [bbox.xmin, bbox.ymin])));
+            ret_val = lsc.conic_type;
         }
     }
     return ret_val;
@@ -106,22 +111,21 @@ function locus_conic(locus_branched) {
 
 function get_ellipses(a, mnt, imax = 1000) {
     const tDegStep = 5.0;
-    let locus, XEC, ellipses = [], circles = [], points = [];
+    let locus, XEC, ellipses = [], circles = [], points = [], hyperbolas = [];
     for (let i = 1; i <= imax; i++) {
         locus = make_locus_branched(a, i, tDegStep, mnt, "f_trilins", "reference");
-        let XEC = locus_conic(locus);
-        switch (XEC) {
+        let type = locus_conic(locus);
+        switch (type) {
             case "E": ellipses.push(i); break;
+            case "H": hyperbolas.push(i); break;
             case "C": circles.push(i); break;
             case "P": points.push(i); break;
             default: break;
         };
     }
     console.log("ellipses:", ellipses.length, JSON.stringify(ellipses));
+    console.log("hyperbolas:", hyperbolas.length, JSON.stringify(hyperbolas));
     console.log("circles:", circles.length, JSON.stringify(circles));
     console.log("points:", points.length, JSON.stringify(points));
-    return { ellipses: ellipses, circles: circles, points: points };
+    return { ellipses: ellipses, hyperbolas: hyperbolas, circles: circles, points: points };
 }
-
-
-
