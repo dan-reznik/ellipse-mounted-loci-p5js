@@ -32,10 +32,10 @@
                 const d = chapple_d(1,a+1);
                 push();
                 translate(-d,0);
-                draw_boundary(1+a,1+a,clr_caustic, stroke_w);
+                draw_boundary(1+a,1+a, clr_caustic, stroke_w);
                 pop();
             } else
-            draw_boundary(...dict_caustic[mounting](a),clr_caustic, stroke_w);
+            draw_boundary(...dict_caustic[mounting](a), clr_caustic, stroke_w);
         }
        draw_orbit(ons, clr, stroke_w, false, true,false);
        if (tri_type!="reference") draw_orbit(ons_derived, clr, stroke_w, false, false, false);
