@@ -89,7 +89,6 @@ function create_locus(locus_type_changed) {
    let a = +g_ui.a;
 
    if (locus_type_1 != "none" && ["1", "0"].includes(locus_type_changed)) {
-
       g_locus_Xn1_branched = make_locus_branched(a, g_ui.Xn1, tdegStep, g_r_max,
          g_ui.mounting_Xn1, g_ui.locus_type_1, g_ui.tri_type_1);
       g_ui_ell.detect_1 = locus_conic(g_locus_Xn1_branched); 
@@ -433,10 +432,14 @@ function mouseOverCanvas() {
 }
 
 function bbox_rescale(n) {
-   let locus_types = [g_ui.locus_type_1, g_ui.locus_type_2, g_ui.locus_type_3, g_ui.locus_type_4];
-   let loci = [g_locus_Xn1_branched, g_locus_Xn2_branched, g_locus_Xn3_branched, g_locus_Xn4_branched];
-   g_scale = locus_bbox(+g_ui.a, locus_types[n - 1], loci[n - 1], g_width / g_height, g_scale0, g_r_max);
-   recenter();
+   const locus_types = [g_ui.locus_type_1, g_ui.locus_type_2, g_ui.locus_type_3, g_ui.locus_type_4];
+   const loci = [g_locus_Xn1_branched, g_locus_Xn2_branched, g_locus_Xn3_branched, g_locus_Xn4_branched];
+   //g_scale = locus_bbox(+g_ui.a, locus_types[n - 1], loci[n - 1], g_width / g_height, g_scale0, g_r_max);
+   const bbox = locus_bbox_ctr(+g_ui.a,locus_types[n - 1], loci[n - 1], g_width / g_height, g_scale0);
+   g_scale = bbox.scale;
+   g_ctr = [g_width/2-bbox.ctr_x*(g_width/g_scale),g_height/2-bbox.ctr_y*(g_width/g_scale)];
+   g_ctr0 = g_ctr;
+   //recenter();
    redraw();
 }
 
@@ -931,14 +934,8 @@ function setup() {
    a_text_input();
    ell_onchange();
    export_JSON_onclick();
-   conic_type_onchange("1");
-   conic_type_onchange("2");
-   conic_type_onchange("3");
-   conic_type_onchange("4");
-   Bbox_onclick('1');
-   Bbox_onclick('2');
-   Bbox_onclick('3');
-   Bbox_onclick('4');
+   ["1","2","3","4"].map(conic_type_onchange);
+   ["1","2","3","4"].map(Bbox_onclick);
    recenter_onclick();
 
    reset_UI_onclick(g_ui_reset_initial_values);
