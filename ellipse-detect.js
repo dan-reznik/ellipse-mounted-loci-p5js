@@ -35,7 +35,7 @@ function least_squares_conic(ps) {
     return {
         is_conic: is_conic,
         conic_type: conic_type,
-        a: major, b: minor, ar: safe_div(a,b),
+        a: major, b: minor, ar: safe_div(major,minor),
         cs: cs, err2: err2, ctr: ctr
     };
 }
