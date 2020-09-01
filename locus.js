@@ -54,23 +54,6 @@ const dict_orbit_fn = {
 };
 
 // for debugging
-function get_current_tri_generic(a,tDeg,mounting,tri_type) {
-    //
-    let ons, ons_derived;
-    if (mounting in dict_orbit_fn) {
-        const orbit_fn = dict_orbit_fn[mounting]
-        ons = orbit_fn(a, tDeg);
-        ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
-    } else {
-        const [v2, v3] = getV2V3(a, mounting, 0.001);
-        ons = get_mounted_tri(a, tDeg, v2, v3);
-        ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
-    }
-    return { a:a,tDeg:tDeg,mounting:mounting,tri_type:tri_type,
-        tri: ons.o, tri_s: ons.s, derived: ons_derived.o, derived_s: ons_derived.s };
-}
-
-// for debugging
 function get_current_tri_1() {
    return get_current_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn1, g_ui.tri_type1);
 }
