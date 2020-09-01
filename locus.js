@@ -1,8 +1,8 @@
 function draw_mounted_locus_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri,
     mounting, tri_type, stroke_w, ell_detect) {
-    let [v1, v2] = getV2V3(a, mounting, 0.001);
-    let ons = get_mounted_tri(a, tDeg, v1, v2);
-    let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
+    const [v2, v3] = getV2V3(a, mounting, 0.001);
+    const ons = get_mounted_tri(a, tDeg, v2, v3);
+    const ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
     if (dr_tri) {
         draw_mounted(ons, clr, stroke_w, false, true);
         if (tri_type != "reference") draw_mounted(ons_derived, clr, stroke_w, false, false);
@@ -52,6 +52,39 @@ const dict_orbit_fn = {
     dual: orbit_dual,
     poristic: orbit_poristic
 };
+
+// for debugging
+function get_current_tri_generic(a,tDeg,mounting,tri_type) {
+    //
+    let ons, ons_derived;
+    if (mounting in dict_orbit_fn) {
+        const orbit_fn = dict_orbit_fn[mounting]
+        ons = orbit_fn(a, tDeg);
+        ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
+    } else {
+        const [v2, v3] = getV2V3(a, mounting, 0.001);
+        ons = get_mounted_tri(a, tDeg, v2, v3);
+        ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
+    }
+    return { a:a,tDeg:tDeg,mounting:mounting,tri_type:tri_type,
+        tri: ons.o, tri_s: ons.s, derived: ons_derived.o, derived_s: ons_derived.s };
+}
+
+// for debugging
+function get_current_tri_1() {
+   return get_current_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn1, g_ui.tri_type1);
+}
+
+function get_current_tri_2() {
+    return get_current_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn2, g_ui.tri_type2);
+ }
+ function get_current_tri_3() {
+    return get_current_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn3, g_ui.tri_type3);
+ }
+
+ function get_current_tri_4() {
+    return get_current_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn4, g_ui.tri_type4);
+ }
 
 function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type,
     stroke_w, draw_caustic, ell_detect) {
