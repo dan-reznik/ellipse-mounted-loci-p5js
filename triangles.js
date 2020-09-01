@@ -591,3 +591,10 @@ function get_current_tri_generic(a,tDeg,mounting,tri_type) {
   return { a:a,tDeg:tDeg,mounting:mounting,tri_type:tri_type,
       tri: ons.o, tri_s: ons.s, derived: ons_derived.o, derived_s: ons_derived.s };
 }
+
+// tri_side_ratio(1.3,20.0,"poristic","tangential","intangents")
+function tri_side_ratio(a,tDeg,mounting,tri_type_1,tri_type_2) {
+  const tri1 = get_current_tri_generic(a,tDeg,mounting,tri_type_1);
+  const tri2 = get_current_tri_generic(a,tDeg,mounting,tri_type_2);
+  return tri1.derived_s.map((s,i)=>s/tri2.derived_s[i]);
+}
