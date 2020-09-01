@@ -102,26 +102,31 @@ function longest_branch(locus_branched) {
     return(locus_branched[i_max]);
 }
 
-function locus_conic(locus_branched) {
-    let ret_val = "X";
+function locus_conic_low(locus_branched) {
+    let type = "X";
+    let lsc = null;
     if (locus_branched.length > 0) {
         const l_max = longest_branch(locus_branched);
         // only one or two branches
         if (l_max.length > 20) {
             const bbox = get_locus_bbox(l_max);
             if (negl(bbox.area))
-                ret_val = "*";
+                type = "*";
             else {
                 //const locus_samples = sample_array(locus_branched[0],50);
                 //const lsc = least_squares_conic(locus_samples);
                 //const lsc = least_squares_centered_ellipse(locus_branched[0]);
                 // translates locus since least_squares_conic is ill defined if zero-centered curve
-                const lsc = least_squares_conic(l_max.map(v => vdiff(v, [bbox.xmin, bbox.ymin])));
-                ret_val = lsc.conic_type;
+                lsc = least_squares_conic(l_max.map(v => vdiff(v, [bbox.xmin, bbox.ymin])));
+                type = lsc.conic_type;
             }
         }
     }
-    return ret_val;
+    return {lsc:lsc,type:type};
+}
+
+function locus_conic(locus_branched) {
+    return locus_conic_low(locus_branched).type;
 }
 
 function get_ellipses(a, mnt, imax = 1000) {
