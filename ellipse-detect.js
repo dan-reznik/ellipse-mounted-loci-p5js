@@ -35,7 +35,7 @@ function least_squares_conic(ps) {
     return {
         is_conic: is_conic,
         conic_type: conic_type,
-        a: major, b: minor, ar: safe_div(major,minor),
+        a: major, b: minor, ar: safe_div(major, minor),
         cs: cs, err2: err2, ctr: ctr
     };
 }
@@ -55,6 +55,19 @@ function least_squares_centered_ellipse(ps) {
     return { is_ell: negl(err), a: a, b: b, is_circ: negl(a - b) };
 }
 */
+
+function least_squares_centered_collinear(ps) {
+    // mtx: N x 2
+    //const mtx = ps.map(p => { const [x, y] = p; return [x, y]; });
+    // rhs: N x 1
+    const rhs = Array(ps.length).fill(-1);
+    // cs: 2 x 1
+    const cs = solve(ps, rhs);
+    // Norm[mtx.cs-b]
+    const norms = ps.map((p, i) => dot(p, cs) - rhs[i]);
+    const err2 = sum_sqr(norms);
+    return negl(err2);
+}
 
 function sample_ellipse(a, b, n) {
     // doesn't exist! Math.seed(0)
@@ -94,12 +107,12 @@ function sample_locus(locus, n) {
 function longest_branch(locus_branched) {
     l_max = 0;
     i_max = 0;
-    for (let i = 0; i<locus_branched.length;i++)
-       if(locus_branched[i].length>l_max) {
-           l_max = locus_branched[i].length;
-           i_max = i;
-       }
-    return(locus_branched[i_max]);
+    for (let i = 0; i < locus_branched.length; i++)
+        if (locus_branched[i].length > l_max) {
+            l_max = locus_branched[i].length;
+            i_max = i;
+        }
+    return (locus_branched[i_max]);
 }
 
 function locus_conic_low(locus_branched) {
@@ -110,8 +123,12 @@ function locus_conic_low(locus_branched) {
         // only one or two branches
         if (l_max.length > 20) {
             const bbox = get_locus_bbox(l_max);
-            if (negl(bbox.area))
+            if (negl(bbox.dx) && negl(bbox.dy))
                 type = "*";
+            // pertub so line doesn't go thru center
+            else if (least_squares_centered_collinear(l_max.map(p => vsum(p, [Math.E, Math.E]))))
+                type = "L";
+            // are all points collinear
             else {
                 //const locus_samples = sample_array(locus_branched[0],50);
                 //const lsc = least_squares_conic(locus_samples);
@@ -122,7 +139,7 @@ function locus_conic_low(locus_branched) {
             }
         }
     }
-    return {lsc:lsc,type:type};
+    return { lsc: lsc, type: type };
 }
 
 function locus_conic(locus_branched) {
@@ -136,11 +153,12 @@ function get_ellipses(a, mnt, imax = 1000) {
         locus = make_locus_branched(a, i, tDegStep, mnt, "f_trilins", "reference");
         let type = locus_conic(locus);
         switch (type) {
+            case "*": points.push(i); break;
+            case "L": lines.push(i); break;
+            case "C": circles.push(i); break;
             case "E": ellipses.push(i); break;
             case "H": hyperbolas.push(i); break;
             case "P": parabolas.push(i); break;
-            case "C": circles.push(i); break;
-            case "*": points.push(i); break;
             default: break;
         };
     }
@@ -149,5 +167,6 @@ function get_ellipses(a, mnt, imax = 1000) {
     console.log("parabolas:", parabolas.length, JSON.stringify(parabolas));
     console.log("circles:", circles.length, JSON.stringify(circles));
     console.log("points:", points.length, JSON.stringify(points));
-    return { ellipses: ellipses, hyperbolas: hyperbolas, parabolas: parabolas, circles: circles, points: points };
+    console.log("lines:", lines.length, JSON.stringify(lines));
+    return { ellipses: ellipses, hyperbolas: hyperbolas, parabolas: parabolas, circles: circles, points: points, lines: lines };
 }

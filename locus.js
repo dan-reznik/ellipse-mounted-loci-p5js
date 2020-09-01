@@ -200,8 +200,11 @@ function get_locus_bbox(locus) {
     const xmax = get_xmax(locus);
     const ymin = get_ymin(locus);
     const ymax = get_ymax(locus);
-    const area = (xmax - xmin) * (ymax - ymin);
-    return { xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, area: area };
+    const dx = xmax - xmin;
+    const dy = ymax - ymin;
+    const area = dx * dy;
+    return { xmin: xmin, xmax: xmax, xmid: (xmin+xmax)/2, ymin: ymin, ymax: ymax, ymid : (ymin+ymax)/2,
+        dx : dx, dy : dy, area: area };
 }
 
 function get_locus_branched_bbox(a,locus_branched) {
