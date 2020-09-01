@@ -55,18 +55,18 @@ const dict_orbit_fn = {
 
 // for debugging
 function get_current_tri_1() {
-   return get_current_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn1, g_ui.tri_type_1);
+   return get_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn1, g_ui.tri_type_1);
 }
 
 function get_current_tri_2() {
-    return get_current_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn2, g_ui.tri_type_2);
+    return get_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn2, g_ui.tri_type_2);
  }
  function get_current_tri_3() {
-    return get_current_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn3, g_ui.tri_type_3);
+    return get_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn3, g_ui.tri_type_3);
  }
 
  function get_current_tri_4() {
-    return get_current_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn4, g_ui.tri_type_4);
+    return get_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn4, g_ui.tri_type_4);
  }
 
 function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type,

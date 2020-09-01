@@ -576,7 +576,7 @@ function get_tri_v1_barys(sides) {
 }
 
 // for debugging
-function get_current_tri_generic(a,tDeg,mounting,tri_type) {
+function get_tri_generic(a,tDeg,mounting,tri_type) {
   //
   let ons, ons_derived;
   if (mounting in dict_orbit_fn) {
@@ -594,7 +594,7 @@ function get_current_tri_generic(a,tDeg,mounting,tri_type) {
 
 // tri_side_ratio(1.3,20.0,"poristic","tangential","intangents")
 function tri_side_ratio(a,tDeg,mounting,tri_type_1,tri_type_2) {
-  const tri1 = get_current_tri_generic(a,tDeg,mounting,tri_type_1);
-  const tri2 = get_current_tri_generic(a,tDeg,mounting,tri_type_2);
+  const tri1 = get_tri_generic(a,tDeg,mounting,tri_type_1);
+  const tri2 = get_tri_generic(a,tDeg,mounting,tri_type_2);
   return tri1.derived_s.map((s,i)=>s/tri2.derived_s[i]);
 }
