@@ -137,6 +137,8 @@ function recenter() {
 }
 
 function windowResized() {
+   g_width = document.getElementsByClassName('item graphic')[0].offsetWidth;
+   g_height = document.getElementsByClassName('item graphic')[0].offsetHeight;
    if(g_ui["locus_type_4"] !== 'none'){
       ui_changed("4");
       bbox_rescale("4");
