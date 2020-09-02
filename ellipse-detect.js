@@ -146,27 +146,19 @@ function locus_conic(locus_branched) {
     return locus_conic_low(locus_branched).type;
 }
 
-function get_ellipses(a, mnt, imax = 1000) {
+const dict_locus_type = { "*":"points", L:"lines", C:"circles", E:"ellipses", H:"hyperbolas", P:"parabolas" };
+
+function get_ellipses(a, mnt, imax = 1000, r_max = 20.0) {
     const tDegStep = 5.0;
-    let locus, XEC, ellipses = [], circles = [], points = [], hyperbolas = [], parabolas = [];
+    let locus;
+    let results = {points:[], lines:[], circles:[], ellipses:[], hyperbolas:[], parabolas:[]};
     for (let i = 1; i <= imax; i++) {
-        locus = make_locus_branched(a, i, tDegStep, mnt, "f_trilins", "reference");
+        locus = make_locus_branched(a, i, tDegStep, r_max, mnt, "trilins", "reference");
         let type = locus_conic(locus);
-        switch (type) {
-            case "*": points.push(i); break;
-            case "L": lines.push(i); break;
-            case "C": circles.push(i); break;
-            case "E": ellipses.push(i); break;
-            case "H": hyperbolas.push(i); break;
-            case "P": parabolas.push(i); break;
-            default: break;
-        };
+        if (type in dict_locus_type)
+           results[dict_locus_type[type]].push(i);
     }
-    console.log("ellipses:", ellipses.length, JSON.stringify(ellipses));
-    console.log("hyperbolas:", hyperbolas.length, JSON.stringify(hyperbolas));
-    console.log("parabolas:", parabolas.length, JSON.stringify(parabolas));
-    console.log("circles:", circles.length, JSON.stringify(circles));
-    console.log("points:", points.length, JSON.stringify(points));
-    console.log("lines:", lines.length, JSON.stringify(lines));
-    return { ellipses: ellipses, hyperbolas: hyperbolas, parabolas: parabolas, circles: circles, points: points, lines: lines };
+    for(const v of Object.values(dict_locus_type))
+       console.log(v+":", results[v].length, JSON.stringify(results[v]));
+    return results;
 }
