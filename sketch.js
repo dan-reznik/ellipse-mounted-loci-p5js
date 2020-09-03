@@ -20,6 +20,7 @@ let g_locus_Xn4_branched = [];
 
 let g_ui = {};
 let g_ui_ell = {detect_1: 'X', detect_2: 'X', detect_3: 'X', detect_4: 'X'}
+let g_ui_tandem_bar = {loc: false, mnt: false, xn: false, tri: false}
 
 function set_ui_variables(dictionary) {
    document.getElementById("a").value = dictionary["a"];
@@ -154,17 +155,14 @@ function windowResized() {
    if(g_ui["locus_type_1"] !== 'none'){
       ui_changed("1");
       bbox_rescale("1");
-   } 
-   //recenter();
-   //let pos = g_main_title.position();
-   //g_main_title.position(g_width / 2 - 160, pos[1]);
+   }
    resizeCanvas(g_width, g_height);
 }
 
 function ui_changed(locus_type_changed) {
+   tandem_bar_variables();
    create_locus(locus_type_changed);
    redraw();
-   //log.textContent = e.target.value;
 }
 
 function a_oninput(sliderID, input_text_ID){
@@ -198,7 +196,8 @@ function a_oninput(sliderID, input_text_ID){
          if(g_ui.locus_type_1 != 'none') conic_type_onchange("1");
          if(g_ui.locus_type_2 != 'none') conic_type_onchange("2");
          if(g_ui.locus_type_3 != 'none') conic_type_onchange("3");
-         if(g_ui.locus_type_4 != 'none') conic_type_onchange("4");         e.preventDefault();
+         if(g_ui.locus_type_4 != 'none') conic_type_onchange("4");         
+         e.preventDefault();
          slider.focus();
       }
    })
@@ -226,7 +225,7 @@ function selector_output(input_ID, output_ID = "", ell_detect = "0") {
    selector.value = g_ui[input_ID];
    selector.addEventListener('change', function () {
       g_ui[input_ID] = selector.value
-      ui_changed(ell_detect)
+      ui_changed_type();
       if(input_ID != 'animStep0')
          conic_type_onchange(ell_detect)
    })
@@ -241,7 +240,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
          g_ui[sliderId]--;
          slider.value--;
          text.value--;
-         ui_changed(ell_detect);
+         ui_changed_type();
          conic_type_onchange(ell_detect);
          slider.focus();
       }
@@ -252,7 +251,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
          g_ui[sliderId]++;
          slider.value++;
          text.value++;
-         ui_changed(ell_detect);
+         ui_changed_type();
          conic_type_onchange(ell_detect);
          slider.focus();
       }
@@ -261,7 +260,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
    slider.addEventListener("input", function () {
       g_ui[sliderId] = this.value;
       text.value = this.value;
-      ui_changed(ell_detect);
+      ui_changed_type();
       conic_type_onchange(ell_detect);
    });
 
@@ -279,7 +278,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
             this.value = '1';
          g_ui[sliderId] = this.value;
          slider.value = this.value;
-         ui_changed(ell_detect);
+         ui_changed_type();
          conic_type_onchange(ell_detect);
          e.preventDefault();
          slider.focus();
@@ -293,7 +292,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
             this.value = '1';
          g_ui[sliderId] = this.value;
          slider.value = this.value;
-         ui_changed(ell_detect);
+         ui_changed_type();
          conic_type_onchange(ell_detect);
          slider.focus();
       }
@@ -379,19 +378,22 @@ function play_controls() {
 function tri_onchange() {
    document.getElementById('draw_tri_1').addEventListener("click", function () {
       g_ui.draw_tri_1 = this.checked;
+      ui_changed_type();
       redraw();
    })
    document.getElementById('draw_tri_2').addEventListener("click", function () {
       g_ui.draw_tri_2 = this.checked;
-      //(g_ui.draw_tri_2)
+      ui_changed_type();
       redraw();
    })
    document.getElementById('draw_tri_3').addEventListener("click", function () {
       g_ui.draw_tri_3 = this.checked;
+      ui_changed_type();
       redraw();
    })
    document.getElementById('draw_tri_4').addEventListener("click", function () {
       g_ui.draw_tri_4 = this.checked;
+      ui_changed_type();
       redraw();
    })
 }
@@ -399,6 +401,8 @@ function tri_onchange() {
 function ell_onchange(){
    document.getElementById('ell').addEventListener("click", function () {
       g_ui.ell = this.checked;
+      tandem_bar_variables();
+      ui_changed_type();
       redraw()
    })
 }
@@ -421,7 +425,7 @@ function a_speed_onchange(){
 function locus_type_onchange() {
    document.getElementById("locus_type_1").addEventListener("change", function () {
       g_ui.locus_type_1 = this.value;
-      ui_changed("1");
+      ui_changed_type();
       conic_type_onchange("1");
    });
    document.getElementById("locus_type_2").addEventListener("change", function () {
@@ -444,22 +448,22 @@ function locus_type_onchange() {
 function tri_type_onchange() {
    document.getElementById("tri_type_1").addEventListener("change", function () {
       g_ui.tri_type_1 = this.value;
-      ui_changed("1");
+      ui_changed_type();
       conic_type_onchange("1");
    });
    document.getElementById("tri_type_2").addEventListener("change", function () {
       g_ui.tri_type_2 = this.value;
-      ui_changed("2");
+      ui_changed_type();
       conic_type_onchange("2");
    });
    document.getElementById("tri_type_3").addEventListener("change", function () {
       g_ui.tri_type_3 = this.value;
-      ui_changed("3");
+      ui_changed_type();
       conic_type_onchange("3");
    });
    document.getElementById("tri_type_4").addEventListener("change", function () {
       g_ui.tri_type_4 = this.value;
-      ui_changed("4");
+      ui_changed_type();
       conic_type_onchange("4");
    });
 }
@@ -479,7 +483,7 @@ function bbox_rescale(n) {
    g_scale = bbox.scale;
    g_ctr = [g_width/2-bbox.ctr_x*(g_width/g_scale),g_height/2-bbox.ctr_y*(g_width/g_scale)];
    g_ctr0 = g_ctr;
-   //recenter();
+   ui_changed_type();
    redraw();
 }
 
@@ -928,6 +932,54 @@ function conic_type_onchange(locus_type){
    }
 }
 
+function tandem_Bar(){
+   loc = document.getElementById('tandem_loc');
+   mnt = document.getElementById('tandem_mnt');
+   xn = document.getElementById('tandem_xn');
+   tri = document.getElementById('tandem_tri');
+   
+   loc.addEventListener('click', function(){
+      g_ui_tandem_bar.loc = this.checked;
+      if(g_ui_tandem_bar.loc){
+         ui_changed_type();
+         redraw();
+      }
+   })
+   mnt.addEventListener('click', function(){
+      g_ui_tandem_bar.mnt = this.checked;
+      if(g_ui_tandem_bar.mnt){
+         ui_changed_type();
+         redraw();
+      }
+   })
+   xn.addEventListener('click', function(){
+      g_ui_tandem_bar.xn = this.checked;
+      if(g_ui_tandem_bar.xn){
+         ui_changed_type();
+         redraw();
+      }
+   })
+   tri.addEventListener('click', function(){
+      g_ui_tandem_bar.tri = this.checked;
+      if(g_ui_tandem_bar.tri){
+         ui_changed_type();
+         redraw();
+      }
+   })
+}
+
+function tandem_bar_variables(){
+   if(g_ui_tandem_bar.loc == true){[g_ui.locus_type_2, g_ui.locus_type_3, g_ui.locus_type_4] = [g_ui.locus_type_1, g_ui.locus_type_1, g_ui.locus_type_1];}
+   if(g_ui_tandem_bar.mnt == true){[g_ui.mounting_Xn2, g_ui.mounting_Xn3, g_ui.mounting_Xn4] = [g_ui.mounting_Xn1, g_ui.mounting_Xn1, g_ui.mounting_Xn1];}
+   if(g_ui_tandem_bar.xn == true){[g_ui.Xn2, g_ui.Xn3, g_ui.Xn4] = [g_ui.Xn1, g_ui.Xn1, g_ui.Xn1];}
+   if(g_ui_tandem_bar.tri == true){
+      [g_ui.tri_type_2, g_ui.tri_type_3, g_ui.tri_type_4] = [g_ui.tri_type_1, g_ui.tri_type_1, g_ui.tri_type_1];
+      [g_ui.draw_tri_2, g_ui.draw_tri_3, g_ui.draw_tri_4] = [g_ui.draw_tri_1, g_ui.draw_tri_1, g_ui.draw_tri_1];
+   }
+   
+   set_ui_variables(g_ui);
+}
+
 function setup() {
    var g_ui_reset = {
    a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, ell: true,
@@ -977,6 +1029,7 @@ function setup() {
    ["1","2","3","4"].map(conic_type_onchange);
    ["1","2","3","4"].map(Bbox_onclick);
    recenter_onclick();
+   tandem_Bar()
 
    reset_UI_onclick(g_ui_reset_initial_values);
    config_url_onclick(g_ui_reset);
@@ -989,6 +1042,7 @@ function draw() {
    translate(g_ctr[0], g_ctr[1]);
    scale(g_width / g_scale);
    let stroke_w = sqrt(g_scale/g_scale0)*.02;
+
    if(g_ui.ell)
       draw_ellipse(g_ui.mounting_Xn1=="poristic"?1:+g_ui.a,stroke_w,g_ui.mounting_Xn1!=="poristic");
    draw_billiard_or_mounted_branched(g_ui.Xn1, +g_ui.a, g_tDeg,
@@ -1060,8 +1114,10 @@ function mouseDragged() {
       //noLoop();
       //g_loop = false;
       g_ctr = vsum(vdiff([mouseX, mouseY], g_mouse), g_ctr0);
-      if (!g_loop) redraw();
-      //redraw();
+      if (!g_loop) {
+         ui_changed_type();
+         redraw();
+      } 
    }
 }
 
@@ -1072,7 +1128,10 @@ function mouseWheel(event) {
    else
       g_scale *= 0.95;
    //uncomment to block page scrolling
-   if (!g_loop) redraw();
+   if (!g_loop) {
+      ui_changed_type();
+      redraw();
+   }
    return false;
    //}
 }

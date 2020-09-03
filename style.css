@@ -35,7 +35,7 @@ body {
   width: 100%;
   padding: 1%;
   grid-gap: 1% 0.5%;
-  grid-template-columns: minmax(240px, 240px) minmax(405px, 95%);
+  grid-template-columns: minmax(247px, 247px) minmax(405px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config title"
@@ -53,6 +53,7 @@ body {
   display: flex; 
   flex-direction: column; 
   height: 100%;
+  flex-grow: 1;
 }
 
 .config_buttons>*>*{
@@ -190,6 +191,10 @@ p.lab{
   margin-left: auto;
   margin-right: auto;
 }
+
+.greenText{ background-color:green; }
+.redText{ background-color:red; }
+.blueText{ background-color:blue; }
 
 /*Selector menu styles*/
 .component.xn_selector{

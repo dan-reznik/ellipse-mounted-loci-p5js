@@ -85,10 +85,6 @@
             </div>
           </div>
           <div class='input_Xn'>
-            <div>
-              <label for="ell">ell</label>
-              <input class = "sub_checkbox" type="checkbox" id="ell" name="ell">
-            </div>
             <select id="a_speed">
               <option value=0>anim</option>
               <option value=0.005>slow</option>
@@ -103,6 +99,31 @@
             </div>
           </div>
         </div>
+        <!--Tandem bar-->
+        <div class="selector_input">
+          <div class="input_Xn">
+            Tandem bar
+          </div>
+          <div class="input_Xn">
+            <div>
+              <label for="Tandem loc">loc</label>
+              <input class = "sub_checkbox" type="checkbox" id="tandem_loc" name="Tandem loc">
+            </div>
+            <div>
+              <label for="Tandem mnt">mnt</label>
+              <input class = "sub_checkbox" type="checkbox" id="tandem_mnt" name="Tandem mnt">
+            </div>
+            <div>
+              <label for="Tandem Xn">Xn</label>
+              <input class = "sub_checkbox" type="checkbox" id="tandem_xn" name="Tandem Xn">
+            </div>
+            <div>
+              <label for="Tandem tri">tri</label>
+              <input class = "sub_checkbox" type="checkbox" id="tandem_tri" name="Tandem tri">
+            </div>
+          </div>
+        </div>
+        <!--End Tandem bar-->
         <!--component xn1_selector-->
         <my-selector id='component_1' number='1' selected=true color='rgb(240,0,0)'></my-selector>
         <!--end component xn1_selector-->
@@ -118,6 +139,40 @@
         <!--component xn3_selector-->
         <my-selector id='component_4' number='4' selected=false color='rgb(128,0,128)'></my-selector>
         <!--end component xn3_selector-->
+        <div class="selector_input">
+          <div class="input_Xn">
+            <div>
+              <label for="ell">ell</label>
+              <input class = "sub_checkbox" type="checkbox" id="ell" name="ell">
+            </div>
+            <div>
+              <label for="rot">rot</label>
+              <select id="rot" name="rot">
+                <option value="0">0</option>
+                <option value="90">90</option>
+                <option value="180">180</option>
+                <option value="270">270</option>
+              </select>            
+            </div>
+            <div>
+              <label for="rmax">rmax</label>
+              <select id="rmax" name="rmax">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>            
+            </div>
+            <div>
+              <label for="bg">bg</label>
+              <select class="greenText" id="bg" name="bg" onchange="this.className=this.options[this.selectedIndex].className">
+                <option class="greenText" value="**"></option>
+                <option class="redText" value="**"></option>
+                <option class="blueText" value="**"></option>
+              </select>            
+            </div>
+          </div>
+        </div>
 
       <div id="made_by"></div>
     </div>
