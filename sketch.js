@@ -27,7 +27,7 @@ function set_ui_variables(dictionary) {
    document.getElementById("a_speed").value = dictionary["a_speed"];
    document.getElementById("a_min").value = dictionary["a_min"];
    document.getElementById("a_max").value = dictionary["a_max"];
-   document.getElementById("demo_a").innerHTML = dictionary["a"];
+   document.getElementById("a_input_text").value = dictionary["a"];
    document.getElementById("locus_type_1").value = dictionary["locus_type_1"];
    document.getElementById("locus_type_2").value = dictionary["locus_type_2"];
    document.getElementById("locus_type_3").value = dictionary["locus_type_3"];
@@ -167,20 +167,58 @@ function ui_changed(locus_type_changed) {
    //log.textContent = e.target.value;
 }
 
-function a_oninput(input_ID, output_ID){
-   var selector = document.getElementById(input_ID);
-   selector.value = g_ui[input_ID];
-   var output = document.getElementById(output_ID);
-   output.innerHTML = g_ui[input_ID];
-   selector.addEventListener('input', function () {
-      g_ui[input_ID] = this.value;
+function a_oninput(sliderID, input_text_ID){
+   var slider = document.getElementById(sliderID);
+   var text = document.getElementById(input_text_ID);
+   slider.value = g_ui[sliderID];
+   slider.addEventListener('input', function () {
+      g_ui[sliderID] = this.value;
       if(g_ui.locus_type_1 != 'none') conic_type_onchange("1");
       if(g_ui.locus_type_2 != 'none') conic_type_onchange("2");
       if(g_ui.locus_type_3 != 'none') conic_type_onchange("3");
       if(g_ui.locus_type_4 != 'none') conic_type_onchange("4");
-      output.innerHTML = this.value;
+      text.value = this.value;
       ui_changed('0')
    });
+   text.addEventListener("input", function () {
+      if(this.value !== ''){
+         if (this.value > 4)
+            this.value = "4";
+         else if (this.value < 1.001)
+            this.value = "1.001";
+      }
+   })
+   text.addEventListener('keydown', function (e) {
+      if(e.keyCode==9){
+         if(this.value == '')
+            this.value = '1.618';
+         g_ui[sliderID] = this.value;
+         slider.value = this.value;
+         ui_changed('0');
+         if(g_ui.locus_type_1 != 'none') conic_type_onchange("1");
+         if(g_ui.locus_type_2 != 'none') conic_type_onchange("2");
+         if(g_ui.locus_type_3 != 'none') conic_type_onchange("3");
+         if(g_ui.locus_type_4 != 'none') conic_type_onchange("4");         e.preventDefault();
+         slider.focus();
+      }
+   })
+   text.addEventListener('keypress', function (e) {
+      if (e.keyCode < 48 || e.keyCode > 57)
+        e.preventDefault();
+      if(e.keyCode==13){
+         if(this.value == '')
+            this.value = '1.618';
+         g_ui[sliderID] = this.value;
+         slider.value = this.value;
+         ui_changed('0');
+         if(g_ui.locus_type_1 != 'none') conic_type_onchange("1");
+         if(g_ui.locus_type_2 != 'none') conic_type_onchange("2");
+         if(g_ui.locus_type_3 != 'none') conic_type_onchange("3");
+         if(g_ui.locus_type_4 != 'none') conic_type_onchange("4");
+         slider.focus();
+      }
+   })
+
 }
 
 function selector_output(input_ID, output_ID = "", ell_detect = "0") {
@@ -451,7 +489,7 @@ function Bbox_onclick(n) {
 
 function set_ui_variables_behavior() {
    //a
-   a_oninput("a", "demo_a")
+   a_oninput("a", "a_input_text",'0')
    //Xn1
    slider_text_changed("Xn1", "demo_Xn1", "minus_Xn1", "plus_Xn1", "1");
    //Xn2
@@ -691,7 +729,7 @@ function ui_changed_type(){
 
 function a_anim(){
    a_slider = document.getElementById('a')
-   a_text = document.getElementById('demo_a')
+   a_text = document.getElementById('a_input_text')
    g_ui.a_speed = +g_ui.a_speed;
    g_ui.a = +g_ui.a;
    g_ui.a_max = +g_ui.a_max;
@@ -702,28 +740,28 @@ function a_anim(){
          if(g_ui.a_max-g_ui.a <= g_ui.a_speed){
             g_ui.a = g_ui.a_max;
             a_slider.value = g_ui.a;
-            a_text.innerHTML = a_slider.value;
+            a_text.value = a_slider.value;
             g_ui.a_speed = -g_ui.a_speed;
             ui_changed_type()
          }
          else{
             g_ui.a += g_ui.a_speed;
             a_slider.value = g_ui.a;
-            a_text.innerHTML = a_slider.value;
+            a_text.value = a_slider.value;
             ui_changed_type()    
          }
       else
          if(g_ui.a+g_ui.a_speed<=g_ui.a_min){
             g_ui.a = g_ui.a_min;
             a_slider.value = g_ui.a;
-            a_text.innerHTML = a_slider.value;
+            a_text.value = a_slider.value;
             g_ui.a_speed = -g_ui.a_speed;
             ui_changed_type()        
          }
          else{
             g_ui.a += g_ui.a_speed;
             a_slider.value = g_ui.a;
-            a_text.innerHTML = a_slider.value;
+            a_text.value = a_slider.value;
             ui_changed_type()        
          }
    } 
