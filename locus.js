@@ -53,22 +53,6 @@ const dict_orbit_fn = {
     poristic: orbit_poristic
 };
 
-// for debugging
-function get_current_tri_1() {
-   return get_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn1, g_ui.tri_type_1);
-}
-
-function get_current_tri_2() {
-    return get_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn2, g_ui.tri_type_2);
- }
- function get_current_tri_3() {
-    return get_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn3, g_ui.tri_type_3);
- }
-
- function get_current_tri_4() {
-    return get_tri_generic(+g_ui.a, g_tDeg, g_ui.mounting_Xn4, g_ui.tri_type_4);
- }
-
 function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type,
     stroke_w, draw_caustic, ell_detect) {
     if (mounting in dict_orbit_fn)
@@ -250,19 +234,19 @@ function locus_bbox(a, locus_type, locus_branched, ar, scale0, r_max) {
         var scale_min;
         if (bbox.ymax2 > bbox.xmax2) {
             scale = adj * 2 * bbox.ymax2 * ar;
-            // g_width/(adj * 2 * bbox.ymax2 * g_width / g_height) =
-            // = g_height/(2*adj*bbox.ymax2))
-            // g_scale > 2*adj*bbox.xmax2;
-            // bbox.xmax2 * g_width/g_scale < (g_width/2)/adj
+            // width/(adj * 2 * bbox.ymax2 * width / height) =
+            // = height/(2*adj*bbox.ymax2))
+            // scale > 2*adj*bbox.xmax2;
+            // bbox.xmax2 * width/scale < (width/2)/adj
             scale_min = 2 * adj * bbox.xmax2;
         } else { // bbox.xmax2
             //console.log("case 2","bbox.xmax2",bbox.xmax2,"a",a);
             scale = adj * 2 * bbox.xmax2;
-            // bbox.ymax2 * g_width/g_scale < (g_height/2)/adj
-            // g_scale > 2*adj*bbox.ymax2*g_width/g_height;
+            // bbox.ymax2 * width/scale < (height/2)/adj
+            // scale > 2*adj*bbox.ymax2*width/height;
             scale_min = 2 * adj * bbox.ymax2 * ar;
         };
-        //console.log("scale_min",scale_min,"g_scale",g_scale);
+        //console.log("scale_min",scale_min,"scale",scale);
         if (scale < scale_min)
             scale = scale_min;
         if (scale < scale0)

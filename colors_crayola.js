@@ -1,4 +1,4 @@
-g_crayola = [{
+clr_crayola = [{
     "hex": "#EFDECD",
     "name": "Almond",
     "rgb": "(239, 222, 205)"
