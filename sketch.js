@@ -980,6 +980,19 @@ function tandem_bar_variables(){
    set_ui_variables(g_ui);
 }
 
+function hexToRgb(hex) {
+   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+   return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : null;
+}
+
+function bg_onchange(){
+   var bg_dropbox = document.getElementById('bg');
+   bg_dropbox.addEventListener('input', function(){
+      clr_background = clr_invert_ui(hexToRgb(this.value));
+      redraw();
+   })
+}
+
 function setup() {
    var g_ui_reset = {
    a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, ell: true,
@@ -1029,7 +1042,8 @@ function setup() {
    ["1","2","3","4"].map(conic_type_onchange);
    ["1","2","3","4"].map(Bbox_onclick);
    recenter_onclick();
-   tandem_Bar()
+   tandem_Bar();
+   bg_onchange();
 
    reset_UI_onclick(g_ui_reset_initial_values);
    config_url_onclick(g_ui_reset);

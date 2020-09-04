@@ -192,9 +192,17 @@ p.lab{
   margin-right: auto;
 }
 
-.greenText{ background-color:green; }
-.redText{ background-color:red; }
-.blueText{ background-color:blue; }
+#bg{
+  height: 20px;
+  width: 35px;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+#bg::-webkit-color-swatch-wrapper {
+  padding: 0;	
+}
 
 /*Selector menu styles*/
 .component.xn_selector{
