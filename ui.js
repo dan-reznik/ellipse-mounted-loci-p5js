@@ -33,32 +33,26 @@ function set_ui_variables() {
    ,'tri_type_4','mounting_Xn1', 'mounting_Xn2', 'mounting_Xn3', 'mounting_Xn4', 'animStep0']
 
    var variables_change_checked = ['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4']
+   var from_to = {a_input_text: 'a', demo_Xn1: 'Xn1', demo_Xn2: 'Xn2', demo_Xn3: 'Xn3', demo_Xn4: 'Xn4'}
 
    variables_change_value.map(function(x){
-      document.getElementById(x).value = glob.ui[x]
-      if(['demo_Xn1','demo_Xn2','demo_Xn3','demo_Xn4'].includes(x)){
-         print(document.getElementById(x));
-         print(document.getElementById(x).value);
-         print(glob.ui[x]);
-      }
+      var y = x
+      if(['a_input_text', 'demo_Xn1', 'demo_Xn2', 'demo_Xn3', 'demo_Xn4'].includes(x)) {y = from_to[x]}
+      document.getElementById(x).value = glob.ui[y]
    });
    variables_change_checked.map(function(element){document.getElementById(element).checked = glob.ui[element]})
 }
 
-function tandem_bar_variables(){
-   if(glob.tandem_bar.loc == true){[glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4] = [glob.ui.locus_type_1, glob.ui.locus_type_1, glob.ui.locus_type_1];}
-   if(glob.tandem_bar.mnt == true){[glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4] = [glob.ui.mounting_Xn1, glob.ui.mounting_Xn1, glob.ui.mounting_Xn1];}
-   if(glob.tandem_bar.xn == true){[glob.ui.Xn2, glob.ui.Xn3, glob.ui.Xn4] = [glob.ui.Xn1, glob.ui.Xn1, glob.ui.Xn1];}
-   if(glob.tandem_bar.tri == true){
-      [glob.ui.tri_type_2, glob.ui.tri_type_3, glob.ui.tri_type_4] = [glob.ui.tri_type_1, glob.ui.tri_type_1, glob.ui.tri_type_1];
-      [glob.ui.draw_tri_2, glob.ui.draw_tri_3, glob.ui.draw_tri_4] = [glob.ui.draw_tri_1, glob.ui.draw_tri_1, glob.ui.draw_tri_1];
-   }
-   
+function tandem_bar_variables(variable){
+   if(glob.tandem_bar.loc == true && variable=='loc'){[glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4] = [glob.ui.locus_type_1, glob.ui.locus_type_1, glob.ui.locus_type_1];}
+   if(glob.tandem_bar.mnt == true && variable=='mnt'){[glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4] = [glob.ui.mounting_Xn1, glob.ui.mounting_Xn1, glob.ui.mounting_Xn1];}
+   if(glob.tandem_bar.xn == true && variable=='xn'){[glob.ui.Xn2, glob.ui.Xn3, glob.ui.Xn4] = [glob.ui.Xn1, glob.ui.Xn1, glob.ui.Xn1];}
+   if(glob.tandem_bar.tri == true && variable=='tri'){[glob.ui.tri_type_2, glob.ui.tri_type_3, glob.ui.tri_type_4] = [glob.ui.tri_type_1, glob.ui.tri_type_1, glob.ui.tri_type_1];}
+
    set_ui_variables(glob.ui);
 }
 
 function ui_changed(locus_type_changed) {
-   tandem_bar_variables();
    create_locus(locus_type_changed);
    redraw();
 }
@@ -172,6 +166,7 @@ function selector_output(input_ID, output_ID = "", ell_detect = "0") {
    selector.value = glob.ui[input_ID];
    selector.addEventListener('change', function () {
       glob.ui[input_ID] = selector.value
+      if(ell_detect == 1) tandem_bar_variables('mnt');
       ui_changed_type();
       if(input_ID != 'animStep0')
          set_conic_type_ui(ell_detect)
@@ -187,6 +182,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
          glob.ui[sliderId]--;
          slider.value--;
          text.value--;
+         if(ell_detect == 1) tandem_bar_variables('xn');
          ui_changed_type();
          set_conic_type_ui(ell_detect);
          slider.focus();
@@ -198,6 +194,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
          glob.ui[sliderId]++;
          slider.value++;
          text.value++;
+         if(ell_detect == 1) tandem_bar_variables('xn');
          ui_changed_type();
          set_conic_type_ui(ell_detect);
          slider.focus();
@@ -207,6 +204,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
    slider.addEventListener("input", function () {
       glob.ui[sliderId] = this.value;
       text.value = this.value;
+      if(ell_detect == 1) tandem_bar_variables('xn');
       ui_changed_type();
       set_conic_type_ui(ell_detect);
    });
@@ -225,6 +223,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
             this.value = '1';
          glob.ui[sliderId] = this.value;
          slider.value = this.value;
+         if(ell_detect == 1) tandem_bar_variables('xn');
          ui_changed_type();
          set_conic_type_ui(ell_detect);
          e.preventDefault();
@@ -239,6 +238,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
             this.value = '1';
          glob.ui[sliderId] = this.value;
          slider.value = this.value;
+         if(ell_detect == 1) tandem_bar_variables('xn');
          ui_changed_type();
          set_conic_type_ui(ell_detect);
          slider.focus();
@@ -355,7 +355,6 @@ function setup_tri_onchange() {
 function setup_ell_onchange(){
   document.getElementById('ell').addEventListener("click", function () {
      glob.ui.ell = this.checked;
-     tandem_bar_variables();
      ui_changed_type();
      redraw()
   })
@@ -379,6 +378,7 @@ function setup_a_speed_onchange(){
 function setup_locus_type_onchange() {
   document.getElementById("locus_type_1").addEventListener("change", function () {
      glob.ui.locus_type_1 = this.value;
+     tandem_bar_variables('loc');
      ui_changed_type();
      set_conic_type_ui("1");
   });
@@ -402,6 +402,7 @@ function setup_locus_type_onchange() {
 function setup_tri_type_onchange() {
   document.getElementById("tri_type_1").addEventListener("change", function () {
      glob.ui.tri_type_1 = this.value;
+     tandem_bar_variables('tri');
      ui_changed_type();
      set_conic_type_ui("1");
   });
@@ -504,6 +505,7 @@ function setup_config_url_onclick() {
   document.getElementById('config_URL').addEventListener("click", function () {
      //var link_params = location.protocol + '//' + location.host + location.pathname + '?';
      var link_params = location.host + location.pathname + '?';
+     console.log(glob.scale, glob.ctr[0], glob.ctr[1])
      link_params += get_diff_default_canvas('glob.scale');
      link_params += get_diff_default_canvas('glob.ctr[0]');
      link_params += get_diff_default_canvas('glob.ctr[1]');
@@ -563,6 +565,7 @@ function set_url_params(url_params) {
   let url_params_to_canvas_keys = Object.keys(url_params_to_canvas)
   let url_params_to_ui_keys = Object.keys(url_params_to_ui)
   let link_keys = Object.keys(url_params);
+  var ui_key;
   link_keys.forEach(function (key) {
      if (url_params_to_ui_keys.includes(key)){
         ui_key = url_params_to_ui[key];
@@ -580,11 +583,13 @@ function set_url_params(url_params) {
            glob.ui[ui_key] = (Object.keys(a_speed_to_ui).includes(key_value))?a_speed_to_ui[key_value]:a_speed_to_ui['anim'];
         }
         else{
-           glob.ui[ui_key] = glob.url_params[key];
+           glob.ui[ui_key] = url_params[key];
         }
      }
      if (url_params_to_canvas_keys.includes(key)){
-        eval(url_params_to_canvas[key]+'='+glob.url_params[key]);
+         console.log(key)
+         eval(url_params_to_canvas[key]+'='+url_params[key]);
+         console.log(url_params_to_canvas[key], url_params[key]);
      }
   });
   set_ui_variables(glob.ui);
@@ -600,7 +605,6 @@ function set_url_params(url_params) {
   if(glob.ui.locus_type_1 !== 'none'){
      ui_changed("1");
   } 
-  console.log(glob.ctr)
 }
 
 function setup_recenter_onclick(){
@@ -771,6 +775,7 @@ function setup_tandem_bar(){
    loc.addEventListener('click', function(){
       glob.tandem_bar.loc = this.checked;
       if(glob.tandem_bar.loc){
+         tandem_bar_variables('loc');
          ui_changed_type();
          redraw();
       }
@@ -778,6 +783,7 @@ function setup_tandem_bar(){
    mnt.addEventListener('click', function(){
       glob.tandem_bar.mnt = this.checked;
       if(glob.tandem_bar.mnt){
+         tandem_bar_variables('mnt');
          ui_changed_type();
          redraw();
       }
@@ -785,6 +791,7 @@ function setup_tandem_bar(){
    xn.addEventListener('click', function(){
       glob.tandem_bar.xn = this.checked;
       if(glob.tandem_bar.xn){
+         tandem_bar_variables('xn');
          ui_changed_type();
          redraw();
       }
@@ -792,6 +799,7 @@ function setup_tandem_bar(){
    tri.addEventListener('click', function(){
       glob.tandem_bar.tri = this.checked;
       if(glob.tandem_bar.tri){
+         tandem_bar_variables('tri');
          ui_changed_type();
          redraw();
       }
