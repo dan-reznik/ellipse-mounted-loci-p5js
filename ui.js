@@ -33,9 +33,16 @@ function set_ui_variables() {
    ,'tri_type_4','mounting_Xn1', 'mounting_Xn2', 'mounting_Xn3', 'mounting_Xn4', 'animStep0']
 
    var variables_change_checked = ['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4']
-   document.getElementById('Xn1').value = glob.ui['Xn1']
-   variables_change_value.map(x => function(x){document.getElementById(x).value = glob.ui[x]})
-   variables_change_checked.map(x => function(x){document.getElementById(x).checked = glob.ui[x]})
+
+   variables_change_value.map(function(x){
+      document.getElementById(x).value = glob.ui[x]
+      if(['demo_Xn1','demo_Xn2','demo_Xn3','demo_Xn4'].includes(x)){
+         print(document.getElementById(x));
+         print(document.getElementById(x).value);
+         print(glob.ui[x]);
+      }
+   });
+   variables_change_checked.map(function(element){document.getElementById(element).checked = glob.ui[element]})
 }
 
 function tandem_bar_variables(){
@@ -54,6 +61,37 @@ function ui_changed(locus_type_changed) {
    tandem_bar_variables();
    create_locus(locus_type_changed);
    redraw();
+}
+
+function setup_conic_type_onchange(locus_type){
+   var conic_type = document.getElementById('conic_type_'+ locus_type)
+   switch(locus_type){
+      case '1': 
+         conic_type.innerHTML = (glob.ui.locus_type_1 == 'none')?"":glob.ell.detect_1;
+         break;
+      case '2': 
+         conic_type.innerHTML = (glob.ui.locus_type_2 == 'none')?"":glob.ell.detect_2; 
+         glob.ell.detect_2 = conic_type.innerHTML
+         break;
+      case '3': 
+         conic_type.innerHTML = (glob.ui.locus_type_3 == 'none')?"":glob.ell.detect_3; 
+         glob.ell.detect_3 = conic_type.innerHTML
+         break;
+      case '4': 
+         conic_type.innerHTML = (glob.ui.locus_type_4 == 'none')?"":glob.ell.detect_4; 
+         glob.ell.detect_4 = conic_type.innerHTML
+         break;
+      default:
+         document.getElementById('conic_type_1').innerHTML = "X";
+         glob.ell.detect_1 = "X"
+         document.getElementById('conic_type_2').innerHTML = "X";
+         glob.ell.detect_2 = "X"
+         document.getElementById('conic_type_3').innerHTML = "X";
+         glob.ell.detect_3 = "X"
+         document.getElementById('conic_type_4').innerHTML = "X";
+         glob.ell.detect_4 = "X"
+         break;
+   }
 }
 
 function ui_changed_type(){
