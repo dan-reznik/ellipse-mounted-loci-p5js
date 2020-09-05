@@ -1,0 +1,30 @@
+{
+  "name": "ellipse-mounted-loci-p5js",
+  "version": "1.0.0",
+  "description": "visualize loci of centers of ellipse-mounted triangles",
+  "main": "sketch.js",
+  "dependencies": {
+    "simplepolygon": "^1.2.3"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dan-reznik/ellipse-mounted-loci-p5js.git"
+  },
+  "keywords": [
+    "geometry",
+    "locus",
+    "ellipse",
+    "triangle",
+    "center",
+    "billiard",
+    "poncelet"
+  ],
+  "author": "Iverton Darlan and Dan S Reznik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dan-reznik/ellipse-mounted-loci-p5js/issues"
+  },
+  "homepage": "https://github.com/dan-reznik/ellipse-mounted-loci-p5js#readme"
+}
