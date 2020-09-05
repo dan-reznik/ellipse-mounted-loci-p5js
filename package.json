@@ -4,6 +4,7 @@
   "description": "visualize loci of centers of ellipse-mounted triangles",
   "main": "sketch.js",
   "dependencies": {
+    "browserify": "^16.5.2",
     "simplepolygon": "^1.2.3"
   },
   "devDependencies": {},

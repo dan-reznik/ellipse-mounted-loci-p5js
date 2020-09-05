@@ -512,7 +512,6 @@ function setup() {
    mouseOverCanvas();
    //frameRate(15);
    setup_ui();
-   console.log(glob.ui);
 }
 
 function draw() {
