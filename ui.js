@@ -26,6 +26,188 @@ function setup_bbox_onclick(n) {
   document.getElementById('Bbox_' + n).addEventListener('click', () => bbox_rescale(n));
 }
 
+function set_ui_variables() {
+   var variables_change_value = ['a', 'a_speed', 'a_min', 'a_max', 'a_input_text'
+   ,'locus_type_1', 'locus_type_2', 'locus_type_3', 'locus_type_4','Xn1','demo_Xn1', 'Xn2'
+   ,'demo_Xn2', 'Xn3', 'demo_Xn3', 'Xn4', 'demo_Xn4', 'tri_type_1', 'tri_type_2', 'tri_type_3'
+   ,'tri_type_4','mounting_Xn1', 'mounting_Xn2', 'mounting_Xn3', 'mounting_Xn4', 'animStep0']
+
+   var variables_change_checked = ['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4']
+   document.getElementById('Xn1').value = glob.ui['Xn1']
+   variables_change_value.map(x => function(x){document.getElementById(x).value = glob.ui[x]})
+   variables_change_checked.map(x => function(x){document.getElementById(x).checked = glob.ui[x]})
+}
+
+function tandem_bar_variables(){
+   if(glob.tandem_bar.loc == true){[glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4] = [glob.ui.locus_type_1, glob.ui.locus_type_1, glob.ui.locus_type_1];}
+   if(glob.tandem_bar.mnt == true){[glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4] = [glob.ui.mounting_Xn1, glob.ui.mounting_Xn1, glob.ui.mounting_Xn1];}
+   if(glob.tandem_bar.xn == true){[glob.ui.Xn2, glob.ui.Xn3, glob.ui.Xn4] = [glob.ui.Xn1, glob.ui.Xn1, glob.ui.Xn1];}
+   if(glob.tandem_bar.tri == true){
+      [glob.ui.tri_type_2, glob.ui.tri_type_3, glob.ui.tri_type_4] = [glob.ui.tri_type_1, glob.ui.tri_type_1, glob.ui.tri_type_1];
+      [glob.ui.draw_tri_2, glob.ui.draw_tri_3, glob.ui.draw_tri_4] = [glob.ui.draw_tri_1, glob.ui.draw_tri_1, glob.ui.draw_tri_1];
+   }
+   
+   set_ui_variables(glob.ui);
+}
+
+function ui_changed(locus_type_changed) {
+   tandem_bar_variables();
+   create_locus(locus_type_changed);
+   redraw();
+}
+
+function ui_changed_type(){
+   if(glob.ui.locus_type_1 != 'none'){
+      ui_changed('1');
+      setup_conic_type_onchange('1')
+   }
+   if(glob.ui.locus_type_2 != 'none'){
+      ui_changed('2');
+      setup_conic_type_onchange('2')
+   }
+   if(glob.ui.locus_type_3 != 'none'){
+      ui_changed('3');
+      setup_conic_type_onchange('3')
+   }
+   if(glob.ui.locus_type_4 != 'none'){
+      ui_changed('4');
+      setup_conic_type_onchange('4')
+   }
+}
+
+function a_oninput(sliderID, input_text_ID){
+   var slider = document.getElementById(sliderID);
+   var text = document.getElementById(input_text_ID);
+   slider.value = glob.ui[sliderID];
+   slider.addEventListener('input', function () {
+      glob.ui[sliderID] = this.value;
+      if(glob.ui.locus_type_1 != 'none') set_conic_type_ui("1");
+      if(glob.ui.locus_type_2 != 'none') set_conic_type_ui("2");
+      if(glob.ui.locus_type_3 != 'none') set_conic_type_ui("3");
+      if(glob.ui.locus_type_4 != 'none') set_conic_type_ui("4");
+      text.value = this.value;
+      ui_changed('0')
+   });
+   text.addEventListener("input", function () {
+      if(this.value !== ''){
+         if (this.value > 4)
+            this.value = "4";
+         else if (this.value < 1.001)
+            this.value = "1.001";
+      }
+   })
+   text.addEventListener('keydown', function (e) {
+      if(e.keyCode==9){
+         if(this.value == '')
+            this.value = '1.618';
+         glob.ui[sliderID] = this.value;
+         slider.value = this.value;
+         ui_changed('0');
+         if(glob.ui.locus_type_1 != 'none') set_conic_type_ui("1");
+         if(glob.ui.locus_type_2 != 'none') set_conic_type_ui("2");
+         if(glob.ui.locus_type_3 != 'none') set_conic_type_ui("3");
+         if(glob.ui.locus_type_4 != 'none') set_conic_type_ui("4");         
+         e.preventDefault();
+         slider.focus();
+      }
+   })
+   text.addEventListener('keypress', function (e) {
+      if (e.keyCode < 48 || e.keyCode > 57)
+        e.preventDefault();
+      if(e.keyCode==13){
+         if(this.value == '')
+            this.value = '1.618';
+         glob.ui[sliderID] = this.value;
+         slider.value = this.value;
+         ui_changed('0');
+         if(glob.ui.locus_type_1 != 'none') set_conic_type_ui("1");
+         if(glob.ui.locus_type_2 != 'none') set_conic_type_ui("2");
+         if(glob.ui.locus_type_3 != 'none') set_conic_type_ui("3");
+         if(glob.ui.locus_type_4 != 'none') set_conic_type_ui("4");
+         slider.focus();
+      }
+   })
+}
+
+function selector_output(input_ID, output_ID = "", ell_detect = "0") {
+   var selector = document.getElementById(input_ID);
+   selector.value = glob.ui[input_ID];
+   selector.addEventListener('change', function () {
+      glob.ui[input_ID] = selector.value
+      ui_changed_type();
+      if(input_ID != 'animStep0')
+         set_conic_type_ui(ell_detect)
+   })
+}
+
+function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
+   var slider = document.getElementById(sliderId);
+   var text = document.getElementById(textId);
+
+   document.getElementById(minus_id).addEventListener("click", function () {
+      if (glob.ui[sliderId] > 1) {
+         glob.ui[sliderId]--;
+         slider.value--;
+         text.value--;
+         ui_changed_type();
+         set_conic_type_ui(ell_detect);
+         slider.focus();
+      }
+   });
+
+   document.getElementById(plus_id).addEventListener("click", function () {
+      if (glob.ui[sliderId] < 1000) {
+         glob.ui[sliderId]++;
+         slider.value++;
+         text.value++;
+         ui_changed_type();
+         set_conic_type_ui(ell_detect);
+         slider.focus();
+      }
+   });
+
+   slider.addEventListener("input", function () {
+      glob.ui[sliderId] = this.value;
+      text.value = this.value;
+      ui_changed_type();
+      set_conic_type_ui(ell_detect);
+   });
+
+   text.addEventListener("input", function () {
+      if(this.value !== ''){
+         if (this.value > 1000)
+            this.value = "1000";
+         else if (this.value < 1)
+            this.value = "1";
+      }
+   })
+   text.addEventListener('keydown', function (e) {
+      if(e.keyCode==9){
+         if(this.value == '')
+            this.value = '1';
+         glob.ui[sliderId] = this.value;
+         slider.value = this.value;
+         ui_changed_type();
+         set_conic_type_ui(ell_detect);
+         e.preventDefault();
+         slider.focus();
+      }
+   })
+   text.addEventListener('keypress', function (e) {
+      if (e.keyCode < 48 || e.keyCode > 57)
+        e.preventDefault();
+      if(e.keyCode==13){
+         if(this.value == '')
+            this.value = '1';
+         glob.ui[sliderId] = this.value;
+         slider.value = this.value;
+         ui_changed_type();
+         set_conic_type_ui(ell_detect);
+         slider.focus();
+      }
+   })
+}
+
 function setup_ui_variables_behavior() {
   //a
   a_oninput("a", "a_input_text",'0')
@@ -63,29 +245,6 @@ function setup_copy_image() {
      let canvas = document.getElementById('defaultCanvas0');
      canvas.focus();
      canvas.toBlob(blob => navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]));
-  });
-}
-
-function setup_export_PNG() {
-  let double_digit = function (myNumber) { return ("0" + myNumber).slice(-2) }
-  let element = document.body;
-
-  document.getElementById('Export_PNG').addEventListener("click", function () {
-     var today = new Date();
-     var date_time = double_digit(today.getDate().toString()) + double_digit((today.getMonth() + 1).toString()) +
-     today.getFullYear().toString() + '_' + double_digit(today.getHours().toString()) +
-     double_digit(today.getMinutes().toString()) + double_digit(today.getSeconds().toString());
-     //canvas = document.getElementById('defaultCanvas0');
-     let link = document.createElement('a');
-     link.setAttribute('download', 'locus_image_' + date_time + '.png');
-     html2canvas(element, { allowTaint: true })
-        .then(function (canvas) {
-           link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
-           link.click();
-        })
-        .catch(err => {
-           console.error('Failed to read clipboard contents: ', err);
-       });
   });
 }
 
@@ -183,22 +342,22 @@ function setup_locus_type_onchange() {
   document.getElementById("locus_type_1").addEventListener("change", function () {
      glob.ui.locus_type_1 = this.value;
      ui_changed_type();
-     conic_type_onchange("1");
+     set_conic_type_ui("1");
   });
   document.getElementById("locus_type_2").addEventListener("change", function () {
      glob.ui.locus_type_2 = this.value;
      ui_changed("2");
-     conic_type_onchange("2");
+     set_conic_type_ui("2");
   });
   document.getElementById("locus_type_3").addEventListener("change", function () {
      glob.ui.locus_type_3 = this.value;
      ui_changed("3");
-     conic_type_onchange("3");
+     set_conic_type_ui("3");
   });
   document.getElementById("locus_type_4").addEventListener("change", function () {
      glob.ui.locus_type_4 = this.value;
      ui_changed("4");
-     conic_type_onchange("4");
+     set_conic_type_ui("4");
   });
 }
 
@@ -206,25 +365,102 @@ function setup_tri_type_onchange() {
   document.getElementById("tri_type_1").addEventListener("change", function () {
      glob.ui.tri_type_1 = this.value;
      ui_changed_type();
-     conic_type_onchange("1");
+     set_conic_type_ui("1");
   });
   document.getElementById("tri_type_2").addEventListener("change", function () {
      glob.ui.tri_type_2 = this.value;
      ui_changed_type();
-     conic_type_onchange("2");
+     set_conic_type_ui("2");
   });
   document.getElementById("tri_type_3").addEventListener("change", function () {
      glob.ui.tri_type_3 = this.value;
      ui_changed_type();
-     conic_type_onchange("3");
+     set_conic_type_ui("3");
   });
   document.getElementById("tri_type_4").addEventListener("change", function () {
      glob.ui.tri_type_4 = this.value;
      ui_changed_type();
-     conic_type_onchange("4");
+     set_conic_type_ui("4");
   });
 }
 
+function get_diff_default_canvas(key){
+   let canvas_to_url_params = {
+      'glob.scale': 'sc',
+      'glob.ctr[0]': 'cx',
+      'glob.ctr[1]': 'cy'
+   };
+   let canvas_params_reset = {
+      'glob.scale': locus_bbox(+glob.ui.a, glob.ui.locus_type_1, glob.locus.Xn1_branched, glob.width / glob.height, glob.scale0, glob.rmax),
+      'glob.ctr[0]': glob.width / 2,
+      'glob.ctr[1]': glob.height / 2
+   };
+   if (eval(key) !== canvas_params_reset[key]){
+      if(key == 'glob.scale')
+         return canvas_to_url_params[key] + '=' + eval(key).toFixed(3) + '&';
+      else
+         return canvas_to_url_params[key] + '=' + eval(key).toFixed(0) + '&';
+   }
+   else
+      return '';
+}
+
+function get_diff_default(key) {
+   // this should be here
+   const original_to_url_params = {
+      a: 'a', a_speed: 'asp', a_min: 'amn', a_max: 'amx', ell: 'ell',
+      locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3', locus_type_4: 'lc4',
+      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4',
+      tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3', tri_type_4: 'tr4',
+      draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3', draw_tri_4: 'dr4',
+      mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3', mounting_Xn4: 'mt4',
+      animStep0: 'aS'
+   };
+   const animStep0_to_url_value = {
+      "0.125": 'slow', "0.500": 'med', "1.000": 'fast' 
+   }
+   const a_speed_to_url_value = {
+      "0.000": 'anim', "0.005": 'slow', "0.010": 'med', "0.050": 'fast'
+   }
+   if (glob.ui[key] !== glob.ui0[key]){
+      if(key == 'a'){
+         return original_to_url_params[key] + '=' + (+glob.ui[key]).toFixed(3) + '&';
+      }
+      else if(key == 'animStep0')
+         return original_to_url_params[key] + '=' + animStep0_to_url_value[abs(glob.ui[key]).toFixed(3)] + '&';
+      else if(key == 'a_speed')
+         return original_to_url_params[key] + '=' + a_speed_to_url_value[abs(glob.ui[key]).toFixed(3)] + '&';
+      else
+         return original_to_url_params[key] + '=' + glob.ui[key] + '&';
+   }
+   else
+      return '';
+}
+
+function copyToClipboard(text) {
+   if (window.clipboardData && window.clipboardData.setData) {
+      // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+      return clipboardData.setData("Text", text);
+
+   }
+   else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+      var textarea = document.createElement("textarea");
+      textarea.textContent = text;
+      textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+         return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+      }
+      catch (ex) {
+         console.warn("Copy to clipboard failed.", ex);
+         return false;
+      }
+      finally {
+         document.body.removeChild(textarea);
+      }
+   }
+}
 
 function setup_config_url_onclick() {
   document.getElementById('config_URL').addEventListener("click", function () {
@@ -456,7 +692,7 @@ function setup_export_JSON_onclick(){
    })
 }
 
-function setup_conic_type_onchange(locus_type){
+function set_conic_type_ui(locus_type){
    var conic_type = document.getElementById('conic_type_'+ locus_type)
    switch(locus_type){
       case '1': 
@@ -524,6 +760,11 @@ function setup_tandem_bar(){
    })
 }
 
+function hexToRgb(hex) {
+   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+   return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : null;
+}
+
 function setup_bg_onchange(){
    var bg_dropbox = document.getElementById('bg');
    bg_dropbox.addEventListener('input', function(){
@@ -545,7 +786,7 @@ function setup_ui() {
   setup_a_text_input();
   setup_ell_onchange();
   setup_export_JSON_onclick();
-  ["1","2","3","4"].map(setup_conic_type_onchange);
+  ["1","2","3","4"].map(set_conic_type_ui);
   ["1","2","3","4"].map(setup_bbox_onclick);
   setup_recenter_onclick();
   setup_tandem_bar();
@@ -553,3 +794,9 @@ function setup_ui() {
   setup_reset_UI_onclick();
   setup_config_url_onclick();
 }
+
+function reset_ui() {
+   glob.ui = JSON.parse(JSON.stringify(glob.ui0));
+   glob.ctr = JSON.parse(JSON.stringify(glob.ctr0));
+   set_ui_variables()
+};
