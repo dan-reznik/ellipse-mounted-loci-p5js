@@ -339,18 +339,16 @@ function draw_env(ons, a, tDeg, env_locus, rgb,
   //draw_line(p1, p2, rgb);
 }
 
-const clrs_crayola_shuffled = shuffle(clrs_crayola);
-
-function draw_locus_subpolys(locus_subpolys, stroke_w) {
+function draw_locus_subpolys(locus_subpolys, clrs, stroke_w) {
    if (locus_subpolys != null && locus_subpolys.length > 0) {
     let clr_count = 0, rgb;
     push();
     strokeWeight(stroke_w);
      locus_subpolys.map(l => {
-        rgb = clrs_crayola_shuffled[clr_count].rgb;
+        rgb = clrs[clr_count].rgb;
         stroke(clr_white);
         draw_one_locus_branch_filled(l, rgb);// get_rgba_str(rgb, .5));
-        clr_count = (clr_count+1)%clrs_crayola_shuffled.length;
+        clr_count = (clr_count+1)%clrs.length;
    });
    pop();
   }

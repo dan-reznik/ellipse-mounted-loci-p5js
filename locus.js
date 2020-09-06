@@ -303,12 +303,20 @@ function feat_cmp(a, b) {
     return 0;
   }
 
-function locus_subpolys(locus) {
+function locus_noise(locus,noise) {
+    return locus.map(p=>vnoise(p,noise));
+}
+
+function locus_branched_noise(locus_branched,noise) {
+    return locus_branched.map(l=>locus_noise(l, noise));
+}
+
+function locus_subpolys(locus_branched, noise) {
     var poly = {
         "type": "Feature",
         "geometry": {
             "type": "Polygon",
-            "coordinates": locus
+            "coordinates": locus_branched
         }
     };
     var sp = bundle.simplepolygon(poly); 

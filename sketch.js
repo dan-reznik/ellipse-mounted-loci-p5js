@@ -15,6 +15,7 @@ let glob = {
    tDeg : 0,
    locus_branched : [null,null,null,null],
    locus_subpolys : [null,null,null,null],
+   clrs_shuffled : [null,null,null],
    ell_detects : ['X','X','X','X'],
    ui0 : {
       a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, ell: true,
@@ -34,7 +35,7 @@ let glob = {
    ui : null,
    url_params : {},
    // botar pra dentro do ui0
-   tandem_bar : {loc: false, mnt: false, xn: false, tri: false}
+   tandem_bar : {loc: false, mnt: false, xn: false, tri: false},
 }
 
 function get_glob_indexed() {
@@ -66,9 +67,11 @@ function create_locus(locus_type_changed) {
 function create_locus_subpolys(n) {
    if (glob.locus_branched[n]!=null) {
       let finite_loci = glob.locus_branched[n].filter(l=>l.length>20);
-      if (finite_loci.length>0) 
-         glob.locus_subpolys[n] = locus_subpolys(finite_loci);
+      if (finite_loci.length>0) {
+         glob.locus_subpolys[n] = locus_subpolys(finite_loci, .01);
+         glob.clrs_shuffled[n] = shuffle(clrs_crayola);
       //glob.locus_subpolys = locus_separate(glob.locus_branched.filter(l=>l.length>4));
+      }
    }
 }
 
@@ -200,7 +203,7 @@ function draw() {
 
          // experimenting with coloring &&&
          //create_locus_subpolys(0)
-         draw_locus_subpolys(glob.locus_subpolys[i], stroke_w);
+         draw_locus_subpolys(glob.locus_subpolys[i], glob.clrs_shuffled[i],  stroke_w);
       }
    a_anim();
 
