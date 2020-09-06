@@ -506,7 +506,7 @@ function setup_config_url_onclick() {
   document.getElementById('config_URL').addEventListener("click", function () {
      //var link_params = location.protocol + '//' + location.host + location.pathname + '?';
      var link_params = location.host + location.pathname + '?';
-     console.log(glob.scale, glob.ctr[0], glob.ctr[1])
+     //console.log(glob.scale, glob.ctr[0], glob.ctr[1])
      link_params += get_diff_default_canvas('glob.scale');
      link_params += get_diff_default_canvas('glob.ctr[0]');
      link_params += get_diff_default_canvas('glob.ctr[1]');
