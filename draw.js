@@ -57,7 +57,9 @@ function draw_one_locus_branch_filled(locus, fill_rgb) {
   pop();
 }
 
-function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w, locus_type, ell_detect) {
+const dict_rot = {"0":0, "90":Math.PI/2, "180":Math.PI, "270":-Math.PI/2, "-90":-Math.PI/2};
+
+function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w, locus_type, ell_detect, rot) {
   const is_filled = locus_type.substr(0, 2) == "f_";
   if (is_filled)
     locus_type = locus_type.substr(2);
@@ -88,18 +90,21 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w, locus_typ
 
   const ell_detect_suffix = ell_detect == "X" ? "" : '(' + ell_detect + ')';
 
+  // so text will not rotate
+  translate(xn[0],xn[1]);
+  rotate(-dict_rot[rot]);
   switch (locus_type) {
     case 'trilins':
-      draw_text2('X' + xnum + ell_detect_suffix, xn, rgb, stroke_w);
+      draw_text2('X' + xnum + ell_detect_suffix, [0,0], rgb, stroke_w);
       break;
     case 'brocard_1':
-      draw_text2('Ω1' + ell_detect_suffix, xn, rgb, stroke_w);
+      draw_text2('Ω1' + ell_detect_suffix, [0,0], rgb, stroke_w);
       break;
     case 'brocard_2':
-      draw_text2('Ω2' + ell_detect_suffix, xn, rgb, stroke_w);
+      draw_text2('Ω2' + ell_detect_suffix, [0,0], rgb, stroke_w);
       break;
     case 'vtx':
-      draw_text2('V1' + ell_detect_suffix, xn, rgb, stroke_w);
+      draw_text2('V1' + ell_detect_suffix, [0,0], rgb, stroke_w);
       break;
   }
   pop();

@@ -5,10 +5,8 @@ let glob = {
    ctr0:[0,0],
    ctr:[0,0],
    mouse:[0,0],
-   rmax : 20.0,
-   rot : "0", // "90", "180", "270"
-   background : [5, 5, 25],
    scale0 : 6,
+   // scale, scale0 should be on ui
    scale : 6, // = scale0
    dragged : false,
    click_ell : false,
@@ -28,7 +26,10 @@ let glob = {
       tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference', tri_type_4: 'reference',
       draw_tri_1: true, draw_tri_2: false, draw_tri_3: false, draw_tri_4: false,
       mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
-      animStep0: "0.500"
+      animStep0: "0.500",
+      background: [5,5,25],
+      rmax : 10.0,
+      rot : "0", // "90", "180", "270"
    },
    ui : null,
    url_params : {},
@@ -66,22 +67,22 @@ function create_locus(locus_type_changed) {
    let a = +glob.ui.a;
 
    if (locus_type_1 != "none" && ["1", "0"].includes(locus_type_changed)) {
-      glob.locus.Xn1_branched = make_locus_branched(a, glob.ui.Xn1, tdegStep, glob.rmax,
+      glob.locus.Xn1_branched = make_locus_branched(a, glob.ui.Xn1, tdegStep, glob.ui.rmax,
          glob.ui.mounting_Xn1, glob.ui.locus_type_1, glob.ui.tri_type_1);
       glob.ell.detect_1 = locus_conic(glob.locus.Xn1_branched); 
    }
    if (locus_type_2 != "none" && ["2", "0"].includes(locus_type_changed)) {
-      glob.locus.Xn2_branched = make_locus_branched(a, glob.ui.Xn2, tdegStep, glob.rmax,
+      glob.locus.Xn2_branched = make_locus_branched(a, glob.ui.Xn2, tdegStep, glob.ui.rmax,
          glob.ui.mounting_Xn2, glob.ui.locus_type_2, glob.ui.tri_type_2);
       glob.ell.detect_2 = locus_conic(glob.locus.Xn2_branched);
    }
    if (locus_type_3 != "none" && ["3", "0"].includes(locus_type_changed)) {
-      glob.locus.Xn3_branched = make_locus_branched(a, glob.ui.Xn3, tdegStep, glob.rmax,
+      glob.locus.Xn3_branched = make_locus_branched(a, glob.ui.Xn3, tdegStep, glob.ui.rmax,
          glob.ui.mounting_Xn3, glob.ui.locus_type_3, glob.ui.tri_type_3);
       glob.ell.detect_3 = locus_conic(glob.locus.Xn3_branched);
    }
    if (locus_type_4 != "none" && ["4", "0"].includes(locus_type_changed)) {
-      glob.locus.Xn4_branched = make_locus_branched(a, glob.ui.Xn4, tdegStep, glob.rmax,
+      glob.locus.Xn4_branched = make_locus_branched(a, glob.ui.Xn4, tdegStep, glob.ui.rmax,
          glob.ui.mounting_Xn4, glob.ui.locus_type_4, glob.ui.tri_type_4);
       glob.ell.detect_4 = locus_conic(glob.locus.Xn4_branched);
    }
@@ -137,7 +138,7 @@ function mouseOverCanvas() {
 function bbox_rescale(n) {
    const locus_types = [glob.ui.locus_type_1, glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4];
    const loci = [glob.locus.Xn1_branched, glob.locus.Xn2_branched, glob.locus.Xn3_branched, glob.locus.Xn4_branched];
-   //glob.scale = locus_bbox(+glob.ui.a, locus_types[n - 1], loci[n - 1], glob.width / glob.height, glob.scale0, glob.rmax);
+   //glob.scale = locus_bbox(+glob.ui.a, locus_types[n - 1], loci[n - 1], glob.width / glob.height, glob.scale0, glob.ui.rmax);
    const bbox = locus_bbox_ctr(+glob.ui.a,locus_types[n - 1], loci[n - 1], glob.width / glob.height, glob.scale0);
    glob.scale = bbox.scale;
    glob.ctr = [glob.width/2-bbox.ctr_x*(glob.width/glob.scale),glob.height/2-bbox.ctr_y*(glob.width/glob.scale)];
@@ -199,35 +200,43 @@ function setup() {
    setup_ui();
 }
 
+function get_glob_indexed() {
+   return {
+      Xns: [glob.ui.Xn1, glob.ui.Xn2, glob.ui.Xn3, glob.ui.Xn4],
+      loci: [glob.locus.Xn1_branched, glob.locus.Xn2_branched, glob.locus.Xn3_branched, glob.locus.Xn4_branched],
+      l_types: [glob.ui.locus_type_1, glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4],
+      dr_tris: [glob.ui.draw_tri_1, glob.ui.draw_tri_2, glob.ui.draw_tri_3, glob.ui.draw_tri_4],
+      mountings: [glob.ui.mounting_Xn1, glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4],
+      t_types: [glob.ui.tri_type_1, glob.ui.tri_type_2, glob.ui.tri_type_3, glob.ui.tri_type_4],
+      detects: [glob.ell.detect_1, glob.ell.detect_2, glob.ell.detect_3, glob.ell.detect_4],
+      clrs : [clr_red, clr_dark_green, clr_blue, clr_purple]
+   }
+}
+
 function draw() {
+   const dict_rot = {"0":0, "90":PI/2, "180":PI, "270":-PI/2, "-90":-PI/2};
    // vamos usar glob.bg;
-   background(...glob.background); // (220, 220, 200);
+   background(...glob.ui.background); // (220, 220, 200);
 
    push();
    translate(glob.ctr[0], glob.ctr[1]);
    scale(glob.width / glob.scale);
-   //rotate(PI/2);
+   rotate(dict_rot[glob.ui.rot]);
    let stroke_w = sqrt(glob.scale/glob.scale0)*.02;
 
    if(glob.ui.ell)
       draw_ellipse(glob.ui.mounting_Xn1=="poristic"?1:+glob.ui.a,stroke_w,glob.ui.mounting_Xn1!=="poristic");
 
-   draw_billiard_or_mounted_branched(glob.ui.Xn1, +glob.ui.a, glob.tDeg,
-      glob.locus.Xn1_branched, clr_invert_ui(clr_red), glob.ui.locus_type_1,
-      glob.ui.draw_tri_1, glob.ui.mounting_Xn1, glob.ui.tri_type_1, stroke_w, glob.ui.ell, glob.ell.detect_1);
+   // need to refactor glob.* so there is one object
 
-   draw_billiard_or_mounted_branched(glob.ui.Xn2, +glob.ui.a, glob.tDeg,
-      glob.locus.Xn2_branched, clr_invert_ui(clr_dark_green), glob.ui.locus_type_2,
-      glob.ui.draw_tri_2, glob.ui.mounting_Xn2, glob.ui.tri_type_2, stroke_w, glob.ui.ell, glob.ell.detect_2);
+   const a = +glob.ui.a;
+   const g_ind = get_glob_indexed();
 
-   draw_billiard_or_mounted_branched(glob.ui.Xn3, +glob.ui.a, glob.tDeg,
-      glob.locus.Xn3_branched, clr_invert_ui(clr_blue), glob.ui.locus_type_3,
-      glob.ui.draw_tri_3, glob.ui.mounting_Xn3, glob.ui.tri_type_3, stroke_w, glob.ui.ell, glob.ell.detect_3);
-
-   draw_billiard_or_mounted_branched(glob.ui.Xn4, +glob.ui.a, glob.tDeg,
-      glob.locus.Xn4_branched, clr_invert_ui(clr_purple), glob.ui.locus_type_4,
-      glob.ui.draw_tri_4, glob.ui.mounting_Xn4, glob.ui.tri_type_4, stroke_w, glob.ui.ell, glob.ell.detect_4);
-   
+   for (let i = 0; i < g_ind.Xns.length; i++)
+      draw_billiard_or_mounted_branched(a, glob.tDeg, glob.ui.rot, glob.ui.rmax, stroke_w, glob.ui.ell, 
+      clr_invert_ui(g_ind.clrs[i]), g_ind.Xns[i], g_ind.loci[i], g_ind.l_types[i], g_ind.dr_tris[i], g_ind.mountings[i],
+      g_ind.t_types[i], g_ind.detects[i]);
+  
    a_anim();
 
    pop();

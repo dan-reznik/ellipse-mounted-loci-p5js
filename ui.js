@@ -430,7 +430,7 @@ function get_diff_default_canvas(key){
       'glob.ctr[1]': 'cy'
    };
    let canvas_params_reset = {
-      'glob.scale': locus_bbox(+glob.ui.a, glob.ui.locus_type_1, glob.locus.Xn1_branched, glob.width / glob.height, glob.scale0, glob.rmax),
+      'glob.scale': locus_bbox(+glob.ui.a, glob.ui.locus_type_1, glob.locus.Xn1_branched, glob.width / glob.height, glob.scale0, glob.ui.rmax),
       'glob.ctr[0]': glob.width / 2,
       'glob.ctr[1]': glob.height / 2
    };
@@ -814,7 +814,7 @@ function hexToRgb(hex) {
 function setup_bg_onchange(){
    var bg_dropbox = document.getElementById('bg');
    bg_dropbox.addEventListener('input', function(){
-      glob.background = hexToRgb(this.value);
+      glob.ui.background = hexToRgb(this.value);
       redraw();
    })
 }
