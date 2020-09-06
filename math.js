@@ -125,3 +125,22 @@ function cos_third(c) {
   // return ((c + I*s)^(-1/3) + (c + I s)^(1/3))/2;
   return 1/cos_third(c);
  }
+
+ function shuffle(old_arr) {
+   let tmp;
+   let arr = [...old_arr];
+   for (let i = arr.length - 1; i > 0; i--) {
+     const j = Math.floor(Math.random() * i);
+     tmp = arr[i];
+     arr[i] = arr[j];
+     arr[j] = tmp;
+   }
+   return arr;
+ }
+
+ function rand_ints(min, max, n) {
+   let ints = [];
+   for (let i = 0; i < n; i++)
+   ints.push(min + Math.round(Math.random() * (max-min)));
+   return ints;
+ }

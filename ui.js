@@ -61,29 +61,30 @@ function setup_conic_type_onchange(locus_type){
    var conic_type = document.getElementById('conic_type_'+ locus_type)
    switch(locus_type){
       case '1': 
-         conic_type.innerHTML = (glob.ui.locus_type_1 == 'none')?"":glob.ell.detect_1;
+         conic_type.innerHTML = (glob.ui.locus_type_1 == 'none')?"":glob.ell_detect[0];
+         glob.ell_detect[0] = conic_type.innerHTML;
          break;
       case '2': 
-         conic_type.innerHTML = (glob.ui.locus_type_2 == 'none')?"":glob.ell.detect_2; 
-         glob.ell.detect_2 = conic_type.innerHTML
+         conic_type.innerHTML = (glob.ui.locus_type_2 == 'none')?"":glob.ell_detect[1]; 
+         glob.ell_detect[1] = conic_type.innerHTML;
          break;
       case '3': 
-         conic_type.innerHTML = (glob.ui.locus_type_3 == 'none')?"":glob.ell.detect_3; 
-         glob.ell.detect_3 = conic_type.innerHTML
+         conic_type.innerHTML = (glob.ui.locus_type_3 == 'none')?"":glob.ell_detect[2]; 
+         glob.ell_detect[2] = conic_type.innerHTML;
          break;
       case '4': 
-         conic_type.innerHTML = (glob.ui.locus_type_4 == 'none')?"":glob.ell.detect_4; 
-         glob.ell.detect_4 = conic_type.innerHTML
+         conic_type.innerHTML = (glob.ui.locus_type_4 == 'none')?"":glob.ell_detect[3]; 
+         glob.ell_detect[3] = conic_type.innerHTML;
          break;
       default:
          document.getElementById('conic_type_1').innerHTML = "X";
-         glob.ell.detect_1 = "X"
+         glob.ell_detect[0] = "X"
          document.getElementById('conic_type_2').innerHTML = "X";
-         glob.ell.detect_2 = "X"
+         glob.ell_detect[1] = "X"
          document.getElementById('conic_type_3').innerHTML = "X";
-         glob.ell.detect_3 = "X"
+         glob.ell_detect[2] = "X"
          document.getElementById('conic_type_4').innerHTML = "X";
-         glob.ell.detect_4 = "X"
+         glob.ell_detect[3] = "X"
          break;
    }
 }
@@ -430,7 +431,7 @@ function get_diff_default_canvas(key){
       'glob.ctr[1]': 'cy'
    };
    let canvas_params_reset = {
-      'glob.scale': locus_bbox(+glob.ui.a, glob.ui.locus_type_1, glob.locus.Xn1_branched, glob.width / glob.height, glob.scale0, glob.ui.rmax),
+      'glob.scale': locus_bbox(+glob.ui.a, glob.ui.locus_type_1, glob.locus_branched[0], glob.width / glob.height, glob.scale0, glob.ui.rmax),
       'glob.ctr[0]': glob.width / 2,
       'glob.ctr[1]': glob.height / 2
    };
@@ -723,13 +724,13 @@ function setup_export_JSON_onclick(){
       var canvas_ui = {'canvas_scale':glob.scale, 'cx':glob.ctr[0], 'cy':glob.ctr[1]}
       var ui_object = {...canvas_ui, ...glob.ui};
       if(glob.ui.locus_type_1 != 'none')
-         ui_object = {...ui_object, ...{'locus1': trunc_locus_xy(glob.locus.Xn1_branched,4)}};
+         ui_object = {...ui_object, ...{'locus1': trunc_locus_xy(glob.locus_branched[0],4)}};
       if(glob.ui.locus_type_2 != 'none')
-         ui_object = {...ui_object, ...{'locus2': trunc_locus_xy(glob.locus.Xn2_branched,4)}};
+         ui_object = {...ui_object, ...{'locus2': trunc_locus_xy(glob.locus_branched[1],4)}};
       if(glob.ui.locus_type_3 != 'none')
-         ui_object = {...ui_object, ...{'locus3': trunc_locus_xy(glob.locus.Xn3_branched,4)}};
+         ui_object = {...ui_object, ...{'locus3': trunc_locus_xy(glob.locus.branched[2],4)}};
       if(glob.ui.locus_type_4 != 'none')
-         ui_object = {...ui_object, ...{'locus4': trunc_locus_xy(glob.locus.Xn4_branched,4)}};
+         ui_object = {...ui_object, ...{'locus4': trunc_locus_xy(glob.locus_branched[3],4)}};
       exportToJsonFile(ui_object);
    })
 }
@@ -738,30 +739,30 @@ function set_conic_type_ui(locus_type){
    var conic_type = document.getElementById('conic_type_'+ locus_type)
    switch(locus_type){
       case '1': 
-         conic_type.innerHTML = (glob.ui.locus_type_1 == 'none')?"":glob.ell.detect_1;
-         glob.ell.detect_1 = conic_type.innerHTML
+         conic_type.innerHTML = (glob.ui.locus_type_1 == 'none')?"":glob.ell_detect[0];
+         glob.ell_detect[0] = conic_type.innerHTML
          break;
       case '2': 
-         conic_type.innerHTML = (glob.ui.locus_type_2 == 'none')?"":glob.ell.detect_2; 
-         glob.ell.detect_2 = conic_type.innerHTML
+         conic_type.innerHTML = (glob.ui.locus_type_2 == 'none')?"":glob.ell_detect[1]; 
+         glob.ell_detect[1] = conic_type.innerHTML
          break;
       case '3': 
-         conic_type.innerHTML = (glob.ui.locus_type_3 == 'none')?"":glob.ell.detect_3; 
-         glob.ell.detect_3 = conic_type.innerHTML
+         conic_type.innerHTML = (glob.ui.locus_type_3 == 'none')?"":glob.ell_detect[2]; 
+         glob.ell_detect[2] = conic_type.innerHTML
          break;
       case '4': 
-         conic_type.innerHTML = (glob.ui.locus_type_4 == 'none')?"":glob.ell.detect_4; 
-         glob.ell.detect_4 = conic_type.innerHTML
+         conic_type.innerHTML = (glob.ui.locus_type_4 == 'none')?"":glob.ell_detect[3]; 
+         glob.ell_detect[3] = conic_type.innerHTML
          break;
       default:
          document.getElementById('conic_type_1').innerHTML = "X";
-         glob.ell.detect_1 = "X"
+         glob.ell_detect[0] = "X"
          document.getElementById('conic_type_2').innerHTML = "X";
-         glob.ell.detect_2 = "X"
+         glob.ell_detect[1] = "X"
          document.getElementById('conic_type_3').innerHTML = "X";
-         glob.ell.detect_3 = "X"
+         glob.ell_detect[2] = "X"
          document.getElementById('conic_type_4').innerHTML = "X";
-         glob.ell.detect_4 = "X"
+         glob.ell_detect[3] = "X"
          break;
    }
 }

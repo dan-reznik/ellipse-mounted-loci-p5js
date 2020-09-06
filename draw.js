@@ -38,10 +38,6 @@ function draw_locus_only(locus, rgb, stroke_w) {
   pop();
 }
 
-function get_brocard_orbit_sides(orbit, sides, n) {
-  return get_Xn_low_bary(orbit, sides, get_brocard(n));
-}
-
 function draw_one_locus_branch(locus) {
   for (let i = 0; i < locus.length - 1; i++)
     line(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);

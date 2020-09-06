@@ -60,3 +60,31 @@ function trilin_to_cartesian(
  function bary_brocard2([a,b,c]) {
     return [(a*b)**2,(b*c)**2,(a*c)**2];
  }
+
+ function get_brocard(n) {
+  let brocard_name = sprintf("bary_brocard%d", n);
+  return window[brocard_name];
+}
+
+function get_brocard_orbit_sides(orbit, sides, n) {
+  return get_Xn_low_bary(orbit, sides, get_brocard(n));
+}
+
+function get_fn_any(locus_type, n) {
+  if (locus_type.substr(0,2)=="f_")
+     locus_type = locus_type.substr(2);
+  let fn;
+  switch (locus_type) {
+     case 'brocard_1':
+       fn = bary_brocard1; // get_brocard(1);
+       break;
+     case 'brocard_2':
+       fn = bary_brocard2; // get_brocard(2);
+       break;
+     case 'vtx':
+       fn = get_tri_v1_barys;
+       break;
+     default: fn = get_fn_bary(n);
+  }
+  return fn;
+}

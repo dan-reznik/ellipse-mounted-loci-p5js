@@ -56,7 +56,7 @@ const dict_orbit_fn = {
 //function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type,
 //    stroke_w, draw_caustic, ell_detect) 
     
-    function draw_billiard_or_mounted_branched(a, tDeg, rot, rmax, stroke_w, draw_caustic, 
+    function draw_billiard_or_mounted_branched(a, tDeg, rot, stroke_w, draw_caustic, 
         clr, n, locus_branches, locus_type, dr_tri, mounting, tri_type, ell_detect)
     {
     if (mounting in dict_orbit_fn)
@@ -143,7 +143,9 @@ const dict_get_Xn = {
 };
 
 // no asymptotes
-function make_locus_branched(a, n, tDegStep, r_max, mounting, locus_type, tri_type) {
+function make_locus_branched(a, tDegStep, r_max,
+    // indexed
+    n, mounting, locus_type, tri_type) {
     let bary_fn = get_fn_any(locus_type, n);
     let locus_array;
     if (mounting in dict_get_Xn) {
@@ -289,3 +291,18 @@ function locus_bbox_ctr(a,locus_type, locus_branched, ar, scale0) {
 function trunc_locus_xy(locus_branched, digs) {
     return locus_branched.map(b => b.map(p => trunc_xy(p, digs)));
 }
+
+function locus_subpolys(locus) {
+    var poly = {
+        "type": "Feature",
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": locus
+        }
+    };
+    var sp = bundle.simplepolygon(poly); 
+    return sp.features.map(f=>f.geometry.coordinates[0]);
+}
+
+// subpolys = bundle.simplepolygon(poly)
+//subpolys.features.map(f=>f.geometry.coordinates[0])
