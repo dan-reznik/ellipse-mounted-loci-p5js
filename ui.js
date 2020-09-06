@@ -61,30 +61,30 @@ function setup_conic_type_onchange(locus_type){
    var conic_type = document.getElementById('conic_type_'+ locus_type)
    switch(locus_type){
       case '1': 
-         conic_type.innerHTML = (glob.ui.locus_type_1 == 'none')?"":glob.ell_detect[0];
-         glob.ell_detect[0] = conic_type.innerHTML;
+         conic_type.innerHTML = (glob.ui.locus_type_1 == 'none')?"":glob.ell_detects[0];
+         glob.ell_detects[0] = conic_type.innerHTML;
          break;
       case '2': 
-         conic_type.innerHTML = (glob.ui.locus_type_2 == 'none')?"":glob.ell_detect[1]; 
-         glob.ell_detect[1] = conic_type.innerHTML;
+         conic_type.innerHTML = (glob.ui.locus_type_2 == 'none')?"":glob.ell_detects[1]; 
+         glob.ell_detects[1] = conic_type.innerHTML;
          break;
       case '3': 
-         conic_type.innerHTML = (glob.ui.locus_type_3 == 'none')?"":glob.ell_detect[2]; 
-         glob.ell_detect[2] = conic_type.innerHTML;
+         conic_type.innerHTML = (glob.ui.locus_type_3 == 'none')?"":glob.ell_detects[2]; 
+         glob.ell_detects[2] = conic_type.innerHTML;
          break;
       case '4': 
-         conic_type.innerHTML = (glob.ui.locus_type_4 == 'none')?"":glob.ell_detect[3]; 
-         glob.ell_detect[3] = conic_type.innerHTML;
+         conic_type.innerHTML = (glob.ui.locus_type_4 == 'none')?"":glob.ell_detects[3]; 
+         glob.ell_detects[3] = conic_type.innerHTML;
          break;
       default:
          document.getElementById('conic_type_1').innerHTML = "X";
-         glob.ell_detect[0] = "X"
+         glob.ell_detects[0] = "X"
          document.getElementById('conic_type_2').innerHTML = "X";
-         glob.ell_detect[1] = "X"
+         glob.ell_detects[1] = "X"
          document.getElementById('conic_type_3').innerHTML = "X";
-         glob.ell_detect[2] = "X"
+         glob.ell_detects[2] = "X"
          document.getElementById('conic_type_4').innerHTML = "X";
-         glob.ell_detect[3] = "X"
+         glob.ell_detects[3] = "X"
          break;
    }
 }
@@ -739,30 +739,30 @@ function set_conic_type_ui(locus_type){
    var conic_type = document.getElementById('conic_type_'+ locus_type)
    switch(locus_type){
       case '1': 
-         conic_type.innerHTML = (glob.ui.locus_type_1 == 'none')?"":glob.ell_detect[0];
-         glob.ell_detect[0] = conic_type.innerHTML
+         conic_type.innerHTML = (glob.ui.locus_type_1 == 'none')?"":glob.ell_detects[0];
+         glob.ell_detects[0] = conic_type.innerHTML
          break;
       case '2': 
-         conic_type.innerHTML = (glob.ui.locus_type_2 == 'none')?"":glob.ell_detect[1]; 
-         glob.ell_detect[1] = conic_type.innerHTML
+         conic_type.innerHTML = (glob.ui.locus_type_2 == 'none')?"":glob.ell_detects[1]; 
+         glob.ell_detects[1] = conic_type.innerHTML
          break;
       case '3': 
-         conic_type.innerHTML = (glob.ui.locus_type_3 == 'none')?"":glob.ell_detect[2]; 
-         glob.ell_detect[2] = conic_type.innerHTML
+         conic_type.innerHTML = (glob.ui.locus_type_3 == 'none')?"":glob.ell_detects[2]; 
+         glob.ell_detects[2] = conic_type.innerHTML
          break;
       case '4': 
-         conic_type.innerHTML = (glob.ui.locus_type_4 == 'none')?"":glob.ell_detect[3]; 
-         glob.ell_detect[3] = conic_type.innerHTML
+         conic_type.innerHTML = (glob.ui.locus_type_4 == 'none')?"":glob.ell_detects[3]; 
+         glob.ell_detects[3] = conic_type.innerHTML
          break;
       default:
          document.getElementById('conic_type_1').innerHTML = "X";
-         glob.ell_detect[0] = "X"
+         glob.ell_detects[0] = "X"
          document.getElementById('conic_type_2').innerHTML = "X";
-         glob.ell_detect[1] = "X"
+         glob.ell_detects[1] = "X"
          document.getElementById('conic_type_3').innerHTML = "X";
-         glob.ell_detect[2] = "X"
+         glob.ell_detects[2] = "X"
          document.getElementById('conic_type_4').innerHTML = "X";
-         glob.ell_detect[3] = "X"
+         glob.ell_detects[3] = "X"
          break;
    }
 }

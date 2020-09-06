@@ -15,7 +15,7 @@ let glob = {
    tDeg : 0,
    locus_branched : [null,null,null,null],
    locus_subpolys : [null,null,null,null],
-   ell_detect : ['X','X','X','X'],
+   ell_detects : ['X','X','X','X'],
    ui0 : {
       a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, ell: true,
       animStep0: "0.500",
@@ -33,7 +33,7 @@ let glob = {
    },
    ui : null,
    url_params : {},
-   // melhorar
+   // botar pra dentro do ui0
    tandem_bar : {loc: false, mnt: false, xn: false, tri: false}
 }
 
@@ -58,13 +58,14 @@ function create_locus(locus_type_changed) {
       if (g_ind.l_types[i] != "none" && [(i + 1).toString(), "0"].includes(locus_type_changed)) {
          glob.locus_branched[i] = make_locus_branched(a, tdegStep, glob.ui.rmax,
             g_ind.Xns[i], g_ind.mountings[i], g_ind.l_types[i], g_ind.t_types[i]);
-         glob.ell_detect[i] = locus_conic(glob.locus_branched[i]);
+         glob.ell_detects[i] = locus_conic(glob.locus_branched[i]);
       }
 }
 
 function create_locus_subpolys(n) {
    if (glob.locus_branched[n]!=null) {
-      glob.locus_subpolys = locus_separate(glob.locus_branched.filter(l=>l.length>4));
+      glob.locus_subpolys = glob.locus_branched.filter(l=>l.length>4).map(locus_separate);
+      //glob.locus_subpolys = locus_separate(glob.locus_branched.filter(l=>l.length>4));
    }
 }
 
@@ -192,7 +193,7 @@ function draw() {
    for (let i = 0; i < g_ind.Xns.length; i++)
       draw_billiard_or_mounted_branched(a, glob.tDeg, glob.ui.rot, stroke_w, glob.ui.ell,
          g_ind.clrs[i], g_ind.Xns[i], glob.locus_branched[i], g_ind.l_types[i], g_ind.dr_tris[i], g_ind.mountings[i],
-         g_ind.t_types[i], glob.ell_detects);
+         g_ind.t_types[i], glob.ell_detects[i]);
   
    a_anim();
 
