@@ -59,12 +59,15 @@ function create_locus(locus_type_changed) {
          glob.locus_branched[i] = make_locus_branched(a, tdegStep, glob.ui.rmax,
             g_ind.Xns[i], g_ind.mountings[i], g_ind.l_types[i], g_ind.t_types[i]);
          glob.ell_detects[i] = locus_conic(glob.locus_branched[i]);
+         glob.locus_subpolys[i] = null;
       }
 }
 
 function create_locus_subpolys(n) {
    if (glob.locus_branched[n]!=null) {
-      glob.locus_subpolys = glob.locus_branched.filter(l=>l.length>4).map(locus_separate);
+      let finite_loci = glob.locus_branched[n].filter(l=>l.length>20);
+      if (finite_loci.length>0) 
+         glob.locus_subpolys[n] = locus_subpolys(finite_loci);
       //glob.locus_subpolys = locus_separate(glob.locus_branched.filter(l=>l.length>4));
    }
 }
@@ -190,11 +193,15 @@ function draw() {
    const a = +glob.ui.a;
    const g_ind = get_glob_indexed();
 
-   for (let i = 0; i < g_ind.Xns.length; i++)
+   for (let i = 0; i < g_ind.Xns.length; i++) {
       draw_billiard_or_mounted_branched(a, glob.tDeg, glob.ui.rot, stroke_w, glob.ui.ell,
          g_ind.clrs[i], g_ind.Xns[i], glob.locus_branched[i], g_ind.l_types[i], g_ind.dr_tris[i], g_ind.mountings[i],
          g_ind.t_types[i], glob.ell_detects[i]);
-  
+
+         // experimenting with coloring &&&
+         //create_locus_subpolys(0)
+         draw_locus_subpolys(glob.locus_subpolys[i], stroke_w);
+      }
    a_anim();
 
    pop();

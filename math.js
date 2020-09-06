@@ -126,7 +126,11 @@ function cos_third(c) {
   return 1/cos_third(c);
  }
 
- function shuffle(old_arr) {
+ function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+ function shuffle_old(old_arr) {
    let tmp;
    let arr = [...old_arr];
    for (let i = arr.length - 1; i > 0; i--) {

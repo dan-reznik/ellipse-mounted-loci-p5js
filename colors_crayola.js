@@ -43,11 +43,11 @@ const clrs_crayola = [{
     name: "Bittersweet",
     rgb: [253, 124, 110]
   },
-  {
+/*   {
     hex: "#000000",
     name: "Black",
     rgb: [0,0,0]
-  },
+  }, */
   {
     hex: "#ACE5EE",
     name: "Blizzard Blue",
@@ -623,11 +623,11 @@ const clrs_crayola = [{
     name: "Vivid Violet",
     rgb: [143, 80, 157]
   },
-  {
+ /*  {
     hex: "#FFFFFF",
     name: "White",
     rgb: [255, 255, 255]
-  },
+  }, */
   {
     hex: "#A2ADD0",
     name: "Wild Blue Yonder",

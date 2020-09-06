@@ -292,6 +292,17 @@ function trunc_locus_xy(locus_branched, digs) {
     return locus_branched.map(b => b.map(p => trunc_xy(p, digs)));
 }
 
+function feat_cmp(a, b) {
+    if (a.properties.parent<b.properties.parent) {
+      return -1;
+    }
+    if (a.properties.parent>b.properties.parent) {
+      return 1;
+    }
+    // a deve ser igual a b
+    return 0;
+  }
+
 function locus_subpolys(locus) {
     var poly = {
         "type": "Feature",
@@ -301,7 +312,7 @@ function locus_subpolys(locus) {
         }
     };
     var sp = bundle.simplepolygon(poly); 
-    return sp.features.map(f=>f.geometry.coordinates[0]);
+    return sp.features.sort(feat_cmp).map(f=>f.geometry.coordinates[0]);
 }
 
 // subpolys = bundle.simplepolygon(poly)
