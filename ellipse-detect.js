@@ -152,12 +152,8 @@ function get_ellipses(a, mnt, imax = 1000, r_max = 20.0) {
     const tDegStep = 5.0;
     let locus;
     let results = {a:a,mnt:mnt,imax:imax,r_max:r_max,
-        points:[], pointsN: 0, 
-        lines:[], linesN: 0, 
-        circles:[], circlesN: 0,
-        ellipses:[], ellipsesN:0,
-        hyperbolas:[], hyperbolasN:0,
-        parabolas:[],parabolasN:0};
+        pointsN:0,linesN:0,circlesN:0,ellipsesN:0,hyperbolasN:0,parabolasN:0,
+        points:[],lines:[],circles:[],ellipses:[],hyperbolas:[],parabolas:[]};
     for (let i = 1; i <= imax; i++) {
         //a, tDegStep, r_max, n, mounting, locus_type, tri_type
         locus = make_locus_branched(a, tDegStep, r_max, i, mnt, "trilins", "reference");
