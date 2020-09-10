@@ -151,14 +151,23 @@ const dict_locus_type = { "*":"points", L:"lines", C:"circles", E:"ellipses", H:
 function get_ellipses(a, mnt, imax = 1000, r_max = 20.0) {
     const tDegStep = 5.0;
     let locus;
-    let results = {points:[], lines:[], circles:[], ellipses:[], hyperbolas:[], parabolas:[]};
+    let results = {a:a,mnt:mnt,imax:imax,r_max:r_max,
+        points:[], pointsN: 0, 
+        lines:[], linesN: 0, 
+        circles:[], circlesN: 0,
+        ellipses:[], ellipsesN:0,
+        hyperbolas:[], hyperbolasN:0,
+        parabolas:[],parabolasN:0};
     for (let i = 1; i <= imax; i++) {
-        locus = make_locus_branched(a, i, tDegStep, r_max, mnt, "trilins", "reference");
+        //a, tDegStep, r_max, n, mounting, locus_type, tri_type
+        locus = make_locus_branched(a, tDegStep, r_max, i, mnt, "trilins", "reference");
         let type = locus_conic(locus);
         if (type in dict_locus_type)
            results[dict_locus_type[type]].push(i);
     }
-    for(const v of Object.values(dict_locus_type))
+    for(const v of Object.values(dict_locus_type)) {
+       results[v+"N"] = results[v].length;
        console.log(v+":", results[v].length, JSON.stringify(results[v]));
+    }
     return results;
 }
