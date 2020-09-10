@@ -9,8 +9,8 @@ function draw_generic_triangle(ons, rgb, tri_fn) {
 }
 
 function draw_euler_line(ons, rgb) {
-  let x3 = trilin_X3(ons.o, ons.s);
-  let x4 = trilin_X4(ons.o, ons.s);
+  let x3 = get_Xn_cartesians(3,ons.o, ons.s);
+  let x4 = get_Xn_cartesians(4,ons.o, ons.s);
   draw_line(x3, x4, rgb);
 }
 

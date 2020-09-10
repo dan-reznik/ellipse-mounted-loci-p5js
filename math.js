@@ -1,6 +1,28 @@
 // MATH UTILS
 clr_invert_ui = (rgb) => rgb.map(c=>255-c)
 
+function arg_max(vs) {
+  let imax = 0;
+  let vmax = vs[0];
+  for(let i = 1; i < vs.length; i++)
+    if (vs[i]>vmax) {
+      imax = i;
+      vmax = vs[i];
+    }
+  return imax;
+}
+
+function arg_min(vs) {
+  let imin = 0;
+  let vmin = vs[0];
+  for(let i = 1; i < vs.length; i++)
+    if (vs[i]<vmin) {
+      imin = i;
+      vmin = vs[i];
+    }
+  return imax;
+}
+
 toRad = (tDeg) => tDeg * PI / 180;
 toDeg = (tRad) => tRad * 180/ PI;
 negl = (v) => (Math.abs(v)<1.0e-9);
@@ -61,6 +83,10 @@ rot = (v,th) => rotSinCos(v,Math.sin(th),Math.cos(th))
 vNaN = (p) => isNaN(p[0])||isNaN(p[1]);
 vdiff = (u, v) => [u[0] - v[0], u[1] - v[1]];
 vscale = (u, s) => [u[0]*s, u[1]*s];
+vflipx = (u) => [-u[0],u[1]];
+vflipy = (u) => [u[0],-u[1]];
+vperp = (u) => [-u[1],u[0]];
+vperpNeg = (u) => [u[1],-u[0]];
 vscale_xy = (u, sx, sy) => [u[0]*sx, u[1]*sy];
 vsum = (u, v) => [u[0] + v[0], u[1] + v[1]];
 vrandom = (eps) => vscale([Math.random(),Math.random()],eps); 
@@ -150,3 +176,19 @@ function cos_third(c) {
    ints.push(min + Math.round(Math.random() * (max-min)));
    return ints;
  }
+
+ function ellTangentsb(a, b, [px, py]) {
+  const a2 = a * a, b2 = b * b, px2 = px * px, py2 = py * py;
+  const px3 = px * px2; py3 = py * py2;
+  const denomx = b2 * px2 + a2 * py2;
+  const denomy = b2 * px2 * py + a2 * py3;
+  const radicand = b2 * px2 + a2 * (py2 - b2);
+  const numFact = Math.sqrt(radicand) * py;
+  // 1st tang is CW, 2nd is CCW
+  return [
+    [a2 * (b2 * px + numFact) / denomx, b2 * (a2 * py2 - px * numFact) / denomy],
+    [a2 * (b2 * px - numFact) / denomx, b2 * (a2 * py2 + px * numFact) / denomy]
+  ];
+}
+
+ 

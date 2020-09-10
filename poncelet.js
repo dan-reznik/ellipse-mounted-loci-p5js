@@ -32,6 +32,26 @@ function ellInterRayb(a, b, [x, y], [nx, ny]) {
   return ray([x, y], [nx, ny], ss[1]);
 }
 
+function ellInterRaybBoth(a, b, [x, y], [nx, ny]) {
+  let a2=a*a, b2=b*b;
+  let c2 = b2*nx*nx + a2*ny*ny;
+  let c1 = 2*(b2*nx*x + a2*ny*y);
+  let c0 = b2*x*x + a2*y*y - a2*b2;
+  let ss = quadRoots(c2, c1, c0);
+  return ss.map(s=>ray([x, y], [nx, ny], s));
+}
+
+function circleInterRay(ctr, R, p, phat) {
+  const is = ellInterRaybBoth(R,R,vdiff(p,ctr),phat);
+  return is.map(i=>vsum(i,ctr));
+}
+
+function farthestPoint(ps,p0) {
+  const ds = ps.map(p=>edist2(p,p0));
+  const imax = arg_max(ds);
+  return ps[imax];
+}
+
 function ell_norm(a, [x, y]) {
   return vnorm([-x, -y * a * a]);
 }
@@ -188,6 +208,59 @@ function orbit_poristic(a, tDeg) {
   return { o: tri, s: tri_sides(tri) };
 }
 
+function getBrocardInellipseIsosceles(a,b) {
+  const a2=a*a,b2=b*b;
+  const g = Math.sqrt(4*a2*a2 - 5*a2*b2 + b2*b2);
+  const v1 = [0, (2*a2 - g)/b];
+  const v2 = [Math.sqrt(5*a2-2*b2+2*g), -b];
+  const v3 = vflipx(v2);
+  const v1p = [0, (2*a2 + g)/b];
+  const v2p = [Math.sqrt(5*a2-2*b2-2*g), -b];
+  const v3p = vflipx(v2p);
+  return [[v1, v2, v3], [v1p, v2p, v3p]];
+}
+
+/*
+showPonceletBrocardInellipsePerp[a_, b_, tDeg_, OptionsPattern[]] := 
+ Module[{ell, c, fs, gr, pr, pl, v1, v2, v3, brocs, isos, isosL, x3s, 
+   x6s, Rs, clrs, x186s, x39, ws, s1s, s2s, s3s, As, t, p0, v1s, 
+   tangs, feet, tris, trisL},
+  isos = getBrocardInellipseIsosceles[a, b];
+  isosL = triLengthsRL /@ isos;
+  x3s = MapThread[getCircumcenterTrilin[#1, #2] &, {isos, isosL}];
+  Rs = MapThread[magn[#1[[1]] - #2] &, {isos, x3s}];
+  clrs = {OptionValue@clrTri1, OptionValue@clrTri2};
+  t = toRad@tDeg;
+  p0 = {-Sin@t, Cos@t};
+  v1s = MapThread[(#1 p0 + #2) &, {Rs, x3s}];
+  tangs = ellTangentsbUnprotNoAbs[a, b, #] & /@ v1s;
+  feet = Transpose@
+    Table[MapThread[
+      farthestPoint[
+        interRayCirc[#1, #2, #3, #4[[i]] - #3], #3] &, {x3s, Rs, v1s, 
+       tangs}], {i, 2}];
+  (*Print@{"x3s",x3s,"Rs",Rs,"v1s",v1s,"tangs",tangs,"feet",feet};*)
+  tris = Table[{v1s[[i]], feet[[i, 1]], feet[[i, 2]]}, {i, 2}];
+  trisL = triLengthsRL /@ tris;
+*/
+
+
+function orbit_brocard(a,tDeg) {
+  const isos = getBrocardInellipseIsosceles(a, 1);
+  //const isosL = isos.map(tri_sides);
+  //const x3s = isos.map((t,i)=>bary_X3(t,isosL[i]));
+  const x3 = get_Xn_cartesians(3,isos[0],tri_sides(isos[0]));
+  const R = edist(isos[0][0],x3);
+  const t = toRad(tDeg);
+  const p0 = [-Math.sin(t),Math.cos(t)];
+  const v1 = vsum(vscale(p0,R),x3); // x3 + R.p0
+  const tangs = ellTangentsb(a, 1, v1); 
+  const is =  tangs.map(t=>circleInterRay(x3, R, v1, vdiff(t, v1)));
+  const feet = is.map(i=>farthestPoint(i, v1));
+  const tri = [v1, feet[0], feet[1]];
+  return { o: tri, s: tri_sides(tri) };
+}
+
 function get_Xn_non_billiard(a, tDeg, orbit_fn, bary_fn, tri_type) {
   let ons = orbit_fn(a, tDeg);
   let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
@@ -212,4 +285,8 @@ function get_Xn_dual(a, tDeg, trilin_fn, tri_type) {
 
 function get_Xn_poristic(a, tDeg, trilin_fn, tri_type) {
   return get_Xn_non_billiard(a, tDeg, orbit_poristic, trilin_fn, tri_type);
+}
+
+function get_Xn_brocard(a, tDeg, trilin_fn, tri_type) {
+  return get_Xn_non_billiard(a, tDeg, orbit_brocard, trilin_fn, tri_type);
 }

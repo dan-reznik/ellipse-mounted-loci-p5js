@@ -18,7 +18,8 @@ const dict_caustic = {
     incircle: caustic_incircle,
     inellipse: caustic_inellipse,
     dual: caustic_dual,
-    poristic: caustic_poristic
+    poristic: caustic_poristic,
+    brocard: caustic_brocard
 };
 
 function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus_branches, clr, locus_type, dr_tri, tri_type,
@@ -33,6 +34,13 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
                 push();
                 translate(-d, 0);
                 draw_boundary(1 + a, 1 + a, clr_caustic, stroke_w);
+                pop();
+            } else
+            if (mounting == "brocard") {
+                const bp = brocard_porism(a);
+                push();
+                translate(...bp.x3);
+                draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
                 pop();
             } else
                 draw_boundary(...dict_caustic[mounting](a), clr_caustic, stroke_w);
@@ -50,7 +58,8 @@ const dict_orbit_fn = {
     incircle: orbit_incircle,
     inellipse: orbit_inellipse,
     dual: orbit_dual,
-    poristic: orbit_poristic
+    poristic: orbit_poristic,
+    brocard: orbit_brocard
 };
 
 //function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type,
@@ -139,7 +148,8 @@ const dict_get_Xn = {
     incircle: get_Xn_incircle,
     inellipse: get_Xn_inellipse,
     dual: get_Xn_dual,
-    poristic: get_Xn_poristic
+    poristic: get_Xn_poristic,
+    brocard: get_Xn_brocard
 };
 
 // no asymptotes

@@ -36,3 +36,17 @@ function caustic_dual(a) {
 function caustic_poristic(a) {
     return [1,1];
 }
+
+function caustic_brocard(a) {
+    const isos = getBrocardInellipseIsosceles(a, 1);
+    const x3 = get_Xn_cartesians(3,isos[0],tri_sides(isos[0]));
+    const R = edist(isos[0][0],x3);
+    return [R,R];
+}
+
+function brocard_porism(a) {
+    const isos = getBrocardInellipseIsosceles(a, 1);
+    const x3 = get_Xn_cartesians(3,isos[0],tri_sides(isos[0]));
+    const R = edist(isos[0][0],x3);
+    return {R:R,x3:x3};
+}
