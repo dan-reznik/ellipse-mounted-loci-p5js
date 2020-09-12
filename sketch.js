@@ -121,7 +121,6 @@ function setup() {
    recenter();
    reset_ui();
    url_params = getURLParams();
-   if(url_params.dr1 == undefined)  glob.ui.draw_tri_1 = false; //older versions config_url compatibility
    if(Object.keys(url_params).length > 0) {set_url_params(url_params);}
    let canvas = createCanvas(glob.width, glob.height);
    canvas.parent('canvas');
