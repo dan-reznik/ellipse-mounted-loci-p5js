@@ -164,8 +164,6 @@ function a_oninput(sliderID, input_text_ID){
       if(this.value !== ''){
          if (this.value > 4)
             this.value = "4";
-         else if (this.value < 1.001)
-            this.value = "1.001";
       }
    })
    text.addEventListener('keydown', function (e) {
@@ -184,10 +182,14 @@ function a_oninput(sliderID, input_text_ID){
       }
    })
    text.addEventListener('keypress', function (e) {
-      if (e.keyCode < 48 || e.keyCode > 57)
+      if ((e.keyCode < 48 || e.keyCode > 57) && e.keyCode != 46)
         e.preventDefault();
+      if(e.keyCode==46 && this.value.includes('.'))
+         e.preventDefault();
       if(e.keyCode==13){
-         if(this.value == '')
+         if (this.value < 1.001)
+            this.value = "1.001";
+         else if(this.value == '')
             this.value = '1.618';
          glob.ui[sliderID] = this.value;
          slider.value = this.value;
