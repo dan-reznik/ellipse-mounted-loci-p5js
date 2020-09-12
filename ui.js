@@ -26,11 +26,25 @@ function setup_bbox_onclick(n) {
   document.getElementById('Bbox_' + n).addEventListener('click', () => bbox_rescale(n));
 }
 
+function rgbToHex(rgb) {   
+   var numberToHex = function (rgb) { 
+      var hex = Number(rgb).toString(16);
+      if (hex.length < 2) {
+           hex = "0" + hex;
+      }
+      return hex;
+   };
+   var red = numberToHex(rgb[0]);
+   var green = numberToHex(rgb[1]);
+   var blue = numberToHex(rgb[2]);
+   return '#'+red+green+blue;
+ };
+
 function set_ui_variables() {
    var variables_change_value = ['a', 'a_speed', 'a_min', 'a_max', 'a_input_text'
    ,'locus_type_1', 'locus_type_2', 'locus_type_3', 'locus_type_4','Xn1','demo_Xn1', 'Xn2'
    ,'demo_Xn2', 'Xn3', 'demo_Xn3', 'Xn4', 'demo_Xn4', 'tri_type_1', 'tri_type_2', 'tri_type_3'
-   ,'tri_type_4','mounting_Xn1', 'mounting_Xn2', 'mounting_Xn3', 'mounting_Xn4', 'animStep0']
+   ,'tri_type_4','mounting_Xn1', 'mounting_Xn2', 'mounting_Xn3', 'mounting_Xn4', 'animStep0', 'rot', 'rmax', 'bg']
 
    var variables_change_checked = ['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4']
    var from_to = {a_input_text: 'a', demo_Xn1: 'Xn1', demo_Xn2: 'Xn2', demo_Xn3: 'Xn3', demo_Xn4: 'Xn4'}
@@ -38,7 +52,9 @@ function set_ui_variables() {
    variables_change_value.map(function(x){
       var y = x
       if(['a_input_text', 'demo_Xn1', 'demo_Xn2', 'demo_Xn3', 'demo_Xn4'].includes(x)) {y = from_to[x]}
-      document.getElementById(x).value = glob.ui[y]
+      if(x != 'bg')  document.getElementById(x).value = glob.ui[y];
+      else
+         document.getElementById(x).value = rgbToHex(glob.ui[y]);
    });
    variables_change_checked.map(function(element){document.getElementById(element).checked = glob.ui[element]})
 }
@@ -496,7 +512,7 @@ function get_diff_default(key) {
       tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3', tri_type_4: 'tr4',
       draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3', draw_tri_4: 'dr4',
       mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3', mounting_Xn4: 'mt4',
-      animStep0: 'aS'
+      animStep0: 'aS', rot: 'rot', rmax : 'rmx', bg:'bg' 
    };
    const animStep0_to_url_value = {
       "0.125": 'slow', "0.500": 'med', "1.000": 'fast' 
@@ -512,6 +528,8 @@ function get_diff_default(key) {
          return original_to_url_params[key] + '=' + animStep0_to_url_value[abs(glob.ui[key]).toFixed(3)] + '&';
       else if(key == 'a_speed')
          return original_to_url_params[key] + '=' + a_speed_to_url_value[abs(glob.ui[key]).toFixed(3)] + '&';
+      else if(key == 'bg')
+         return original_to_url_params[key] + '=' + rgbToHex(glob.ui[key]).slice(1) + '&';
       else
          return original_to_url_params[key] + '=' + glob.ui[key] + '&';
    }
@@ -548,7 +566,6 @@ function setup_config_url_onclick() {
   document.getElementById('config_URL').addEventListener("click", function () {
      //var link_params = location.protocol + '//' + location.host + location.pathname + '?';
      var link_params = location.host + location.pathname + '?';
-     //console.log(glob.scale, glob.ctr[0], glob.ctr[1])
      link_params += get_diff_default_canvas('glob.scale');
      link_params += get_diff_default_canvas('glob.ctr[0]');
      link_params += get_diff_default_canvas('glob.ctr[1]');
@@ -558,6 +575,9 @@ function setup_config_url_onclick() {
      link_params += get_diff_default("a_min");
      link_params += get_diff_default("a_max");
      link_params += get_diff_default("ell");
+     link_params += get_diff_default("rot");
+     link_params += get_diff_default("rmax");
+     link_params += get_diff_default("bg");
      link_params += get_diff_default("locus_type_1");
      link_params += get_diff_default("Xn1");
      link_params += get_diff_default("mounting_Xn1");
@@ -597,7 +617,7 @@ function set_url_params(url_params) {
      tr1: 'tri_type_1', tr2: 'tri_type_2', tr3: 'tri_type_3', tr4: 'tri_type_4',
      dr1: 'draw_tri_1', dr2: 'draw_tri_2', dr3: 'draw_tri_3', dr4: 'draw_tri_4',
      mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3', mt4: 'mounting_Xn4',
-     aS: 'animStep0'
+     aS: 'animStep0', rot: 'rot', rmx : 'rmax', bg: 'bg'
   };
   let animStep0_to_ui = {
      slow: "0.125", medium: "0.500", fast: "1.000"
@@ -625,14 +645,14 @@ function set_url_params(url_params) {
            key_value = url_params[key]
            glob.ui[ui_key] = (Object.keys(a_speed_to_ui).includes(key_value))?a_speed_to_ui[key_value]:a_speed_to_ui['anim'];
         }
-        else{
-           glob.ui[ui_key] = url_params[key];
+        else if(ui_key == 'bg'){
+           glob.ui[ui_key] = hexToRgb('#'+url_params[key]);
         }
+        else
+           glob.ui[ui_key] = url_params[key];
      }
      if (url_params_to_canvas_keys.includes(key)){
-         console.log(key)
          eval(url_params_to_canvas[key]+'='+url_params[key]);
-         console.log(url_params_to_canvas[key], url_params[key]);
      }
   });
   set_ui_variables(glob.ui);
@@ -857,7 +877,23 @@ function hexToRgb(hex) {
 function setup_bg_onchange(){
    var bg_dropbox = document.getElementById('bg');
    bg_dropbox.addEventListener('input', function(){
-      glob.ui.background = hexToRgb(this.value);
+      glob.ui.bg = hexToRgb(this.value);
+      redraw();
+   })
+}
+
+function setup_rot_onchange(){
+   var rot_dropbox = document.getElementById('rot');
+   rot_dropbox.addEventListener('input', function(){
+      glob.ui.rot = this.value;
+      redraw();
+   })
+}
+
+function setup_rmax_onchange(){
+   var rmax_dropbox = document.getElementById('rmax');
+   rmax_dropbox.addEventListener('input', function(){
+      glob.ui.rmax = this.value;
       redraw();
    })
 }
@@ -880,6 +916,8 @@ function setup_ui() {
   setup_recenter_onclick();
   setup_tandem_bar();
   setup_bg_onchange();
+  setup_rot_onchange();
+  setup_rmax_onchange();
   setup_reset_UI_onclick();
   setup_config_url_onclick();
 }

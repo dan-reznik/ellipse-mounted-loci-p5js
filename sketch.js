@@ -18,9 +18,10 @@ let glob = {
    clrs_shuffled : [null,null,null],
    ell_detects : ['X','X','X','X'],
    ui0 : {
-      a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, ell: true,
+      a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, 
+      ell: true,
       animStep0: "0.500",
-      background: [5,5,25],
+      bg: [5,5,25],
       rmax : 10.0,
       rot : "0", // "90", "180", "270"
       // needs to refactor this
@@ -141,7 +142,7 @@ function setup() {
 function draw() {
    const dict_rot = {"0":0, "90":PI/2, "180":PI, "270":-PI/2, "-90":-PI/2};
    // vamos usar glob.bg;
-   background(...glob.ui.background); // (220, 220, 200);
+   background(...glob.ui.bg); // (220, 220, 200);
 
    push();
    translate(glob.ctr[0], glob.ctr[1]);
