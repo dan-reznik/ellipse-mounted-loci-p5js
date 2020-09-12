@@ -210,6 +210,21 @@ function fourth_brocard_triangle([a,b,c]) {
   return ts; // generic_triangle(orbit,[a,b,c],ts);
 }
 
+// intersections of cevians thru X3 w brocard circle
+// invented by D Reznik and P Moses 12-sept-2020
+function seventh_brocard_triangle([a,b,c]) {
+  const a2 = a*a, b2 = b*b, c2 = c*c;
+  const a4=a2*a2, b4=b2*b2, c4=c2*c2;
+  ts = [
+    [a4 + b4 + c4 - 2*b2*c2, b2*(a2 - b2 + c2), c2*(a2 + b2 - c2)],
+    [a2*(b2 + c2 - a2), b4 + c4 + a4 - 2*c2*a2, c2*(b2 - c2 + a2)],
+    [a2*(c2 - a2 + b2), b2*(c2 + a2 - b2), c4 + a4 + b4 - 2*a2*b2]
+   ];
+   return ts;
+  }
+
+
+
 function first_neuberg_triangle([a,b,c]) {
   let a2=a*a,b2=b*b,c2=c*c;
   let abc=a*b*c;
@@ -542,6 +557,7 @@ const tri_fns_dict = {
   brocard2         : second_brocard_triangle,
   brocard3         : third_brocard_triangle,
   brocard4         : fourth_brocard_triangle,
+  brocard7         : seventh_brocard_triangle,
   neuberg1         : first_neuberg_triangle,
   neuberg2         : second_neuberg_triangle,
   outervecten      : outer_vecten_triangle,
