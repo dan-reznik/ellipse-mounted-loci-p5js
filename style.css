@@ -277,21 +277,7 @@ label{
 /*slider's*/
 
 /* The slider itself */
-#Xn1::-webkit-slider-thumb{
-  background: red;
-}
 
-#Xn2::-webkit-slider-thumb{
-  background: green;
-}
-
-#Xn3::-webkit-slider-thumb{
-  background: blue;
-}
-
-#Xn4::-webkit-slider-thumb{
-  background: purple;
-}
 
 .slider {
     -webkit-appearance: none;

@@ -36,15 +36,15 @@ function set_ui_variables() {
 }
 
 function tandem_bar_variables(variable){
-   if(glob.tandem_bar.loc == true && variable=='loc'){[glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4] = [glob.ui.locus_type_1, glob.ui.locus_type_1, glob.ui.locus_type_1];}
-   if(glob.tandem_bar.mnt == true && variable=='mnt'){[glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4] = [glob.ui.mounting_Xn1, glob.ui.mounting_Xn1, glob.ui.mounting_Xn1];}
-   if(glob.tandem_bar.xn == true && variable=='xn'){[glob.ui.Xn2, glob.ui.Xn3, glob.ui.Xn4] = [glob.ui.Xn1, glob.ui.Xn1, glob.ui.Xn1];}
-   if(glob.tandem_bar.tri == true && variable=='tri'){[glob.ui.tri_type_2, glob.ui.tri_type_3, glob.ui.tri_type_4] = [glob.ui.tri_type_1, glob.ui.tri_type_1, glob.ui.tri_type_1];}
+   if(glob.ui.loc == true && variable=='loc'){[glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4] = [glob.ui.locus_type_1, glob.ui.locus_type_1, glob.ui.locus_type_1];}
+   if(glob.ui.mnt == true && variable=='mnt'){[glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4] = [glob.ui.mounting_Xn1, glob.ui.mounting_Xn1, glob.ui.mounting_Xn1];}
+   if(glob.ui.xn == true && variable=='xn'){[glob.ui.Xn2, glob.ui.Xn3, glob.ui.Xn4] = [glob.ui.Xn1, glob.ui.Xn1, glob.ui.Xn1];}
+   if(glob.ui.tri == true && variable=='tri'){[glob.ui.tri_type_2, glob.ui.tri_type_3, glob.ui.tri_type_4] = [glob.ui.tri_type_1, glob.ui.tri_type_1, glob.ui.tri_type_1];}
 
    set_ui_variables(glob.ui);
 }
 
-function ui_changed(locus_type_changed, call_create_locus=false) {
+function ui_changed(locus_type_changed, call_create_locus=true) {
    if(call_create_locus) create_locus(locus_type_changed);
    redraw();
 }
@@ -612,7 +612,7 @@ function set_url_params(url_params) {
            glob.ui[ui_key] = +url_params[key];
         }
         else if(['ell','draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4'].includes(ui_key))
-           glob.ui[ui_key] = (glob.url_params[key] == 'true');
+           glob.ui[ui_key] = (url_params[key] == 'true');
         else if(ui_key == 'animStep0'){
            key_value = url_params[key]
            glob.ui[ui_key] = (Object.keys(animStep0_to_ui).includes(key_value))?animStep0_to_ui[key_value]:animStep0_to_ui['slow'];
@@ -812,32 +812,32 @@ function setup_tandem_bar(){
    tri = document.getElementById('tandem_tri');
    
    loc.addEventListener('click', function(){
-      glob.tandem_bar.loc = this.checked;
-      if(glob.tandem_bar.loc){
+      glob.ui.loc = this.checked;
+      if(glob.ui.loc){
          tandem_bar_variables('loc');
          ui_changed_type(true);
          redraw();
       }
    })
    mnt.addEventListener('click', function(){
-      glob.tandem_bar.mnt = this.checked;
-      if(glob.tandem_bar.mnt){
+      glob.ui.mnt = this.checked;
+      if(glob.ui.mnt){
          tandem_bar_variables('mnt');
          ui_changed_type(true);
          redraw();
       }
    })
    xn.addEventListener('click', function(){
-      glob.tandem_bar.xn = this.checked;
-      if(glob.tandem_bar.xn){
+      glob.ui.xn = this.checked;
+      if(glob.ui.xn){
          tandem_bar_variables('xn');
          ui_changed_type(true);
          redraw();
       }
    })
    tri.addEventListener('click', function(){
-      glob.tandem_bar.tri = this.checked;
-      if(glob.tandem_bar.tri){
+      glob.ui.tri = this.checked;
+      if(glob.ui.tri){
          tandem_bar_variables('tri');
          ui_changed_type(false);
          redraw();
@@ -876,7 +876,6 @@ function setup_rmax_onchange(){
 
 function setup_ui() {
   setup_ui_variables_behavior();
-  ui_changed("1", true);
   setup_copy_image();
   setup_export_PNG();
   setup_play_controls();
@@ -896,6 +895,7 @@ function setup_ui() {
   setup_rmax_onchange();
   setup_reset_UI_onclick();
   setup_config_url_onclick();
+  ui_changed("1", true);
 }
 
 function reset_ui() {

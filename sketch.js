@@ -30,12 +30,11 @@ let glob = {
       draw_tri_1: true, draw_tri_2: false, draw_tri_3: false, draw_tri_4: false,
       mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
       clr_1: clr_invert_ui(clr_red), clr_2: clr_invert_ui(clr_dark_green),
-      clr_3: clr_invert_ui(clr_blue), clr_4: clr_invert_ui(clr_purple)
+      clr_3: clr_invert_ui(clr_blue), clr_4: clr_invert_ui(clr_purple),
+      loc: false, mnt: false, xn: false, tri: false
    },
    ui : null,
    url_params : {},
-   // botar pra dentro do ui0
-   tandem_bar : {loc: false, mnt: false, xn: false, tri: false},
 }
 
 function get_glob_indexed() {
@@ -121,15 +120,15 @@ function setup() {
    get_window_width_height();
    recenter();
    reset_ui();
-   glob.ui.draw_tri_1 = false; //older versions config_url compatibility
    url_params = getURLParams();
+   if(url_params.dr1 == undefined)  glob.ui.draw_tri_1 = false; //older versions config_url compatibility
    if(Object.keys(url_params).length > 0) {set_url_params(url_params);}
    let canvas = createCanvas(glob.width, glob.height);
    canvas.parent('canvas');
+   setup_ui();
    ['4','3','2','1'].map(x => bbox_rescale(x));
    mouseOverCanvas();
    //frameRate(15);
-   setup_ui();
 }
 
 function draw() {
