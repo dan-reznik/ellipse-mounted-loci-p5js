@@ -1,27 +1,3 @@
-function create_title(lab, prep = true, parent = "ui") {
-  let p = createP((prep ? '>>> ' : "") + lab);
-  p.parent(parent);
-  /*p.position(x, y);*/
-  p.class('lab');
-  return lab;
-}
-
-function create_title_ctr(lab, par, clr = 'red') {
-  let p = createP(lab);
-  p.parent(par);
-  p.style('color', clr)
-  return p;
-}
-
-function create_main_title(y) {
-  let div = createDiv();
-  div.parent('ui');
-  div.style('text-align', 'center');
-  div.class('lab');
-  create_title_ctr("Loci of Centers of Ellipse-Mounted Triangles  (<a href=https://dan-reznik.github.io/ellipse-mounted-triangles/>Learn more</a>)", div, 'blue');
-  return div;
-}
-
 function setup_bbox_onclick(n) {
   document.getElementById('Bbox_' + n).addEventListener('click', () => bbox_rescale(n));
 }
@@ -178,8 +154,8 @@ function a_oninput(sliderID, input_text_ID){
    });
    text.addEventListener("input", function () {
       if(this.value !== ''){
-         if (this.value > 4)
-            this.value = "4";
+         if (this.value > 10)
+            this.value = "10";
       }
    })
    text.addEventListener('keydown', function (e) {

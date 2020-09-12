@@ -1,7 +1,6 @@
 let glob = {
    width:0,
    height:0,
-   main_title:"", 
    ctr0:[0,0],
    ctr:[0,0],
    mouse:[0,0],
@@ -76,13 +75,6 @@ function create_locus_subpolys(n) {
    }
 }
 
-function create_checkboxes() {
-   let chks = [];
-
-   glob.main_title = create_main_title();
-   create_title("© 2020 Iverton Darlan & Dan Reznik", false);
-}
-
 function get_window_width_height() {
    glob.width = document.getElementsByClassName('item graphic')[0].offsetWidth;
    glob.height = document.getElementsByClassName('item graphic')[0].offsetHeight;
@@ -129,11 +121,12 @@ function setup() {
    get_window_width_height();
    recenter();
    reset_ui();
+   glob.ui.draw_tri_1 = false; //older versions config_url compatibility
    url_params = getURLParams();
    if(Object.keys(url_params).length > 0) {set_url_params(url_params);}
-   create_checkboxes();
    let canvas = createCanvas(glob.width, glob.height);
    canvas.parent('canvas');
+   ['4','3','2','1'].map(x => bbox_rescale(x));
    mouseOverCanvas();
    //frameRate(15);
    setup_ui();
