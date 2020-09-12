@@ -100,7 +100,7 @@ function windowResized() {
    get_window_width_height();
    locus_ids.map((li,i) => {
       if (locus_types[i] !== 'none') {
-         ui_changed(li);
+         ui_changed(li, false);
          bbox_rescale(li);
       }
    });
@@ -120,47 +120,8 @@ function bbox_rescale(n) {
    glob.scale = bbox.scale;
    glob.ctr = [glob.width/2-bbox.ctr_x*(glob.width/glob.scale),glob.height/2-bbox.ctr_y*(glob.width/glob.scale)];
    glob.ctr0 = glob.ctr;
-   ui_changed_type();
+   ui_changed_type(false);
    redraw();
-}
-
-function a_anim(){
-   a_slider = document.getElementById('a')
-   a_text = document.getElementById('a_input_text')
-   glob.ui.a_speed = +glob.ui.a_speed;
-   glob.ui.a = +glob.ui.a;
-   glob.ui.a_max = +glob.ui.a_max;
-   glob.ui.a_min = +glob.ui.a_min;
-   if(glob.ui.a_speed != 0.000){
-      if(glob.ui.a_speed > 0)
-         if(glob.ui.a_max-glob.ui.a <= glob.ui.a_speed){
-            glob.ui.a = glob.ui.a_max;
-            a_slider.value = glob.ui.a;
-            a_text.value = a_slider.value;
-            glob.ui.a_speed = -glob.ui.a_speed;
-            ui_changed_type()
-         }
-         else{
-            glob.ui.a += glob.ui.a_speed;
-            a_slider.value = glob.ui.a;
-            a_text.value = a_slider.value;
-            ui_changed_type()    
-         }
-      else
-         if(glob.ui.a+glob.ui.a_speed<=glob.ui.a_min){
-            glob.ui.a = glob.ui.a_min;
-            a_slider.value = glob.ui.a;
-            a_text.value = a_slider.value;
-            glob.ui.a_speed = -glob.ui.a_speed;
-            ui_changed_type()        
-         }
-         else{
-            glob.ui.a += glob.ui.a_speed;
-            a_slider.value = glob.ui.a;
-            a_text.value = a_slider.value;
-            ui_changed_type()        
-         }
-   } 
 }
 
 function setup() {
@@ -236,7 +197,7 @@ function mouseDragged() {
       glob.dragged = true;
       glob.ctr = vsum(vdiff([mouseX, mouseY], glob.mouse), glob.ctr0);
       if (!glob.loop) {
-         ui_changed_type();
+         ui_changed_type(false);
          redraw();
       } 
    }
@@ -248,7 +209,7 @@ function mouseWheel(event) {
    else
       glob.scale *= 0.95;
    if (!glob.loop) {
-      ui_changed_type();
+      ui_changed_type(false);
       redraw();
    }
    return false;

@@ -52,8 +52,8 @@ function tandem_bar_variables(variable){
    set_ui_variables(glob.ui);
 }
 
-function ui_changed(locus_type_changed) {
-   create_locus(locus_type_changed);
+function ui_changed(locus_type_changed, call_create_locus=false) {
+   if(call_create_locus) create_locus(locus_type_changed);
    redraw();
 }
 
@@ -89,23 +89,62 @@ function setup_conic_type_onchange(locus_type){
    }
 }
 
-function ui_changed_type(){
+function ui_changed_type(call_create_locus = false){
    if(glob.ui.locus_type_1 != 'none'){
-      ui_changed('1');
+      ui_changed('1', call_create_locus);
       setup_conic_type_onchange('1')
    }
    if(glob.ui.locus_type_2 != 'none'){
-      ui_changed('2');
+      ui_changed('2', call_create_locus);
       setup_conic_type_onchange('2')
    }
    if(glob.ui.locus_type_3 != 'none'){
-      ui_changed('3');
+      ui_changed('3', call_create_locus);
       setup_conic_type_onchange('3')
    }
    if(glob.ui.locus_type_4 != 'none'){
-      ui_changed('4');
+      ui_changed('4', call_create_locus);
       setup_conic_type_onchange('4')
    }
+}
+
+function a_anim(){
+   a_slider = document.getElementById('a')
+   a_text = document.getElementById('a_input_text')
+   glob.ui.a_speed = +glob.ui.a_speed;
+   glob.ui.a = +glob.ui.a;
+   glob.ui.a_max = +glob.ui.a_max;
+   glob.ui.a_min = +glob.ui.a_min;
+   if(glob.ui.a_speed != 0.000){
+      if(glob.ui.a_speed > 0)
+         if(glob.ui.a_max-glob.ui.a <= glob.ui.a_speed){
+            glob.ui.a = glob.ui.a_max;
+            a_slider.value = glob.ui.a;
+            a_text.value = a_slider.value;
+            glob.ui.a_speed = -glob.ui.a_speed;
+            ui_changed_type(true)
+         }
+         else{
+            glob.ui.a += glob.ui.a_speed;
+            a_slider.value = glob.ui.a;
+            a_text.value = a_slider.value;
+            ui_changed_type(true)    
+         }
+      else
+         if(glob.ui.a+glob.ui.a_speed<=glob.ui.a_min){
+            glob.ui.a = glob.ui.a_min;
+            a_slider.value = glob.ui.a;
+            a_text.value = a_slider.value;
+            glob.ui.a_speed = -glob.ui.a_speed;
+            ui_changed_type(true)        
+         }
+         else{
+            glob.ui.a += glob.ui.a_speed;
+            a_slider.value = glob.ui.a;
+            a_text.value = a_slider.value;
+            ui_changed_type(true)        
+         }
+   } 
 }
 
 function a_oninput(sliderID, input_text_ID){
@@ -119,7 +158,7 @@ function a_oninput(sliderID, input_text_ID){
       if(glob.ui.locus_type_3 != 'none') set_conic_type_ui("3");
       if(glob.ui.locus_type_4 != 'none') set_conic_type_ui("4");
       text.value = this.value;
-      ui_changed('0')
+      ui_changed('0', true)
    });
    text.addEventListener("input", function () {
       if(this.value !== ''){
@@ -135,7 +174,7 @@ function a_oninput(sliderID, input_text_ID){
             this.value = '1.618';
          glob.ui[sliderID] = this.value;
          slider.value = this.value;
-         ui_changed('0');
+         ui_changed('0', true);
          if(glob.ui.locus_type_1 != 'none') set_conic_type_ui("1");
          if(glob.ui.locus_type_2 != 'none') set_conic_type_ui("2");
          if(glob.ui.locus_type_3 != 'none') set_conic_type_ui("3");
@@ -152,7 +191,7 @@ function a_oninput(sliderID, input_text_ID){
             this.value = '1.618';
          glob.ui[sliderID] = this.value;
          slider.value = this.value;
-         ui_changed('0');
+         ui_changed('0', true);
          if(glob.ui.locus_type_1 != 'none') set_conic_type_ui("1");
          if(glob.ui.locus_type_2 != 'none') set_conic_type_ui("2");
          if(glob.ui.locus_type_3 != 'none') set_conic_type_ui("3");
@@ -168,7 +207,8 @@ function selector_output(input_ID, output_ID = "", ell_detect = "0") {
    selector.addEventListener('change', function () {
       glob.ui[input_ID] = selector.value
       if(ell_detect == 1) tandem_bar_variables('mnt');
-      ui_changed_type();
+      if(input_ID != 'animStep0') ui_changed_type(true);
+      else ui_changed_type(false);
       if(input_ID != 'animStep0')
          set_conic_type_ui(ell_detect)
    })
@@ -184,7 +224,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
          slider.value--;
          text.value--;
          if(ell_detect == 1) tandem_bar_variables('xn');
-         ui_changed_type();
+         ui_changed_type(true);
          set_conic_type_ui(ell_detect);
          slider.focus();
       }
@@ -196,7 +236,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
          slider.value++;
          text.value++;
          if(ell_detect == 1) tandem_bar_variables('xn');
-         ui_changed_type();
+         ui_changed_type(true);
          set_conic_type_ui(ell_detect);
          slider.focus();
       }
@@ -206,7 +246,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
       glob.ui[sliderId] = this.value;
       text.value = this.value;
       if(ell_detect == 1) tandem_bar_variables('xn');
-      ui_changed_type();
+      ui_changed_type(true);
       set_conic_type_ui(ell_detect);
    });
 
@@ -225,7 +265,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
          glob.ui[sliderId] = this.value;
          slider.value = this.value;
          if(ell_detect == 1) tandem_bar_variables('xn');
-         ui_changed_type();
+         ui_changed_type(true);
          set_conic_type_ui(ell_detect);
          e.preventDefault();
          slider.focus();
@@ -240,7 +280,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
          glob.ui[sliderId] = this.value;
          slider.value = this.value;
          if(ell_detect == 1) tandem_bar_variables('xn');
-         ui_changed_type();
+         ui_changed_type(true);
          set_conic_type_ui(ell_detect);
          slider.focus();
       }
@@ -272,7 +312,7 @@ function setup_ui_variables_behavior() {
 function setup_reset_UI_onclick() {
   document.getElementById('reset_UI').addEventListener('click', function () {
      reset_ui();
-     ui_changed("1");
+     ui_changed("1", true);
      bbox_rescale("1");
   });
 }
@@ -333,22 +373,22 @@ function setup_play_controls() {
 function setup_tri_onchange() {
   document.getElementById('draw_tri_1').addEventListener("click", function () {
      glob.ui.draw_tri_1 = this.checked;
-     ui_changed_type();
+     ui_changed_type(false);
      redraw();
   })
   document.getElementById('draw_tri_2').addEventListener("click", function () {
      glob.ui.draw_tri_2 = this.checked;
-     ui_changed_type();
+     ui_changed_type(false);
      redraw();
   })
   document.getElementById('draw_tri_3').addEventListener("click", function () {
      glob.ui.draw_tri_3 = this.checked;
-     ui_changed_type();
+     ui_changed_type(false);
      redraw();
   })
   document.getElementById('draw_tri_4').addEventListener("click", function () {
      glob.ui.draw_tri_4 = this.checked;
-     ui_changed_type();
+     ui_changed_type(false);
      redraw();
   })
 }
@@ -356,7 +396,7 @@ function setup_tri_onchange() {
 function setup_ell_onchange(){
   document.getElementById('ell').addEventListener("click", function () {
      glob.ui.ell = this.checked;
-     ui_changed_type();
+     ui_changed_type(false);
      redraw()
   })
 }
@@ -368,10 +408,10 @@ function setup_a_speed_onchange(){
         glob.ui.a = +glob.ui.a_min;
         a_slider.value = glob.ui.a;
         a_text.innerHTML = a_slider.value;
-        if(glob.ui.locus_type_1 != 'none')  ui_changed('1');
-        if(glob.ui.locus_type_2 != 'none')  ui_changed('2');
-        if(glob.ui.locus_type_3 != 'none')  ui_changed('3');
-        if(glob.ui.locus_type_4 != 'none')  ui_changed('4');
+        if(glob.ui.locus_type_1 != 'none')  ui_changed('1', true);
+        if(glob.ui.locus_type_2 != 'none')  ui_changed('2', true);
+        if(glob.ui.locus_type_3 != 'none')  ui_changed('3', true);
+        if(glob.ui.locus_type_4 != 'none')  ui_changed('4', true);
      }
   })
 }
@@ -380,22 +420,22 @@ function setup_locus_type_onchange() {
   document.getElementById("locus_type_1").addEventListener("change", function () {
      glob.ui.locus_type_1 = this.value;
      tandem_bar_variables('loc');
-     ui_changed_type();
+     ui_changed_type(true);
      set_conic_type_ui("1");
   });
   document.getElementById("locus_type_2").addEventListener("change", function () {
      glob.ui.locus_type_2 = this.value;
-     ui_changed("2");
+     ui_changed("2", true);
      set_conic_type_ui("2");
   });
   document.getElementById("locus_type_3").addEventListener("change", function () {
      glob.ui.locus_type_3 = this.value;
-     ui_changed("3");
+     ui_changed("3", true);
      set_conic_type_ui("3");
   });
   document.getElementById("locus_type_4").addEventListener("change", function () {
      glob.ui.locus_type_4 = this.value;
-     ui_changed("4");
+     ui_changed("4", true);
      set_conic_type_ui("4");
   });
 }
@@ -404,22 +444,22 @@ function setup_tri_type_onchange() {
   document.getElementById("tri_type_1").addEventListener("change", function () {
      glob.ui.tri_type_1 = this.value;
      tandem_bar_variables('tri');
-     ui_changed_type();
+     ui_changed_type(true);
      set_conic_type_ui("1");
   });
   document.getElementById("tri_type_2").addEventListener("change", function () {
      glob.ui.tri_type_2 = this.value;
-     ui_changed_type();
+     ui_changed_type(true);
      set_conic_type_ui("2");
   });
   document.getElementById("tri_type_3").addEventListener("change", function () {
      glob.ui.tri_type_3 = this.value;
-     ui_changed_type();
+     ui_changed_type(true);
      set_conic_type_ui("3");
   });
   document.getElementById("tri_type_4").addEventListener("change", function () {
      glob.ui.tri_type_4 = this.value;
-     ui_changed_type();
+     ui_changed_type(true);
      set_conic_type_ui("4");
   });
 }
@@ -595,16 +635,16 @@ function set_url_params(url_params) {
   });
   set_ui_variables(glob.ui);
   if(glob.ui.locus_type_4 !== 'none'){
-     ui_changed("4");
+     ui_changed("4", true);
   }
   if(glob.ui.locus_type_3 !== 'none'){
-     ui_changed("3");
+     ui_changed("3", true);
   }
   if(glob.ui.locus_type_2 !== 'none'){
-     ui_changed("2");
+     ui_changed("2", true);
   }
   if(glob.ui.locus_type_1 !== 'none'){
-     ui_changed("1");
+     ui_changed("1", true);
   } 
 }
 
@@ -613,10 +653,10 @@ function setup_recenter_onclick(){
      recenter();
      glob.scale = glob.scale0;
      
-     if(glob.ui.locus_type_4 != 'none') ui_changed('4')
-     if(glob.ui.locus_type_3 != 'none') ui_changed('3')
-     if(glob.ui.locus_type_2 != 'none') ui_changed('2')
-     if(glob.ui.locus_type_1 != 'none') ui_changed('1')
+     if(glob.ui.locus_type_4 != 'none') ui_changed('4', false)
+     if(glob.ui.locus_type_3 != 'none') ui_changed('3', false)
+     if(glob.ui.locus_type_2 != 'none') ui_changed('2', false)
+     if(glob.ui.locus_type_1 != 'none') ui_changed('1', false)
   });
 }
 
@@ -630,7 +670,7 @@ function setup_a_text_input(){
      else if (+this.value > +a_max.value)
         this.value = +a_max.value;
      glob.ui.a_min = this.value;
-     ui_changed_type();   
+     ui_changed_type(true);   
   })
   a_min.addEventListener('keydown', function (e) {
      if(e.keyCode==9){
@@ -643,7 +683,7 @@ function setup_a_text_input(){
               this.value = +a_max.value;
         }
         glob.ui.a_min = this.value;
-        ui_changed_type();
+        ui_changed_type(true);
      }
   })
   a_min.addEventListener('keypress', function (e) {
@@ -667,7 +707,7 @@ function setup_a_text_input(){
               this.value = +a_max.value;
         }
         glob.ui.a_min = this.value;
-        ui_changed_type();
+        ui_changed_type(true);
      }
   })
   a_max.addEventListener('focusout', function () {
@@ -676,7 +716,7 @@ function setup_a_text_input(){
      else if (+this.value < +a_min.value)
         this.value = +a_min.value;
      glob.ui.a_max = this.value;
-     ui_changed_type();
+     ui_changed_type(true);
   })
   a_max.addEventListener('keydown', function (e) {
      if(e.keyCode==9){
@@ -689,7 +729,7 @@ function setup_a_text_input(){
               this.value = +a_min.value;
         }
         glob.ui.a_max = this.value;
-        ui_changed_type();
+        ui_changed_type(true);
      }
   })
   a_max.addEventListener('keypress', function (e) {
@@ -713,7 +753,7 @@ function setup_a_text_input(){
               this.value = +a_min.value;
         }
         glob.ui.a_max = this.value;
-        ui_changed_type();
+        ui_changed_type(true);
      }
   })
 }
@@ -777,7 +817,7 @@ function setup_tandem_bar(){
       glob.tandem_bar.loc = this.checked;
       if(glob.tandem_bar.loc){
          tandem_bar_variables('loc');
-         ui_changed_type();
+         ui_changed_type(true);
          redraw();
       }
    })
@@ -785,7 +825,7 @@ function setup_tandem_bar(){
       glob.tandem_bar.mnt = this.checked;
       if(glob.tandem_bar.mnt){
          tandem_bar_variables('mnt');
-         ui_changed_type();
+         ui_changed_type(true);
          redraw();
       }
    })
@@ -793,7 +833,7 @@ function setup_tandem_bar(){
       glob.tandem_bar.xn = this.checked;
       if(glob.tandem_bar.xn){
          tandem_bar_variables('xn');
-         ui_changed_type();
+         ui_changed_type(true);
          redraw();
       }
    })
@@ -801,7 +841,7 @@ function setup_tandem_bar(){
       glob.tandem_bar.tri = this.checked;
       if(glob.tandem_bar.tri){
          tandem_bar_variables('tri');
-         ui_changed_type();
+         ui_changed_type(false);
          redraw();
       }
    })
@@ -822,7 +862,7 @@ function setup_bg_onchange(){
 
 function setup_ui() {
   setup_ui_variables_behavior();
-  ui_changed("1");
+  ui_changed("1", true);
   setup_copy_image();
   setup_export_PNG();
   setup_play_controls();
