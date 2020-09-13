@@ -158,11 +158,25 @@ function cos_third(c) {
   return array.sort(() => Math.random() - 0.5);
 }
 
+function shuffle_seeded(arr,seed) {
+   const r_fn = mulberry32(seed);
+   let tmp;
+   let new_arr = [...arr];
+   for (let i = arr.length - 1; i > 0; i--) {
+     const j = Math.floor(r_fn() * i); // seeded random [0, i-1] 
+     tmp = new_arr[i];
+     new_arr[i] = new_arr[j];
+     new_arr[j] = tmp;
+   }
+   return new_arr;
+}
+
+// fischer yates
  function shuffle_old(old_arr) {
    let tmp;
    let arr = [...old_arr];
    for (let i = arr.length - 1; i > 0; i--) {
-     const j = Math.floor(Math.random() * i);
+     const j = Math.floor(Math.random() * i); // random [0,i-1]
      tmp = arr[i];
      arr[i] = arr[j];
      arr[j] = tmp;
@@ -191,4 +205,16 @@ function cos_third(c) {
   ];
 }
 
- 
+random32 = () =>  (Math.random()*4294967296)>>>0;
+
+
+function mulberry32(a) {
+  return function() {
+    // bizarre lexical scoping: a is a static variable to this dynamically created function
+    //console.log(a);
+    var t = a += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  }
+}

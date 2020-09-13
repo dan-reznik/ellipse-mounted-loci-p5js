@@ -14,7 +14,8 @@ let glob = {
    tDeg : 0,
    locus_branched : [null,null,null,null],
    locus_subpolys : [null,null,null,null],
-   clrs_shuffled : [null,null,null],
+   clrs_shuffled : [null,null,null,null],
+   clrs_shuffled_seeds : [null,null,null,null],
    ell_detects : ['X','X','X','X'],
    ui0 : {
       a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, 
@@ -63,12 +64,25 @@ function create_locus(locus_type_changed) {
       }
 }
 
+// 1. when the palette buttoni is pressed, call clicked_on_palette_button() 
+// 2. when hit copy config, if any glob.clr_shuffled_seedsN is defined, place them as seed1, seed2, ... on the URL
+// 3. when decoding, if seed1,seed2,... is found on the URL, place it on gloc.clr_shufled_seedsN, and call create_locus_subpolys(n,seed)
+// 4. if reset glob_ui, glob.clrs_shuffled_seeds need tobe reset to null
+
+function clicked_on_palette_button(n) {
+   const seed = random32();
+   glob.clrs_shuffled_seeds[n] = seed; // needs to go into URL copy config
+   create_locus_subpolys(n);
+}
+
 function create_locus_subpolys(n) {
    if (glob.locus_branched[n]!=null) {
       let finite_loci = glob.locus_branched[n].filter(l=>l.length>20);
       if (finite_loci.length>0) {
-         glob.locus_subpolys[n] = locus_subpolys(finite_loci, .01);
-         glob.clrs_shuffled[n] = shuffle(clrs_crayola);
+         glob.locus_subpolys[n] = locus_subpolys(finite_loci, 0);
+         const seed = glob.clrs_shuffled_seeds[n];
+         if (seed==null) console.log("create_locus_subpolys(): null seed");
+         glob.clrs_shuffled[n] = shuffle_seeded(clrs_crayola.map(c=>c.rgb), seed==null?0:seed);
       //glob.locus_subpolys = locus_separate(glob.locus_branched.filter(l=>l.length>4));
       }
    }

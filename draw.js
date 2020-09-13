@@ -341,13 +341,12 @@ function draw_env(ons, a, tDeg, env_locus, rgb,
 
 function draw_locus_subpolys(locus_subpolys, clrs, stroke_w) {
    if (locus_subpolys != null && locus_subpolys.length > 0) {
-    let clr_count = 0, rgb;
+    let clr_count = 0;
     push();
     strokeWeight(stroke_w);
      locus_subpolys.map(l => {
-        rgb = clrs[clr_count].rgb;
         stroke(clr_white);
-        draw_one_locus_branch_filled(l, rgb);// get_rgba_str(rgb, .5));
+        draw_one_locus_branch_filled(l, clrs[clr_count]);// get_rgba_str(rgb, .5));
         clr_count = (clr_count+1)%clrs.length;
    });
    pop();
