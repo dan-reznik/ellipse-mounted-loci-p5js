@@ -120,12 +120,12 @@ function setup() {
    get_window_width_height();
    recenter();
    reset_ui();
+   bbox_rescale('1');
    url_params = getURLParams();
    if(Object.keys(url_params).length > 0) {set_url_params(url_params);}
    let canvas = createCanvas(glob.width, glob.height);
    canvas.parent('canvas');
    setup_ui();
-   ['4','3','2','1'].map(x => bbox_rescale(x));
    mouseOverCanvas();
    //frameRate(15);
 }
