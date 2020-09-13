@@ -83,7 +83,7 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w, locus_typ
     const rgba_str = get_rgba_str(rgb,.2);
     locus_branches.map(l => draw_one_locus_branch_filled(l, rgba_str));
   } else
-    locus_branches.map(l => draw_one_locus_branch(l));
+    locus_branches.map(l => (l!=null)?draw_one_locus_branch(l):void(0))
   draw_point2(xn, rgb, stroke_w);
 
   const ell_detect_suffix = ell_detect == "X" ? "" : '(' + ell_detect + ')';

@@ -32,7 +32,7 @@ let glob = {
       mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
       clr_1: clr_invert_ui(clr_red), clr_2: clr_invert_ui(clr_dark_green),
       clr_3: clr_invert_ui(clr_blue), clr_4: clr_invert_ui(clr_purple),
-      loc: false, mnt: false, xn: false, tri: false
+      tandem_loc: false, tandem_mnt: false, tandem_xn: false, tandem_tri: false
    },
    ui : null,
    url_params : {},
@@ -107,6 +107,7 @@ function windowResized() {
    locus_ids.map((li,i) => {
       if (locus_types[i] !== 'none') {
          ui_changed(li, false);
+         redraw()
          bbox_rescale(li);
       }
    });

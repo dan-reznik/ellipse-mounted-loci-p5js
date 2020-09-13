@@ -65,9 +65,9 @@ const dict_orbit_fn = {
 //function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type,
 //    stroke_w, draw_caustic, ell_detect) 
     
-    function draw_billiard_or_mounted_branched(a, tDeg, rot, stroke_w, draw_caustic, 
-        clr, n, locus_branches, locus_type, dr_tri, mounting, tri_type, ell_detect)
-    {
+function draw_billiard_or_mounted_branched(a, tDeg, rot, stroke_w, draw_caustic, 
+    clr, n, locus_branches, locus_type, dr_tri, mounting, tri_type, ell_detect)
+{
     if (mounting in dict_orbit_fn)
         draw_poncelet_locus_branched(n, a, tDeg, rot, dict_orbit_fn[mounting],
             mounting, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w, draw_caustic, ell_detect)
