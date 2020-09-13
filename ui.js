@@ -870,7 +870,7 @@ function setup_rmax_onchange(){
    var rmax_dropbox = document.getElementById('rmax');
    rmax_dropbox.addEventListener('input', function(){
       glob.ui.rmax = this.value;
-      redraw();
+      ui_changed_type(true);
    })
 }
 
