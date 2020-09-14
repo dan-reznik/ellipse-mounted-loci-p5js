@@ -45,8 +45,8 @@ function tandem_bar_variables(variable, global_var){
    set_ui_variables(glob.ui);
 }
 
-function ui_changed(locus_type_changed, call_create_locus=true) {
-   if(call_create_locus) create_locus(locus_type_changed);
+function ui_changed(locus_type_changed, call_create_locus=true, init=false) {
+   if(call_create_locus) create_locus(locus_type_changed, init);
 }
 
 function setup_conic_type_onchange(locus_type){
@@ -323,6 +323,9 @@ function setup_ui_variables_behavior() {
 function setup_reset_UI_onclick() {
   document.getElementById('reset_UI').addEventListener('click', function () {
      reset_ui();
+     ui_changed("4", true);
+     ui_changed("3", true);
+     ui_changed("2", true);
      ui_changed("1", true);
      redraw();
      bbox_rescale("1");
@@ -364,22 +367,64 @@ function setup_play_controls() {
 
   backward_button.addEventListener("click", function () {
      glob.loop_ccw = false;
-     if (play_button.isPlaying = true) {
+     if (play_button.isPlaying) {
         play_button.isPlaying = true;
         play_button.className = stop_class;
         loop();
         glob.loop = true;
+     } else{
+         glob.tDeg -= (+glob.ui.animStep0);
+         redraw();
      }
   });
   forward_button.addEventListener("click", function () {
      glob.loop_ccw = true;
-     if (play_button.isPlaying = true) {
+     if (play_button.isPlaying) {
         play_button.isPlaying = true;
         play_button.className = stop_class;
         loop();
         glob.loop = true;
-     }
+     } else{
+      glob.tDeg += (+glob.ui.animStep0);
+      redraw();
+  }
   });
+   play_button.addEventListener('keydown', function (e) {
+      if (!play_button.isPlaying) {
+         if(e.keyCode == 39){
+            glob.tDeg += (+glob.ui.animStep0);
+            redraw();
+         } 
+         else if(e.keyCode == 37){
+            glob.tDeg -= (+glob.ui.animStep0);
+            redraw();
+         }
+      }
+   })
+   backward_button.addEventListener('keydown', function (e) {
+      if (!play_button.isPlaying) {
+         if(e.keyCode == 39){
+            glob.tDeg += (+glob.ui.animStep0);
+            redraw();
+         } 
+         else if(e.keyCode == 37){
+            glob.tDeg -= (+glob.ui.animStep0);
+            redraw();
+         }
+      }
+   })
+   forward_button.addEventListener('keydown', function (e) {
+      if (!play_button.isPlaying) {
+         if(e.keyCode == 39){
+            glob.tDeg += (+glob.ui.animStep0);
+            redraw();
+         } 
+         else if(e.keyCode == 37){
+            glob.tDeg -= (+glob.ui.animStep0);
+            redraw();
+         }
+      }
+   })
 }
 
 function setup_tri_onchange() {
@@ -571,6 +616,16 @@ function copyToClipboard(text) {
    }
 }
 
+function clrs_shuffled_seeds_to_url(clrs_shuffled_seeds){
+   params = '';
+   for (var i = 0; i < clrs_shuffled_seeds.length; i++){
+      if(clrs_shuffled_seeds[i] != null){
+         params+='seed_'+(i+1)+'='+clrs_shuffled_seeds[i]+'&';
+      }
+   }
+   return params;
+}
+
 function setup_config_url_onclick() {
   document.getElementById('config_URL').addEventListener("click", function () {
      //var link_params = location.protocol + '//' + location.host + location.pathname + '?';
@@ -608,6 +663,8 @@ function setup_config_url_onclick() {
      link_params += get_diff_default("draw_tri_4");
      link_params += get_diff_default("tri_type_4");
      link_params += get_diff_default("animStep0");
+     link_params += clrs_shuffled_seeds_to_url(glob.clrs_shuffled_seeds)
+
      link_params = link_params.slice(0,-1);
      copyToClipboard(link_params);
   });
@@ -663,24 +720,25 @@ function set_url_params(url_params) {
      if (url_params_to_canvas_keys.includes(key)){
          eval(url_params_to_canvas[key]+'='+url_params[key]);
      }
+     else if(['seed_1', 'seed_2', 'seed_3', 'seed_4'].includes(key)){
+         glob.clrs_shuffled_seeds[+(key.slice(-1))-1] = url_params[key];
+     }
   });
   set_ui_variables(glob.ui);
   if(glob.ui.locus_type_4 !== 'none'){
-     ui_changed("4", true);
-     redraw();
+     ui_changed("4", true, true);
   }
   if(glob.ui.locus_type_3 !== 'none'){
-     ui_changed("3", true);
-     redraw();
+     ui_changed("3", true, true);
   }
   if(glob.ui.locus_type_2 !== 'none'){
-     ui_changed("2", true);
-     redraw();
+     ui_changed("2", true, true);
   }
   if(glob.ui.locus_type_1 !== 'none'){
-     ui_changed("1", true);
-     redraw();
+     ui_changed("1", true, true);
   } 
+  [0,1,2,3].map(x=>create_locus_subpolys(x));
+  redraw();
 }
 
 function setup_recenter_onclick(){
@@ -919,6 +977,12 @@ function setup_rmax_onchange(){
    })
 }
 
+function setup_pallete_onclick(){
+   ['1','2','3','4'].map(x=>document.getElementById('pallete_'+x).addEventListener('click', function(){
+      if(eval('glob.ui.locus_type_'+x) != 'none')  clicked_on_palette_button((+x)-1)
+   }));
+}
+
 function setup_ui() {
   setup_ui_variables_behavior();
   setup_copy_image();
@@ -938,9 +1002,10 @@ function setup_ui() {
   setup_bg_onchange();
   setup_rot_onchange();
   setup_rmax_onchange();
+  setup_pallete_onclick();
   setup_reset_UI_onclick();
   setup_config_url_onclick();
-  ui_changed("1", true);
+  ui_changed("1", true, true);
   redraw();
 }
 

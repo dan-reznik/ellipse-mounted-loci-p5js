@@ -114,6 +114,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
         <option value="yffcontact">yff contact</option>  
         </select>
         <div style='display: inline-flex; flex-grow: 1;'>
+            <input type="image" id="pallete_`+xn_number+`" style="margin-left:2px;height:20px;width:20px;" src="pallete.png"/>
             <button class='Bbox' id='Bbox_`+xn_number+`'>bbox</button>
             <div id='conic_type'>
                 <p id='conic_type_`+xn_number+`'></p>

@@ -50,17 +50,18 @@ function get_glob_indexed() {
 }
 
 // needs to refactor w/ new array ui design
-function create_locus(locus_type_changed) {
+function create_locus(locus_type_changed, init) {
    let tdegStep = +1; //valor inicial de degStep0
    let a = +glob.ui.a;
    let g_ind = get_glob_indexed();
 
    for (let i = 0; i < g_ind.Xns.length; i++)
-      if (g_ind.l_types[i] != "none" && [(i + 1).toString(), "0"].includes(locus_type_changed)) {
+      if (/*g_ind.l_types[i] != "none" && */[(i + 1).toString(), "0"].includes(locus_type_changed)) {
          glob.locus_branched[i] = make_locus_branched(a, tdegStep, glob.ui.rmax,
             g_ind.Xns[i], g_ind.mountings[i], g_ind.l_types[i], g_ind.t_types[i]);
          glob.ell_detects[i] = locus_conic(glob.locus_branched[i]);
-         glob.locus_subpolys[i] = null;
+         if(init != true)
+            glob.locus_subpolys[i] = null;
       }
 }
 
@@ -80,9 +81,9 @@ function create_locus_subpolys(n) {
       let finite_loci = glob.locus_branched[n].filter(l=>l.length>20);
       if (finite_loci.length>0) {
          glob.locus_subpolys[n] = locus_subpolys(finite_loci, 0);
-         const seed = glob.clrs_shuffled_seeds[n];
+         const seed = +glob.clrs_shuffled_seeds[n];
          if (seed==null) console.log("create_locus_subpolys(): null seed");
-         glob.clrs_shuffled[n] = shuffle_seeded(clrs_crayola.map(c=>c.rgb), seed==null?0:seed);
+         glob.clrs_shuffled[n] = shuffle_seeded(clrs_crayola.map(c=>c.rgb), (seed==null)?0:seed);
       //glob.locus_subpolys = locus_separate(glob.locus_branched.filter(l=>l.length>4));
       }
    }

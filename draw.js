@@ -344,6 +344,7 @@ function draw_locus_subpolys(locus_subpolys, clrs, stroke_w) {
     let clr_count = 0;
     push();
     strokeWeight(stroke_w);
+    //console.log(glob.locus_subpolys, glob.clrs_shuffled)
      locus_subpolys.map(l => {
         stroke(clr_white);
         draw_one_locus_branch_filled(l, clrs[clr_count]);// get_rgba_str(rgb, .5));
