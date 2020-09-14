@@ -389,8 +389,24 @@ function setup_play_controls() {
       redraw();
   }
   });
+  
    play_button.addEventListener('keydown', function (e) {
-      if (!play_button.isPlaying) {
+      if(play_button.isPlaying){
+         if(e.keyCode==39) {
+            glob.loop_ccw=true
+            play_button.isPlaying = true;
+             play_button.className = stop_class;
+            loop();
+            glob.loop = true;
+         }
+         else if(e.keyCode==37) {
+            glob.loop_ccw=false
+            play_button.isPlaying = true;
+            play_button.className = stop_class;
+            loop();
+            glob.loop = true;
+         }
+      } else {
          if(e.keyCode == 39){
             glob.tDeg += (+glob.ui.animStep0);
             redraw();
@@ -402,7 +418,22 @@ function setup_play_controls() {
       }
    })
    backward_button.addEventListener('keydown', function (e) {
-      if (!play_button.isPlaying) {
+      if(play_button.isPlaying){
+         if(e.keyCode==39) {
+            glob.loop_ccw=true
+            play_button.isPlaying = true;
+             play_button.className = stop_class;
+            loop();
+            glob.loop = true;
+         }
+         else if(e.keyCode==37) {
+            glob.loop_ccw=false
+            play_button.isPlaying = true;
+            play_button.className = stop_class;
+            loop();
+            glob.loop = true;
+         }
+      } else {
          if(e.keyCode == 39){
             glob.tDeg += (+glob.ui.animStep0);
             redraw();
@@ -414,7 +445,22 @@ function setup_play_controls() {
       }
    })
    forward_button.addEventListener('keydown', function (e) {
-      if (!play_button.isPlaying) {
+      if(play_button.isPlaying){
+         if(e.keyCode==39) {
+            glob.loop_ccw=true
+            play_button.isPlaying = true;
+             play_button.className = stop_class;
+            loop();
+            glob.loop = true;
+         }
+         else if(e.keyCode==37) {
+            glob.loop_ccw=false
+            play_button.isPlaying = true;
+            play_button.className = stop_class;
+            loop();
+            glob.loop = true;
+         }
+      } else {
          if(e.keyCode == 39){
             glob.tDeg += (+glob.ui.animStep0);
             redraw();
