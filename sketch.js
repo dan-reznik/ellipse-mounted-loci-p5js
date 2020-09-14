@@ -71,7 +71,7 @@ function create_locus(locus_type_changed, init) {
 // 4. if reset glob_ui, glob.clrs_shuffled_seeds need tobe reset to null
 
 function clicked_on_palette_button(n) {
-   const seed = random32();
+   const seed = random32() & 0xffff; // 16 bits
    glob.clrs_shuffled_seeds[n] = seed; // needs to go into URL copy config
    create_locus_subpolys(n);
 }

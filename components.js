@@ -21,7 +21,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
             <div class="input_mounting"">
                 <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
                     <option value="billiard">*billiard*</option>
-                    <option value="homothetic">*homothetic*</option>
+                    <option value="homothetic">*homoth*</option>
                     <option value="incircle">*incircle*</option>
                     <option value="inellipse">*inellipse*</option>
                     <option value="dual">*dual*</option>
@@ -37,13 +37,13 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
                     <option value="fsLeft">fsLeft</option>
                     <option value="fsRight">fsRight</option>
                     <option value="fsTop">fsTop</option>
-                    <option value="TL_BL">TL_BL</option>
-                    <option value="TL_TR">TL_TR</option>
-                    <option value="TL_vtxL">TL_vtxL</option>
-                    <option value="TL_vtxT">TL_vtxT</option>
-                    <option value="TL_vtxB">TL_vtxB</option>
-                    <option value="TL_ctr">TL_ctr</option>
-                    <option value="TL_BR">TL_BR</option>
+                    <option value="TL_BL">tl-bl</option>
+                    <option value="TL_TR">tl-tr</option>
+                    <option value="TL_vtxL">tl-l</option>
+                    <option value="TL_vtxT">tl-t</option>
+                    <option value="TL_vtxB">tl-b</option>
+                    <option value="TL_ctr">tl-o</option>
+                    <option value="TL_BR">tl-br</option>
                 </select>
             </div>
         </div>
