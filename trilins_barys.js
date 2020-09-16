@@ -66,6 +66,79 @@ function get_Xn_cartesians(xnum,tri,sides) {
     return [(a*b)**2,(b*c)**2,(a*c)**2];
  }
 
+// also: P(116) in https://faculty.evansville.edu/ck6/encyclopedia/BicentricPairs.html
+function bary_bickart1([a,b,c]) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  const a4=a2*a2,b4=b2*b2,c4=c2*c2;
+  const a6=a4*a2,b6=b4*b2,c6=c4*c2;
+  const Z = Math.sqrt(a4+b4+c4-a2*b2-b2*c2-c2*a2);
+  const V=2*a2*b2*c2*(Z*Z*Z);
+  const W=b6*c6+c6*a6+a6*b6-3*a4*b4*c4-(b4*c4+c4*a4+a4*b4)*Z*Z;
+  const sqrtVmW=Math.sqrt(V-W);
+  
+  // barycentrics 
+  const alpha = 2*(b2-c2)*(a4-b2*c2-a2*Z)+sqrtVmW;
+  const beta = 2*(c2-a2)*(b4-c2*a2-b2*Z)+sqrtVmW;
+  const gamma = 2*(a2-b2)*(c4-a2*b2-c2*Z)+sqrtVmW;
+  return [alpha,beta,gamma];
+}
+
+function bary_bickart2([a,b,c]) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  const a4=a2*a2,b4=b2*b2,c4=c2*c2;
+  const a6=a4*a2,b6=b4*b2,c6=c4*c2;
+  const Z = Math.sqrt(a4+b4+c4-a2*b2-b2*c2-c2*a2);
+  const V=2*a2*b2*c2*(Z*Z*Z);
+  const W=b6*c6+c6*a6+a6*b6-3*a4*b4*c4-(b4*c4+c4*a4+a4*b4)*Z*Z;
+  const sqrtVmW=Math.sqrt(V-W);
+  
+  // barycentrics 
+  const alpha = 2*(b2-c2)*(a4-b2*c2-a2*Z)-sqrtVmW;
+  const beta = 2*(c2-a2)*(b4-c2*a2-b2*Z)-sqrtVmW;
+  const gamma = 2*(a2-b2)*(c4-a2*b2-c2*Z)-sqrtVmW;
+  return [alpha,beta,gamma];
+}
+
+ // https://mathworld.wolfram.com/BickartPoints.html
+ /*
+ function bary_bickart1_mw([a,b,c]) {
+   const sqrt2=Math.sqrt(2.0);
+   const a2=a*a,b2=b*b,c2=c*c;
+   const a4=a2*a2,b4=b2*b2,c4=c2*c2;
+   const area = tri_area([a,b,c]);
+   const [cA,cB,cC] = tri_cosines([a,b,c]);
+   const [sA,sB,sC] = [cA,cB,cC].map(x=>Math.sqrt(1-x*x));
+   const cosBmC=cB*cC+sB*sC;
+   const cosCmA=cC*cA+sC*sA;
+   const cosAmB=cA*cB+sA*sB;
+   const Z = Math.sqrt(a4+b4+c4-a2*b2-b2*c2-c2*a2);
+   // barycentrics 
+   const alpha = sqrt2*area+a*Math.sqrt(-a2+Z+b*c*cosBmC);
+   const beta = sqrt2*area+b*Math.sqrt(-b2+Z+c*a*cosCmA);
+   const gamma = sqrt2*area+c*Math.sqrt(-c2+Z+a*b*cosAmB)
+   return [alpha,beta,gamma];
+ }
+
+ function bary_bickart2_mw([a,b,c]) {
+  const sqrt2=Math.sqrt(2.0);
+  const a2=a*a,b2=b*b,c2=c*c;
+  const a4=a2*a2,b4=b2*b2,c4=c2*c2;
+  const area = tri_area([a,b,c]);
+  const [cA,cB,cC] = tri_cosines([a,b,c]);
+  const [sA,sB,sC] = [cA,cB,cC].map(x=>Math.sqrt(1-x*x));
+  const cosBmC=cB*cC+sB*sC;
+  const cosCmA=cC*cA+sC*sA;
+  const cosAmB=cA*cB+sA*sB;
+  const Z = Math.sqrt(a4+b4+c4-a2*b2-b2*c2-c2*a2);
+  // barycentrics 
+  const alpha = sqrt2*area-a*Math.sqrt(-a2+Z+b*c*cosBmC);
+  const beta = sqrt2*area-b*Math.sqrt(-b2+Z+c*a*cosCmA);
+  const gamma = sqrt2*area-c*Math.sqrt(-c2+Z+a*b*cosAmB)
+  return [alpha,beta,gamma];
+}
+*/
+
+
  function get_brocard(n) {
   let brocard_name = sprintf("bary_brocard%d", n);
   return window[brocard_name];
@@ -86,6 +159,12 @@ function get_fn_any(locus_type, n) {
      case 'brocard_2':
        fn = bary_brocard2; // get_brocard(2);
        break;
+       case 'bickart_1':
+        fn = bary_bickart1; // get_brocard(1);
+        break;
+      case 'bickart_2':
+        fn = bary_bickart2; // get_brocard(2);
+        break;
      case 'vtx':
        fn = get_tri_v1_barys;
        break;
