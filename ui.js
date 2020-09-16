@@ -180,6 +180,7 @@ function a_oninput(sliderID, input_text_ID){
       }
    })
    text.addEventListener('keypress', function (e) {
+      if(e.keyCode == 32) e.stopPropagation();
       if ((e.keyCode < 48 || e.keyCode > 57) && e.keyCode != 46)
         e.preventDefault();
       if(e.keyCode==46 && this.value.includes('.'))
@@ -282,6 +283,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
       }
    })
    text.addEventListener('keypress', function (e) {
+      if(e.keyCode == 32) e.stopPropagation();
       if (e.keyCode < 48 || e.keyCode > 57)
         e.preventDefault();
       if(e.keyCode==13){
@@ -829,6 +831,7 @@ function setup_a_text_input(){
      }
   })
   a_min.addEventListener('keypress', function (e) {
+     if(e.keyCode == 32) e.stopPropagation();
      if(this.value.length>3)
         e.preventDefault();
      if(this.value.includes('.')){
@@ -878,6 +881,7 @@ function setup_a_text_input(){
      }
   })
   a_max.addEventListener('keypress', function (e) {
+     if(e.keyCode == 32) e.stopPropagation();
      if(this.value.length>3)
         e.preventDefault();
      if(this.value.includes('.')){
@@ -1030,6 +1034,17 @@ function setup_pallete_onclick(){
    }));
 }
 
+function setup_global_event_handler(){
+   document.addEventListener('keypress', function(e){
+      //console.log(e.keyCode)
+      if(e.keyCode == 32){
+         play_pause_button = document.getElementById('play_pause');
+         play_pause_button.focus()
+         play_pause_button.click();
+      }
+   })
+}
+
 function setup_ui() {
   setup_ui_variables_behavior();
   setup_copy_image();
@@ -1052,6 +1067,7 @@ function setup_ui() {
   setup_pallete_onclick();
   setup_reset_UI_onclick();
   setup_config_url_onclick();
+  setup_global_event_handler();
   ui_changed("1", true, true);
   redraw();
 }
