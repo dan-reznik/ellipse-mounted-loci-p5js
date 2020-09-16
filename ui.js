@@ -282,6 +282,7 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
       }
    })
    text.addEventListener('keypress', function (e) {
+      if(e.keyCode == 32) e.stopImmediatePropagation();
       if (e.keyCode < 48 || e.keyCode > 57)
         e.preventDefault();
       if(e.keyCode==13){
@@ -1030,7 +1031,19 @@ function setup_pallete_onclick(){
    }));
 }
 
+function setup_global_event_handler(){
+   document.addEventListener('keypress', function(e){
+      //console.log(e.keyCode)
+      if(e.keyCode == 32){
+         play_pause_button = document.getElementById('play_pause');
+         play_pause_button.focus()
+         play_pause_button.click();
+      }
+   })
+}
+
 function setup_ui() {
+   setup_global_event_handler();
   setup_ui_variables_behavior();
   setup_copy_image();
   setup_export_PNG();
