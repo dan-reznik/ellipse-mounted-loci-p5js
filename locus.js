@@ -1,5 +1,5 @@
 function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus_type, dr_tri,
-    mounting, tri_type, stroke_w, ell_detect) {
+    mounting, tri_type, stroke_w, ell_detect, draw_label) {
     const [v2, v3] = getV2V3(a, mounting, 0.001);
     const ons = get_mounted_tri(a, tDeg, v2, v3);
     const ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
@@ -8,7 +8,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
         if (tri_type != "reference") draw_mounted(ons_derived, clr, stroke_w, false, false);
     }
     if (locus_type != 'none')
-        draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type, ell_detect, rot);
+        draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type, ell_detect, rot, draw_label);
     //draw_locus_only(locus, clr);
 }
 
@@ -23,9 +23,10 @@ const dict_caustic = {
 };
 
 function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus_branches, clr, locus_type, dr_tri, tri_type,
-    stroke_w, dr_caustic, ell_detect) {
+    stroke_w, dr_caustic, ell_detect, draw_label) {
     let ons = orbit_fn(a, tDeg);
     let ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
+
     if (dr_tri) {
         if (mounting in dict_caustic && dr_caustic) {
             const clr_caustic = clr_invert_ui(clr_brown);
@@ -36,20 +37,21 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
                 draw_boundary(1 + a, 1 + a, clr_caustic, stroke_w);
                 pop();
             } else
-            if (mounting == "brocard") {
-                const bp = brocard_porism(a);
-                push();
-                translate(...bp.x3);
-                draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
-                pop();
-            } else
-                draw_boundary(...dict_caustic[mounting](a), clr_caustic, stroke_w);
+                if (mounting == "brocard") {
+                    const bp = brocard_porism(a);
+                    push();
+                    translate(...bp.x3);
+                    draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
+                    pop();
+                } else
+                    draw_boundary(...dict_caustic[mounting](a), clr_caustic, stroke_w);
         }
         draw_orbit(ons, clr, stroke_w, false, true, false);
         if (tri_type != "reference") draw_orbit(ons_derived, clr, stroke_w, false, false, false);
     }
+
     if (locus_type != 'none')
-        draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type, ell_detect, rot);
+        draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w, locus_type, ell_detect, rot, draw_label);
 }
 
 const dict_orbit_fn = {
@@ -64,16 +66,15 @@ const dict_orbit_fn = {
 
 //function draw_billiard_or_mounted_branched(n, a, tDeg, locus_branches, clr, locus_type, dr_tri, mounting, tri_type,
 //    stroke_w, draw_caustic, ell_detect) 
-    
-function draw_billiard_or_mounted_branched(a, tDeg, rot, stroke_w, draw_caustic, 
-    clr, n, locus_branches, locus_type, dr_tri, mounting, tri_type, ell_detect)
-{
+
+function draw_billiard_or_mounted_branched(a, tDeg, rot, stroke_w, draw_caustic,
+    clr, n, locus_branches, locus_type, dr_tri, mounting, tri_type, ell_detect, draw_label) {
     if (mounting in dict_orbit_fn)
         draw_poncelet_locus_branched(n, a, tDeg, rot, dict_orbit_fn[mounting],
-            mounting, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w, draw_caustic, ell_detect)
+            mounting, locus_branches, clr, locus_type, dr_tri, tri_type, stroke_w, draw_caustic, ell_detect, draw_label)
     else
         draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr,
-            locus_type, dr_tri, mounting, tri_type, stroke_w, ell_detect);
+            locus_type, dr_tri, mounting, tri_type, stroke_w, ell_detect, draw_label);
 }
 
 function create_locus_branches(a, tDegStep, tDegMax, r_max, bary_fn, xn_fn) {
@@ -203,15 +204,17 @@ function get_locus_bbox(locus) {
     const dx = xmax - xmin;
     const dy = ymax - ymin;
     const area = dx * dy;
-    return { xmin: xmin, xmax: xmax, xmid: (xmin+xmax)/2, ymin: ymin, ymax: ymax, ymid : (ymin+ymax)/2,
-        dx : dx, dy : dy, area: area };
+    return {
+        xmin: xmin, xmax: xmax, xmid: (xmin + xmax) / 2, ymin: ymin, ymax: ymax, ymid: (ymin + ymax) / 2,
+        dx: dx, dy: dy, area: area
+    };
 }
 
 // rot90(x,y) => (-y,x)
 // rot180(x,y) => (-x,-y)
 // rot270(x,y) => (y,-x)
 
-function get_locus_branched_bbox(a,locus_branched) {
+function get_locus_branched_bbox(a, locus_branched) {
     let xmins = locus_branched.map(br => get_xmin(br));
     let xmin = Math.min(...xmins);
     let xmaxs = locus_branched.map(br => get_xmax(br));
@@ -241,7 +244,7 @@ function locus_bbox(a, locus_type, locus_branched, ar, scale0, r_max) {
     let scale = scale0;
     const adj = 1.1;
     if (locus_type != "none") {
-        bbox = get_locus_branched_bbox(a,locus_branched);
+        bbox = get_locus_branched_bbox(a, locus_branched);
         if (bbox.ymax2 < 1)
             bbox.ymax2 = 1;
         if (bbox.xmax2 < a)
@@ -276,12 +279,12 @@ function locus_bbox(a, locus_type, locus_branched, ar, scale0, r_max) {
     return (scale);
 }
 
-function locus_bbox_ctr(a,locus_type, locus_branched, ar, scale0) {
+function locus_bbox_ctr(a, locus_type, locus_branched, ar, scale0) {
     if (locus_type == "none")
         return { scale: scale0, ctr_x: 0, ctr_y: 0 };
     else {
         const adj = 1.1;
-        const bbox = get_locus_branched_bbox(a,locus_branched);
+        const bbox = get_locus_branched_bbox(a, locus_branched);
         let scale_min, scale;
         if (bbox.dy > bbox.dx) {
             scale = adj * bbox.dy * ar;
@@ -303,22 +306,22 @@ function trunc_locus_xy(locus_branched, digs) {
 }
 
 function feat_cmp(a, b) {
-    if (a.properties.parent<b.properties.parent) {
-      return -1;
+    if (a.properties.parent < b.properties.parent) {
+        return -1;
     }
-    if (a.properties.parent>b.properties.parent) {
-      return 1;
+    if (a.properties.parent > b.properties.parent) {
+        return 1;
     }
     // a deve ser igual a b
     return 0;
-  }
-
-function locus_noise(locus,noise) {
-    return locus.map(p=>vnoise(p,noise));
 }
 
-function locus_branched_noise(locus_branched,noise) {
-    return locus_branched.map(l=>locus_noise(l, noise));
+function locus_noise(locus, noise) {
+    return locus.map(p => vnoise(p, noise));
+}
+
+function locus_branched_noise(locus_branched, noise) {
+    return locus_branched.map(l => locus_noise(l, noise));
 }
 
 function locus_subpolys(locus_branched, noise) {
@@ -329,8 +332,8 @@ function locus_subpolys(locus_branched, noise) {
             "coordinates": locus_branched
         }
     };
-    var sp = bundle.simplepolygon(poly); 
-    return sp.features.sort(feat_cmp).map(f=>f.geometry.coordinates[0]);
+    var sp = bundle.simplepolygon(poly);
+    return sp.features.sort(feat_cmp).map(f => f.geometry.coordinates[0]);
 }
 
 // subpolys = bundle.simplepolygon(poly)

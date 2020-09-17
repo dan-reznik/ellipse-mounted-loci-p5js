@@ -9,8 +9,8 @@ function draw_generic_triangle(ons, rgb, tri_fn) {
 }
 
 function draw_euler_line(ons, rgb) {
-  let x3 = get_Xn_cartesians(3,ons.o, ons.s);
-  let x4 = get_Xn_cartesians(4,ons.o, ons.s);
+  let x3 = get_Xn_cartesians(3, ons.o, ons.s);
+  let x4 = get_Xn_cartesians(4, ons.o, ons.s);
   draw_line(x3, x4, rgb);
 }
 
@@ -55,9 +55,9 @@ function draw_one_locus_branch_filled(locus, fill_rgb) {
 
 const dict_rot = { "0": 0, "90": Math.PI / 2, "180": Math.PI, "270": -Math.PI / 2, "-90": -Math.PI / 2 };
 
-get_rgba_str = (rgb,alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
+get_rgba_str = (rgb, alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
 
-function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w, locus_type, ell_detect, rot) {
+function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w, locus_type, ell_detect, rot, draw_label) {
   const is_filled = locus_type.substr(0, 2) == "f_";
   if (is_filled)
     locus_type = locus_type.substr(2);
@@ -82,36 +82,37 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w, locus_typ
   strokeWeight(stroke_w);
   stroke(rgb);
   if (is_filled) {
-    const rgba_str = get_rgba_str(rgb,.2);
+    const rgba_str = get_rgba_str(rgb, .2);
     locus_branches.map(l => draw_one_locus_branch_filled(l, rgba_str));
   } else
-    locus_branches.map(l => (l!=null)?draw_one_locus_branch(l):void(0))
-  draw_point2(xn, rgb, stroke_w);
-
-  const ell_detect_suffix = ell_detect == "X" ? "" : '(' + ell_detect + ')';
+    locus_branches.map(l => (l != null) ? draw_one_locus_branch(l) : void (0))
 
   // so text will not rotate
-  translate(xn[0], xn[1]);
-  rotate(-dict_rot[rot]);
-  switch (locus_type) {
-    case 'trilins':
-      draw_text2('X' + xnum + ell_detect_suffix, [0, 0], rgb, stroke_w);
-      break;
-    case 'brocard_1':
-      draw_text2('Ω1' + ell_detect_suffix, [0, 0], rgb, stroke_w);
-      break;
-    case 'brocard_2':
-      draw_text2('Ω2' + ell_detect_suffix, [0, 0], rgb, stroke_w);
-      break;
-    case 'bickart_1':
+  if (draw_label) {
+    draw_point2(xn, rgb, stroke_w);
+    const ell_detect_suffix = ell_detect == "X" ? "" : '(' + ell_detect + ')';
+    translate(xn[0], xn[1]);
+    rotate(-dict_rot[rot]);
+    switch (locus_type) {
+      case 'trilins':
+        draw_text2('X' + xnum + ell_detect_suffix, [0, 0], rgb, stroke_w);
+        break;
+      case 'brocard_1':
+        draw_text2('Ω1' + ell_detect_suffix, [0, 0], rgb, stroke_w);
+        break;
+      case 'brocard_2':
+        draw_text2('Ω2' + ell_detect_suffix, [0, 0], rgb, stroke_w);
+        break;
+      case 'bickart_1':
         draw_text2('StF1' + ell_detect_suffix, [0, 0], rgb, stroke_w);
         break;
       case 'bickart_2':
         draw_text2('StF2' + ell_detect_suffix, [0, 0], rgb, stroke_w);
-      break;
-    case 'vtx':
-      draw_text2('V1' + ell_detect_suffix, [0, 0], rgb, stroke_w);
-      break;
+        break;
+      case 'vtx':
+        draw_text2('V1' + ell_detect_suffix, [0, 0], rgb, stroke_w);
+        break;
+    }
   }
   pop();
 }
@@ -347,17 +348,18 @@ function draw_env(ons, a, tDeg, env_locus, rgb,
   //draw_line(p1, p2, rgb);
 }
 
-function draw_locus_subpolys(locus_subpolys, clrs, stroke_w) {
-   if (locus_subpolys != null && locus_subpolys.length > 0) {
+function draw_locus_subpolys(locus_subpolys, clrs, stroke_w, alpha) {
+  if (locus_subpolys != null && locus_subpolys.length > 0) {
     let clr_count = 0;
     push();
     strokeWeight(stroke_w);
     //console.log(glob.locus_subpolys, glob.clrs_shuffled)
-     locus_subpolys.map(l => {
-        stroke(clr_white);
-        draw_one_locus_branch_filled(l, clrs[clr_count]);// get_rgba_str(rgb, .5));
-        clr_count = (clr_count+1)%clrs.length;
-   });
-   pop();
+    locus_subpolys.map(l => {
+      stroke(clr_white);
+      const rgba_str = get_rgba_str(clrs[clr_count], alpha);
+      draw_one_locus_branch_filled(l, rgba_str);// get_rgba_str(rgb, .5));
+      clr_count = (clr_count + 1) % clrs.length;
+    });
+    pop();
   }
 }

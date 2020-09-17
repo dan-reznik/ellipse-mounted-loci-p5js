@@ -219,7 +219,7 @@ function fifth_brocard_triangle([a,b,c]) {
   const ts = [
     [(a2*b2 + a2*c2 + b2*c2 + b4 + c4)/a, -b3, -c3],
     [-a3, (b2*c2 + b2*a2 + c2*a2 + c4 + a4)/b, -c3],
-    [-a3, -b3, (c2*a2 + c2*b2 + a2*b2 + a4 + b4)/c],
+    [-a3, -b3, (c2*a2 + c2*b2 + a2*b2 + a4 + b4)/c]
    ];
    return ts;
 }
@@ -249,8 +249,6 @@ function seventh_brocard_triangle([a,b,c]) {
    ];
    return ts;
   }
-
-
 
 function first_neuberg_triangle([a,b,c]) {
   let a2=a*a,b2=b*b,c2=c*c;
