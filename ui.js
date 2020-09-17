@@ -1072,6 +1072,109 @@ function setup_pallete_onclick(){
    }));
 }
 
+
+function getAllUrlParams(url) {
+   // get query string from url (optional) or window
+   var queryString = url;
+   // ? url.split('?')[1] : window.location.search.slice(1);
+
+   // we'll store the parameters here
+   var obj = {};
+ 
+   // if query string exists
+   if (queryString) {
+ 
+     // stuff after # is not part of query string, so get rid of it
+     queryString = queryString.split('#')[0];
+ 
+     // split our query string into its component parts
+     var arr = queryString.split('&');
+ 
+     for (var i = 0; i < arr.length; i++) {
+       // separate the keys and the values
+       var a = arr[i].split('=');
+ 
+       // set parameter name and value (use 'true' if empty)
+       var paramName = a[0];
+       var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+ 
+       // (optional) keep case consistent
+       paramName = paramName.toLowerCase();
+       if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
+ 
+       // if the paramName ends with square brackets, e.g. colors[] or colors[2]
+       if (paramName.match(/\[(\d+)?\]$/)) {
+ 
+         // create key if it doesn't exist
+         var key = paramName.replace(/\[(\d+)?\]/, '');
+         if (!obj[key]) obj[key] = [];
+ 
+         // if it's an indexed array e.g. colors[2]
+         if (paramName.match(/\[\d+\]$/)) {
+           // get the index value and add the entry at the appropriate position
+           var index = /\[(\d+)\]/.exec(paramName)[1];
+           obj[key][index] = paramValue;
+         } else {
+           // otherwise add the value to the end of the array
+           obj[key].push(paramValue);
+         }
+       } else {
+         // we're dealing with a string
+         if (!obj[paramName]) {
+           // if it doesn't exist, create property
+           obj[paramName] = paramValue;
+         } else if (obj[paramName] && typeof obj[paramName] === 'string'){
+           // if property does exist and it's a string, convert it to an array
+           obj[paramName] = [obj[paramName]];
+           obj[paramName].push(paramValue);
+         } else {
+           // otherwise add the property
+           obj[paramName].push(paramValue);
+         }
+       }
+     }
+   }
+ 
+   return obj;
+ }
+
+function run_jukebox_playlist(run, playlist, list_indice){
+   var list_indice_new = list_indice % Object.keys(playlist).length;
+   let params;
+   if(run){
+      reset_ui();
+      params = getAllUrlParams(playlist[list_indice_new]);
+      set_url_params(params);
+      ui_changed_type(true);
+      redraw();
+   }
+}
+
+function start_playlist(playlist, start){
+   var seconds_interval = 2;
+   var seconds_runned = Math.floor(((Date.now()-start))/1000);
+   let list_indice = Math.floor(seconds_runned/seconds_interval);
+   let run = (seconds_runned % seconds_interval  == 0);
+   run_jukebox_playlist(run, playlist, list_indice);
+}
+
+function setup_jukebox_playlist_oninput(){
+   var id = 0;
+   var jukebox_json = loadJSON('/jukebox.json')
+   let playlist;
+   var start = Date.now();
+
+   document.getElementById('jukebox_playlist').addEventListener('input', function(){
+      window.clearInterval(id)
+      if(this.value != 'off'){
+         playlist = jukebox_json[this.value];
+         start = Date.now();
+         run_jukebox_playlist(true, playlist, 0);
+         id = window.setInterval(start_playlist, 1000, playlist, start);
+      }
+   })
+}
+
 function setup_global_event_handler(){
    document.addEventListener('keypress', function(e){
       //console.log(e.keyCode)
@@ -1106,6 +1209,7 @@ function setup_ui() {
   setup_pallete_onclick();
   setup_reset_UI_onclick();
   setup_config_url_onclick();
+  setup_jukebox_playlist_oninput();
   setup_global_event_handler();
   ui_changed("1", true, true);
   redraw();
