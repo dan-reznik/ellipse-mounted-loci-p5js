@@ -244,8 +244,42 @@ showPonceletBrocardInellipsePerp[a_, b_, tDeg_, OptionsPattern[]] :=
   trisL = triLengthsRL /@ tris;
 */
 
+// derived by ronaldo garcia, Sept 2020.
+function orbit_brocard(a, tDeg) {
+  const b = 1;
+  const t = toRad(tDeg);
+  const a2 = a * a, b2 = b * b;
+  const c2 = a2 - b2, c4 = c2 * c2;
+  const c = Math.sqrt(c2);
+  const a4 = a2 * a2, b4 = b2 * b2;
+  const a6 = a2 * a4, b6 = b2 * b4, b8 = b4 * b4;
+  const st = Math.sin(t), ct = Math.cos(t);
+  const st2 = st * st, ct2 = ct * ct;
+  const ct4 = ct2 * ct2;
+  
+  const k1 = Math.sqrt(4*a2 - b2);
+  const k2 = Math.sqrt(-4*ct2*a2 + 4*ct2*b2 - 4*c*k1*st + 8*a2 - 5*b2);
+  const k3 = 16*a4*c4*ct4 + (-8*a6*b2 + 24*a4*b4 - 20*a2*b6 + 4*b8)*ct2 + a4*b4;
+  // k4 = (((a4 - a2 b2 + b4/2) ct2 - a2 b2/4) c k1/ 4 + (c2 ct2 - b2/4) a2 (a2 - b2/2) st/2) k2;
+  const k4 = (((a4 - a2*b2 + b4/2)*ct2 - a2*b2/4)*c*k1/4 + (c2*ct2 - b2/4)*a2*(a2 - b2/2)*st/2)*k2;
+  const k5 = (1/2)*(ct*a + b/2)*c2*(ct*a - b/2)*c*st*k1 + (a6 - (7*a4/4)*b2 + a2*b4 - b6/4)*ct2 - a4*b2/4 + 
+      7*a2*b4/16 - b6/8;
+  const k6 = -(a2 - b2/2)*c*st*k1 + (a4 - a2*b2)*ct2 - 2*a4 + 9*a2*b2/4 - b4/2;
+  const k7 = (a4 - (4*a2/3)*b2 + b4/3)*ct2 + a2*b2/12;
+  const k8 = ct2*a4 - 5*a2*b2/4 + b4/2;
+ 
+  const P1 = [2*a2*ct/b, -Math.sqrt(4*a4 - 5*a2*b2 + b4)/b + 2*a2*st/b];
+  P2 = [-16*a2*(k4 + ct*k5*b)/k3,
+    (4*ct*a2*k6*b*k2 + 8*ct2*k8*c2*c*k1 - 12*a2*k7*b2*st)*b/k3];
+  P3 = [-16*a2*(-k4 + ct*k5*b)/k3,
+     (-4*ct*a2*k6*b*k2 + 8*ct2*k8*c2*c*k1 - 12*a2*k7*b2*st)*b/k3];
 
-function orbit_brocard(a,tDeg) {
+  const tri = [P1, P2, P3];
+  return { o: tri, s: tri_sides(tri) };
+}
+
+/*
+function orbit_brocard_poncelet(a,tDeg) {
   const isos = getBrocardInellipseIsosceles(a, 1);
   //const isosL = isos.map(tri_sides);
   //const x3s = isos.map((t,i)=>bary_X3(t,isosL[i]));
@@ -259,7 +293,7 @@ function orbit_brocard(a,tDeg) {
   const feet = is.map(i=>farthestPoint(i, v1));
   const tri = [v1, feet[0], feet[1]];
   return { o: tri, s: tri_sides(tri) };
-}
+}*/
 
 function get_Xn_non_billiard(a, tDeg, orbit_fn, bary_fn, tri_type) {
   let ons = orbit_fn(a, tDeg);

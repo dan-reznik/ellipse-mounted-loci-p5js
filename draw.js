@@ -70,6 +70,8 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w, locus_typ
     switch (locus_type) {
       case "brocard_1": bs = bary_brocard1(ons.s); break;
       case "brocard_2": bs = bary_brocard2(ons.s); break;
+      case "bickart_1": bs = bary_bickart1(ons.s); break;
+      case "bickart_2": bs = bary_bickart2(ons.s); break;
       // case "vtx": bs = get_derived_tri_v1_barys(ons.s); break;
       default: bs = get_Xn_bary(ons.s, xnum); // "trilins"
     }
@@ -100,6 +102,12 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w, locus_typ
       break;
     case 'brocard_2':
       draw_text2('Ω2' + ell_detect_suffix, [0, 0], rgb, stroke_w);
+      break;
+    case 'bickart_1':
+        draw_text2('StF1' + ell_detect_suffix, [0, 0], rgb, stroke_w);
+        break;
+      case 'bickart_2':
+        draw_text2('StF2' + ell_detect_suffix, [0, 0], rgb, stroke_w);
       break;
     case 'vtx':
       draw_text2('V1' + ell_detect_suffix, [0, 0], rgb, stroke_w);
