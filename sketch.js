@@ -60,34 +60,31 @@ function create_locus(locus_type_changed, init) {
          glob.locus_branched[i] = make_locus_branched(a, tdegStep, glob.ui.rmax,
             g_ind.Xns[i], g_ind.mountings[i], g_ind.l_types[i], g_ind.t_types[i]);
          glob.ell_detects[i] = locus_conic(glob.locus_branched[i]);
-         if(init != true)
+         if(init != true){
             glob.locus_subpolys[i] = null;
+            glob.clrs_shuffled_seeds[i] = null;
+            glob.clrs_shuffled[i] = null;
+         }
       }
 }
 
-// 1. when the palette buttoni is pressed, call clicked_on_palette_button() 
-// 2. when hit copy config, if any glob.clr_shuffled_seedsN is defined, place them as seed1, seed2, ... on the URL
-// 3. when decoding, if seed1,seed2,... is found on the URL, place it on gloc.clr_shufled_seedsN, and call create_locus_subpolys(n,seed)
-// 4. if reset glob_ui, glob.clrs_shuffled_seeds need tobe reset to null
-
 function clicked_on_palette_button(n) {
    const seed = random32() & 0xffff; // 16 bits
-   glob.clrs_shuffled_seeds[n] = seed; // needs to go into URL copy config
-   create_locus_subpolys(n);
+   create_locus_subpolys(n, seed);
 }
 
-function create_locus_subpolys(n) {
-   if (glob.locus_branched[n]!=null) {
+function create_locus_subpolys(n, seed) {
+   if (glob.locus_branched[n]!=null && glob.locus_subpolys[n] == null) {
       let finite_loci = glob.locus_branched[n].filter(l=>l.length>20);
       if (finite_loci.length>0) {
          glob.locus_subpolys[n] = locus_subpolys(finite_loci, 0);
          const seed = +glob.clrs_shuffled_seeds[n];
          if (seed==null) console.log("create_locus_subpolys(): null seed");
-         glob.clrs_shuffled[n] = shuffle_seeded(clrs_crayola.map(c=>c.rgb), (seed==null)?0:seed);
       //glob.locus_subpolys = locus_separate(glob.locus_branched.filter(l=>l.length>4));
       }
-
    }
+   glob.clrs_shuffled_seeds[n] = seed;
+   glob.clrs_shuffled[n] = shuffle_seeded(clrs_crayola.map(c=>c.rgb), (seed==null)?0:seed);
 }
 
 function get_window_width_height() {
