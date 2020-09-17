@@ -348,14 +348,14 @@ function draw_env(ons, a, tDeg, env_locus, rgb,
   //draw_line(p1, p2, rgb);
 }
 
-function draw_locus_subpolys(locus_subpolys, clrs, stroke_w, alpha) {
+function draw_locus_subpolys(locus_subpolys, clrs, stroke_w, alpha, border_clr) {
   if (locus_subpolys != null && locus_subpolys.length > 0) {
     let clr_count = 0;
     push();
     strokeWeight(stroke_w);
     //console.log(glob.locus_subpolys, glob.clrs_shuffled)
     locus_subpolys.map(l => {
-      stroke(clr_white);
+      stroke(border_clr);
       const rgba_str = get_rgba_str(clrs[clr_count], alpha);
       draw_one_locus_branch_filled(l, rgba_str);// get_rgba_str(rgb, .5));
       clr_count = (clr_count + 1) % clrs.length;

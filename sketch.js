@@ -33,7 +33,7 @@ let glob = {
       clr1: clr_invert_ui(clr_red), clr2: clr_invert_ui(clr_dark_green),
       clr3: clr_invert_ui(clr_blue), clr4: clr_invert_ui(clr_purple),
       tandem_loc: false, tandem_mnt: false, tandem_xn: false, tandem_tri: false,
-      fill_alpha: .5
+      fill_alpha: .5, clr_fill_border : clr_white
    },
    ui : null,
    url_params : {},
@@ -171,7 +171,7 @@ function draw() {
 
          // experimenting with coloring &&&
          //create_locus_subpolys(0)
-         draw_locus_subpolys(glob.locus_subpolys[i], glob.clrs_shuffled[i],  stroke_w, glob.ui.fill_alpha);
+         draw_locus_subpolys(glob.locus_subpolys[i], glob.clrs_shuffled[i],  stroke_w, glob.ui.fill_alpha, glob.ui.clr_fill_border);
       }
    a_anim();
 
