@@ -1,4 +1,4 @@
-var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
+var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_color){
     return `
 <div class="component xn_selector">
     <div class="input_Xn">
@@ -45,6 +45,10 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
                     <option value="TL_ctr">tl-o</option>
                     <option value="TL_BR">tl-br</option>
                 </select>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <label for="clr`+xn_number+`">clr</label>
+              <input id='clr`+xn_number+`' class='bg' name="clr`+xn_number+`" type="color" value="`+hex_color+`"></input>
             </div>
         </div>
     </div>
@@ -125,6 +129,15 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color){
 `;
 }
 
+//Function to convert hex format to a rgb color
+function rgb2hex(orig){
+    var rgb = orig.replace(/\s/g,'').match(/^rgba?\((\d+),(\d+),(\d+)/i);
+    return (rgb && rgb.length === 4) ? "#" +
+     ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+     ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+     ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : orig;
+}
+
 class MySelector extends HTMLElement {
     connectedCallback(){
         //const shadow = this.attachShadow({ mode: 'open'});
@@ -132,6 +145,7 @@ class MySelector extends HTMLElement {
         const xn_number = this.getAttribute('number');
         const xn_selected = this.getAttribute('selected');
         const rgb_color = this.getAttribute('color');
+        const hex_color = rgb2hex(rgb_color);
         var trilins_selected = ''
         var tri_selected = false
         if (xn_selected == 'true'){
@@ -141,7 +155,7 @@ class MySelector extends HTMLElement {
             trilins_selected = '';
             tri_selected = '';
         }
-        this.innerHTML = html(xn_number, trilins_selected, tri_selected, rgb_color);
+        this.innerHTML = html(xn_number, trilins_selected, tri_selected, rgb_color, hex_color);
     }
 }
 customElements.define('my-selector', MySelector)

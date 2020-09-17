@@ -192,7 +192,7 @@ p.lab{
   margin-right: auto;
 }
 
-#bg{
+.bg{
   height: 20px;
   width: 25px;
   border: none;
@@ -200,7 +200,7 @@ p.lab{
   -webkit-appearance: none;
 }
 
-#bg::-webkit-color-swatch-wrapper {
+.bg::-webkit-color-swatch-wrapper {
   padding: 0;	
 }
 
@@ -277,8 +277,9 @@ label{
 /*slider's*/
 
 /* The slider itself */
+/*
 #Xn1::-webkit-slider-thumb{
-  background: red;
+  background: '[100,100,10000]';
 }
 
 #Xn2::-webkit-slider-thumb{
@@ -292,7 +293,7 @@ label{
 #Xn4::-webkit-slider-thumb{
   background: purple;
 }
-
+*/
 .slider {
     -webkit-appearance: none;
     width: 94%;

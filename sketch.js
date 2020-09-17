@@ -30,8 +30,8 @@ let glob = {
       tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference', tri_type_4: 'reference',
       draw_tri_1: true, draw_tri_2: false, draw_tri_3: false, draw_tri_4: false,
       mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
-      clr_1: clr_invert_ui(clr_red), clr_2: clr_invert_ui(clr_dark_green),
-      clr_3: clr_invert_ui(clr_blue), clr_4: clr_invert_ui(clr_purple),
+      clr1: clr_invert_ui(clr_red), clr2: clr_invert_ui(clr_dark_green),
+      clr3: clr_invert_ui(clr_blue), clr4: clr_invert_ui(clr_purple),
       tandem_loc: false, tandem_mnt: false, tandem_xn: false, tandem_tri: false
    },
    ui : null,
@@ -45,7 +45,7 @@ function get_glob_indexed() {
       dr_tris: [glob.ui.draw_tri_1, glob.ui.draw_tri_2, glob.ui.draw_tri_3, glob.ui.draw_tri_4],
       mountings: [glob.ui.mounting_Xn1, glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4],
       t_types: [glob.ui.tri_type_1, glob.ui.tri_type_2, glob.ui.tri_type_3, glob.ui.tri_type_4],
-      clrs : [glob.ui.clr_1,glob.ui.clr_2,glob.ui.clr_3,glob.ui.clr_4]
+      clrs : [glob.ui.clr1,glob.ui.clr2,glob.ui.clr3,glob.ui.clr4]
    }
 }
 
@@ -86,6 +86,7 @@ function create_locus_subpolys(n) {
          glob.clrs_shuffled[n] = shuffle_seeded(clrs_crayola.map(c=>c.rgb), (seed==null)?0:seed);
       //glob.locus_subpolys = locus_separate(glob.locus_branched.filter(l=>l.length>4));
       }
+
    }
 }
 
@@ -142,6 +143,7 @@ function setup() {
    canvas.parent('canvas');
    setup_ui();
    mouseOverCanvas();
+
    //frameRate(15);
 }
 
