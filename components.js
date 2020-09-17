@@ -51,7 +51,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                 </select>
             </div>
             <div style="display: flex; justify-content: center; align-items: center;">
-              <label for="clr`+xn_number+`">clr</label>
+              <label for="clr`+xn_number+`"></label>
               <input id='clr`+xn_number+`' class='bg' name="clr`+xn_number+`" type="color" value="`+hex_color+`"></input>
             </div>
         </div>
