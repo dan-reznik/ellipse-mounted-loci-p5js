@@ -21,7 +21,7 @@ function set_ui_variables() {
    ,'locus_type_1', 'locus_type_2', 'locus_type_3', 'locus_type_4','Xn1','demo_Xn1', 'Xn2'
    ,'demo_Xn2', 'Xn3', 'demo_Xn3', 'Xn4', 'demo_Xn4', 'tri_type_1', 'tri_type_2', 'tri_type_3'
    ,'tri_type_4','mounting_Xn1', 'mounting_Xn2', 'mounting_Xn3', 'mounting_Xn4', 'animStep0', 'rot', 'rmax'
-   ,'bg','clr1','clr2','clr3','clr4']
+   ,'bg','clr1','clr2','clr3','clr4', 'jukebox_playlist']
 
    var variables_change_checked = ['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4'
                                     ,'tandem_loc', 'tandem_mnt', 'tandem_xn', 'tandem_tri']
@@ -327,6 +327,8 @@ function setup_ui_variables_behavior() {
 function setup_reset_UI_onclick() {
   document.getElementById('reset_UI').addEventListener('click', function () {
      reset_ui();
+     //stop current jukebox loop
+     window.clearInterval(glob.jukebox_id)
      ui_changed("4", true);
      ui_changed("3", true);
      ui_changed("2", true);
@@ -617,7 +619,7 @@ function get_diff_default(key) {
       draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3', draw_tri_4: 'dr4',
       mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3', mounting_Xn4: 'mt4',
       animStep0: 'aS', rot: 'rot', rmax : 'rmx', bg:'bg', 
-      clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4' 
+      clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', jukebox_playlist: 'juke'
    };
    const animStep0_to_url_value = {
       "0.125": 'slow', "0.500": 'med', "1.000": 'fast' 
@@ -728,6 +730,7 @@ function setup_config_url_onclick() {
      link_params += get_diff_default("draw_tri_4");
      link_params += get_diff_default("tri_type_4");
      link_params += get_diff_default("animStep0");
+     link_params += get_diff_default("jukebox_playlist");
      link_params += clrs_shuffled_seeds_to_url(glob.clrs_shuffled_seeds)
 
      link_params = link_params.slice(0,-1);
@@ -749,7 +752,7 @@ function set_url_params(url_params) {
      dr1: 'draw_tri_1', dr2: 'draw_tri_2', dr3: 'draw_tri_3', dr4: 'draw_tri_4',
      mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3', mt4: 'mounting_Xn4',
      aS: 'animStep0', rot: 'rot', rmx : 'rmax', bg: 'bg', 
-     clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4'
+     clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', juke: 'jukebox_playlist'
   };
   let animStep0_to_ui = {
      slow: "0.125", medium: "0.500", fast: "1.000"
@@ -1141,8 +1144,10 @@ function getAllUrlParams(url) {
 function run_jukebox_playlist(run, playlist, list_indice){
    var list_indice_new = list_indice % Object.keys(playlist).length;
    let params;
+   const aux = glob.ui.jukebox_playlist;
    if(run){
       reset_ui();
+      glob.ui.jukebox_playlist = aux;
       params = getAllUrlParams(playlist[list_indice_new]);
       set_url_params(params);
       ui_changed_type(true);
@@ -1159,18 +1164,17 @@ function start_playlist(playlist, start){
 }
 
 function setup_jukebox_playlist_oninput(){
-   var id = 0;
-   var jukebox_json = loadJSON('/jukebox.json')
    let playlist;
    var start = Date.now();
 
    document.getElementById('jukebox_playlist').addEventListener('input', function(){
-      window.clearInterval(id)
-      if(this.value != 'off'){
-         playlist = jukebox_json[this.value];
+      window.clearInterval(glob.jukebox_id)
+      glob.ui.jukebox_playlist = this.value;
+      if(glob.ui.jukebox_playlist != 'off'){
+         playlist = glob.jukebox_json[glob.ui.jukebox_playlist];
          start = Date.now();
          run_jukebox_playlist(true, playlist, 0);
-         id = window.setInterval(start_playlist, 1000, playlist, start);
+         glob.jukebox_id = window.setInterval(start_playlist, 1000, playlist, start);
       }
    })
 }

@@ -17,6 +17,7 @@ let glob = {
    clrs_shuffled : [null,null,null,null],
    clrs_shuffled_seeds : [null,null,null,null],
    ell_detects : ['X','X','X','X'],
+   jukebox_id: 0, jukebox_json: null,
    ui0 : {
       a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, 
       ell: true,
@@ -33,7 +34,7 @@ let glob = {
       clr1: clr_invert_ui(clr_red), clr2: clr_invert_ui(clr_dark_green),
       clr3: clr_invert_ui(clr_blue), clr4: clr_invert_ui(clr_purple),
       tandem_loc: false, tandem_mnt: false, tandem_xn: false, tandem_tri: false,
-      fill_alpha: .5
+      fill_alpha: .5, jukebox_playlist: 'off' 
    },
    ui : null,
    url_params : {},
@@ -141,9 +142,14 @@ function setup() {
    canvas.parent('canvas');
    setup_ui();
    mouseOverCanvas();
-
+   //dispatch input event, jukebox start's a loop depending on url.
+   document.getElementById('jukebox_playlist').dispatchEvent(new Event('input', { value: glob.ui.jukebox_playlist }))
    //frameRate(15);
 }
+
+function preload() {
+   glob.jukebox_json = loadJSON('/jukebox.json');
+ }
 
 function draw() {
    const dict_rot = {"0":0, "90":PI/2, "180":PI, "270":-PI/2, "-90":-PI/2};
