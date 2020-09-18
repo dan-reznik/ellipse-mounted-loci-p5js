@@ -21,7 +21,7 @@ function set_ui_variables() {
    ,'locus_type_1', 'locus_type_2', 'locus_type_3', 'locus_type_4','Xn1','demo_Xn1', 'Xn2'
    ,'demo_Xn2', 'Xn3', 'demo_Xn3', 'Xn4', 'demo_Xn4', 'tri_type_1', 'tri_type_2', 'tri_type_3'
    ,'tri_type_4','mounting_Xn1', 'mounting_Xn2', 'mounting_Xn3', 'mounting_Xn4', 'animStep0', 'rot', 'rmax'
-   ,'bg','clr1','clr2','clr3','clr4', 'jukebox_playlist']
+   ,'bg','clr1','clr2','clr3','clr4', 'jukebox_playlist', 'clr_fill_border', 'fill_alpha']
 
    var variables_change_checked = ['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4'
                                     ,'tandem_loc', 'tandem_mnt', 'tandem_xn', 'tandem_tri']
@@ -30,7 +30,7 @@ function set_ui_variables() {
    variables_change_value.map(function(x){
       var y = x;
       if(['a_input_text', 'demo_Xn1', 'demo_Xn2', 'demo_Xn3', 'demo_Xn4'].includes(x)) {y = from_to[x]}
-      if( x == 'bg' ) document.getElementById(x).value = rgbToHex(glob.ui[y]); 
+      if(['bg', 'clr_fill_border'].includes(x)) document.getElementById(x).value = rgbToHex(glob.ui[y]); 
       else if(['clr1','clr2','clr3','clr4'].includes(x)) change_loc_clr(+x.slice(-1), rgbToHex(glob.ui[y])) 
       else
          document.getElementById(x).value = glob.ui[y];
@@ -619,7 +619,8 @@ function get_diff_default(key) {
       draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3', draw_tri_4: 'dr4',
       mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3', mounting_Xn4: 'mt4',
       animStep0: 'aS', rot: 'rot', rmax : 'rmx', bg:'bg', 
-      clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', jukebox_playlist: 'juke'
+      clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', jukebox_playlist: 'juke', 
+      clr_fill_border: 'cfb', fill_alpha: 'fa'
    };
    const animStep0_to_url_value = {
       "0.125": 'slow', "0.500": 'med', "1.000": 'fast' 
@@ -627,7 +628,7 @@ function get_diff_default(key) {
    const a_speed_to_url_value = {
       "0.000": 'anim', "0.005": 'slow', "0.010": 'med', "0.050": 'fast'
    }
-   if(['clr1','clr2','clr3', 'clr4', 'bg'].includes(key)){
+   if(['clr1','clr2','clr3', 'clr4', 'bg', 'clr_fill_border'].includes(key)){
          var diff = false
          var url = ''
          for (i in [...Array(glob.ui[key].length).keys()]){
@@ -729,6 +730,9 @@ function get_link_params(){
      link_params += get_diff_default("tri_type_4");
      link_params += get_diff_default("animStep0");
      link_params += get_diff_default("jukebox_playlist");
+     link_params += get_diff_default("fill_alpha");
+     link_params += get_diff_default("clr_fill_border");
+
      link_params += clrs_shuffled_seeds_to_url(glob.clrs_shuffled_seeds)
 
      link_params = link_params.slice(0,-1);
@@ -757,7 +761,8 @@ function set_url_params(url_params) {
      dr1: 'draw_tri_1', dr2: 'draw_tri_2', dr3: 'draw_tri_3', dr4: 'draw_tri_4',
      mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3', mt4: 'mounting_Xn4',
      aS: 'animStep0', rot: 'rot', rmx : 'rmax', bg: 'bg', 
-     clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', juke: 'jukebox_playlist'
+     clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', juke: 'jukebox_playlist',
+     cfb: 'clr_fill_border', 'fa': 'fill_alpha'
   };
   let animStep0_to_ui = {
      slow: "0.125", medium: "0.500", fast: "1.000"
@@ -785,7 +790,7 @@ function set_url_params(url_params) {
            key_value = url_params[key]
            glob.ui[ui_key] = (Object.keys(a_speed_to_ui).includes(key_value))?a_speed_to_ui[key_value]:a_speed_to_ui['anim'];
         }
-        else if(['clr1','clr2','clr3','clr4','bg'].includes(ui_key)){
+        else if(['clr1','clr2','clr3','clr4','bg', 'clr_fill_border'].includes(ui_key)){
            glob.ui[ui_key] = hexToRgb('#'+url_params[key]);
         }
         else
@@ -938,8 +943,8 @@ function setup_a_text_input(){
 function setup_export_JSON_onclick(){
    document.getElementById('Export_JSON').addEventListener('click', function(){
       var canvas_ui = {'canvas_scale':glob.scale, 'cx':glob.ctr[0], 'cy':glob.ctr[1]}
-      var link_params = get_link_params();
-      var ui_object = {link_params, ...canvas_ui, ...glob.ui};
+      var config_url = get_link_params();
+      var ui_object = {config_url, ...canvas_ui, ...glob.ui};
       if(glob.ui.locus_type_1 != 'none')
          ui_object = {...ui_object, ...{'locus1': trunc_locus_xy(glob.locus_branched[0],4)}};
       if(glob.ui.locus_type_2 != 'none')
@@ -1196,6 +1201,17 @@ function setup_global_event_handler(){
    })
 }
 
+function setup_fill_alpha(){
+   document.getElementById('fill_alpha').addEventListener('input', function(){
+      glob.ui.fill_alpha = this.value;
+   })
+}
+
+function setup_clr_fill_border(){
+   document.getElementById('clr_fill_border').addEventListener('input', function(){
+      glob.ui.clr_fill_border = hexToRgb(this.value);
+   })}
+
 function setup_ui() {
   setup_ui_variables_behavior();
   setup_copy_image();
@@ -1220,6 +1236,8 @@ function setup_ui() {
   setup_reset_UI_onclick();
   setup_config_url_onclick();
   setup_jukebox_playlist_oninput();
+  setup_fill_alpha();
+  setup_clr_fill_border();
   setup_global_event_handler();
   ui_changed("1", true, true);
   redraw();
