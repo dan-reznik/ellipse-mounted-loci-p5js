@@ -689,10 +689,8 @@ function clrs_shuffled_seeds_to_url(clrs_shuffled_seeds){
    return params;
 }
 
-function setup_config_url_onclick() {
-  document.getElementById('config_URL').addEventListener("click", function () {
-     //var link_params = location.protocol + '//' + location.host + location.pathname + '?';
-     var link_params = location.host + location.pathname + '?';
+function get_link_params(){
+   var link_params = location.host + location.pathname + '?';
      link_params += get_diff_default_canvas('glob.scale');
      link_params += get_diff_default_canvas('glob.ctr[0]');
      link_params += get_diff_default_canvas('glob.ctr[1]');
@@ -734,6 +732,13 @@ function setup_config_url_onclick() {
      link_params += clrs_shuffled_seeds_to_url(glob.clrs_shuffled_seeds)
 
      link_params = link_params.slice(0,-1);
+     return link_params;
+}
+
+function setup_config_url_onclick() {
+  document.getElementById('config_URL').addEventListener("click", function () {
+     var link_params = get_link_params()
+     
      copyToClipboard(link_params);
   });
 }
@@ -933,7 +938,8 @@ function setup_a_text_input(){
 function setup_export_JSON_onclick(){
    document.getElementById('Export_JSON').addEventListener('click', function(){
       var canvas_ui = {'canvas_scale':glob.scale, 'cx':glob.ctr[0], 'cy':glob.ctr[1]}
-      var ui_object = {...canvas_ui, ...glob.ui};
+      var link_params = get_link_params();
+      var ui_object = {link_params, ...canvas_ui, ...glob.ui};
       if(glob.ui.locus_type_1 != 'none')
          ui_object = {...ui_object, ...{'locus1': trunc_locus_xy(glob.locus_branched[0],4)}};
       if(glob.ui.locus_type_2 != 'none')
