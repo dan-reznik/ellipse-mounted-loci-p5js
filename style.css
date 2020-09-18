@@ -294,6 +294,14 @@ label{
   background: purple;
 }
 */
+
+.jukebox_img{
+  margin-left:5px;
+  margin-right:5px;
+  height:51px;
+  width:34px; 
+}
+
 .slider {
     -webkit-appearance: none;
     width: 94%;
