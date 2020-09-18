@@ -803,7 +803,7 @@ function set_url_params(url_params) {
   if(glob.ui.locus_type_1 !== 'none'){
      ui_changed("1", true, true);
   } 
-  [0,1,2,3].map(x=>(glob.clrs_shuffled_seeds[x]==null)?void(0):create_locus_subpolys(x));
+  [0,1,2,3].map(x=>(glob.clrs_shuffled_seeds[x]==null)?void(0):create_locus_subpolys(x, glob.clrs_shuffled_seeds[x]));
   redraw();
 }
 
