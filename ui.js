@@ -21,7 +21,7 @@ function set_ui_variables() {
    ,'locus_type_1', 'locus_type_2', 'locus_type_3', 'locus_type_4','Xn1','demo_Xn1', 'Xn2'
    ,'demo_Xn2', 'Xn3', 'demo_Xn3', 'Xn4', 'demo_Xn4', 'tri_type_1', 'tri_type_2', 'tri_type_3'
    ,'tri_type_4','mounting_Xn1', 'mounting_Xn2', 'mounting_Xn3', 'mounting_Xn4', 'animStep0', 'rot', 'rmax'
-   ,'bg','clr1','clr2','clr3','clr4']
+   ,'bg','clr1','clr2','clr3','clr4', 'jukebox_playlist', 'clr_fill_border', 'fill_alpha']
 
    var variables_change_checked = ['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4'
                                     ,'tandem_loc', 'tandem_mnt', 'tandem_xn', 'tandem_tri']
@@ -30,7 +30,7 @@ function set_ui_variables() {
    variables_change_value.map(function(x){
       var y = x;
       if(['a_input_text', 'demo_Xn1', 'demo_Xn2', 'demo_Xn3', 'demo_Xn4'].includes(x)) {y = from_to[x]}
-      if( x == 'bg' ) document.getElementById(x).value = rgbToHex(glob.ui[y]); 
+      if(['bg', 'clr_fill_border'].includes(x)) document.getElementById(x).value = rgbToHex(glob.ui[y]); 
       else if(['clr1','clr2','clr3','clr4'].includes(x)) change_loc_clr(+x.slice(-1), rgbToHex(glob.ui[y])) 
       else
          document.getElementById(x).value = glob.ui[y];
@@ -327,6 +327,8 @@ function setup_ui_variables_behavior() {
 function setup_reset_UI_onclick() {
   document.getElementById('reset_UI').addEventListener('click', function () {
      reset_ui();
+     //stop current jukebox loop
+     window.clearInterval(glob.jukebox_id)
      ui_changed("4", true);
      ui_changed("3", true);
      ui_changed("2", true);
@@ -617,7 +619,8 @@ function get_diff_default(key) {
       draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3', draw_tri_4: 'dr4',
       mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3', mounting_Xn4: 'mt4',
       animStep0: 'aS', rot: 'rot', rmax : 'rmx', bg:'bg', 
-      clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4' 
+      clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', jukebox_playlist: 'juke', 
+      clr_fill_border: 'cfb', fill_alpha: 'fa'
    };
    const animStep0_to_url_value = {
       "0.125": 'slow', "0.500": 'med', "1.000": 'fast' 
@@ -625,7 +628,7 @@ function get_diff_default(key) {
    const a_speed_to_url_value = {
       "0.000": 'anim', "0.005": 'slow', "0.010": 'med', "0.050": 'fast'
    }
-   if(['clr1','clr2','clr3', 'clr4', 'bg'].includes(key)){
+   if(['clr1','clr2','clr3', 'clr4', 'bg', 'clr_fill_border'].includes(key)){
          var diff = false
          var url = ''
          for (i in [...Array(glob.ui[key].length).keys()]){
@@ -687,10 +690,8 @@ function clrs_shuffled_seeds_to_url(clrs_shuffled_seeds){
    return params;
 }
 
-function setup_config_url_onclick() {
-  document.getElementById('config_URL').addEventListener("click", function () {
-     //var link_params = location.protocol + '//' + location.host + location.pathname + '?';
-     var link_params = location.host + location.pathname + '?';
+function get_link_params(){
+   var link_params = location.host + location.pathname + '?';
      link_params += get_diff_default_canvas('glob.scale');
      link_params += get_diff_default_canvas('glob.ctr[0]');
      link_params += get_diff_default_canvas('glob.ctr[1]');
@@ -728,9 +729,20 @@ function setup_config_url_onclick() {
      link_params += get_diff_default("draw_tri_4");
      link_params += get_diff_default("tri_type_4");
      link_params += get_diff_default("animStep0");
+     link_params += get_diff_default("jukebox_playlist");
+     link_params += get_diff_default("fill_alpha");
+     link_params += get_diff_default("clr_fill_border");
+
      link_params += clrs_shuffled_seeds_to_url(glob.clrs_shuffled_seeds)
 
      link_params = link_params.slice(0,-1);
+     return link_params;
+}
+
+function setup_config_url_onclick() {
+  document.getElementById('config_URL').addEventListener("click", function () {
+     var link_params = get_link_params()
+     
      copyToClipboard(link_params);
   });
 }
@@ -749,7 +761,8 @@ function set_url_params(url_params) {
      dr1: 'draw_tri_1', dr2: 'draw_tri_2', dr3: 'draw_tri_3', dr4: 'draw_tri_4',
      mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3', mt4: 'mounting_Xn4',
      aS: 'animStep0', rot: 'rot', rmx : 'rmax', bg: 'bg', 
-     clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4'
+     clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', juke: 'jukebox_playlist',
+     cfb: 'clr_fill_border', 'fa': 'fill_alpha'
   };
   let animStep0_to_ui = {
      slow: "0.125", medium: "0.500", fast: "1.000"
@@ -777,7 +790,7 @@ function set_url_params(url_params) {
            key_value = url_params[key]
            glob.ui[ui_key] = (Object.keys(a_speed_to_ui).includes(key_value))?a_speed_to_ui[key_value]:a_speed_to_ui['anim'];
         }
-        else if(['clr1','clr2','clr3','clr4','bg'].includes(ui_key)){
+        else if(['clr1','clr2','clr3','clr4','bg', 'clr_fill_border'].includes(ui_key)){
            glob.ui[ui_key] = hexToRgb('#'+url_params[key]);
         }
         else
@@ -803,7 +816,7 @@ function set_url_params(url_params) {
   if(glob.ui.locus_type_1 !== 'none'){
      ui_changed("1", true, true);
   } 
-  [0,1,2,3].map(x=>(glob.clrs_shuffled_seeds[x]==null)?void(0):create_locus_subpolys(x));
+  [0,1,2,3].map(x=>(glob.clrs_shuffled_seeds[x]==null)?void(0):create_locus_subpolys(x, glob.clrs_shuffled_seeds[x]));
   redraw();
 }
 
@@ -930,7 +943,8 @@ function setup_a_text_input(){
 function setup_export_JSON_onclick(){
    document.getElementById('Export_JSON').addEventListener('click', function(){
       var canvas_ui = {'canvas_scale':glob.scale, 'cx':glob.ctr[0], 'cy':glob.ctr[1]}
-      var ui_object = {...canvas_ui, ...glob.ui};
+      var config_url = get_link_params();
+      var ui_object = {config_url, ...canvas_ui, ...glob.ui};
       if(glob.ui.locus_type_1 != 'none')
          ui_object = {...ui_object, ...{'locus1': trunc_locus_xy(glob.locus_branched[0],4)}};
       if(glob.ui.locus_type_2 != 'none')
@@ -1068,8 +1082,118 @@ function setup_rmax_onchange(){
 function setup_pallete_onclick(){
    ['1','2','3','4'].map(x=>document.getElementById('pallete_'+x).addEventListener('click', function(){
       if(eval('glob.ui.locus_type_'+x) != 'none')  clicked_on_palette_button((+x)-1)
+   })
+   );
+   ['1','2','3','4'].map(x=>document.getElementById('pallete_'+x).addEventListener('contextmenu', function(ev) {
+      ev.preventDefault();
+      ui_changed(x, true);
+      return false;
+  }, false)
+  );
+}
+
+
+function getAllUrlParams(url) {
+   // get query string from url (optional) or window
+   var queryString = url;
+   // ? url.split('?')[1] : window.location.search.slice(1);
+
+   // we'll store the parameters here
+   var obj = {};
+ 
+   // if query string exists
+   if (queryString) {
+ 
+     // stuff after # is not part of query string, so get rid of it
+     queryString = queryString.split('#')[0];
+ 
+     // split our query string into its component parts
+     var arr = queryString.split('&');
+ 
+     for (var i = 0; i < arr.length; i++) {
+       // separate the keys and the values
+       var a = arr[i].split('=');
+ 
+       // set parameter name and value (use 'true' if empty)
+       var paramName = a[0];
+       var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+ 
+       // (optional) keep case consistent
+       paramName = paramName.toLowerCase();
+       if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
+ 
+       // if the paramName ends with square brackets, e.g. colors[] or colors[2]
+       if (paramName.match(/\[(\d+)?\]$/)) {
+ 
+         // create key if it doesn't exist
+         var key = paramName.replace(/\[(\d+)?\]/, '');
+         if (!obj[key]) obj[key] = [];
+ 
+         // if it's an indexed array e.g. colors[2]
+         if (paramName.match(/\[\d+\]$/)) {
+           // get the index value and add the entry at the appropriate position
+           var index = /\[(\d+)\]/.exec(paramName)[1];
+           obj[key][index] = paramValue;
+         } else {
+           // otherwise add the value to the end of the array
+           obj[key].push(paramValue);
+         }
+       } else {
+         // we're dealing with a string
+         if (!obj[paramName]) {
+           // if it doesn't exist, create property
+           obj[paramName] = paramValue;
+         } else if (obj[paramName] && typeof obj[paramName] === 'string'){
+           // if property does exist and it's a string, convert it to an array
+           obj[paramName] = [obj[paramName]];
+           obj[paramName].push(paramValue);
+         } else {
+           // otherwise add the property
+           obj[paramName].push(paramValue);
+         }
+       }
+     }
+   }
+ 
+   return obj;
+ }
+
+function run_jukebox_playlist(run, playlist, list_indice){
+   var list_indice_new = list_indice % Object.keys(playlist).length;
+   let params;
+   const aux = glob.ui.jukebox_playlist;
+   if(run){
+      reset_ui();
+      glob.ui.jukebox_playlist = aux;
+      params = getAllUrlParams(playlist[list_indice_new]);
+      set_url_params(params);
+      ui_changed_type(true);
       redraw();
-   }));
+   }
+}
+
+function start_playlist(playlist, start){
+   var seconds_interval = 5;
+   var seconds_runned = Math.floor(((Date.now()-start))/1000);
+   let list_indice = Math.floor(seconds_runned/seconds_interval);
+   let run = (seconds_runned % seconds_interval  == 0);
+   run_jukebox_playlist(run, playlist, list_indice);
+}
+
+function setup_jukebox_playlist_oninput(){
+   let playlist;
+   var start = Date.now();
+
+   document.getElementById('jukebox_playlist').addEventListener('input', function(){
+      window.clearInterval(glob.jukebox_id)
+      glob.ui.jukebox_playlist = this.value;
+      if(glob.ui.jukebox_playlist != 'off'){
+         playlist = glob.jukebox_json[glob.ui.jukebox_playlist];
+         start = Date.now();
+         run_jukebox_playlist(true, playlist, 0);
+         glob.jukebox_id = window.setInterval(start_playlist, 1000, playlist, start);
+      }
+   })
 }
 
 function setup_global_event_handler(){
@@ -1082,6 +1206,17 @@ function setup_global_event_handler(){
       }
    })
 }
+
+function setup_fill_alpha(){
+   document.getElementById('fill_alpha').addEventListener('input', function(){
+      glob.ui.fill_alpha = this.value;
+   })
+}
+
+function setup_clr_fill_border(){
+   document.getElementById('clr_fill_border').addEventListener('input', function(){
+      glob.ui.clr_fill_border = hexToRgb(this.value);
+   })}
 
 function setup_ui() {
   setup_ui_variables_behavior();
@@ -1106,6 +1241,9 @@ function setup_ui() {
   setup_pallete_onclick();
   setup_reset_UI_onclick();
   setup_config_url_onclick();
+  setup_jukebox_playlist_oninput();
+  setup_fill_alpha();
+  setup_clr_fill_border();
   setup_global_event_handler();
   ui_changed("1", true, true);
   redraw();

@@ -17,6 +17,7 @@ let glob = {
    clrs_shuffled : [null,null,null,null],
    clrs_shuffled_seeds : [null,null,null,null],
    ell_detects : ['X','X','X','X'],
+   jukebox_id: 0, jukebox_json: null,
    ui0 : {
       a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, 
       ell: true,
@@ -32,7 +33,9 @@ let glob = {
       mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
       clr1: clr_invert_ui(clr_red), clr2: clr_invert_ui(clr_dark_green),
       clr3: clr_invert_ui(clr_blue), clr4: clr_invert_ui(clr_purple),
-      tandem_loc: false, tandem_mnt: false, tandem_xn: false, tandem_tri: false
+      tandem_loc: false, tandem_mnt: false, tandem_xn: false, tandem_tri: false,
+      jukebox_playlist: 'off',
+      fill_alpha: .5, clr_fill_border : clr_white
    },
    ui : null,
    url_params : {},
@@ -140,9 +143,14 @@ function setup() {
    canvas.parent('canvas');
    setup_ui();
    mouseOverCanvas();
-
+   //dispatch input event, jukebox start's a loop depending on url.
+   document.getElementById('jukebox_playlist').dispatchEvent(new Event('input', { value: glob.ui.jukebox_playlist }))
    //frameRate(15);
 }
+
+function preload() {
+   glob.jukebox_json = loadJSON('/jukebox.json');
+ }
 
 function draw() {
    const dict_rot = {"0":0, "90":PI/2, "180":PI, "270":-PI/2, "-90":-PI/2};
@@ -166,11 +174,11 @@ function draw() {
    for (let i = 0; i < g_ind.Xns.length; i++) {
       draw_billiard_or_mounted_branched(a, glob.tDeg, glob.ui.rot, stroke_w, glob.ui.ell,
          g_ind.clrs[i], g_ind.Xns[i], glob.locus_branched[i], g_ind.l_types[i], g_ind.dr_tris[i], g_ind.mountings[i],
-         g_ind.t_types[i], glob.ell_detects[i]);
+         g_ind.t_types[i], glob.ell_detects[i], glob.locus_subpolys[i]==null);
 
          // experimenting with coloring &&&
          //create_locus_subpolys(0)
-         draw_locus_subpolys(glob.locus_subpolys[i], glob.clrs_shuffled[i],  stroke_w);
+         draw_locus_subpolys(glob.locus_subpolys[i], glob.clrs_shuffled[i],  stroke_w, glob.ui.fill_alpha, glob.ui.clr_fill_border);
       }
    a_anim();
 
