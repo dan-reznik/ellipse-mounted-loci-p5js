@@ -1156,7 +1156,7 @@ function run_jukebox_playlist(run, playlist, list_indice){
 }
 
 function start_playlist(playlist, start){
-   var seconds_interval = 2;
+   var seconds_interval = 5;
    var seconds_runned = Math.floor(((Date.now()-start))/1000);
    let list_indice = Math.floor(seconds_runned/seconds_interval);
    let run = (seconds_runned % seconds_interval  == 0);
