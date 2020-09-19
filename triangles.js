@@ -250,6 +250,11 @@ function seventh_brocard_triangle([a,b,c]) {
    return ts;
   }
 
+// 9th -- Brocard triangle. Barycentrics are given by
+//A* = -((a^2 + b^2 - c^2)*(a^2 - b^2 + c^2)) : 2*a^2*(a^2 + b^2 - c^2) : 2*a^2*(a^2 - b^2 + c^2)
+//B* = 2*b^2*(a^2 + b^2 - c^2) : -((a^2 + b^2 - c^2)*(-a^2 + b^2 + c^2)) : 2*b^2*(-a^2 + b^2 + c^2)
+//C* = 2*c^2*(a^2 - b^2 + c^2) : 2*c^2*(-a^2 + b^2 + c^2) : -((a^2 - b^2 + c^2)*(-a^2 + b^2 + c^2))
+
 function first_neuberg_triangle([a,b,c]) {
   let a2=a*a,b2=b*b,c2=c*c;
   let abc=a*b*c;
