@@ -1185,7 +1185,7 @@ function setup_jukebox_playlist_oninput(){
    var start = Date.now();
 
    // Replace ./data.json with your JSON feed
-   return fetch('./jukebox.json').then(response => {
+   fetch('./jukebox.json').then(response => {
       return response.json();
    }).then(data => {
       // Work with JSON data here
