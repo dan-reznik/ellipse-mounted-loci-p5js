@@ -1180,6 +1180,15 @@ function start_playlist(playlist, start){
    run_jukebox_playlist(run, playlist, list_indice);
 }
 
+function waitForElementJson(indice){
+   if(typeof glob.jukebox_json !== "undefined"){
+       return playlist = glob.jukebox_json[indice];
+   }
+   else{
+       setTimeout(waitForElement, 250);
+   }
+}
+
 function setup_jukebox_playlist_oninput(){
    let playlist;
    var start = Date.now();
@@ -1199,7 +1208,7 @@ function setup_jukebox_playlist_oninput(){
       window.clearInterval(glob.jukebox_id)
       glob.ui.jukebox_playlist = this.value;
       if(glob.ui.jukebox_playlist != 'off'){
-         playlist = glob.jukebox_json[glob.ui.jukebox_playlist];
+         playlist = waitForElementJson(glob.ui.jukebox_playlist)
          start = Date.now();
          run_jukebox_playlist(true, playlist, 0);
          glob.jukebox_id = window.setInterval(start_playlist, 1000, playlist, start);
