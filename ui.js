@@ -1209,7 +1209,6 @@ function setup_jukebox_playlist_oninput(){
       glob.ui.jukebox_playlist = this.value;
       if(glob.ui.jukebox_playlist != 'off'){
          playlist = waitForElementJson(glob.ui.jukebox_playlist)
-         console.log(playlist)
          start = Date.now();
          run_jukebox_playlist(true, playlist, 0);
          glob.jukebox_id = window.setInterval(start_playlist, 1000, playlist, start);
