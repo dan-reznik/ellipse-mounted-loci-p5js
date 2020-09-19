@@ -148,10 +148,6 @@ function setup() {
    //frameRate(15);
 }
 
-function preload() {
-   glob.jukebox_json = loadJSON('/jukebox.json');
- }
-
 function draw() {
    const dict_rot = {"0":0, "90":PI/2, "180":PI, "270":-PI/2, "-90":-PI/2};
    // vamos usar glob.bg;

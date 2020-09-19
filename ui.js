@@ -1184,6 +1184,17 @@ function setup_jukebox_playlist_oninput(){
    let playlist;
    var start = Date.now();
 
+   // Replace ./data.json with your JSON feed
+   return fetch('./jukebox.json').then(response => {
+      return response.json();
+   }).then(data => {
+      // Work with JSON data here
+      glob.jukebox_json = loadJSON('/jukebox.json');
+   }).catch(err => {
+      // Do something for an error here
+      alert('.json not found')
+   });
+
    document.getElementById('jukebox_playlist').addEventListener('input', function(){
       window.clearInterval(glob.jukebox_id)
       glob.ui.jukebox_playlist = this.value;
