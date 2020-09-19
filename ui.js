@@ -1081,12 +1081,16 @@ function setup_rmax_onchange(){
 
 function setup_pallete_onclick(){
    ['1','2','3','4'].map(x=>document.getElementById('pallete_'+x).addEventListener('click', function(){
-      if(eval('glob.ui.locus_type_'+x) != 'none')  clicked_on_palette_button((+x)-1)
+      if(eval('glob.ui.locus_type_'+x) != 'none')  {
+         clicked_on_palette_button((+x)-1)
+         redraw();
+      }
    })
    );
    ['1','2','3','4'].map(x=>document.getElementById('pallete_'+x).addEventListener('contextmenu', function(ev) {
       ev.preventDefault();
       ui_changed(x, true);
+      redraw();
       return false;
   }, false)
   );
