@@ -1163,24 +1163,24 @@ function getAllUrlParams(url) {
  }
 
 function run_jukebox_playlist(run, playlist, list_indice){
-   var list_indice_new = list_indice % Object.keys(playlist).length;
    let params;
    const aux = glob.ui.jukebox_playlist;
    if(run){
       reset_ui();
       glob.ui.jukebox_playlist = aux;
-      params = getAllUrlParams(playlist[list_indice_new]);
+      params = getAllUrlParams(playlist[list_indice]);
       set_url_params(params);
       ui_changed_type(true);
       redraw();
    }
 }
 
-function start_playlist(playlist, start){
+function start_playlist(playlist, start, output_text_jukebox){
    var seconds_interval = 5;
    var seconds_runned = Math.floor(((Date.now()-start))/1000);
-   let list_indice = Math.floor(seconds_runned/seconds_interval);
+   let list_indice = Math.floor(seconds_runned/seconds_interval) % playlist.length;
    let run = (seconds_runned % seconds_interval  == 0);
+   output_text_jukebox.innerHTML = "Running "+(+list_indice+1)+'/'+playlist.length;
    run_jukebox_playlist(run, playlist, list_indice);
 }
 
@@ -1196,6 +1196,7 @@ function waitForElementJson(indice){
 function setup_jukebox_playlist_oninput(){
    let playlist;
    var start = Date.now();
+   var output_text_jukebox = document.getElementById('output_text_jukebox')
 
    // Replace ./data.json with your JSON feed
    fetch('./jukebox.json').then(response => {
@@ -1214,8 +1215,11 @@ function setup_jukebox_playlist_oninput(){
       if(glob.ui.jukebox_playlist != 'off'){
          playlist = waitForElementJson(glob.ui.jukebox_playlist)
          start = Date.now();
+         output_text_jukebox.innerHTML = "Running 1/"+playlist.length;
          run_jukebox_playlist(true, playlist, 0);
-         glob.jukebox_id = window.setInterval(start_playlist, 1000, playlist, start);
+         glob.jukebox_id = window.setInterval(start_playlist, 1000, playlist, start, output_text_jukebox);
+      } else{
+         output_text_jukebox.innerHTML = 'Stopped'
       }
    })
 }

@@ -80,11 +80,14 @@
   </div>
   <div class="item jukebox" style="display: inline-flex;">
     <input type="image" class='jukebox_img' id="jukebox" src="jukebox.png"/>
-    <select id="jukebox_playlist">
-      <option value="off" selected="selected">Juke off</option>
-      <option value="playlist_one" >playlist 1</option>
-      <option value="playlist_two">playlist 2</option>
-    </select>
+    <div style="display: flex; flex-direction: column;">
+      <select id="jukebox_playlist">
+        <option value="off" selected="selected">Juke off</option>
+        <option value="playlist_one" >playlist 1</option>
+        <option value="playlist_two">playlist 2</option>
+      </select>
+      <p id='output_text_jukebox'style="align-self: center;">Stopped</p>
+    </div>
   </div>
 	<div class="item title">
     <div id="ui">
