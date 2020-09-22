@@ -75,6 +75,10 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
         </div>
         <select id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
         <option value="reference">*reference*</option>
+        <option value="p_cevian">*cevian*</option>
+        <option value="p_anticevian">*anticevian*</option>
+        <option value="p_pedal">*pedal*</option>
+        <option value="p_antipedal">*antipedal*</option>
         <option value="anticompl">anticompl</option>
         <option value="bci">bci</option>
         <option value="brocard1">brocard 1</option>

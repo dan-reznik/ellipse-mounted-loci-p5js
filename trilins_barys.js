@@ -172,3 +172,7 @@ function get_fn_any(locus_type, n) {
   }
   return fn;
 }
+
+function bary_to_trilin(bs,sides)  {
+  return bs.map((b,i)=>b/sides[i]);
+}

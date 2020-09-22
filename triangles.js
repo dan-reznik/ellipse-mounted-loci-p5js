@@ -30,14 +30,56 @@ function generic_triangle(orbit,sides,ts) {
   return ts.map(t=>trilin_to_cartesian(orbit,sides,t));
 }
 
-function pedal_triangle([alpha,beta,gamma],[a,b,c]) {
-  let cosA=law_of_cosines(a,b,c);
-  let cosB=law_of_cosines(b,c,a);
-  let cosC=law_of_cosines(c,a,b);
-  let t1=[0,beta+alpha*cosC,gamma+alpha*cosB];
-  let t2=[alpha+beta*cosC,0,gamma+beta*cosA];
-  let t3=[alpha+gamma*cosB,beta+gamma*cosA,0];
-  return [t1,t2,t3];  //   generic_triangle(orbit,[a,b,c],[t1,t2,t3]);
+function cevian_triangle([a,b,c],[alpha,beta,gamma]) {
+  let t1=[0,beta,gamma];
+  let t2=[alpha,0,gamma];
+  let t3=[alpha,beta,0]; 
+  return [t1,t2,t3]; 
+}
+
+function anticevian_triangle([a,b,c],[alpha,beta,gamma]) {
+  let t1=[-alpha,beta,gamma];
+  let t2=[alpha,-beta,gamma];
+  let t3=[alpha,beta,-gamma]; 
+  return [t1,t2,t3]; 
+}
+
+function pedal_triangle([a, b, c], [alpha, beta, gamma]) {
+  let cA = law_of_cosines(a, b, c);
+  let cB = law_of_cosines(b, c, a);
+  let cC = law_of_cosines(c, a, b);
+  let t1 = [0, beta + alpha * cC, gamma + alpha * cB];
+  let t2 = [alpha + beta * cC, 0, gamma + beta * cA];
+  let t3 = [alpha + gamma * cB, beta + gamma * cA, 0];
+  return [t1, t2, t3];  //   generic_triangle(orbit,[a,b,c],[t1,t2,t3]);
+}
+
+
+
+function antipedal_triangle([a, b, c], [alpha, beta, gamma]) {
+  let cA = law_of_cosines(a, b, c);
+  let cB = law_of_cosines(b, c, a);
+  let cC = law_of_cosines(c, a, b);
+
+  let t1=[-(cC*alpha - beta)*(cB*alpha + gamma),(alpha + cC*beta)*(cB*alpha + gamma),(cC*alpha + beta)*(alpha + cB*gamma)];
+  let t2=[(cC*alpha + beta)*(cA*beta + gamma),-(alpha + cC*beta)*(cA*beta - gamma),(alpha + cC*beta)*(beta + cA*gamma)];
+  let t3=[(cB*alpha + gamma)*(beta + cA*gamma),(cA*beta + gamma)*(alpha + cB*gamma),-(beta + cA*gamma)*(alpha +cB*gamma)];
+
+  /*
+  let t1 = [
+    -(beta + alpha * cC)*(gamma + alpha * cB),
+    (gamma*alpha*cB)*(alpha+beta*cC),
+    (beta+alpha*cC)*(alpha+gamma*cB)];
+  let t2 = [
+    (gamma + beta * cA) * (beta + alpha * cC), 
+    -(gamma + beta * cA) * (alpha + beta * cC),
+    (alpha + beta * cC) * (beta + gamma * cA)];
+  let t3 = [
+    (beta + gamma * cA) * (gamma + alpha * cB),
+     (alpha + gamma * cB) * (gamma + beta * cA),
+    -(alpha + gamma * cB) * (beta + gamma * cA)];
+    */
+  return [t1, t2, t3];  //   generic_triangle(orbit,[a,b,c],[t1,t2,t3]);
 }
 
 function reference_triangle(sides) {
@@ -600,7 +642,26 @@ const tri_fns_dict = {
   lucastangents    : lucas_tangents_triangle
 };
 
-function get_derived_tri(orbit, sides, tri_type) {
+const tri_pfns_dict = {
+  // reference        : reference_triangle,
+  cevian     : cevian_triangle,
+  anticevian : anticevian_triangle,
+  pedal      : pedal_triangle,
+  antipedal  : antipedal_triangle
+}
+
+function get_derived_tri(orbit, sides, tri_type, pn) {
+  if (tri_type.substr(0,2)=="p_") {
+     tri_type = tri_type.substr(2);
+     if (tri_type in tri_pfns_dict) {
+      const bs = get_Xn_bary(sides, pn);
+      const ts_p = bary_to_trilin(bs,sides);
+      const ts = tri_pfns_dict[tri_type](sides,ts_p);
+      const tri = generic_triangle(orbit,sides,ts);
+      return { o: tri, s: tri_sides(tri) };     
+     } else
+       return { o: orbit, s: sides };
+  } else
     if (tri_type in tri_fns_dict) { // "reference" returns itself
      const ts = tri_fns_dict[tri_type](sides);
      const tri = generic_triangle(orbit,sides,ts);
@@ -609,32 +670,18 @@ function get_derived_tri(orbit, sides, tri_type) {
      return { o: orbit, s: sides };
 }
 
-function get_derived_tri_v1_barys(sides, tri_type) {
-   if (tri_type in tri_fns_dict) { // "reference" returns itself
-   const ts = tri_fns_dict[tri_type](sides);
-   // multiply by sides to get barys
-   const bs = ts[0].map((t,i)=>t*sides[i]);
-   return bs;
-} else
-   return [sides[0],0,0]; // reference tri v1 in baris
-}
-
-function get_tri_v1_barys(sides) {
-    return [sides[0],0,0];
-}
-
 // for debugging
-function get_tri_generic(a,tDeg,mounting,tri_type) {
+function get_tri_generic(a,tDeg,mounting,tri_type,pn) {
   //
   let ons, ons_derived;
   if (mounting in dict_orbit_fn) {
       const orbit_fn = dict_orbit_fn[mounting]
       ons = orbit_fn(a, tDeg);
-      ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
+      ons_derived = get_derived_tri(ons.o, ons.s, tri_type,pn);
   } else {
       const [v2, v3] = getV2V3(a, mounting, 0.001);
       ons = get_mounted_tri(a, tDeg, v2, v3);
-      ons_derived = get_derived_tri(ons.o, ons.s, tri_type);
+      ons_derived = get_derived_tri(ons.o, ons.s, tri_type,pn);
   }
   return { a:a,tDeg:tDeg,mounting:mounting,tri_type:tri_type,
       tri: ons.o, tri_s: ons.s, derived: ons_derived.o, derived_s: ons_derived.s };
@@ -642,7 +689,7 @@ function get_tri_generic(a,tDeg,mounting,tri_type) {
 
 // tri_side_ratio(1.3,20.0,"poristic","tangential","intangents")
 function tri_side_ratio(a,tDeg,mounting,tri_type_1,tri_type_2) {
-  const tri1 = get_tri_generic(a,tDeg,mounting,tri_type_1);
-  const tri2 = get_tri_generic(a,tDeg,mounting,tri_type_2);
+  const tri1 = get_tri_generic(a,tDeg,mounting,tri_type_1,0);
+  const tri2 = get_tri_generic(a,tDeg,mounting,tri_type_2,0);
   return tri1.derived_s.map((s,i)=>s/tri2.derived_s[i]);
 }

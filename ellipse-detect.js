@@ -156,7 +156,7 @@ function get_ellipses(a, mnt, imax = 1000, r_max = 20.0) {
         points:[],lines:[],circles:[],ellipses:[],hyperbolas:[],parabolas:[]};
     for (let i = 1; i <= imax; i++) {
         //a, tDegStep, r_max, n, mounting, locus_type, tri_type
-        locus = make_locus_branched(a, tDegStep, r_max, i, mnt, "trilins", "reference");
+        locus = make_locus_branched(a, tDegStep, r_max, i, mnt, "trilins", "reference", 0);
         let type = locus_conic(locus);
         if (type in dict_locus_type)
            results[dict_locus_type[type]].push(i);

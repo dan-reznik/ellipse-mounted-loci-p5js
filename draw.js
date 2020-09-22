@@ -72,7 +72,6 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w, locus_typ
       case "brocard_2": bs = bary_brocard2(ons.s); break;
       case "bickart_1": bs = bary_bickart1(ons.s); break;
       case "bickart_2": bs = bary_bickart2(ons.s); break;
-      // case "vtx": bs = get_derived_tri_v1_barys(ons.s); break;
       default: bs = get_Xn_bary(ons.s, xnum); // "trilins"
     }
     xn = barys_to_cartesian(ons.o, bs);

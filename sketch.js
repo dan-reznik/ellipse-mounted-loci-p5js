@@ -28,6 +28,7 @@ let glob = {
       // needs to refactor this
       locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none', locus_type_4: 'none',
       Xn1: '1', Xn2: '1', Xn3: '1', Xn4: '1',
+      Pn1: '1', Pn2: '1', Pn3: '1', Pn4: '1',
       tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference', tri_type_4: 'reference',
       draw_tri_1: true, draw_tri_2: false, draw_tri_3: false, draw_tri_4: false,
       mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
@@ -44,6 +45,7 @@ let glob = {
 function get_glob_indexed() {
    return {
       Xns: [glob.ui.Xn1, glob.ui.Xn2, glob.ui.Xn3, glob.ui.Xn4],
+      Pns: [glob.ui.Pn1, glob.ui.Pn2, glob.ui.Pn3, glob.ui.Pn4],
       l_types: [glob.ui.locus_type_1, glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4],
       dr_tris: [glob.ui.draw_tri_1, glob.ui.draw_tri_2, glob.ui.draw_tri_3, glob.ui.draw_tri_4],
       mountings: [glob.ui.mounting_Xn1, glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4],
@@ -61,7 +63,7 @@ function create_locus(locus_type_changed, init) {
    for (let i = 0; i < g_ind.Xns.length; i++)
       if (/*g_ind.l_types[i] != "none" && */[(i + 1).toString(), "0"].includes(locus_type_changed)) {
          glob.locus_branched[i] = make_locus_branched(a, tdegStep, glob.ui.rmax,
-            g_ind.Xns[i], g_ind.mountings[i], g_ind.l_types[i], g_ind.t_types[i]);
+            g_ind.Xns[i], g_ind.mountings[i], g_ind.l_types[i], g_ind.t_types[i], g_ind.Pns[i]);
          glob.ell_detects[i] = locus_conic(glob.locus_branched[i]);
          if(init != true){
             glob.locus_subpolys[i] = null;
@@ -170,7 +172,7 @@ function draw() {
    for (let i = 0; i < g_ind.Xns.length; i++) {
       draw_billiard_or_mounted_branched(a, glob.tDeg, glob.ui.rot, stroke_w, glob.ui.ell,
          g_ind.clrs[i], g_ind.Xns[i], glob.locus_branched[i], g_ind.l_types[i], g_ind.dr_tris[i], g_ind.mountings[i],
-         g_ind.t_types[i], glob.ell_detects[i], glob.locus_subpolys[i]==null);
+         g_ind.t_types[i], g_ind.Pns[i], glob.ell_detects[i], glob.locus_subpolys[i]==null);
 
          // experimenting with coloring &&&
          //create_locus_subpolys(0)
@@ -224,19 +226,3 @@ function mouseWheel(event) {
    }
    return false;
 }
-
-// for debugging
-/* function get_current_tri_1() {
-   return get_tri_generic(+glob.ui.a, glob.tDeg, glob.ui.mounting_Xn1, glob.ui.tri_type_1);
-}
-
-function get_current_tri_2() {
-    return get_tri_generic(+glob.ui.a, glob.tDeg, glob.ui.mounting_Xn2, glob.ui.tri_type_2);
- }
- function get_current_tri_3() {
-    return get_tri_generic(+glob.ui.a, glob.tDeg, glob.ui.mounting_Xn3, glob.ui.tri_type_3);
- }
-
- function get_current_tri_4() {
-    return get_tri_generic(+glob.ui.a, glob.tDeg, glob.ui.mounting_Xn4, glob.ui.tri_type_4);
- } */
