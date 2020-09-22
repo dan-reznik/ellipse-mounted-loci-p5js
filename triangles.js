@@ -61,9 +61,9 @@ function antipedal_triangle([a, b, c], [alpha, beta, gamma]) {
   let cB = law_of_cosines(b, c, a);
   let cC = law_of_cosines(c, a, b);
 
-  let t1=[-(cC*alpha - beta)*(cB*alpha + gamma),(alpha + cC*beta)*(cB*alpha + gamma),(cC*alpha + beta)*(alpha + cB*gamma)];
-  let t2=[(cC*alpha + beta)*(cA*beta + gamma),-(alpha + cC*beta)*(cA*beta - gamma),(alpha + cC*beta)*(beta + cA*gamma)];
-  let t3=[(cB*alpha + gamma)*(beta + cA*gamma),(cA*beta + gamma)*(alpha + cB*gamma),-(beta + cA*gamma)*(alpha +cB*gamma)];
+  let t1=[-(cC*alpha + beta)*(cB*alpha + gamma),(alpha + cC*beta)*(cB*alpha + gamma),(cC*alpha + beta)*(alpha + cB*gamma)];
+  let t2=[(cC*alpha + beta)*(cA*beta + gamma),-(alpha + cC*beta)*(cA*beta + gamma),(alpha + cC*beta)*(beta + cA*gamma)];
+  let t3=[(cB*alpha + gamma)*(beta + cA*gamma),(cA*beta + gamma)*(alpha + cB*gamma),-(beta + cA*gamma)*(alpha + cB*gamma)];
 
   /*
   let t1 = [
