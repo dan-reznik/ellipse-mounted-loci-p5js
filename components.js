@@ -58,14 +58,22 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
     </div>
 
     <div class="input_Xn text">
-        <div id='input_text'>
-            <button id="minus_Xn`+xn_number+`" class="plus_minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
-            <input type="text" class = "demo_Xn" id="demo_Xn`+xn_number+`" value="1">
-            <button id="plus_Xn`+xn_number+`" class="plus_minus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-        </div>    
-        <div class='slider_container'>
-            <input type="range" min="1" max="1000" value="1" class="slider" step="1" id="Xn`+xn_number+`">
+        <div style='width: 200px;margin:0px;'>
+            <div id='input_text'>
+                <input type="text" class = "demo_Xn" id="demo_Xn`+xn_number+`" value="1">
+                <button id="minus_Xn`+xn_number+`" class="plus_minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+                <button id="plus_Xn`+xn_number+`" class="plus_minus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+            </div>    
+            <div class='slider_container'>
+                <input type="range" min="1" max="1000" value="1" class="slider" step="1" id="Xn`+xn_number+`">
+            </div>
         </div>
+        <div class='P_input_text'>
+            <input type="text" class = "demo_Xn" id="demo_Pn`+xn_number+`" value="1">
+            <button id="minus_Pn`+xn_number+`" class="plus_minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+            <button id="plus_Pn`+xn_number+`" class="plus_minus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+        </div>
+
     </div>
 
     <div class="input_Xn">

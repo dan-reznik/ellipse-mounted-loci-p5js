@@ -12,6 +12,7 @@ let glob = {
    loop_ccw : true,
    loop : true,
    tDeg : 0,
+   slider_focus : 'X',
    locus_branched : [null,null,null,null],
    locus_subpolys : [null,null,null,null],
    clrs_shuffled : [null,null,null,null],
@@ -28,6 +29,7 @@ let glob = {
       // needs to refactor this
       locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none', locus_type_4: 'none',
       Xn1: '1', Xn2: '1', Xn3: '1', Xn4: '1',
+      Pn1: '1', Pn2: '1', Pn3: '1', Pn4: '1',
       tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference', tri_type_4: 'reference',
       draw_tri_1: true, draw_tri_2: false, draw_tri_3: false, draw_tri_4: false,
       mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
