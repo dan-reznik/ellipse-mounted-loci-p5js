@@ -28,6 +28,11 @@ body {
   box-sizing: border-box;
 }
 
+.margin_zero{
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
 /* Grid Container*/
 .grid-container {
   display: grid;
@@ -35,7 +40,7 @@ body {
   width: 100%;
   padding: 1%;
   grid-gap: 1% 0.5%;
-  grid-template-columns: minmax(266px, 266px) 130px minmax(405px, 95%);
+  grid-template-columns: minmax(275px, 275px) 130px minmax(405px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config jukebox title"
@@ -53,7 +58,6 @@ body {
   display: flex; 
   flex-direction: column; 
   height: 100%;
-  flex-grow: 1;
 }
 
 .config_buttons>*>*{
@@ -71,11 +75,14 @@ body {
 }
 
 .selector_input{
-  display: flex;
-  flex-direction: column;
+  display: inline-block; 
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 #speed_box{
@@ -91,19 +98,25 @@ body {
   width: 25px;
   border-style: solid;
   border-width: 2px;
-  margin-right: 4px;
+  margin-right: 1px;
+  margin-left: 1px;
 };
 
 .input_Xn{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  margin-left: 0px;
+  margin-right: 0px;
+  display: inline-block;
   height: auto;
 }
 
 .input_Xn>*{
   margin-right: auto;
   margin-left: auto;
+}
+
+.tri_type{
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 #demo_a{
@@ -122,10 +135,9 @@ p.lab{
 
 .a_text_input{
   font-size: 12px;
-  flex-grow: 1;
   border-style: solid;
   border-width: 1px;
-  width: 32px;
+  width: 37px;
   height: 20px;
   margin-top: auto;
   margin-bottom: auto;
@@ -206,14 +218,11 @@ p.lab{
 
 /*Selector menu styles*/
 .component.xn_selector{
+    display: flex; 
+    flex-direction: column;
     border-style: solid;
     border-width: 1px;
     border-radius: 5px;
-}
-
-.component.xn_selector{
-    display: flex; 
-    flex-direction: column;
 }
 
 .input_Xn{
@@ -224,14 +233,6 @@ p.lab{
     margin-top: 2px;
 }
 
-.input_Xn.text{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    height: auto;
-    margin-bottom: 3px;
-    justify-content: center;
-}
 .demo_Xn{
     border-style: solid;
     border-width: 1px;
@@ -383,7 +384,6 @@ label{
 
 .input_mounting{
     display: inline-block;
-    flex-grow: 1;
     height: 100%;
     margin-right: 4px;
 }
@@ -394,7 +394,6 @@ label{
 
 .Bbox{
     display: inline-block;
-    flex-grow: 1;
     width: 43px;
     margin-right: 5px;
     margin-left: 5px;

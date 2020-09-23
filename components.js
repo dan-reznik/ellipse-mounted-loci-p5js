@@ -2,7 +2,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
     return `
 <div class="component xn_selector">
     <div class="input_Xn">
-        <div style="display: inline-flex; margin-left: 0px;">
+        <div style="display: inline-flex; margin-left: 0px;margin-right: 0px;">
             <label id='locus_text_`+xn_number+`' for="checkbox_Xn`+xn_number+`" style="color: `+rgb_color+`;"> loc`+xn_number+`</label>
             <select id="locus_type_`+xn_number+`" name="checkbox_Xn`+xn_number+`">
                 <option value="none">off</option>
@@ -23,7 +23,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
         <div id='conic_type'>
                 <p id='conic_type_`+xn_number+`'></p>
         </div>
-        <div style="display: inline-flex;">
+        <div style="display: inline-flex;margin-left:1px;margin-right:1px;">
             <label for="mounting_Xn`+xn_number+`"> mnt</label>
             <div class="input_mounting"">
                 <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
@@ -60,7 +60,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
         </div>
     </div>
 
-    <div class="input_Xn text">
+    <div class="input_Xn">
         <div style='width: 200px;margin:0px;'>
             <div id='input_text'>
                 <button id="minus_Xn`+xn_number+`" class="plus_minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
@@ -71,18 +71,18 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                 <input type="range" min="1" max="1000" value="1" class="slider" step="1" id="Xn`+xn_number+`">
             </div>
         </div>
-        <div style='display: inline-flex; flex-grow: 1;'>
+        <div style='display: inline-flex;margin-left:2px;margin-right:2px;'>
             <button class='Bbox' id='Bbox_`+xn_number+`'>bbox</button>
         </div>
 
     </div>
 
     <div class="input_Xn">
-        <div style='margin-left: 0px;'>
+        <div style='margin-left: 0px;margin-right:0px;'>
             <label for="draw_tri_`+xn_number+`">tri</label>
             <input class = "sub_checkbox" type="checkbox" id="draw_tri_`+xn_number+`" `+tri_selected+` name="draw_tri_`+xn_number+`">
         </div>
-        <select id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
+        <select class='tri_type' id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
         <option value="reference">*reference*</option>
         <option value="p_cevian">*cevian*</option>
         <option value="p_anticevian">*anticevian*</option>
@@ -140,7 +140,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <input type="text" class = "demo_Pn" id="demo_Pn`+xn_number+`" value="1">
             <button id="plus_Pn`+xn_number+`" class="plus_minus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
         </div>
-        <input type="image" id="pallete_`+xn_number+`" style="margin-left:2px;height:20px;width:20px;" src="pallete.png"/>
+        <input type="image" id="pallete_`+xn_number+`" style="margin-right:2px;margin-left:2px;height:20px;width:20px;" src="pallete.png"/>
         
     </div>
 </div>
