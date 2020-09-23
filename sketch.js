@@ -17,7 +17,7 @@ let glob = {
    locus_branched : [null,null,null,null],
    locus_subpolys : [null,null,null,null],
    clrs_shuffled : [null,null,null,null],
-   clrs_shuffled_seeds : [null,null,null,null],
+   clrs_shuffled_seeds : [[],[],[],[]],
    ell_detects : ['X','X','X','X'],
    jukebox_id: 0, jukebox_json: null,
    ui0 : {
@@ -69,29 +69,40 @@ function create_locus(locus_type_changed, init) {
          glob.ell_detects[i] = locus_conic(glob.locus_branched[i]);
          if(init != true){
             glob.locus_subpolys[i] = null;
-            glob.clrs_shuffled_seeds[i] = null;
+            glob.clrs_shuffled_seeds[i] = [];
             glob.clrs_shuffled[i] = null;
          }
       }
 }
 
-function clicked_on_palette_button(n) {
-   const seed = random32() & 0xffff; // 16 bits
-   create_locus_subpolys(n, seed);
+function create_shuffled_clrs(i) {
+   if (glob.clrs_shuffled_seeds[i].length>0) {
+   glob.clrs_shuffled[i] = shuffle_seeded(clrs_crayola.map(c=>c.rgb),
+   glob.clrs_shuffled_seeds[i].last());
+   }
 }
 
-function create_locus_subpolys(n, seed) {
+function clicked_on_palette_button(n) {
+   const seed = random32() & 0xffff; // 16 bits
+
+   glob.clrs_shuffled_seeds[n].push(seed);
+   create_shuffled_clrs(n);
+
+   //glob.clrs_shuffled[n] = shuffle_seeded(clrs_crayola.map(c=>c.rgb), (seed==null)?0:seed);
+
+   create_locus_subpolys(n);
+}
+
+function create_locus_subpolys(n) {
    if (glob.locus_branched[n]!=null && glob.locus_subpolys[n] == null) {
       let finite_loci = glob.locus_branched[n].filter(l=>l.length>20);
       if (finite_loci.length>0) {
          glob.locus_subpolys[n] = locus_subpolys(finite_loci, 0);
-         const seed = +glob.clrs_shuffled_seeds[n];
-         if (seed==null) console.log("create_locus_subpolys(): null seed");
+         //const seed = +glob.clrs_shuffled_seeds[n].last();
+         //if (seed==undefined) console.log("create_locus_subpolys(): undefined seed");
       //glob.locus_subpolys = locus_separate(glob.locus_branched.filter(l=>l.length>4));
       }
    }
-   glob.clrs_shuffled_seeds[n] = seed;
-   glob.clrs_shuffled[n] = shuffle_seeded(clrs_crayola.map(c=>c.rgb), (seed==null)?0:seed);
 }
 
 function get_window_width_height() {

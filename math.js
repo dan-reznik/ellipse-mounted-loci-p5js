@@ -1,6 +1,13 @@
 // MATH UTILS
 clr_invert_ui = (rgb) => rgb.map(c=>255-c)
 
+// add last of array
+if (!Array.prototype.last){
+  Array.prototype.last = function(){
+      return this[this.length - 1];
+  };
+};
+
 function arg_max(vs) {
   let imax = 0;
   let vmax = vs[0];
