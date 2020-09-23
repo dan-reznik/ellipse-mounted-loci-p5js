@@ -243,8 +243,9 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
          tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
          glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
          redraw();
-         glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
          glob.slider_focus = glob_variable[0];
+         if(glob.slider_focus == 'X')
+            glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
          slider.focus();
       }
    });
@@ -257,8 +258,9 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
          tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
          glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
          redraw();
-         glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
          glob.slider_focus = glob_variable[0];
+         if(glob_variable[0] == 'X')
+            glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
          slider.focus();
       }
    });
@@ -271,7 +273,8 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
       tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
       glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
       redraw();
-      glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
+      if(glob_variable[0] == 'X')
+         glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
    });
 
    text.addEventListener("input", function () {
@@ -291,9 +294,10 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
          tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
          glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
          redraw();
-         glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);;
          e.preventDefault();
          glob.slider_focus = glob_variable[0];
+         if(glob_variable[0] == 'X')
+            glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
          slider.focus();
       }
    })
@@ -311,6 +315,8 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
          redraw();
          glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
          glob.slider_focus = glob_variable[0];
+         if(glob_variable[0] == 'X')
+            glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
          slider.focus();
       }
    })
@@ -637,7 +643,7 @@ function get_diff_default(key) {
    const original_to_url_params = {
       a: 'a', a_speed: 'asp', a_min: 'amn', a_max: 'amx', ell: 'ell',
       locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3', locus_type_4: 'lc4',
-      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4',
+      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4',Pn1: 'Pn1', Pn2: 'Pn2', Pn3: 'Pn3', Pn4: 'Pn4',
       tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3', tri_type_4: 'tr4',
       draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3', draw_tri_4: 'dr4',
       mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3', mounting_Xn4: 'mt4',
@@ -755,6 +761,11 @@ function get_link_params(){
      link_params += get_diff_default("jukebox_playlist");
      link_params += get_diff_default("fill_alpha");
      link_params += get_diff_default("clr_fill_border");
+     link_params += get_diff_default("Pn1");
+     link_params += get_diff_default("Pn2");
+     link_params += get_diff_default("Pn3");
+     link_params += get_diff_default("Pn4");
+
 
      link_params += clrs_shuffled_seeds_to_url(glob.clrs_shuffled_seeds)
 
@@ -779,7 +790,7 @@ function set_url_params(url_params) {
   let url_params_to_ui = {
      a: 'a', asp: 'a_speed', amn: 'a_min', amx: 'a_max', ell: 'ell',
      lc1: 'locus_type_1', lc2: 'locus_type_2', lc3: 'locus_type_3', lc4: 'locus_type_4',
-     Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4',
+     Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4',Pn1: 'Pn1', Pn2: 'Pn2', Pn3: 'Pn3', Pn4: 'Pn4',
      tr1: 'tri_type_1', tr2: 'tri_type_2', tr3: 'tri_type_3', tr4: 'tri_type_4',
      dr1: 'draw_tri_1', dr2: 'draw_tri_2', dr3: 'draw_tri_3', dr4: 'draw_tri_4',
      mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3', mt4: 'mounting_Xn4',
@@ -800,7 +811,7 @@ function set_url_params(url_params) {
   link_keys.forEach(function (key) {
      if (url_params_to_ui_keys.includes(key)){
         ui_key = url_params_to_ui[key];
-        if(['a', 'Xn1', 'Xn2', 'Xn3', 'Xn4'].includes(ui_key)){
+        if(['a', 'Xn1', 'Xn2', 'Xn3', 'Xn4', 'Pn1', 'Pn2', 'Pn3', 'Pn4'].includes(ui_key)){
            glob.ui[ui_key] = +url_params[key];
         }
         else if(['ell','draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4'].includes(ui_key))
