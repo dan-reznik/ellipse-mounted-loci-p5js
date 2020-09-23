@@ -54,8 +54,6 @@ function pedal_triangle([a, b, c], [alpha, beta, gamma]) {
   return [t1, t2, t3];  //   generic_triangle(orbit,[a,b,c],[t1,t2,t3]);
 }
 
-
-
 function antipedal_triangle([a, b, c], [alpha, beta, gamma]) {
   let cA = law_of_cosines(a, b, c);
   let cB = law_of_cosines(b, c, a);
@@ -692,4 +690,18 @@ function tri_side_ratio(a,tDeg,mounting,tri_type_1,tri_type_2) {
   const tri1 = get_tri_generic(a,tDeg,mounting,tri_type_1,0);
   const tri2 = get_tri_generic(a,tDeg,mounting,tri_type_2,0);
   return tri1.derived_s.map((s,i)=>s/tri2.derived_s[i]);
+}
+
+function get_derived_tri_v1_barys(sides, tri_type) {
+  if (tri_type in tri_fns_dict) { // "reference" returns itself
+  const ts = tri_fns_dict[tri_type](sides);
+  // multiply by sides to get barys
+  const bs = ts[0].map((t,i)=>t*sides[i]);
+  return bs;
+} else
+  return [sides[0],0,0]; // reference tri v1 in baris
+}
+
+function get_tri_v1_barys(sides) {
+   return [sides[0],0,0];
 }
