@@ -236,88 +236,107 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
    var text = document.getElementById(textId);
 
    document.getElementById(minus_id).addEventListener("click", function () {
-      if (glob.ui[glob_variable] > 1) {
-         glob.ui[glob_variable]--;
-         slider.value--;
-         text.value--;
-         tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
-         glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
-         redraw();
-         glob.slider_focus = glob_variable[0];
-         if(glob.slider_focus == 'X')
-            glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
-         slider.focus();
+      if(glob_variable[0]=='P' && glob.tri_type_p_selected==true){
+         if (glob.ui[glob_variable] > 1) {
+            glob.ui[glob_variable]--;
+            slider.value--;
+            text.value--;
+            if(glob_variable[0] == 'X')
+               tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
+            glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
+            redraw();
+            glob.slider_focus = glob_variable[0];
+            if(glob.slider_focus == 'X')
+               glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
+            slider.focus();
+         }
       }
    });
 
    document.getElementById(plus_id).addEventListener("click", function () {
-      if (glob.ui[glob_variable] < 1000) {
-         glob.ui[glob_variable]++;
-         slider.value++;
-         text.value++;
-         tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
-         glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
-         redraw();
-         glob.slider_focus = glob_variable[0];
-         if(glob_variable[0] == 'X')
-            glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
-         slider.focus();
+      if(glob_variable[0]=='P' && glob.tri_type_p_selected==true){
+         if (glob.ui[glob_variable] < 1000) {
+            glob.ui[glob_variable]++;
+            slider.value++;
+            text.value++;
+            if(glob_variable[0] == 'X')
+               tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
+            glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
+            redraw();
+            glob.slider_focus = glob_variable[0];
+            if(glob_variable[0] == 'X')
+               glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
+            slider.focus();
+         }
       }
    });
 
    slider.addEventListener("input", function () {
-      if(glob.slider_focus == 'X')
-         glob.ui['Xn'+ell_detect] = this.value;
-      else if(glob.slider_focus == 'P')
-         glob.ui['Pn'+ell_detect] = this.value;
-      tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
-      glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
-      redraw();
-      if(glob_variable[0] == 'X')
-         glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
+      if(glob_variable[0]=='P' && glob.tri_type_p_selected==true){
+         if(glob.slider_focus == 'X')
+            glob.ui['Xn'+ell_detect] = this.value;
+         else if(glob.slider_focus == 'P')
+            glob.ui['Pn'+ell_detect] = this.value;
+         if(glob_variable[0] == 'X')
+            tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
+         glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
+         redraw();
+         if(glob.slider_focus == 'X')
+            glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
+      }
    });
 
    text.addEventListener("input", function () {
-      if(this.value !== ''){
-         if (this.value > 1000)
-            this.value = "1000";
-         else if (this.value < 1)
-            this.value = "1";
+      if(glob_variable[0]=='P' && glob.tri_type_p_selected==true){
+         if(this.value !== ''){
+            if (this.value > 1000)
+               this.value = "1000";
+            else if (this.value < 1)
+               this.value = "1";
+         }
+      } else{
+         this.value = 1
       }
    })
    text.addEventListener('keydown', function (e) {
-      if(e.keyCode==9){
-         if(this.value == '')
-            this.value = '1';
-         glob.ui[glob_variable] = this.value;
-         slider.value = this.value;
-         tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
-         glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
-         redraw();
-         e.preventDefault();
-         glob.slider_focus = glob_variable[0];
-         if(glob_variable[0] == 'X')
-            glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
-         slider.focus();
+      if(glob_variable[0]=='P' && glob.tri_type_p_selected==true){
+         if(e.keyCode==9){
+            if(this.value == '')
+               this.value = '1';
+            glob.ui[glob_variable] = this.value;
+            slider.value = this.value;
+            if(glob_variable[0] == 'X')
+               tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
+            glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
+            redraw();
+            e.preventDefault();
+            glob.slider_focus = glob_variable[0];
+            if(glob_variable[0] == 'X')
+               glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
+            slider.focus();
+         }
       }
    })
    text.addEventListener('keypress', function (e) {
-      if(e.keyCode == 32) e.stopPropagation();
-      if (e.keyCode < 48 || e.keyCode > 57)
-        e.preventDefault();
-      if(e.keyCode==13){
-         if(this.value == '')
-            this.value = '1';
-         glob.ui[glob_variable] = this.value;
-         slider.value = this.value;
-         tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
-         glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
-         redraw();
-         glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
-         glob.slider_focus = glob_variable[0];
-         if(glob_variable[0] == 'X')
+      if(glob_variable[0]=='P' && glob.tri_type_p_selected==true){
+         if(e.keyCode == 32) e.stopPropagation();
+         if (e.keyCode < 48 || e.keyCode > 57)
+         e.preventDefault();
+         if(e.keyCode==13){
+            if(this.value == '')
+               this.value = '1';
+            glob.ui[glob_variable] = this.value;
+            slider.value = this.value;
+            if(glob_variable[0] == 'X')
+               tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
+            glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
+            redraw();
             glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
-         slider.focus();
+            glob.slider_focus = glob_variable[0];
+            if(glob_variable[0] == 'X')
+               glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
+            slider.focus();
+         }
       }
    })
 }
@@ -588,6 +607,15 @@ function setup_locus_type_onchange() {
 
 function setup_tri_type_onchange() {
   document.getElementById("tri_type_1").addEventListener("change", function () {
+     var demo = document.getElementById('demo_Pn1');
+     if(this.value.slice(0,2) == 'p_'){
+         tri_type_p_selected = true;
+         demo.style.backgroundColor = 'white';
+     }
+     else{
+         tri_type_p_selected = false;
+         demo.style.backgroundColor = 'gray';
+     }
      glob.ui.tri_type_1 = this.value;
      tandem_bar_variables('tri', glob.ui.tri_type_1);
      glob.ui.tandem_tri?ui_changed_type(true):ui_changed("1", true);
@@ -595,6 +623,15 @@ function setup_tri_type_onchange() {
      glob.ui.tandem_tri?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui("1");
   });
   document.getElementById("tri_type_2").addEventListener("change", function () {
+      var demo = document.getElementById('demo_Pn2');
+      if(this.value.slice(0,2) == 'p_'){
+         tri_type_p_selected = true;
+         demo.style.backgroundColor = 'white';
+      }
+      else{
+         tri_type_p_selected = false;
+         demo.style.backgroundColor = 'gray';
+      }
      glob.ui.tri_type_2 = this.value;
      tandem_bar_variables('tri', glob.ui.tri_type_2);
      glob.ui.tandem_tri?ui_changed_type(true):ui_changed("2", true);
@@ -602,14 +639,32 @@ function setup_tri_type_onchange() {
      glob.ui.tandem_tri?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui("2");
   });
   document.getElementById("tri_type_3").addEventListener("change", function () {
-     glob.ui.tri_type_3 = this.value;
+   var demo = document.getElementById('demo_Pn3');
+   if(this.value.slice(0,2) == 'p_'){
+      tri_type_p_selected = true;
+      demo.style.backgroundColor = 'white';
+  }
+  else{
+      tri_type_p_selected = false;
+      demo.style.backgroundColor = 'gray';
+  }  
+   glob.ui.tri_type_3 = this.value;
      tandem_bar_variables('tri', glob.ui.tri_type_3);
      glob.ui.tandem_tri?ui_changed_type(true):ui_changed("3", true);
      redraw();
      glob.ui.tandem_tri?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui("3");
   });
   document.getElementById("tri_type_4").addEventListener("change", function () {
-     glob.ui.tri_type_4 = this.value;
+   var demo = document.getElementById('demo_Pn4');
+   if(this.value.slice(0,2) == 'p_'){
+      tri_type_p_selected = true;
+      demo.style.backgroundColor = 'white';
+  }
+  else{
+      tri_type_p_selected = false;
+      demo.style.backgroundColor = 'gray';
+  }
+   glob.ui.tri_type_4 = this.value;
      tandem_bar_variables('tri', glob.ui.tri_type_4);
      glob.ui.tandem_tri?ui_changed_type(true):ui_changed("4", true);
      redraw();
@@ -1292,7 +1347,6 @@ function setup_ui() {
   setup_a_text_input();
   setup_ell_onchange();
   setup_export_JSON_onclick();
-  ["1","2","3","4"].map(set_conic_type_ui);
   ["1","2","3","4"].map(setup_bbox_onclick);
   setup_recenter_onclick();
   setup_tandem_bar();
@@ -1309,6 +1363,7 @@ function setup_ui() {
   setup_global_event_handler();
   ui_changed("1", true, true);
   redraw();
+  ["1","2","3","4"].map(set_conic_type_ui);
 }
 
 function reset_ui() {

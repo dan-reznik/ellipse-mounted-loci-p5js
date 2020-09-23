@@ -13,6 +13,7 @@ let glob = {
    loop : true,
    tDeg : 0,
    slider_focus : 'X',
+   tri_type_p_selected : true,
    locus_branched : [null,null,null,null],
    locus_subpolys : [null,null,null,null],
    clrs_shuffled : [null,null,null,null],

@@ -69,7 +69,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             </div>
         </div>
         <div class='P_input_text'>
-            <input type="text" class = "demo_Xn" id="demo_Pn`+xn_number+`" value="1">
+            <input type="text" class = "demo_Pn" id="demo_Pn`+xn_number+`" value="1">
             <button id="minus_Pn`+xn_number+`" class="plus_minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
             <button id="plus_Pn`+xn_number+`" class="plus_minus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
         </div>
@@ -83,10 +83,10 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
         </div>
         <select id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
         <option value="reference">*reference*</option>
-        <option value="p_cevian">*cevian*</option>
-        <option value="p_anticevian">*anticevian*</option>
-        <option value="p_pedal">*pedal*</option>
-        <option value="p_antipedal">*antipedal*</option>
+        <option class='tri_type_P' value="p_cevian">*cevian*</option>
+        <option class='tri_type_P' value="p_anticevian">*anticevian*</option>
+        <option class='tri_type_P' value="p_pedal">*pedal*</option>
+        <option class='tri_type_P' value="p_antipedal">*antipedal*</option>
         <option value="anticompl">anticompl</option>
         <option value="bci">bci</option>
         <option value="brocard1">brocard 1</option>
