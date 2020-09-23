@@ -35,7 +35,7 @@ body {
   width: 100%;
   padding: 1%;
   grid-gap: 1% 0.5%;
-  grid-template-columns: minmax(247px, 247px) 130px minmax(405px, 95%);
+  grid-template-columns: minmax(285px, 285px) 130px minmax(405px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config jukebox title"
@@ -344,8 +344,8 @@ label{
     background: none !important;
     border:none;
     height: 100%;
-    width: 30px;
-    font-size: 17px;
+    width: 5px;
+    font-size: 15px;
 }
 
 .plus_minus:focus,
@@ -355,12 +355,18 @@ label{
 
 .slider_container{
     display: inline-block;
-    width: 54%;
+    width: 120px;
     height: auto;
 }
 
 #input_text{
     display: inline-flex;
+    margin-right: 2px;
+}
+
+.P_input_text{
+  margin: 0px;
+  margin-right: 4px;
 }
 
 .input_mounting{

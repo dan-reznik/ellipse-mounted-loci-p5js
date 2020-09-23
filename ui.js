@@ -19,21 +19,29 @@ function rgbToHex(rgb) {
 function set_ui_variables() {
    var variables_change_value = ['a', 'a_speed', 'a_min', 'a_max', 'a_input_text'
    ,'locus_type_1', 'locus_type_2', 'locus_type_3', 'locus_type_4','Xn1','demo_Xn1', 'Xn2'
-   ,'demo_Xn2', 'Xn3', 'demo_Xn3', 'Xn4', 'demo_Xn4', 'tri_type_1', 'tri_type_2', 'tri_type_3'
-   ,'tri_type_4','mounting_Xn1', 'mounting_Xn2', 'mounting_Xn3', 'mounting_Xn4', 'animStep0', 'rot', 'rmax'
-   ,'bg','clr1','clr2','clr3','clr4', 'jukebox_playlist', 'clr_fill_border', 'fill_alpha']
+   ,'demo_Xn2', 'Xn3', 'demo_Xn3', 'Xn4', 'demo_Xn4', 'demo_Pn1','demo_Pn2', 'demo_Pn3', 'demo_Pn4', 'Pn1', 'Pn2', 'Pn3', 'Pn4',
+   , 'tri_type_1', 'tri_type_2', 'tri_type_3','tri_type_4','mounting_Xn1', 'mounting_Xn2'
+   , 'mounting_Xn3', 'mounting_Xn4', 'animStep0', 'rot', 'rmax','bg','clr1','clr2','clr3','clr4'
+   , 'jukebox_playlist', 'clr_fill_border', 'fill_alpha']
 
    var variables_change_checked = ['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4'
                                     ,'tandem_loc', 'tandem_mnt', 'tandem_xn', 'tandem_tri']
-   var from_to = {a_input_text: 'a', demo_Xn1: 'Xn1', demo_Xn2: 'Xn2', demo_Xn3: 'Xn3', demo_Xn4: 'Xn4'}
+   var from_to = {a_input_text: 'a', demo_Xn1: 'Xn1', demo_Xn2: 'Xn2', demo_Xn3: 'Xn3', demo_Xn4: 'Xn4'
+                  ,demo_Pn1: 'Pn1', demo_Pn2: 'Pn2', demo_Pn3: 'Pn3', demo_Pn4: 'Pn4'}
 
    variables_change_value.map(function(x){
       var y = x;
-      if(['a_input_text', 'demo_Xn1', 'demo_Xn2', 'demo_Xn3', 'demo_Xn4'].includes(x)) {y = from_to[x]}
+      if(['a_input_text', 'demo_Xn1', 'demo_Xn2', 'demo_Xn3', 'demo_Xn4'
+      , 'demo_Pn1', 'demo_Pn2', 'demo_Pn3', 'demo_Pn4'].includes(x)) {y = from_to[x];}
       if(['bg', 'clr_fill_border'].includes(x)) document.getElementById(x).value = rgbToHex(glob.ui[y]); 
       else if(['clr1','clr2','clr3','clr4'].includes(x)) change_loc_clr(+x.slice(-1), rgbToHex(glob.ui[y])) 
       else
-         document.getElementById(x).value = glob.ui[y];
+         if(x.slice(0,4) == 'demo')
+            if(x.slice(5,6) == glob.slider_focus){
+               document.getElementById(x).value = glob.ui[y];
+            }
+         else
+            document.getElementById(x).value = glob.ui[y];
    });
    variables_change_checked.map(function(element){document.getElementById(element).checked = glob.ui[element]})
 }
@@ -223,43 +231,50 @@ function selector_output(input_ID, output_ID = "", ell_detect = "0") {
    })
 }
 
-function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
+function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, glob_variable) {
    var slider = document.getElementById(sliderId);
    var text = document.getElementById(textId);
 
    document.getElementById(minus_id).addEventListener("click", function () {
-      if (glob.ui[sliderId] > 1) {
-         glob.ui[sliderId]--;
+      if (glob.ui[glob_variable] > 1) {
+         glob.ui[glob_variable]--;
          slider.value--;
          text.value--;
-         tandem_bar_variables('xn', eval('glob.ui.'+sliderId));
+         tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
          glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
          redraw();
-         glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
+         glob.slider_focus = glob_variable[0];
+         if(glob.slider_focus == 'X')
+            glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
          slider.focus();
       }
    });
 
    document.getElementById(plus_id).addEventListener("click", function () {
-      if (glob.ui[sliderId] < 1000) {
-         glob.ui[sliderId]++;
+      if (glob.ui[glob_variable] < 1000) {
+         glob.ui[glob_variable]++;
          slider.value++;
          text.value++;
-         tandem_bar_variables('xn', eval('glob.ui.'+sliderId));
+         tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
          glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
          redraw();
-         glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
+         glob.slider_focus = glob_variable[0];
+         if(glob_variable[0] == 'X')
+            glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
          slider.focus();
       }
    });
 
    slider.addEventListener("input", function () {
-      glob.ui[sliderId] = this.value;
-      text.value = this.value;
-      tandem_bar_variables('xn', eval('glob.ui.'+sliderId));
+      if(glob.slider_focus == 'X')
+         glob.ui['Xn'+ell_detect] = this.value;
+      else if(glob.slider_focus == 'P')
+         glob.ui['Pn'+ell_detect] = this.value;
+      tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
       glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
       redraw();
-      glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
+      if(glob_variable[0] == 'X')
+         glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
    });
 
    text.addEventListener("input", function () {
@@ -274,13 +289,15 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
       if(e.keyCode==9){
          if(this.value == '')
             this.value = '1';
-         glob.ui[sliderId] = this.value;
+         glob.ui[glob_variable] = this.value;
          slider.value = this.value;
-         tandem_bar_variables('xn', eval('glob.ui.'+sliderId));
+         tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
          glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
          redraw();
-         glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);;
          e.preventDefault();
+         glob.slider_focus = glob_variable[0];
+         if(glob_variable[0] == 'X')
+            glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
          slider.focus();
       }
    })
@@ -291,12 +308,15 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect) {
       if(e.keyCode==13){
          if(this.value == '')
             this.value = '1';
-         glob.ui[sliderId] = this.value;
+         glob.ui[glob_variable] = this.value;
          slider.value = this.value;
-         tandem_bar_variables('xn', eval('glob.ui.'+sliderId));
+         tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
          glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
          redraw();
          glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
+         glob.slider_focus = glob_variable[0];
+         if(glob_variable[0] == 'X')
+            glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
          slider.focus();
       }
    })
@@ -306,13 +326,22 @@ function setup_ui_variables_behavior() {
   //a
   a_oninput("a", "a_input_text",'0')
   //Xn1
-  slider_text_changed("Xn1", "demo_Xn1", "minus_Xn1", "plus_Xn1", "1");
+  slider_text_changed("Xn1", "demo_Xn1", "minus_Xn1", "plus_Xn1", "1", 'Xn1');
   //Xn2
-  slider_text_changed("Xn2", "demo_Xn2", "minus_Xn2", "plus_Xn2", "2");
+  slider_text_changed("Xn2", "demo_Xn2", "minus_Xn2", "plus_Xn2", "2", 'Xn2');
   //Xn3
-  slider_text_changed("Xn3", "demo_Xn3", "minus_Xn3", "plus_Xn3", "3");
+  slider_text_changed("Xn3", "demo_Xn3", "minus_Xn3", "plus_Xn3", "3", 'Xn3');
   //Xn4
-  slider_text_changed("Xn4", "demo_Xn4", "minus_Xn4", "plus_Xn4", "4");
+  slider_text_changed("Xn4", "demo_Xn4", "minus_Xn4", "plus_Xn4", "4", 'Xn4');
+  
+  //Pn1
+  slider_text_changed("Xn1", "demo_Pn1", "minus_Pn1", "plus_Pn1", "1", 'Pn1');
+  //Pn2
+  slider_text_changed("Xn2", "demo_Pn2", "minus_Pn2", "plus_Pn2", "2", 'Pn2');
+  //Pn3
+  slider_text_changed("Xn3", "demo_Pn3", "minus_Pn3", "plus_Pn3", "3", 'Pn3');
+  //Pn4
+  slider_text_changed("Xn4", "demo_Pn4", "minus_Pn4", "plus_Pn4", "4", 'Pn4');
 
   //animStep0
   selector_output("animStep0", output_ID = "")
@@ -614,7 +643,7 @@ function get_diff_default(key) {
    const original_to_url_params = {
       a: 'a', a_speed: 'asp', a_min: 'amn', a_max: 'amx', ell: 'ell',
       locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3', locus_type_4: 'lc4',
-      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4',
+      Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4',Pn1: 'Pn1', Pn2: 'Pn2', Pn3: 'Pn3', Pn4: 'Pn4',
       tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3', tri_type_4: 'tr4',
       draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3', draw_tri_4: 'dr4',
       mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3', mounting_Xn4: 'mt4',
@@ -732,6 +761,11 @@ function get_link_params(){
      link_params += get_diff_default("jukebox_playlist");
      link_params += get_diff_default("fill_alpha");
      link_params += get_diff_default("clr_fill_border");
+     link_params += get_diff_default("Pn1");
+     link_params += get_diff_default("Pn2");
+     link_params += get_diff_default("Pn3");
+     link_params += get_diff_default("Pn4");
+
 
      link_params += clrs_shuffled_seeds_to_url(glob.clrs_shuffled_seeds)
 
@@ -756,7 +790,7 @@ function set_url_params(url_params) {
   let url_params_to_ui = {
      a: 'a', asp: 'a_speed', amn: 'a_min', amx: 'a_max', ell: 'ell',
      lc1: 'locus_type_1', lc2: 'locus_type_2', lc3: 'locus_type_3', lc4: 'locus_type_4',
-     Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4',
+     Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4',Pn1: 'Pn1', Pn2: 'Pn2', Pn3: 'Pn3', Pn4: 'Pn4',
      tr1: 'tri_type_1', tr2: 'tri_type_2', tr3: 'tri_type_3', tr4: 'tri_type_4',
      dr1: 'draw_tri_1', dr2: 'draw_tri_2', dr3: 'draw_tri_3', dr4: 'draw_tri_4',
      mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3', mt4: 'mounting_Xn4',
@@ -777,7 +811,7 @@ function set_url_params(url_params) {
   link_keys.forEach(function (key) {
      if (url_params_to_ui_keys.includes(key)){
         ui_key = url_params_to_ui[key];
-        if(['a', 'Xn1', 'Xn2', 'Xn3', 'Xn4'].includes(ui_key)){
+        if(['a', 'Xn1', 'Xn2', 'Xn3', 'Xn4', 'Pn1', 'Pn2', 'Pn3', 'Pn4'].includes(ui_key)){
            glob.ui[ui_key] = +url_params[key];
         }
         else if(['ell','draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4'].includes(ui_key))

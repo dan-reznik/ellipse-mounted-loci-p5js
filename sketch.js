@@ -12,6 +12,7 @@ let glob = {
    loop_ccw : true,
    loop : true,
    tDeg : 0,
+   slider_focus : 'X',
    locus_branched : [null,null,null,null],
    locus_subpolys : [null,null,null,null],
    clrs_shuffled : [null,null,null,null],
