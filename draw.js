@@ -57,12 +57,14 @@ const dict_rot = { "0": 0, "90": Math.PI / 2, "180": Math.PI, "270": -Math.PI / 
 
 get_rgba_str = (rgb, alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
 
-function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w, locus_type, ell_detect, rot, draw_label) {
+function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
+  locus_type, ell_detect, rot, draw_label) {
   const is_filled = locus_type.substr(0, 2) == "f_";
   if (is_filled)
     locus_type = locus_type.substr(2);
 
   let xn;
+  // should add vtx1,vtx2,vtx3
   if (locus_type == "vtx")
     xn = ons.o[0];
   else {
