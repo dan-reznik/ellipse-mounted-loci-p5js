@@ -36,7 +36,7 @@ let glob = {
       mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
       clr1: clr_invert_ui(clr_red), clr2: clr_invert_ui(clr_dark_green),
       clr3: clr_invert_ui(clr_blue), clr4: clr_invert_ui(clr_purple),
-      tandem_loc: false, tandem_mnt: false, tandem_xn: false, tandem_tri: false,
+      tandem_loc: false, tandem_mnt: false, tandem_xn: false, tandem_tri: false, tandem_pn: false,
       jukebox_playlist: 'off',
       fill_alpha: .5, clr_fill_border : clr_white
    },

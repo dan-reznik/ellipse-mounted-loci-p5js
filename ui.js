@@ -25,7 +25,7 @@ function set_ui_variables() {
       , 'jukebox_playlist', 'clr_fill_border', 'fill_alpha']
 
    var variables_change_checked = ['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4'
-      , 'tandem_loc', 'tandem_mnt', 'tandem_xn', 'tandem_tri']
+      , 'tandem_loc', 'tandem_mnt', 'tandem_xn', 'tandem_tri', 'tandem_pn']
    var from_to = {
       a_input_text: 'a', demo_Xn1: 'Xn1', demo_Xn2: 'Xn2', demo_Xn3: 'Xn3', demo_Xn4: 'Xn4'
       , demo_Pn1: 'Pn1', demo_Pn2: 'Pn2', demo_Pn3: 'Pn3', demo_Pn4: 'Pn4'
@@ -53,6 +53,8 @@ function tandem_bar_variables(variable, global_var) {
    if (glob.ui.tandem_mnt == true && variable == 'mnt') { [glob.ui.mounting_Xn1, glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4] = [global_var, global_var, global_var, global_var] }
    if (glob.ui.tandem_xn == true && variable == 'xn') { [glob.ui.Xn1, glob.ui.Xn2, glob.ui.Xn3, glob.ui.Xn4] = [global_var, global_var, global_var, global_var] }
    if (glob.ui.tandem_tri == true && variable == 'tri') { [glob.ui.tri_type_1, glob.ui.tri_type_2, glob.ui.tri_type_3, glob.ui.tri_type_4] = [global_var, global_var, global_var, global_var] }
+   if (glob.ui.tandem_pn == true && variable == 'pn') { [glob.ui.Pn1, glob.ui.Pn2, glob.ui.Pn3, glob.ui.Pn4] = [global_var, global_var, global_var, global_var] }
+
 
    set_ui_variables(glob.ui);
 }
@@ -242,9 +244,14 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
          glob.ui[glob_variable]--;
          text.value--;
          slider.value = text.value;
-         if (glob_variable[0] == 'X')
+         if (glob_variable[0] == 'X'){
             tandem_bar_variables('xn', eval('glob.ui.' + glob_variable));
-         glob.ui.tandem_xn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+            glob.ui.tandem_xn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+         }
+         if (glob_variable[0] == 'P'){
+            tandem_bar_variables('pn', eval('glob.ui.' + glob_variable));
+            glob.ui.tandem_pn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+         }
          redraw();
          glob.slider_focus = glob_variable[0];
          if (glob.slider_focus == 'X')
@@ -258,9 +265,14 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
          glob.ui[glob_variable]++;
          text.value++;
          slider.value = text.value;
-         if (glob_variable[0] == 'X')
+         if (glob_variable[0] == 'X'){
             tandem_bar_variables('xn', eval('glob.ui.' + glob_variable));
-         glob.ui.tandem_xn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+            glob.ui.tandem_xn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+         }
+         if (glob_variable[0] == 'P'){
+            tandem_bar_variables('pn', eval('glob.ui.' + glob_variable));
+            glob.ui.tandem_pn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+         }
          redraw();
          glob.slider_focus = glob_variable[0];
          if (glob_variable[0] == 'X')
@@ -274,9 +286,14 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
          glob.ui['Xn' + ell_detect] = this.value;
       else if (glob.slider_focus == 'P')
          glob.ui['Pn' + ell_detect] = this.value;
-      if (glob_variable[0] == 'X')
+      if (glob_variable[0] == 'X'){
          tandem_bar_variables('xn', eval('glob.ui.' + glob_variable));
-      glob.ui.tandem_xn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+         glob.ui.tandem_xn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+      }
+      if (glob_variable[0] == 'P'){
+         tandem_bar_variables('pn', eval('glob.ui.' + glob_variable));
+         glob.ui.tandem_pn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+      }
       redraw();
       if (glob.slider_focus == 'X')
          glob.ui.tandem_xn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
@@ -296,9 +313,14 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
             this.value = '1';
          glob.ui[glob_variable] = this.value;
          slider.value = this.value;
-         if (glob_variable[0] == 'X')
+         if (glob_variable[0] == 'X'){
             tandem_bar_variables('xn', eval('glob.ui.' + glob_variable));
-         glob.ui.tandem_xn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+            glob.ui.tandem_xn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+         }
+         if (glob_variable[0] == 'P'){
+            tandem_bar_variables('pn', eval('glob.ui.' + glob_variable));
+            glob.ui.tandem_pn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+         }
          redraw();
          e.preventDefault();
          glob.slider_focus = glob_variable[0];
@@ -316,11 +338,15 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
             this.value = '1';
          glob.ui[glob_variable] = this.value;
          slider.value = this.value;
-         if (glob_variable[0] == 'X')
+         if (glob_variable[0] == 'X'){
             tandem_bar_variables('xn', eval('glob.ui.' + glob_variable));
-         glob.ui.tandem_xn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+            glob.ui.tandem_xn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+         }  
+         if (glob_variable[0] == 'P'){
+            tandem_bar_variables('pn', eval('glob.ui.' + glob_variable));
+            glob.ui.tandem_pn ? ui_changed_type(true) : ui_changed(ell_detect, true);
+         }
          redraw();
-         glob.ui.tandem_xn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
          glob.slider_focus = glob_variable[0];
          if (glob_variable[0] == 'X')
             glob.ui.tandem_xn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
@@ -614,11 +640,11 @@ function setup_tri_type_onchange() {
       var demo = document.getElementById('demo_Pn2');
       if (this.value.slice(0, 2) == 'p_') {
          tri_type_p_selected = true;
-         demo.style.backgroundColor = 'white';
+         demo.style.color = 'black';
       }
       else {
          tri_type_p_selected = false;
-         demo.style.backgroundColor = 'gray';
+         demo.style.color = 'gray';
       }
       glob.ui.tri_type_2 = this.value;
       tandem_bar_variables('tri', glob.ui.tri_type_2);
@@ -630,11 +656,11 @@ function setup_tri_type_onchange() {
       var demo = document.getElementById('demo_Pn3');
       if (this.value.slice(0, 2) == 'p_') {
          tri_type_p_selected = true;
-         demo.style.backgroundColor = 'white';
+         demo.style.color = 'black';
       }
       else {
          tri_type_p_selected = false;
-         demo.style.backgroundColor = 'gray';
+         demo.style.color = 'gray';
       }
       glob.ui.tri_type_3 = this.value;
       tandem_bar_variables('tri', glob.ui.tri_type_3);
@@ -646,11 +672,11 @@ function setup_tri_type_onchange() {
       var demo = document.getElementById('demo_Pn4');
       if (this.value.slice(0, 2) == 'p_') {
          tri_type_p_selected = true;
-         demo.style.backgroundColor = 'white';
+         demo.style.color = 'black';
       }
       else {
          tri_type_p_selected = false;
-         demo.style.backgroundColor = 'gray';
+         demo.style.color = 'gray';
       }
       glob.ui.tri_type_4 = this.value;
       tandem_bar_variables('tri', glob.ui.tri_type_4);
@@ -1078,6 +1104,7 @@ function setup_tandem_bar() {
    mnt = document.getElementById('tandem_mnt');
    xn = document.getElementById('tandem_xn');
    tri = document.getElementById('tandem_tri');
+   pn = document.getElementById('tandem_pn');
 
    loc.addEventListener('click', function () {
       glob.ui.tandem_loc = this.checked;
@@ -1099,6 +1126,14 @@ function setup_tandem_bar() {
       glob.ui.tandem_xn = this.checked;
       if (glob.ui.tandem_xn) {
          tandem_bar_variables('xn', glob.ui.Xn1);
+         ui_changed_type(true);
+         redraw();
+      }
+   })
+   pn.addEventListener('click', function () {
+      glob.ui.tandem_pn = this.checked;
+      if (glob.ui.tandem_pn) {
+         tandem_bar_variables('pn', glob.ui.Pn1);
          ui_changed_type(true);
          redraw();
       }
