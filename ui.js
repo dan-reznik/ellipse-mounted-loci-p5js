@@ -236,11 +236,10 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
    var text = document.getElementById(textId);
 
    document.getElementById(minus_id).addEventListener("click", function () {
-      if(glob_variable[0]=='P' && glob.tri_type_p_selected==true){
          if (glob.ui[glob_variable] > 1) {
             glob.ui[glob_variable]--;
-            slider.value--;
             text.value--;
+            slider.value = text.value;
             if(glob_variable[0] == 'X')
                tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
             glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
@@ -250,15 +249,13 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
                glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
             slider.focus();
          }
-      }
    });
 
    document.getElementById(plus_id).addEventListener("click", function () {
-      if(glob_variable[0]=='P' && glob.tri_type_p_selected==true){
          if (glob.ui[glob_variable] < 1000) {
             glob.ui[glob_variable]++;
-            slider.value++;
             text.value++;
+            slider.value = text.value;
             if(glob_variable[0] == 'X')
                tandem_bar_variables('xn', eval('glob.ui.'+glob_variable));
             glob.ui.tandem_xn?ui_changed_type(true):ui_changed(ell_detect, true);
@@ -268,11 +265,9 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
                glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
             slider.focus();
          }
-      }
    });
 
    slider.addEventListener("input", function () {
-      if(glob_variable[0]=='P' && glob.tri_type_p_selected==true){
          if(glob.slider_focus == 'X')
             glob.ui['Xn'+ell_detect] = this.value;
          else if(glob.slider_focus == 'P')
@@ -283,23 +278,17 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
          redraw();
          if(glob.slider_focus == 'X')
             glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
-      }
    });
 
    text.addEventListener("input", function () {
-      if(glob_variable[0]=='P' && glob.tri_type_p_selected==true){
          if(this.value !== ''){
             if (this.value > 1000)
                this.value = "1000";
             else if (this.value < 1)
                this.value = "1";
          }
-      } else{
-         this.value = 1
-      }
    })
    text.addEventListener('keydown', function (e) {
-      if(glob_variable[0]=='P' && glob.tri_type_p_selected==true){
          if(e.keyCode==9){
             if(this.value == '')
                this.value = '1';
@@ -315,10 +304,8 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
                glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
             slider.focus();
          }
-      }
    })
    text.addEventListener('keypress', function (e) {
-      if(glob_variable[0]=='P' && glob.tri_type_p_selected==true){
          if(e.keyCode == 32) e.stopPropagation();
          if (e.keyCode < 48 || e.keyCode > 57)
          e.preventDefault();
@@ -337,7 +324,6 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
                glob.ui.tandem_xn?['1','2','3','4'].map(set_conic_type_ui):set_conic_type_ui(ell_detect);
             slider.focus();
          }
-      }
    })
 }
 
@@ -610,11 +596,11 @@ function setup_tri_type_onchange() {
      var demo = document.getElementById('demo_Pn1');
      if(this.value.slice(0,2) == 'p_'){
          tri_type_p_selected = true;
-         demo.style.backgroundColor = 'white';
+         demo.style.color = 'black';
      }
      else{
          tri_type_p_selected = false;
-         demo.style.backgroundColor = 'gray';
+         demo.style.color = 'gray';
      }
      glob.ui.tri_type_1 = this.value;
      tandem_bar_variables('tri', glob.ui.tri_type_1);

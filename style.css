@@ -242,12 +242,8 @@ p.lab{
     margin-left: 3px;
 }
 
-.tri_type_P{
-  background-color: gray;
-}
-
 .demo_Pn{
-  background-color: gray;
+  color: gray;
   border-style: solid;
   border-width: 1px;
   width: 40px;
