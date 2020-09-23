@@ -2,8 +2,8 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
     return `
 <div class="component xn_selector">
     <div class="input_Xn">
-        <div style="display: inline-flex;">
-            <label for="checkbox_Xn`+xn_number+`" style="color: `+rgb_color+`;"> loc`+xn_number+`</label>
+        <div style="display: inline-flex; margin-left: 0px;">
+            <label id='locus_text_`+xn_number+`' for="checkbox_Xn`+xn_number+`" style="color: `+rgb_color+`;"> loc`+xn_number+`</label>
             <select id="locus_type_`+xn_number+`" name="checkbox_Xn`+xn_number+`">
                 <option value="none">off</option>
                 <option value="trilins" `+trilins_selected+`>Xn</option>
@@ -19,6 +19,9 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                 <option value="f_bickart_2">StF2,fill</option>
                 <option value="f_vtx">vtx,fill</option>
             </select>
+        </div>
+        <div id='conic_type'>
+                <p id='conic_type_`+xn_number+`'></p>
         </div>
         <div style="display: inline-flex;">
             <label for="mounting_Xn`+xn_number+`"> mnt</label>
@@ -60,24 +63,22 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
     <div class="input_Xn text">
         <div style='width: 200px;margin:0px;'>
             <div id='input_text'>
-                <input type="text" class = "demo_Xn" id="demo_Xn`+xn_number+`" value="1">
                 <button id="minus_Xn`+xn_number+`" class="plus_minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+                <input type="text" class = "demo_Xn" id="demo_Xn`+xn_number+`" value="1">
                 <button id="plus_Xn`+xn_number+`" class="plus_minus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
             </div>    
             <div class='slider_container'>
                 <input type="range" min="1" max="1000" value="1" class="slider" step="1" id="Xn`+xn_number+`">
             </div>
         </div>
-        <div class='P_input_text'>
-            <input type="text" class = "demo_Pn" id="demo_Pn`+xn_number+`" value="1">
-            <button id="minus_Pn`+xn_number+`" class="plus_minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
-            <button id="plus_Pn`+xn_number+`" class="plus_minus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+        <div style='display: inline-flex; flex-grow: 1;'>
+            <button class='Bbox' id='Bbox_`+xn_number+`'>bbox</button>
         </div>
 
     </div>
 
     <div class="input_Xn">
-        <div>
+        <div style='margin-left: 0px;'>
             <label for="draw_tri_`+xn_number+`">tri</label>
             <input class = "sub_checkbox" type="checkbox" id="draw_tri_`+xn_number+`" `+tri_selected+` name="draw_tri_`+xn_number+`">
         </div>
@@ -133,13 +134,14 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
         <option value="yffcentral">yff central</option>
         <option value="yffcontact">yff contact</option>  
         </select>
-        <div style='display: inline-flex; flex-grow: 1;'>
-            <input type="image" id="pallete_`+xn_number+`" style="margin-left:2px;height:20px;width:20px;" src="pallete.png"/>
-            <button class='Bbox' id='Bbox_`+xn_number+`'>bbox</button>
-            <div id='conic_type'>
-                <p id='conic_type_`+xn_number+`'></p>
-            </div>
+        
+        <div class='P_input_text'>
+            <button id="minus_Pn`+xn_number+`" class="plus_minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+            <input type="text" class = "demo_Pn" id="demo_Pn`+xn_number+`" value="1">
+            <button id="plus_Pn`+xn_number+`" class="plus_minus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
         </div>
+        <input type="image" id="pallete_`+xn_number+`" style="margin-left:2px;height:20px;width:20px;" src="pallete.png"/>
+        
     </div>
 </div>
 `;

@@ -1126,20 +1126,22 @@ function setup_bg_onchange() {
    })
 }
 
-function change_slider_thumb_clr(n, hex_clr) {
+function change_loc_elements_clr(n, hex_clr) {
    var style = document.querySelector('[data="Xn' + n + '"]');
+   var locus_text = document.getElementById('locus_text_'+n)
+   locus_text.style.color = hex_clr;
    style.innerHTML = "#Xn" + n + "::-webkit-slider-thumb {background: " + hex_clr + ";}";
 }
 
 function change_loc_clr(n, hex_clr) {
    var loc_clr = document.getElementById('clr' + n + '')
    loc_clr.value = hex_clr;
-   change_slider_thumb_clr(n, hex_clr);
+   change_loc_elements_clr(n, hex_clr);
 }
 
 function setup_loc_clr_onchange() {
    ['1', '2', '3', '4'].map(x => document.getElementById('clr' + x).addEventListener('input', function () {
-      change_slider_thumb_clr(x, this.value);
+      change_loc_elements_clr(x, this.value);
       glob.ui['clr' + x] = hexToRgb(this.value)
       ui_changed(x);
    })
@@ -1169,8 +1171,18 @@ function setup_pallete_onclick() {
          clicked_on_palette_button((+x) - 1)
          redraw();
       }
-   })
-   );
+   }));
+
+   ['1', '2', '3', '4'].map(x => document.getElementById('pallete_' + x).addEventListener('keydown', function (e) {
+      //if e.keycode equals to lef-arrow(37) or right-arrow(39)
+      if([37,39].includes(e.keyCode)){
+         if (eval('glob.ui.locus_type_' + x) != 'none') {
+            clicked_on_palette_button((+x) - 1, e.keyCode==39)
+            redraw();
+         }
+      } 
+   }));
+
    ['1', '2', '3', '4'].map(x => document.getElementById('pallete_' + x).addEventListener('contextmenu', function (ev) {
       ev.preventDefault();
       ui_changed(x, true);

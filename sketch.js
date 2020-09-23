@@ -82,10 +82,14 @@ function create_shuffled_clrs(i) {
    }
 }
 
-function clicked_on_palette_button(n) {
+function clicked_on_palette_button(n, right_arrow=true) {
    const seed = random32() & 0xffff; // 16 bits
+   if(right_arrow)
+      glob.clrs_shuffled_seeds[n].push(seed);
+   else
+      glob.clrs_shuffled_seeds[n].pop(seed);
+   console.log(glob.clrs_shuffled_seeds[n])
 
-   glob.clrs_shuffled_seeds[n].push(seed);
    create_shuffled_clrs(n);
 
    //glob.clrs_shuffled[n] = shuffle_seeded(clrs_crayola.map(c=>c.rgb), (seed==null)?0:seed);
