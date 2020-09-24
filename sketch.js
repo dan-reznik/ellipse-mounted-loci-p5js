@@ -129,7 +129,7 @@ function windowResized() {
       if (locus_types[i] !== 'none') {
          ui_changed(li, false);
          redraw()
-         bbox_rescale(li);
+         //bbox_rescale(li);
       }
    });
    resizeCanvas(glob.width, glob.height);
