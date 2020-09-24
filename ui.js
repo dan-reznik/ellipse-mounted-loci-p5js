@@ -19,7 +19,7 @@ function rgbToHex(rgb) {
 function set_ui_variables() {
    var variables_change_value = ['a', 'a_speed', 'a_min', 'a_max', 'a_input_text'
       , 'locus_type_1', 'locus_type_2', 'locus_type_3', 'locus_type_4', 'Xn1', 'demo_Xn1', 'Xn2'
-      , 'demo_Xn2', 'Xn3', 'demo_Xn3', 'Xn4', 'demo_Xn4', 'demo_Pn1', 'demo_Pn2', 'demo_Pn3', 'demo_Pn4', 'Pn1', 'Pn2', 'Pn3', 'Pn4',
+      , 'demo_Xn2', 'Xn3', 'demo_Xn3', 'Xn4', 'demo_Xn4', 'Pn1', 'Pn2', 'Pn3', 'Pn4', 'demo_Pn1', 'demo_Pn2', 'demo_Pn3', 'demo_Pn4',
       , 'tri_type_1', 'tri_type_2', 'tri_type_3', 'tri_type_4', 'mounting_Xn1', 'mounting_Xn2'
       , 'mounting_Xn3', 'mounting_Xn4', 'animStep0', 'rot', 'rmax', 'bg', 'clr1', 'clr2', 'clr3', 'clr4'
       , 'jukebox_playlist', 'clr_fill_border', 'fill_alpha']
@@ -38,12 +38,20 @@ function set_ui_variables() {
       if (['bg', 'clr_fill_border'].includes(x)) document.getElementById(x).value = rgbToHex(glob.ui[y]);
       else if (['clr1', 'clr2', 'clr3', 'clr4'].includes(x)) change_loc_clr(+x.slice(-1), rgbToHex(glob.ui[y]))
       else
-         if (x.slice(0, 4) == 'demo')
+         if (x.slice(0, 4) == 'demo'){
+            var demo_elem = document.getElementById(x);
             if (x.slice(5, 6) == glob.slider_focus) {
-               document.getElementById(x).value = glob.ui[y];
+               demo_elem.value = glob.ui[y];
             }
             else
-               document.getElementById(x).value = glob.ui[y];
+               demo_elem.value = glob.ui[y];
+            if(x.slice(0,6) == 'demo_P'){
+               var demo_elem = document.getElementById(x);
+               var tri_type = document.getElementById('tri_type_'+x.slice(-1))
+               change_clr_locus_txt(tri_type.value, demo_elem)
+            }
+         }
+         glob.ui.x = glob.ui.y;
    });
    variables_change_checked.map(function (element) { document.getElementById(element).checked = glob.ui[element] })
 }
@@ -619,17 +627,21 @@ function setup_locus_type_onchange() {
    });
 }
 
+function change_clr_locus_txt(tri_type_element_value, demo_element){
+   if (tri_type_element_value.slice(0, 2) == 'p_') {
+      demo_element.style.color = 'black';
+   }
+   else {
+      demo_element.style.color = 'gray';
+   }
+}
+
 function setup_tri_type_onchange() {
    document.getElementById("tri_type_1").addEventListener("change", function () {
       var demo = document.getElementById('demo_Pn1');
-      if (this.value.slice(0, 2) == 'p_') {
-         tri_type_p_selected = true;
-         demo.style.color = 'black';
-      }
-      else {
-         tri_type_p_selected = false;
-         demo.style.color = 'gray';
-      }
+      
+      change_clr_locus_txt(this.value, demo)
+      
       glob.ui.tri_type_1 = this.value;
       tandem_bar_variables('tri', glob.ui.tri_type_1);
       glob.ui.tandem_tri ? ui_changed_type(true) : ui_changed("1", true);
@@ -638,14 +650,8 @@ function setup_tri_type_onchange() {
    });
    document.getElementById("tri_type_2").addEventListener("change", function () {
       var demo = document.getElementById('demo_Pn2');
-      if (this.value.slice(0, 2) == 'p_') {
-         tri_type_p_selected = true;
-         demo.style.color = 'black';
-      }
-      else {
-         tri_type_p_selected = false;
-         demo.style.color = 'gray';
-      }
+      change_clr_locus_txt(this.value, demo)
+
       glob.ui.tri_type_2 = this.value;
       tandem_bar_variables('tri', glob.ui.tri_type_2);
       glob.ui.tandem_tri ? ui_changed_type(true) : ui_changed("2", true);
@@ -654,14 +660,8 @@ function setup_tri_type_onchange() {
    });
    document.getElementById("tri_type_3").addEventListener("change", function () {
       var demo = document.getElementById('demo_Pn3');
-      if (this.value.slice(0, 2) == 'p_') {
-         tri_type_p_selected = true;
-         demo.style.color = 'black';
-      }
-      else {
-         tri_type_p_selected = false;
-         demo.style.color = 'gray';
-      }
+      change_clr_locus_txt(this.value, demo)
+
       glob.ui.tri_type_3 = this.value;
       tandem_bar_variables('tri', glob.ui.tri_type_3);
       glob.ui.tandem_tri ? ui_changed_type(true) : ui_changed("3", true);
@@ -670,14 +670,8 @@ function setup_tri_type_onchange() {
    });
    document.getElementById("tri_type_4").addEventListener("change", function () {
       var demo = document.getElementById('demo_Pn4');
-      if (this.value.slice(0, 2) == 'p_') {
-         tri_type_p_selected = true;
-         demo.style.color = 'black';
-      }
-      else {
-         tri_type_p_selected = false;
-         demo.style.color = 'gray';
-      }
+      change_clr_locus_txt(this.value, demo)
+
       glob.ui.tri_type_4 = this.value;
       tandem_bar_variables('tri', glob.ui.tri_type_4);
       glob.ui.tandem_tri ? ui_changed_type(true) : ui_changed("4", true);
