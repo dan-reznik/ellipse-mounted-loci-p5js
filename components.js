@@ -61,19 +61,15 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
     </div>
 
     <div class="input_Xn">
-        <div style='width: 200px;margin:0px;'>
             <div id='input_text'>
-                <button id="minus_Xn`+xn_number+`" class="plus_minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+                <button id="minus_Xn`+xn_number+`" class="plus_minus minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
                 <input type="text" class = "demo_Xn" id="demo_Xn`+xn_number+`" value="1">
-                <button id="plus_Xn`+xn_number+`" class="plus_minus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                <button id="plus_Xn`+xn_number+`" class="plus_minus plus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
             </div>    
             <div class='slider_container'>
                 <input type="range" min="1" max="1000" value="1" class="slider" step="1" id="Xn`+xn_number+`">
             </div>
-        </div>
-        <div style='display: inline-flex;margin-left:2px;margin-right:2px;'>
-            <button class='Bbox' id='Bbox_`+xn_number+`'>bbox</button>
-        </div>
+            <input type="image" id="pallete_`+xn_number+`" style="margin-right:2px;margin-left:2px;height:20px;width:20px;" src="pallete.png"/>
 
     </div>
 
@@ -136,12 +132,14 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
         </select>
         
         <div class='P_input_text'>
-            <button id="minus_Pn`+xn_number+`" class="plus_minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+            <button id="minus_Pn`+xn_number+`" class="plus_minus minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
             <input type="text" class = "demo_Pn" id="demo_Pn`+xn_number+`" value="1">
-            <button id="plus_Pn`+xn_number+`" class="plus_minus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+            <button id="plus_Pn`+xn_number+`" class="plus_minus plus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
         </div>
-        <input type="image" id="pallete_`+xn_number+`" style="margin-right:2px;margin-left:2px;height:20px;width:20px;" src="pallete.png"/>
-        
+        <div style='display: inline-flex;margin-left:2px;margin-right:2px;'>
+            <button class='Bbox' id='Bbox_`+xn_number+`'>bbox</button>
+        </div>
+
     </div>
 </div>
 `;
