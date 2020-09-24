@@ -1163,8 +1163,6 @@ function setup_bg_onchange() {
 
 function change_loc_elements_clr(n, hex_clr) {
    var style = document.querySelector('[data="Xn' + n + '"]');
-   var locus_text = document.getElementById('locus_text_'+n)
-   locus_text.style.color = hex_clr;
    style.innerHTML = "#Xn" + n + "::-webkit-slider-thumb {background: " + hex_clr + ";}";
 }
 
