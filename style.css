@@ -12,6 +12,7 @@ body {
 .config_buttons{
   grid-area: config;
   display: inline-flex;
+  flex-grow: 1;
   flex-wrap: nowrap;
 }
 
