@@ -37,7 +37,8 @@ function set_ui_variables() {
          , 'demo_Pn1', 'demo_Pn2', 'demo_Pn3', 'demo_Pn4'].includes(x)) { y = from_to[x]; }
       if (['bg', 'clr_fill_border'].includes(x)) document.getElementById(x).value = rgbToHex(glob.ui[y]);
       else if (['clr1', 'clr2', 'clr3', 'clr4'].includes(x)) change_loc_clr(+x.slice(-1), rgbToHex(glob.ui[y]))
-      else
+      else if(['Pn1', 'Pn2', 'Pn3', 'Pn4'].includes(x)) void(0);
+      else{
          if (x.slice(0, 4) == 'demo'){
             var demo_elem = document.getElementById(x);
             if (x.slice(5, 6) == glob.slider_focus) {
@@ -47,11 +48,11 @@ function set_ui_variables() {
                demo_elem.value = glob.ui[y];
             if(x.slice(0,6) == 'demo_P'){
                var demo_elem = document.getElementById(x);
-               var tri_type = document.getElementById('tri_type_'+x.slice(-1))
-               change_clr_locus_txt(tri_type.value, demo_elem)
+               change_clr_locus_txt(glob.ui['tri_type_'+x.slice(-1)], demo_elem)
             }
          }
-         glob.ui.x = glob.ui.y;
+         document.getElementById(x).value = glob.ui[y];
+      }
    });
    variables_change_checked.map(function (element) { document.getElementById(element).checked = glob.ui[element] })
 }
