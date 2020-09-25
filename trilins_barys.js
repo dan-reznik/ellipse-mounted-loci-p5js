@@ -65,6 +65,17 @@ function get_Xn_cartesians(xnum,tri,sides) {
  function bary_brocard2([a,b,c]) {
     return [(a*b)**2,(b*c)**2,(a*c)**2];
  }
+ // f(a,b,c) : f(b,c,a) : f(c,a,b)     and     f(a,c,b) : f(b,a,c) : f(c,b,a)
+
+ function bary_beltrami1([a,b,c]) {
+   const a2=a*a,b2=b*b,c2=c*c;
+   return [a2*(b2-a2),b2*(c2-b2),c2*(a2-c2)];
+}
+
+function bary_beltrami2([a,b,c]) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  return [a2*(c2-a2),b2*(a2-b2),c2*(b2-c2)];
+}
 
 // also: P(116) in https://faculty.evansville.edu/ck6/encyclopedia/BicentricPairs.html
 function bary_bickart1([a,b,c]) {
@@ -154,16 +165,22 @@ function get_fn_any(locus_type, n) {
   let fn;
   switch (locus_type) {
      case 'brocard_1':
-       fn = bary_brocard1; // get_brocard(1);
+       fn = bary_brocard1;
        break;
      case 'brocard_2':
-       fn = bary_brocard2; // get_brocard(2);
+       fn = bary_brocard2;
+       break;
+    case 'beltrami_1':
+       fn = bary_beltrami1;
+       break;
+     case 'beltrami_2':
+       fn = bary_beltrami2;
        break;
        case 'bickart_1':
-        fn = bary_bickart1; // get_brocard(1);
+        fn = bary_bickart1;
         break;
       case 'bickart_2':
-        fn = bary_bickart2; // get_brocard(2);
+        fn = bary_bickart2;
         break;
      case 'vtx':
        fn = get_tri_v1_barys;

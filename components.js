@@ -9,16 +9,20 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                 <option value="trilins" `+trilins_selected+`>Xn</option>
                 <option value="brocard_1">Ω1</option>
                 <option value="brocard_2">Ω2</option>
+                <option value="beltrami_1">P(2)</option>
+                <option value="beltrami_2">U(2)</option>
                 <option value="bickart_1">StF1</option>
                 <option value="bickart_2">StF2</option>
                 <option value="vtx">vtx</option>
-                <option value="f_trilins">Xn,fill</option>
-                <option value="f_brocard_1">Ω1,fill</option>
-                <option value="f_brocard_2">Ω2,fill</option>
-                <option value="f_bickart_1">StF1,fill</option>
-                <option value="f_bickart_2">StF2,fill</option>
-                <option value="f_vtx">vtx,fill</option>
-            </select>
+                
+                `+
+                //<option value="f_trilins">Xn,fill</option>
+                //<option value="f_brocard_1">Ω1,fill</option>
+                //<option value="f_brocard_2">Ω2,fill</option>
+                //<option value="f_bickart_1">StF1,fill</option>
+                //<option value="f_bickart_2">StF2,fill</option>
+                //<option value="f_vtx">vtx,fill</option>+
+            `</select>
         </div>
         <div id='conic_type'>
                 <p id='conic_type_`+xn_number+`'></p>
