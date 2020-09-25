@@ -1,0 +1,11 @@
+{
+    "playlist_one": [
+        {"sec":3,"name":"www","config":"sc=20.0&ell=false&bg=1e1d20&mt1=fs"},
+        {"sec":4,"name":"rrr","config":"sc=6.284&ell=false&bg=1e1d20&Xn1=136&mt1=fs&lc2=vtx&tr2=incentral&seed_1=7295&seed_2=8891&seed_3=2379"}
+        ],
+    "playlist_two": [
+        {"sec":3,"name":"xxx","config":"sc=6.284&ell=false&bg=1e1d20&Xn1=134"},
+        {"sec":4,"name":"yyy","config":"sc=6.284&ell=false&bg=1e1d20&Xn1=136&mt1=fs&lc2=vtx"},
+        {"sec":5,"name":"zzz","config":"sc=6.284&ell=false&bg=1e1d20&Xn1=136&mt1=fs&lc2=vtx&tr2=incentral"}
+    ]
+}

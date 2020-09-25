@@ -193,7 +193,7 @@ const fn_any_dict = {
   bickart_2  : bary_bickart2,
   vtx        : get_tri_v1_barys
 };
-     
+
 function get_fn_any(locus_type, n) {
   if (locus_type.substr(0,2)=="f_")
      locus_type = locus_type.substr(2);

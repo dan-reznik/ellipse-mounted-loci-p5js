@@ -38,7 +38,9 @@ let glob = {
       clr3: clr_invert_ui(clr_blue), clr4: clr_invert_ui(clr_purple),
       tandem_loc: false, tandem_mnt: false, tandem_xn: false, tandem_tri: false, tandem_pn: false,
       jukebox_playlist: 'off',
-      fill_alpha: .5, clr_fill_border : clr_white
+      fill_alpha: .5, clr_fill_border : clr_white,
+      inv1:false,inv2:false,inv3:false,inv4:false,
+      circ1:'off',circ2:'off',circ3:'off',circ4:'off'
    },
    ui : null,
    url_params : {},
@@ -52,7 +54,9 @@ function get_glob_indexed() {
       dr_tris: [glob.ui.draw_tri_1, glob.ui.draw_tri_2, glob.ui.draw_tri_3, glob.ui.draw_tri_4],
       mountings: [glob.ui.mounting_Xn1, glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4],
       t_types: [glob.ui.tri_type_1, glob.ui.tri_type_2, glob.ui.tri_type_3, glob.ui.tri_type_4],
-      clrs : [glob.ui.clr1,glob.ui.clr2,glob.ui.clr3,glob.ui.clr4]
+      clrs : [glob.ui.clr1,glob.ui.clr2,glob.ui.clr3,glob.ui.clr4],
+      invs : [glob.ui.inv1,glob.ui.inv2,glob.ui.inv3,glob.ui.inv4],
+      circs: [glob.ui.circ1,glob.ui.circ2,glob.ui.circ3,glob.ui.circ4]
    }
 }
 
