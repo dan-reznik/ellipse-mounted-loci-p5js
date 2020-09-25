@@ -1362,12 +1362,14 @@ function setup_global_event_handler() {
 function setup_fill_alpha() {
    document.getElementById('fill_alpha').addEventListener('input', function () {
       glob.ui.fill_alpha = this.value;
+      redraw();
    })
 }
 
 function setup_clr_fill_border() {
    document.getElementById('clr_fill_border').addEventListener('input', function () {
       glob.ui.clr_fill_border = hexToRgb(this.value);
+      redraw();
    })
 }
 
