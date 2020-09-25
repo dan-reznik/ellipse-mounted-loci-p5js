@@ -77,6 +77,29 @@ function bary_beltrami2([a,b,c]) {
   return [a2*(c2-a2),b2*(a2-b2),c2*(b2-c2)];
 }
 
+// inverse w respect to the incircle
+function bary_moses_low(a,b,c) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  const a3=a2*a,b3=b2*b,c3=c2*c;
+  const a4=a2*a2,b4=b2*b2,c4=c2*c2;
+  const b5=b4*b;
+  return a*(-a3*b3 + 2*a2*b4 - a*b5 - a3*b2*c + a*b4*c + a4*c2 + 2*a3*b*c2 -
+    a*b3*c2 + b4*c2 - 2*a3*c3 - 2*a2*b*c3 + a*b2*c3 - 2*b3*c3 + a2*c4 + b2*c4);
+  }
+
+/*function bary_moses2_low(a,b,c) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  const a3=a2*a,b3=b2*b,c3=c2*c;
+  const a4=a2*a2,b4=b2*b2,c4=c2*c2;
+  const c5=c4*b;
+  return a*(a4*b2 - 2*a3*b3 + a2*b4 + 2*a3*b2*c - 2*a2*b3*c - a3*b*c2 +
+    a*b3*c2 + b4*c2 - a3*c3 - a*b2*c3 - 2*b3*c3 + 2*a2*c4 + a*b*c4 + b2*c4 - a*c5);
+}*/
+
+//f(a,b,c) : f(b,c,a) : f(c,a,b)     and     f(a,c,b) : f(b,a,c) : f(c,b,a)
+const bary_moses1 = ([a,b,c]) => [bary_moses_low(a,b,c),bary_moses_low(b,c,a),bary_moses_low(c,a,b)];
+const bary_moses2 = ([a,b,c]) => [bary_moses_low(a,c,b),bary_moses_low(b,a,c),bary_moses_low(c,b,a)];
+
 // also: P(116) in https://faculty.evansville.edu/ck6/encyclopedia/BicentricPairs.html
 function bary_bickart1([a,b,c]) {
   const a2=a*a,b2=b*b,c2=c*c;
@@ -159,34 +182,22 @@ function get_brocard_orbit_sides(orbit, sides, n) {
   return get_Xn_low_bary(orbit, sides, get_brocard(n));
 }
 
+const fn_any_dict = {
+  brocard_1  : bary_brocard1,
+  brocard_2  : bary_brocard2,
+  beltrami_1 : bary_beltrami1,
+  beltrami_2 : bary_beltrami2,
+  moses_1    : bary_moses1,
+  moses_2    : bary_moses2,
+  bickart_1  : bary_bickart1,
+  bickart_2  : bary_bickart2,
+  vtx        : get_tri_v1_barys
+};
+     
 function get_fn_any(locus_type, n) {
   if (locus_type.substr(0,2)=="f_")
      locus_type = locus_type.substr(2);
-  let fn;
-  switch (locus_type) {
-     case 'brocard_1':
-       fn = bary_brocard1;
-       break;
-     case 'brocard_2':
-       fn = bary_brocard2;
-       break;
-    case 'beltrami_1':
-       fn = bary_beltrami1;
-       break;
-     case 'beltrami_2':
-       fn = bary_beltrami2;
-       break;
-       case 'bickart_1':
-        fn = bary_bickart1;
-        break;
-      case 'bickart_2':
-        fn = bary_bickart2;
-        break;
-     case 'vtx':
-       fn = get_tri_v1_barys;
-       break;
-     default: fn = get_fn_bary(n);
-  }
+  const fn = locus_type in fn_any_dict ? fn_any_dict[locus_type] : get_fn_bary(n);
   return fn;
 }
 

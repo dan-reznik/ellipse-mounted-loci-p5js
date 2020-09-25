@@ -57,6 +57,19 @@ const dict_rot = { "0": 0, "90": Math.PI / 2, "180": Math.PI, "270": -Math.PI / 
 
 get_rgba_str = (rgb, alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
 
+const label_dict = {
+  trilins:'X',
+  brocard_1:'Ω1',
+  brocard_2:'Ω2',
+  beltrami_1:'β1',
+  beltrami_2:'β2',
+  moses_1:'μ1',
+  moses_2:'μ2',
+  bickart_1:'σ1',
+  bickart_2:'σ2',
+  vtx:'V1'
+}
+
 function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
   locus_type, ell_detect, rot, draw_label) {
   const is_filled = locus_type.substr(0, 2) == "f_";
@@ -74,6 +87,8 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
       case "brocard_2": bs = bary_brocard2(ons.s); break;
       case "beltrami_1": bs = bary_beltrami1(ons.s); break;
       case "beltrami_2": bs = bary_beltrami2(ons.s); break;
+      case "moses_1": bs = bary_moses1(ons.s); break;
+      case "moses_2": bs = bary_moses2(ons.s); break;
       case "bickart_1": bs = bary_bickart1(ons.s); break;
       case "bickart_2": bs = bary_bickart2(ons.s); break;
       default: bs = get_Xn_bary(ons.s, xnum); // "trilins"
@@ -96,32 +111,8 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
     const ell_detect_suffix = ell_detect == "X" ? "" : '(' + ell_detect + ')';
     translate(xn[0], xn[1]);
     rotate(-dict_rot[rot]);
-    switch (locus_type) {
-      case 'trilins':
-        draw_text2('X' + xnum + ell_detect_suffix, [0, 0], rgb, stroke_w);
-        break;
-      case 'brocard_1':
-        draw_text2('Ω1' + ell_detect_suffix, [0, 0], rgb, stroke_w);
-        break;
-      case 'brocard_2':
-        draw_text2('Ω2' + ell_detect_suffix, [0, 0], rgb, stroke_w);
-        break;
-      case 'beltrami_1':
-        draw_text2('P2' + ell_detect_suffix, [0, 0], rgb, stroke_w);
-        break;
-      case 'beltrami_2':
-        draw_text2('U2' + ell_detect_suffix, [0, 0], rgb, stroke_w);
-        break;
-      case 'bickart_1':
-        draw_text2('StF1' + ell_detect_suffix, [0, 0], rgb, stroke_w);
-        break;
-      case 'bickart_2':
-        draw_text2('StF2' + ell_detect_suffix, [0, 0], rgb, stroke_w);
-        break;
-      case 'vtx':
-        draw_text2('V1' + ell_detect_suffix, [0, 0], rgb, stroke_w);
-        break;
-    }
+    if (locus_type in label_dict) 
+      draw_text2(label_dict[locus_type] + ell_detect_suffix, [0, 0], rgb, stroke_w);
   }
   pop();
 }
