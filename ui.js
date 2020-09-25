@@ -48,10 +48,15 @@ function set_ui_variables() {
                demo_elem.value = glob.ui[y];
             if(x.slice(0,6) == 'demo_P'){
                var demo_elem = document.getElementById(x);
-               change_clr_locus_txt(glob.ui['tri_type_'+x.slice(-1)], demo_elem)
+               change_clr_tri_txt(glob.ui['tri_type_'+x.slice(-1)], demo_elem)
             }
          }
          document.getElementById(x).value = glob.ui[y];
+         if(['locus_type_1', 'locus_type_2', 'locus_type_3', 'locus_type_4'].includes(x)){
+            var loc = document.getElementById(x)
+            var demo = document.getElementById('demo_Xn'+x.slice(-1))
+            change_clr_locus_txt(loc, demo);
+         }
       }
    });
    variables_change_checked.map(function (element) { document.getElementById(element).checked = glob.ui[element] })
@@ -597,38 +602,58 @@ function setup_a_speed_onchange() {
    })
 }
 
+function change_clr_locus_txt(loc, demo){
+   if(loc.value == 'trilins')
+      demo.style.color = 'black'
+   else
+      demo.style.color = 'gray'
+}
+
 function setup_locus_type_onchange() {
-   document.getElementById("locus_type_1").addEventListener("change", function () {
+   var loc_1 = document.getElementById("locus_type_1")
+   var loc_2 = document.getElementById("locus_type_2")
+   var loc_3 = document.getElementById("locus_type_3")
+   var loc_4 = document.getElementById("locus_type_4")
+   var demo_Xn1 = document.getElementById("demo_Xn1")
+   var demo_Xn2 = document.getElementById("demo_Xn2")
+   var demo_Xn3 = document.getElementById("demo_Xn3")
+   var demo_Xn4 = document.getElementById("demo_Xn4")
+
+   loc_1.addEventListener("change", function () {
       glob.ui.locus_type_1 = this.value;
       tandem_bar_variables('loc', glob.ui.locus_type_1);
       glob.ui.tandem_loc ? ui_changed_type(true) : ui_changed("1", true);
       redraw();
       glob.ui.tandem_loc ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui("1");
+      change_clr_locus_txt(loc_1, demo_Xn1)
    });
-   document.getElementById("locus_type_2").addEventListener("change", function () {
+   loc_2.addEventListener("change", function () {
       glob.ui.locus_type_2 = this.value;
       tandem_bar_variables('loc', glob.ui.locus_type_2);
       glob.ui.tandem_loc ? ui_changed_type(true) : ui_changed("2", true);
       redraw();
       glob.ui.tandem_loc ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui("2");
+      change_clr_locus_txt(loc_2, demo_Xn2)
    });
-   document.getElementById("locus_type_3").addEventListener("change", function () {
+   loc_3.addEventListener("change", function () {
       glob.ui.locus_type_3 = this.value;
       tandem_bar_variables('loc', glob.ui.locus_type_3);
       glob.ui.tandem_loc ? ui_changed_type(true) : ui_changed("3", true);
       redraw();
       glob.ui.tandem_loc ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui("3");
+      change_clr_locus_txt(loc_3, demo_Xn3)
    });
-   document.getElementById("locus_type_4").addEventListener("change", function () {
+   loc_4.addEventListener("change", function () {
       glob.ui.locus_type_4 = this.value;
       tandem_bar_variables('loc', glob.ui.locus_type_4);
       glob.ui.tandem_loc ? ui_changed_type(true) : ui_changed("4", true);
       redraw();
       glob.ui.tandem_loc ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui("4");
+      change_clr_locus_txt(loc_4, demo_Xn4)
    });
 }
 
-function change_clr_locus_txt(tri_type_element_value, demo_element){
+function change_clr_tri_txt(tri_type_element_value, demo_element){
    if (tri_type_element_value.slice(0, 2) == 'p_') {
       demo_element.style.color = 'black';
    }
@@ -641,7 +666,7 @@ function setup_tri_type_onchange() {
    document.getElementById("tri_type_1").addEventListener("change", function () {
       var demo = document.getElementById('demo_Pn1');
       
-      change_clr_locus_txt(this.value, demo)
+      change_clr_tri_txt(this.value, demo)
       
       glob.ui.tri_type_1 = this.value;
       tandem_bar_variables('tri', glob.ui.tri_type_1);
@@ -651,7 +676,7 @@ function setup_tri_type_onchange() {
    });
    document.getElementById("tri_type_2").addEventListener("change", function () {
       var demo = document.getElementById('demo_Pn2');
-      change_clr_locus_txt(this.value, demo)
+      change_clr_tri_txt(this.value, demo)
 
       glob.ui.tri_type_2 = this.value;
       tandem_bar_variables('tri', glob.ui.tri_type_2);
@@ -661,7 +686,7 @@ function setup_tri_type_onchange() {
    });
    document.getElementById("tri_type_3").addEventListener("change", function () {
       var demo = document.getElementById('demo_Pn3');
-      change_clr_locus_txt(this.value, demo)
+      change_clr_tri_txt(this.value, demo)
 
       glob.ui.tri_type_3 = this.value;
       tandem_bar_variables('tri', glob.ui.tri_type_3);
@@ -671,7 +696,7 @@ function setup_tri_type_onchange() {
    });
    document.getElementById("tri_type_4").addEventListener("change", function () {
       var demo = document.getElementById('demo_Pn4');
-      change_clr_locus_txt(this.value, demo)
+      change_clr_tri_txt(this.value, demo)
 
       glob.ui.tri_type_4 = this.value;
       tandem_bar_variables('tri', glob.ui.tri_type_4);
