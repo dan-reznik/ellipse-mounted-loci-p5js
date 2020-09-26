@@ -22,10 +22,10 @@ function set_ui_variables() {
       , 'demo_Xn2', 'Xn3', 'demo_Xn3', 'Xn4', 'demo_Xn4', 'Pn1', 'Pn2', 'Pn3', 'Pn4', 'demo_Pn1', 'demo_Pn2', 'demo_Pn3', 'demo_Pn4',
       , 'tri_type_1', 'tri_type_2', 'tri_type_3', 'tri_type_4', 'mounting_Xn1', 'mounting_Xn2'
       , 'mounting_Xn3', 'mounting_Xn4', 'animStep0', 'rot', 'rmax', 'bg', 'clr1', 'clr2', 'clr3', 'clr4'
-      , 'jukebox_playlist', 'clr_fill_border', 'fill_alpha']
+      , 'jukebox_playlist', 'clr_fill_border', 'fill_alpha', 'circ1', 'circ2', 'circ3', 'circ4']
 
    var variables_change_checked = ['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4'
-      , 'tandem_loc', 'tandem_mnt', 'tandem_xn', 'tandem_tri', 'tandem_pn']
+      , 'tandem_loc', 'tandem_mnt', 'tandem_xn', 'tandem_tri', 'tandem_pn', 'inv1', 'inv2', 'inv3', 'inv4']
    var from_to = {
       a_input_text: 'a', demo_Xn1: 'Xn1', demo_Xn2: 'Xn2', demo_Xn3: 'Xn3', demo_Xn4: 'Xn4'
       , demo_Pn1: 'Pn1', demo_Pn2: 'Pn2', demo_Pn3: 'Pn3', demo_Pn4: 'Pn4'
@@ -738,7 +738,8 @@ function get_diff_default(key) {
       mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3', mounting_Xn4: 'mt4',
       animStep0: 'aS', rot: 'rot', rmax: 'rmx', bg: 'bg',
       clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', jukebox_playlist: 'juke',
-      clr_fill_border: 'cfb', fill_alpha: 'fa'
+      clr_fill_border: 'cfb', fill_alpha: 'fa', inv1:'inv1',inv2:'inv2',inv3:'inv3',inv4:'inv4',
+      circ1:'crc1',circ2:'crc2',circ3:'crc3',circ4:'crc4'
    };
    const animStep0_to_url_value = {
       "0.125": 'slow', "0.500": 'med', "1.000": 'fast'
@@ -854,7 +855,14 @@ function get_link_params() {
    link_params += get_diff_default("Pn2");
    link_params += get_diff_default("Pn3");
    link_params += get_diff_default("Pn4");
-
+   link_params += get_diff_default("circ1");
+   link_params += get_diff_default("circ2");
+   link_params += get_diff_default("circ3");
+   link_params += get_diff_default("circ4");
+   link_params += get_diff_default("inv1");
+   link_params += get_diff_default("inv2");
+   link_params += get_diff_default("inv3");
+   link_params += get_diff_default("inv4");
 
    link_params += clrs_shuffled_seeds_to_url(glob.clrs_shuffled_seeds)
 
@@ -885,7 +893,8 @@ function set_url_params(url_params) {
       mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3', mt4: 'mounting_Xn4',
       aS: 'animStep0', rot: 'rot', rmx: 'rmax', bg: 'bg',
       clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', juke: 'jukebox_playlist',
-      cfb: 'clr_fill_border', 'fa': 'fill_alpha'
+      cfb: 'clr_fill_border', 'fa': 'fill_alpha', inv1: 'inv1',inv2: 'inv2',inv3: 'inv3',inv4: 'inv4',
+      crc1:'circ1',crc2:'circ2',crc3:'circ3',crc4:'circ4'
    };
    let animStep0_to_ui = {
       slow: "0.125", medium: "0.500", fast: "1.000"
@@ -903,7 +912,7 @@ function set_url_params(url_params) {
          if (['a', 'Xn1', 'Xn2', 'Xn3', 'Xn4', 'Pn1', 'Pn2', 'Pn3', 'Pn4'].includes(ui_key)) {
             glob.ui[ui_key] = +url_params[key];
          }
-         else if (['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4'].includes(ui_key))
+         else if (['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4', 'inv_1', 'inv_2', 'inv_3', 'inv_4'].includes(ui_key))
             glob.ui[ui_key] = (url_params[key] == 'true');
          else if (ui_key == 'animStep0') {
             key_value = url_params[key]
@@ -1410,6 +1419,18 @@ function setup_clr_fill_border() {
    })
 }
 
+function setup_circ(){
+   ['circ1','circ2','circ3','circ4'].map(x => document.getElementById(x).addEventListener('input', function(){
+         glob.ui[x] = this.value;
+      }))
+}
+
+function setup_inv(){
+   ['inv1','inv2','inv3','inv4'].map(x => document.getElementById(x).addEventListener("click", function () {
+      glob.ui[x] = this.checked;
+   }))
+}
+
 function setup_ui() {
    setup_ui_variables_behavior();
    setup_copy_image();
@@ -1435,6 +1456,8 @@ function setup_ui() {
    setup_jukebox_playlist_oninput();
    setup_fill_alpha();
    setup_clr_fill_border();
+   setup_circ();
+   setup_inv();
    setup_global_event_handler();
    ui_changed("1", true, true);
    redraw();

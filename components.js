@@ -3,33 +3,32 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
 <div class="component xn_selector">
     <div class="input_Xn">
         <div style="display: inline-flex; margin-left: 0px;margin-right: 0px;">
-            <label for="checkbox_Xn`+xn_number+`"> loc`+xn_number+`</label>
-            <select id="locus_type_`+xn_number+`" name="checkbox_Xn`+xn_number+`">
-                <option value="none">off</option>
-                <option value="trilins" `+trilins_selected+`>Xn</option>
-                <option value="brocard_1">Ω1</option>
-                <option value="brocard_2">Ω2</option>
-                <option value="beltrami_1">β1</option>
-                <option value="beltrami_2">β2</option>
-                <option value="moses_1">μ1</option>
-                <option value="moses_2">μ2</option>
-                <option value="bickart_1">σ1</option>
-                <option value="bickart_2">σ2</option>
-                <option value="vtx">vtx</option>`+
-                //<option value="f_trilins">Xn,fill</option>
-                //<option value="f_brocard_1">Ω1,fill</option>
-                //<option value="f_brocard_2">Ω2,fill</option>
-                //<option value="f_bickart_1">StF1,fill</option>
-                //<option value="f_bickart_2">StF2,fill</option>
-                //<option value="f_vtx">vtx,fill</option>+
-            `</select>
-        </div>
-        <div id='conic_type'>
-                <p id='conic_type_`+xn_number+`'></p>
+            <label for="checkbox_Xn`+xn_number+`"> L`+xn_number+`</label>
+            <div class='locus_type'>
+                <select id="locus_type_`+xn_number+`" name="checkbox_Xn`+xn_number+`">
+                    <option value="none">off</option>
+                    <option value="trilins" `+trilins_selected+`>Xn</option>
+                    <option value="brocard_1">Ω1</option>
+                    <option value="brocard_2">Ω2</option>
+                    <option value="beltrami_1">β1</option>
+                    <option value="beltrami_2">β2</option>
+                    <option value="moses_1">μ1</option>
+                    <option value="moses_2">μ2</option>
+                    <option value="bickart_1">σ1</option>
+                    <option value="bickart_2">σ2</option>
+                    <option value="vtx">vtx</option>`+
+                    //<option value="f_trilins">Xn,fill</option>
+                    //<option value="f_brocard_1">Ω1,fill</option>
+                    //<option value="f_brocard_2">Ω2,fill</option>
+                    //<option value="f_bickart_1">StF1,fill</option>
+                    //<option value="f_bickart_2">StF2,fill</option>
+                    //<option value="f_vtx">vtx,fill</option>+
+                `</select>
+            </div>
         </div>
         <div style="display: inline-flex;margin-left:1px;margin-right:1px;">
             <label for="mounting_Xn`+xn_number+`"> mnt</label>
-            <div class="input_mounting"">
+            <div class="input_mounting">
                 <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
                     <option value="billiard">*billiard*</option>
                     <option value="homothetic">*homoth*</option>
@@ -57,10 +56,22 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="TL_BR">tl-br</option>
                 </select>
             </div>
-            <div style="display: flex; justify-content: center; align-items: center;">
-              <label for="clr`+xn_number+`"></label>
-              <input id='clr`+xn_number+`' class='bg' name="clr`+xn_number+`" type="color" value="`+hex_color+`"></input>
+        </div>
+        <div style="display: inline-flex;margin-left:1px;margin-right:1px;">
+            <div class="circ">
+                <select id="circ`+xn_number+`">
+                    <option value="off">circs off</option>
+                    <option value="circ1">circs off</option>
+                    <option value="circum">circum</option>
+                    <option value="incircle">incircle</option>
+                    <option value="brocard">brocard</option>
+                </select>
             </div>
+        </div>
+
+        <div style='margin-left: 0px;margin-right:0px;'>
+            <label for="inv`+xn_number+`">inv</label>
+            <input class = "sub_checkbox" type="checkbox" id="inv`+xn_number+`" name="inv`+xn_number+`">
         </div>
     </div>
 
@@ -73,6 +84,10 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <div class='slider_container'>
                 <input type="range" min="1" max="1000" value="1" class="slider" step="1" id="Xn`+xn_number+`">
             </div>
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <label for="clr`+xn_number+`"></label>
+              <input id='clr`+xn_number+`' class='bg' name="clr`+xn_number+`" type="color" value="`+hex_color+`"></input>
+            </div>
             <input type="image" id="pallete_`+xn_number+`" style="margin-right:2px;margin-left:2px;height:20px;width:20px;" src="pallete.png"/>
 
     </div>
@@ -82,58 +97,58 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <label for="draw_tri_`+xn_number+`">tri</label>
             <input class = "sub_checkbox" type="checkbox" id="draw_tri_`+xn_number+`" `+tri_selected+` name="draw_tri_`+xn_number+`">
         </div>
-        <select class='tri_type' id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
-        <option value="reference">*reference*</option>
-        <option value="p_cevian">*cevian*</option>
-        <option value="p_anticevian">*anticevian*</option>
-        <option value="p_pedal">*pedal*</option>
-        <option value="p_antipedal">*antipedal*</option>
-        <option value="anticompl">anticompl</option>
-        <option value="bci">bci</option>
-        <option value="brocard1">brocard 1</option>
-        <option value="brocard2">brocard 2</option>
-        <option value="brocard3">brocard 3</option>
-        <option value="brocard4">brocard 4</option>
-        <option value="brocard5">brocard 5</option>
-        <option value="brocard6">brocard 6</option>
-        <option value="brocard7">brocard 7</option>
-        <option value="circummedial">circummedial</option>
-        <option value="circumorthic">circumorthic</option>
-        <option value="excentral">excentral</option>
-        <option value="extouch">extouch</option>
-        <option value="euler">euler</option>
-        <option value="extangents">extangents</option>
-        <option value="feuerbach">feuerbach</option>
-        <option value="fuhrmann">fuhrmann</option>
-        <option value="halfaltitude">half-altitude</option>
-        <option value="hexyl">hexyl</option>
-        <option value="incentral">incentral</option>
-        <option value="innervecten">inner vecten</option>
-        <option value="intangents">intangents</option>
-        <option value="intouch">intouch</option>
-        <option value="johnson">johnson</option>
-        <option value="lemoine">lemoine</option>
-        <option value="lucascentral">lucas central</option>
-        <option value="lucasinner">lucas inner</option>
-        <option value="lucastangents">lucas tangs</option>
-        <option value="macbeath">macbeath</option>
-        <option value="medial">medial</option>
-        <option value="mixtilinear">mixtilinear</option>
-        <option value="morley1">morley adj 1</option>
-        <option value="morley2">morley adj 2</option>
-        <option value="morley3">morley adj 3</option>
-        <option value="neuberg1">neuberg 1</option>
-        <option value="neuberg2">neuberg 2</option>  
-        <option value="orthic">orthic</option>
-        <option value="outervecten">outer vecten</option>
-        <option value="reflection">reflection</option>
-        <option value="steiner">steiner</option>
-        <option value="symmedial">symmedial</option>
-        <option value="tangential">tangential</option>
-        <option value="tangentialmidarc">tang'l midarc</option>
-        <option value="yffcentral">yff central</option>
-        <option value="yffcontact">yff contact</option>  
-        </select>
+            <select class='tri_type' id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
+                <option value="reference">*reference*</option>
+                <option value="p_cevian">*cevian*</option>
+                <option value="p_anticevian">*anticevian*</option>
+                <option value="p_pedal">*pedal*</option>
+                <option value="p_antipedal">*antipedal*</option>
+                <option value="anticompl">anticompl</option>
+                <option value="bci">bci</option>
+                <option value="brocard1">brocard 1</option>
+                <option value="brocard2">brocard 2</option>
+                <option value="brocard3">brocard 3</option>
+                <option value="brocard4">brocard 4</option>
+                <option value="brocard5">brocard 5</option>
+                <option value="brocard6">brocard 6</option>
+                <option value="brocard7">brocard 7</option>
+                <option value="circummedial">circummedial</option>
+                <option value="circumorthic">circumorthic</option>
+                <option value="excentral">excentral</option>
+                <option value="extouch">extouch</option>
+                <option value="euler">euler</option>
+                <option value="extangents">extangents</option>
+                <option value="feuerbach">feuerbach</option>
+                <option value="fuhrmann">fuhrmann</option>
+                <option value="halfaltitude">half-altitude</option>
+                <option value="hexyl">hexyl</option>
+                <option value="incentral">incentral</option>
+                <option value="innervecten">inner vecten</option>
+                <option value="intangents">intangents</option>
+                <option value="intouch">intouch</option>
+                <option value="johnson">johnson</option>
+                <option value="lemoine">lemoine</option>
+                <option value="lucascentral">lucas central</option>
+                <option value="lucasinner">lucas inner</option>
+                <option value="lucastangents">lucas tangs</option>
+                <option value="macbeath">macbeath</option>
+                <option value="medial">medial</option>
+                <option value="mixtilinear">mixtilinear</option>
+                <option value="morley1">morley adj 1</option>
+                <option value="morley2">morley adj 2</option>
+                <option value="morley3">morley adj 3</option>
+                <option value="neuberg1">neuberg 1</option>
+                <option value="neuberg2">neuberg 2</option>  
+                <option value="orthic">orthic</option>
+                <option value="outervecten">outer vecten</option>
+                <option value="reflection">reflection</option>
+                <option value="steiner">steiner</option>
+                <option value="symmedial">symmedial</option>
+                <option value="tangential">tangential</option>
+                <option value="tangentialmidarc">tang'l midarc</option>
+                <option value="yffcentral">yff central</option>
+                <option value="yffcontact">yff contact</option>  
+            </select>
         
         <div class='P_input_text'>
             <button id="minus_Pn`+xn_number+`" class="plus_minus minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
@@ -142,6 +157,9 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
         </div>
         <div style='display: inline-flex;margin-left:2px;margin-right:2px;'>
             <button class='Bbox' id='Bbox_`+xn_number+`'>bbox</button>
+        </div>
+        <div id='conic_type'>
+                <p id='conic_type_`+xn_number+`'></p>
         </div>
 
     </div>

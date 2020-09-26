@@ -96,7 +96,7 @@ body {
 
 .input_Xn #conic_type{
   text-align: center;
-  width: 25px;
+  width: 17px;
   border-style: solid;
   border-width: 2px;
   margin-right: 1px;
@@ -115,9 +115,14 @@ body {
   margin-left: auto;
 }
 
+.locus_type>*{
+  font-size: 12px;
+}
+
 .tri_type{
   margin-left: 2px;
   margin-right: 2px;
+  font-size: 12px;
 }
 
 #demo_a{
@@ -402,8 +407,24 @@ label{
     width: 100%;
 }
 
+.input_mounting>*{
+  font-size: 12px;
+}
+
 .Bbox{
+    font-size: 10px;
+    width: 35px;
     flex-grow: 1;
-    margin-right: 2px;
-    margin-left: 2px;
+    margin-right: 0px;
+    margin-left: 0px;
 };
+
+.circ{
+  font-size: 5px;
+  display: inline-block;
+  height: 100%;
+  width: 40px;
+}
+.circ>*{
+  font-size: 10px;
+}
