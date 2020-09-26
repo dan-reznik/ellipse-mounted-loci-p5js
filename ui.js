@@ -1317,20 +1317,26 @@ function run_jukebox_playlist(run, playlist, list_indice) {
    if (run) {
       reset_ui();
       glob.ui.jukebox_playlist = aux;
-      params = getAllUrlParams(playlist[list_indice]);
+      params = getAllUrlParams(playlist[list_indice]['config']);
       set_url_params(params);
       ui_changed_type(true);
       redraw();
    }
 }
 
-function start_playlist(playlist, start, output_text_jukebox) {
-   var seconds_interval = 10;
-   var seconds_runned = Math.floor(((Date.now() - start)) / 1000);
-   let list_indice = Math.floor(seconds_runned / seconds_interval) % playlist.length;
-   let run = (seconds_runned % seconds_interval == 0);
-   output_text_jukebox.innerHTML = "Running " + (+list_indice + 1) + '/' + playlist.length;
-   run_jukebox_playlist(run, playlist, list_indice);
+function start_playlist(playlist, start_time, output_text_jukebox, control_params) {
+   var index = control_params.list_index % playlist.length;
+   var seconds_interval = +playlist[index]['sec'];
+   var seconds_runned = Math.floor(((Date.now() - start_time)) / 1000);
+
+   let run = (seconds_runned == control_params.seconds_next_run);
+   if(run){
+      control_params.seconds_next_run = seconds_runned + seconds_interval;
+      control_params.list_index++;
+   }
+
+   output_text_jukebox.innerHTML = "Running " + (+index + 1) + '/' + playlist.length;
+   run_jukebox_playlist(run, playlist, index);
 }
 
 function waitForElementJson(indice) {
@@ -1344,11 +1350,14 @@ function waitForElementJson(indice) {
 
 function setup_jukebox_playlist_oninput() {
    let playlist;
+   let control_params = {seconds_next_run : 1
+                        ,list_index : 0};
    var start = Date.now();
    var output_text_jukebox = document.getElementById('output_text_jukebox')
 
+
    // Replace ./data.json with your JSON feed
-   fetch('./jukebox.json').then(response => {
+   fetch('https://ellipse-mounted.s3.amazonaws.com/jukebox.json').then(response => {
       return response.json();
    }).then(data => {
       // Work with JSON data here
@@ -1360,13 +1369,16 @@ function setup_jukebox_playlist_oninput() {
 
    document.getElementById('jukebox_playlist').addEventListener('input', function () {
       window.clearInterval(glob.jukebox_id)
+      control_params.seconds_next_run = 1;
+      control_params.list_index = 0;
+
       glob.ui.jukebox_playlist = this.value;
       if (glob.ui.jukebox_playlist != 'off') {
          playlist = waitForElementJson(glob.ui.jukebox_playlist)
          start = Date.now();
          output_text_jukebox.innerHTML = "Running 1/" + playlist.length;
          run_jukebox_playlist(true, playlist, 0);
-         glob.jukebox_id = window.setInterval(start_playlist, 1000, playlist, start, output_text_jukebox);
+         glob.jukebox_id = window.setInterval(start_playlist, 1000, playlist, start, output_text_jukebox, control_params);
       } else {
          output_text_jukebox.innerHTML = 'Stopped'
       }
