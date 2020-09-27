@@ -1,0 +1,6 @@
+git checkout master
+git pull
+git merge refactor
+git push
+git checkout refactor
+
