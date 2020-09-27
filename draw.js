@@ -104,7 +104,10 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
     translate(xn[0], xn[1]);
     rotate(-dict_rot[rot]);
     if (locus_type in label_dict) 
-      draw_text2(label_dict[locus_type] + (locus_type=="trilins"?xnum:"") + ell_detect_suffix, [0, 0], rgb, stroke_w);
+      draw_text2(label_dict[locus_type] +
+        (locus_type=="trilins"?xnum:"") +
+        (inv_fn==inv_fn_identity?"":"'") +
+        ell_detect_suffix, [0, 0], rgb, stroke_w);
   }
   pop();
 }
@@ -207,10 +210,10 @@ function draw_boundary(a, b, rgb, stroke_w) {
   pop();
 }
 
-function draw_circle_low([cx, cy], r, rgb, dr_ctr = true) {
+function draw_circle_low([cx, cy], r, rgb, stroke_w = 0.0125, dr_ctr = true) {
   push();
   stroke(rgb);
-  strokeWeight(0.0125);
+  strokeWeight(stroke_w);
   noFill();
   circle(cx, cy, 2 * r);
   if (dr_ctr) draw_point([cx, cy], rgb)

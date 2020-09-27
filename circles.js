@@ -10,8 +10,8 @@ function circle_circum(tri,sides) {
 function circle_incircle(tri,sides) {
     const x1 = get_Xn_cartesians(1, tri, sides);
     const area = tri_area(sides);
-    const s = sum(sides);
-    const r =  area/s;
+    const s = 0.5*sum(sides);
+    const r = area/s;
     return { ctr:x1, R:r };
 }
 

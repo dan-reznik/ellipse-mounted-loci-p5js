@@ -1,5 +1,6 @@
 function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus_type, dr_tri,
-    mounting, tri_type, pn, stroke_w, ell_detect, draw_label, inv_fn) {
+    mounting, tri_type, pn, stroke_w, ell_detect, draw_label, circ, inv) {
+    const inv_fn = get_inv_fn(circ, inv);
     const [v2, v3] = getV2V3(a, mounting, 0.001);
     const ons = get_mounted_tri(a, tDeg, v2, v3);
     const ons_derived = get_derived_tri(ons.o, ons.s, tri_type, pn);
@@ -10,8 +11,11 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     if (locus_type != 'none') {
         draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv_fn);
-        }
-    //draw_locus_only(locus, clr);
+    }
+    if (dr_tri && circ in circles_dict) {
+        const { ctr, R } = circles_dict[circ](ons_derived.o, ons_derived.s);
+        draw_circle_low(ctr, R, clr, stroke_w, true);
+    }
 }
 
 const dict_caustic = {
@@ -25,7 +29,8 @@ const dict_caustic = {
 };
 
 function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus_branches, clr, locus_type, dr_tri, tri_type, pn,
-    stroke_w, dr_caustic, ell_detect, draw_label, inv_fn) {
+    stroke_w, dr_caustic, ell_detect, draw_label, circ, inv) {
+    const inv_fn = get_inv_fn(circ, inv);
     let ons = orbit_fn(a, tDeg);
     let ons_derived = get_derived_tri(ons.o, ons.s, tri_type, pn);
 
@@ -55,6 +60,11 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
     if (locus_type != 'none')
         draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv_fn);
+
+    if (dr_tri && circ in circles_dict) {
+        const { ctr, R } = circles_dict[circ](ons_derived.o, ons_derived.s);
+        draw_circle_low(ctr, R, clr, stroke_w, true);
+    }
 }
 
 const dict_orbit_fn = {
@@ -73,14 +83,17 @@ const dict_orbit_fn = {
 function draw_billiard_or_mounted_branched(a, tDeg, rot, stroke_w, draw_caustic,
     clr, n, locus_branches, locus_type, dr_tri, mounting, tri_type, pn, ell_detect, draw_label,
     circ, inv) {
-    const inv_fn = get_inv_fn(circ,inv);
     if (mounting in dict_orbit_fn)
         draw_poncelet_locus_branched(n, a, tDeg, rot, dict_orbit_fn[mounting],
             mounting, locus_branches, clr, locus_type, dr_tri, tri_type, pn, stroke_w,
-            draw_caustic, ell_detect, draw_label, inv_fn)
+            draw_caustic, ell_detect, draw_label, circ, inv)
     else
         draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr,
-            locus_type, dr_tri, mounting, tri_type, pn, stroke_w, ell_detect, draw_label, inv_fn);
+            locus_type, dr_tri, mounting, tri_type, pn, stroke_w, ell_detect, draw_label, circ, inv);
+
+    if (circ != "off") {
+
+    }
 }
 
 function create_locus_branches(a, tDegStep, tDegMax, r_max, xn_fn) {
@@ -160,22 +173,24 @@ const dict_get_Xn = {
 };
 
 const circles_dict = {
-    circum   : circle_circum, // (tri,sides)
-    incircle : circle_incircle,
-    brocard  : circle_brocard
+    circum: circle_circum, // (tri,sides)
+    incircle: circle_incircle,
+    brocard: circle_brocard
 };
 
-function get_inv_fn(circ,inv) {
+const inv_fn_identity = (tri, sides, p) => p;
+
+function get_inv_fn(circ, inv) {
     return (inv && (circ in circles_dict)) ?
-    (tri,sides,p) => circle_inversion(p,circles_dict[circ](tri,sides)) :
-    (tri,sides,p) => p;
+        (tri, sides, p) => circle_inversion(p, circles_dict[circ](tri, sides)) :
+        inv_fn_identity;
 }
 // no asymptotes
 function make_locus_branched(a, tDegStep, r_max,
     // indexed
     n, mounting, locus_type, tri_type, pn, circ, inv) {
     const bary_fn = get_fn_any(locus_type, n);
-    const inv_fn = get_inv_fn(circ,inv)
+    const inv_fn = get_inv_fn(circ, inv)
     let locus_array;
     if (mounting in dict_get_Xn) {
         const tDegMax = ["vtx", "f_vtx"].includes(locus_type) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
