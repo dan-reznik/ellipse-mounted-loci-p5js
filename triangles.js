@@ -2,16 +2,45 @@ function rotate_tri_left([p1,p2,p3]) {
   return [p2,p3,p1];
 }
 
-function tri_area([a, b, c]) {
-  let s = (a + b + c)/2.0;
-  return sqrt(s*(s-a)*(s-b)*(s-c));
+function get_semiperimeter(sides) {
+  return 0.5*sum(sides);
 }
 
-function cot_omega(tri,sides) {
+function tri_area2([a, b, c]) {
+  let s = get_semiperimeter([a,b,c]);
+  return s*(s-a)*(s-b)*(s-c);
+}
+
+const tri_area = (sides) => Math.sqrt(tri_area2(sides));
+
+function get_inradius(sides) {
+   const area = tri_area(sides);
+   const s = get_semiperimeter(sides);
+   return area/s;
+}
+
+function get_circumradius(sides) {
+  const abc = prod(sides);
+  const r = get_inradius(sides);
+  const s = get_semiperimeter(sides);
+  return abc/(4*r*s);
+}
+
+function cot_omega(sides) {
   const area = tri_area(sides);
   const l2 = sum_sqr(sides);
   return l2/(4*area);
 }
+
+function sin2_omega([a,b,c]) {
+  const area2 = tri_area2([a,b,c]);
+  const a2=a*a,b2=b*b,c2=c*c;
+  const denom = a2*b2+b2*c2+c2*a2;
+  return 4*area2/denom;
+}
+
+const omega_e2 = (sides) => 1-4*sin2_omega(sides);
+const omega_e = (sides) => Math.sqrt(omega_e2(sides));
 
 function get_conway([a,b,c]) {
   let a2=a*a,b2=b*b,c2=c*c;
@@ -170,9 +199,9 @@ function hexyl_triangle(sides) {
 // http://mathworld.wolfram.com/EulerTriangle.html
 function euler_triangle(sides) {
   let [cA,cB,cC]=tri_cosines(sides);
-  let sA=sqrt(1-cA*cA);
-  let sB=sqrt(1-cB*cB)
-  let sC=sqrt(1-cC*cC);
+  let sA=Math.sqrt(1-cA*cA);
+  let sB=Math.sqrt(1-cB*cB)
+  let sC=Math.sqrt(1-cC*cC);
   let x = sA/cA, y = sB/cB, z = sC/cC;
   let ts = [
     [2*x+y+z, sA / cB, sA / cC],
@@ -184,9 +213,9 @@ function euler_triangle(sides) {
 
 function feuerbach_triangle(sides) {
   let [cA,cB,cC]=tri_cosines(sides);
-  let sA=sqrt(1-cA*cA);
-  let sB=sqrt(1-cB*cB)
-  let sC=sqrt(1-cC*cC);
+  let sA=Math.sqrt(1-cA*cA);
+  let sB=Math.sqrt(1-cB*cB)
+  let sC=Math.sqrt(1-cC*cC);
  
   let f11 = /* -s2[(b-c)/2] = [cos(b-c)-1]/2 */ (cB*cC + sB*sC - 1)/2;
   let f22 = /* -s2[(c-a)/2] = [cos(c-a)-1]/2 */ (cC*cA + sC*sA - 1)/2; 

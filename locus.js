@@ -169,9 +169,12 @@ const dict_get_Xn = {
 };
 
 const circles_dict = {
-    circum: circle_circum, // (tri,sides)
+    circum  : circle_circum, // (tri,sides)
     incircle: circle_incircle,
-    brocard: circle_brocard
+    euler   : circle_euler,
+    cosine  : circle_cosine,
+    brocard : circle_brocard,
+    brocard2 : circle_brocard2
 };
 
 const inv_fn_identity = (tri, sides, p) => p;

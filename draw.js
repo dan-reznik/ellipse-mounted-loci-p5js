@@ -240,7 +240,7 @@ function draw_orbit(ons, clr, stroke_w, dr_sidelengths = true, dr_dashed = false
     if (dr_normals) draw_normal(ons.o[i], ons.n[i], lgt, stroke_w);
     draw_point2(ons.o[i], clr_invert_ui(i == 0 ? clr_black : clr), stroke_w);
     if (dr_sidelengths) {
-      let midpoint = vavg(ons.o[i], ons.o[(i + 1) % 3]);
+      let midpoint = vmid(ons.o[i], ons.o[(i + 1) % 3]);
       draw_point2(midpoint, clr_invert_ui(clr_black), stroke_w);
       draw_text2(sprintf("%.3f", ons.s[(i + 2) % 3]), // sides out of phase
         midpoint, clr_invert_ui(clr_black), stroke_w);
@@ -261,7 +261,7 @@ function draw_mounted(ons, clr, stroke_w, dr_sidelengths = true, dr_dashed = fal
   for (let i = 0; i < 3; i++) {
     draw_point2(tri[i], clr_invert_ui(i == 0 ? clr_black : clr), stroke_w);
     if (dr_sidelengths) {
-      let midpoint = vavg(tri[i], tri[(i + 1) % 3]);
+      let midpoint = vmid(tri[i], tri[(i + 1) % 3]);
       draw_point2(midpoint, clr_invert_ui(clr_black), stroke_w);
       draw_text2(sprintf("%.3f", sides[(i + 2) % 3]), // sides out of phase
         midpoint, // median

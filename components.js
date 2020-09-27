@@ -63,7 +63,10 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="off">circs off</option>
                     <option value="circum">circum</option>
                     <option value="incircle">incircle</option>
+                    <option value="euler">euler</option>
+                    <option value="cosine">cosine</option>
                     <option value="brocard">brocard</option>
+                    <option value="brocard2">brocard2</option>
                 </select>
             </div>
         </div>
