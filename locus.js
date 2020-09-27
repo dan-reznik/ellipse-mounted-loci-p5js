@@ -77,7 +77,7 @@ function draw_billiard_or_mounted_branched(a, tDeg, rot, stroke_w, draw_caustic,
             locus_type, dr_tri, mounting, tri_type, pn, stroke_w, ell_detect, draw_label);
 }
 
-function create_locus_branches(a, tDegStep, tDegMax, r_max, bary_fn, xn_fn) {
+function create_locus_branches(a, tDegStep, tDegMax, r_max, xn_fn) {
     const eps = 0.001;
     const d_max = 0.1;
     const d_min = 0.01;
@@ -91,7 +91,7 @@ function create_locus_branches(a, tDegStep, tDegMax, r_max, bary_fn, xn_fn) {
     let tDeg = eps;
     // seek first finite xn
     do {
-        xn = xn_fn(a, tDeg, bary_fn);
+        xn = xn_fn(a, tDeg);
         tDeg += tDegStepMax;
     } while (tDeg < tDegMax && (vNaN(xn) || magn(xn) > r_max)); // interrupt loop if cannot find valid
     if (tDeg > tDegMax) {
@@ -103,12 +103,12 @@ function create_locus_branches(a, tDegStep, tDegMax, r_max, bary_fn, xn_fn) {
         // repositions tDeg at the next location
         tDeg += tDegStep - tDegStepMax;
         while (tDeg < tDegMax) {
-            xn_next = xn_fn(a, tDeg, bary_fn);
+            xn_next = xn_fn(a, tDeg);
             // should I start a new branch?
             if (vNaN(xn_next) || magn(xn_next) > r_max) {
                 // seek next finite xn_next
                 do {
-                    xn = xn_fn(a, tDeg, bary_fn);
+                    xn = xn_fn(a, tDeg);
                     tDeg += tDegStepMax;
                 } while (tDeg < tDegMax && (vNaN(xn) || magn(xn) > r_max));
                 // creates new branch
@@ -153,24 +153,33 @@ const dict_get_Xn = {
     brocard: get_Xn_brocard
 };
 
+const circles_dict = {
+    circum   : circle_circum, // (tri,sides)
+    incircle : circle_incircle,
+    brocard  : circle_brocard
+};
+
 // no asymptotes
 function make_locus_branched(a, tDegStep, r_max,
     // indexed
-    n, mounting, locus_type, tri_type, pn) {
-    let bary_fn = get_fn_any(locus_type, n);
+    n, mounting, locus_type, tri_type, pn, circ, inv) {
+    const bary_fn = get_fn_any(locus_type, n);
+    const inv_fn = (inv && (circ in circles_dict)) ?
+    (tri,sides,p) => circle_inversion(p,circles_dict[circ](tri,sides)) :
+    (tri,sides,p) => p;
     let locus_array;
     if (mounting in dict_get_Xn) {
         const tDegMax = ["vtx", "f_vtx"].includes(locus_type) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
-        const xn_fn = dict_get_Xn[mounting];
-        locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max, bary_fn,
-            (a0, tDeg0, bary_fn0) => xn_fn(a0, tDeg0, bary_fn0, tri_type, pn));
+        const tri_fn = dict_get_Xn[mounting];
+        locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
+            (a0, tDeg0) => tri_fn(a0, tDeg0, bary_fn, tri_type, pn, inv_fn));
     } else {// non-poncelet
         const eps = 0.001;
         let [v2, v3] = getV2V3(a, mounting, eps);
         //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, bary_fn);
-        locus_array = create_locus_branches(a, tDegStep, 360, r_max, bary_fn,
-            (a0, tDeg0, bary_fn0) => {
-                let [v1, xn] = get_Xn_mounted(a0, tDeg0, v2, v3, bary_fn0, tri_type, pn);
+        locus_array = create_locus_branches(a, tDegStep, 360, r_max,
+            (a0, tDeg0) => {
+                let [v1, xn] = get_Xn_mounted(a0, tDeg0, v2, v3, bary_fn, tri_type, pn, inv_fn);
                 return xn;
             });
     }

@@ -62,14 +62,19 @@ function get_glob_indexed() {
 
 // needs to refactor w/ new array ui design
 function create_locus(locus_type_changed, init) {
-   let tdegStep = +1; //valor inicial de degStep0
-   let a = +glob.ui.a;
+   let tdegStep = 1; //valor inicial de degStep0
    let g_ind = get_glob_indexed();
 
    for (let i = 0; i < g_ind.Xns.length; i++)
-      if (/*g_ind.l_types[i] != "none" && */[(i + 1).toString(), "0"].includes(locus_type_changed)) {
-         glob.locus_branched[i] = make_locus_branched(a, tdegStep, glob.ui.rmax,
-            g_ind.Xns[i], g_ind.mountings[i], g_ind.l_types[i], g_ind.t_types[i], g_ind.Pns[i]);
+      if ([(i + 1).toString(), "0"].includes(locus_type_changed)) {
+         glob.locus_branched[i] = make_locus_branched(+glob.ui.a, tdegStep, glob.ui.rmax,
+            g_ind.Xns[i],
+            g_ind.mountings[i],
+            g_ind.l_types[i],
+            g_ind.t_types[i],
+            g_ind.Pns[i],
+            g_ind.circs[i],
+            g_ind.invs[i]);
          glob.ell_detects[i] = locus_conic(glob.locus_branched[i]);
          if(init != true){
             glob.locus_subpolys[i] = null;

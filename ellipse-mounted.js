@@ -45,12 +45,13 @@ function getV2V3(a, mounting, eps) {
      } */
 }
 
-function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, pn) {
+function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, pn, inv_fn) {
     let t = toRad(tDeg);
     let v1 = [a * Math.cos(t), Math.sin(t)];
     let tri = [v1, v2, v3];
     let sides = tri_sides(tri);
     let ons_derived = get_derived_tri(tri, sides, tri_type, pn);
     let xn = get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
+    xn_inv = inv_fn(ons_derived.o,ons_derived.s, xn);
     return [v1, xn];
 }

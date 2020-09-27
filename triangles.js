@@ -7,6 +7,12 @@ function tri_area([a, b, c]) {
   return sqrt(s*(s-a)*(s-b)*(s-c));
 }
 
+function cot_omega(tri,sides) {
+  const area = tri_area(sides);
+  const l2 = sum_sqr(sides);
+  return l2/(4*area);
+}
+
 function get_conway([a,b,c]) {
   let a2=a*a,b2=b*b,c2=c*c;
   let area=tri_area([a,b,c]);

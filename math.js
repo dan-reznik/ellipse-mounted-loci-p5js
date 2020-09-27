@@ -106,6 +106,12 @@ magn2 = (p) => p[0] * p[0] + p[1] * p[1];
 magn = (p) => sqrt(magn2(p));
 vinterp = (p1,p2,t) => vsum(p1,vscale(vdiff(p2,p1),t))
 
+function circle_inversion(p, {ctr, R}) {
+   const dp = vdiff(p, ctr);
+   const dp2 = vscale(dp, 1/magn2(dp));
+   return vsum(ctr, vscale(dp2,R*R)); 
+}
+
 function edist2(p1, p2) {
   d = vdiff(p1,p2);
   return magn2(d);
