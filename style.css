@@ -116,13 +116,13 @@ body {
 }
 
 .locus_type>*{
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .tri_type{
   margin-left: 2px;
   margin-right: 2px;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 #demo_a{
@@ -428,4 +428,8 @@ label{
 }
 .circ>*{
   font-size: 10px;
+}
+
+.inv_label{
+  font-size: 14px;
 }
