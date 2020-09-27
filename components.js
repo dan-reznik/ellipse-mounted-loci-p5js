@@ -3,7 +3,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
 <div class="component xn_selector">
     <div class="input_Xn">
         <div style="display: inline-flex; margin-left: 0px;margin-right: 0px;">
-            <label for="checkbox_Xn`+xn_number+`"> L`+xn_number+`</label>
+            <label for="checkbox_Xn`+xn_number+`">ℒ<sub>`+xn_number+`</sub></label>
             <div class='locus_type'>
                 <select id="locus_type_`+xn_number+`" name="checkbox_Xn`+xn_number+`">
                     <option value="none">off</option>
