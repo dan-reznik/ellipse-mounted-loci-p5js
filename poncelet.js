@@ -97,12 +97,14 @@ function get_envelope(a,tDeg,trilFn1,trilFn2,dt=0.0001) {
   return inter_lines(p1,p2,p1_dt,p2_dt);
 }
 
+/*
 function get_Xn_orbit(a, tDeg, bary_fn, tri_type, pn, inv_fn) {
   const ons = orbit_normals(a, tDeg);
   const ons_derived = get_derived_tri(ons.o, ons.s, tri_type, pn);
   const xn = get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
   return inv_fn(ons_derived.o,ons_derived.s, xn);
 }
+*/
 
 function get_Xn_non_billiard(a, tDeg, orbit_fn, bary_fn, tri_type, pn, inv_fn) {
   const ons = orbit_fn(a, tDeg);
@@ -286,43 +288,4 @@ function orbit_brocard(a, tDeg) {
   return { o: tri, s: tri_sides(tri) };
 }
 
-/*
-function orbit_brocard_poncelet(a,tDeg) {
-  const isos = getBrocardInellipseIsosceles(a, 1);
-  //const isosL = isos.map(tri_sides);
-  //const x3s = isos.map((t,i)=>bary_X3(t,isosL[i]));
-  const x3 = get_Xn_cartesians(3,isos[0],tri_sides(isos[0]));
-  const R = edist(isos[0][0],x3);
-  const t = toRad(tDeg);
-  const p0 = [-Math.sin(t),Math.cos(t)];
-  const v1 = vsum(vscale(p0,R),x3); // x3 + R.p0
-  const tangs = ellTangentsb(a, 1, v1); 
-  const is =  tangs.map(t=>circleInterRay(x3, R, v1, vdiff(t, v1)));
-  const feet = is.map(i=>farthestPoint(i, v1));
-  const tri = [v1, feet[0], feet[1]];
-  return { o: tri, s: tri_sides(tri) };
-}*/
 
-function get_Xn_homothetic(a, tDeg, trilin_fn, tri_type, pn) {
-  return get_Xn_non_billiard(a, tDeg, orbit_homothetic, trilin_fn, tri_type, pn);
-}
-
-function get_Xn_incircle(a, tDeg, trilin_fn, tri_type, pn) {
-  return get_Xn_non_billiard(a, tDeg, orbit_incircle, trilin_fn, tri_type, pn);
-}
-
-function get_Xn_inellipse(a, tDeg, trilin_fn, tri_type, pn) {
-  return get_Xn_non_billiard(a, tDeg, orbit_inellipse, trilin_fn, tri_type, pn);
-}
-
-function get_Xn_dual(a, tDeg, trilin_fn, tri_type, pn) {
-  return get_Xn_non_billiard(a, tDeg, orbit_dual, trilin_fn, tri_type, pn);
-}
-
-function get_Xn_poristic(a, tDeg, trilin_fn, tri_type, pn) {
-  return get_Xn_non_billiard(a, tDeg, orbit_poristic, trilin_fn, tri_type, pn);
-}
-
-function get_Xn_brocard(a, tDeg, trilin_fn, tri_type, pn) {
-  return get_Xn_non_billiard(a, tDeg, orbit_brocard, trilin_fn, tri_type, pn);
-}

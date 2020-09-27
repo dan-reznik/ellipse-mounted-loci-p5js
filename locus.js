@@ -12,7 +12,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
         draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv_fn);
     }
-    if (dr_tri && circ in circles_dict) {
+    if (circ in circles_dict) {
         const { ctr, R } = circles_dict[circ](ons_derived.o, ons_derived.s);
         draw_circle_low(ctr, R, clr, stroke_w, true);
     }
@@ -61,7 +61,7 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
         draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv_fn);
 
-    if (dr_tri && circ in circles_dict) {
+    if (circ in circles_dict) {
         const { ctr, R } = circles_dict[circ](ons_derived.o, ons_derived.s);
         draw_circle_low(ctr, R, clr, stroke_w, true);
     }
@@ -90,10 +90,6 @@ function draw_billiard_or_mounted_branched(a, tDeg, rot, stroke_w, draw_caustic,
     else
         draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr,
             locus_type, dr_tri, mounting, tri_type, pn, stroke_w, ell_detect, draw_label, circ, inv);
-
-    if (circ != "off") {
-
-    }
 }
 
 function create_locus_branches(a, tDegStep, tDegMax, r_max, xn_fn) {
@@ -163,13 +159,13 @@ function billiard_tDegMax(a, b) {
 }
 
 const dict_get_Xn = {
-    billiard: get_Xn_orbit,
-    homothetic: get_Xn_homothetic,
-    incircle: get_Xn_incircle,
-    inellipse: get_Xn_inellipse,
-    dual: get_Xn_dual,
-    poristic: get_Xn_poristic,
-    brocard: get_Xn_brocard
+    billiard: orbit_normals,
+    homothetic: orbit_homothetic,
+    incircle: orbit_incircle,
+    inellipse:orbit_inellipse,
+    dual: orbit_dual,
+    poristic: orbit_poristic,
+    brocard: orbit_brocard
 };
 
 const circles_dict = {
@@ -194,9 +190,9 @@ function make_locus_branched(a, tDegStep, r_max,
     let locus_array;
     if (mounting in dict_get_Xn) {
         const tDegMax = ["vtx", "f_vtx"].includes(locus_type) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
-        const tri_fn = dict_get_Xn[mounting];
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
-            (a0, tDeg0) => tri_fn(a0, tDeg0, bary_fn, tri_type, pn, inv_fn));
+            (a0, tDeg0) =>
+            get_Xn_non_billiard(a0, tDeg0, dict_get_Xn[mounting], bary_fn, tri_type, pn, inv_fn));
     } else {// non-poncelet
         const eps = 0.001;
         let [v2, v3] = getV2V3(a, mounting, eps);
