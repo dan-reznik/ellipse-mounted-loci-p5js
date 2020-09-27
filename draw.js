@@ -71,7 +71,7 @@ const label_dict = {
 }
 
 function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
-  locus_type, ell_detect, rot, draw_label) {
+  locus_type, ell_detect, rot, draw_label, inv_fn) {
   const is_filled = locus_type.substr(0, 2) == "f_";
   if (is_filled)
     locus_type = locus_type.substr(2);
@@ -84,6 +84,9 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
     const bs = locus_type in fn_any_dict ? fn_any_dict[locus_type](ons.s) : get_Xn_bary(ons.s, xnum); // "trilins"
     xn = barys_to_cartesian(ons.o, bs);
   }
+  // invert
+  xn = inv_fn(ons.o,ons.s, xn);
+
   //console.log(rgba_str);
   push();
   strokeWeight(stroke_w);
@@ -101,7 +104,7 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
     translate(xn[0], xn[1]);
     rotate(-dict_rot[rot]);
     if (locus_type in label_dict) 
-      draw_text2(label_dict[locus_type] + ell_detect_suffix, [0, 0], rgb, stroke_w);
+      draw_text2(label_dict[locus_type] + (locus_type=="trilins"?xnum:"") + ell_detect_suffix, [0, 0], rgb, stroke_w);
   }
   pop();
 }

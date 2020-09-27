@@ -198,7 +198,8 @@ function draw() {
    for (let i = 0; i < g_ind.Xns.length; i++) {
       draw_billiard_or_mounted_branched(a, glob.tDeg, glob.ui.rot, stroke_w, glob.ui.ell,
          g_ind.clrs[i], g_ind.Xns[i], glob.locus_branched[i], g_ind.l_types[i], g_ind.dr_tris[i], g_ind.mountings[i],
-         g_ind.t_types[i], g_ind.Pns[i], glob.ell_detects[i], glob.locus_subpolys[i]==null);
+         g_ind.t_types[i], g_ind.Pns[i], glob.ell_detects[i], glob.locus_subpolys[i]==null,
+         g_ind.circs[i],g_ind.invs[i]);
 
          // experimenting with coloring &&&
          //create_locus_subpolys(0)
