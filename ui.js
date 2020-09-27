@@ -1420,14 +1420,17 @@ function setup_clr_fill_border() {
 }
 
 function setup_circ(){
-   ['circ1','circ2','circ3','circ4'].map(x => document.getElementById(x).addEventListener('input', function(){
-         glob.ui[x] = this.value;
+   ['1','2','3','4'].map(x => document.getElementById(x).addEventListener('input', function(){
+         glob.ui['circ'+x] = this.value;
+         ui_changed('x', true);
       }))
 }
 
 function setup_inv(){
-   ['inv1','inv2','inv3','inv4'].map(x => document.getElementById(x).addEventListener("click", function () {
-      glob.ui[x] = this.checked;
+   ['1','2','3','4'].map(x => document.getElementById(x).addEventListener("click", function () {
+      glob.ui['inv'+x] = this.checked;
+      if(this.checked == true)
+         ui_changed('x', true);
    }))
 }
 
