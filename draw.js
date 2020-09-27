@@ -81,18 +81,7 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
   if (locus_type == "vtx")
     xn = ons.o[0];
   else {
-    let bs;
-    switch (locus_type) {
-      case "brocard_1": bs = bary_brocard1(ons.s); break;
-      case "brocard_2": bs = bary_brocard2(ons.s); break;
-      case "beltrami_1": bs = bary_beltrami1(ons.s); break;
-      case "beltrami_2": bs = bary_beltrami2(ons.s); break;
-      case "moses_1": bs = bary_moses1(ons.s); break;
-      case "moses_2": bs = bary_moses2(ons.s); break;
-      case "bickart_1": bs = bary_bickart1(ons.s); break;
-      case "bickart_2": bs = bary_bickart2(ons.s); break;
-      default: bs = get_Xn_bary(ons.s, xnum); // "trilins"
-    }
+    const bs = locus_type in fn_any_dict ? fn_any_dict[locus_type](ons.s) : get_Xn_bary(ons.s, xnum); // "trilins"
     xn = barys_to_cartesian(ons.o, bs);
   }
   //console.log(rgba_str);
