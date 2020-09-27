@@ -96,7 +96,7 @@ body {
 
 .input_Xn #conic_type{
   text-align: center;
-  width: 17px;
+  width: 22px;
   border-style: solid;
   border-width: 2px;
   margin-right: 1px;
@@ -415,8 +415,9 @@ label{
     font-size: 10px;
     width: 35px;
     flex-grow: 1;
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0px
 };
 
 .circ{
