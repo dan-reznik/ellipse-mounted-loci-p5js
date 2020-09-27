@@ -1429,7 +1429,7 @@ function setup_circ(){
 function setup_inv(){
    ['1','2','3','4'].map(x => document.getElementById('inv'+x).addEventListener("click", function () {
       glob.ui['inv'+x] = this.checked;
-      if(this.checked == true)
+      if(glob.ui['circ'+x] != 'off')
          ui_changed(x, true);
    }))
 }
