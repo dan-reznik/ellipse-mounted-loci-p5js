@@ -53,5 +53,5 @@ function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, pn, inv_fn) {
     let ons_derived = get_derived_tri(tri, sides, tri_type, pn);
     let xn = get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
     xn_inv = inv_fn(ons_derived.o,ons_derived.s, xn);
-    return [v1, xn];
+    return [v1, xn_inv];
 }
