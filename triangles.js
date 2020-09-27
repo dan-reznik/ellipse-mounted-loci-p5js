@@ -20,7 +20,7 @@ function get_inradius(sides) {
 }
 
 function get_circumradius(sides) {
-  const abc = prod(sides);
+  const abc = product(sides);
   const r = get_inradius(sides);
   const s = get_semiperimeter(sides);
   return abc/(4*r*s);

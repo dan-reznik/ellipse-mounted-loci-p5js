@@ -40,3 +40,19 @@ function circle_brocard2(tri,sides) {
     const R = edist(x3,broc1);
     return { ctr:x3, R:R };
 }
+
+function circle_moses(tri,sides) {
+    const x39 = get_Xn_cartesians(39,tri,sides);
+    const x115 = get_Xn_cartesians(115,tri,sides);
+    const R = edist(x39,x115);
+    return { ctr:x39, R:R};
+}
+
+function circle_lemoine(tri,sides) {
+    const x182 = get_Xn_cartesians(182,tri,sides);
+    const theR = get_circumradius(sides);
+    const s2w = sin2_omega(sides);
+    const cosw = Math.sqrt(1-s2w);
+    const R = .5*theR/cosw;
+    return { ctr:x182, R:R };
+}
