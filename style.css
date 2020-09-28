@@ -104,6 +104,7 @@ body {
 };
 
 .input_Xn{
+  display: flex;
   margin-left: 0px;
   margin-right: 0px;
   display: inline-flex;
@@ -431,5 +432,5 @@ label{
 }
 
 .inv_label{
-  font-size: 12px;
+  font-size: 14px;
 }

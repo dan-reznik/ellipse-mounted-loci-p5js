@@ -26,7 +26,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                 `</select>
             </div>
         </div>
-        <div style="display: inline-flex;margin-left:1px;margin-right:1px;">
+        <div style="display: inline-flex;margin-left:1px;margin-right:1px;flex-grow:1">
             <label for="mounting_Xn`+xn_number+`"> mnt</label>
             <div class="input_mounting">
                 <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
@@ -159,7 +159,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <input type="text" class = "demo_Pn" id="demo_Pn`+xn_number+`" value="1">
             <button id="plus_Pn`+xn_number+`" class="plus_minus plus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
         </div>
-        <div style='display: inline-flex;margin-left:2px;margin-right:2px;'>
+        <div style='display: inline-flex;margin-left:2px;margin-right:2px;flex-grow:1'>
             <button class='Bbox' id='Bbox_`+xn_number+`'>bbox</button>
         </div>
         <div id='conic_type'>
