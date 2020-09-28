@@ -69,6 +69,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="circum">circum</option>
                     <option value="conway">conway</option>
                     <option value="cosine">cosine</option>
+                    <option value="cosine_exc">cos. exc</option>
                     <option value="euler">euler</option>
                     <option value="fuhrmann">furhmann</option>
                     <option value="gallatly">gallatly</option>
@@ -78,6 +79,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="moses">moses</option>
                     <option value="parry">parry</option>
                     <option value="reflection">reflection</option>
+                    <option value="schoutte">schoutte</option>
                     <option value="spieker">spieker</option>
                     <option value="taylor">taylor</option>
                 </select>

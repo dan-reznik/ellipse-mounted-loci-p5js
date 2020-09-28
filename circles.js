@@ -26,6 +26,11 @@ function circle_cosine(tri,sides) {
     return { ctr:x6, R:R };
 }
 
+function circle_cosine_exc(tri,sides) {
+    const exc_ts = excentral_triangle(tri,sides);
+    const exc = generic_triangle(tri,sides,exc_ts);
+    return circle_cosine(exc,tri_sides(exc));
+}
 
 function circle_brocard(tri,sides) {
     const x182 = get_Xn_cartesians(182, tri, sides);
@@ -140,6 +145,12 @@ function circle_reflection(tri,sides) {
     const refl_x3 = get_Xn_cartesians(3,refl,tri_sides(refl));
     const R=edist(refl_x3,refl[0]);
     return { ctr:x195, R:R };
+}
+
+function circle_schoutte(tri,sides) {
+    const [x15,x187] = [15,187].map(xn=>get_Xn_cartesians(xn,tri,sides));
+    const R = edist(x187,x15);
+    return { ctr:x187, R:R};  
 }
 
 

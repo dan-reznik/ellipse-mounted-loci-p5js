@@ -177,6 +177,7 @@ const circles_dict = {
     circum     : circle_circum, // (tri,sides)
     conway     : circle_conway,
     cosine     : circle_cosine,
+    cosine_exc : circle_cosine_exc,
     euler      : circle_euler,
     fuhrmann   : circle_fuhrmann,
     gallatly   : circle_gallatly,
@@ -187,6 +188,7 @@ const circles_dict = {
     spieker    : circle_spieker,
     parry      : circle_parry,
     reflection : circle_reflection,
+    schoutte   : circle_schoutte,
     taylor     : circle_taylor
 };
 
