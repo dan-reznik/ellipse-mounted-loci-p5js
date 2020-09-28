@@ -103,4 +103,43 @@ function circle_fuhrmann(tri,sides) {
     return { ctr:x355, R:R };
 }
 
+function circle_gallatly(tri,sides) {
+    const x39 = get_Xn_cartesians(39,tri,sides);
+    const R=get_circumradius(sides)*Math.sqrt(sin2_omega(sides));
+    return { ctr:x39, R:R };
+}
+
+
+function circle_bevan(tri,sides) {
+    const x40 = get_Xn_cartesians(40,tri,sides);
+    const R=2*get_circumradius(sides);
+    return { ctr:x40, R:R };
+}
+
+function circle_mandart(tri,sides) {
+    const ext_ts = extouch_triangle(sides);
+    const ext = generic_triangle(tri,sides,ext_ts);
+    const ext_x3 = get_Xn_cartesians(3,ext,tri_sides(ext));
+    const R=edist(ext_x3,ext[0]);
+    return { ctr:ext_x3, R:R };
+}
+
+function circle_taylor(tri,sides) {
+    x389 = get_Xn_cartesians(389,tri,sides);
+    cs = tri_cosines(sides);
+    cs2 = cs.map(c=>c*c);
+    ss2 = cs2.map(c2=>1-c2);
+    R=get_circumradius(sides)*Math.sqrt(product(cs2)+product(ss2));
+    return { ctr:x389, R:R };
+}
+
+function circle_reflection(tri,sides) {
+    x195 = get_Xn_cartesians(195,tri,sides);
+    const refl_ts = reflection_triangle(sides);
+    const refl = generic_triangle(tri,sides,refl_ts);
+    const refl_x3 = get_Xn_cartesians(3,refl,tri_sides(refl));
+    const R=edist(refl_x3,refl[0]);
+    return { ctr:x195, R:R };
+}
+
 

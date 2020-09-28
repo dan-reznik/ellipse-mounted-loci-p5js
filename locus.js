@@ -171,6 +171,7 @@ const dict_get_Xn = {
 const circles_dict = {
     adams      : circle_adams,
     apollonius : circle_apollonius,
+    bevan      : circle_bevan,
     brocard    : circle_brocard,
     brocard2   : circle_brocard2,
     circum     : circle_circum, // (tri,sides)
@@ -178,11 +179,15 @@ const circles_dict = {
     cosine     : circle_cosine,
     euler      : circle_euler,
     fuhrmann   : circle_fuhrmann,
+    gallatly   : circle_gallatly,
     incircle   : circle_incircle,
     lemoine    : circle_lemoine,
+    mandart    : circle_mandart,
     moses      : circle_moses,
     spieker    : circle_spieker,
-    parry      : circle_parry
+    parry      : circle_parry,
+    reflection : circle_reflection,
+    taylor     : circle_taylor
 };
 
 const inv_fn_identity = (tri, sides, p) => p;

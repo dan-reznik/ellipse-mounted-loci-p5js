@@ -26,10 +26,10 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                 `</select>
             </div>
         </div>
-        <div style="display: inline-flex;margin-left:1px;margin-right:1px;">
+        <div style="display: inline-flex;margin-left:1px;margin-right:1px;flex-grow:1">
             <label for="mounting_Xn`+xn_number+`"> mnt</label>
             <div class="input_mounting">
-                <select class='mounting_select' id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
+                <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
                     <option value="billiard">*billiard*</option>
                     <option value="homothetic">*homoth*</option>
                     <option value="incircle">*incircle*</option>
@@ -63,18 +63,23 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="off">circs off</option>
                     <option value="adams">adams</option>`+
                     //<option value="apollonius">apoll.</option>
-                    `<option value="brocard">brocard</option>
+                    `<option value="bevan">bevan</option>
+                    <option value="brocard">brocard</option>
                     <option value="brocard2">brocard2</option>
                     <option value="circum">circum</option>
                     <option value="conway">conway</option>
                     <option value="cosine">cosine</option>
                     <option value="euler">euler</option>
                     <option value="fuhrmann">furhmann</option>
+                    <option value="gallatly">gallatly</option>
                     <option value="incircle">incircle</option>
                     <option value="lemoine">lemoine</option>
+                    <option value="mandart">mandart</option>
                     <option value="moses">moses</option>
                     <option value="parry">parry</option>
+                    <option value="reflection">reflection</option>
                     <option value="spieker">spieker</option>
+                    <option value="taylor">taylor</option>
                 </select>
             </div>
         </div>
