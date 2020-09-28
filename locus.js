@@ -13,8 +13,9 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
             locus_type, ell_detect, rot, draw_label, inv_fn);
     }
     if (dr_tri && circ in circles_dict) {
-        const { ctr, R } = circles_dict[circ](ons_derived.o, ons_derived.s);
+        const { ctr, R, n } = circles_dict[circ](ons_derived.o, ons_derived.s);
         draw_circle_low(ctr, R, clr, stroke_w, true);
+        draw_text2(circ+'(X'+n+')', ctr, clr,.66*stroke_w, true);
     }
 }
 
@@ -62,8 +63,9 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
             locus_type, ell_detect, rot, draw_label, inv_fn);
 
     if (dr_tri && circ in circles_dict) {
-        const { ctr, R } = circles_dict[circ](ons_derived.o, ons_derived.s);
+        const { ctr, R, n } = circles_dict[circ](ons_derived.o, ons_derived.s);
         draw_circle_low(ctr, R, clr, stroke_w, true);
+        draw_text2(circ+'(X'+n+')', ctr, clr,.66*stroke_w, true);
     }
 }
 

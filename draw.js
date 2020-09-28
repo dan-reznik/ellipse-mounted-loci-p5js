@@ -166,7 +166,7 @@ function draw_point2([x, y], rgb, stroke_w) {
   pop();
 }
 
-function draw_text2(txt, p, rgb, stroke_w) {
+function draw_text2(txt, p, rgb, stroke_w,below=false) {
   push();
   // hack to scale up
   textSize(6 * stroke_w);
@@ -174,7 +174,7 @@ function draw_text2(txt, p, rgb, stroke_w) {
   fill(rgb);
   textAlign(CENTER, BOTTOM);
   textStyle(NORMAL);
-  text(txt, p[0], p[1] - 0.03);
+  text(txt, p[0], p[1] + (below? 9*stroke_w : - 0.03));
   pop();
 }
 
