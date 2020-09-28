@@ -40,7 +40,7 @@ body {
   width: 100%;
   padding: 1%;
   grid-gap: 1% 0.5%;
-  grid-template-columns: minmax(277px, 277px) 130px minmax(405px, 95%);
+  grid-template-columns: minmax(280px, 280px) 130px minmax(405px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config jukebox title"
@@ -412,7 +412,7 @@ label{
 }
 
 .Bbox{
-    font-size: 10px;
+    font-size: 11px;
     width: 35px;
     flex-grow: 1;
     margin-right: auto;
@@ -431,5 +431,5 @@ label{
 }
 
 .inv_label{
-  font-size: 11px;
+  font-size: 12px;
 }
