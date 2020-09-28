@@ -61,14 +61,20 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <div class="circ">
                 <select id="circ`+xn_number+`">
                     <option value="off">circs off</option>
-                    <option value="brocard">brocard</option>
+                    <option value="adams">adams</option>`+
+                    //<option value="apollonius">apoll.</option>
+                    `<option value="brocard">brocard</option>
                     <option value="brocard2">brocard2</option>
                     <option value="circum">circum</option>
+                    <option value="conway">conway</option>
                     <option value="cosine">cosine</option>
                     <option value="euler">euler</option>
+                    <option value="fuhrmann">furhmann</option>
                     <option value="incircle">incircle</option>
                     <option value="lemoine">lemoine</option>
                     <option value="moses">moses</option>
+                    <option value="parry">parry</option>
+                    <option value="spieker">spieker</option>
                 </select>
             </div>
         </div>

@@ -56,3 +56,51 @@ function circle_lemoine(tri,sides) {
     const R = .5*theR/cosw;
     return { ctr:x182, R:R };
 }
+
+function circle_adams(tri,[a,b,c]) {
+    const x1 = get_Xn_cartesians(1,tri,[a,b,c]);
+    const p = a*b+b*c+c*a;
+    const r = get_inradius([a,b,c]);
+    const s = get_semiperimeter([a,b,c]);
+    const R = r*Math.sqrt(p*p-a*b*c*s-p*s*s)/(p-s*s);
+    return { ctr:x1, R:R };
+}
+
+function circle_spieker(tri,sides) {
+    const x10 = get_Xn_cartesians(10,tri,sides);
+    const R = 0.5*get_inradius(sides);
+    return { ctr:x10, R:R };
+}
+
+function circle_apollonius(tri,sides) {
+    const x940 = get_Xn_cartesians(940,tri,sides);
+    const s = get_semiperimeter(sides);
+    const r = get_inradius(sides);
+    const R = (r*r+s*s)/(4*r);
+    return { ctr:x940, R:R };
+}
+
+function circle_conway(tri,sides) {
+    const x1 = get_Xn_cartesians(1,tri,sides);
+    const s = get_semiperimeter(sides);
+    const r = get_inradius(sides);
+    const R = Math.sqrt(r*r+s*s);
+    return { ctr:x1, R:R };
+}
+
+// https://mathworld.wolfram.com/ParryCircle.html
+function circle_parry(tri,sides) {
+    const x351 = get_Xn_cartesians(351,tri,sides);
+    const cwy = get_conway(sides);
+    const R = (product(sides)/3)*Math.abs(1/(cwy.Sa-cwy.Sb)+1/(cwy.Sb-cwy.Sc)+1/(cwy.Sc-cwy.Sa));
+    return { ctr:x351, R:R };
+}
+
+// https://mathworld.wolfram.com/FuhrmannCircle.html
+function circle_fuhrmann(tri,sides) {
+    const [x1,x3,x355] = [1,3,355].map(xn=>get_Xn_cartesians(xn,tri,sides));
+    const R=edist(x1,x3);
+    return { ctr:x355, R:R };
+}
+
+

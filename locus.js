@@ -169,14 +169,20 @@ const dict_get_Xn = {
 };
 
 const circles_dict = {
-    brocard  : circle_brocard,
-    brocard2 : circle_brocard2,
-    circum   : circle_circum, // (tri,sides)
-    cosine   : circle_cosine,
-    euler    : circle_euler,
-    incircle : circle_incircle,
-    lemoine  : circle_lemoine,
-    moses    : circle_moses
+    adams      : circle_adams,
+    apollonius : circle_apollonius,
+    brocard    : circle_brocard,
+    brocard2   : circle_brocard2,
+    circum     : circle_circum, // (tri,sides)
+    conway     : circle_conway,
+    cosine     : circle_cosine,
+    euler      : circle_euler,
+    fuhrmann   : circle_fuhrmann,
+    incircle   : circle_incircle,
+    lemoine    : circle_lemoine,
+    moses      : circle_moses,
+    spieker    : circle_spieker,
+    parry      : circle_parry
 };
 
 const inv_fn_identity = (tri, sides, p) => p;
