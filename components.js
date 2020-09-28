@@ -80,7 +80,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
         </div>
 
         <div style='margin-left: 0px;margin-right:0px;'>
-            <label for="inv`+xn_number+`">inv</label>
+            <label class = 'inv_label' for="inv`+xn_number+`">inv</label>
             <input class = "sub_checkbox" type="checkbox" id="inv`+xn_number+`" name="inv`+xn_number+`">
         </div>
     </div>
