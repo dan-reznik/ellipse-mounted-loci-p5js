@@ -408,7 +408,7 @@ label{
 }
 
 .input_mounting>*{
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .Bbox{
@@ -427,9 +427,9 @@ label{
   width: 40px;
 }
 .circ>*{
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .inv_label{
-  font-size: 12px;
+  font-size: 11px;
 }
