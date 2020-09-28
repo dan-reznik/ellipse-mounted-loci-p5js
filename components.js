@@ -26,10 +26,10 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                 `</select>
             </div>
         </div>
-        <div style="display: inline-flex;margin-left:1px;margin-right:1px;flex-grow:1">
+        <div style="display: inline-flex;margin-left:1px;margin-right:1px;">
             <label for="mounting_Xn`+xn_number+`"> mnt</label>
             <div class="input_mounting">
-                <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
+                <select class='mounting_select' id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
                     <option value="billiard">*billiard*</option>
                     <option value="homothetic">*homoth*</option>
                     <option value="incircle">*incircle*</option>

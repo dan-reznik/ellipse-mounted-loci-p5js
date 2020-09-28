@@ -1,7 +1,7 @@
 html,
 body {
-  margin: 0;
-  padding: 0;
+  padding: 0px;
+  margin: 0px;
   height: 100vh;
   width: 100vw;
   min-height: 500px;
@@ -39,8 +39,8 @@ body {
   height: 100%;
   width: 100%;
   padding: 1%;
-  grid-gap: 1% 0.5%;
-  grid-template-columns: minmax(280px, 280px) 130px minmax(405px, 95%);
+  grid-gap: 0.5% 0.5%;
+  grid-template-columns: minmax(282px, 282px) 130px minmax(405px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config jukebox title"
@@ -104,7 +104,6 @@ body {
 };
 
 .input_Xn{
-  display: flex;
   margin-left: 0px;
   margin-right: 0px;
   display: inline-flex;
@@ -399,7 +398,7 @@ label{
 }
 
 .input_mounting{
-    display: inline-block;
+    display: inline-flex;
     height: 100%;
     margin-right: 4px;
 }
