@@ -1425,6 +1425,8 @@ function setup_circ(){
          if(glob.ui['inv'+x])
             ui_changed(x, true);
          redraw();
+         if(glob.ui['inv'+x])
+            set_conic_type_ui(x);
       }))
 }
 
@@ -1434,6 +1436,7 @@ function setup_inv(){
       if(glob.ui['circ'+x] != 'off'){
          ui_changed(x, true);
          redraw();
+         set_conic_type_ui(x);
       }
    }))
 }
