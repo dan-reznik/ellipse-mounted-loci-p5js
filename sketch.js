@@ -62,6 +62,7 @@ function get_glob_indexed() {
 
 // needs to refactor w/ new array ui design
 function create_locus(locus_type_changed, init) {
+   locus_type_changed = locus_type_changed.toString();
    let tdegStep = 1; //valor inicial de degStep0
    let g_ind = get_glob_indexed();
 

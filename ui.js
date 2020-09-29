@@ -231,21 +231,25 @@ function a_oninput(sliderID, input_text_ID) {
    })
 }
 
-function selector_output(input_ID, output_ID = "", ell_detect = "0") {
+function mounting_ui_element(input_ID, ell_detect = "0") {
    var selector = document.getElementById(input_ID);
    selector.value = glob.ui[input_ID];
    selector.addEventListener('change', function () {
       glob.ui[input_ID] = selector.value
-      if (input_ID != 'animStep0') {
-         tandem_bar_variables('mnt', eval('glob.ui.' + input_ID));
-         glob.ui.tandem_mnt ? ui_changed_type(true) : ui_changed(ell_detect, true);
-         redraw();
-         glob.ui.tandem_mnt ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
-      }
-      else {
-         ui_changed_type(false);
-         redraw();
-      }
+      tandem_bar_variables('mnt', eval('glob.ui.' + input_ID));
+      glob.ui.tandem_mnt ? ui_changed_type(true) : ui_changed(ell_detect, true);
+      redraw();
+      glob.ui.tandem_mnt ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
+   })
+}
+
+function animStep0_ui_element(animStep0_ID) {
+   var animStep0 = document.getElementById(animStep0_ID);
+   animStep0.value = glob.ui[animStep0_ID];
+   animStep0.addEventListener('change', function () {
+      glob.ui[animStep0_ID] = animStep0.value
+      ui_changed_type(false);
+      redraw();
    })
 }
 
@@ -391,13 +395,13 @@ function setup_ui_variables_behavior() {
    slider_text_changed("Xn4", "demo_Pn4", "minus_Pn4", "plus_Pn4", "4", 'Pn4');
 
    //animStep0
-   selector_output("animStep0", output_ID = "")
+   animStep0_ui_element("animStep0")
 
    //mounting
-   selector_output("mounting_Xn1", output_ID = "", "1")
-   selector_output("mounting_Xn2", output_ID = "", "2")
-   selector_output("mounting_Xn3", output_ID = "", "3")
-   selector_output("mounting_Xn4", output_ID = "", "4")
+   mounting_ui_element("mounting_Xn1", "1")
+   mounting_ui_element("mounting_Xn2", "2")
+   mounting_ui_element("mounting_Xn3", "3")
+   mounting_ui_element("mounting_Xn4", "4")
 }
 
 function setup_reset_UI_onclick() {
@@ -556,26 +560,13 @@ function setup_play_controls() {
 }
 
 function setup_tri_onchange() {
-   document.getElementById('draw_tri_1').addEventListener("click", function () {
-      glob.ui.draw_tri_1 = this.checked;
-      ui_changed_type(false);
-      redraw();
-   })
-   document.getElementById('draw_tri_2').addEventListener("click", function () {
-      glob.ui.draw_tri_2 = this.checked;
-      ui_changed_type(false);
-      redraw();
-   })
-   document.getElementById('draw_tri_3').addEventListener("click", function () {
-      glob.ui.draw_tri_3 = this.checked;
-      ui_changed_type(false);
-      redraw();
-   })
-   document.getElementById('draw_tri_4').addEventListener("click", function () {
-      glob.ui.draw_tri_4 = this.checked;
-      ui_changed_type(false);
-      redraw();
-   })
+   for (let draw_tri_number = 1; draw_tri_number < 5; draw_tri_number++){
+      document.getElementById('draw_tri_'+draw_tri_number).addEventListener("click", function () {
+         glob.ui['draw_tri_'+draw_tri_number] = this.checked;
+         ui_changed_type(false);
+         redraw();
+     });
+   }
 }
 
 function setup_ell_onchange() {
@@ -610,47 +601,18 @@ function change_clr_locus_txt(loc, demo){
 }
 
 function setup_locus_type_onchange() {
-   var loc_1 = document.getElementById("locus_type_1")
-   var loc_2 = document.getElementById("locus_type_2")
-   var loc_3 = document.getElementById("locus_type_3")
-   var loc_4 = document.getElementById("locus_type_4")
-   var demo_Xn1 = document.getElementById("demo_Xn1")
-   var demo_Xn2 = document.getElementById("demo_Xn2")
-   var demo_Xn3 = document.getElementById("demo_Xn3")
-   var demo_Xn4 = document.getElementById("demo_Xn4")
-
-   loc_1.addEventListener("change", function () {
-      glob.ui.locus_type_1 = this.value;
-      tandem_bar_variables('loc', glob.ui.locus_type_1);
-      glob.ui.tandem_loc ? ui_changed_type(true) : ui_changed("1", true);
-      redraw();
-      glob.ui.tandem_loc ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui("1");
-      change_clr_locus_txt(loc_1, demo_Xn1)
-   });
-   loc_2.addEventListener("change", function () {
-      glob.ui.locus_type_2 = this.value;
-      tandem_bar_variables('loc', glob.ui.locus_type_2);
-      glob.ui.tandem_loc ? ui_changed_type(true) : ui_changed("2", true);
-      redraw();
-      glob.ui.tandem_loc ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui("2");
-      change_clr_locus_txt(loc_2, demo_Xn2)
-   });
-   loc_3.addEventListener("change", function () {
-      glob.ui.locus_type_3 = this.value;
-      tandem_bar_variables('loc', glob.ui.locus_type_3);
-      glob.ui.tandem_loc ? ui_changed_type(true) : ui_changed("3", true);
-      redraw();
-      glob.ui.tandem_loc ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui("3");
-      change_clr_locus_txt(loc_3, demo_Xn3)
-   });
-   loc_4.addEventListener("change", function () {
-      glob.ui.locus_type_4 = this.value;
-      tandem_bar_variables('loc', glob.ui.locus_type_4);
-      glob.ui.tandem_loc ? ui_changed_type(true) : ui_changed("4", true);
-      redraw();
-      glob.ui.tandem_loc ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui("4");
-      change_clr_locus_txt(loc_4, demo_Xn4)
-   });
+   for (let loc_number = 1; loc_number < 5; loc_number++){
+      var loc_Xn = document.getElementById("locus_type_"+loc_number);
+      var demo_Xn = document.getElementById("demo_Xn"+loc_number);
+      loc_Xn.addEventListener("change", function () {
+         glob.ui['locus_type_'+loc_number] = this.value;
+         tandem_bar_variables('loc', glob.ui['locus_type_'+loc_number]);
+         glob.ui.tandem_loc ? ui_changed_type(true) : ui_changed(loc_number, true);
+         redraw();
+         glob.ui.tandem_loc ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(loc_number);
+         change_clr_locus_txt(loc_Xn, demo_Xn);
+      });
+   };
 }
 
 function change_clr_tri_txt(tri_type_element_value, demo_element){
@@ -663,48 +625,20 @@ function change_clr_tri_txt(tri_type_element_value, demo_element){
 }
 
 function setup_tri_type_onchange() {
-   document.getElementById("tri_type_1").addEventListener("change", function () {
-      var demo = document.getElementById('demo_Pn1');
-      
-      change_clr_tri_txt(this.value, demo)
-      
-      glob.ui.tri_type_1 = this.value;
-      tandem_bar_variables('tri', glob.ui.tri_type_1);
-      glob.ui.tandem_tri ? ui_changed_type(true) : ui_changed("1", true);
-      redraw();
-      glob.ui.tandem_tri ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui("1");
-   });
-   document.getElementById("tri_type_2").addEventListener("change", function () {
-      var demo = document.getElementById('demo_Pn2');
-      change_clr_tri_txt(this.value, demo)
-
-      glob.ui.tri_type_2 = this.value;
-      tandem_bar_variables('tri', glob.ui.tri_type_2);
-      glob.ui.tandem_tri ? ui_changed_type(true) : ui_changed("2", true);
-      redraw();
-      glob.ui.tandem_tri ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui("2");
-   });
-   document.getElementById("tri_type_3").addEventListener("change", function () {
-      var demo = document.getElementById('demo_Pn3');
-      change_clr_tri_txt(this.value, demo)
-
-      glob.ui.tri_type_3 = this.value;
-      tandem_bar_variables('tri', glob.ui.tri_type_3);
-      glob.ui.tandem_tri ? ui_changed_type(true) : ui_changed("3", true);
-      redraw();
-      glob.ui.tandem_tri ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui("3");
-   });
-   document.getElementById("tri_type_4").addEventListener("change", function () {
-      var demo = document.getElementById('demo_Pn4');
-      change_clr_tri_txt(this.value, demo)
-
-      glob.ui.tri_type_4 = this.value;
-      tandem_bar_variables('tri', glob.ui.tri_type_4);
-      glob.ui.tandem_tri ? ui_changed_type(true) : ui_changed("4", true);
-      redraw();
-      glob.ui.tandem_tri ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui("4");
-   });
-}
+   for (let tri_type_number = 1; tri_type_number < 5; tri_type_number++){
+      document.getElementById("tri_type_1").addEventListener("change", function () {
+         var demo = document.getElementById('demo_Pn'+tri_type_number);
+         
+         change_clr_tri_txt(this.value, demo)
+         
+         glob.ui['tri_type_'+tri_type_number] = this.value;
+         tandem_bar_variables('tri', glob.ui['tri_type_'+tri_type_number]);
+         glob.ui.tandem_tri ? ui_changed_type(true) : ui_changed(tri_type_number, true);
+         redraw();
+         glob.ui.tandem_tri ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(tri_type_number);
+      })
+   }      
+};
 
 function get_diff_default_canvas(key) {
    let canvas_to_url_params = {
@@ -1097,6 +1031,7 @@ function setup_export_JSON_onclick() {
 }
 
 function set_conic_type_ui(locus_type) {
+   locus_type = locus_type.toString();
    var conic_type = document.getElementById('conic_type_' + locus_type)
    switch (locus_type) {
       case '1':
