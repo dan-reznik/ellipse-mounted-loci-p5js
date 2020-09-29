@@ -178,6 +178,14 @@ function draw_text2(txt, p, rgb, stroke_w,below=false) {
   pop();
 }
 
+function draw_text2_rot(txt, p, rgb, stroke_w, rot, below = false) {
+  push();
+  translate(p[0],p[1]);
+  rotate(rot);
+  draw_text2(txt, [0,0], rgb, stroke_w, below);
+  pop();
+}
+
 function draw_text_full(txt, p, rgb) {
   push();
   //textSize(0.1);
