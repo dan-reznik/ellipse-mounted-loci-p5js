@@ -98,7 +98,7 @@ function clicked_on_palette_button(n, right_arrow=true) {
       glob.clrs_shuffled_seeds[n].push(seed);
    else
       glob.clrs_shuffled_seeds[n].pop(seed);
-   console.log(glob.clrs_shuffled_seeds[n])
+   //console.log(glob.clrs_shuffled_seeds[n])
 
    create_shuffled_clrs(n);
 
