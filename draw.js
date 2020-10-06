@@ -133,7 +133,7 @@ function draw_line2([frx, fry], [tox, toy], rgb, stroke_w) {
 function draw_axes(a, stroke_w) {
   push();
   strokeWeight(stroke_w);
-  stroke(clr_invert_ui(clr_light_gray));
+  stroke(glob.ui.clr_fill_border);
   line(-a, 0, a, 0);
   line(0, -1, 0, 1);
   pop();
@@ -229,7 +229,7 @@ function draw_circle_low([cx, cy], r, rgb, stroke_w = 0.0125, dr_ctr = true) {
 }
 
 function draw_ellipse(a, stroke_w, dr_foci) {
-  draw_boundary(a, 1, clr_invert_ui(clr_black), stroke_w);
+  draw_boundary(a, 1, glob.ui.clr_fill_border, stroke_w);
   draw_axes(a, stroke_w);
   if (dr_foci) draw_foci(a, clr_invert_ui(clr_black), stroke_w);
   //draw_center();
