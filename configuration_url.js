@@ -11,8 +11,7 @@ const fromUiToUrl = {
     animStep0: 'aS', rot: 'rot', rmax: 'rmx', bg: 'bg',
     clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', jukebox_playlist: 'juke',
     clr_fill_border: 'cfb', fill_alpha: 'fa', inv1:'inv1',inv2:'inv2',inv3:'inv3',inv4:'inv4',
-    circ1:'crc1',circ2:'crc2',circ3:'crc3',circ4:'crc4',
-    clrs_shuffled_seeds:'seeds'
+    circ1:'crc1',circ2:'crc2',circ3:'crc3',circ4:'crc4'
 }
 
 const fromUrlToUi = {
@@ -28,8 +27,7 @@ const fromUrlToUi = {
    aS: 'animStep0', rot: 'rot', rmx: 'rmax', bg: 'bg',
    clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', juke: 'jukebox_playlist',
    cfb: 'clr_fill_border', fa: 'fill_alpha', inv1: 'inv1',inv2: 'inv2',inv3: 'inv3',inv4: 'inv4',
-   crc1: 'circ1',crc2: 'circ2',crc3: 'circ3',crc4: 'circ4',
-   seeds: 'clrs_shuffled_seeds'
+   crc1: 'circ1',crc2: 'circ2',crc3: 'circ3',crc4: 'circ4'
 }
 
 const scale_fn = {
@@ -213,24 +211,19 @@ const clrs_shuffled_seeds_fn = {
    encode(clrs_shuffled_seeds_init_val){
       const clrs_shuffled_seeds = glob.clrs_shuffled_seeds;
       var configToUrl = '';
-      var string_of_seeds = [];
       for (var i = 0; i < clrs_shuffled_seeds.length; i++) {
          if (clrs_shuffled_seeds[i] != clrs_shuffled_seeds_init_val[i]) {
-            string_of_seeds.push((+clrs_shuffled_seeds[i].last()).toString(16));
-         } else{
-            string_of_seeds.push('');
+            configToUrl += 'seed' + (i + 1) + '=' + (+clrs_shuffled_seeds[i].last()).toString(16) + '&';
          }
       }
-      var string_of_seed_joined = string_of_seeds.join('_');
-      if(string_of_seed_joined.length > 3)
-         configToUrl = `${fromUiToUrl.clrs_shuffled_seeds}=${string_of_seed_joined}&`;
       return configToUrl;
    },
-   decode(url_clrs_shuffled_seeds_value){
-      const seeds_array = url_clrs_shuffled_seeds_value.split('_');
-      for(i=0; i<seeds_array.length; i++){
-         if(seeds_array[i].length > 0)
-            glob.clrs_shuffled_seeds[i] = [parseInt(seeds_array[i], 16)];
+   decode(url_params){
+      for (variable in url_params){
+         if(variable.slice(0,-1) == 'seed'){
+            const decode_seed = parseInt(url_params.variable, 16);
+            glob.clrs_shuffled_seeds[+(variable.slice(-1)) - 1].push(decode_seed);
+         }
       }
    }
 }
@@ -269,13 +262,14 @@ const config_Url = {
    rmax: {encode: rmax_fn.encode, decode: rmax_fn.decode, init_val: glob.ui0.rmax},
    jukebox_playlist: {encode: jukebox_playlist_fn.encode, decode: jukebox_playlist_fn.decode, init_val: glob.ui0.jukebox_playlist},
    fill_alpha: {encode: fill_alpha_fn.encode, decode: fill_alpha_fn.decode, init_val: glob.ui0.fill_alpha},
-   circ1: {encode: circ1_fn.encode, decode: circ1_fn.decode, init_val: glob.ui0.circ1}, circ2: {encode: circ2_fn.encode, decode: circ2_fn.decode, init_val: glob.ui0.circ2}, circ3: {encode: circ3_fn.encode, decode: circ3_fn.decode, init_val: glob.ui0.circ3}, circ4: {encode: circ4_fn.encode, decode: circ4_fn.decode, init_val: glob.ui0.circ4},
-
-   clrs_shuffled_seeds: {encode: clrs_shuffled_seeds_fn.encode, decode: clrs_shuffled_seeds_fn.decode, init_val: ['', '', '', '']}
+   circ1: {encode: circ1_fn.encode, decode: circ1_fn.decode, init_val: glob.ui0.circ1}, circ2: {encode: circ2_fn.encode, decode: circ2_fn.decode, init_val: glob.ui0.circ2}, circ3: {encode: circ3_fn.encode, decode: circ3_fn.decode, init_val: glob.ui0.circ3}, circ4: {encode: circ4_fn.encode, decode: circ4_fn.decode, init_val: glob.ui0.circ4}
 }
 
 function get_link_params() {
     var link_params = location.host + location.pathname + '?';
+    //Need to be here for back-compatibility
+    link_params += clrs_shuffled_seeds_fn.encode(['','','','']);
+    //
     Object.keys(config_Url).map(function(uiVariable){
       const init_val = config_Url[uiVariable].init_val;
       link_params += config_Url[uiVariable].encode(init_val);
@@ -287,6 +281,11 @@ function get_link_params() {
 
 function set_url_params(url_params) {
    
+   //Need to be here for back-compatibility
+   clrs_shuffled_seeds_fn.decode(url_params);
+   ['seed1', 'seed2', 'seed3', 'seed4'].map(function(seed){delete url_params[seed]});
+   //
+
    Object.keys(url_params).map(function(urlVariable){
       const uiVariable = fromUrlToUi[urlVariable];
       config_Url[uiVariable].decode(url_params[urlVariable]);
