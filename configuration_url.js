@@ -207,7 +207,7 @@ const fill_alpha_fn = {encode(fill_alpha_init_val){return getConfigFromVariables
 const circ1_fn = {encode(circ1_init_val){return getConfigFromVariablesDefault('circ1', circ1_init_val)}, decode(url_circ1_value){glob.ui.circ1 = url_circ1_value}};
 const circ2_fn = {encode(circ2_init_val){return getConfigFromVariablesDefault('circ2', circ2_init_val)}, decode(url_circ2_value){glob.ui.circ2 = url_circ2_value}};
 const circ3_fn = {encode(circ3_init_val){return getConfigFromVariablesDefault('circ3', circ3_init_val)}, decode(url_circ3_value){glob.ui.circ3 = url_circ3_value}};
-const circ4_fn = {encode(circ4_init_val){return getConfigFromVariablesDefault('circ3', circ4_init_val)}, decode(url_circ4_value){glob.ui.circ4 = url_circ4_value}};
+const circ4_fn = {encode(circ4_init_val){return getConfigFromVariablesDefault('circ4', circ4_init_val)}, decode(url_circ4_value){glob.ui.circ4 = url_circ4_value}};
 
 const clrs_shuffled_seeds_fn = {
    encode(clrs_shuffled_seeds_init_val){
