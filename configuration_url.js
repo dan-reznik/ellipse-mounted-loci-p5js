@@ -14,21 +14,15 @@ const fromUiToUrl = {
     circ1:'crc1',circ2:'crc2',circ3:'crc3',circ4:'crc4'
 }
 
-const fromUrlToUi = {
-   sc: 'scale',
-   cx: 'ctr0',
-   cy: 'ctr1',
-   a: 'a', asp: 'a_speed', amn: 'a_min', amx: 'a_max', ell: 'ell',
-   lc1: 'locus_type_1', lc2: 'locus_type_2', lc3: 'locus_type_3', lc4: 'locus_type_4',
-   Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4', Pn1: 'Pn1', Pn2: 'Pn2', Pn3: 'Pn3', Pn4: 'Pn4',
-   tr1: 'tri_type_1', tr2: 'tri_type_2', tr3: 'tri_type_3', tr4: 'tri_type_4',
-   dr1: 'draw_tri_1', dr2: 'draw_tri_2', dr3: 'draw_tri_3', dr4: 'draw_tri_4',
-   mt1: 'mounting_Xn1', mt2: 'mounting_Xn2', mt3: 'mounting_Xn3', mt4: 'mounting_Xn4',
-   aS: 'animStep0', rot: 'rot', rmx: 'rmax', bg: 'bg',
-   clr1: 'clr1', clr2: 'clr2', clr3: 'clr3', clr4: 'clr4', juke: 'jukebox_playlist',
-   cfb: 'clr_fill_border', fa: 'fill_alpha', inv1: 'inv1',inv2: 'inv2',inv3: 'inv3',inv4: 'inv4',
-   crc1: 'circ1',crc2: 'circ2',crc3: 'circ3',crc4: 'circ4'
-}
+function swap(json){
+   var ret = {};
+   for(var key in json){
+     ret[json[key]] = key;
+   }
+   return ret;
+ }
+
+const fromUrlToUi = swap(fromUiToUrl);
 
 const scale_fn = {
    encode(scale_init_val){
@@ -221,7 +215,7 @@ const clrs_shuffled_seeds_fn = {
    decode(url_params){
       for (variable in url_params){
          if(variable.slice(0,-1) == 'seed'){
-            const decode_seed = parseInt(url_params.variable, 16);
+            const decode_seed = parseInt(url_params[variable], 16);
             glob.clrs_shuffled_seeds[+(variable.slice(-1)) - 1].push(decode_seed);
          }
       }
