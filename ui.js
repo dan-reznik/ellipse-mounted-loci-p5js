@@ -626,7 +626,7 @@ function change_clr_tri_txt(tri_type_element_value, demo_element){
 
 function setup_tri_type_onchange() {
    for (let tri_type_number = 1; tri_type_number < 5; tri_type_number++){
-      document.getElementById("tri_type_1").addEventListener("change", function () {
+      document.getElementById(`tri_type_${tri_type_number}`).addEventListener("change", function () {
          var demo = document.getElementById('demo_Pn'+tri_type_number);
          
          change_clr_tri_txt(this.value, demo)
