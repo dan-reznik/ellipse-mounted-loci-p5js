@@ -46,7 +46,7 @@ const ctr0_fn = {
       return configToUrl;
    },
    decode(url_ctr0_value){
-      glob.ctr[0] = url_ctr0_value;
+      glob.ctr[0] = +url_ctr0_value;
    }
 }
    
@@ -60,7 +60,7 @@ const ctr1_fn = {
       return configToUrl;
    },
    decode(url_ctr1_value){
-      glob.ctr[1] = url_ctr1_value;
+      glob.ctr[1] = +url_ctr1_value;
    }
 }
 
