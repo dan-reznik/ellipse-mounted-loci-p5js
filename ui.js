@@ -1156,6 +1156,16 @@ function setup_inv(){
    }))
 }
 
+function setup_invert_colors() {
+   document.getElementById('invert_colors').addEventListener('click', function(){
+      glob.ui.bg = clr_invert_ui(glob.ui.bg);
+      glob.ui.clr1 = clr_invert_ui(glob.ui.clr1);
+      glob.ui.clr2 = clr_invert_ui(glob.ui.clr2);
+      glob.ui.clr3 = clr_invert_ui(glob.ui.clr3);
+      glob.ui.clr4 = clr_invert_ui(glob.ui.clr4);
+   });
+}
+
 function setup_ui() {
    setup_ui_variables_behavior();
    setup_copy_image();
@@ -1183,6 +1193,7 @@ function setup_ui() {
    setup_clr_fill_border();
    setup_circ();
    setup_inv();
+   setup_invert_colors();
    setup_global_event_handler();
    ui_changed("1", true, true);
    redraw();

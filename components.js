@@ -173,7 +173,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <button id="plus_Pn`+xn_number+`" class="plus_minus plus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
         </div>
         <div style='display: inline-flex;margin-left:2px;margin-right:2px;flex-grow:1'>
-            <button class='Bbox' id='Bbox_`+xn_number+`'>bbox</button>
+            <button class='small_button' id='Bbox_`+xn_number+`'>bbox</button>
         </div>
         <div id='conic_type'>
                 <p id='conic_type_`+xn_number+`'></p>

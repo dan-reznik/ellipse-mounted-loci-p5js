@@ -411,7 +411,7 @@ label{
   font-size: 11px;
 }
 
-.Bbox{
+.small_button{
     font-size: 11px;
     width: 35px;
     flex-grow: 1;
