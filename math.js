@@ -1,6 +1,6 @@
 // MATH UTILS
 clr_invert_ui = (rgb) => rgb.map(c=>255-c)
-
+get_luminance = ([r,g,b]) => (0.2126*r + 0.7152*g + 0.0722*b)/255.0;
 // add last of array
 if (!Array.prototype.last){
   Array.prototype.last = function(){

@@ -177,6 +177,8 @@ function setup() {
    //frameRate(15);
 }
 
+isBackgroundLuminanceLow = (bg) => get_luminance(bg)<0.5;
+
 function draw() {
    const dict_rot = {"0":0, "90":PI/2, "180":PI, "270":-PI/2, "-90":-PI/2};
    // vamos usar glob.bg;
@@ -189,7 +191,10 @@ function draw() {
    let stroke_w = sqrt(glob.scale/glob.scale0)*.02;
 
    if(glob.ui.ell)
-      draw_ellipse(glob.ui.mounting_Xn1=="poristic"?1:+glob.ui.a,stroke_w,glob.ui.mounting_Xn1!=="poristic");
+      draw_ellipse(glob.ui.mounting_Xn1=="poristic"?1:+glob.ui.a,
+      isBackgroundLuminanceLow(glob.ui.bg) ? clr_white : clr_black,
+      isBackgroundLuminanceLow(glob.ui.bg) ? clr_gray : clr_light_gray,
+      stroke_w,glob.ui.mounting_Xn1!=="poristic");
 
    // need to refactor glob.* so there is one object
 
@@ -200,7 +205,7 @@ function draw() {
       draw_billiard_or_mounted_branched(a, glob.tDeg, glob.ui.rot, stroke_w, glob.ui.ell,
          g_ind.clrs[i], g_ind.Xns[i], glob.locus_branched[i], g_ind.l_types[i], g_ind.dr_tris[i], g_ind.mountings[i],
          g_ind.t_types[i], g_ind.Pns[i], glob.ell_detects[i], glob.locus_subpolys[i]==null,
-         g_ind.circs[i],g_ind.invs[i]);
+         g_ind.circs[i],g_ind.invs[i], clr_brown); //isBackgroundLuminanceLow(glob.ui.bg)?clr_brown:clr_wheat);
 
          // experimenting with coloring &&&
          //create_locus_subpolys(0)
@@ -209,7 +214,7 @@ function draw() {
    a_anim();
 
    pop();
-   const canvasTextColor = isBackgroundLuminanceLow() ? clr_invert_ui(clr_blue) : clr_blue; 
+   const canvasTextColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_blue) : clr_blue; 
    draw_text_full("(c) 2020 Darlan & Reznik", [glob.width - 150, glob.height - 24], canvasTextColor);
    draw_text_full("dan-reznik.github.io/ellipse-mounted-loci-p5js/",
       [glob.width - 260, glob.height - 10], canvasTextColor);

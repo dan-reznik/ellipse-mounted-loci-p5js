@@ -30,14 +30,13 @@ const dict_caustic = {
 };
 
 function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus_branches, clr, locus_type, dr_tri, tri_type, pn,
-    stroke_w, dr_caustic, ell_detect, draw_label, circ, inv) {
+    stroke_w, dr_caustic, ell_detect, draw_label, circ, inv, clr_caustic) {
     const inv_fn = get_inv_fn(circ, inv);
     let ons = orbit_fn(a, tDeg);
     let ons_derived = get_derived_tri(ons.o, ons.s, tri_type, pn);
 
     if (dr_tri) {
         if (mounting in dict_caustic && dr_caustic) {
-            const clr_caustic = clr_invert_ui(clr_brown);
             if (mounting == "poristic") {
                 const d = chapple_d(1, a + 1);
                 push();
@@ -84,11 +83,11 @@ const dict_orbit_fn = {
 
 function draw_billiard_or_mounted_branched(a, tDeg, rot, stroke_w, draw_caustic,
     clr, n, locus_branches, locus_type, dr_tri, mounting, tri_type, pn, ell_detect, draw_label,
-    circ, inv) {
+    circ, inv, clr_caustic) {
     if (mounting in dict_orbit_fn)
         draw_poncelet_locus_branched(n, a, tDeg, rot, dict_orbit_fn[mounting],
             mounting, locus_branches, clr, locus_type, dr_tri, tri_type, pn, stroke_w,
-            draw_caustic, ell_detect, draw_label, circ, inv)
+            draw_caustic, ell_detect, draw_label, circ, inv, clr_caustic)
     else
         draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr,
             locus_type, dr_tri, mounting, tri_type, pn, stroke_w, ell_detect, draw_label, circ, inv);
