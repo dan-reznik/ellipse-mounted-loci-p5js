@@ -279,7 +279,6 @@ function set_url_params(url_params) {
    clrs_shuffled_seeds_fn.decode(url_params);
    ['seed1', 'seed2', 'seed3', 'seed4'].map(function(seed){delete url_params[seed]});
    //
-
    Object.keys(url_params).map(function(urlVariable){
       const uiVariable = fromUrlToUi[urlVariable];
       config_Url[uiVariable].decode(url_params[urlVariable]);

@@ -19,7 +19,7 @@ let glob = {
    clrs_shuffled : [null,null,null,null],
    clrs_shuffled_seeds : [[],[],[],[]],
    ell_detects : ['X','X','X','X'],
-   jukebox_id: 0, jukebox_json: null,
+   jukebox_id: 0, jukebox_json: null, jukebox_image_index: 0,
    ui0 : {
       a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, 
       ell: true,
@@ -215,6 +215,10 @@ function draw() {
 
    pop();
    const canvasTextColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_blue) : clr_blue; 
+   if(glob.ui.jukebox_playlist != 'off'){
+      draw_text_full(glob.jukebox_json[glob.ui.jukebox_playlist].name, [15, 15], canvasTextColor);
+      draw_text_full(`http://bit.ly/${glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['bit.ly'][glob.jukebox_image_index]}`, [15, 30], canvasTextColor);
+   }
    draw_text_full("(c) 2020 Darlan & Reznik", [glob.width - 150, glob.height - 24], canvasTextColor);
    draw_text_full("dan-reznik.github.io/ellipse-mounted-loci-p5js/",
       [glob.width - 260, glob.height - 10], canvasTextColor);
