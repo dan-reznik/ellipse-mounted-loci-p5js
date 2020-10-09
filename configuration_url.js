@@ -26,7 +26,8 @@ const fromUrlToUi = swap(fromUiToUrl);
 
 const scale_fn = {
    encode(scale_init_val){
-      var configToUrl = ''; 
+      console.log(glob.scale, scale_init_val)
+      var configToUrl = '';
       if (glob.scale !== scale_init_val){
           configToUrl = fromUiToUrl['scale'] + '=' + glob.scale.toFixed(3) + '&'; 
       }

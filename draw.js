@@ -133,7 +133,8 @@ function draw_line2([frx, fry], [tox, toy], rgb, stroke_w) {
 function draw_axes(a, stroke_w) {
   push();
   strokeWeight(stroke_w);
-  stroke(glob.ui.clr_fill_border);
+  const axesColor = isBackgroundLuminanceLow() ? clr_white : clr_invert_ui(clr_white); 
+  stroke(axesColor);
   line(-a, 0, a, 0);
   line(0, -1, 0, 1);
   pop();
@@ -228,8 +229,15 @@ function draw_circle_low([cx, cy], r, rgb, stroke_w = 0.0125, dr_ctr = true) {
   pop();
 }
 
+function isBackgroundLuminanceLow(){
+  const luminance = (0.2126*glob.ui.bg[0] + 0.7152*glob.ui.bg[1] + 0.0722*glob.ui.bg[2])/255;
+  console.log(luminance)
+  return (luminance < 0.5);
+}
+
 function draw_ellipse(a, stroke_w, dr_foci) {
-  draw_boundary(a, 1, glob.ui.clr_fill_border, stroke_w);
+  const ellipseColor = isBackgroundLuminanceLow() ? clr_white : clr_invert_ui(clr_white); 
+  draw_boundary(a, 1, ellipseColor, stroke_w);
   draw_axes(a, stroke_w);
   if (dr_foci) draw_foci(a, clr_invert_ui(clr_black), stroke_w);
   //draw_center();

@@ -209,10 +209,10 @@ function draw() {
    a_anim();
 
    pop();
-
-   draw_text_full("(c) 2020 Darlan & Reznik", [glob.width - 150, glob.height - 24], clr_invert_ui(clr_blue));
+   const canvasTextColor = isBackgroundLuminanceLow() ? clr_invert_ui(clr_blue) : clr_blue; 
+   draw_text_full("(c) 2020 Darlan & Reznik", [glob.width - 150, glob.height - 24], canvasTextColor);
    draw_text_full("dan-reznik.github.io/ellipse-mounted-loci-p5js/",
-      [glob.width - 260, glob.height - 10], clr_invert_ui(clr_blue));
+      [glob.width - 260, glob.height - 10], canvasTextColor);
    if (glob.loop) glob.tDeg += (glob.loop_ccw ? (+glob.ui.animStep0) : -(+glob.ui.animStep0));
 }
 
