@@ -33,7 +33,7 @@ const scale_fn = {
       return configToUrl;
    },
    decode(url_scale_value){
-      glob.scale = url_scale_value;
+      glob.scale = +url_scale_value;
    }
 }
 

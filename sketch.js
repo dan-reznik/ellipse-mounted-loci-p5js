@@ -19,7 +19,7 @@ let glob = {
    clrs_shuffled : [null,null,null,null],
    clrs_shuffled_seeds : [[],[],[],[]],
    ell_detects : ['X','X','X','X'],
-   jukebox_id: 0, jukebox_json: {}, jukebox_image_index: 0, jsonIsReady: false,
+   jukebox_id: 0, jukebox_json: {}, jukebox_image_index: 0, jsonIsReady: false, jukeboxClicked: 0,
    ui0 : {
       a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, 
       ell: true,
@@ -213,10 +213,11 @@ function draw() {
 
    pop();
    const canvasTextColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_blue) : clr_blue; 
-   if(glob.jsonIsReady){
+   if(glob.jsonIsReady && glob.ui.jukebox_playlist != 'off'){
       draw_text_full(glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['name'][glob.jukebox_image_index], [15, 15], canvasTextColor);
       draw_text_full(`http://bit.ly/${glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['bit.ly'][glob.jukebox_image_index]}`, [15, 30], canvasTextColor);
-   } else{
+   }
+   if(!glob.jsonIsReady){
       draw_text_full('loading jukebox', [15, 15], canvasTextColor);
       draw_text_full('loading jukebox', [15, 30], canvasTextColor);
    }

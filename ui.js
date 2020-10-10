@@ -910,7 +910,6 @@ function setup_bg_onchange() {
 }
 
 function change_loc_elements_clr(n, hex_clr) {
-   console.log(hex_clr)
    var style = document.querySelector('[data="Xn' + n + '"]');
    style.innerHTML = "#Xn" + n + "::-webkit-slider-thumb {background: " + hex_clr + ";}";
 }
@@ -1056,8 +1055,19 @@ function run_jukebox_playlist(run, playlist, list_indice) {
 function start_playlist(playlist, start_time, output_text_jukebox, control_params) {
    var seconds_interval = +playlist['sec'][glob.jukebox_image_index];
    var seconds_runned = Math.floor(((Date.now() - start_time)) / 1000);
-
+   
    let run = (seconds_runned == control_params.seconds_next_run);
+   
+   if(glob.jukeboxClicked == 1){
+      run = true;
+   }
+   else if(glob.jukeboxClicked == -1){
+      run = true;
+      control_params.list_index = control_params.list_index - 2;
+      glob.jukebox_image_index = control_params.list_index % playlist['sec'].length;
+      seconds_interval = +playlist['sec'][glob.jukebox_image_index];
+   }
+
    if(run){
       glob.jukebox_image_index = control_params.list_index % playlist['sec'].length;
       output_text_jukebox.innerHTML = (+glob.jukebox_image_index + 1) + '/' + playlist['sec'].length;
@@ -1066,6 +1076,7 @@ function start_playlist(playlist, start_time, output_text_jukebox, control_param
    }
 
    run_jukebox_playlist(run, playlist, glob.jukebox_image_index);
+   glob.jukeboxClicked = 0
 }
 
 function wait1secJsonReady(){
@@ -1240,6 +1251,15 @@ function setup_jukebox_playlist_oninput() {
    })
 }
 
+function setup_jukebox_button(){
+   document.getElementById('jukebox').addEventListener('mousedown', function (e) {
+      if(e.which == 1)
+         glob.jukeboxClicked = 1;
+      else if(e.which == 3)
+         glob.jukeboxClicked = -1;
+   })
+}
+
 function setup_global_event_handler() {
    document.addEventListener('keypress', function (e) {
       //console.log(e.keyCode)
@@ -1333,6 +1353,7 @@ function setup_ui() {
    setup_circ();
    setup_inv();
    setup_invert_colors();
+   setup_jukebox_button();
    setup_global_event_handler();
    ui_changed("1", true, true);
    redraw();
@@ -1342,5 +1363,7 @@ function setup_ui() {
 function reset_ui() {
    glob.ui = JSON.parse(JSON.stringify(glob.ui0));
    glob.ctr = JSON.parse(JSON.stringify(glob.ctr0));
+   glob.scale = JSON.parse(JSON.stringify(glob.scale0));
+
    set_ui_variables()
 };
