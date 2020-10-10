@@ -910,6 +910,7 @@ function setup_bg_onchange() {
 }
 
 function change_loc_elements_clr(n, hex_clr) {
+   console.log(hex_clr)
    var style = document.querySelector('[data="Xn' + n + '"]');
    style.innerHTML = "#Xn" + n + "::-webkit-slider-thumb {background: " + hex_clr + ";}";
 }
@@ -1293,6 +1294,14 @@ function setup_invert_colors() {
       glob.ui.clr2 = clr_invert_ui(glob.ui.clr2);
       glob.ui.clr3 = clr_invert_ui(glob.ui.clr3);
       glob.ui.clr4 = clr_invert_ui(glob.ui.clr4);
+      change_loc_clr('1', rgbToHex(glob.ui.clr1));
+      change_loc_clr('2', rgbToHex(glob.ui.clr2));
+      change_loc_clr('3', rgbToHex(glob.ui.clr3));
+      change_loc_clr('4', rgbToHex(glob.ui.clr4));
+      ui_changed('1');
+      ui_changed('2');
+      ui_changed('3');
+      ui_changed('4');
    });
 }
 
