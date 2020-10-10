@@ -1053,12 +1053,12 @@ function run_jukebox_playlist(run, playlist, list_indice) {
 }
 
 function start_playlist(playlist, start_time, output_text_jukebox, control_params) {
-   glob.jukebox_image_index = control_params.list_index % playlist['sec'].length;
    var seconds_interval = +playlist['sec'][glob.jukebox_image_index];
    var seconds_runned = Math.floor(((Date.now() - start_time)) / 1000);
 
    let run = (seconds_runned == control_params.seconds_next_run);
    if(run){
+      glob.jukebox_image_index = control_params.list_index % playlist['sec'].length;
       output_text_jukebox.innerHTML = (+glob.jukebox_image_index + 1) + '/' + playlist['sec'].length;
       control_params.seconds_next_run = seconds_runned + seconds_interval;
       control_params.list_index++;
