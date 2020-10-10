@@ -38,6 +38,10 @@ function set_ui_variables() {
       if (['bg', 'clr_fill_border'].includes(x)) document.getElementById(x).value = rgbToHex(glob.ui[y]);
       else if (['clr1', 'clr2', 'clr3', 'clr4'].includes(x)) change_loc_clr(+x.slice(-1), rgbToHex(glob.ui[y]))
       else if(['Pn1', 'Pn2', 'Pn3', 'Pn4'].includes(x)) void(0);
+      else if(x == 'jukebox_playlist'){
+         if(glob.jsonIsReady)
+            document.getElementById(x).value = glob.ui[y];
+      }
       else{
          if (x.slice(0, 4) == 'demo'){
             var demo_elem = document.getElementById(x);
@@ -1055,7 +1059,7 @@ function start_playlist(playlist, start_time, output_text_jukebox, control_param
 
    let run = (seconds_runned == control_params.seconds_next_run);
    if(run){
-      output_text_jukebox.innerHTML = "Running " + (+glob.jukebox_image_index + 1) + '/' + playlist['sec'].length;
+      output_text_jukebox.innerHTML = (+glob.jukebox_image_index + 1) + '/' + playlist['sec'].length;
       control_params.seconds_next_run = seconds_runned + seconds_interval;
       control_params.list_index++;
    }
@@ -1063,12 +1067,20 @@ function start_playlist(playlist, start_time, output_text_jukebox, control_param
    run_jukebox_playlist(run, playlist, glob.jukebox_image_index);
 }
 
-function waitForElementJson(indice) {
-   if (typeof glob.jukebox_json !== "undefined") {
-      return playlist = glob.jukebox_json[indice].values.columns;
-   }
-   else {
-      setTimeout(waitForElementJson, 250);
+function wait1secJsonReady(){
+   var delay=1000; //1 seconds
+   setTimeout(function(){
+      glob.jsonIsReady = true;
+   },delay);}
+
+function waitForJson() {
+   var delay=200; //0.2 seconds
+   if (glob.jsonIsReady) {
+      //dispatch input event, jukebox start's a loop depending on url.
+      document.getElementById('jukebox_playlist').value = glob.ui.jukebox_playlist;
+      document.getElementById('jukebox_playlist').dispatchEvent(new Event('input', { value: glob.ui.jukebox_playlist }));
+   } else{
+      setTimeout(waitForJson,delay);
    }
 }
 function gsheetToJson ({
@@ -1078,10 +1090,10 @@ function gsheetToJson ({
    useIntegers = true,
    showRows = true,
    showColumns = true,
+   last = false
  }) {
    const url = `https://spreadsheets.google.com/feeds/list/${id}/${sheetNumber}/public/values?alt=json`;
    var responseObj = {};
-
    fetch(url)
      .then(response => response.json())
      .then((data) => {
@@ -1134,43 +1146,49 @@ function gsheetToJson ({
  
        if (showRows) {
          responseObj.rows = rows;
-       } 
+       }
+      
+      glob.jukebox_json[+sheetNumber-1].values = responseObj
+      if(last){
+         wait1secJsonReady()
+      }
      })
      .catch((error) => {
        throw new Error(`Spreadsheet to JSON: There has been a problem with your fetch operation: ${error.message}`);
      });
-     return responseObj;
-
  }
 
-function getsheetsValues(sheetsNumber, sheetsID){
-   const sheets = gsheetToJson({
+function getsheetsValues(sheetsNumber, sheetsID, last){
+   gsheetToJson({
         id: sheetsID,
          sheetNumber: sheetsNumber,
          query: '',
          useIntegers: false,
          showRows: false,
          showColumns: true,
+         last: last,
       });
-   return sheets;
 }
 
 function handleResponseJson(data, sheetsID){
    const worksheetsAttributes = data.feed.entry;
    var sheetsName;
    let sheetsData = {}
+   var lastGet = false
    for (sheetsNumber in worksheetsAttributes){
       if(sheetsNumber == 'last')
          break;
 
+      if(sheetsNumber == data.feed.entry.length-1)
+         lastGet = true
+
       sheetsName = worksheetsAttributes[sheetsNumber].title.$t;
       if(sheetsName[0] != '_'){
-         sheetsData[+sheetsNumber] = {};
-         sheetsData[+sheetsNumber].name = sheetsName;
-         sheetsData[+sheetsNumber].values = getsheetsValues(+sheetsNumber+1, sheetsID);
+         glob.jukebox_json[+sheetsNumber] = {name: sheetsName};
+         getsheetsValues(+sheetsNumber+1, sheetsID, lastGet);
       }
    }
-   return sheetsData;
+   addOptionToSelectJuke();
 }
 
 function addOptionToSelectJuke(){
@@ -1196,22 +1214,23 @@ function setup_jukebox_playlist_oninput() {
       return response.json();
    }).then(data => {
       // Work with JSON data here
-      glob.jukebox_json = handleResponseJson(data, sheetsID)
-      addOptionToSelectJuke()
+      handleResponseJson(data, sheetsID)
+      waitForJson();
    }).catch(err => {
       // Do something for an error here
       alert(`.json not found\nerror: ${err}`)
    });
 
+
    document.getElementById('jukebox_playlist').addEventListener('input', function () {
       window.clearInterval(glob.jukebox_id)
       control_params.seconds_next_run = 1;
       control_params.list_index = 0;
-      glob.ui.jukebox_playlist = this.value;
-      if (glob.ui.jukebox_playlist != 'off') {
-         playlist = waitForElementJson(glob.ui.jukebox_playlist);
+      glob.ui.jukebox_playlist = this.value; 
+      if (glob.ui.jukebox_playlist != 'off' &&  glob.jsonIsReady) {
+         playlist = glob.jukebox_json[glob.ui.jukebox_playlist].values.columns;
          start = Date.now();
-         output_text_jukebox.innerHTML = "Running 1/" + playlist['sec'].length;
+         output_text_jukebox.innerHTML = "1/" + playlist['sec'].length;
          run_jukebox_playlist(true, playlist, 0);
          glob.jukebox_id = window.setInterval(start_playlist, 1000, playlist, start, output_text_jukebox, control_params);
       } else {

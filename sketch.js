@@ -19,7 +19,7 @@ let glob = {
    clrs_shuffled : [null,null,null,null],
    clrs_shuffled_seeds : [[],[],[],[]],
    ell_detects : ['X','X','X','X'],
-   jukebox_id: 0, jukebox_json: null, jukebox_image_index: 0,
+   jukebox_id: 0, jukebox_json: {}, jukebox_image_index: 0, jsonIsReady: false,
    ui0 : {
       a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, 
       ell: true,
@@ -172,8 +172,6 @@ function setup() {
    canvas.parent('canvas');
    setup_ui();
    mouseOverCanvas();
-   //dispatch input event, jukebox start's a loop depending on url.
-   document.getElementById('jukebox_playlist').dispatchEvent(new Event('input', { value: glob.ui.jukebox_playlist }))
    //frameRate(15);
 }
 
@@ -215,8 +213,8 @@ function draw() {
 
    pop();
    const canvasTextColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_blue) : clr_blue; 
-   if(glob.ui.jukebox_playlist != 'off'){
-      draw_text_full(glob.jukebox_json[glob.ui.jukebox_playlist].name, [15, 15], canvasTextColor);
+   if(glob.ui.jukebox_playlist != 'off' && glob.ui.jukebox_playlist != '' && glob.jsonIsReady){
+      draw_text_full(glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['name'][glob.jukebox_image_index], [15, 15], canvasTextColor);
       draw_text_full(`http://bit.ly/${glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['bit.ly'][glob.jukebox_image_index]}`, [15, 30], canvasTextColor);
    }
    draw_text_full("(c) 2020 Darlan & Reznik", [glob.width - 150, glob.height - 24], canvasTextColor);

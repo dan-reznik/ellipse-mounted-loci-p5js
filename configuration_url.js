@@ -274,7 +274,6 @@ function get_link_params() {
 }
 
 function set_url_params(url_params) {
-   
    //Need to be here for back-compatibility
    clrs_shuffled_seeds_fn.decode(url_params);
    ['seed1', 'seed2', 'seed3', 'seed4'].map(function(seed){delete url_params[seed]});
