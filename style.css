@@ -3,7 +3,7 @@ body {
   padding: 2pt;
   margin: 0px;
   height: calc(100vh - 4pt);
-  width: calc(100vw - 2pt);
+  width: calc(100vw - 4pt);
   min-height: 500px;
   background-color: lightsteelblue;
 }
