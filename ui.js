@@ -1062,7 +1062,7 @@ function start_playlist(playlist, start_time, output_text_jukebox, control_param
    }
    else if(glob.jukeboxClicked == -1){
       run = true;
-      control_params.list_index = control_params.list_index - 2;
+      control_params.list_index = control_params.list_index + playlist['sec'].length - 2;
       glob.jukebox_image_index = control_params.list_index % playlist['sec'].length;
       seconds_interval = +playlist['sec'][glob.jukebox_image_index];
    }
