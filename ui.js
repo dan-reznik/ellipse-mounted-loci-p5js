@@ -1242,6 +1242,9 @@ function setup_jukebox_playlist_oninput() {
       control_params.list_index = 0;
       glob.ui.jukebox_playlist = this.value; 
       if (glob.ui.jukebox_playlist != 'off' &&  glob.jsonIsReady) {
+         const aux = glob.ui.jukebox_playlist;
+         reset_ui();
+         glob.ui.jukebox_playlist = aux;
          playlist = glob.jukebox_json[glob.ui.jukebox_playlist].values.columns;
          start = Date.now();
          output_text_jukebox.innerHTML = "1/" + playlist['sec'].length;
