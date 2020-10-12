@@ -1163,9 +1163,7 @@ function gsheetToJson ({
        }
       
       glob.jukebox_json[+sheetNumber-1].values = responseObj
-      if(last){
-         wait1secJsonReady()
-      }
+
      })
      .catch((error) => {
        throw new Error(`Spreadsheet to JSON: There has been a problem with your fetch operation: ${error.message}`);
@@ -1190,15 +1188,17 @@ function handleResponseJson(data, sheetsID){
    let sheetsData = {}
    var lastGet = false
    for (sheetsNumber in worksheetsAttributes){
-      if(sheetsNumber == 'last')
+      if(sheetsNumber == 'last'){
+         wait1secJsonReady()
          break;
+      }
 
       if(sheetsNumber == data.feed.entry.length-1)
          lastGet = true
 
       sheetsName = worksheetsAttributes[sheetsNumber].title.$t;
       if(sheetsName[0] != '_'){
-         glob.jukebox_json[+sheetsNumber] = {name: sheetsName};
+         glob.jukebox_json[+sheetsNumber] = {name: sheetsName.slice(3,)};
          getsheetsValues(+sheetsNumber+1, sheetsID, lastGet);
       }
    }
@@ -1221,7 +1221,7 @@ function setup_jukebox_playlist_oninput() {
                         ,list_index : 0};
    var start = Date.now();
    var output_text_jukebox = document.getElementById('output_text_jukebox')
-   const sheetsID = '2PACX-1vSNSabjNZ9GtoKIvSHcX2zthNnxUKgdWByfTTq0KSMJ1OEz4sQfZf0oYgoDZ47QisYUjJEzcRIbSCTg'
+   const sheetsID = '1iSjH-dUliUoS9DWntZnn2S7dLzRYlD1z4TqdMRWWd5A'
    
    fetch(`https://spreadsheets.google.com/feeds/worksheets/${sheetsID}/public/values?alt=json`)
    .then(response => {

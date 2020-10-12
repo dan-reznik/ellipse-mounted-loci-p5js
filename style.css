@@ -320,6 +320,11 @@ label{
   width:34px; 
 }
 
+#jukebox_playlist{
+  font-size: 11px;
+  width: 100%;
+}
+
 .slider {
     -webkit-appearance: none;
     width: 97%;
