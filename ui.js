@@ -1057,7 +1057,6 @@ function start_playlist(playlist, start_time, output_text_jukebox, control_param
    var seconds_runned = Math.floor(((Date.now() - start_time)) / 1000);
    
    let run = (seconds_runned == control_params.seconds_next_run);
-   
    if(glob.jukeboxClicked == 1){
       run = true;
    }
@@ -1070,9 +1069,12 @@ function start_playlist(playlist, start_time, output_text_jukebox, control_param
 
    if(run){
       glob.jukebox_image_index = control_params.list_index % playlist['sec'].length;
-      output_text_jukebox.innerHTML = (+glob.jukebox_image_index + 1) + '/' + playlist['sec'].length;
       control_params.seconds_next_run = seconds_runned + seconds_interval;
       control_params.list_index++;
+   }
+   if(glob.jukebox_playlist != 'off'){
+      glob.jukebox_countdown = control_params.seconds_next_run - seconds_runned;
+      output_text_jukebox.innerHTML = (+glob.jukebox_image_index + 1) + '/' + playlist['sec'].length + ` (${glob.jukebox_countdown}s)`;
    }
 
    run_jukebox_playlist(run, playlist, glob.jukebox_image_index);
@@ -1253,9 +1255,10 @@ function setup_jukebox_playlist_oninput() {
 
 function setup_jukebox_button(){
    document.getElementById('jukebox').addEventListener('mousedown', function (e) {
-      if(e.which == 1)
+      const jukebox_playlist = document.getElementById('jukebox_playlist').value
+      if(e.which == 1 && jukebox_playlist!='off')
          glob.jukeboxClicked = 1;
-      else if(e.which == 3)
+      else if(e.which == 3 && jukebox_playlist!='off')
          glob.jukeboxClicked = -1;
    })
 }
