@@ -1221,7 +1221,7 @@ function setup_jukebox_playlist_oninput() {
                         ,list_index : 0};
    var start = Date.now();
    var output_text_jukebox = document.getElementById('output_text_jukebox')
-   const sheetsID = '1c2cDBYc7E6JMzSK9mlcs4doJlGVI5Ky4DaIJB9JsQBA'
+   const sheetsID = '2PACX-1vSNSabjNZ9GtoKIvSHcX2zthNnxUKgdWByfTTq0KSMJ1OEz4sQfZf0oYgoDZ47QisYUjJEzcRIbSCTg'
    
    fetch(`https://spreadsheets.google.com/feeds/worksheets/${sheetsID}/public/values?alt=json`)
    .then(response => {
