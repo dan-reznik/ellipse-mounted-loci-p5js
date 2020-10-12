@@ -1084,6 +1084,12 @@ function start_playlist(playlist, start_time, output_text_jukebox, control_param
 function wait1secJsonReady(){
    var delay=1000; //1 seconds
    setTimeout(function(){
+      if(glob.ui.jukebox_playlist != 'off'){
+         if(!Object.keys(glob.jukebox_json).includes(glob.ui.jukebox_playlist)){
+            alert('playlist inexistente, reiniciando...');
+            reset_ui();
+         }
+      }
       glob.jsonIsReady = true;
    },delay);}
 

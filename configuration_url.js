@@ -261,14 +261,18 @@ const config_Url = {
 
 function get_link_params() {
     var link_params = location.host + location.pathname + '?';
-    //Need to be here for back-compatibility
-    link_params += clrs_shuffled_seeds_fn.encode(['','','','']);
-    //
-    Object.keys(config_Url).map(function(uiVariable){
-      const init_val = config_Url[uiVariable].init_val;
-      link_params += config_Url[uiVariable].encode(init_val);
-    });
-
+    
+   if(glob.ui.jukebox_playlist != 'off'){
+      link_params += `juke=${glob.ui.jukebox_playlist}$`
+   } else{
+      //Need to be here for back-compatibility
+      link_params += clrs_shuffled_seeds_fn.encode(['','','','']);
+      //
+      Object.keys(config_Url).map(function(uiVariable){
+         const init_val = config_Url[uiVariable].init_val;
+         link_params += config_Url[uiVariable].encode(init_val);
+      });
+   }
     link_params = link_params.slice(0, -1);
     return link_params;
 }
@@ -278,6 +282,7 @@ function set_url_params(url_params) {
    clrs_shuffled_seeds_fn.decode(url_params);
    ['seed1', 'seed2', 'seed3', 'seed4'].map(function(seed){delete url_params[seed]});
    //
+
    Object.keys(url_params).map(function(urlVariable){
       const uiVariable = fromUrlToUi[urlVariable];
       config_Url[uiVariable].decode(url_params[urlVariable]);
