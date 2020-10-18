@@ -1,5 +1,4 @@
 // support fn
-
 const sqrt3 = Math.sqrt(3.0);
 const phi = (Math.sqrt(5)+1.0)/2;
 const cPi3 = Math.cos(Math.PI/3);
@@ -71,7 +70,7 @@ function getCotPrime(a,b,c) {
   return 1/Math.tan((2*a*Math.PI)/(a+b+c));
 }
 
-function bary_X1(orbit, [a,b,c]) {
+function bary_X1([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -81,7 +80,7 @@ function bary_X1(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X2(orbit, [a,b,c]) {
+function bary_X2([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -91,7 +90,7 @@ function bary_X2(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X3(orbit, [a,b,c]) {
+function bary_X3([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -103,7 +102,7 @@ function bary_X3(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X4(orbit, [a,b,c]) {
+function bary_X4([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -115,7 +114,7 @@ function bary_X4(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X5(orbit, [a,b,c]) {
+function bary_X5([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -130,7 +129,7 @@ function bary_X5(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X6(orbit, [a,b,c]) {
+function bary_X6([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -142,7 +141,7 @@ function bary_X6(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X7(orbit, [a,b,c]) {
+function bary_X7([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -152,7 +151,7 @@ function bary_X7(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X8(orbit, [a,b,c]) {
+function bary_X8([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -162,7 +161,7 @@ function bary_X8(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X9(orbit, [a,b,c]) {
+function bary_X9([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -172,7 +171,7 @@ function bary_X9(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X10(orbit, [a,b,c]) {
+function bary_X10([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -182,7 +181,7 @@ function bary_X10(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X11(orbit, [a,b,c]) {
+function bary_X11([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -192,7 +191,7 @@ function bary_X11(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X12(orbit, [a,b,c]) {
+function bary_X12([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -202,7 +201,7 @@ function bary_X12(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X13(orbit, [a,b,c]) {
+function bary_X13([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -216,7 +215,7 @@ function bary_X13(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X14(orbit, [a,b,c]) {
+function bary_X14([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -230,7 +229,7 @@ function bary_X14(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X15(orbit, [a,b,c]) {
+function bary_X15([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let c2=c*c;
@@ -244,7 +243,7 @@ function bary_X15(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X16(orbit, [a,b,c]) {
+function bary_X16([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let c2=c*c;
@@ -258,7 +257,7 @@ function bary_X16(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X17(orbit, [a,b,c]) {
+function bary_X17([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -272,7 +271,7 @@ function bary_X17(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X18(orbit, [a,b,c]) {
+function bary_X18([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -286,7 +285,7 @@ function bary_X18(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X19(orbit, [a,b,c]) {
+function bary_X19([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -298,7 +297,7 @@ function bary_X19(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X20(orbit, [a,b,c]) {
+function bary_X20([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -313,7 +312,7 @@ function bary_X20(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X21(orbit, [a,b,c]) {
+function bary_X21([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -323,7 +322,7 @@ function bary_X21(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X22(orbit, [a,b,c]) {
+function bary_X22([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -338,7 +337,7 @@ function bary_X22(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X23(orbit, [a,b,c]) {
+function bary_X23([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -353,7 +352,7 @@ function bary_X23(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X24(orbit, [a,b,c]) {
+function bary_X24([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -368,7 +367,7 @@ function bary_X24(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X25(orbit, [a,b,c]) {
+function bary_X25([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -380,7 +379,7 @@ function bary_X25(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X26(orbit, [a,b,c]) {
+function bary_X26([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -401,7 +400,7 @@ function bary_X26(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X27(orbit, [a,b,c]) {
+function bary_X27([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -413,7 +412,7 @@ function bary_X27(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X28(orbit, [a,b,c]) {
+function bary_X28([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -425,7 +424,7 @@ function bary_X28(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X29(orbit, [a,b,c]) {
+function bary_X29([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -437,7 +436,7 @@ function bary_X29(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X30(orbit, [a,b,c]) {
+function bary_X30([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -452,7 +451,7 @@ function bary_X30(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X31(orbit, [a,b,c]) {
+function bary_X31([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -467,7 +466,7 @@ function bary_X31(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X32(orbit, [a,b,c]) {
+function bary_X32([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -482,7 +481,7 @@ function bary_X32(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X33(orbit, [a,b,c]) {
+function bary_X33([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -494,7 +493,7 @@ function bary_X33(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X34(orbit, [a,b,c]) {
+function bary_X34([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -506,7 +505,7 @@ function bary_X34(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X35(orbit, [a,b,c]) {
+function bary_X35([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -518,7 +517,7 @@ function bary_X35(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X36(orbit, [a,b,c]) {
+function bary_X36([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -530,7 +529,7 @@ function bary_X36(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X37(orbit, [a,b,c]) {
+function bary_X37([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -540,7 +539,7 @@ function bary_X37(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X38(orbit, [a,b,c]) {
+function bary_X38([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -552,7 +551,7 @@ function bary_X38(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X39(orbit, [a,b,c]) {
+function bary_X39([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -564,7 +563,7 @@ function bary_X39(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X40(orbit, [a,b,c]) {
+function bary_X40([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -579,7 +578,7 @@ function bary_X40(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X41(orbit, [a,b,c]) {
+function bary_X41([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -594,7 +593,7 @@ function bary_X41(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X42(orbit, [a,b,c]) {
+function bary_X42([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -606,7 +605,7 @@ function bary_X42(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X43(orbit, [a,b,c]) {
+function bary_X43([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -616,7 +615,7 @@ function bary_X43(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X44(orbit, [a,b,c]) {
+function bary_X44([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -626,7 +625,7 @@ function bary_X44(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X45(orbit, [a,b,c]) {
+function bary_X45([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -636,7 +635,7 @@ function bary_X45(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X46(orbit, [a,b,c]) {
+function bary_X46([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -651,7 +650,7 @@ function bary_X46(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X47(orbit, [a,b,c]) {
+function bary_X47([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -669,7 +668,7 @@ function bary_X47(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X48(orbit, [a,b,c]) {
+function bary_X48([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -684,7 +683,7 @@ function bary_X48(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X49(orbit, [a,b,c]) {
+function bary_X49([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -699,7 +698,7 @@ function bary_X49(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X50(orbit, [a,b,c]) {
+function bary_X50([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -714,7 +713,7 @@ function bary_X50(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X51(orbit, [a,b,c]) {
+function bary_X51([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -729,7 +728,7 @@ function bary_X51(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X52(orbit, [a,b,c]) {
+function bary_X52([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -744,7 +743,7 @@ function bary_X52(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X53(orbit, [a,b,c]) {
+function bary_X53([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -759,7 +758,7 @@ function bary_X53(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X54(orbit, [a,b,c]) {
+function bary_X54([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -774,7 +773,7 @@ function bary_X54(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X55(orbit, [a,b,c]) {
+function bary_X55([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -786,7 +785,7 @@ function bary_X55(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X56(orbit, [a,b,c]) {
+function bary_X56([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -798,7 +797,7 @@ function bary_X56(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X57(orbit, [a,b,c]) {
+function bary_X57([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -808,7 +807,7 @@ function bary_X57(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X58(orbit, [a,b,c]) {
+function bary_X58([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -820,7 +819,7 @@ function bary_X58(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X59(orbit, [a,b,c]) {
+function bary_X59([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -832,7 +831,7 @@ function bary_X59(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X60(orbit, [a,b,c]) {
+function bary_X60([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -844,7 +843,7 @@ function bary_X60(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X61(orbit, [a,b,c]) {
+function bary_X61([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -858,7 +857,7 @@ function bary_X61(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X62(orbit, [a,b,c]) {
+function bary_X62([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -872,7 +871,7 @@ function bary_X62(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X63(orbit, [a,b,c]) {
+function bary_X63([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -884,7 +883,7 @@ function bary_X63(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X64(orbit, [a,b,c]) {
+function bary_X64([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -899,7 +898,7 @@ function bary_X64(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X65(orbit, [a,b,c]) {
+function bary_X65([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -909,7 +908,7 @@ function bary_X65(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X66(orbit, [a,b,c]) {
+function bary_X66([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -924,7 +923,7 @@ function bary_X66(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X67(orbit, [a,b,c]) {
+function bary_X67([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -939,7 +938,7 @@ function bary_X67(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X68(orbit, [a,b,c]) {
+function bary_X68([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -954,7 +953,7 @@ function bary_X68(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X69(orbit, [a,b,c]) {
+function bary_X69([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -966,7 +965,7 @@ function bary_X69(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X70(orbit, [a,b,c]) {
+function bary_X70([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -987,7 +986,7 @@ function bary_X70(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X71(orbit, [a,b,c]) {
+function bary_X71([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -999,7 +998,7 @@ function bary_X71(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X72(orbit, [a,b,c]) {
+function bary_X72([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1011,7 +1010,7 @@ function bary_X72(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X73(orbit, [a,b,c]) {
+function bary_X73([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1023,7 +1022,7 @@ function bary_X73(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X74(orbit, [a,b,c]) {
+function bary_X74([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1038,7 +1037,7 @@ function bary_X74(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X75(orbit, [a,b,c]) {
+function bary_X75([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -1048,7 +1047,7 @@ function bary_X75(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X76(orbit, [a,b,c]) {
+function bary_X76([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -1060,7 +1059,7 @@ function bary_X76(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X77(orbit, [a,b,c]) {
+function bary_X77([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1072,7 +1071,7 @@ function bary_X77(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X78(orbit, [a,b,c]) {
+function bary_X78([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1084,7 +1083,7 @@ function bary_X78(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X79(orbit, [a,b,c]) {
+function bary_X79([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1096,7 +1095,7 @@ function bary_X79(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X80(orbit, [a,b,c]) {
+function bary_X80([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1108,7 +1107,7 @@ function bary_X80(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X81(orbit, [a,b,c]) {
+function bary_X81([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -1118,7 +1117,7 @@ function bary_X81(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X82(orbit, [a,b,c]) {
+function bary_X82([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1130,7 +1129,7 @@ function bary_X82(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X83(orbit, [a,b,c]) {
+function bary_X83([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1142,7 +1141,7 @@ function bary_X83(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X84(orbit, [a,b,c]) {
+function bary_X84([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1157,7 +1156,7 @@ function bary_X84(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X85(orbit, [a,b,c]) {
+function bary_X85([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -1167,7 +1166,7 @@ function bary_X85(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X86(orbit, [a,b,c]) {
+function bary_X86([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -1177,7 +1176,7 @@ function bary_X86(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X87(orbit, [a,b,c]) {
+function bary_X87([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -1187,7 +1186,7 @@ function bary_X87(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X88(orbit, [a,b,c]) {
+function bary_X88([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -1197,7 +1196,7 @@ function bary_X88(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X89(orbit, [a,b,c]) {
+function bary_X89([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -1207,7 +1206,7 @@ function bary_X89(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X90(orbit, [a,b,c]) {
+function bary_X90([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1222,7 +1221,7 @@ function bary_X90(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X91(orbit, [a,b,c]) {
+function bary_X91([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1237,7 +1236,7 @@ function bary_X91(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X92(orbit, [a,b,c]) {
+function bary_X92([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1249,7 +1248,7 @@ function bary_X92(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X93(orbit, [a,b,c]) {
+function bary_X93([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1264,7 +1263,7 @@ function bary_X93(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X94(orbit, [a,b,c]) {
+function bary_X94([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -1276,7 +1275,7 @@ function bary_X94(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X95(orbit, [a,b,c]) {
+function bary_X95([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1291,7 +1290,7 @@ function bary_X95(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X96(orbit, [a,b,c]) {
+function bary_X96([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1306,7 +1305,7 @@ function bary_X96(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X97(orbit, [a,b,c]) {
+function bary_X97([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1321,7 +1320,7 @@ function bary_X97(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X98(orbit, [a,b,c]) {
+function bary_X98([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1336,7 +1335,7 @@ function bary_X98(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X99(orbit, [a,b,c]) {
+function bary_X99([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -1346,7 +1345,7 @@ function bary_X99(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X100(orbit, [a,b,c]) {
+function bary_X100([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -1356,7 +1355,7 @@ function bary_X100(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X101(orbit, [a,b,c]) {
+function bary_X101([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1368,7 +1367,7 @@ function bary_X101(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X102(orbit, [a,b,c]) {
+function bary_X102([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1386,7 +1385,7 @@ function bary_X102(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X103(orbit, [a,b,c]) {
+function bary_X103([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1401,7 +1400,7 @@ function bary_X103(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X104(orbit, [a,b,c]) {
+function bary_X104([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1416,7 +1415,7 @@ function bary_X104(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X105(orbit, [a,b,c]) {
+function bary_X105([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1428,7 +1427,7 @@ function bary_X105(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X106(orbit, [a,b,c]) {
+function bary_X106([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1440,7 +1439,7 @@ function bary_X106(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X107(orbit, [a,b,c]) {
+function bary_X107([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1452,7 +1451,7 @@ function bary_X107(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X108(orbit, [a,b,c]) {
+function bary_X108([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1464,7 +1463,7 @@ function bary_X108(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X109(orbit, [a,b,c]) {
+function bary_X109([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1476,7 +1475,7 @@ function bary_X109(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X110(orbit, [a,b,c]) {
+function bary_X110([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1488,7 +1487,7 @@ function bary_X110(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X111(orbit, [a,b,c]) {
+function bary_X111([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1500,7 +1499,7 @@ function bary_X111(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X112(orbit, [a,b,c]) {
+function bary_X112([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1512,7 +1511,7 @@ function bary_X112(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X113(orbit, [a,b,c]) {
+function bary_X113([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let a4=a2*a2;
@@ -1530,7 +1529,7 @@ function bary_X113(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X114(orbit, [a,b,c]) {
+function bary_X114([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -1545,7 +1544,7 @@ function bary_X114(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X115(orbit, [a,b,c]) {
+function bary_X115([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -1555,7 +1554,7 @@ function bary_X115(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X116(orbit, [a,b,c]) {
+function bary_X116([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -1567,7 +1566,7 @@ function bary_X116(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X117(orbit, [a,b,c]) {
+function bary_X117([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let a3=a2*a;
@@ -1591,7 +1590,7 @@ function bary_X117(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X118(orbit, [a,b,c]) {
+function bary_X118([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let a3=a2*a;
@@ -1612,7 +1611,7 @@ function bary_X118(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X119(orbit, [a,b,c]) {
+function bary_X119([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -1630,7 +1629,7 @@ function bary_X119(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X120(orbit, [a,b,c]) {
+function bary_X120([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -1645,7 +1644,7 @@ function bary_X120(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X121(orbit, [a,b,c]) {
+function bary_X121([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -1660,7 +1659,7 @@ function bary_X121(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X122(orbit, [a,b,c]) {
+function bary_X122([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1675,7 +1674,7 @@ function bary_X122(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X123(orbit, [a,b,c]) {
+function bary_X123([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1690,7 +1689,7 @@ function bary_X123(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X124(orbit, [a,b,c]) {
+function bary_X124([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -1705,7 +1704,7 @@ function bary_X124(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X125(orbit, [a,b,c]) {
+function bary_X125([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1717,7 +1716,7 @@ function bary_X125(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X126(orbit, [a,b,c]) {
+function bary_X126([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -1732,7 +1731,7 @@ function bary_X126(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X127(orbit, [a,b,c]) {
+function bary_X127([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1747,7 +1746,7 @@ function bary_X127(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X128(orbit, [a,b,c]) {
+function bary_X128([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -1768,7 +1767,7 @@ function bary_X128(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X129(orbit, [a,b,c]) {
+function bary_X129([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -1789,7 +1788,7 @@ function bary_X129(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X130(orbit, [a,b,c]) {
+function bary_X130([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -1810,7 +1809,7 @@ function bary_X130(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X131(orbit, [a,b,c]) {
+function bary_X131([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -1831,7 +1830,7 @@ function bary_X131(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X132(orbit, [a,b,c]) {
+function bary_X132([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -1849,7 +1848,7 @@ function bary_X132(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X133(orbit, [a,b,c]) {
+function bary_X133([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let a4=a2*a2;
@@ -1870,7 +1869,7 @@ function bary_X133(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X134(orbit, [a,b,c]) {
+function bary_X134([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -1891,7 +1890,7 @@ function bary_X134(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X135(orbit, [a,b,c]) {
+function bary_X135([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -1909,7 +1908,7 @@ function bary_X135(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X136(orbit, [a,b,c]) {
+function bary_X136([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1924,7 +1923,7 @@ function bary_X136(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X137(orbit, [a,b,c]) {
+function bary_X137([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -1939,7 +1938,7 @@ function bary_X137(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X138(orbit, [a,b,c]) {
+function bary_X138([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -1960,7 +1959,7 @@ function bary_X138(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X139(orbit, [a,b,c]) {
+function bary_X139([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -1981,7 +1980,7 @@ function bary_X139(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X140(orbit, [a,b,c]) {
+function bary_X140([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -1996,7 +1995,7 @@ function bary_X140(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X141(orbit, [a,b,c]) {
+function bary_X141([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -2008,7 +2007,7 @@ function bary_X141(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X142(orbit, [a,b,c]) {
+function bary_X142([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -2020,7 +2019,7 @@ function bary_X142(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X143(orbit, [a,b,c]) {
+function bary_X143([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -2035,7 +2034,7 @@ function bary_X143(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X144(orbit, [a,b,c]) {
+function bary_X144([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2047,7 +2046,7 @@ function bary_X144(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X145(orbit, [a,b,c]) {
+function bary_X145([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -2057,7 +2056,7 @@ function bary_X145(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X146(orbit, [a,b,c]) {
+function bary_X146([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -2078,7 +2077,7 @@ function bary_X146(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X147(orbit, [a,b,c]) {
+function bary_X147([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -2099,7 +2098,7 @@ function bary_X147(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X148(orbit, [a,b,c]) {
+function bary_X148([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2114,7 +2113,7 @@ function bary_X148(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X149(orbit, [a,b,c]) {
+function bary_X149([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2129,7 +2128,7 @@ function bary_X149(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X150(orbit, [a,b,c]) {
+function bary_X150([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2147,7 +2146,7 @@ function bary_X150(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X151(orbit, [a,b,c]) {
+function bary_X151([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -2177,7 +2176,7 @@ function bary_X151(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X152(orbit, [a,b,c]) {
+function bary_X152([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -2207,7 +2206,7 @@ function bary_X152(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X153(orbit, [a,b,c]) {
+function bary_X153([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -2234,7 +2233,7 @@ function bary_X153(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X154(orbit, [a,b,c]) {
+function bary_X154([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2249,7 +2248,7 @@ function bary_X154(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X155(orbit, [a,b,c]) {
+function bary_X155([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -2267,7 +2266,7 @@ function bary_X155(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X156(orbit, [a,b,c]) {
+function bary_X156([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -2288,7 +2287,7 @@ function bary_X156(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X157(orbit, [a,b,c]) {
+function bary_X157([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -2306,7 +2305,7 @@ function bary_X157(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X158(orbit, [a,b,c]) {
+function bary_X158([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2318,7 +2317,7 @@ function bary_X158(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X159(orbit, [a,b,c]) {
+function bary_X159([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -2336,7 +2335,7 @@ function bary_X159(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X160(orbit, [a,b,c]) {
+function bary_X160([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2351,7 +2350,7 @@ function bary_X160(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X161(orbit, [a,b,c]) {
+function bary_X161([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -2372,7 +2371,7 @@ function bary_X161(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X162(orbit, [a,b,c]) {
+function bary_X162([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2384,7 +2383,7 @@ function bary_X162(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X163(orbit, [a,b,c]) {
+function bary_X163([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2399,7 +2398,7 @@ function bary_X163(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X164(orbit, [a,b,c]) {
+function bary_X164([a,b,c]) {
    /* begin vars */
    let Sqrt=Math.sqrt;
    /* end vars */
@@ -2409,7 +2408,7 @@ function bary_X164(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X165(orbit, [a,b,c]) {
+function bary_X165([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2421,7 +2420,7 @@ function bary_X165(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X166(orbit, [a,b,c]) {
+function bary_X166([a,b,c]) {
    /* begin vars */
    let sb=(c+a-b)/2;
    let sa=(b+c-a)/2;
@@ -2435,7 +2434,7 @@ function bary_X166(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X167(orbit, [a,b,c]) {
+function bary_X167([a,b,c]) {
    /* begin vars */
    let b2=b*b;
    let a2=a*a;
@@ -2454,7 +2453,7 @@ function bary_X167(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X168(orbit, [a,b,c]) {
+function bary_X168([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -2469,7 +2468,7 @@ function bary_X168(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X169(orbit, [a,b,c]) {
+function bary_X169([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2484,7 +2483,7 @@ function bary_X169(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X170(orbit, [a,b,c]) {
+function bary_X170([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -2505,7 +2504,7 @@ function bary_X170(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X171(orbit, [a,b,c]) {
+function bary_X171([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2517,7 +2516,7 @@ function bary_X171(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X172(orbit, [a,b,c]) {
+function bary_X172([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2529,7 +2528,7 @@ function bary_X172(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X173(orbit, [a,b,c]) {
+function bary_X173([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -2543,7 +2542,7 @@ function bary_X173(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X174(orbit, [a,b,c]) {
+function bary_X174([a,b,c]) {
    /* begin vars */
    let sa=(b+c-a)/2;
    let sc=(a+b-c)/2;
@@ -2556,7 +2555,7 @@ function bary_X174(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X175(orbit, [a,b,c]) {
+function bary_X175([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -2567,7 +2566,7 @@ function bary_X175(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X176(orbit, [a,b,c]) {
+function bary_X176([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -2578,7 +2577,7 @@ function bary_X176(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X177(orbit, [a,b,c]) {
+function bary_X177([a,b,c]) {
    /* begin vars */
    let sqrtc=sqrt(c);
    let sqrtb=sqrt(b);
@@ -2591,7 +2590,7 @@ function bary_X177(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X178(orbit, [a,b,c]) {
+function bary_X178([a,b,c]) {
    /* begin vars */
    let Sqrt=Math.sqrt;
    /* end vars */
@@ -2601,7 +2600,7 @@ function bary_X178(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X179(orbit, [a,b,c]) {
+function bary_X179([a,b,c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosHalfC=cosHalfAngle(cosC);
@@ -2625,7 +2624,7 @@ function bary_X179(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X180(orbit, [a,b,c]) {
+function bary_X180([a,b,c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
@@ -2649,7 +2648,7 @@ function bary_X180(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X181(orbit, [a,b,c]) {
+function bary_X181([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2661,7 +2660,7 @@ function bary_X181(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X182(orbit, [a,b,c]) {
+function bary_X182([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2676,7 +2675,7 @@ function bary_X182(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X183(orbit, [a,b,c]) {
+function bary_X183([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2691,7 +2690,7 @@ function bary_X183(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X184(orbit, [a,b,c]) {
+function bary_X184([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2706,7 +2705,7 @@ function bary_X184(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X185(orbit, [a,b,c]) {
+function bary_X185([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let a4=a2*a2;
@@ -2724,7 +2723,7 @@ function bary_X185(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X186(orbit, [a,b,c]) {
+function bary_X186([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2736,7 +2735,7 @@ function bary_X186(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X187(orbit, [a,b,c]) {
+function bary_X187([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2748,7 +2747,7 @@ function bary_X187(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X188(orbit, [a,b,c]) {
+function bary_X188([a,b,c]) {
    /* begin vars */
    let Sqrt=Math.sqrt;
    /* end vars */
@@ -2758,7 +2757,7 @@ function bary_X188(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X189(orbit, [a,b,c]) {
+function bary_X189([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2773,7 +2772,7 @@ function bary_X189(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X190(orbit, [a,b,c]) {
+function bary_X190([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -2783,7 +2782,7 @@ function bary_X190(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X191(orbit, [a,b,c]) {
+function bary_X191([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2798,7 +2797,7 @@ function bary_X191(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X192(orbit, [a,b,c]) {
+function bary_X192([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -2808,7 +2807,7 @@ function bary_X192(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X193(orbit, [a,b,c]) {
+function bary_X193([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2820,7 +2819,7 @@ function bary_X193(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X194(orbit, [a,b,c]) {
+function bary_X194([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2832,7 +2831,7 @@ function bary_X194(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X195(orbit, [a,b,c]) {
+function bary_X195([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -2853,7 +2852,7 @@ function bary_X195(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X196(orbit, [a,b,c]) {
+function bary_X196([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2868,7 +2867,7 @@ function bary_X196(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X197(orbit, [a,b,c]) {
+function bary_X197([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2883,7 +2882,7 @@ function bary_X197(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X198(orbit, [a,b,c]) {
+function bary_X198([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2898,7 +2897,7 @@ function bary_X198(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X199(orbit, [a,b,c]) {
+function bary_X199([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2916,7 +2915,7 @@ function bary_X199(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X200(orbit, [a,b,c]) {
+function bary_X200([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -2926,7 +2925,7 @@ function bary_X200(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X201(orbit, [a,b,c]) {
+function bary_X201([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2938,7 +2937,7 @@ function bary_X201(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X202(orbit, [a,b,c]) {
+function bary_X202([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -2952,7 +2951,7 @@ function bary_X202(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X203(orbit, [a,b,c]) {
+function bary_X203([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -2966,7 +2965,7 @@ function bary_X203(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X204(orbit, [a,b,c]) {
+function bary_X204([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2981,7 +2980,7 @@ function bary_X204(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X205(orbit, [a,b,c]) {
+function bary_X205([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -2999,7 +2998,7 @@ function bary_X205(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X206(orbit, [a,b,c]) {
+function bary_X206([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3014,7 +3013,7 @@ function bary_X206(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X207(orbit, [a,b,c]) {
+function bary_X207([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -3038,7 +3037,7 @@ function bary_X207(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X208(orbit, [a,b,c]) {
+function bary_X208([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3053,7 +3052,7 @@ function bary_X208(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X209(orbit, [a,b,c]) {
+function bary_X209([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -3068,7 +3067,7 @@ function bary_X209(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X210(orbit, [a,b,c]) {
+function bary_X210([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -3078,7 +3077,7 @@ function bary_X210(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X211(orbit, [a,b,c]) {
+function bary_X211([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3093,7 +3092,7 @@ function bary_X211(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X212(orbit, [a,b,c]) {
+function bary_X212([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3108,7 +3107,7 @@ function bary_X212(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X213(orbit, [a,b,c]) {
+function bary_X213([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3123,7 +3122,7 @@ function bary_X213(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X214(orbit, [a,b,c]) {
+function bary_X214([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3135,7 +3134,7 @@ function bary_X214(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X215(orbit, [a,b,c]) {
+function bary_X215([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3150,7 +3149,7 @@ function bary_X215(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X216(orbit, [a,b,c]) {
+function bary_X216([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -3165,7 +3164,7 @@ function bary_X216(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X217(orbit, [a,b,c]) {
+function bary_X217([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3180,7 +3179,7 @@ function bary_X217(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X218(orbit, [a,b,c]) {
+function bary_X218([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3192,7 +3191,7 @@ function bary_X218(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X219(orbit, [a,b,c]) {
+function bary_X219([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3204,7 +3203,7 @@ function bary_X219(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X220(orbit, [a,b,c]) {
+function bary_X220([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3216,7 +3215,7 @@ function bary_X220(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X221(orbit, [a,b,c]) {
+function bary_X221([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3231,7 +3230,7 @@ function bary_X221(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X222(orbit, [a,b,c]) {
+function bary_X222([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3243,7 +3242,7 @@ function bary_X222(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X223(orbit, [a,b,c]) {
+function bary_X223([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3258,7 +3257,7 @@ function bary_X223(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X224(orbit, [a,b,c]) {
+function bary_X224([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3276,7 +3275,7 @@ function bary_X224(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X225(orbit, [a,b,c]) {
+function bary_X225([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3288,7 +3287,7 @@ function bary_X225(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X226(orbit, [a,b,c]) {
+function bary_X226([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -3298,7 +3297,7 @@ function bary_X226(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X227(orbit, [a,b,c]) {
+function bary_X227([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3313,7 +3312,7 @@ function bary_X227(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X228(orbit, [a,b,c]) {
+function bary_X228([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3328,7 +3327,7 @@ function bary_X228(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X229(orbit, [a,b,c]) {
+function bary_X229([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3343,7 +3342,7 @@ function bary_X229(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X230(orbit, [a,b,c]) {
+function bary_X230([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3358,7 +3357,7 @@ function bary_X230(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X231(orbit, [a,b,c]) {
+function bary_X231([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -3379,7 +3378,7 @@ function bary_X231(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X232(orbit, [a,b,c]) {
+function bary_X232([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -3394,7 +3393,7 @@ function bary_X232(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X233(orbit, [a,b,c]) {
+function bary_X233([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -3409,7 +3408,7 @@ function bary_X233(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X234(orbit, [a,b,c]) {
+function bary_X234([a,b,c]) {
    /* begin vars */
    let s=(a+b+c)/2;
    let sa=(b+c-a)/2;
@@ -3424,7 +3423,7 @@ function bary_X234(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X235(orbit, [a,b,c]) {
+function bary_X235([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let a4=a2*a2;
@@ -3442,7 +3441,7 @@ function bary_X235(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X236(orbit, [a,b,c]) {
+function bary_X236([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -3456,7 +3455,7 @@ function bary_X236(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X237(orbit, [a,b,c]) {
+function bary_X237([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3471,7 +3470,7 @@ function bary_X237(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X238(orbit, [a,b,c]) {
+function bary_X238([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3483,7 +3482,7 @@ function bary_X238(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X239(orbit, [a,b,c]) {
+function bary_X239([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3495,7 +3494,7 @@ function bary_X239(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X240(orbit, [a,b,c]) {
+function bary_X240([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -3510,7 +3509,7 @@ function bary_X240(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X241(orbit, [a,b,c]) {
+function bary_X241([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -3522,7 +3521,7 @@ function bary_X241(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X242(orbit, [a,b,c]) {
+function bary_X242([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3534,7 +3533,7 @@ function bary_X242(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X243(orbit, [a,b,c]) {
+function bary_X243([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -3552,7 +3551,7 @@ function bary_X243(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X244(orbit, [a,b,c]) {
+function bary_X244([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -3562,7 +3561,7 @@ function bary_X244(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X245(orbit, [a,b,c]) {
+function bary_X245([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let a4=a2*a2;
@@ -3589,7 +3588,7 @@ function bary_X245(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X246(orbit, [a,b,c]) {
+function bary_X246([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -3610,7 +3609,7 @@ function bary_X246(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X247(orbit, [a,b,c]) {
+function bary_X247([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -3631,7 +3630,7 @@ function bary_X247(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X248(orbit, [a,b,c]) {
+function bary_X248([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3646,7 +3645,7 @@ function bary_X248(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X249(orbit, [a,b,c]) {
+function bary_X249([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3658,7 +3657,7 @@ function bary_X249(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X250(orbit, [a,b,c]) {
+function bary_X250([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3670,7 +3669,7 @@ function bary_X250(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X251(orbit, [a,b,c]) {
+function bary_X251([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3682,7 +3681,7 @@ function bary_X251(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X252(orbit, [a,b,c]) {
+function bary_X252([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3697,7 +3696,7 @@ function bary_X252(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X253(orbit, [a,b,c]) {
+function bary_X253([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3712,7 +3711,7 @@ function bary_X253(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X254(orbit, [a,b,c]) {
+function bary_X254([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -3730,7 +3729,7 @@ function bary_X254(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X255(orbit, [a,b,c]) {
+function bary_X255([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3745,7 +3744,7 @@ function bary_X255(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X256(orbit, [a,b,c]) {
+function bary_X256([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -3757,7 +3756,7 @@ function bary_X256(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X257(orbit, [a,b,c]) {
+function bary_X257([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -3769,7 +3768,7 @@ function bary_X257(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X258(orbit, [a,b,c]) {
+function bary_X258([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -3783,7 +3782,7 @@ function bary_X258(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X259(orbit, [a,b,c]) {
+function bary_X259([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let sa=(b+c-a)/2;
@@ -3799,7 +3798,7 @@ function bary_X259(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X260(orbit, [a,b,c]) {
+function bary_X260([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let sa=(b+c-a)/2;
@@ -3816,7 +3815,7 @@ function bary_X260(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X261(orbit, [a,b,c]) {
+function bary_X261([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -3826,7 +3825,7 @@ function bary_X261(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X262(orbit, [a,b,c]) {
+function bary_X262([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -3841,7 +3840,7 @@ function bary_X262(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X263(orbit, [a,b,c]) {
+function bary_X263([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -3856,7 +3855,7 @@ function bary_X263(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X264(orbit, [a,b,c]) {
+function bary_X264([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -3868,7 +3867,7 @@ function bary_X264(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X265(orbit, [a,b,c]) {
+function bary_X265([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3880,7 +3879,7 @@ function bary_X265(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X266(orbit, [a,b,c]) {
+function bary_X266([a,b,c]) {
    /* begin vars */
    let sa=(b+c-a)/2;
    let sc=(a+b-c)/2;
@@ -3893,7 +3892,7 @@ function bary_X266(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X267(orbit, [a,b,c]) {
+function bary_X267([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3908,7 +3907,7 @@ function bary_X267(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X268(orbit, [a,b,c]) {
+function bary_X268([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3923,7 +3922,7 @@ function bary_X268(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X269(orbit, [a,b,c]) {
+function bary_X269([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -3933,7 +3932,7 @@ function bary_X269(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X270(orbit, [a,b,c]) {
+function bary_X270([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3945,7 +3944,7 @@ function bary_X270(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X271(orbit, [a,b,c]) {
+function bary_X271([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3960,7 +3959,7 @@ function bary_X271(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X272(orbit, [a,b,c]) {
+function bary_X272([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3975,7 +3974,7 @@ function bary_X272(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X273(orbit, [a,b,c]) {
+function bary_X273([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -3987,7 +3986,7 @@ function bary_X273(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X274(orbit, [a,b,c]) {
+function bary_X274([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -3997,7 +3996,7 @@ function bary_X274(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X275(orbit, [a,b,c]) {
+function bary_X275([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4012,7 +4011,7 @@ function bary_X275(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X276(orbit, [a,b,c]) {
+function bary_X276([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4027,7 +4026,7 @@ function bary_X276(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X277(orbit, [a,b,c]) {
+function bary_X277([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4039,7 +4038,7 @@ function bary_X277(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X278(orbit, [a,b,c]) {
+function bary_X278([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4051,7 +4050,7 @@ function bary_X278(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X279(orbit, [a,b,c]) {
+function bary_X279([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -4061,7 +4060,7 @@ function bary_X279(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X280(orbit, [a,b,c]) {
+function bary_X280([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4076,7 +4075,7 @@ function bary_X280(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X281(orbit, [a,b,c]) {
+function bary_X281([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4088,7 +4087,7 @@ function bary_X281(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X282(orbit, [a,b,c]) {
+function bary_X282([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4103,7 +4102,7 @@ function bary_X282(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X283(orbit, [a,b,c]) {
+function bary_X283([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4115,7 +4114,7 @@ function bary_X283(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X284(orbit, [a,b,c]) {
+function bary_X284([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4127,7 +4126,7 @@ function bary_X284(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X285(orbit, [a,b,c]) {
+function bary_X285([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4142,7 +4141,7 @@ function bary_X285(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X286(orbit, [a,b,c]) {
+function bary_X286([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4154,7 +4153,7 @@ function bary_X286(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X287(orbit, [a,b,c]) {
+function bary_X287([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4169,7 +4168,7 @@ function bary_X287(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X288(orbit, [a,b,c]) {
+function bary_X288([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4184,7 +4183,7 @@ function bary_X288(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X289(orbit, [a,b,c]) {
+function bary_X289([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4201,7 +4200,7 @@ function bary_X289(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X290(orbit, [a,b,c]) {
+function bary_X290([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4216,7 +4215,7 @@ function bary_X290(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X291(orbit, [a,b,c]) {
+function bary_X291([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4228,7 +4227,7 @@ function bary_X291(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X292(orbit, [a,b,c]) {
+function bary_X292([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4240,7 +4239,7 @@ function bary_X292(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X293(orbit, [a,b,c]) {
+function bary_X293([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4255,7 +4254,7 @@ function bary_X293(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X294(orbit, [a,b,c]) {
+function bary_X294([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4267,7 +4266,7 @@ function bary_X294(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X295(orbit, [a,b,c]) {
+function bary_X295([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4279,7 +4278,7 @@ function bary_X295(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X296(orbit, [a,b,c]) {
+function bary_X296([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4297,7 +4296,7 @@ function bary_X296(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X297(orbit, [a,b,c]) {
+function bary_X297([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4312,7 +4311,7 @@ function bary_X297(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X298(orbit, [a,b,c]) {
+function bary_X298([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let c2=c*c;
@@ -4329,7 +4328,7 @@ function bary_X298(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X299(orbit, [a,b,c]) {
+function bary_X299([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let c2=c*c;
@@ -4346,7 +4345,7 @@ function bary_X299(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X300(orbit, [a,b,c]) {
+function bary_X300([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let a2=a*a;
@@ -4360,7 +4359,7 @@ function bary_X300(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X301(orbit, [a,b,c]) {
+function bary_X301([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let a2=a*a;
@@ -4374,7 +4373,7 @@ function bary_X301(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X302(orbit, [a,b,c]) {
+function bary_X302([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -4388,7 +4387,7 @@ function bary_X302(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X303(orbit, [a,b,c]) {
+function bary_X303([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -4402,7 +4401,7 @@ function bary_X303(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X304(orbit, [a,b,c]) {
+function bary_X304([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4414,7 +4413,7 @@ function bary_X304(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X305(orbit, [a,b,c]) {
+function bary_X305([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4426,7 +4425,7 @@ function bary_X305(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X306(orbit, [a,b,c]) {
+function bary_X306([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4438,7 +4437,7 @@ function bary_X306(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X307(orbit, [a,b,c]) {
+function bary_X307([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4450,7 +4449,7 @@ function bary_X307(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X308(orbit, [a,b,c]) {
+function bary_X308([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -4462,7 +4461,7 @@ function bary_X308(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X309(orbit, [a,b,c]) {
+function bary_X309([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4477,7 +4476,7 @@ function bary_X309(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X310(orbit, [a,b,c]) {
+function bary_X310([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4489,7 +4488,7 @@ function bary_X310(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X311(orbit, [a,b,c]) {
+function bary_X311([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4504,7 +4503,7 @@ function bary_X311(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X312(orbit, [a,b,c]) {
+function bary_X312([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -4514,7 +4513,7 @@ function bary_X312(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X313(orbit, [a,b,c]) {
+function bary_X313([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4526,7 +4525,7 @@ function bary_X313(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X314(orbit, [a,b,c]) {
+function bary_X314([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -4536,7 +4535,7 @@ function bary_X314(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X315(orbit, [a,b,c]) {
+function bary_X315([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4551,7 +4550,7 @@ function bary_X315(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X316(orbit, [a,b,c]) {
+function bary_X316([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4566,7 +4565,7 @@ function bary_X316(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X317(orbit, [a,b,c]) {
+function bary_X317([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4581,7 +4580,7 @@ function bary_X317(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X318(orbit, [a,b,c]) {
+function bary_X318([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4593,7 +4592,7 @@ function bary_X318(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X319(orbit, [a,b,c]) {
+function bary_X319([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4605,7 +4604,7 @@ function bary_X319(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X320(orbit, [a,b,c]) {
+function bary_X320([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4617,7 +4616,7 @@ function bary_X320(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X321(orbit, [a,b,c]) {
+function bary_X321([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -4627,7 +4626,7 @@ function bary_X321(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X322(orbit, [a,b,c]) {
+function bary_X322([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4642,7 +4641,7 @@ function bary_X322(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X323(orbit, [a,b,c]) {
+function bary_X323([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4654,7 +4653,7 @@ function bary_X323(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X324(orbit, [a,b,c]) {
+function bary_X324([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4669,7 +4668,7 @@ function bary_X324(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X325(orbit, [a,b,c]) {
+function bary_X325([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4684,7 +4683,7 @@ function bary_X325(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X326(orbit, [a,b,c]) {
+function bary_X326([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4696,7 +4695,7 @@ function bary_X326(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X327(orbit, [a,b,c]) {
+function bary_X327([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4711,7 +4710,7 @@ function bary_X327(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X328(orbit, [a,b,c]) {
+function bary_X328([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -4723,7 +4722,7 @@ function bary_X328(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X329(orbit, [a,b,c]) {
+function bary_X329([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4738,7 +4737,7 @@ function bary_X329(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X330(orbit, [a,b,c]) {
+function bary_X330([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -4748,7 +4747,7 @@ function bary_X330(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X331(orbit, [a,b,c]) {
+function bary_X331([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -4760,7 +4759,7 @@ function bary_X331(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X332(orbit, [a,b,c]) {
+function bary_X332([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4772,7 +4771,7 @@ function bary_X332(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X333(orbit, [a,b,c]) {
+function bary_X333([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -4782,7 +4781,7 @@ function bary_X333(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X334(orbit, [a,b,c]) {
+function bary_X334([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4794,7 +4793,7 @@ function bary_X334(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X335(orbit, [a,b,c]) {
+function bary_X335([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4806,7 +4805,7 @@ function bary_X335(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X336(orbit, [a,b,c]) {
+function bary_X336([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4821,7 +4820,7 @@ function bary_X336(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X337(orbit, [a,b,c]) {
+function bary_X337([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4833,7 +4832,7 @@ function bary_X337(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X338(orbit, [a,b,c]) {
+function bary_X338([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4845,7 +4844,7 @@ function bary_X338(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X339(orbit, [a,b,c]) {
+function bary_X339([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4857,7 +4856,7 @@ function bary_X339(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X340(orbit, [a,b,c]) {
+function bary_X340([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4869,7 +4868,7 @@ function bary_X340(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X341(orbit, [a,b,c]) {
+function bary_X341([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -4879,7 +4878,7 @@ function bary_X341(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X342(orbit, [a,b,c]) {
+function bary_X342([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4894,7 +4893,7 @@ function bary_X342(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X343(orbit, [a,b,c]) {
+function bary_X343([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4909,7 +4908,7 @@ function bary_X343(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X344(orbit, [a,b,c]) {
+function bary_X344([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4921,7 +4920,7 @@ function bary_X344(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X345(orbit, [a,b,c]) {
+function bary_X345([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4933,7 +4932,7 @@ function bary_X345(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X346(orbit, [a,b,c]) {
+function bary_X346([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -4943,7 +4942,7 @@ function bary_X346(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X347(orbit, [a,b,c]) {
+function bary_X347([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4958,7 +4957,7 @@ function bary_X347(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X348(orbit, [a,b,c]) {
+function bary_X348([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4970,7 +4969,7 @@ function bary_X348(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X349(orbit, [a,b,c]) {
+function bary_X349([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -4982,7 +4981,7 @@ function bary_X349(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X350(orbit, [a,b,c]) {
+function bary_X350([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -4994,7 +4993,7 @@ function bary_X350(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X351(orbit, [a,b,c]) {
+function bary_X351([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5006,7 +5005,7 @@ function bary_X351(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X352(orbit, [a,b,c]) {
+function bary_X352([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5021,7 +5020,7 @@ function bary_X352(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X353(orbit, [a,b,c]) {
+function bary_X353([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5036,7 +5035,7 @@ function bary_X353(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X354(orbit, [a,b,c]) {
+function bary_X354([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5048,7 +5047,7 @@ function bary_X354(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X355(orbit, [a,b,c]) {
+function bary_X355([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5066,7 +5065,7 @@ function bary_X355(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X356(orbit, [a,b,c]) {
+function bary_X356([a,b,c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
@@ -5084,7 +5083,7 @@ function bary_X356(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X357(orbit, [a,b,c]) {
+function bary_X357([a,b,c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosThirdC=cosThirdAngle(cosC);
@@ -5105,7 +5104,7 @@ function bary_X357(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X358(orbit, [a,b,c]) {
+function bary_X358([a,b,c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
@@ -5123,7 +5122,7 @@ function bary_X358(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X359(orbit, [a,b,c]) {
+function bary_X359([a,b,c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
@@ -5141,7 +5140,7 @@ function bary_X359(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X360(orbit, [a,b,c]) {
+function bary_X360([a,b,c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosB=lawOfCosines(b,a,c);
@@ -5156,7 +5155,7 @@ function bary_X360(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X361(orbit, [a,b,c]) {
+function bary_X361([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -5169,7 +5168,7 @@ function bary_X361(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X362(orbit, [a,b,c]) {
+function bary_X362([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -5183,7 +5182,7 @@ function bary_X362(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X363(orbit, [a,b,c]) {
+function bary_X363([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -5196,7 +5195,7 @@ function bary_X363(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X364(orbit, [a,b,c]) {
+function bary_X364([a,b,c]) {
    /* begin vars */
    let sqrtc=sqrt(c);
    let sqrtb=sqrt(b);
@@ -5208,7 +5207,7 @@ function bary_X364(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X365(orbit, [a,b,c]) {
+function bary_X365([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -5218,7 +5217,7 @@ function bary_X365(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X366(orbit, [a,b,c]) {
+function bary_X366([a,b,c]) {
    /* begin vars */
    let sqrtc=sqrt(c);
    let sqrtb=sqrt(b);
@@ -5230,7 +5229,7 @@ function bary_X366(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X367(orbit, [a,b,c]) {
+function bary_X367([a,b,c]) {
    /* begin vars */
    let sqrta=sqrt(a);
    let sqrtc=sqrt(c);
@@ -5242,7 +5241,7 @@ function bary_X367(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X368(orbit, [a,b,c]) {
+function bary_X368([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5260,7 +5259,7 @@ function bary_X368(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X369(orbit, [a,b,c]) {
+function bary_X369([a,b,c]) {
    /* begin vars */
    let Sqrt=Math.sqrt;
    let c2=c*c;
@@ -5273,7 +5272,7 @@ function bary_X369(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X370(orbit, [a,b,c]) {
+function bary_X370([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5291,7 +5290,7 @@ function bary_X370(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X371(orbit, [a,b,c]) {
+function bary_X371([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -5305,7 +5304,7 @@ function bary_X371(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X372(orbit, [a,b,c]) {
+function bary_X372([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -5319,7 +5318,7 @@ function bary_X372(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X373(orbit, [a,b,c]) {
+function bary_X373([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5334,7 +5333,7 @@ function bary_X373(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X374(orbit, [a,b,c]) {
+function bary_X374([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5352,7 +5351,7 @@ function bary_X374(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X375(orbit, [a,b,c]) {
+function bary_X375([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5370,7 +5369,7 @@ function bary_X375(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X376(orbit, [a,b,c]) {
+function bary_X376([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5385,7 +5384,7 @@ function bary_X376(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X377(orbit, [a,b,c]) {
+function bary_X377([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5400,7 +5399,7 @@ function bary_X377(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X378(orbit, [a,b,c]) {
+function bary_X378([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5419,7 +5418,7 @@ function bary_X378(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X379(orbit, [a,b,c]) {
+function bary_X379([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -5440,7 +5439,7 @@ function bary_X379(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X380(orbit, [a,b,c]) {
+function bary_X380([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5458,7 +5457,7 @@ function bary_X380(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X381(orbit, [a,b,c]) {
+function bary_X381([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5473,7 +5472,7 @@ function bary_X381(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X382(orbit, [a,b,c]) {
+function bary_X382([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5488,7 +5487,7 @@ function bary_X382(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X383(orbit, [a,b,c]) {
+function bary_X383([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5507,7 +5506,7 @@ function bary_X383(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X384(orbit, [a,b,c]) {
+function bary_X384([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5522,7 +5521,7 @@ function bary_X384(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X385(orbit, [a,b,c]) {
+function bary_X385([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5537,7 +5536,7 @@ function bary_X385(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X386(orbit, [a,b,c]) {
+function bary_X386([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5552,7 +5551,7 @@ function bary_X386(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X387(orbit, [a,b,c]) {
+function bary_X387([a,b,c]) {
    /* begin vars */
    let b2=b*b;
    let a2=a*a;
@@ -5570,7 +5569,7 @@ function bary_X387(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X388(orbit, [a,b,c]) {
+function bary_X388([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5582,7 +5581,7 @@ function bary_X388(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X389(orbit, [a,b,c]) {
+function bary_X389([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5604,7 +5603,7 @@ function bary_X389(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X390(orbit, [a,b,c]) {
+function bary_X390([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5616,7 +5615,7 @@ function bary_X390(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X391(orbit, [a,b,c]) {
+function bary_X391([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -5626,7 +5625,7 @@ function bary_X391(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X392(orbit, [a,b,c]) {
+function bary_X392([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5641,7 +5640,7 @@ function bary_X392(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X393(orbit, [a,b,c]) {
+function bary_X393([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5659,7 +5658,7 @@ function bary_X393(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X394(orbit, [a,b,c]) {
+function bary_X394([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5677,7 +5676,7 @@ function bary_X394(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X395(orbit, [a,b,c]) {
+function bary_X395([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5690,7 +5689,7 @@ function bary_X395(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X396(orbit, [a,b,c]) {
+function bary_X396([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5703,7 +5702,7 @@ function bary_X396(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X397(orbit, [a,b,c]) {
+function bary_X397([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5719,7 +5718,7 @@ function bary_X397(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X398(orbit, [a,b,c]) {
+function bary_X398([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5735,7 +5734,7 @@ function bary_X398(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X399(orbit, [a,b,c]) {
+function bary_X399([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5754,7 +5753,7 @@ function bary_X399(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X400(orbit, [a,b,c]) {
+function bary_X400([a,b,c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosHalfC=cosHalfAngle(cosC);
@@ -5778,7 +5777,7 @@ function bary_X400(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X401(orbit, [a,b,c]) {
+function bary_X401([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5796,7 +5795,7 @@ function bary_X401(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X402(orbit, [a,b,c]) {
+function bary_X402([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5814,7 +5813,7 @@ function bary_X402(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X403(orbit, [a,b,c]) {
+function bary_X403([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5832,7 +5831,7 @@ function bary_X403(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X404(orbit, [a,b,c]) {
+function bary_X404([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5847,7 +5846,7 @@ function bary_X404(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X405(orbit, [a,b,c]) {
+function bary_X405([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5862,7 +5861,7 @@ function bary_X405(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X406(orbit, [a,b,c]) {
+function bary_X406([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -5880,7 +5879,7 @@ function bary_X406(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X407(orbit, [a,b,c]) {
+function bary_X407([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5895,7 +5894,7 @@ function bary_X407(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X408(orbit, [a,b,c]) {
+function bary_X408([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5913,7 +5912,7 @@ function bary_X408(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X409(orbit, [a,b,c]) {
+function bary_X409([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -5923,7 +5922,7 @@ function bary_X409(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X410(orbit, [a,b,c]) {
+function bary_X410([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5941,7 +5940,7 @@ function bary_X410(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X411(orbit, [a,b,c]) {
+function bary_X411([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5968,7 +5967,7 @@ function bary_X411(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X412(orbit, [a,b,c]) {
+function bary_X412([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -5995,7 +5994,7 @@ function bary_X412(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X413(orbit, [a,b,c]) {
+function bary_X413([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6013,7 +6012,7 @@ function bary_X413(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X414(orbit, [a,b,c]) {
+function bary_X414([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6034,7 +6033,7 @@ function bary_X414(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X415(orbit, [a,b,c]) {
+function bary_X415([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6052,7 +6051,7 @@ function bary_X415(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X416(orbit, [a,b,c]) {
+function bary_X416([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6073,7 +6072,7 @@ function bary_X416(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X417(orbit, [a,b,c]) {
+function bary_X417([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -6094,7 +6093,7 @@ function bary_X417(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X418(orbit, [a,b,c]) {
+function bary_X418([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6115,7 +6114,7 @@ function bary_X418(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X419(orbit, [a,b,c]) {
+function bary_X419([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -6133,7 +6132,7 @@ function bary_X419(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X420(orbit, [a,b,c]) {
+function bary_X420([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6151,7 +6150,7 @@ function bary_X420(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X421(orbit, [a,b,c]) {
+function bary_X421([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6169,7 +6168,7 @@ function bary_X421(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X422(orbit, [a,b,c]) {
+function bary_X422([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -6187,7 +6186,7 @@ function bary_X422(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X423(orbit, [a,b,c]) {
+function bary_X423([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6202,7 +6201,7 @@ function bary_X423(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X424(orbit, [a,b,c]) {
+function bary_X424([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6223,7 +6222,7 @@ function bary_X424(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X425(orbit, [a,b,c]) {
+function bary_X425([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -6250,7 +6249,7 @@ function bary_X425(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X426(orbit, [a,b,c]) {
+function bary_X426([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6268,7 +6267,7 @@ function bary_X426(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X427(orbit, [a,b,c]) {
+function bary_X427([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6283,7 +6282,7 @@ function bary_X427(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X428(orbit, [a,b,c]) {
+function bary_X428([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6298,7 +6297,7 @@ function bary_X428(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X429(orbit, [a,b,c]) {
+function bary_X429([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6313,7 +6312,7 @@ function bary_X429(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X430(orbit, [a,b,c]) {
+function bary_X430([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6328,7 +6327,7 @@ function bary_X430(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X431(orbit, [a,b,c]) {
+function bary_X431([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let a3=a2*a;
@@ -6349,7 +6348,7 @@ function bary_X431(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X432(orbit, [a,b,c]) {
+function bary_X432([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6367,7 +6366,7 @@ function bary_X432(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X433(orbit, [a,b,c]) {
+function bary_X433([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6385,7 +6384,7 @@ function bary_X433(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X434(orbit, [a,b,c]) {
+function bary_X434([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6403,7 +6402,7 @@ function bary_X434(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X435(orbit, [a,b,c]) {
+function bary_X435([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6421,7 +6420,7 @@ function bary_X435(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X436(orbit, [a,b,c]) {
+function bary_X436([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6436,7 +6435,7 @@ function bary_X436(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X437(orbit, [a,b,c]) {
+function bary_X437([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6448,7 +6447,7 @@ function bary_X437(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X438(orbit, [a,b,c]) {
+function bary_X438([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6463,7 +6462,7 @@ function bary_X438(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X439(orbit, [a,b,c]) {
+function bary_X439([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6475,7 +6474,7 @@ function bary_X439(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X440(orbit, [a,b,c]) {
+function bary_X440([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6493,7 +6492,7 @@ function bary_X440(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X441(orbit, [a,b,c]) {
+function bary_X441([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6511,7 +6510,7 @@ function bary_X441(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X442(orbit, [a,b,c]) {
+function bary_X442([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6526,7 +6525,7 @@ function bary_X442(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X443(orbit, [a,b,c]) {
+function bary_X443([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6541,7 +6540,7 @@ function bary_X443(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X444(orbit, [a,b,c]) {
+function bary_X444([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6556,7 +6555,7 @@ function bary_X444(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X445(orbit, [a,b,c]) {
+function bary_X445([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6571,7 +6570,7 @@ function bary_X445(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X446(orbit, [a,b,c]) {
+function bary_X446([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -6592,7 +6591,7 @@ function bary_X446(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X447(orbit, [a,b,c]) {
+function bary_X447([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6613,7 +6612,7 @@ function bary_X447(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X448(orbit, [a,b,c]) {
+function bary_X448([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6625,7 +6624,7 @@ function bary_X448(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X449(orbit, [a,b,c]) {
+function bary_X449([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6640,7 +6639,7 @@ function bary_X449(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X450(orbit, [a,b,c]) {
+function bary_X450([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6658,7 +6657,7 @@ function bary_X450(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X451(orbit, [a,b,c]) {
+function bary_X451([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6676,7 +6675,7 @@ function bary_X451(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X452(orbit, [a,b,c]) {
+function bary_X452([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6691,7 +6690,7 @@ function bary_X452(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X453(orbit, [a,b,c]) {
+function bary_X453([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6706,7 +6705,7 @@ function bary_X453(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X454(orbit, [a,b,c]) {
+function bary_X454([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6724,7 +6723,7 @@ function bary_X454(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X455(orbit, [a,b,c]) {
+function bary_X455([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6742,7 +6741,7 @@ function bary_X455(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X456(orbit, [a,b,c]) {
+function bary_X456([a,b,c]) {
    /* begin vars */
    let b2=b*b;
    let a2=a*a;
@@ -6760,7 +6759,7 @@ function bary_X456(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X457(orbit, [a,b,c]) {
+function bary_X457([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6778,7 +6777,7 @@ function bary_X457(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X458(orbit, [a,b,c]) {
+function bary_X458([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6796,7 +6795,7 @@ function bary_X458(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X459(orbit, [a,b,c]) {
+function bary_X459([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6814,7 +6813,7 @@ function bary_X459(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X460(orbit, [a,b,c]) {
+function bary_X460([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6832,7 +6831,7 @@ function bary_X460(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X461(orbit, [a,b,c]) {
+function bary_X461([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6847,7 +6846,7 @@ function bary_X461(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X462(orbit, [a,b,c]) {
+function bary_X462([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6863,7 +6862,7 @@ function bary_X462(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X463(orbit, [a,b,c]) {
+function bary_X463([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6879,7 +6878,7 @@ function bary_X463(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X464(orbit, [a,b,c]) {
+function bary_X464([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6897,7 +6896,7 @@ function bary_X464(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X465(orbit, [a,b,c]) {
+function bary_X465([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6913,7 +6912,7 @@ function bary_X465(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X466(orbit, [a,b,c]) {
+function bary_X466([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6929,7 +6928,7 @@ function bary_X466(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X467(orbit, [a,b,c]) {
+function bary_X467([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6944,7 +6943,7 @@ function bary_X467(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X468(orbit, [a,b,c]) {
+function bary_X468([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6956,7 +6955,7 @@ function bary_X468(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X469(orbit, [a,b,c]) {
+function bary_X469([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -6971,7 +6970,7 @@ function bary_X469(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X470(orbit, [a,b,c]) {
+function bary_X470([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -6987,7 +6986,7 @@ function bary_X470(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X471(orbit, [a,b,c]) {
+function bary_X471([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7003,7 +7002,7 @@ function bary_X471(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X472(orbit, [a,b,c]) {
+function bary_X472([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7019,7 +7018,7 @@ function bary_X472(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X473(orbit, [a,b,c]) {
+function bary_X473([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7035,7 +7034,7 @@ function bary_X473(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X474(orbit, [a,b,c]) {
+function bary_X474([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7050,7 +7049,7 @@ function bary_X474(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X475(orbit, [a,b,c]) {
+function bary_X475([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7068,7 +7067,7 @@ function bary_X475(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X476(orbit, [a,b,c]) {
+function bary_X476([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let b2=b*b;
@@ -7089,7 +7088,7 @@ function bary_X476(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X477(orbit, [a,b,c]) {
+function bary_X477([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7107,7 +7106,7 @@ function bary_X477(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X478(orbit, [a,b,c]) {
+function bary_X478([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7122,7 +7121,7 @@ function bary_X478(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X479(orbit, [a,b,c]) {
+function bary_X479([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -7132,7 +7131,7 @@ function bary_X479(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X480(orbit, [a,b,c]) {
+function bary_X480([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7144,7 +7143,7 @@ function bary_X480(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X481(orbit, [a,b,c]) {
+function bary_X481([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    /* end vars */
@@ -7154,7 +7153,7 @@ function bary_X481(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X482(orbit, [a,b,c]) {
+function bary_X482([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    /* end vars */
@@ -7164,7 +7163,7 @@ function bary_X482(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X483(orbit, [a,b,c]) {
+function bary_X483([a,b,c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosHalfC=cosHalfAngle(cosC);
@@ -7188,7 +7187,7 @@ function bary_X483(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X484(orbit, [a,b,c]) {
+function bary_X484([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7203,7 +7202,7 @@ function bary_X484(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X485(orbit, [a,b,c]) {
+function bary_X485([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7219,7 +7218,7 @@ function bary_X485(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X486(orbit, [a,b,c]) {
+function bary_X486([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7235,7 +7234,7 @@ function bary_X486(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X487(orbit, [a,b,c]) {
+function bary_X487([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7251,7 +7250,7 @@ function bary_X487(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X488(orbit, [a,b,c]) {
+function bary_X488([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7267,7 +7266,7 @@ function bary_X488(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X489(orbit, [a,b,c]) {
+function bary_X489([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7283,7 +7282,7 @@ function bary_X489(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X490(orbit, [a,b,c]) {
+function bary_X490([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7299,7 +7298,7 @@ function bary_X490(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X491(orbit, [a,b,c]) {
+function bary_X491([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7315,7 +7314,7 @@ function bary_X491(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X492(orbit, [a,b,c]) {
+function bary_X492([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7331,7 +7330,7 @@ function bary_X492(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X493(orbit, [a,b,c]) {
+function bary_X493([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let c2=c*c;
@@ -7345,7 +7344,7 @@ function bary_X493(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X494(orbit, [a,b,c]) {
+function bary_X494([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let c2=c*c;
@@ -7359,7 +7358,7 @@ function bary_X494(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X495(orbit, [a,b,c]) {
+function bary_X495([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7374,7 +7373,7 @@ function bary_X495(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X496(orbit, [a,b,c]) {
+function bary_X496([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7389,7 +7388,7 @@ function bary_X496(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X497(orbit, [a,b,c]) {
+function bary_X497([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7401,7 +7400,7 @@ function bary_X497(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X498(orbit, [a,b,c]) {
+function bary_X498([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7416,7 +7415,7 @@ function bary_X498(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X499(orbit, [a,b,c]) {
+function bary_X499([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7431,7 +7430,7 @@ function bary_X499(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X500(orbit, [a,b,c]) {
+function bary_X500([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7446,7 +7445,7 @@ function bary_X500(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X501(orbit, [a,b,c]) {
+function bary_X501([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7461,7 +7460,7 @@ function bary_X501(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X502(orbit, [a,b,c]) {
+function bary_X502([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7476,7 +7475,7 @@ function bary_X502(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X503(orbit, [a,b,c]) {
+function bary_X503([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -7490,7 +7489,7 @@ function bary_X503(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X504(orbit, [a,b,c]) {
+function bary_X504([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -7503,7 +7502,7 @@ function bary_X504(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X505(orbit, [a,b,c]) {
+function bary_X505([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -7516,7 +7515,7 @@ function bary_X505(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X506(orbit, [a,b,c]) {
+function bary_X506([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -7529,7 +7528,7 @@ function bary_X506(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X507(orbit, [a,b,c]) {
+function bary_X507([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -7542,7 +7541,7 @@ function bary_X507(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X508(orbit, [a,b,c]) {
+function bary_X508([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -7556,7 +7555,7 @@ function bary_X508(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X509(orbit, [a,b,c]) {
+function bary_X509([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -7570,7 +7569,7 @@ function bary_X509(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X510(orbit, [a,b,c]) {
+function bary_X510([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -7580,7 +7579,7 @@ function bary_X510(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X511(orbit, [a,b,c]) {
+function bary_X511([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7598,7 +7597,7 @@ function bary_X511(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X512(orbit, [a,b,c]) {
+function bary_X512([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7610,7 +7609,7 @@ function bary_X512(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X513(orbit, [a,b,c]) {
+function bary_X513([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -7620,7 +7619,7 @@ function bary_X513(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X514(orbit, [a,b,c]) {
+function bary_X514([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -7630,7 +7629,7 @@ function bary_X514(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X515(orbit, [a,b,c]) {
+function bary_X515([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7648,7 +7647,7 @@ function bary_X515(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X516(orbit, [a,b,c]) {
+function bary_X516([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7663,7 +7662,7 @@ function bary_X516(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X517(orbit, [a,b,c]) {
+function bary_X517([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7678,7 +7677,7 @@ function bary_X517(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X518(orbit, [a,b,c]) {
+function bary_X518([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7690,7 +7689,7 @@ function bary_X518(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X519(orbit, [a,b,c]) {
+function bary_X519([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -7700,7 +7699,7 @@ function bary_X519(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X520(orbit, [a,b,c]) {
+function bary_X520([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7718,7 +7717,7 @@ function bary_X520(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X521(orbit, [a,b,c]) {
+function bary_X521([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7733,7 +7732,7 @@ function bary_X521(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X522(orbit, [a,b,c]) {
+function bary_X522([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -7743,7 +7742,7 @@ function bary_X522(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X523(orbit, [a,b,c]) {
+function bary_X523([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -7755,7 +7754,7 @@ function bary_X523(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X524(orbit, [a,b,c]) {
+function bary_X524([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7767,7 +7766,7 @@ function bary_X524(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X525(orbit, [a,b,c]) {
+function bary_X525([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7782,7 +7781,7 @@ function bary_X525(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X526(orbit, [a,b,c]) {
+function bary_X526([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let b2=b*b;
@@ -7803,7 +7802,7 @@ function bary_X526(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X527(orbit, [a,b,c]) {
+function bary_X527([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7818,7 +7817,7 @@ function bary_X527(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X528(orbit, [a,b,c]) {
+function bary_X528([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7833,7 +7832,7 @@ function bary_X528(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X529(orbit, [a,b,c]) {
+function bary_X529([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7848,7 +7847,7 @@ function bary_X529(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X530(orbit, [a,b,c]) {
+function bary_X530([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7864,7 +7863,7 @@ function bary_X530(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X531(orbit, [a,b,c]) {
+function bary_X531([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7880,7 +7879,7 @@ function bary_X531(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X532(orbit, [a,b,c]) {
+function bary_X532([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7896,7 +7895,7 @@ function bary_X532(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X533(orbit, [a,b,c]) {
+function bary_X533([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7912,7 +7911,7 @@ function bary_X533(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X534(orbit, [a,b,c]) {
+function bary_X534([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7933,7 +7932,7 @@ function bary_X534(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X535(orbit, [a,b,c]) {
+function bary_X535([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7948,7 +7947,7 @@ function bary_X535(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X536(orbit, [a,b,c]) {
+function bary_X536([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -7958,7 +7957,7 @@ function bary_X536(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X537(orbit, [a,b,c]) {
+function bary_X537([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7976,7 +7975,7 @@ function bary_X537(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X538(orbit, [a,b,c]) {
+function bary_X538([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -7994,7 +7993,7 @@ function bary_X538(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X539(orbit, [a,b,c]) {
+function bary_X539([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8015,7 +8014,7 @@ function bary_X539(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X540(orbit, [a,b,c]) {
+function bary_X540([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8033,7 +8032,7 @@ function bary_X540(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X541(orbit, [a,b,c]) {
+function bary_X541([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8054,7 +8053,7 @@ function bary_X541(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X542(orbit, [a,b,c]) {
+function bary_X542([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8072,7 +8071,7 @@ function bary_X542(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X543(orbit, [a,b,c]) {
+function bary_X543([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -8090,7 +8089,7 @@ function bary_X543(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X544(orbit, [a,b,c]) {
+function bary_X544([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8108,7 +8107,7 @@ function bary_X544(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X545(orbit, [a,b,c]) {
+function bary_X545([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8123,7 +8122,7 @@ function bary_X545(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X546(orbit, [a,b,c]) {
+function bary_X546([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8138,7 +8137,7 @@ function bary_X546(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X547(orbit, [a,b,c]) {
+function bary_X547([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8153,7 +8152,7 @@ function bary_X547(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X548(orbit, [a,b,c]) {
+function bary_X548([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8168,7 +8167,7 @@ function bary_X548(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X549(orbit, [a,b,c]) {
+function bary_X549([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8183,7 +8182,7 @@ function bary_X549(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X550(orbit, [a,b,c]) {
+function bary_X550([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8198,7 +8197,7 @@ function bary_X550(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X551(orbit, [a,b,c]) {
+function bary_X551([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -8208,7 +8207,7 @@ function bary_X551(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X552(orbit, [a,b,c]) {
+function bary_X552([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -8218,7 +8217,7 @@ function bary_X552(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X553(orbit, [a,b,c]) {
+function bary_X553([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -8228,7 +8227,7 @@ function bary_X553(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X554(orbit, [a,b,c]) {
+function bary_X554([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let sc=(a+b-c)/2;
@@ -8241,7 +8240,7 @@ function bary_X554(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X555(orbit, [a,b,c]) {
+function bary_X555([a,b,c]) {
    /* begin vars */
    let Sqrt=Math.sqrt;
    /* end vars */
@@ -8251,7 +8250,7 @@ function bary_X555(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X556(orbit, [a,b,c]) {
+function bary_X556([a,b,c]) {
    /* begin vars */
    let sa=(b+c-a)/2;
    let sc=(a+b-c)/2;
@@ -8264,7 +8263,7 @@ function bary_X556(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X557(orbit, [a,b,c]) {
+function bary_X557([a,b,c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosHalfC=cosHalfAngle(cosC);
@@ -8282,7 +8281,7 @@ function bary_X557(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X558(orbit, [a,b,c]) {
+function bary_X558([a,b,c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let cosHalfC=cosHalfAngle(cosC);
@@ -8300,7 +8299,7 @@ function bary_X558(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X559(orbit, [a,b,c]) {
+function bary_X559([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8316,7 +8315,7 @@ function bary_X559(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X560(orbit, [a,b,c]) {
+function bary_X560([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -8334,7 +8333,7 @@ function bary_X560(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X561(orbit, [a,b,c]) {
+function bary_X561([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8349,7 +8348,7 @@ function bary_X561(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X562(orbit, [a,b,c]) {
+function bary_X562([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8368,7 +8367,7 @@ function bary_X562(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X563(orbit, [a,b,c]) {
+function bary_X563([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8393,7 +8392,7 @@ function bary_X563(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X564(orbit, [a,b,c]) {
+function bary_X564([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8415,7 +8414,7 @@ function bary_X564(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X565(orbit, [a,b,c]) {
+function bary_X565([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8436,7 +8435,7 @@ function bary_X565(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X566(orbit, [a,b,c]) {
+function bary_X566([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8454,7 +8453,7 @@ function bary_X566(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X567(orbit, [a,b,c]) {
+function bary_X567([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -8475,7 +8474,7 @@ function bary_X567(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X568(orbit, [a,b,c]) {
+function bary_X568([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let a4=a2*a2;
@@ -8496,7 +8495,7 @@ function bary_X568(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X569(orbit, [a,b,c]) {
+function bary_X569([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -8517,7 +8516,7 @@ function bary_X569(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X570(orbit, [a,b,c]) {
+function bary_X570([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let a4=a2*a2;
@@ -8535,7 +8534,7 @@ function bary_X570(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X571(orbit, [a,b,c]) {
+function bary_X571([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8556,7 +8555,7 @@ function bary_X571(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X572(orbit, [a,b,c]) {
+function bary_X572([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8571,7 +8570,7 @@ function bary_X572(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X573(orbit, [a,b,c]) {
+function bary_X573([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -8586,7 +8585,7 @@ function bary_X573(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X574(orbit, [a,b,c]) {
+function bary_X574([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8598,7 +8597,7 @@ function bary_X574(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X575(orbit, [a,b,c]) {
+function bary_X575([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8616,7 +8615,7 @@ function bary_X575(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X576(orbit, [a,b,c]) {
+function bary_X576([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8631,7 +8630,7 @@ function bary_X576(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X577(orbit, [a,b,c]) {
+function bary_X577([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8652,7 +8651,7 @@ function bary_X577(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X578(orbit, [a,b,c]) {
+function bary_X578([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -8673,7 +8672,7 @@ function bary_X578(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X579(orbit, [a,b,c]) {
+function bary_X579([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -8688,7 +8687,7 @@ function bary_X579(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X580(orbit, [a,b,c]) {
+function bary_X580([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -8709,7 +8708,7 @@ function bary_X580(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X581(orbit, [a,b,c]) {
+function bary_X581([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8730,7 +8729,7 @@ function bary_X581(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X582(orbit, [a,b,c]) {
+function bary_X582([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -8751,7 +8750,7 @@ function bary_X582(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X583(orbit, [a,b,c]) {
+function bary_X583([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -8766,7 +8765,7 @@ function bary_X583(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X584(orbit, [a,b,c]) {
+function bary_X584([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8781,7 +8780,7 @@ function bary_X584(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X585(orbit, [a,b,c]) {
+function bary_X585([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    /* end vars */
@@ -8791,7 +8790,7 @@ function bary_X585(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X586(orbit, [a,b,c]) {
+function bary_X586([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    /* end vars */
@@ -8801,7 +8800,7 @@ function bary_X586(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X587(orbit, [a,b,c]) {
+function bary_X587([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -8820,7 +8819,7 @@ function bary_X587(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X588(orbit, [a,b,c]) {
+function bary_X588([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8833,7 +8832,7 @@ function bary_X588(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X589(orbit, [a,b,c]) {
+function bary_X589([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8846,7 +8845,7 @@ function bary_X589(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X590(orbit, [a,b,c]) {
+function bary_X590([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8859,7 +8858,7 @@ function bary_X590(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X591(orbit, [a,b,c]) {
+function bary_X591([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -8873,7 +8872,7 @@ function bary_X591(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X592(orbit, [a,b,c]) {
+function bary_X592([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8891,7 +8890,7 @@ function bary_X592(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X593(orbit, [a,b,c]) {
+function bary_X593([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -8901,7 +8900,7 @@ function bary_X593(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X594(orbit, [a,b,c]) {
+function bary_X594([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -8911,7 +8910,7 @@ function bary_X594(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X595(orbit, [a,b,c]) {
+function bary_X595([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8923,7 +8922,7 @@ function bary_X595(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X596(orbit, [a,b,c]) {
+function bary_X596([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8935,7 +8934,7 @@ function bary_X596(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X597(orbit, [a,b,c]) {
+function bary_X597([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8947,7 +8946,7 @@ function bary_X597(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X598(orbit, [a,b,c]) {
+function bary_X598([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8959,7 +8958,7 @@ function bary_X598(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X599(orbit, [a,b,c]) {
+function bary_X599([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -8971,7 +8970,7 @@ function bary_X599(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X600(orbit, [a,b,c]) {
+function bary_X600([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let c2=c*c;
@@ -8985,7 +8984,7 @@ function bary_X600(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X601(orbit, [a,b,c]) {
+function bary_X601([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9004,7 +9003,7 @@ function bary_X601(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X602(orbit, [a,b,c]) {
+function bary_X602([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9023,7 +9022,7 @@ function bary_X602(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X603(orbit, [a,b,c]) {
+function bary_X603([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9041,7 +9040,7 @@ function bary_X603(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X604(orbit, [a,b,c]) {
+function bary_X604([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9056,7 +9055,7 @@ function bary_X604(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X605(orbit, [a,b,c]) {
+function bary_X605([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9072,7 +9071,7 @@ function bary_X605(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X606(orbit, [a,b,c]) {
+function bary_X606([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9088,7 +9087,7 @@ function bary_X606(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X607(orbit, [a,b,c]) {
+function bary_X607([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -9103,7 +9102,7 @@ function bary_X607(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X608(orbit, [a,b,c]) {
+function bary_X608([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -9118,7 +9117,7 @@ function bary_X608(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X609(orbit, [a,b,c]) {
+function bary_X609([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9130,7 +9129,7 @@ function bary_X609(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X610(orbit, [a,b,c]) {
+function bary_X610([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9145,7 +9144,7 @@ function bary_X610(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X611(orbit, [a,b,c]) {
+function bary_X611([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9158,7 +9157,7 @@ function bary_X611(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X612(orbit, [a,b,c]) {
+function bary_X612([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9170,7 +9169,7 @@ function bary_X612(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X613(orbit, [a,b,c]) {
+function bary_X613([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9183,7 +9182,7 @@ function bary_X613(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X614(orbit, [a,b,c]) {
+function bary_X614([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9195,7 +9194,7 @@ function bary_X614(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X615(orbit, [a,b,c]) {
+function bary_X615([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9208,7 +9207,7 @@ function bary_X615(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X616(orbit, [a,b,c]) {
+function bary_X616([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -9222,7 +9221,7 @@ function bary_X616(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X617(orbit, [a,b,c]) {
+function bary_X617([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -9236,7 +9235,7 @@ function bary_X617(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X618(orbit, [a,b,c]) {
+function bary_X618([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9252,7 +9251,7 @@ function bary_X618(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X619(orbit, [a,b,c]) {
+function bary_X619([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9268,7 +9267,7 @@ function bary_X619(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X620(orbit, [a,b,c]) {
+function bary_X620([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9286,7 +9285,7 @@ function bary_X620(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X621(orbit, [a,b,c]) {
+function bary_X621([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -9300,7 +9299,7 @@ function bary_X621(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X622(orbit, [a,b,c]) {
+function bary_X622([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -9314,7 +9313,7 @@ function bary_X622(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X623(orbit, [a,b,c]) {
+function bary_X623([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9330,7 +9329,7 @@ function bary_X623(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X624(orbit, [a,b,c]) {
+function bary_X624([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9346,7 +9345,7 @@ function bary_X624(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X625(orbit, [a,b,c]) {
+function bary_X625([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -9361,7 +9360,7 @@ function bary_X625(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X626(orbit, [a,b,c]) {
+function bary_X626([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -9376,7 +9375,7 @@ function bary_X626(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X627(orbit, [a,b,c]) {
+function bary_X627([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -9390,7 +9389,7 @@ function bary_X627(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X628(orbit, [a,b,c]) {
+function bary_X628([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -9404,7 +9403,7 @@ function bary_X628(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X629(orbit, [a,b,c]) {
+function bary_X629([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9420,7 +9419,7 @@ function bary_X629(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X630(orbit, [a,b,c]) {
+function bary_X630([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9436,7 +9435,7 @@ function bary_X630(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X631(orbit, [a,b,c]) {
+function bary_X631([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9451,7 +9450,7 @@ function bary_X631(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X632(orbit, [a,b,c]) {
+function bary_X632([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9466,7 +9465,7 @@ function bary_X632(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X633(orbit, [a,b,c]) {
+function bary_X633([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -9480,7 +9479,7 @@ function bary_X633(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X634(orbit, [a,b,c]) {
+function bary_X634([a,b,c]) {
    /* begin vars */
    let area=triAreaHeron(a,b,c);
    let S=2*area;
@@ -9494,7 +9493,7 @@ function bary_X634(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X635(orbit, [a,b,c]) {
+function bary_X635([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9510,7 +9509,7 @@ function bary_X635(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X636(orbit, [a,b,c]) {
+function bary_X636([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9526,7 +9525,7 @@ function bary_X636(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X637(orbit, [a,b,c]) {
+function bary_X637([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9542,7 +9541,7 @@ function bary_X637(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X638(orbit, [a,b,c]) {
+function bary_X638([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9558,7 +9557,7 @@ function bary_X638(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X639(orbit, [a,b,c]) {
+function bary_X639([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9574,7 +9573,7 @@ function bary_X639(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X640(orbit, [a,b,c]) {
+function bary_X640([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9590,7 +9589,7 @@ function bary_X640(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X641(orbit, [a,b,c]) {
+function bary_X641([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9606,7 +9605,7 @@ function bary_X641(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X642(orbit, [a,b,c]) {
+function bary_X642([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9622,7 +9621,7 @@ function bary_X642(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X643(orbit, [a,b,c]) {
+function bary_X643([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -9634,7 +9633,7 @@ function bary_X643(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X644(orbit, [a,b,c]) {
+function bary_X644([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -9644,7 +9643,7 @@ function bary_X644(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X645(orbit, [a,b,c]) {
+function bary_X645([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -9656,7 +9655,7 @@ function bary_X645(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X646(orbit, [a,b,c]) {
+function bary_X646([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -9666,7 +9665,7 @@ function bary_X646(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X647(orbit, [a,b,c]) {
+function bary_X647([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9681,7 +9680,7 @@ function bary_X647(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X648(orbit, [a,b,c]) {
+function bary_X648([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9696,7 +9695,7 @@ function bary_X648(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X649(orbit, [a,b,c]) {
+function bary_X649([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9708,7 +9707,7 @@ function bary_X649(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X650(orbit, [a,b,c]) {
+function bary_X650([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -9718,7 +9717,7 @@ function bary_X650(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X651(orbit, [a,b,c]) {
+function bary_X651([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -9728,7 +9727,7 @@ function bary_X651(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X652(orbit, [a,b,c]) {
+function bary_X652([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9743,7 +9742,7 @@ function bary_X652(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X653(orbit, [a,b,c]) {
+function bary_X653([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9758,7 +9757,7 @@ function bary_X653(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X654(orbit, [a,b,c]) {
+function bary_X654([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9773,7 +9772,7 @@ function bary_X654(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X655(orbit, [a,b,c]) {
+function bary_X655([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9788,7 +9787,7 @@ function bary_X655(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X656(orbit, [a,b,c]) {
+function bary_X656([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9803,7 +9802,7 @@ function bary_X656(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X657(orbit, [a,b,c]) {
+function bary_X657([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9815,7 +9814,7 @@ function bary_X657(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X658(orbit, [a,b,c]) {
+function bary_X658([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -9825,7 +9824,7 @@ function bary_X658(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X659(orbit, [a,b,c]) {
+function bary_X659([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9837,7 +9836,7 @@ function bary_X659(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X660(orbit, [a,b,c]) {
+function bary_X660([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9849,7 +9848,7 @@ function bary_X660(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X661(orbit, [a,b,c]) {
+function bary_X661([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -9861,7 +9860,7 @@ function bary_X661(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X662(orbit, [a,b,c]) {
+function bary_X662([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -9873,7 +9872,7 @@ function bary_X662(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X663(orbit, [a,b,c]) {
+function bary_X663([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9885,7 +9884,7 @@ function bary_X663(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X664(orbit, [a,b,c]) {
+function bary_X664([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -9895,7 +9894,7 @@ function bary_X664(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X665(orbit, [a,b,c]) {
+function bary_X665([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9907,7 +9906,7 @@ function bary_X665(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X666(orbit, [a,b,c]) {
+function bary_X666([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9919,7 +9918,7 @@ function bary_X666(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X667(orbit, [a,b,c]) {
+function bary_X667([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9934,7 +9933,7 @@ function bary_X667(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X668(orbit, [a,b,c]) {
+function bary_X668([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -9944,7 +9943,7 @@ function bary_X668(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X669(orbit, [a,b,c]) {
+function bary_X669([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9959,7 +9958,7 @@ function bary_X669(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X670(orbit, [a,b,c]) {
+function bary_X670([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9971,7 +9970,7 @@ function bary_X670(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X671(orbit, [a,b,c]) {
+function bary_X671([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9983,7 +9982,7 @@ function bary_X671(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X672(orbit, [a,b,c]) {
+function bary_X672([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -9995,7 +9994,7 @@ function bary_X672(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X673(orbit, [a,b,c]) {
+function bary_X673([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10007,7 +10006,7 @@ function bary_X673(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X674(orbit, [a,b,c]) {
+function bary_X674([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10022,7 +10021,7 @@ function bary_X674(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X675(orbit, [a,b,c]) {
+function bary_X675([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10037,7 +10036,7 @@ function bary_X675(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X676(orbit, [a,b,c]) {
+function bary_X676([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10052,7 +10051,7 @@ function bary_X676(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X677(orbit, [a,b,c]) {
+function bary_X677([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10067,7 +10066,7 @@ function bary_X677(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X678(orbit, [a,b,c]) {
+function bary_X678([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -10077,7 +10076,7 @@ function bary_X678(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X679(orbit, [a,b,c]) {
+function bary_X679([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -10087,7 +10086,7 @@ function bary_X679(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X680(orbit, [a,b,c]) {
+function bary_X680([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10108,7 +10107,7 @@ function bary_X680(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X681(orbit, [a,b,c]) {
+function bary_X681([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10129,7 +10128,7 @@ function bary_X681(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X682(orbit, [a,b,c]) {
+function bary_X682([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10150,7 +10149,7 @@ function bary_X682(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X683(orbit, [a,b,c]) {
+function bary_X683([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10165,7 +10164,7 @@ function bary_X683(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X684(orbit, [a,b,c]) {
+function bary_X684([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10180,7 +10179,7 @@ function bary_X684(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X685(orbit, [a,b,c]) {
+function bary_X685([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10198,7 +10197,7 @@ function bary_X685(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X686(orbit, [a,b,c]) {
+function bary_X686([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10216,7 +10215,7 @@ function bary_X686(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X687(orbit, [a,b,c]) {
+function bary_X687([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10234,7 +10233,7 @@ function bary_X687(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X688(orbit, [a,b,c]) {
+function bary_X688([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10249,7 +10248,7 @@ function bary_X688(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X689(orbit, [a,b,c]) {
+function bary_X689([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10264,7 +10263,7 @@ function bary_X689(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X690(orbit, [a,b,c]) {
+function bary_X690([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10276,7 +10275,7 @@ function bary_X690(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X691(orbit, [a,b,c]) {
+function bary_X691([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10288,7 +10287,7 @@ function bary_X691(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X692(orbit, [a,b,c]) {
+function bary_X692([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10303,7 +10302,7 @@ function bary_X692(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X693(orbit, [a,b,c]) {
+function bary_X693([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -10313,7 +10312,7 @@ function bary_X693(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X694(orbit, [a,b,c]) {
+function bary_X694([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10328,7 +10327,7 @@ function bary_X694(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X695(orbit, [a,b,c]) {
+function bary_X695([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10343,7 +10342,7 @@ function bary_X695(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X696(orbit, [a,b,c]) {
+function bary_X696([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10358,7 +10357,7 @@ function bary_X696(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X697(orbit, [a,b,c]) {
+function bary_X697([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10373,7 +10372,7 @@ function bary_X697(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X698(orbit, [a,b,c]) {
+function bary_X698([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10388,7 +10387,7 @@ function bary_X698(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X699(orbit, [a,b,c]) {
+function bary_X699([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10403,7 +10402,7 @@ function bary_X699(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X700(orbit, [a,b,c]) {
+function bary_X700([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let b2=b*b;
@@ -10421,7 +10420,7 @@ function bary_X700(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X701(orbit, [a,b,c]) {
+function bary_X701([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let b2=b*b;
@@ -10439,7 +10438,7 @@ function bary_X701(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X702(orbit, [a,b,c]) {
+function bary_X702([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10454,7 +10453,7 @@ function bary_X702(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X703(orbit, [a,b,c]) {
+function bary_X703([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10469,7 +10468,7 @@ function bary_X703(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X704(orbit, [a,b,c]) {
+function bary_X704([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10490,7 +10489,7 @@ function bary_X704(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X705(orbit, [a,b,c]) {
+function bary_X705([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10511,7 +10510,7 @@ function bary_X705(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X706(orbit, [a,b,c]) {
+function bary_X706([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10529,7 +10528,7 @@ function bary_X706(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X707(orbit, [a,b,c]) {
+function bary_X707([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10547,7 +10546,7 @@ function bary_X707(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X708(orbit, [a,b,c]) {
+function bary_X708([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10568,7 +10567,7 @@ function bary_X708(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X709(orbit, [a,b,c]) {
+function bary_X709([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10589,7 +10588,7 @@ function bary_X709(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X710(orbit, [a,b,c]) {
+function bary_X710([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10604,7 +10603,7 @@ function bary_X710(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X711(orbit, [a,b,c]) {
+function bary_X711([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10619,7 +10618,7 @@ function bary_X711(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X712(orbit, [a,b,c]) {
+function bary_X712([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10634,7 +10633,7 @@ function bary_X712(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X713(orbit, [a,b,c]) {
+function bary_X713([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10649,7 +10648,7 @@ function bary_X713(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X714(orbit, [a,b,c]) {
+function bary_X714([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10661,7 +10660,7 @@ function bary_X714(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X715(orbit, [a,b,c]) {
+function bary_X715([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10673,7 +10672,7 @@ function bary_X715(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X716(orbit, [a,b,c]) {
+function bary_X716([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10688,7 +10687,7 @@ function bary_X716(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X717(orbit, [a,b,c]) {
+function bary_X717([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10703,7 +10702,7 @@ function bary_X717(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X718(orbit, [a,b,c]) {
+function bary_X718([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -10721,7 +10720,7 @@ function bary_X718(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X719(orbit, [a,b,c]) {
+function bary_X719([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -10739,7 +10738,7 @@ function bary_X719(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X720(orbit, [a,b,c]) {
+function bary_X720([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10757,7 +10756,7 @@ function bary_X720(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X721(orbit, [a,b,c]) {
+function bary_X721([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10775,7 +10774,7 @@ function bary_X721(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X722(orbit, [a,b,c]) {
+function bary_X722([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10790,7 +10789,7 @@ function bary_X722(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X723(orbit, [a,b,c]) {
+function bary_X723([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10805,7 +10804,7 @@ function bary_X723(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X724(orbit, [a,b,c]) {
+function bary_X724([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10829,7 +10828,7 @@ function bary_X724(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X725(orbit, [a,b,c]) {
+function bary_X725([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10853,7 +10852,7 @@ function bary_X725(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X726(orbit, [a,b,c]) {
+function bary_X726([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -10865,7 +10864,7 @@ function bary_X726(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X727(orbit, [a,b,c]) {
+function bary_X727([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10877,7 +10876,7 @@ function bary_X727(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X728(orbit, [a,b,c]) {
+function bary_X728([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -10887,7 +10886,7 @@ function bary_X728(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X729(orbit, [a,b,c]) {
+function bary_X729([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10899,7 +10898,7 @@ function bary_X729(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X730(orbit, [a,b,c]) {
+function bary_X730([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10914,7 +10913,7 @@ function bary_X730(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X731(orbit, [a,b,c]) {
+function bary_X731([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10929,7 +10928,7 @@ function bary_X731(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X732(orbit, [a,b,c]) {
+function bary_X732([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10941,7 +10940,7 @@ function bary_X732(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X733(orbit, [a,b,c]) {
+function bary_X733([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -10953,7 +10952,7 @@ function bary_X733(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X734(orbit, [a,b,c]) {
+function bary_X734([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -10971,7 +10970,7 @@ function bary_X734(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X735(orbit, [a,b,c]) {
+function bary_X735([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -10989,7 +10988,7 @@ function bary_X735(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X736(orbit, [a,b,c]) {
+function bary_X736([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -11007,7 +11006,7 @@ function bary_X736(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X737(orbit, [a,b,c]) {
+function bary_X737([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -11025,7 +11024,7 @@ function bary_X737(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X738(orbit, [a,b,c]) {
+function bary_X738([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -11035,7 +11034,7 @@ function bary_X738(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X739(orbit, [a,b,c]) {
+function bary_X739([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11047,7 +11046,7 @@ function bary_X739(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X740(orbit, [a,b,c]) {
+function bary_X740([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11059,7 +11058,7 @@ function bary_X740(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X741(orbit, [a,b,c]) {
+function bary_X741([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11071,7 +11070,7 @@ function bary_X741(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X742(orbit, [a,b,c]) {
+function bary_X742([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11086,7 +11085,7 @@ function bary_X742(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X743(orbit, [a,b,c]) {
+function bary_X743([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11101,7 +11100,7 @@ function bary_X743(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X744(orbit, [a,b,c]) {
+function bary_X744([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -11119,7 +11118,7 @@ function bary_X744(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X745(orbit, [a,b,c]) {
+function bary_X745([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -11137,7 +11136,7 @@ function bary_X745(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X746(orbit, [a,b,c]) {
+function bary_X746([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -11155,7 +11154,7 @@ function bary_X746(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X747(orbit, [a,b,c]) {
+function bary_X747([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -11173,7 +11172,7 @@ function bary_X747(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X748(orbit, [a,b,c]) {
+function bary_X748([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11188,7 +11187,7 @@ function bary_X748(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X749(orbit, [a,b,c]) {
+function bary_X749([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11203,7 +11202,7 @@ function bary_X749(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X750(orbit, [a,b,c]) {
+function bary_X750([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11218,7 +11217,7 @@ function bary_X750(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X751(orbit, [a,b,c]) {
+function bary_X751([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11233,7 +11232,7 @@ function bary_X751(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X752(orbit, [a,b,c]) {
+function bary_X752([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11248,7 +11247,7 @@ function bary_X752(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X753(orbit, [a,b,c]) {
+function bary_X753([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11263,7 +11262,7 @@ function bary_X753(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X754(orbit, [a,b,c]) {
+function bary_X754([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11278,7 +11277,7 @@ function bary_X754(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X755(orbit, [a,b,c]) {
+function bary_X755([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11293,7 +11292,7 @@ function bary_X755(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X756(orbit, [a,b,c]) {
+function bary_X756([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -11303,7 +11302,7 @@ function bary_X756(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X757(orbit, [a,b,c]) {
+function bary_X757([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -11313,7 +11312,7 @@ function bary_X757(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X758(orbit, [a,b,c]) {
+function bary_X758([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11328,7 +11327,7 @@ function bary_X758(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X759(orbit, [a,b,c]) {
+function bary_X759([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11343,7 +11342,7 @@ function bary_X759(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X760(orbit, [a,b,c]) {
+function bary_X760([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11358,7 +11357,7 @@ function bary_X760(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X761(orbit, [a,b,c]) {
+function bary_X761([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11373,7 +11372,7 @@ function bary_X761(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X762(orbit, [a,b,c]) {
+function bary_X762([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -11383,7 +11382,7 @@ function bary_X762(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X763(orbit, [a,b,c]) {
+function bary_X763([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -11393,7 +11392,7 @@ function bary_X763(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X764(orbit, [a,b,c]) {
+function bary_X764([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -11403,7 +11402,7 @@ function bary_X764(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X765(orbit, [a,b,c]) {
+function bary_X765([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -11413,7 +11412,7 @@ function bary_X765(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X766(orbit, [a,b,c]) {
+function bary_X766([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11431,7 +11430,7 @@ function bary_X766(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X767(orbit, [a,b,c]) {
+function bary_X767([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11449,7 +11448,7 @@ function bary_X767(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X768(orbit, [a,b,c]) {
+function bary_X768([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -11464,7 +11463,7 @@ function bary_X768(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X769(orbit, [a,b,c]) {
+function bary_X769([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -11479,7 +11478,7 @@ function bary_X769(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X770(orbit, [a,b,c]) {
+function bary_X770([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -11500,7 +11499,7 @@ function bary_X770(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X771(orbit, [a,b,c]) {
+function bary_X771([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -11521,7 +11520,7 @@ function bary_X771(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X772(orbit, [a,b,c]) {
+function bary_X772([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11536,7 +11535,7 @@ function bary_X772(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X773(orbit, [a,b,c]) {
+function bary_X773([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11551,7 +11550,7 @@ function bary_X773(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X774(orbit, [a,b,c]) {
+function bary_X774([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -11569,7 +11568,7 @@ function bary_X774(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X775(orbit, [a,b,c]) {
+function bary_X775([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -11587,7 +11586,7 @@ function bary_X775(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X776(orbit, [a,b,c]) {
+function bary_X776([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -11608,7 +11607,7 @@ function bary_X776(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X777(orbit, [a,b,c]) {
+function bary_X777([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -11629,7 +11628,7 @@ function bary_X777(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X778(orbit, [a,b,c]) {
+function bary_X778([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -11647,7 +11646,7 @@ function bary_X778(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X779(orbit, [a,b,c]) {
+function bary_X779([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -11665,7 +11664,7 @@ function bary_X779(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X780(orbit, [a,b,c]) {
+function bary_X780([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -11692,7 +11691,7 @@ function bary_X780(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X781(orbit, [a,b,c]) {
+function bary_X781([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -11719,7 +11718,7 @@ function bary_X781(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X782(orbit, [a,b,c]) {
+function bary_X782([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11734,7 +11733,7 @@ function bary_X782(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X783(orbit, [a,b,c]) {
+function bary_X783([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11749,7 +11748,7 @@ function bary_X783(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X784(orbit, [a,b,c]) {
+function bary_X784([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -11761,7 +11760,7 @@ function bary_X784(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X785(orbit, [a,b,c]) {
+function bary_X785([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11773,7 +11772,7 @@ function bary_X785(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X786(orbit, [a,b,c]) {
+function bary_X786([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11785,7 +11784,7 @@ function bary_X786(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X787(orbit, [a,b,c]) {
+function bary_X787([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11797,7 +11796,7 @@ function bary_X787(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X788(orbit, [a,b,c]) {
+function bary_X788([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -11812,7 +11811,7 @@ function bary_X788(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X789(orbit, [a,b,c]) {
+function bary_X789([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -11824,7 +11823,7 @@ function bary_X789(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X790(orbit, [a,b,c]) {
+function bary_X790([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -11842,7 +11841,7 @@ function bary_X790(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X791(orbit, [a,b,c]) {
+function bary_X791([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -11860,7 +11859,7 @@ function bary_X791(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X792(orbit, [a,b,c]) {
+function bary_X792([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -11881,7 +11880,7 @@ function bary_X792(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X793(orbit, [a,b,c]) {
+function bary_X793([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -11902,7 +11901,7 @@ function bary_X793(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X794(orbit, [a,b,c]) {
+function bary_X794([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11917,7 +11916,7 @@ function bary_X794(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X795(orbit, [a,b,c]) {
+function bary_X795([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -11932,7 +11931,7 @@ function bary_X795(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X796(orbit, [a,b,c]) {
+function bary_X796([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -11959,7 +11958,7 @@ function bary_X796(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X797(orbit, [a,b,c]) {
+function bary_X797([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -11986,7 +11985,7 @@ function bary_X797(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X798(orbit, [a,b,c]) {
+function bary_X798([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12001,7 +12000,7 @@ function bary_X798(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X799(orbit, [a,b,c]) {
+function bary_X799([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -12013,7 +12012,7 @@ function bary_X799(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X800(orbit, [a,b,c]) {
+function bary_X800([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -12031,7 +12030,7 @@ function bary_X800(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X801(orbit, [a,b,c]) {
+function bary_X801([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -12049,7 +12048,7 @@ function bary_X801(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X802(orbit, [a,b,c]) {
+function bary_X802([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12064,7 +12063,7 @@ function bary_X802(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X803(orbit, [a,b,c]) {
+function bary_X803([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12079,7 +12078,7 @@ function bary_X803(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X804(orbit, [a,b,c]) {
+function bary_X804([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12094,7 +12093,7 @@ function bary_X804(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X805(orbit, [a,b,c]) {
+function bary_X805([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12109,7 +12108,7 @@ function bary_X805(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X806(orbit, [a,b,c]) {
+function bary_X806([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -12130,7 +12129,7 @@ function bary_X806(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X807(orbit, [a,b,c]) {
+function bary_X807([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -12151,7 +12150,7 @@ function bary_X807(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X808(orbit, [a,b,c]) {
+function bary_X808([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -12169,7 +12168,7 @@ function bary_X808(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X809(orbit, [a,b,c]) {
+function bary_X809([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c4=c2*c2;
@@ -12187,7 +12186,7 @@ function bary_X809(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X810(orbit, [a,b,c]) {
+function bary_X810([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12205,7 +12204,7 @@ function bary_X810(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X811(orbit, [a,b,c]) {
+function bary_X811([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12220,7 +12219,7 @@ function bary_X811(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X812(orbit, [a,b,c]) {
+function bary_X812([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12232,7 +12231,7 @@ function bary_X812(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X813(orbit, [a,b,c]) {
+function bary_X813([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12244,7 +12243,7 @@ function bary_X813(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X814(orbit, [a,b,c]) {
+function bary_X814([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12259,7 +12258,7 @@ function bary_X814(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X815(orbit, [a,b,c]) {
+function bary_X815([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12274,7 +12273,7 @@ function bary_X815(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X816(orbit, [a,b,c]) {
+function bary_X816([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -12292,7 +12291,7 @@ function bary_X816(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X817(orbit, [a,b,c]) {
+function bary_X817([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -12310,7 +12309,7 @@ function bary_X817(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X818(orbit, [a,b,c]) {
+function bary_X818([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -12331,7 +12330,7 @@ function bary_X818(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X819(orbit, [a,b,c]) {
+function bary_X819([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -12352,7 +12351,7 @@ function bary_X819(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X820(orbit, [a,b,c]) {
+function bary_X820([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12373,7 +12372,7 @@ function bary_X820(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X821(orbit, [a,b,c]) {
+function bary_X821([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12391,7 +12390,7 @@ function bary_X821(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X822(orbit, [a,b,c]) {
+function bary_X822([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12412,7 +12411,7 @@ function bary_X822(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X823(orbit, [a,b,c]) {
+function bary_X823([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12430,7 +12429,7 @@ function bary_X823(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X824(orbit, [a,b,c]) {
+function bary_X824([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -12445,7 +12444,7 @@ function bary_X824(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X825(orbit, [a,b,c]) {
+function bary_X825([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -12460,7 +12459,7 @@ function bary_X825(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X826(orbit, [a,b,c]) {
+function bary_X826([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -12475,7 +12474,7 @@ function bary_X826(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X827(orbit, [a,b,c]) {
+function bary_X827([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -12490,7 +12489,7 @@ function bary_X827(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X828(orbit, [a,b,c]) {
+function bary_X828([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12511,7 +12510,7 @@ function bary_X828(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X829(orbit, [a,b,c]) {
+function bary_X829([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -12532,7 +12531,7 @@ function bary_X829(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X830(orbit, [a,b,c]) {
+function bary_X830([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12544,7 +12543,7 @@ function bary_X830(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X831(orbit, [a,b,c]) {
+function bary_X831([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12556,7 +12555,7 @@ function bary_X831(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X832(orbit, [a,b,c]) {
+function bary_X832([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12571,7 +12570,7 @@ function bary_X832(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X833(orbit, [a,b,c]) {
+function bary_X833([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12586,7 +12585,7 @@ function bary_X833(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X834(orbit, [a,b,c]) {
+function bary_X834([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12601,7 +12600,7 @@ function bary_X834(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X835(orbit, [a,b,c]) {
+function bary_X835([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12616,7 +12615,7 @@ function bary_X835(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X836(orbit, [a,b,c]) {
+function bary_X836([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12634,7 +12633,7 @@ function bary_X836(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X837(orbit, [a,b,c]) {
+function bary_X837([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12652,7 +12651,7 @@ function bary_X837(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X838(orbit, [a,b,c]) {
+function bary_X838([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12670,7 +12669,7 @@ function bary_X838(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X839(orbit, [a,b,c]) {
+function bary_X839([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12688,7 +12687,7 @@ function bary_X839(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X840(orbit, [a,b,c]) {
+function bary_X840([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12703,7 +12702,7 @@ function bary_X840(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X841(orbit, [a,b,c]) {
+function bary_X841([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12724,7 +12723,7 @@ function bary_X841(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X842(orbit, [a,b,c]) {
+function bary_X842([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12742,7 +12741,7 @@ function bary_X842(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X843(orbit, [a,b,c]) {
+function bary_X843([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -12760,7 +12759,7 @@ function bary_X843(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X844(orbit, [a,b,c]) {
+function bary_X844([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let s=(a+b+c)/2;
@@ -12774,7 +12773,7 @@ function bary_X844(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X845(orbit, [a,b,c]) {
+function bary_X845([a,b,c]) {
    /* begin vars */
    let sc=(a+b-c)/2;
    let sb=(c+a-b)/2;
@@ -12787,7 +12786,7 @@ function bary_X845(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X846(orbit, [a,b,c]) {
+function bary_X846([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12802,7 +12801,7 @@ function bary_X846(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X847(orbit, [a,b,c]) {
+function bary_X847([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12821,7 +12820,7 @@ function bary_X847(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X848(orbit, [a,b,c]) {
+function bary_X848([a,b,c]) {
    /* begin vars */
    let cosC=lawOfCosines(c,a,b);
    let sinC=getSin(cosC);
@@ -12842,7 +12841,7 @@ function bary_X848(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X849(orbit, [a,b,c]) {
+function bary_X849([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12857,7 +12856,7 @@ function bary_X849(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X850(orbit, [a,b,c]) {
+function bary_X850([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -12869,7 +12868,7 @@ function bary_X850(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X851(orbit, [a,b,c]) {
+function bary_X851([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -12887,7 +12886,7 @@ function bary_X851(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X852(orbit, [a,b,c]) {
+function bary_X852([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12905,7 +12904,7 @@ function bary_X852(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X853(orbit, [a,b,c]) {
+function bary_X853([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -12926,7 +12925,7 @@ function bary_X853(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X854(orbit, [a,b,c]) {
+function bary_X854([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12941,7 +12940,7 @@ function bary_X854(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X855(orbit, [a,b,c]) {
+function bary_X855([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12956,7 +12955,7 @@ function bary_X855(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X856(orbit, [a,b,c]) {
+function bary_X856([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -12971,7 +12970,7 @@ function bary_X856(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X857(orbit, [a,b,c]) {
+function bary_X857([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -12989,7 +12988,7 @@ function bary_X857(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X858(orbit, [a,b,c]) {
+function bary_X858([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13004,7 +13003,7 @@ function bary_X858(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X859(orbit, [a,b,c]) {
+function bary_X859([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13019,7 +13018,7 @@ function bary_X859(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X860(orbit, [a,b,c]) {
+function bary_X860([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13034,7 +13033,7 @@ function bary_X860(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X861(orbit, [a,b,c]) {
+function bary_X861([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13049,7 +13048,7 @@ function bary_X861(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X862(orbit, [a,b,c]) {
+function bary_X862([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13064,7 +13063,7 @@ function bary_X862(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X863(orbit, [a,b,c]) {
+function bary_X863([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13082,7 +13081,7 @@ function bary_X863(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X864(orbit, [a,b,c]) {
+function bary_X864([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13100,7 +13099,7 @@ function bary_X864(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X865(orbit, [a,b,c]) {
+function bary_X865([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13118,7 +13117,7 @@ function bary_X865(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X866(orbit, [a,b,c]) {
+function bary_X866([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13136,7 +13135,7 @@ function bary_X866(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X867(orbit, [a,b,c]) {
+function bary_X867([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13154,7 +13153,7 @@ function bary_X867(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X868(orbit, [a,b,c]) {
+function bary_X868([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13172,7 +13171,7 @@ function bary_X868(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X869(orbit, [a,b,c]) {
+function bary_X869([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13187,7 +13186,7 @@ function bary_X869(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X870(orbit, [a,b,c]) {
+function bary_X870([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13199,7 +13198,7 @@ function bary_X870(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X871(orbit, [a,b,c]) {
+function bary_X871([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13214,7 +13213,7 @@ function bary_X871(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X872(orbit, [a,b,c]) {
+function bary_X872([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -13224,7 +13223,7 @@ function bary_X872(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X873(orbit, [a,b,c]) {
+function bary_X873([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -13234,7 +13233,7 @@ function bary_X873(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X874(orbit, [a,b,c]) {
+function bary_X874([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13246,7 +13245,7 @@ function bary_X874(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X875(orbit, [a,b,c]) {
+function bary_X875([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13258,7 +13257,7 @@ function bary_X875(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X876(orbit, [a,b,c]) {
+function bary_X876([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13270,7 +13269,7 @@ function bary_X876(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X877(orbit, [a,b,c]) {
+function bary_X877([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13288,7 +13287,7 @@ function bary_X877(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X878(orbit, [a,b,c]) {
+function bary_X878([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13306,7 +13305,7 @@ function bary_X878(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X879(orbit, [a,b,c]) {
+function bary_X879([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13324,7 +13323,7 @@ function bary_X879(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X880(orbit, [a,b,c]) {
+function bary_X880([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13339,7 +13338,7 @@ function bary_X880(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X881(orbit, [a,b,c]) {
+function bary_X881([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13354,7 +13353,7 @@ function bary_X881(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X882(orbit, [a,b,c]) {
+function bary_X882([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13369,7 +13368,7 @@ function bary_X882(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X883(orbit, [a,b,c]) {
+function bary_X883([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13381,7 +13380,7 @@ function bary_X883(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X884(orbit, [a,b,c]) {
+function bary_X884([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13393,7 +13392,7 @@ function bary_X884(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X885(orbit, [a,b,c]) {
+function bary_X885([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13405,7 +13404,7 @@ function bary_X885(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X886(orbit, [a,b,c]) {
+function bary_X886([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13417,7 +13416,7 @@ function bary_X886(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X887(orbit, [a,b,c]) {
+function bary_X887([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13432,7 +13431,7 @@ function bary_X887(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X888(orbit, [a,b,c]) {
+function bary_X888([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13444,7 +13443,7 @@ function bary_X888(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X889(orbit, [a,b,c]) {
+function bary_X889([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -13454,7 +13453,7 @@ function bary_X889(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X890(orbit, [a,b,c]) {
+function bary_X890([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13469,7 +13468,7 @@ function bary_X890(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X891(orbit, [a,b,c]) {
+function bary_X891([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -13479,7 +13478,7 @@ function bary_X891(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X892(orbit, [a,b,c]) {
+function bary_X892([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13491,7 +13490,7 @@ function bary_X892(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X893(orbit, [a,b,c]) {
+function bary_X893([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let a2=a*a;
@@ -13503,7 +13502,7 @@ function bary_X893(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X894(orbit, [a,b,c]) {
+function bary_X894([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13515,7 +13514,7 @@ function bary_X894(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X895(orbit, [a,b,c]) {
+function bary_X895([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13530,7 +13529,7 @@ function bary_X895(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X896(orbit, [a,b,c]) {
+function bary_X896([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13542,7 +13541,7 @@ function bary_X896(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X897(orbit, [a,b,c]) {
+function bary_X897([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13554,7 +13553,7 @@ function bary_X897(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X898(orbit, [a,b,c]) {
+function bary_X898([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -13564,7 +13563,7 @@ function bary_X898(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X899(orbit, [a,b,c]) {
+function bary_X899([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -13574,7 +13573,7 @@ function bary_X899(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X900(orbit, [a,b,c]) {
+function bary_X900([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -13584,7 +13583,7 @@ function bary_X900(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X901(orbit, [a,b,c]) {
+function bary_X901([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13596,7 +13595,7 @@ function bary_X901(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X902(orbit, [a,b,c]) {
+function bary_X902([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13608,7 +13607,7 @@ function bary_X902(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X903(orbit, [a,b,c]) {
+function bary_X903([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -13618,7 +13617,7 @@ function bary_X903(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X904(orbit, [a,b,c]) {
+function bary_X904([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13633,7 +13632,7 @@ function bary_X904(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X905(orbit, [a,b,c]) {
+function bary_X905([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13648,7 +13647,7 @@ function bary_X905(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X906(orbit, [a,b,c]) {
+function bary_X906([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13666,7 +13665,7 @@ function bary_X906(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X907(orbit, [a,b,c]) {
+function bary_X907([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13678,7 +13677,7 @@ function bary_X907(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X908(orbit, [a,b,c]) {
+function bary_X908([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13693,7 +13692,7 @@ function bary_X908(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X909(orbit, [a,b,c]) {
+function bary_X909([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13708,7 +13707,7 @@ function bary_X909(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X910(orbit, [a,b,c]) {
+function bary_X910([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13723,7 +13722,7 @@ function bary_X910(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X911(orbit, [a,b,c]) {
+function bary_X911([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13738,7 +13737,7 @@ function bary_X911(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X912(orbit, [a,b,c]) {
+function bary_X912([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13753,7 +13752,7 @@ function bary_X912(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X913(orbit, [a,b,c]) {
+function bary_X913([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13768,7 +13767,7 @@ function bary_X913(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X914(orbit, [a,b,c]) {
+function bary_X914([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13783,7 +13782,7 @@ function bary_X914(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X915(orbit, [a,b,c]) {
+function bary_X915([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13798,7 +13797,7 @@ function bary_X915(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X916(orbit, [a,b,c]) {
+function bary_X916([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -13819,7 +13818,7 @@ function bary_X916(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X917(orbit, [a,b,c]) {
+function bary_X917([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -13840,7 +13839,7 @@ function bary_X917(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X918(orbit, [a,b,c]) {
+function bary_X918([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13852,7 +13851,7 @@ function bary_X918(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X919(orbit, [a,b,c]) {
+function bary_X919([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13864,7 +13863,7 @@ function bary_X919(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X920(orbit, [a,b,c]) {
+function bary_X920([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13882,7 +13881,7 @@ function bary_X920(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X921(orbit, [a,b,c]) {
+function bary_X921([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13900,7 +13899,7 @@ function bary_X921(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X922(orbit, [a,b,c]) {
+function bary_X922([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13915,7 +13914,7 @@ function bary_X922(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X923(orbit, [a,b,c]) {
+function bary_X923([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13930,7 +13929,7 @@ function bary_X923(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X924(orbit, [a,b,c]) {
+function bary_X924([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13949,7 +13948,7 @@ function bary_X924(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X925(orbit, [a,b,c]) {
+function bary_X925([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13968,7 +13967,7 @@ function bary_X925(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X926(orbit, [a,b,c]) {
+function bary_X926([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -13980,7 +13979,7 @@ function bary_X926(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X927(orbit, [a,b,c]) {
+function bary_X927([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -13992,7 +13991,7 @@ function bary_X927(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X928(orbit, [a,b,c]) {
+function bary_X928([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14013,7 +14012,7 @@ function bary_X928(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X929(orbit, [a,b,c]) {
+function bary_X929([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14034,7 +14033,7 @@ function bary_X929(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X930(orbit, [a,b,c]) {
+function bary_X930([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14053,7 +14052,7 @@ function bary_X930(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X931(orbit, [a,b,c]) {
+function bary_X931([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14065,7 +14064,7 @@ function bary_X931(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X932(orbit, [a,b,c]) {
+function bary_X932([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -14075,7 +14074,7 @@ function bary_X932(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X933(orbit, [a,b,c]) {
+function bary_X933([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14090,7 +14089,7 @@ function bary_X933(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X934(orbit, [a,b,c]) {
+function bary_X934([a,b,c]) {
    /* begin vars */
 
    /* end vars */
@@ -14100,7 +14099,7 @@ function bary_X934(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X935(orbit, [a,b,c]) {
+function bary_X935([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14115,7 +14114,7 @@ function bary_X935(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X936(orbit, [a,b,c]) {
+function bary_X936([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14130,7 +14129,7 @@ function bary_X936(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X937(orbit, [a,b,c]) {
+function bary_X937([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14145,7 +14144,7 @@ function bary_X937(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X938(orbit, [a,b,c]) {
+function bary_X938([a,b,c]) {
    /* begin vars */
    let b2=b*b;
    let a2=a*a;
@@ -14163,7 +14162,7 @@ function bary_X938(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X939(orbit, [a,b,c]) {
+function bary_X939([a,b,c]) {
    /* begin vars */
    let b2=b*b;
    let a2=a*a;
@@ -14181,7 +14180,7 @@ function bary_X939(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X940(orbit, [a,b,c]) {
+function bary_X940([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14193,7 +14192,7 @@ function bary_X940(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X941(orbit, [a,b,c]) {
+function bary_X941([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14205,7 +14204,7 @@ function bary_X941(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X942(orbit, [a,b,c]) {
+function bary_X942([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14220,7 +14219,7 @@ function bary_X942(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X943(orbit, [a,b,c]) {
+function bary_X943([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14235,7 +14234,7 @@ function bary_X943(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X944(orbit, [a,b,c]) {
+function bary_X944([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14253,7 +14252,7 @@ function bary_X944(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X945(orbit, [a,b,c]) {
+function bary_X945([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14271,7 +14270,7 @@ function bary_X945(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X946(orbit, [a,b,c]) {
+function bary_X946([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14289,7 +14288,7 @@ function bary_X946(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X947(orbit, [a,b,c]) {
+function bary_X947([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14307,7 +14306,7 @@ function bary_X947(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X948(orbit, [a,b,c]) {
+function bary_X948([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14322,7 +14321,7 @@ function bary_X948(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X949(orbit, [a,b,c]) {
+function bary_X949([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14337,7 +14336,7 @@ function bary_X949(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X950(orbit, [a,b,c]) {
+function bary_X950([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14352,7 +14351,7 @@ function bary_X950(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X951(orbit, [a,b,c]) {
+function bary_X951([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14367,7 +14366,7 @@ function bary_X951(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X952(orbit, [a,b,c]) {
+function bary_X952([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14385,7 +14384,7 @@ function bary_X952(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X953(orbit, [a,b,c]) {
+function bary_X953([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14403,7 +14402,7 @@ function bary_X953(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X954(orbit, [a,b,c]) {
+function bary_X954([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14424,7 +14423,7 @@ function bary_X954(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X955(orbit, [a,b,c]) {
+function bary_X955([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14445,7 +14444,7 @@ function bary_X955(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X956(orbit, [a,b,c]) {
+function bary_X956([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14460,7 +14459,7 @@ function bary_X956(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X957(orbit, [a,b,c]) {
+function bary_X957([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14475,7 +14474,7 @@ function bary_X957(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X958(orbit, [a,b,c]) {
+function bary_X958([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14487,7 +14486,7 @@ function bary_X958(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X959(orbit, [a,b,c]) {
+function bary_X959([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14499,7 +14498,7 @@ function bary_X959(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X960(orbit, [a,b,c]) {
+function bary_X960([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14511,7 +14510,7 @@ function bary_X960(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X961(orbit, [a,b,c]) {
+function bary_X961([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14523,7 +14522,7 @@ function bary_X961(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X962(orbit, [a,b,c]) {
+function bary_X962([a,b,c]) {
    /* begin vars */
    let b2=b*b;
    let a2=a*a;
@@ -14541,7 +14540,7 @@ function bary_X962(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X963(orbit, [a,b,c]) {
+function bary_X963([a,b,c]) {
    /* begin vars */
    let b2=b*b;
    let a2=a*a;
@@ -14559,7 +14558,7 @@ function bary_X963(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X964(orbit, [a,b,c]) {
+function bary_X964([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14577,7 +14576,7 @@ function bary_X964(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X965(orbit, [a,b,c]) {
+function bary_X965([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14595,7 +14594,7 @@ function bary_X965(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X966(orbit, [a,b,c]) {
+function bary_X966([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14610,7 +14609,7 @@ function bary_X966(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X967(orbit, [a,b,c]) {
+function bary_X967([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14625,7 +14624,7 @@ function bary_X967(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X968(orbit, [a,b,c]) {
+function bary_X968([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14637,7 +14636,7 @@ function bary_X968(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X969(orbit, [a,b,c]) {
+function bary_X969([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14649,7 +14648,7 @@ function bary_X969(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X970(orbit, [a,b,c]) {
+function bary_X970([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14667,7 +14666,7 @@ function bary_X970(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X971(orbit, [a,b,c]) {
+function bary_X971([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14685,7 +14684,7 @@ function bary_X971(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X972(orbit, [a,b,c]) {
+function bary_X972([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14703,7 +14702,7 @@ function bary_X972(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X973(orbit, [a,b,c]) {
+function bary_X973([a,b,c]) {
    /* begin vars */
    let b2=b*b;
    let a2=a*a;
@@ -14724,7 +14723,7 @@ function bary_X973(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X974(orbit, [a,b,c]) {
+function bary_X974([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14745,7 +14744,7 @@ function bary_X974(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X975(orbit, [a,b,c]) {
+function bary_X975([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14760,7 +14759,7 @@ function bary_X975(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X976(orbit, [a,b,c]) {
+function bary_X976([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14775,7 +14774,7 @@ function bary_X976(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X977(orbit, [a,b,c]) {
+function bary_X977([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14790,7 +14789,7 @@ function bary_X977(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X978(orbit, [a,b,c]) {
+function bary_X978([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14802,7 +14801,7 @@ function bary_X978(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X979(orbit, [a,b,c]) {
+function bary_X979([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14814,7 +14813,7 @@ function bary_X979(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X980(orbit, [a,b,c]) {
+function bary_X980([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14826,7 +14825,7 @@ function bary_X980(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X981(orbit, [a,b,c]) {
+function bary_X981([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14838,7 +14837,7 @@ function bary_X981(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X982(orbit, [a,b,c]) {
+function bary_X982([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14850,7 +14849,7 @@ function bary_X982(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X983(orbit, [a,b,c]) {
+function bary_X983([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14862,7 +14861,7 @@ function bary_X983(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X984(orbit, [a,b,c]) {
+function bary_X984([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14874,7 +14873,7 @@ function bary_X984(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X985(orbit, [a,b,c]) {
+function bary_X985([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14886,7 +14885,7 @@ function bary_X985(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X986(orbit, [a,b,c]) {
+function bary_X986([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14901,7 +14900,7 @@ function bary_X986(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X987(orbit, [a,b,c]) {
+function bary_X987([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -14916,7 +14915,7 @@ function bary_X987(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X988(orbit, [a,b,c]) {
+function bary_X988([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14931,7 +14930,7 @@ function bary_X988(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X989(orbit, [a,b,c]) {
+function bary_X989([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14946,7 +14945,7 @@ function bary_X989(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X990(orbit, [a,b,c]) {
+function bary_X990([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let c3=c2*c;
@@ -14967,7 +14966,7 @@ function bary_X990(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X991(orbit, [a,b,c]) {
+function bary_X991([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14982,7 +14981,7 @@ function bary_X991(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X992(orbit, [a,b,c]) {
+function bary_X992([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -14997,7 +14996,7 @@ function bary_X992(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X993(orbit, [a,b,c]) {
+function bary_X993([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -15012,7 +15011,7 @@ function bary_X993(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X994(orbit, [a,b,c]) {
+function bary_X994([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -15027,7 +15026,7 @@ function bary_X994(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X995(orbit, [a,b,c]) {
+function bary_X995([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -15039,7 +15038,7 @@ function bary_X995(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X996(orbit, [a,b,c]) {
+function bary_X996([a,b,c]) {
    /* begin vars */
    let a2=a*a;
    let c2=c*c;
@@ -15051,7 +15050,7 @@ function bary_X996(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X997(orbit, [a,b,c]) {
+function bary_X997([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -15066,7 +15065,7 @@ function bary_X997(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X998(orbit, [a,b,c]) {
+function bary_X998([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -15081,7 +15080,7 @@ function bary_X998(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X999(orbit, [a,b,c]) {
+function bary_X999([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
@@ -15096,7 +15095,7 @@ function bary_X999(orbit, [a,b,c]) {
    return [v1,v2,v3];
 }
 
-function bary_X1000(orbit, [a,b,c]) {
+function bary_X1000([a,b,c]) {
    /* begin vars */
    let c2=c*c;
    let b2=b*b;
