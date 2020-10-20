@@ -285,7 +285,8 @@ function set_url_params(url_params) {
 
    Object.keys(url_params).map(function(urlVariable){
       const uiVariable = fromUrlToUi[urlVariable];
-      config_Url[uiVariable].decode(url_params[urlVariable]);
+      if(uiVariable)
+         config_Url[uiVariable].decode(url_params[urlVariable]);
    });
 
    set_ui_variables(glob.ui);
