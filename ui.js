@@ -1266,9 +1266,9 @@ function setup_jukebox_button(){
    document.getElementById('jukebox').addEventListener('mousedown', function (e) {
       const jukebox_playlist = document.getElementById('jukebox_playlist').value
       if(e.which == 1 && jukebox_playlist!='off')
-         glob.jukeboxClicked = 1;
-      else if(e.which == 3 && jukebox_playlist!='off')
          glob.jukeboxClicked = -1;
+      else if(e.which == 3 && jukebox_playlist!='off')
+         glob.jukeboxClicked = +1;
    })
 }
 
