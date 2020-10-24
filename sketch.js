@@ -87,8 +87,8 @@ function create_locus(locus_type_changed, init) {
 
 function create_shuffled_clrs(i) {
    if (glob.clrs_shuffled_seeds[i].length>0) {
-   glob.clrs_shuffled[i] = shuffle_seeded(clrs_crayola.map(c=>c.rgb),
-   glob.clrs_shuffled_seeds[i].last());
+      glob.clrs_shuffled[i] = shuffle_seeded(clrs_crayola.map(c=>c.rgb),
+      glob.clrs_shuffled_seeds[i].last());
    }
 }
 

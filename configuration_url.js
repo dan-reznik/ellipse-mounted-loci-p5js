@@ -282,7 +282,7 @@ function set_url_params(url_params) {
    clrs_shuffled_seeds_fn.decode(url_params);
    ['seed1', 'seed2', 'seed3', 'seed4'].map(function(seed){delete url_params[seed]});
    //
-
+   
    Object.keys(url_params).map(function(urlVariable){
       const uiVariable = fromUrlToUi[urlVariable];
       if(uiVariable)
@@ -304,8 +304,8 @@ function set_url_params(url_params) {
    }
    for (let i = 0; i < 4; i++)
       if (glob.clrs_shuffled_seeds[i].length > 0) {
-         create_locus_subpolys(i);
          create_shuffled_clrs(i);
+         create_locus_subpolys(i);
       };
 
    redraw();

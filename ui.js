@@ -427,8 +427,22 @@ function setup_copy_image() {
 
    copy_image_button.addEventListener("click", function () {
       let canvas = document.getElementById('defaultCanvas0');
-      canvas.focus();
-      canvas.toBlob(blob => navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]));
+      var canvasDataUrl = canvas.toDataURL("image/png");
+      //canvasDataUrl.select();
+	   selectedDataUrl = document.createElement('textarea');
+      document.body.appendChild(selectedDataUrl);
+      selectedDataUrl.value = canvasDataUrl;
+      selectedDataUrl.select();
+      try {
+         var successful = document.execCommand('copy');
+         var msg = successful ? 'successful' : 'unsuccessful';
+         console.log('Copying Chart to Clipboard was ' + msg);
+      } catch (err) {
+         console.log('Oops, unable to copy');
+      }
+      document.body.removeChild(selectedDataUrl);
+
+      //canvas.toBlob(blob => navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]));
    });
 }
 
@@ -1334,6 +1348,7 @@ function setup_invert_colors() {
       ui_changed('2');
       ui_changed('3');
       ui_changed('4');
+      redraw();
    });
 }
 
