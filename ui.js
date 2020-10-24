@@ -1061,7 +1061,7 @@ function run_jukebox_playlist(run, playlist, list_indice) {
       glob.ui.jukebox_playlist = aux;
       params = getAllUrlParams(playlist['config'][list_indice]);
       set_url_params(params);
-      ui_changed_type(true);
+      ui_changed_type(false);
       redraw();
    }
 }
