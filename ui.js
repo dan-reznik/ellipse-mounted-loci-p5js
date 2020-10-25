@@ -425,6 +425,8 @@ function setup_reset_UI_onclick() {
 function setup_copy_image() {
    var copy_image_button = document.getElementById('copy_image');
 
+   var copy_image_button = document.getElementById('copy_image');
+
    copy_image_button.addEventListener("click", function () {
       const play_pause_button = document.getElementById("play_pause");
       //Play
@@ -432,25 +434,15 @@ function setup_copy_image() {
       glob.loop = true;
       play_pause_button.click;
 
-      let canvas = document.getElementById('defaultCanvas0');
-      var canvasDataUrl = canvas.toDataURL("image/png");
-      //canvasDataUrl.select();
-	   selectedDataUrl = document.createElement('textarea');
-      document.body.appendChild(selectedDataUrl);
-      selectedDataUrl.value = canvasDataUrl;
-      selectedDataUrl.select();
-      try {
-         var successful = document.execCommand('copy');
-         var msg = successful ? 'successful' : 'unsuccessful';
-         alert('Copying Chart to Clipboard was ' + msg)
-         console.log('Copying Chart to Clipboard was ' + msg);
-      } catch (err) {
-         alert('Oops, unable to copy\nerr: ' + err);
-         console.log('Oops, unable to copy');
-      }
-      document.body.removeChild(selectedDataUrl);
-
-      //canvas.toBlob(blob => navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]));
+      copy_image_button.addEventListener("click", function () {
+         let canvas = document.getElementById('defaultCanvas0');
+         canvas.focus();
+         try {
+            canvas.toBlob(blob => navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]));
+         } catch (err) {
+            alert('Oops, unable to copy\nerr: ' + err);
+         }
+      });
 
       //Play
       glob.loop = loop;
