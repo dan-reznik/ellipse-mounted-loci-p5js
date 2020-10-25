@@ -1072,6 +1072,7 @@ function run_jukebox_playlist(run, playlist, list_indice) {
       reset_ui();
       glob.ui.jukebox_playlist = aux;
       params = getAllUrlParams(playlist['config'][list_indice]);
+
       set_url_params(params);
       ui_changed_type(false);
       redraw();
@@ -1247,6 +1248,16 @@ function addOptionToSelectJuke(){
    }
 }
 
+function clearLocusSubpolysVariables(){
+
+   [0,1,2,3].map(function(n){
+      glob.locus_subpolys[n] = null;
+      glob.clrs_shuffled_seeds[n] = [];
+      glob.clrs_shuffled[n] = null;
+   })  
+
+}
+
 function setup_jukebox_playlist_oninput() {
    let playlist;
    let control_params = {seconds_next_run : 1
@@ -1273,6 +1284,7 @@ function setup_jukebox_playlist_oninput() {
       control_params.seconds_next_run = 1;
       control_params.list_index = 0;
       glob.ui.jukebox_playlist = this.value; 
+      clearLocusSubpolysVariables();
       if (glob.ui.jukebox_playlist != 'off' &&  glob.jsonIsReady) {
          const aux = glob.ui.jukebox_playlist;
          reset_ui();
@@ -1401,7 +1413,7 @@ function setup_ui() {
 
 function reset_ui() {
    glob.ui = JSON.parse(JSON.stringify(glob.ui0));
-   glob.ctr = JSON.parse(JSON.stringify(glob.ctr0));
+   recenter();
    glob.scale = JSON.parse(JSON.stringify(glob.scale0));
 
    set_ui_variables()

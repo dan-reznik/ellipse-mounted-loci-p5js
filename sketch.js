@@ -157,7 +157,6 @@ function bbox_rescale(n) {
    const bbox = locus_bbox_ctr(+glob.ui.a, locus_types[n - 1], glob.locus_branched[n - 1], glob.width / glob.height, glob.scale0);
    glob.scale = bbox.scale;
    glob.ctr = [glob.width/2-bbox.ctr_x*(glob.width/glob.scale),glob.height/2-bbox.ctr_y*(glob.width/glob.scale)];
-   glob.ctr0 = glob.ctr;
    ui_changed_type(false);
    redraw();
 }

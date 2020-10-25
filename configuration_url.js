@@ -216,9 +216,6 @@ const clrs_shuffled_seeds_fn = {
       for (variable in url_params){
          if(variable.slice(0,-1) == 'seed'){
             const decode_seed = parseInt(url_params[variable], 16);
-            glob.locus_subpolys[+(variable.slice(-1)) - 1] = null;
-            glob.clrs_shuffled_seeds[+(variable.slice(-1)) - 1] = [];
-            glob.clrs_shuffled[+(variable.slice(-1)) - 1] = null;
             glob.clrs_shuffled_seeds[+(variable.slice(-1)) - 1].push(decode_seed);
          }
       }
@@ -282,6 +279,8 @@ function get_link_params() {
 
 function set_url_params(url_params) {
    //Need to be here for back-compatibility
+
+   clearLocusSubpolysVariables()
    clrs_shuffled_seeds_fn.decode(url_params);
    ['seed1', 'seed2', 'seed3', 'seed4'].map(function(seed){delete url_params[seed]});
    //
