@@ -15,10 +15,17 @@ body {
   flex-wrap: nowrap;
 }
 
+/* Add a grey background color on mouse-over */
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
 .title { grid-area: title; }
 .selector { 
+  display: none;
   grid-area: selector;
-  display: flex;
+  /*display: flex;*/
   flex-flow: column;
   height: 100%;
 }

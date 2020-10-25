@@ -1364,6 +1364,22 @@ function setup_invert_colors() {
    });
 }
 
+/* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
+function hamburgerMenu() {
+   var menu = document.getElementById("menu");
+   var gridContainer = document.getElementById("grid-container");
+
+   if (menu.style.display === "flex") {
+      gridContainer.style.gridTemplateAreas = '"config jukebox title" "graphic graphic graphic"';
+      menu.style.display = "none";
+      windowResized()
+   } else {
+      gridContainer.style.gridTemplateAreas = '"config jukebox title" "selector graphic graphic"';
+      menu.style.display = "flex";
+      windowResized()
+   }
+ }
+
 function setup_ui() {
    setup_ui_variables_behavior();
    setup_copy_image();
