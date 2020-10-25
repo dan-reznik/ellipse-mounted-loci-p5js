@@ -77,8 +77,8 @@ function tandem_bar_variables(variable, global_var) {
    set_ui_variables(glob.ui);
 }
 
-function ui_changed(locus_type_changed, call_create_locus = true, init = false, jukeboxIsRunning=false) {
-   if (call_create_locus) create_locus(locus_type_changed, init,jukeboxIsRunning);
+function ui_changed(locus_type_changed, call_create_locus = true, init = false) {
+   if (call_create_locus) create_locus(locus_type_changed, init);
 }
 
 function setup_conic_type_onchange(locus_type) {
@@ -113,21 +113,21 @@ function setup_conic_type_onchange(locus_type) {
    }
 }
 
-function ui_changed_type(call_create_locus = false, jukeboxIsRunning=false) {
+function ui_changed_type(call_create_locus = false) {
    if (glob.ui.locus_type_1 != 'none') {
-      ui_changed('1', call_create_locus, jukeboxIsRunning);
+      ui_changed('1', call_create_locus);
       setup_conic_type_onchange('1')
    }
    if (glob.ui.locus_type_2 != 'none') {
-      ui_changed('2', call_create_locus, jukeboxIsRunning);
+      ui_changed('2', call_create_locus,);
       setup_conic_type_onchange('2')
    }
    if (glob.ui.locus_type_3 != 'none') {
-      ui_changed('3', call_create_locus, jukeboxIsRunning);
+      ui_changed('3', call_create_locus);
       setup_conic_type_onchange('3')
    }
    if (glob.ui.locus_type_4 != 'none') {
-      ui_changed('4', call_create_locus, jukeboxIsRunning);
+      ui_changed('4', call_create_locus);
       setup_conic_type_onchange('4')
    }
 }
@@ -1073,7 +1073,7 @@ function run_jukebox_playlist(run, playlist, list_indice) {
       glob.ui.jukebox_playlist = aux;
       params = getAllUrlParams(playlist['config'][list_indice]);
       set_url_params(params);
-      ui_changed_type(true, true);
+      ui_changed_type(false);
       redraw();
    }
 }

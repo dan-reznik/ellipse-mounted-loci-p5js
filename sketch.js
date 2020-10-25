@@ -61,7 +61,7 @@ function get_glob_indexed() {
 }
 
 // needs to refactor w/ new array ui design
-function create_locus(locus_type_changed, init, jukeboxIsRunning=false) {
+function create_locus(locus_type_changed, init) {
    locus_type_changed = locus_type_changed.toString();
    let tdegStep = 1; //valor inicial de degStep0
    let g_ind = get_glob_indexed();
@@ -77,7 +77,7 @@ function create_locus(locus_type_changed, init, jukeboxIsRunning=false) {
             g_ind.circs[i],
             g_ind.invs[i]);
          glob.ell_detects[i] = locus_conic(glob.locus_branched[i]);
-         if(init != true || jukeboxIsRunning){
+         if(init != true){
             glob.locus_subpolys[i] = null;
             glob.clrs_shuffled_seeds[i] = [];
             glob.clrs_shuffled[i] = null;
