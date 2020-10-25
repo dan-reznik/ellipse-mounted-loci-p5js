@@ -120,8 +120,9 @@ function create_locus_subpolys(n) {
 }
 
 function get_window_width_height() {
-   glob.width = document.getElementsByClassName('item graphic')[0].offsetWidth;
-   glob.height = document.getElementsByClassName('item graphic')[0].offsetHeight;
+   var width = document.getElementsByClassName('item graphic')[0].offsetWidth;
+   var heigth = document.getElementsByClassName('item graphic')[0].offsetHeight;
+   return [width, heigth];
 }
 
 
@@ -134,7 +135,7 @@ function recenter() {
 function windowResized() {
    const locus_types = [glob.ui.locus_type_1, glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4];
    const locus_ids = ["1","2","3","4"];
-   get_window_width_height();
+   [glob.width, glob.height] = get_window_width_height();
    locus_ids.map((li,i) => {
       if (locus_types[i] !== 'none') {
          ui_changed(li, false);
@@ -163,7 +164,7 @@ function bbox_rescale(n) {
 }
 
 function setup() {
-   get_window_width_height();
+   [glob.width, glob.height] = get_window_width_height();
    recenter();
    reset_ui();
    url_params = getURLParams();

@@ -83,10 +83,6 @@
 
   </div>
   <div class="item jukebox" style="display: inline-flex;">
-    <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
-    <a href="javascript:void(0);" class="icon" onclick="hamburgerMenu()">
-      <i class="fa fa-bars"></i>
-    </a>
     <input type="image" class='jukebox_img' id="jukebox" src="jukebox.png"/>
     <div style="display: flex; flex-direction: column;">
       <select id="jukebox_playlist">
@@ -251,5 +247,10 @@
     <div id="canvas"></div>
   </div>
 </section>
+
+<!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+<a id = 'menuHamburguer' href="javascript:void(0);" class="icon" onclick="hamburgerMenu()">
+  <i class="fa fa-bars"></i>
+</a>
 
 </body></html>

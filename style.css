@@ -46,7 +46,7 @@ a:hover {
   height: 100%;
   width: 100%;
   grid-gap: 4pt 4pt;
-  grid-template-columns: minmax(285px, 285px) 130px minmax(405px, 95%);
+  grid-template-columns: minmax(285px, 285px) 150px minmax(405px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config jukebox title"
@@ -443,4 +443,9 @@ label{
 
 .inv_label{
   font-size: 14px;
+}
+
+#menuHamburguer{
+  width: calc();
+  height: calc();
 }
