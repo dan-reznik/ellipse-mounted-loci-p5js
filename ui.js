@@ -929,8 +929,14 @@ function hexToRgb(hex) {
 
 function setup_bg_onchange() {
    var bg_dropbox = document.getElementById('bg');
+   const menuHamburguer = document.getElementById('menuHamburguer');
+   let menuHamburguerColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_black) : clr_black;
+   menuHamburguer.style.color = rgbToHex(menuHamburguerColor);
+
    bg_dropbox.addEventListener('input', function () {
       glob.ui.bg = hexToRgb(this.value);
+      menuHamburguerColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_black) : clr_black;
+      menuHamburguer.style.color = rgbToHex(menuHamburguerColor);
       redraw();
    })
 }

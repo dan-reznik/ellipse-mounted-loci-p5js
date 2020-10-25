@@ -15,12 +15,6 @@ body {
   flex-wrap: nowrap;
 }
 
-/* Add a grey background color on mouse-over */
-a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
 .title { grid-area: title; }
 .selector { 
   display: none;
@@ -50,7 +44,7 @@ a:hover {
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config jukebox title"
-		"selector graphic graphic"
+		"graphic graphic graphic"
     ;
   background-color: lightsteelblue;
 }
@@ -446,6 +440,11 @@ label{
 }
 
 #menuHamburguer{
-  width: calc();
-  height: calc();
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 30px;
+  color: white;
+  height: 50px;
+  padding: 10px 10px;
 }

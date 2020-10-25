@@ -132,6 +132,13 @@ function recenter() {
    glob.mouse = [glob.width / 2, glob.height / 2];
 }
 
+function fixHamburguerPosition(){
+   var canvas = document.getElementById('canvas');
+   
+   var hamburguerMenu = document.getElementById('menuHamburguer');
+   canvas.appendChild(hamburguerMenu)
+}
+
 function windowResized() {
    const locus_types = [glob.ui.locus_type_1, glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4];
    const locus_ids = ["1","2","3","4"];
@@ -144,6 +151,8 @@ function windowResized() {
       }
    });
    resizeCanvas(glob.width, glob.height);
+
+   fixHamburguerPosition();
 }
 
 function mouseOverCanvas() {
@@ -171,6 +180,7 @@ function setup() {
    if(Object.keys(url_params).length > 0) {set_url_params(url_params);}
    let canvas = createCanvas(glob.width, glob.height);
    canvas.parent('canvas');
+   fixHamburguerPosition();
    setup_ui();
    mouseOverCanvas();
    //frameRate(15);
@@ -214,12 +224,13 @@ function draw() {
 
    pop();
    const canvasTextColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_blue) : clr_blue; 
+
    if(glob.jsonIsReady && glob.ui.jukebox_playlist != 'off'){
-      draw_text_full(glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['name'][glob.jukebox_image_index], [15, 15], canvasTextColor);
-      draw_text_full(`http://bit.ly/${glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['bit.ly'][glob.jukebox_image_index]}`, [15, 30], canvasTextColor);
+      draw_text_full(glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['name'][glob.jukebox_image_index], [50, 15], canvasTextColor);
+      draw_text_full(`http://bit.ly/${glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['bit.ly'][glob.jukebox_image_index]}`, [50, 30], canvasTextColor);
    }
    if(!glob.jsonIsReady){
-      draw_text_full('loading jukebox', [15, 15], canvasTextColor);
+      draw_text_full('loading jukebox', [50, 15], canvasTextColor);
    }
    draw_text_full("(c) 2020 Darlan & Reznik", [glob.width - 150, glob.height - 24], canvasTextColor);
    draw_text_full("dan-reznik.github.io/ellipse-mounted-loci-p5js/",
