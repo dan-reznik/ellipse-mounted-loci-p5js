@@ -66,7 +66,7 @@
   <script src="configuration_url.js"></script>
 
 
-<section class="grid-container">
+<section id='grid-container' class="grid-container">
   <div class="item config_buttons">
     <div style="display: flex; flex-direction: column; height: 100%;">
       <button id='reset_UI'>reset UI</button>
@@ -101,7 +101,8 @@
      <p class="lab">© 2020 Iverton Darlan &amp; Dan Reznik</p>
     </div>
   </div>
-	<div class="item selector">
+  
+	<div id='menu' class="item selector">
 
         <!--dropdown-->
         <div class="input_Xn" id='speed_box'>
@@ -243,8 +244,13 @@
     </div>
   </div>
 	<div class="item graphic">
-    <div id="canvas"></div>
+    <div id="canvas" style="position: relative;"></div>
   </div>
 </section>
+
+<!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+<a id = 'menuHamburguer' href="javascript:void(0);" class="icon" onclick="hamburgerMenu()">
+  <i class="fa fa-bars"></i>
+</a>
 
 </body></html>

@@ -17,8 +17,9 @@ body {
 
 .title { grid-area: title; }
 .selector { 
+  display: none;
   grid-area: selector;
-  display: flex;
+  /*display: flex;*/
   flex-flow: column;
   height: 100%;
 }
@@ -39,11 +40,11 @@ body {
   height: 100%;
   width: 100%;
   grid-gap: 4pt 4pt;
-  grid-template-columns: minmax(285px, 285px) 130px minmax(405px, 95%);
+  grid-template-columns: minmax(285px, 285px) 150px minmax(405px, 95%);
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config jukebox title"
-		"selector graphic graphic"
+		"graphic graphic graphic"
     ;
   background-color: lightsteelblue;
 }
@@ -436,4 +437,14 @@ label{
 
 .inv_label{
   font-size: 14px;
+}
+
+#menuHamburguer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 30px;
+  color: white;
+  height: 50px;
+  padding: 10px 10px;
 }

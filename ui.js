@@ -929,8 +929,14 @@ function hexToRgb(hex) {
 
 function setup_bg_onchange() {
    var bg_dropbox = document.getElementById('bg');
+   const menuHamburguer = document.getElementById('menuHamburguer');
+   let menuHamburguerColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_black) : clr_black;
+   menuHamburguer.style.color = rgbToHex(menuHamburguerColor);
+
    bg_dropbox.addEventListener('input', function () {
       glob.ui.bg = hexToRgb(this.value);
+      menuHamburguerColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_black) : clr_black;
+      menuHamburguer.style.color = rgbToHex(menuHamburguerColor);
       redraw();
    })
 }
@@ -1380,6 +1386,33 @@ function setup_invert_colors() {
       redraw();
    });
 }
+
+function resizeLocusCenter(initialWindowSize, finalWindowSize){
+   newWidth = (glob.ctr[0]/initialWindowSize[0])*finalWindowSize[0];
+   newHeight = (glob.ctr[1]/initialWindowSize[1])*finalWindowSize[1];
+   glob.ctr = [newWidth, newHeight];
+}
+
+/* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
+function hamburgerMenu() {
+   var menu = document.getElementById("menu");
+   var gridContainer = document.getElementById("grid-container");
+   var initialWindowSize = get_window_width_height();
+
+   if (menu.style.display === "flex") {
+      gridContainer.style.gridTemplateAreas = '"config jukebox title" "graphic graphic graphic"';
+      menu.style.display = "none";
+      finalWindowSize = get_window_width_height();
+      resizeLocusCenter(initialWindowSize,finalWindowSize);
+      windowResized();
+   } else {
+      gridContainer.style.gridTemplateAreas = '"config jukebox title" "selector graphic graphic"';
+      menu.style.display = "flex";
+      finalWindowSize = get_window_width_height();
+      resizeLocusCenter(initialWindowSize,finalWindowSize);
+      windowResized();
+   }
+ }
 
 function setup_ui() {
    setup_ui_variables_behavior();
