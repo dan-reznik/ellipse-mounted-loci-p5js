@@ -171,6 +171,8 @@ function setup() {
    canvas.parent('canvas');
    setup_ui();
    mouseOverCanvas();
+   let loader = document.getElementById('loader');
+   document.getElementById('canvas').appendChild(loader);
    //frameRate(15);
 }
 

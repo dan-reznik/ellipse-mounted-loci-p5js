@@ -1069,48 +1069,59 @@ function run_jukebox_playlist(run, playlist, list_indice, control_params, second
    let params;
    const aux = glob.ui.jukebox_playlist;
    if (run) {
-      reset_ui();
-      glob.ui.jukebox_playlist = aux;
-      params = getAllUrlParams(playlist['config'][list_indice]);
+      var delay=250; //0.25 seconds
+      setTimeout(function(){
+         reset_ui();
+         glob.ui.jukebox_playlist = aux;
+         params = getAllUrlParams(playlist['config'][list_indice]);
+         
+         set_url_params(params);
+         ui_changed_type(false);
+         redraw();
 
-      set_url_params(params);
-      ui_changed_type(false);
-      redraw();
-      if(control_params){
-         var seconds_runned = Math.floor(((Date.now() - start_time)) / 1000);
-         control_params.seconds_next_run = seconds_runned + seconds_interval;
-      }
+         if(control_params){
+            var seconds_runned = Math.floor(((Date.now() - start_time)) / 1000);
+            control_params.seconds_next_run = seconds_runned + seconds_interval;
+            control_params.jukeboxIsRunning = true;
+         }
+
+         document.getElementById("loader").style.display = "none";
+      },delay);
    }
 }
 
 function start_playlist(playlist, start_time, output_text_jukebox, control_params) {
-   var seconds_interval = +playlist['sec'][glob.jukebox_image_index];
-   var seconds_runned = Math.floor(((Date.now() - start_time)) / 1000);
+   if(control_params.jukeboxIsRunning){
+      var seconds_interval = +playlist['sec'][glob.jukebox_image_index];
+      var seconds_runned = Math.floor(((Date.now() - start_time)) / 1000);
 
-   let run = (seconds_runned >= control_params.seconds_next_run);
-   if(glob.jukeboxClicked == 1){
-      run = true;
-      glob.jukeboxIsLoading = true;
-   }
-   else if(glob.jukeboxClicked == -1){
-      run = true;
-      control_params.list_index = control_params.list_index + playlist['sec'].length - 2;
-      glob.jukebox_image_index = control_params.list_index % playlist['sec'].length;
-      seconds_interval = +playlist['sec'][glob.jukebox_image_index];
-   }
+      let run = (seconds_runned >= control_params.seconds_next_run);
+      if(glob.jukeboxClicked == 1){
+         run = true;
+         glob.jukeboxIsLoading = true;
+      }
+      else if(glob.jukeboxClicked == -1){
+         run = true;
+         control_params.list_index = control_params.list_index + playlist['sec'].length - 2;
+         glob.jukebox_image_index = control_params.list_index % playlist['sec'].length;
+         seconds_interval = +playlist['sec'][glob.jukebox_image_index];
+      }
 
-   if(run){
-      glob.jukebox_image_index = control_params.list_index % playlist['sec'].length;
-      control_params.seconds_next_run = seconds_runned + seconds_interval;
-      control_params.list_index++;
-   }
-   if(glob.jukebox_playlist != 'off'){
-      glob.jukebox_countdown = control_params.seconds_next_run - seconds_runned;
-      output_text_jukebox.innerHTML = (+glob.jukebox_image_index + 1) + '/' + playlist['sec'].length + ` (${glob.jukebox_countdown}s)`;
-   }
+      if(run){
+         document.getElementById("loader").style.display = "block";
+         control_params.jukeboxIsRunning = false;
+         glob.jukebox_image_index = control_params.list_index % playlist['sec'].length;
+         control_params.seconds_next_run = seconds_runned + seconds_interval;
+         control_params.list_index++;
+      }
+      if(glob.jukebox_playlist != 'off'){
+         glob.jukebox_countdown = control_params.seconds_next_run - seconds_runned;
+         output_text_jukebox.innerHTML = (+glob.jukebox_image_index + 1) + '/' + playlist['sec'].length + ` (${glob.jukebox_countdown}s)`;
+      }
 
-   run_jukebox_playlist(run, playlist, glob.jukebox_image_index, control_params, seconds_interval, start_time);
-   glob.jukeboxClicked = 0
+      run_jukebox_playlist(run, playlist, glob.jukebox_image_index, control_params, seconds_interval, start_time);
+      glob.jukeboxClicked = 0
+   }
 }
 
 function wait1secJsonReady(){
@@ -1266,7 +1277,8 @@ function clearLocusSubpolysVariables(){
 function setup_jukebox_playlist_oninput() {
    let playlist;
    let control_params = {seconds_next_run : 1
-                        ,list_index : 0};
+                        ,list_index : 0
+                        ,jukeboxIsRunning : true};
    var start = Date.now();
    var output_text_jukebox = document.getElementById('output_text_jukebox')
    const sheetsID = '1iSjH-dUliUoS9DWntZnn2S7dLzRYlD1z4TqdMRWWd5A'
@@ -1297,6 +1309,7 @@ function setup_jukebox_playlist_oninput() {
          playlist = glob.jukebox_json[glob.ui.jukebox_playlist].values.columns;
          start = Date.now();
          output_text_jukebox.innerHTML = "1/" + playlist['sec'].length;
+         document.getElementById("loader").style.display = "block";
          run_jukebox_playlist(true, playlist, 0);
          glob.jukebox_id = window.setInterval(start_playlist, 1000, playlist, start, output_text_jukebox, control_params);
       } else {
