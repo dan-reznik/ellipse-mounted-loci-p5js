@@ -17,7 +17,7 @@ body {
 
 .title { grid-area: title; }
 .selector { 
-  display: none;
+  display: flex;
   grid-area: selector;
   /*display: flex;*/
   flex-flow: column;
@@ -44,7 +44,7 @@ body {
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config jukebox title"
-		"graphic graphic graphic"
+		"selector graphic graphic"
     ;
   background-color: lightsteelblue;
 }
