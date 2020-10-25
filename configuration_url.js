@@ -131,7 +131,9 @@ const clr4_fn = {
 }
 const bg_fn = {
    encode(bg_init_val){return getVariablesHaveColorBehavior('bg', bg_init_val)},
-   decode(url_bg_value){glob.ui.bg = hexToRgb('#' + url_bg_value)}
+   decode(url_bg_value){
+      glob.ui.bg = hexToRgb('#' + url_bg_value);
+   }
 }
 const clr_fill_border_fn = {
    encode(clr_fill_border_init_val){return getVariablesHaveColorBehavior('clr_fill_border', clr_fill_border_init_val)},

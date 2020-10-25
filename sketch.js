@@ -20,6 +20,7 @@ let glob = {
    clrs_shuffled_seeds : [[],[],[],[]],
    ell_detects : ['X','X','X','X'],
    jukebox_id: 0, jukebox_json: {}, jukebox_image_index: 0, jsonIsReady: false, jukeboxClicked: 0, jukebox_countdown: 0,
+   scaleFactor : 1,
    ui0 : {
       a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, 
       ell: true,
@@ -194,9 +195,9 @@ function draw() {
 
    push();
    translate(glob.ctr[0], glob.ctr[1]);
-   scale(glob.width / glob.scale);
+   scale(glob.width / (glob.scale*glob.scaleFactor));
    rotate(dict_rot[glob.ui.rot]);
-   let stroke_w = sqrt(glob.scale/glob.scale0)*.02;
+   let stroke_w = sqrt(glob.scale*glob.scaleFactor/glob.scale0)*.02;
 
    if(glob.ui.ell)
       draw_ellipse(glob.ui.mounting_Xn1=="poristic"?1:+glob.ui.a,
