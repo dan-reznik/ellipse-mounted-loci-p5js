@@ -20,6 +20,7 @@ let glob = {
    clrs_shuffled_seeds : [[],[],[],[]],
    ell_detects : ['X','X','X','X'],
    jukebox_id: 0, jukebox_json: {}, jukebox_image_index: 0, jsonIsReady: false, jukeboxClicked: 0, jukebox_countdown: 0,
+   scaleFactor : 1,
    ui0 : {
       a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, 
       ell: true,
@@ -120,8 +121,9 @@ function create_locus_subpolys(n) {
 }
 
 function get_window_width_height() {
-   glob.width = document.getElementsByClassName('item graphic')[0].offsetWidth;
-   glob.height = document.getElementsByClassName('item graphic')[0].offsetHeight;
+   var width = document.getElementsByClassName('item graphic')[0].offsetWidth;
+   var heigth = document.getElementsByClassName('item graphic')[0].offsetHeight;
+   return [width, heigth];
 }
 
 
@@ -131,10 +133,17 @@ function recenter() {
    glob.mouse = [glob.width / 2, glob.height / 2];
 }
 
+function fixHamburguerPosition(){
+   var canvas = document.getElementById('canvas');
+   
+   var hamburguerMenu = document.getElementById('menuHamburguer');
+   canvas.appendChild(hamburguerMenu)
+}
+
 function windowResized() {
    const locus_types = [glob.ui.locus_type_1, glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4];
    const locus_ids = ["1","2","3","4"];
-   get_window_width_height();
+   [glob.width, glob.height] = get_window_width_height();
    locus_ids.map((li,i) => {
       if (locus_types[i] !== 'none') {
          ui_changed(li, false);
@@ -143,6 +152,8 @@ function windowResized() {
       }
    });
    resizeCanvas(glob.width, glob.height);
+
+   fixHamburguerPosition();
 }
 
 function mouseOverCanvas() {
@@ -162,13 +173,14 @@ function bbox_rescale(n) {
 }
 
 function setup() {
-   get_window_width_height();
+   [glob.width, glob.height] = get_window_width_height();
    recenter();
    reset_ui();
    url_params = getURLParams();
    if(Object.keys(url_params).length > 0) {set_url_params(url_params);}
    let canvas = createCanvas(glob.width, glob.height);
    canvas.parent('canvas');
+   fixHamburguerPosition();
    setup_ui();
    mouseOverCanvas();
    let loader = document.getElementById('loader');
@@ -185,9 +197,9 @@ function draw() {
 
    push();
    translate(glob.ctr[0], glob.ctr[1]);
-   scale(glob.width / glob.scale);
+   scale(glob.width / (glob.scale*glob.scaleFactor));
    rotate(dict_rot[glob.ui.rot]);
-   let stroke_w = sqrt(glob.scale/glob.scale0)*.02;
+   let stroke_w = sqrt(glob.scale*glob.scaleFactor/glob.scale0)*.02;
 
    if(glob.ui.ell)
       draw_ellipse(glob.ui.mounting_Xn1=="poristic"?1:+glob.ui.a,
@@ -214,12 +226,13 @@ function draw() {
 
    pop();
    const canvasTextColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_blue) : clr_blue; 
+
    if(glob.jsonIsReady && glob.ui.jukebox_playlist != 'off'){
-      draw_text_full(glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['name'][glob.jukebox_image_index], [15, 15], canvasTextColor);
-      draw_text_full(`http://bit.ly/${glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['bit.ly'][glob.jukebox_image_index]}`, [15, 30], canvasTextColor);
+      draw_text_full(glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['name'][glob.jukebox_image_index], [50, 15], canvasTextColor);
+      draw_text_full(`http://bit.ly/${glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['bit.ly'][glob.jukebox_image_index]}`, [50, 30], canvasTextColor);
    }
    if(!glob.jsonIsReady){
-      draw_text_full('loading jukebox', [15, 15], canvasTextColor);
+      draw_text_full('loading jukebox', [50, 15], canvasTextColor);
    }
    draw_text_full("(c) 2020 Darlan & Reznik", [glob.width - 150, glob.height - 24], canvasTextColor);
    draw_text_full("dan-reznik.github.io/ellipse-mounted-loci-p5js/",
