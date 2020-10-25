@@ -1065,7 +1065,7 @@ function getAllUrlParams(url) {
    return obj;
 }
 
-function run_jukebox_playlist(run, playlist, list_indice) {
+function run_jukebox_playlist(run, playlist, list_indice, control_params, seconds_interval, start_time) {
    let params;
    const aux = glob.ui.jukebox_playlist;
    if (run) {
@@ -1076,16 +1076,21 @@ function run_jukebox_playlist(run, playlist, list_indice) {
       set_url_params(params);
       ui_changed_type(false);
       redraw();
+      if(control_params){
+         var seconds_runned = Math.floor(((Date.now() - start_time)) / 1000);
+         control_params.seconds_next_run = seconds_runned + seconds_interval;
+      }
    }
 }
 
 function start_playlist(playlist, start_time, output_text_jukebox, control_params) {
    var seconds_interval = +playlist['sec'][glob.jukebox_image_index];
    var seconds_runned = Math.floor(((Date.now() - start_time)) / 1000);
-   
+
    let run = (seconds_runned >= control_params.seconds_next_run);
    if(glob.jukeboxClicked == 1){
       run = true;
+      glob.jukeboxIsLoading = true;
    }
    else if(glob.jukeboxClicked == -1){
       run = true;
@@ -1104,7 +1109,7 @@ function start_playlist(playlist, start_time, output_text_jukebox, control_param
       output_text_jukebox.innerHTML = (+glob.jukebox_image_index + 1) + '/' + playlist['sec'].length + ` (${glob.jukebox_countdown}s)`;
    }
 
-   run_jukebox_playlist(run, playlist, glob.jukebox_image_index);
+   run_jukebox_playlist(run, playlist, glob.jukebox_image_index, control_params, seconds_interval, start_time);
    glob.jukeboxClicked = 0
 }
 
