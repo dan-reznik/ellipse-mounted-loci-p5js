@@ -152,8 +152,6 @@ function windowResized() {
       }
    });
    resizeCanvas(glob.width, glob.height);
-
-   fixHamburguerPosition();
 }
 
 function mouseOverCanvas() {
@@ -180,7 +178,6 @@ function setup() {
    if(Object.keys(url_params).length > 0) {set_url_params(url_params);}
    let canvas = createCanvas(glob.width, glob.height);
    canvas.parent('canvas');
-   fixHamburguerPosition();
    setup_ui();
    mouseOverCanvas();
    let loader = document.getElementById('loader');

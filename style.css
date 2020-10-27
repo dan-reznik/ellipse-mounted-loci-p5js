@@ -15,7 +15,17 @@ body {
   flex-wrap: nowrap;
 }
 
+.hamburger { 
+  grid-area: hamburger; 
+  text-align: center;
+}
+.playPause { 
+  grid-area: playPause; 
+  text-align: center;
+}
+
 .title { grid-area: title; }
+
 .selector { 
   display: flex;
   grid-area: selector;
@@ -40,11 +50,11 @@ body {
   height: 100%;
   width: 100%;
   grid-gap: 4pt 4pt;
-  grid-template-columns: minmax(285px, 285px) 150px minmax(405px, 95%);
+  grid-template-columns: minmax(285px, 285px) 50px 200px minmax(405px, 95%) 150px;
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
-    "config jukebox title"
-		"selector graphic graphic"
+    "config hamburger playPause title jukebox"
+		"selector graphic graphic graphic graphic"
     ;
   background-color: lightsteelblue;
 }
@@ -87,11 +97,12 @@ body {
 }
 
 #speed_box{
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
+  height: 100%;
 }
 
 .input_Xn #conic_type{
@@ -178,7 +189,7 @@ p.lab{
   display: flex;
   flex-direction: row;
   text-align: center;
-  margin-top: 2px;
+  margin: auto;
   height: 28px;
 }
 
@@ -487,11 +498,11 @@ label{
   to{ bottom:0; opacity:1 }
 }
 #menuHamburguer{
-  position: absolute;
-  top: 0;
-  left: 0;
   font-size: 30px;
-  color: white;
+  color: black;
   height: 50px;
   padding: 10px 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

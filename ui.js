@@ -921,14 +921,9 @@ function hexToRgb(hex) {
 
 function setup_bg_onchange() {
    var bg_dropbox = document.getElementById('bg');
-   const menuHamburguer = document.getElementById('menuHamburguer');
-   let menuHamburguerColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_black) : clr_black;
-   menuHamburguer.style.color = rgbToHex(menuHamburguerColor);
 
    bg_dropbox.addEventListener('input', function () {
       glob.ui.bg = hexToRgb(this.value);
-      menuHamburguerColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_black) : clr_black;
-      menuHamburguer.style.color = rgbToHex(menuHamburguerColor);
       redraw();
    })
 }
@@ -1073,11 +1068,7 @@ function run_jukebox_playlist(run, playlist, list_indice, control_params, second
          glob.ui.jukebox_playlist = aux;
          params = getAllUrlParams(playlist['config'][list_indice]);
          
-         set_url_params(params);
-         const menuHamburguer = document.getElementById('menuHamburguer');
-         let menuHamburguerColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_black) : clr_black;
-         menuHamburguer.style.color = rgbToHex(menuHamburguerColor);
-         
+         set_url_params(params);         
          
          ui_changed_type(false);
          redraw();
@@ -1411,18 +1402,23 @@ function resizeLocusCenter(initialWindowSize, finalWindowSize, size){
 /* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
 function hamburgerMenu() {
    var menu = document.getElementById("menu");
+   var menuConfig = document.getElementById("configButtons");
    var gridContainer = document.getElementById("grid-container");
    var initialWindowSize = get_window_width_height();
 
    if (menu.style.display === "flex") {
-      gridContainer.style.gridTemplateAreas = '"config jukebox title" "graphic graphic graphic"';
+      gridContainer.style.gridTemplateAreas = '"hamburger playPause title jukebox" "graphic graphic graphic graphic"';
+      gridContainer.style.gridTemplateColumns = '50px 200px minmax(405px, 95%) 150px';
       menu.style.display = "none";
+      menuConfig.style.display = "none";
       finalWindowSize = get_window_width_height();
       resizeLocusCenter(initialWindowSize,finalWindowSize, 'maximized');
       windowResized();
    } else {
-      gridContainer.style.gridTemplateAreas = '"config jukebox title" "selector graphic graphic"';
+      gridContainer.style.gridTemplateAreas = '"config hamburger playPause title jukebox" "selector graphic graphic graphic graphic"';
+      gridContainer.style.gridTemplateColumns = 'minmax(285px, 285px) 50px 200px minmax(405px, 95%) 150px';
       menu.style.display = "flex";
+      menuConfig.style.display = "inline-flex";
       finalWindowSize = get_window_width_height();
       resizeLocusCenter(initialWindowSize,finalWindowSize);
       windowResized();
