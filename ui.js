@@ -452,17 +452,20 @@ function setup_copy_image() {
 
 function setup_play_controls() {
    var play_button = document.getElementById("play_pause");
-   var backward_button = document.getElementById("backward");
-   var forward_button = document.getElementById("forward");
    var play_class = "fa fa-play-circle-o";
+   var playInvert_class = "fa fa-play-circle-o fa-rotate-180";
    var stop_class = "fa fa-pause-circle-o";
 
    play_button.isPlaying = true;
    play_button.className = stop_class;
    play_button.addEventListener("click", function () {
       if (this.isPlaying && glob.loop) {
+         if(glob.loop_ccw){
+            this.className = play_class;
+         }else{
+            this.className = playInvert_class;
+         }
          this.isPlaying = false;
-         this.className = play_class;
          noLoop();
          glob.loop = false;
       } else if (!this.isPlaying && !glob.loop) {
@@ -473,28 +476,16 @@ function setup_play_controls() {
       }
    });
 
-   backward_button.addEventListener("click", function () {
-      glob.loop_ccw = false;
-      if (play_button.isPlaying) {
-         play_button.isPlaying = true;
-         play_button.className = stop_class;
-         loop();
-         glob.loop = true;
-      } else {
-         glob.tDeg -= (+glob.ui.animStep0);
-         redraw();
-      }
-   });
-   forward_button.addEventListener("click", function () {
-      glob.loop_ccw = true;
-      if (play_button.isPlaying) {
-         play_button.isPlaying = true;
-         play_button.className = stop_class;
-         loop();
-         glob.loop = true;
-      } else {
-         glob.tDeg += (+glob.ui.animStep0);
-         redraw();
+   play_button.addEventListener("contextmenu", function (ev) {
+      ev.preventDefault();
+      glob.loop_ccw = !glob.loop_ccw;
+
+      if (!play_button.isPlaying) {
+         if(this.className == play_class){
+            this.className = playInvert_class;
+         }else{
+            this.className = play_class;
+         }
       }
    });
 
@@ -515,60 +506,7 @@ function setup_play_controls() {
             glob.loop = true;
          }
       } else {
-         if (e.keyCode == 39) {
-            glob.tDeg += (+glob.ui.animStep0);
-            redraw();
-         }
-         else if (e.keyCode == 37) {
-            glob.tDeg -= (+glob.ui.animStep0);
-            redraw();
-         }
-      }
-   })
-   backward_button.addEventListener('keydown', function (e) {
-      if (play_button.isPlaying) {
-         if (e.keyCode == 39) {
-            glob.loop_ccw = true
-            play_button.isPlaying = true;
-            play_button.className = stop_class;
-            loop();
-            glob.loop = true;
-         }
-         else if (e.keyCode == 37) {
-            glob.loop_ccw = false
-            play_button.isPlaying = true;
-            play_button.className = stop_class;
-            loop();
-            glob.loop = true;
-         }
-      } else {
-         if (e.keyCode == 39) {
-            glob.tDeg += (+glob.ui.animStep0);
-            redraw();
-         }
-         else if (e.keyCode == 37) {
-            glob.tDeg -= (+glob.ui.animStep0);
-            redraw();
-         }
-      }
-   })
-   forward_button.addEventListener('keydown', function (e) {
-      if (play_button.isPlaying) {
-         if (e.keyCode == 39) {
-            glob.loop_ccw = true
-            play_button.isPlaying = true;
-            play_button.className = stop_class;
-            loop();
-            glob.loop = true;
-         }
-         else if (e.keyCode == 37) {
-            glob.loop_ccw = false
-            play_button.isPlaying = true;
-            play_button.className = stop_class;
-            loop();
-            glob.loop = true;
-         }
-      } else {
+
          if (e.keyCode == 39) {
             glob.tDeg += (+glob.ui.animStep0);
             redraw();
@@ -1408,7 +1346,7 @@ function hamburgerMenu() {
 
    if (menu.style.display === "flex") {
       gridContainer.style.gridTemplateAreas = '"hamburger playPause title jukebox" "graphic graphic graphic graphic"';
-      gridContainer.style.gridTemplateColumns = '50px 200px minmax(405px, 95%) 150px';
+      gridContainer.style.gridTemplateColumns = '50px 132px minmax(405px, 95%) 150px';
       menu.style.display = "none";
       menuConfig.style.display = "none";
       finalWindowSize = get_window_width_height();
@@ -1416,7 +1354,7 @@ function hamburgerMenu() {
       windowResized();
    } else {
       gridContainer.style.gridTemplateAreas = '"config hamburger playPause title jukebox" "selector graphic graphic graphic graphic"';
-      gridContainer.style.gridTemplateColumns = 'minmax(285px, 285px) 50px 200px minmax(405px, 95%) 150px';
+      gridContainer.style.gridTemplateColumns = 'minmax(285px, 285px) 50px 132px minmax(405px, 95%) 150px';
       menu.style.display = "flex";
       menuConfig.style.display = "inline-flex";
       finalWindowSize = get_window_width_height();

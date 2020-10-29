@@ -50,7 +50,7 @@ body {
   height: 100%;
   width: 100%;
   grid-gap: 4pt 4pt;
-  grid-template-columns: minmax(285px, 285px) 50px 200px minmax(405px, 95%) 150px;
+  grid-template-columns: minmax(285px, 285px) 50px 132px minmax(405px, 95%) 150px;
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config hamburger playPause title jukebox"
@@ -186,14 +186,14 @@ p.lab{
 }
 
 .play_controls{
-  display: flex;
-  flex-direction: row;
+  display:inline-block;
+  font-size: 40px;
   text-align: center;
-  margin: auto;
-  height: 28px;
+  vertical-align: center;
 }
 
 .play_controls button{
+  margin-right: 3px;;
   flex: auto;
   display: inline-block;
   width: 34px;
@@ -202,7 +202,7 @@ p.lab{
   border:none;
   outline: none;
   align-items: center;
-  font-size: 25px;
+  font-size: 35px;
 }
 
 .play_controls button:focus,
