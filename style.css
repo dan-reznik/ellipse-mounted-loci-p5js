@@ -186,23 +186,26 @@ p.lab{
 }
 
 .play_controls{
-  display:inline-block;
-  font-size: 40px;
-  text-align: center;
-  vertical-align: center;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
 .play_controls button{
-  margin-right: 3px;;
-  flex: auto;
+  position: relative;
   display: inline-block;
-  width: 34px;
+  padding-left: 0px;
+  padding-right: 0px;
   height: 100%;
   background: none !important;
   border:none;
   outline: none;
-  align-items: center;
-  font-size: 35px;
+  font-size: 40px;
+}
+
+.play_controls button > *{
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 
 .play_controls button:focus,
