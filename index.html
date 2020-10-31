@@ -88,7 +88,7 @@
       <select id="jukebox_playlist">
         <option value="off" selected="selected">Juke off</option>
       </select>
-      <p id='output_text_jukebox'style="align-self: center;">Stopped</p>
+      <p id='output_text_jukebox'style="align-self: center;">Loading</p>
     </div>
   </div>
   
@@ -102,8 +102,8 @@
   <div class="item playPause">
     <!--dropdown-->
     <div id='speed_box'>
-      <label for="animStep0" style="margin-right: 2px;">speed</label>
-      <select id="animStep0" name="animStep0">
+      <label for="animStep0" style="font-size: 14px;margin-right: 2px;">speed</label>
+      <select id="animStep0" style='font-size: 11px;' name="animStep0">
         <option value="0.125">slow</option>
         <option value="0.500">med</option>
         <option value="1.000">fast</option>
@@ -140,7 +140,7 @@
           </div>
           <div class='input_Xn'>
             <label for="anim_a">anim</label>
-            <select id="a_speed" name='anim_a'>
+            <select id="a_speed" style='font-size: 11px;' name='anim_a'>
               <option value=0>off</option>
               <option value=0.005>slow</option>
               <option value=0.010>med</option>
@@ -254,7 +254,5 @@
     <div id="canvas" style="position: relative;"></div>
   </div>
 </section>
-
-<div id="loader"></div>
 
 </body></html>

@@ -1000,6 +1000,7 @@ function run_jukebox_playlist(run, playlist, list_indice, control_params, second
    let params;
    const aux = glob.ui.jukebox_playlist;
    if (run) {
+      document.getElementById("output_text_jukebox").innerHTML = "working";
       var delay=250; //0.25 seconds
       setTimeout(function(){
          reset_ui();
@@ -1013,11 +1014,10 @@ function run_jukebox_playlist(run, playlist, list_indice, control_params, second
 
          if(control_params){
             var seconds_runned = Math.floor(((Date.now() - start_time)) / 1000);
-            control_params.seconds_next_run = seconds_runned + seconds_interval;
+            control_params.seconds_next_run = seconds_runned + seconds_interval + 1;
             control_params.jukeboxIsRunning = true;
          }
 
-         document.getElementById("loader").style.display = "none";
       },delay);
    }
 }
@@ -1040,7 +1040,6 @@ function start_playlist(playlist, start_time, output_text_jukebox, control_param
       }
 
       if(run){
-         document.getElementById("loader").style.display = "block";
          control_params.jukeboxIsRunning = false;
          glob.jukebox_image_index = control_params.list_index % playlist['sec'].length;
          control_params.seconds_next_run = seconds_runned + seconds_interval;
@@ -1241,11 +1240,11 @@ function setup_jukebox_playlist_oninput() {
          playlist = glob.jukebox_json[glob.ui.jukebox_playlist].values.columns;
          start = Date.now();
          output_text_jukebox.innerHTML = "1/" + playlist['sec'].length;
-         document.getElementById("loader").style.display = "block";
+         document.getElementById("output_text_jukebox").innerHTML = "working";
          run_jukebox_playlist(true, playlist, 0);
          glob.jukebox_id = window.setInterval(start_playlist, 1000, playlist, start, output_text_jukebox, control_params);
       } else {
-         output_text_jukebox.innerHTML = 'Stopped'
+         output_text_jukebox.innerHTML = 'ready'
       }
    })
 }
