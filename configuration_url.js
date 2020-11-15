@@ -174,10 +174,10 @@ const draw_tri_1_fn = {encode(draw_tri_1_init_val){return getConfigFromVariables
 const draw_tri_2_fn = {encode(draw_tri_2_init_val){return getConfigFromVariablesDefault('draw_tri_2', draw_tri_2_init_val)}, decode(url_draw_tri_2_value){glob.ui.draw_tri_2 = (url_draw_tri_2_value == 'true');}};
 const draw_tri_3_fn = {encode(draw_tri_3_init_val){return getConfigFromVariablesDefault('draw_tri_3', draw_tri_3_init_val)}, decode(url_draw_tri_3_value){glob.ui.draw_tri_3 = (url_draw_tri_3_value == 'true');}};
 const draw_tri_4_fn = {encode(draw_tri_4_init_val){return getConfigFromVariablesDefault('draw_tri_4', draw_tri_4_init_val)}, decode(url_draw_tri_4_value){glob.ui.draw_tri_4 = (url_draw_tri_4_value == 'true');}};
-const inv1_fn = {encode(inv1_init_val){return getConfigFromVariablesDefault('inv1', inv1_init_val)}, decode(url_inv1_value){glob.ui.inv1 = (url_inv1_value == 'true');}};
-const inv2_fn = {encode(inv2_init_val){return getConfigFromVariablesDefault('inv2', inv2_init_val)}, decode(url_inv2_value){glob.ui.inv2 = (url_inv2_value == 'true');}};
-const inv3_fn = {encode(inv3_init_val){return getConfigFromVariablesDefault('inv3', inv3_init_val)}, decode(url_inv3_value){glob.ui.inv3 = (url_inv3_value == 'true');}};
-const inv4_fn = {encode(inv4_init_val){return getConfigFromVariablesDefault('inv4', inv4_init_val)}, decode(url_inv4_value){glob.ui.inv4 = (url_inv4_value == 'true');}};
+const inv1_fn = {encode(inv1_init_val){return getConfigFromVariablesDefault('inv1', inv1_init_val)}, decode(url_inv1_value){glob.ui.inv1 = url_inv1_value}};
+const inv2_fn = {encode(inv2_init_val){return getConfigFromVariablesDefault('inv2', inv2_init_val)}, decode(url_inv2_value){glob.ui.inv2 = url_inv2_value}};
+const inv3_fn = {encode(inv3_init_val){return getConfigFromVariablesDefault('inv3', inv3_init_val)}, decode(url_inv3_value){glob.ui.inv3 = url_inv3_value}};
+const inv4_fn = {encode(inv4_init_val){return getConfigFromVariablesDefault('inv4', inv4_init_val)}, decode(url_inv4_value){glob.ui.inv4 = url_inv4_value}};
 
 
 const a_min_fn = {encode(a_min_init_val){return getConfigFromVariablesDefault('a_min', a_min_init_val)}, decode(url_a_min_value){glob.ui.a_min = url_a_min_value}};

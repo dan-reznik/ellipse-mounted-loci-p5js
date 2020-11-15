@@ -50,7 +50,7 @@ body {
   height: 100%;
   width: 100%;
   grid-gap: 4pt 4pt;
-  grid-template-columns: minmax(285px, 285px) 50px 132px minmax(405px, 95%) 150px;
+  grid-template-columns: minmax(292px, 292px) 50px 132px minmax(405px, 95%) 150px;
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config hamburger playPause title jukebox"
@@ -419,7 +419,8 @@ label{
 .input_mounting{
     display: inline-flex;
     height: 100%;
-    margin-right: 4px;
+    margin-right: 0px;
+    width: 70px;
 }
 
 .input_mounting>select{
@@ -449,8 +450,15 @@ label{
   font-size: 11px;
 }
 
-.inv_label{
-  font-size: 14px;
+.inv{
+  display: inline-flex;
+  margin-left:1px;
+  margin-right:1px;
+  width: 10px;
+}
+
+.inv>*{
+  font-size: 11px;
 }
 
 #menuHamburguer{

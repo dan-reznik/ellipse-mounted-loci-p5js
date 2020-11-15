@@ -26,7 +26,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                 `</select>
             </div>
         </div>
-        <div style="display: inline-flex;margin-left:1px;margin-right:1px;flex-grow:1">
+        <div style="display: inline-flex;margin-left:1px;margin-right:1px;flex-grow=1;">
             <label for="mounting_Xn`+xn_number+`"> mnt</label>
             <div class="input_mounting">
                 <select id="mounting_Xn`+xn_number+`" name="mounting_Xn`+xn_number+`">
@@ -89,9 +89,12 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             </div>
         </div>
 
-        <div style='margin-left: 0px;margin-right:0px;'>
-            <label class = 'inv_label' for="inv`+xn_number+`">inv</label>
-            <input class = "sub_checkbox" type="checkbox" id="inv`+xn_number+`" name="inv`+xn_number+`">
+        <div class='inv'>
+                <select id="inv`+xn_number+`">
+                    <option value="off">inv Off</option>
+                    <option value="xn">inv Xn</option>
+                    <option value="tri">inv Tri</option>
+                </select>
         </div>
     </div>
 

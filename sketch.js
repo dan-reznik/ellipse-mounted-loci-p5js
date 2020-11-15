@@ -40,7 +40,7 @@ let glob = {
       tandem_loc: false, tandem_mnt: false, tandem_xn: false, tandem_tri: false, tandem_pn: false,
       jukebox_playlist: 'off',
       fill_alpha: .5, clr_fill_border : clr_white,
-      inv1:false,inv2:false,inv3:false,inv4:false,
+      inv1:'off',inv2:'off',inv3:'off',inv4:'off',
       circ1:'off',circ2:'off',circ3:'off',circ4:'off'
    },
    ui : null,
