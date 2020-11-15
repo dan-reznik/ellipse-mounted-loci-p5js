@@ -22,10 +22,10 @@ function set_ui_variables() {
       , 'demo_Xn2', 'Xn3', 'demo_Xn3', 'Xn4', 'demo_Xn4', 'Pn1', 'Pn2', 'Pn3', 'Pn4', 'demo_Pn1', 'demo_Pn2', 'demo_Pn3', 'demo_Pn4',
       , 'tri_type_1', 'tri_type_2', 'tri_type_3', 'tri_type_4', 'mounting_Xn1', 'mounting_Xn2'
       , 'mounting_Xn3', 'mounting_Xn4', 'animStep0', 'rot', 'rmax', 'bg', 'clr1', 'clr2', 'clr3', 'clr4'
-      , 'jukebox_playlist', 'clr_fill_border', 'fill_alpha', 'circ1', 'circ2', 'circ3', 'circ4']
+      , 'jukebox_playlist', 'clr_fill_border', 'fill_alpha', 'circ1', 'circ2', 'circ3', 'circ4', 'inv1', 'inv2', 'inv3', 'inv4']
 
    var variables_change_checked = ['ell', 'draw_tri_1', 'draw_tri_2', 'draw_tri_3', 'draw_tri_4'
-      , 'tandem_loc', 'tandem_mnt', 'tandem_xn', 'tandem_tri', 'tandem_pn', 'inv1', 'inv2', 'inv3', 'inv4']
+      , 'tandem_loc', 'tandem_mnt', 'tandem_xn', 'tandem_tri', 'tandem_pn']
    var from_to = {
       a_input_text: 'a', demo_Xn1: 'Xn1', demo_Xn2: 'Xn2', demo_Xn3: 'Xn3', demo_Xn4: 'Xn4'
       , demo_Pn1: 'Pn1', demo_Pn2: 'Pn2', demo_Pn3: 'Pn3', demo_Pn4: 'Pn4'
@@ -1287,17 +1287,17 @@ function setup_clr_fill_border() {
 function setup_circ(){
    ['1','2','3','4'].map(x => document.getElementById('circ'+x).addEventListener('input', function(){
          glob.ui['circ'+x] = this.value;
-         if(glob.ui['inv'+x])
+         if(glob.ui['inv'+x]!='off')
             ui_changed(x, true);
          redraw();
-         if(glob.ui['inv'+x])
+         if(glob.ui['inv'+x]!='off')
             set_conic_type_ui(x);
       }))
 }
 
 function setup_inv(){
    ['1','2','3','4'].map(x => document.getElementById('inv'+x).addEventListener("click", function () {
-      glob.ui['inv'+x] = this.checked;
+      glob.ui['inv'+x] = this.value;
       if(glob.ui['circ'+x] != 'off'){
          ui_changed(x, true);
          redraw();
