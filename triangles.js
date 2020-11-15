@@ -703,6 +703,12 @@ function get_derived_tri(orbit, sides, tri_type, pn) {
      return { o: orbit, s: sides };
 }
 
+function invert_tri({o,s},inv_fn) {
+   const o_inv = o.map(v=>inv_fn(o,s,v));
+   const sides_inv = tri_sides(o_inv);
+   return { o: o_inv, s: sides_inv };
+}
+
 // for debugging
 function get_tri_generic(a,tDeg,mounting,tri_type,pn) {
   //

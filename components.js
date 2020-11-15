@@ -91,9 +91,9 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
 
         <div class='inv'>
                 <select id="inv`+xn_number+`">
-                    <option value="off">inv Off</option>
-                    <option value="xn">inv Xn</option>
-                    <option value="tri">inv Tri</option>
+                    <option value="off">inv off</option>
+                    <option value="xn">inv xn</option>
+                    <option value="tri">inv tri</option>
                 </select>
         </div>
     </div>

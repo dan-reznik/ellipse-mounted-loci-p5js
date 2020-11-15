@@ -106,11 +106,13 @@ function get_Xn_orbit(a, tDeg, bary_fn, tri_type, pn, inv_fn) {
 }
 */
 
-function get_Xn_non_billiard(a, tDeg, orbit_fn, bary_fn, tri_type, pn, inv_fn) {
+function get_Xn_non_billiard(a, tDeg, orbit_fn, bary_fn, tri_type, pn, circ, inv, inv_fn) {
   const ons = orbit_fn(a, tDeg);
-  const ons_derived = get_derived_tri(ons.o, ons.s, tri_type, pn);
+  let ons_derived = get_derived_tri(ons.o, ons.s, tri_type, pn);
+  if (inv=="tri")
+     ons_derived = invert_tri(ons_derived,inv_fn); 
   const xn = get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
-  return inv_fn(ons_derived.o,ons_derived.s, xn);
+  return inv=="xn"?inv_fn(ons_derived.o,ons_derived.s, xn):xn;
 }
 
 function orbit_homothetic(a, tDeg) {

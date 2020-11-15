@@ -69,7 +69,9 @@ function create_locus(locus_type_changed, init) {
 
    for (let i = 0; i < g_ind.Xns.length; i++)
       if ([(i + 1).toString(), "0"].includes(locus_type_changed)) {
-         glob.locus_branched[i] = make_locus_branched(+glob.ui.a, tdegStep, glob.ui.rmax,
+         glob.locus_branched[i] = make_locus_branched(+glob.ui.a,
+            tdegStep,
+            glob.ui.rmax,
             g_ind.Xns[i],
             g_ind.mountings[i],
             g_ind.l_types[i],
