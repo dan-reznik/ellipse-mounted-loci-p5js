@@ -38,15 +38,9 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
 
     if (dr_tri) {
         draw_mounted(ons, clr, stroke_w, false, true);
-        // if (tri_type != "reference" || inv=="tri") draw_mounted(ons_derived, clr, stroke_w, false, false);
-        if (circ != "off") {
-            if (tri_type == "reference" && inv == "tri") draw_mounted(ons_derived, clr, stroke_w, false, false);
-            if (tri_type != "reference" && inv != "tri") draw_mounted(ons_derived0, clr, stroke_w, false, true);
-            if (tri_type != "reference" && inv == "tri") {
-                draw_mounted(ons_derived, clr, stroke_w, false, false);
-                draw_mounted(ons_derived0, clr, stroke_w, false, true);
-            }
-        }
+        if (tri_type != "reference") draw_mounted(ons_derived0, clr, stroke_w, false, true);
+        if (circ != "off" && inv == "tri")
+        draw_mounted(ons_derived, clr, stroke_w, false, false);    
     }
     if (locus_type != 'none') {
         draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
@@ -103,14 +97,10 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
                     draw_boundary(...dict_caustic[mounting](a), clr_caustic, stroke_w);
         }
         draw_orbit(ons, clr, stroke_w, false, true, false);
-        if (circ != "off") {
-            if (tri_type == "reference" && inv == "tri") draw_orbit(ons_derived, clr, stroke_w, false, false, false);
-            if (tri_type != "reference" && inv != "tri") draw_orbit(ons_derived0, clr, stroke_w, false, true, false);
-            if (tri_type != "reference" && inv == "tri") {
-                draw_orbit(ons_derived0, clr, stroke_w, false, true, false);
-                draw_orbit(ons_derived, clr, stroke_w, false, false, false);
-            }
-        }
+
+     
+        if (tri_type != "reference")   draw_orbit(ons_derived0, clr, stroke_w, false, true, false);
+        if (circ != "off" && inv == "tri") draw_orbit(ons_derived, clr, stroke_w, false, false, false);
     }
 
     if (locus_type != 'none')

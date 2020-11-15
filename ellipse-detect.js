@@ -148,7 +148,7 @@ function locus_conic(locus_branched) {
 
 const dict_locus_type = { "*":"points", L:"lines", C:"circles", E:"ellipses", H:"hyperbolas", P:"parabolas" };
 
-function get_ellipses(a, mnt, imax = 1000, r_max = 20.0) {
+function get_ellipses(a, mnt, imax = 1000, circ="off",inv="off",r_max = 20.0) {
     const tDegStep = 5.0;
     let locus;
     let results = {a:a,mnt:mnt,imax:imax,r_max:r_max,
@@ -156,9 +156,10 @@ function get_ellipses(a, mnt, imax = 1000, r_max = 20.0) {
         points:[],lines:[],circles:[],ellipses:[],hyperbolas:[],parabolas:[]};
     for (let i = 1; i <= imax; i++) {
         //a, tDegStep, r_max, n, mounting, locus_type, tri_type
-        // a, tDegStep, r_max, n, mounting, locus_type, tri_type, pn, circ, inv
+        // a, tDegStep, r_max, n, mounting, locus_type, tri_type, pn (pedal, cevians), circ, inv
 
-        locus = make_locus_branched(a, tDegStep, r_max, i, mnt, "trilins", "reference", 0);
+        locus = make_locus_branched(a, tDegStep, r_max, i, mnt, "trilins", "reference",
+        0, circ, inv);
         let type = locus_conic(locus);
         if (type in dict_locus_type)
            results[dict_locus_type[type]].push(i);
