@@ -254,14 +254,14 @@ function make_locus_branched(a, tDegStep, r_max,
         const tDegMax = ["vtx", "f_vtx"].includes(locus_type) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
             (a0, tDeg0) =>
-            get_Xn_non_billiard(a0, tDeg0, dict_get_Xn[mounting], bary_fn, tri_type, pn, circ, inv, inv_fn));
+            get_Xn_non_billiard(a0, tDeg0, dict_get_Xn[mounting], bary_fn, tri_type, pn, inv, inv_fn));
     } else {// non-poncelet
         const eps = 0.001;
         let [v2, v3] = getV2V3(a, mounting, eps);
         //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, bary_fn);
         locus_array = create_locus_branches(a, tDegStep, 360, r_max,
             (a0, tDeg0) => {
-                let [v1, xn] = get_Xn_mounted(a0, tDeg0, v2, v3, bary_fn, tri_type, pn, circ, inv, inv_fn);
+                let [v1, xn] = get_Xn_mounted(a0, tDeg0, v2, v3, bary_fn, tri_type, pn, inv, inv_fn);
                 return xn;
             });
     }

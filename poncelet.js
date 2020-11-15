@@ -106,7 +106,7 @@ function get_Xn_orbit(a, tDeg, bary_fn, tri_type, pn, inv_fn) {
 }
 */
 
-function get_Xn_non_billiard(a, tDeg, orbit_fn, bary_fn, tri_type, pn, circ, inv, inv_fn) {
+function get_Xn_non_billiard(a, tDeg, orbit_fn, bary_fn, tri_type, pn, inv, inv_fn) {
   const ons = orbit_fn(a, tDeg);
   let ons_derived = get_derived_tri(ons.o, ons.s, tri_type, pn);
   if (inv=="tri")

@@ -45,7 +45,7 @@ function getV2V3(a, mounting, eps) {
      } */
 }
 
-function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, pn, circ, inv, inv_fn) {
+function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, pn, inv, inv_fn) {
     let t = toRad(tDeg);
     let v1 = [a * Math.cos(t), Math.sin(t)];
     let tri = [v1, v2, v3];
