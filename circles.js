@@ -1,6 +1,21 @@
 function circle_unit(tri,sides) {
     return { ctr:[0,0], R:1, n:0 };
 }
+
+function circle_ctr(a) {
+    return { ctr:[0,0], R:1, n:0 };
+}
+
+function circle_f1(a) {
+    const ctr = [-Math.sqrt(a*a-1),0];
+    return { ctr:ctr, R:1, n:0 };
+}
+
+function circle_f2(a) {
+    const ctr = [Math.sqrt(a*a-1),0];
+    return { ctr:ctr, R:1, n:0 };
+}
+
 function circle_circum(tri,sides) {
     const x3 = get_Xn_cartesians(3, tri, sides);
     const R =  edist(x3,tri[0]);
@@ -154,5 +169,4 @@ function circle_schoutte(tri,sides) {
     const R = edist(x187,x15);
     return { ctr:x187, R:R, n:187};  
 }
-
 

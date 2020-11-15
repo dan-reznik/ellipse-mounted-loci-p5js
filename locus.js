@@ -1,6 +1,36 @@
+const circles_dict = {
+    adams      : circle_adams,
+    apollonius : circle_apollonius,
+    bevan      : circle_bevan,
+    brocard    : circle_brocard,
+    brocard2   : circle_brocard2,
+    circum     : circle_circum, // (tri,sides)
+    conway     : circle_conway,
+    cosine     : circle_cosine,
+    cosine_exc : circle_cosine_exc,
+    euler      : circle_euler,
+    fuhrmann   : circle_fuhrmann,
+    gallatly   : circle_gallatly,
+    incircle   : circle_incircle,
+    lemoine    : circle_lemoine,
+    mandart    : circle_mandart,
+    moses      : circle_moses,
+    spieker    : circle_spieker,
+    parry      : circle_parry,
+    reflection : circle_reflection,
+    schoutte   : circle_schoutte,
+    taylor     : circle_taylor
+};
+
+const circles_ctr_dict = {
+    f1:circle_f1,
+    f2:circle_f2,
+    ctr:circle_ctr
+};
+
 function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus_type, dr_tri,
     mounting, tri_type, pn, stroke_w, ell_detect, draw_label, circ, inv) {
-    const inv_fn = get_inv_fn(circ, inv);
+    const inv_fn = get_inv_fn(a, circ, inv);
     const [v2, v3] = getV2V3(a, mounting, 0.001);
     const ons = get_mounted_tri(a, tDeg, v2, v3);
     const ons_derived = get_derived_tri(ons.o, ons.s, tri_type, pn);
@@ -12,10 +42,18 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
         draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv_fn);
     }
-    if (dr_tri && circ in circles_dict) {
-        const { ctr, R, n } = circles_dict[circ](ons_derived.o, ons_derived.s);
-        draw_circle_low(ctr, R, clr, stroke_w, true);
-        draw_text2_rot(circ+'(X'+n+')', ctr, clr, .66*stroke_w, -dict_rot[rot], true);
+    if (dr_tri) {
+        var o = null;
+        if (circ in circles_dict)
+            o = circles_dict[circ](ons_derived.o, ons_derived.s);
+        else if (circ in circles_ctr_dict) {
+            o = circles_ctr_dict[circ](a);
+        }
+        if (o) {
+            const { ctr, R, n } = o;
+            draw_circle_low(ctr, R, clr, stroke_w, true);
+            draw_text2_rot(circ + (n>0?'(X' + n + ')':''), ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
+        }
     }
 }
 
@@ -31,7 +69,7 @@ const dict_caustic = {
 
 function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus_branches, clr, locus_type, dr_tri, tri_type, pn,
     stroke_w, dr_caustic, ell_detect, draw_label, circ, inv, clr_caustic) {
-    const inv_fn = get_inv_fn(circ, inv);
+    const inv_fn = get_inv_fn(a, circ, inv);
     let ons = orbit_fn(a, tDeg);
     let ons_derived = get_derived_tri(ons.o, ons.s, tri_type, pn);
 
@@ -61,10 +99,18 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
         draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv_fn);
 
-    if (dr_tri && circ in circles_dict) {
-        const { ctr, R, n } = circles_dict[circ](ons_derived.o, ons_derived.s);
-        draw_circle_low(ctr, R, clr, stroke_w, true);
-        draw_text2_rot(circ+'(X'+n+')', ctr, clr, .66*stroke_w, -dict_rot[rot], true);
+    if (dr_tri) {
+        var o = null;
+        if (circ in circles_dict)
+            o = circles_dict[circ](ons_derived.o, ons_derived.s);
+        else if (circ in circles_ctr_dict) {
+            o = circles_ctr_dict[circ](a);
+        }
+        if (o) {
+            const { ctr, R, n } = o;
+            draw_circle_low(ctr, R, clr, stroke_w, true);
+            draw_text2_rot(circ + (n>0?'(X' + n + ')':''), ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
+        }
     }
 }
 
@@ -169,43 +215,22 @@ const dict_get_Xn = {
     brocard: orbit_brocard
 };
 
-const circles_dict = {
-    adams      : circle_adams,
-    apollonius : circle_apollonius,
-    bevan      : circle_bevan,
-    brocard    : circle_brocard,
-    brocard2   : circle_brocard2,
-    circum     : circle_circum, // (tri,sides)
-    conway     : circle_conway,
-    cosine     : circle_cosine,
-    cosine_exc : circle_cosine_exc,
-    euler      : circle_euler,
-    fuhrmann   : circle_fuhrmann,
-    gallatly   : circle_gallatly,
-    incircle   : circle_incircle,
-    lemoine    : circle_lemoine,
-    mandart    : circle_mandart,
-    moses      : circle_moses,
-    spieker    : circle_spieker,
-    parry      : circle_parry,
-    reflection : circle_reflection,
-    schoutte   : circle_schoutte,
-    taylor     : circle_taylor
-};
 
 const inv_fn_identity = (tri, sides, p) => p;
 
-function get_inv_fn(circ, inv) {
+function get_inv_fn(a, circ, inv) {
     return (inv && (circ in circles_dict)) ?
         (tri, sides, p) => circle_inversion(p, circles_dict[circ](tri, sides)) :
-        inv_fn_identity;
+        ((inv && (circ in circles_ctr_dict)) ? 
+        (tri, sides, p) => circle_inversion(p, circles_ctr_dict[circ](a)) :
+        inv_fn_identity);
 }
 // no asymptotes
 function make_locus_branched(a, tDegStep, r_max,
     // indexed
     n, mounting, locus_type, tri_type, pn, circ, inv) {
     const bary_fn = get_fn_any(locus_type, n);
-    const inv_fn = get_inv_fn(circ, inv)
+    const inv_fn = get_inv_fn(a, circ, inv);
     let locus_array;
     if (mounting in dict_get_Xn) {
         const tDegMax = ["vtx", "f_vtx"].includes(locus_type) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
