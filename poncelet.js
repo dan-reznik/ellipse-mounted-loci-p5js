@@ -97,18 +97,9 @@ function get_envelope(a,tDeg,trilFn1,trilFn2,dt=0.0001) {
   return inter_lines(p1,p2,p1_dt,p2_dt);
 }
 
-/*
-function get_Xn_orbit(a, tDeg, bary_fn, tri_type, pn, inv_fn) {
-  const ons = orbit_normals(a, tDeg);
-  const ons_derived = get_derived_tri(ons.o, ons.s, tri_type, pn);
-  const xn = get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
-  return inv_fn(ons_derived.o,ons_derived.s, xn);
-}
-*/
-
 function get_Xn_non_billiard(a, tDeg, orbit_fn, bary_fn, tri_type, pn, inv, inv_fn) {
   const ons = orbit_fn(a, tDeg);
-  let ons_derived = get_derived_tri(ons.o, ons.s, tri_type, pn);
+  let ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, pn);
   if (inv=="tri")
      ons_derived = invert_tri(ons_derived,inv_fn); 
   const xn = get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);

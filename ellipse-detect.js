@@ -146,8 +146,6 @@ function locus_conic(locus_branched) {
     return locus_conic_low(locus_branched).type;
 }
 
-const dict_locus_type = { "*":"points", L:"lines", C:"circles", E:"ellipses", H:"hyperbolas", P:"parabolas" };
-
 function get_ellipses(a, mnt, imax = 1000, circ="off",inv="off",r_max = 20.0) {
     const tDegStep = 5.0;
     let locus;
