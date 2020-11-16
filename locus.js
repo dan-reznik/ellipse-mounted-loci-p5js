@@ -97,8 +97,6 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
                     draw_boundary(...dict_caustic[mounting](a), clr_caustic, stroke_w);
         }
         draw_orbit(ons, clr, stroke_w, false, true, false);
-
-     
         if (tri_type != "reference")   draw_orbit(ons_derived0, clr, stroke_w, false, true, false);
         if (circ != "off" && inv == "tri") draw_orbit(ons_derived, clr, stroke_w, false, false, false);
     }
