@@ -28,7 +28,7 @@ function least_squares_conic(ps) {
     let conic_type = "X";
     if (is_conic) {
         if (negl(delta)) conic_type = "P";
-        else if (delta > 0) conic_type = negl2(major - minor) ? "C" : "E";
+        else if (delta > 0) conic_type = negl(std_dev(ps.map(p=>edist(p,ctr)))) ? "C" : "E";
         else conic_type = "H";
     }
 
@@ -147,7 +147,7 @@ function locus_conic(locus_branched) {
 }
 
 function get_ellipses(a, mnt, imax = 1000, circ="off",inv="off",r_max = 20.0) {
-    const tDegStep = 5.0;
+    const tDegStep = 13.0;
     let locus;
     let results = {a:a,mnt:mnt,imax:imax,r_max:r_max,
         pointsN:0,linesN:0,circlesN:0,ellipsesN:0,hyperbolasN:0,parabolasN:0,
