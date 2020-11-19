@@ -1,0 +1,1 @@
+This is a browser-interactive app for drawing loci of "ellipse-mounted" triangles. This includes several Poncelet families and a feel non-Poncelet ones. For details, see: https://dan-reznik.github.io/ellipse-mounted-triangles/
