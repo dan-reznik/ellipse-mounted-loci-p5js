@@ -283,7 +283,7 @@ function linedash(p1, p2, dd) {
   let d12 = edist(p1, p2);
   let phat = vnorm(vdiff(p2, p1));
   let flag = true;
-  for (let d = 0; d < d12 - dd; d += dd) {
+  for (let d = 0; d < Math.min(d12,100) - dd; d += dd) {
     if (flag) {
       let from = vsum(p1, vscale(phat, d));
       let to = vsum(from, vscale(phat, dd));
