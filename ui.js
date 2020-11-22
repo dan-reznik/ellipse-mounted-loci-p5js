@@ -30,6 +30,9 @@ function set_ui_variables() {
       a_input_text: 'a', demo_Xn1: 'Xn1', demo_Xn2: 'Xn2', demo_Xn3: 'Xn3', demo_Xn4: 'Xn4'
       , demo_Pn1: 'Pn1', demo_Pn2: 'Pn2', demo_Pn3: 'Pn3', demo_Pn4: 'Pn4'
    }
+   var from_to2 = {
+      Xn1: 'demo_Pn1', Xn2: 'demo_Pn2', Xn3: 'demo_Pn3', Xn4: 'demo_Pn4'
+   }
 
    variables_change_value.map(function (x) {
       var y = x;
@@ -38,6 +41,7 @@ function set_ui_variables() {
       if (['bg', 'clr_fill_border'].includes(x)) document.getElementById(x).value = rgbToHex(glob.ui[y]);
       else if (['clr1', 'clr2', 'clr3', 'clr4'].includes(x)) change_loc_clr(+x.slice(-1), rgbToHex(glob.ui[y]))
       else if(['Pn1', 'Pn2', 'Pn3', 'Pn4'].includes(x)) void(0);
+      else if(['Xn1', 'Xn2', 'Xn3', 'Xn4'].includes(x)) {y = from_to2[x]; }
       else if(x == 'jukebox_playlist'){
          if(glob.jsonIsReady)
             document.getElementById(x).value = glob.ui[y];
@@ -1313,6 +1317,7 @@ function setup_invert_colors() {
       glob.ui.clr2 = clr_invert_ui(glob.ui.clr2);
       glob.ui.clr3 = clr_invert_ui(glob.ui.clr3);
       glob.ui.clr4 = clr_invert_ui(glob.ui.clr4);
+      document.getElementById('bg').value = rgbToHex(glob.ui.bg);
       change_loc_clr('1', rgbToHex(glob.ui.clr1));
       change_loc_clr('2', rgbToHex(glob.ui.clr2));
       change_loc_clr('3', rgbToHex(glob.ui.clr3));
