@@ -53,6 +53,10 @@ function sum(v) {
   return acc;
 }
 
+function avg(v) {
+  return sum(v)/v.length;
+}
+
 function product(v) {
   let acc=1;
   for(let i=0;i<v.length;i++)
@@ -67,6 +71,11 @@ function sum_sqr(v) {
   return acc;
 }
 
+// avg of (x-avg)^2
+function std_dev(v) {
+  const v_avg = avg(v);
+  return sum_sqr(v.map(v0=>v0-v_avg))/v.length;
+}
 
 function dot(v,u) {
   let acc=0;

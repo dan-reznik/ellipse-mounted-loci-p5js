@@ -2,7 +2,7 @@ function getV2V3(a, mounting, eps) {
     c = Math.sqrt(a * a - 1);
     f1 = [-c, 0];
     f2 = [c, 0];
-    const dict = {
+    const v2v3_dict = {
         fs: [f1, f2],
         fsCtr: [f2, [eps, eps]],
         fsLeft: [f1, [a, 0]],
@@ -21,7 +21,7 @@ function getV2V3(a, mounting, eps) {
         TL_ctr: [[-a, -1], [eps, eps]],
         TL_BR: [[-a, -1], [a, 1]]
     };
-    return mounting in dict ? dict[mounting] : [[-a, 1], [a, -1]];
+    return mounting in v2v3_dict ? v2v3_dict[mounting] : [[-a, 1], [a, -1]];
     /*  
      switch (mounting) {
          case "fs": return [f1, f2];
@@ -45,12 +45,12 @@ function getV2V3(a, mounting, eps) {
      } */
 }
 
-function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, pn, circ, inv, inv_fn) {
+function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, pn, inv, inv_fn) {
     let t = toRad(tDeg);
     let v1 = [a * Math.cos(t), Math.sin(t)];
     let tri = [v1, v2, v3];
     let sides = tri_sides(tri);
-    let ons_derived = get_derived_tri(tri, sides, tri_type, pn);
+    let ons_derived = get_derived_tri(a, tri, sides, tri_type, pn);
     if (inv=="tri")
         ons_derived = invert_tri(ons_derived,inv_fn);
     let xn = get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);

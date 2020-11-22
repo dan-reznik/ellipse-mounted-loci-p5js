@@ -28,7 +28,7 @@ function least_squares_conic(ps) {
     let conic_type = "X";
     if (is_conic) {
         if (negl(delta)) conic_type = "P";
-        else if (delta > 0) conic_type = negl2(major - minor) ? "C" : "E";
+        else if (delta > 0) conic_type = negl(std_dev(ps.map(p=>edist(p,ctr)))) ? "C" : "E";
         else conic_type = "H";
     }
 
@@ -146,17 +146,21 @@ function locus_conic(locus_branched) {
     return locus_conic_low(locus_branched).type;
 }
 
-const dict_locus_type = { "*":"points", L:"lines", C:"circles", E:"ellipses", H:"hyperbolas", P:"parabolas" };
+//focus-inversives
+//get_ellipses(2., "billiard", tri_type="inv_f1",imax=100,rmax=100)
 
-function get_ellipses(a, mnt, imax = 1000, r_max = 20.0) {
-    const tDegStep = 5.0;
+function get_ellipses(a, mnt, tri_type="reference",imax = 1000,r_max = 20.0,circ="off",inv="off") {
+    const tDegStep = 7.0;
     let locus;
     let results = {a:a,mnt:mnt,imax:imax,r_max:r_max,
         pointsN:0,linesN:0,circlesN:0,ellipsesN:0,hyperbolasN:0,parabolasN:0,
         points:[],lines:[],circles:[],ellipses:[],hyperbolas:[],parabolas:[]};
     for (let i = 1; i <= imax; i++) {
         //a, tDegStep, r_max, n, mounting, locus_type, tri_type
-        locus = make_locus_branched(a, tDegStep, r_max, i, mnt, "trilins", "reference", 0);
+        // a, tDegStep, r_max, n, mounting, locus_type, tri_type, pn (pedal, cevians), circ, inv
+
+        locus = make_locus_branched(a, tDegStep, r_max, i, mnt, "trilins", tri_type,
+        0, circ, inv);
         let type = locus_conic(locus);
         if (type in dict_locus_type)
            results[dict_locus_type[type]].push(i);

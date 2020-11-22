@@ -1,0 +1,22 @@
+const dict_rot = {
+    "0": 0,
+    "90": Math.PI / 2,
+    "180": Math.PI,
+    "270": -Math.PI / 2,
+    "-90": -Math.PI / 2
+};
+
+const label_dict = {
+    trilins:'X',
+    brocard_1:'Ω1',
+    brocard_2:'Ω2',
+    beltrami_1:'β1',
+    beltrami_2:'β2',
+    moses_1:'μ1',
+    moses_2:'μ2',
+    bickart_1:'σ1',
+    bickart_2:'σ2',
+    vtx:'V1'
+  };
+
+  const dict_locus_type = { "*":"points", L:"lines", C:"circles", E:"ellipses", H:"hyperbolas", P:"parabolas" };

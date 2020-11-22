@@ -1,3 +1,67 @@
+const tri_fns_dict = {
+  // reference        : reference_triangle,
+  excentral        : excentral_triangle,
+  medial           : medial_triangle,
+  anticompl        : anticompl_triangle,
+  orthic           : orthic_triangle,
+  intouch          : intouch_triangle,
+  extouch          : extouch_triangle,
+  tangential       : tangential_triangle,
+  tangentialmidarc : tangential_midarc_triangle,
+  extangents       : extangents_triangle,
+  intangents       : intangents_triangle,
+  euler            : euler_triangle,
+  halfaltitude     : halfaltitude_triangle,
+  hexyl            : hexyl_triangle,
+  feuerbach        : feuerbach_triangle,
+  symmedial        : symmedial_triangle,
+  circumorthic     : circumorthic_triangle,
+  circummedial     : circummedial_triangle,
+  circummidarc     : circummidarc_triangle,
+  morley1          : first_morley_adjunct_triangle,
+  morley2          : second_morley_adjunct_triangle,
+  morley3          : third_morley_adjunct_triangle,
+  incentral        : incentral_triangle,
+  fuhrmann         : fuhrmann_triangle,
+  macbeath         : macbeath_triangle,
+  steiner          : steiner_triangle,
+  lemoine          : lemoine_triangle,
+  johnson          : johnson_triangle,
+  bci              : bci_triangle,
+  yffcontact       : yffcontact_triangle,
+  yffcentral       : yffcentral_triangle,
+  reflection       : reflection_triangle,
+  brocard1         : first_brocard_triangle,
+  brocard2         : second_brocard_triangle,
+  brocard3         : third_brocard_triangle,
+  brocard4         : fourth_brocard_triangle,
+  brocard5         : fifth_brocard_triangle,
+  brocard6         : sixth_brocard_triangle,
+  brocard7         : seventh_brocard_triangle,
+  neuberg1         : first_neuberg_triangle,
+  neuberg2         : second_neuberg_triangle,
+  outervecten      : outer_vecten_triangle,
+  innervecten      : inner_vecten_triangle,
+  mixtilinear      : mixtilinear_triangle,
+  lucascentral     : lucas_central_triangle,
+  lucasinner       : lucas_inner_triangle,
+  lucastangents    : lucas_tangents_triangle
+};
+
+const tri_pfns_dict = {
+  // reference        : reference_triangle,
+  cevian     : cevian_triangle,
+  anticevian : anticevian_triangle,
+  pedal      : pedal_triangle,
+  antipedal  : antipedal_triangle
+};
+
+const tri_fns_inv_dict = {
+  inv_f1:circle_f1,
+  inv_f2:circle_f2,
+  inv_ctr:circle_ctr
+};
+
 function rotate_tri_left([p1,p2,p3]) {
   return [p2,p3,p1];
 }
@@ -625,65 +689,7 @@ function get_mounted_tri(a, tDeg, v2, v3) {
   return { o: tri, n: normals, s: sides };
 }
 
-const tri_fns_dict = {
-  // reference        : reference_triangle,
-  excentral        : excentral_triangle,
-  medial           : medial_triangle,
-  anticompl        : anticompl_triangle,
-  orthic           : orthic_triangle,
-  intouch          : intouch_triangle,
-  extouch          : extouch_triangle,
-  tangential       : tangential_triangle,
-  tangentialmidarc : tangential_midarc_triangle,
-  extangents       : extangents_triangle,
-  intangents       : intangents_triangle,
-  euler            : euler_triangle,
-  halfaltitude     : halfaltitude_triangle,
-  hexyl            : hexyl_triangle,
-  feuerbach        : feuerbach_triangle,
-  symmedial        : symmedial_triangle,
-  circumorthic     : circumorthic_triangle,
-  circummedial     : circummedial_triangle,
-  circummidarc     : circummidarc_triangle,
-  morley1          : first_morley_adjunct_triangle,
-  morley2          : second_morley_adjunct_triangle,
-  morley3          : third_morley_adjunct_triangle,
-  incentral        : incentral_triangle,
-  fuhrmann         : fuhrmann_triangle,
-  macbeath         : macbeath_triangle,
-  steiner          : steiner_triangle,
-  lemoine          : lemoine_triangle,
-  johnson          : johnson_triangle,
-  bci              : bci_triangle,
-  yffcontact       : yffcontact_triangle,
-  yffcentral       : yffcentral_triangle,
-  reflection       : reflection_triangle,
-  brocard1         : first_brocard_triangle,
-  brocard2         : second_brocard_triangle,
-  brocard3         : third_brocard_triangle,
-  brocard4         : fourth_brocard_triangle,
-  brocard5         : fifth_brocard_triangle,
-  brocard6         : sixth_brocard_triangle,
-  brocard7         : seventh_brocard_triangle,
-  neuberg1         : first_neuberg_triangle,
-  neuberg2         : second_neuberg_triangle,
-  outervecten      : outer_vecten_triangle,
-  innervecten      : inner_vecten_triangle,
-  mixtilinear      : mixtilinear_triangle,
-  lucascentral     : lucas_central_triangle,
-  lucasinner       : lucas_inner_triangle,
-  lucastangents    : lucas_tangents_triangle
-};
-
-const tri_pfns_dict = {
-  // reference        : reference_triangle,
-  cevian     : cevian_triangle,
-  anticevian : anticevian_triangle,
-  pedal      : pedal_triangle,
-  antipedal  : antipedal_triangle
-}
-
-function get_derived_tri(orbit, sides, tri_type, pn) {
+function get_derived_tri(a, orbit, sides, tri_type, pn) {
   if (tri_type.substr(0,2)=="p_") {
      tri_type = tri_type.substr(2);
      if (tri_type in tri_pfns_dict) {
@@ -694,6 +700,11 @@ function get_derived_tri(orbit, sides, tri_type, pn) {
       return { o: tri, s: tri_sides(tri) };     
      } else
        return { o: orbit, s: sides };
+  } else
+  if (tri_type in tri_fns_inv_dict) {
+    const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_inv_dict[tri_type](a))
+    const tri = invert_tri({ o: orbit, s: sides },inv_fn);
+    return tri;
   } else
     if (tri_type in tri_fns_dict) { // "reference" returns itself
      const ts = tri_fns_dict[tri_type](sides);
@@ -716,11 +727,11 @@ function get_tri_generic(a,tDeg,mounting,tri_type,pn) {
   if (mounting in dict_orbit_fn) {
       const orbit_fn = dict_orbit_fn[mounting]
       ons = orbit_fn(a, tDeg);
-      ons_derived = get_derived_tri(ons.o, ons.s, tri_type,pn);
+      ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type,pn);
   } else {
       const [v2, v3] = getV2V3(a, mounting, 0.001);
       ons = get_mounted_tri(a, tDeg, v2, v3);
-      ons_derived = get_derived_tri(ons.o, ons.s, tri_type,pn);
+      ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type,pn);
   }
   return { a:a,tDeg:tDeg,mounting:mounting,tri_type:tri_type,
       tri: ons.o, tri_s: ons.s, derived: ons_derived.o, derived_s: ons_derived.s };

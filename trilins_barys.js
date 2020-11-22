@@ -182,18 +182,6 @@ function get_brocard_orbit_sides(orbit, sides, n) {
   return get_Xn_low_bary(orbit, sides, get_brocard(n));
 }
 
-const fn_any_dict = {
-  brocard_1  : bary_brocard1,
-  brocard_2  : bary_brocard2,
-  beltrami_1 : bary_beltrami1,
-  beltrami_2 : bary_beltrami2,
-  moses_1    : bary_moses1,
-  moses_2    : bary_moses2,
-  bickart_1  : bary_bickart1,
-  bickart_2  : bary_bickart2,
-  vtx        : get_tri_v1_barys
-};
-
 function get_fn_any(locus_type, n) {
   if (locus_type.substr(0,2)=="f_")
      locus_type = locus_type.substr(2);

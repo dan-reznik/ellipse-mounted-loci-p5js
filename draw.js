@@ -1,3 +1,15 @@
+const fn_any_dict = {
+  brocard_1  : bary_brocard1,
+  brocard_2  : bary_brocard2,
+  beltrami_1 : bary_beltrami1,
+  beltrami_2 : bary_beltrami2,
+  moses_1    : bary_moses1,
+  moses_2    : bary_moses2,
+  bickart_1  : bary_bickart1,
+  bickart_2  : bary_bickart2,
+  vtx        : get_tri_v1_barys
+};
+
 function draw_generic_triangle_low(tri, rgb) {
   draw_tri(tri, rgb, wgt = 0.01);
   tri.map(v => draw_point(v, rgb));
@@ -53,22 +65,7 @@ function draw_one_locus_branch_filled(locus, fill_rgb) {
   pop();
 }
 
-const dict_rot = { "0": 0, "90": Math.PI / 2, "180": Math.PI, "270": -Math.PI / 2, "-90": -Math.PI / 2 };
-
 get_rgba_str = (rgb, alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
-
-const label_dict = {
-  trilins:'X',
-  brocard_1:'Ω1',
-  brocard_2:'Ω2',
-  beltrami_1:'β1',
-  beltrami_2:'β2',
-  moses_1:'μ1',
-  moses_2:'μ2',
-  bickart_1:'σ1',
-  bickart_2:'σ2',
-  vtx:'V1'
-}
 
 function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
   locus_type, ell_detect, rot, draw_label, inv_fn) {
@@ -286,7 +283,7 @@ function linedash(p1, p2, dd) {
   let d12 = edist(p1, p2);
   let phat = vnorm(vdiff(p2, p1));
   let flag = true;
-  for (let d = 0; d < d12 - dd; d += dd) {
+  for (let d = 0; d < Math.min(d12,100) - dd; d += dd) {
     if (flag) {
       let from = vsum(p1, vscale(phat, d));
       let to = vsum(from, vscale(phat, dd));
