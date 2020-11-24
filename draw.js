@@ -68,7 +68,7 @@ function draw_one_locus_branch_filled(locus, fill_rgb) {
 get_rgba_str = (rgb, alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
 
 function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
-  locus_type, ell_detect, rot, draw_label, inv_fn) {
+  locus_type, ell_detect, rot, draw_label, inv_fn, inv_tri) {
   const is_filled = locus_type.substr(0, 2) == "f_";
   if (is_filled)
     locus_type = locus_type.substr(2);
@@ -103,7 +103,7 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
     if (locus_type in label_dict) 
       draw_text2(label_dict[locus_type] +
         (locus_type=="trilins"?xnum:"") +
-        (inv_fn==inv_fn_identity?"":"'") +
+        (inv_tri||inv_fn!=inv_fn_identity?"'":"") +
         ell_detect_suffix, [0, 0], rgb, stroke_w);
   }
   pop();

@@ -8,6 +8,7 @@ const circles_dict = {
     conway     : circle_conway,
     cosine     : circle_cosine,
     cosine_exc : circle_cosine_exc,
+    excircle   : circle_excircle,
     euler      : circle_euler,
     fuhrmann   : circle_fuhrmann,
     gallatly   : circle_gallatly,
@@ -64,12 +65,13 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     }
     if (locus_type != 'none') {
         draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
-            locus_type, ell_detect, rot, draw_label, inv=="xn"? inv_fn : inv_fn_identity);
+            locus_type, ell_detect, rot, draw_label, inv=="xn"? inv_fn : inv_fn_identity, inv=="tri"||tri_type in tri_fns_inv_dict);
     }
     if (dr_tri) {
         var o = null;
         if (circ in circles_dict)
-            o = circles_dict[circ](ons_derived.o, ons_derived.s);
+        // &&& was ons_derived
+            o = circles_dict[circ](ons_derived0.o, ons_derived0.s);
         else if (circ in circles_ctr_dict) {
             o = circles_ctr_dict[circ](a);
         }
@@ -113,12 +115,13 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
 
     if (locus_type != 'none')
         draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
-            locus_type, ell_detect, rot, draw_label, inv=="xn" ? inv_fn : inv_fn_identity);
+            locus_type, ell_detect, rot, draw_label, inv=="xn" ? inv_fn : inv_fn_identity, inv=="tri"||tri_type in tri_fns_inv_dict);
 
     if (dr_tri) {
         var o = null;
         if (circ in circles_dict)
-            o = circles_dict[circ](ons_derived.o, ons_derived.s);
+        // &&& was derived
+            o = circles_dict[circ](ons_derived0.o, ons_derived0.s);
         else if (circ in circles_ctr_dict) {
             o = circles_ctr_dict[circ](a);
         }
@@ -228,7 +231,7 @@ function make_locus_branched(a, tDegStep, r_max,
     const bary_fn = get_fn_any(locus_type, n);
     let locus_array;
     if (mounting in dict_orbit_fn) {
-        const tDegMax = ["vtx", "f_vtx"].includes(locus_type) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
+        const tDegMax = ["vtx", "f_vtx"].includes(locus_type)||["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
             (a0, tDeg0) =>
             get_Xn_non_billiard(a0, tDeg0, dict_orbit_fn[mounting], bary_fn, tri_type, pn, inv, inv_fn));

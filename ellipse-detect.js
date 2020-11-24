@@ -147,15 +147,16 @@ function locus_conic(locus_branched) {
 }
 
 //focus-inversives
-//get_ellipses(2., "billiard", tri_type="inv_f1",imax=100,rmax=100)
+//get_ellipses(2., "billiard", tri_type="inv_f1",i_max=100,rmax=100)
 
-function get_ellipses(a, mnt, tri_type="reference",imax = 1000,r_max = 20.0,circ="off",inv="off") {
+function get_ellipses(a, mnt, tri_type="reference",i_max = 1000,r_max = 20.0,
+circ="off",inv="off") {
     const tDegStep = 7.0;
     let locus;
-    let results = {a:a,mnt:mnt,imax:imax,r_max:r_max,
+    let results = {a:a,mnt:mnt,imax:i_max,r_max:r_max,
         pointsN:0,linesN:0,circlesN:0,ellipsesN:0,hyperbolasN:0,parabolasN:0,
         points:[],lines:[],circles:[],ellipses:[],hyperbolas:[],parabolas:[]};
-    for (let i = 1; i <= imax; i++) {
+    for (let i = 1; i <= i_max; i++) {
         //a, tDegStep, r_max, n, mounting, locus_type, tri_type
         // a, tDegStep, r_max, n, mounting, locus_type, tri_type, pn (pedal, cevians), circ, inv
 
