@@ -16,7 +16,11 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="moses_2">μ2</option>
                     <option value="bickart_1">σ1</option>
                     <option value="bickart_2">σ2</option>
-                    <option value="vtx">vtx</option>`+
+                    <option value="vtx">vtx</option>
+                    <option value="vtx2">vtx2</option>
+                    <option value="vtx3">vtx3</option>`+
+                    // to do caustic
+                    //<option value="caustic">cst</option>
                     //<option value="f_trilins">Xn,fill</option>
                     //<option value="f_brocard_1">Ω1,fill</option>
                     //<option value="f_brocard_2">Ω2,fill</option>

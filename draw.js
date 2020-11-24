@@ -7,7 +7,10 @@ const fn_any_dict = {
   moses_2    : bary_moses2,
   bickart_1  : bary_bickart1,
   bickart_2  : bary_bickart2,
-  vtx        : get_tri_v1_barys
+  vtx        : get_tri_v1_barys,
+  vtx2       : get_tri_v2_barys,
+  vtx3       : get_tri_v3_barys,
+  caustic    : get_caustic_v12_barys
 };
 
 function draw_generic_triangle_low(tri, rgb) {
@@ -67,6 +70,8 @@ function draw_one_locus_branch_filled(locus, fill_rgb) {
 
 get_rgba_str = (rgb, alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
 
+const vtx_dict = {vtx:0,vtx2:1,vtx3:2};
+
 function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
   locus_type, ell_detect, rot, draw_label, inv_fn, inv_tri) {
   const is_filled = locus_type.substr(0, 2) == "f_";
@@ -74,9 +79,9 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
     locus_type = locus_type.substr(2);
 
   let xn;
-  // should add vtx1,vtx2,vtx3
-  if (locus_type == "vtx")
-    xn = ons.o[0];
+  // handles vtx,vtx2,vtx3
+  if (locus_type in vtx_dict)
+    xn = ons.o[vtx_dict[locus_type]];
   else {
     const bs = locus_type in fn_any_dict ? fn_any_dict[locus_type](ons.s) : get_Xn_bary(ons.s, xnum); // "trilins"
     xn = barys_to_cartesian(ons.o, bs);

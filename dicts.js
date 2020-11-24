@@ -16,7 +16,10 @@ const label_dict = {
     moses_2:'μ2',
     bickart_1:'σ1',
     bickart_2:'σ2',
-    vtx:'V1'
+    vtx:'V1',
+    vtx2:'V2',
+    vtx3:'V3',
+    caustic:'C12'
   };
 
   const dict_locus_type = { "*":"points", L:"lines", C:"circles", E:"ellipses", H:"hyperbolas", P:"parabolas" };

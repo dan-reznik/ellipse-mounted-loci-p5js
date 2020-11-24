@@ -231,7 +231,7 @@ function make_locus_branched(a, tDegStep, r_max,
     const bary_fn = get_fn_any(locus_type, n);
     let locus_array;
     if (mounting in dict_orbit_fn) {
-        const tDegMax = ["vtx", "f_vtx"].includes(locus_type)||["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
+        const tDegMax = ["vtx","vtx2","vtx3","f_vtx"].includes(locus_type)||["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
             (a0, tDeg0) =>
             get_Xn_non_billiard(a0, tDeg0, dict_orbit_fn[mounting], bary_fn, tri_type, pn, inv, inv_fn));

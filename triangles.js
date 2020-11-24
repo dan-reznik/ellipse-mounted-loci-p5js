@@ -746,14 +746,27 @@ function tri_side_ratio(a,tDeg,mounting,tri_type_1,tri_type_2) {
 
 function get_derived_tri_v1_barys(sides, tri_type) {
   if (tri_type in tri_fns_dict) { // "reference" returns itself
-  const ts = tri_fns_dict[tri_type](sides);
-  // multiply by sides to get barys
-  const bs = ts[0].map((t,i)=>t*sides[i]);
-  return bs;
-} else
-  return [sides[0],0,0]; // reference tri v1 in baris
+    const ts = tri_fns_dict[tri_type](sides);
+    // multiply by sides to get barys
+    const bs = ts[0].map((t, i) => t * sides[i]);
+    return bs;
+  } else
+    return [sides[0], 0, 0]; // reference tri v1 in baris
 }
 
+//barycentrics of vertex are opposite sidelengths
 function get_tri_v1_barys(sides) {
    return [sides[0],0,0];
+}
+
+function get_tri_v2_barys(sides) {
+  return [0,sides[1],0];
+}
+
+function get_tri_v3_barys(sides) {
+  return [0,0,sides[2]];
+}
+
+function get_caustic_v12_barys(sides) {
+  return [sides[0],0,0];
 }
