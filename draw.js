@@ -81,7 +81,7 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
   // handles vtx,vtx2,vtx3
   if (locus_type in vtx_dict)
     xn = ons.o[vtx_dict[locus_type]];
-  else if (locus_type == "caustic") {
+  else if (locus_type.substr(0,7) == "caustic") {
     xn = env;
   } else {
     const bs = locus_type in fn_any_dict ? fn_any_dict[locus_type](ons.s) : get_Xn_bary(ons.s, xnum); // "trilins"

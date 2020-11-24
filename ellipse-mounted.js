@@ -54,7 +54,7 @@ function get_Xn_mounted_low(a,tDeg,v2,v3,tri_type,pn,inv,inv_fn) {
     return inv=="tri" ? invert_tri(ons_derived,inv_fn) : ons_derived;
 }
 
-function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, pn, inv, inv_fn, is_caustic) {
+function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, pn, inv, inv_fn, caustic_n=-1) {
     ons_derived = get_Xn_mounted_low(a,tDeg,v2,v3,tri_type,pn,inv,inv_fn);
     //let t = toRad(tDeg);
     //let v1 = [a * Math.cos(t), Math.sin(t)];
@@ -64,8 +64,8 @@ function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, pn, inv, inv_fn, is_
     // if (inv=="tri")
     // ons_derived = invert_tri(ons_derived,inv_fn);
     
-    const xn = is_caustic ? get_envelope(a, tDeg,
-            (a0,tDeg0)=>get_Xn_mounted_low(a0,tDeg0,v2,v3,tri_type,pn,inv,inv_fn)) :
+    const xn = caustic_n>=0 ? get_envelope(a, tDeg,
+            (a0,tDeg0)=>get_Xn_mounted_low(a0,tDeg0,v2,v3,tri_type,pn,inv,inv_fn), caustic_n) :
             get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
     const xn_inv = inv=="xn"?inv_fn(ons_derived.o,ons_derived.s, xn):xn;
     return [ons_derived.o[0], xn_inv];

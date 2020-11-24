@@ -97,9 +97,9 @@ function get_envelope_trilin(a,tDeg,trilFn1,trilFn2,dt=0.0001) {
   return inter_lines(p1,p2,p1_dt,p2_dt);
 }
 
-function get_envelope(a, tDeg, tri_fn, eps = .001) {
-  const bef = tri_fn(a, tDeg - eps).o;
-  const aft = tri_fn(a, tDeg + eps).o;
+function get_envelope(a, tDeg, tri_fn, rot_n, eps = .001) {
+  const bef = vec_rotate_left(tri_fn(a, tDeg - eps).o, rot_n);
+  const aft = vec_rotate_left(tri_fn(a, tDeg + eps).o, rot_n);
   const inter = inter_rays(
     bef[0], vdiff(bef[1], bef[0]),
     aft[0], vdiff(aft[1], aft[0])
@@ -113,14 +113,14 @@ function get_orbit_derived(a,tDeg,orbit_fn,tri_type,pn,inv,inv_fn) {
   return inv == "tri"? invert_tri(ons_derived, inv_fn) : ons_derived;
 }
 
-function get_Xn_poncelet(a, tDeg, orbit_fn, bary_fn, tri_type, pn, inv, inv_fn, is_caustic) {
+function get_Xn_poncelet(a, tDeg, orbit_fn, bary_fn, tri_type, pn, inv, inv_fn, caustic_n) {
   const ons_derived = get_orbit_derived(a,tDeg,orbit_fn,tri_type,pn,inv,inv_fn);
   //const ons = orbit_fn(a, tDeg);
  // let ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, pn);
  // if (inv == "tri")
  //   ons_derived = invert_tri(ons_derived, inv_fn);
-  const xn = is_caustic ? get_envelope(a, tDeg,
-    (a0,tDeg0)=>get_orbit_derived(a0,tDeg0,orbit_fn,tri_type,pn,inv,inv_fn)) :
+  const xn = caustic_n>=0 ? get_envelope(a, tDeg,
+    (a0,tDeg0)=>get_orbit_derived(a0,tDeg0,orbit_fn,tri_type,pn,inv,inv_fn),caustic_n) :
     get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
   return inv == "xn" ? inv_fn(ons_derived.o, ons_derived.s, xn) : xn;
 }

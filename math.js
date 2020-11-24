@@ -267,3 +267,9 @@ function inter_rays(p1, n1, p2, n2) {
   const sol = get_det(m1) / det;
   return vray(p1, n1, sol);
 }
+
+function vec_rotate_left(v,n) {
+  if (n==0) return v;
+  const l = v.length;
+  return v.map((vi,i)=>v[i+n>=l?i+n-l:i+n]);
+}

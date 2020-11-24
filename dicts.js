@@ -19,7 +19,9 @@ const label_dict = {
     vtx:'V1',
     vtx2:'V2',
     vtx3:'V3',
-    caustic:'C12'
+    caustic:'Ɛ12',
+    caustic23:'Ɛ23',
+    caustic31:'Ɛ31'
   };
 
   const dict_locus_type = { "*":"points", L:"lines", C:"circles", E:"ellipses", H:"hyperbolas", P:"parabolas" };

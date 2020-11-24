@@ -73,8 +73,9 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
             draw_mounted(ons_derived, clr, stroke_w, false, false);
     }
     if (locus_type != 'none') {
-        const env = locus_type == "caustic" ? get_envelope(a, tDeg,
-            (a0, tDeg0) => get_mounted_derived(a0, tDeg0, mounting, tri_type, pn, circ, inv)) :
+        const env = locus_type in caustic_n_dict ? get_envelope(a, tDeg,
+            (a0, tDeg0) => get_mounted_derived(a0, tDeg0, mounting, tri_type, pn, circ, inv),
+            caustic_n_dict[locus_type]):
              [0, 0];
         draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv == "xn" ? inv_fn : inv_fn_identity,
@@ -127,8 +128,9 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
     }
 
     if (locus_type != 'none') {
-       const env = locus_type == "caustic" && mounting in dict_orbit_fn ? get_envelope(a, tDeg,
-            (a0, tDeg0) => get_orbit_derived(a0, tDeg0, dict_orbit_fn[mounting], tri_type, pn, inv, inv_fn)) : [0, 0];
+       const env = locus_type in caustic_n_dict && mounting in dict_orbit_fn ? get_envelope(a, tDeg,
+            (a0, tDeg0) => get_orbit_derived(a0, tDeg0, dict_orbit_fn[mounting], tri_type, pn, inv, inv_fn),
+            caustic_n_dict[locus_type]) : [0, 0];
         draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv == "xn" ? inv_fn : inv_fn_identity,
             inv == "tri" || tri_type in tri_fns_inv_dict, env);
@@ -222,6 +224,13 @@ function create_locus_branches(a, tDegStep, tDegMax, r_max, xn_fn) {
     return locus_array;
 }
 
+const caustic_n_dict = {
+    caustic:0,
+    caustic12:0,
+    caustic23:1,
+    caustic31:2
+}
+
 // why so many ellipses, lemma 4, tan t*
 function billiard_tDegMax(a, b) {
     const a2 = a * a, b2 = b * b;
@@ -248,17 +257,19 @@ function make_locus_branched(a, tDegStep, r_max,
     const bary_fn = get_fn_any(locus_type, n);
     let locus_array;
     if (mounting in dict_orbit_fn) { //poncelet
-        const tDegMax = ["vtx", "vtx2", "vtx3", "caustic", "f_vtx"].includes(locus_type) || ["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
+        const tDegMax = ["vtx", "vtx2", "vtx3", "caustic", "caustic23", "caustic31", "f_vtx"].includes(locus_type) || ["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
             (a0, tDeg0) =>
-                get_Xn_poncelet(a0, tDeg0, dict_orbit_fn[mounting], bary_fn, tri_type, pn, inv, inv_fn, locus_type == "caustic"));
+                get_Xn_poncelet(a0, tDeg0, dict_orbit_fn[mounting], bary_fn, tri_type, pn, inv, inv_fn,
+                    locus_type in caustic_n_dict ? caustic_n_dict[locus_type] : -1));
     } else {// non-poncelet
         const eps = 0.001;
         let [v2, v3] = getV2V3(a, mounting, eps);
         //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, bary_fn);
         locus_array = create_locus_branches(a, tDegStep, 360, r_max,
             (a0, tDeg0) => {
-                let [v1, xn] = get_Xn_mounted(a0, tDeg0, v2, v3, bary_fn, tri_type, pn, inv, inv_fn, locus_type=="caustic");
+                let [v1, xn] = get_Xn_mounted(a0, tDeg0, v2, v3, bary_fn, tri_type, pn, inv, inv_fn,
+                    locus_type in caustic_n_dict ? caustic_n_dict[locus_type] : -1);
                 return xn;
             });
     }
