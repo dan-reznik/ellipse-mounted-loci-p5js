@@ -9,8 +9,7 @@ const fn_any_dict = {
   bickart_2  : bary_bickart2,
   vtx        : get_tri_v1_barys,
   vtx2       : get_tri_v2_barys,
-  vtx3       : get_tri_v3_barys,
-  caustic    : get_caustic_v12_barys
+  vtx3       : get_tri_v3_barys
 };
 
 function draw_generic_triangle_low(tri, rgb) {
@@ -73,7 +72,7 @@ get_rgba_str = (rgb, alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
 const vtx_dict = {vtx:0,vtx2:1,vtx3:2};
 
 function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
-  locus_type, ell_detect, rot, draw_label, inv_fn, inv_tri) {
+  locus_type, ell_detect, rot, draw_label, inv_fn, inv_tri, env) {
   const is_filled = locus_type.substr(0, 2) == "f_";
   if (is_filled)
     locus_type = locus_type.substr(2);
@@ -82,7 +81,9 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
   // handles vtx,vtx2,vtx3
   if (locus_type in vtx_dict)
     xn = ons.o[vtx_dict[locus_type]];
-  else {
+  else if (locus_type == "caustic") {
+    xn = env;
+  } else {
     const bs = locus_type in fn_any_dict ? fn_any_dict[locus_type](ons.s) : get_Xn_bary(ons.s, xnum); // "trilins"
     xn = barys_to_cartesian(ons.o, bs);
   }
@@ -339,12 +340,13 @@ function draw_normal(p, n, lgt, stroke_w) {
   draw_line2(p, ray(p, n, lgt), clr_invert_ui(clr_black), stroke_w);
 }
 
+// old probably not used
 function draw_env(ons, a, tDeg, env_locus, rgb,
   trilFn1, trilFn2) {
   let p1 = trilFn1(ons.o, ons.s);
   let p2 = trilFn2(ons.o, ons.s);
   let [i1, i2] = ellInterRayBoth(a, p1, vnorm(vdiff(p2, p1)));
-  let env = get_envelope(a, tDeg, trilFn1, trilFn2);
+  let env = get_envelope_trilin(a, tDeg, trilFn1, trilFn2);
 
   const clr_line = clr_invert_ui(clr_light_gray);
   draw_line(i1, i2, clr_line);

@@ -120,8 +120,8 @@ vsum3 = (u, v, w) => [u[0] + v[0] + w[0], u[1] + v[1] + w[1]];
 vmid = (u,v) => [(u[0] + v[0])/2, (u[1] + v[1])/2];
 magn2 = (p) => p[0] * p[0] + p[1] * p[1];
 magn = (p) => sqrt(magn2(p));
-vinterp = (p1,p2,t) => vsum(p1,vscale(vdiff(p2,p1),t))
-vray = (p,n,t) => vsum(p,vscale(n,t))
+vinterp = (p1,p2,t) => vsum(p1,vscale(vdiff(p2,p1),t));
+vray = (p,n,t) => vsum(p,vscale(n,t));
 
 function circle_inversion(p, {ctr, R}) {
    const dp = vdiff(p, ctr);
@@ -256,7 +256,7 @@ function inter_rays(p1, n1, p2, n2) {
   const m = [[n1[0], n2[0]], [n1[1], n2[1]]];
   const det = get_det(m);
   if (negl(det)) {
-    console.log("interRays Direct: parallel rays");
+    console.log("inter_rays: parallel rays");
     return ([0, 0]);
   }
   const b = vdiff(p2, p1);

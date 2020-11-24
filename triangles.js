@@ -725,7 +725,7 @@ function get_tri_generic(a,tDeg,mounting,tri_type,pn) {
   //
   let ons, ons_derived;
   if (mounting in dict_orbit_fn) {
-      const orbit_fn = dict_orbit_fn[mounting]
+      const orbit_fn = dict_orbit_fn[mounting];
       ons = orbit_fn(a, tDeg);
       ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type,pn);
   } else {

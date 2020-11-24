@@ -87,7 +87,7 @@ function orbit_normals(a, tDeg) {
   return obj;
 }
 // intersection of current P1P2(t) with P1P2(t+dt)
-function get_envelope(a,tDeg,trilFn1,trilFn2,dt=0.0001) {
+function get_envelope_trilin(a,tDeg,trilFn1,trilFn2,dt=0.0001) {
   let ons = orbit_normals(a, tDeg-0.5*dt);
   let ons_dt = orbit_normals(a, tDeg+0.5*dt);
   let p1=trilFn1(ons.o, ons.s);
@@ -97,13 +97,32 @@ function get_envelope(a,tDeg,trilFn1,trilFn2,dt=0.0001) {
   return inter_lines(p1,p2,p1_dt,p2_dt);
 }
 
-function get_Xn_non_billiard(a, tDeg, orbit_fn, bary_fn, tri_type, pn, inv, inv_fn) {
+function get_envelope(a, tDeg, tri_fn, eps = .001) {
+  const bef = tri_fn(a, tDeg - eps).o;
+  const aft = tri_fn(a, tDeg + eps).o;
+  const inter = inter_rays(
+    bef[0], vdiff(bef[1], bef[0]),
+    aft[0], vdiff(aft[1], aft[0])
+  );
+  return inter;
+}
+
+function get_orbit_derived(a,tDeg,orbit_fn,tri_type,pn,inv,inv_fn) {
   const ons = orbit_fn(a, tDeg);
-  let ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, pn);
-  if (inv=="tri")
-     ons_derived = invert_tri(ons_derived,inv_fn); 
-  const xn = get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
-  return inv=="xn"?inv_fn(ons_derived.o,ons_derived.s, xn):xn;
+  const ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, pn);
+  return inv == "tri"? invert_tri(ons_derived, inv_fn) : ons_derived;
+}
+
+function get_Xn_poncelet(a, tDeg, orbit_fn, bary_fn, tri_type, pn, inv, inv_fn, is_caustic) {
+  const ons_derived = get_orbit_derived(a,tDeg,orbit_fn,tri_type,pn,inv,inv_fn);
+  //const ons = orbit_fn(a, tDeg);
+ // let ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, pn);
+ // if (inv == "tri")
+ //   ons_derived = invert_tri(ons_derived, inv_fn);
+  const xn = is_caustic ? get_envelope(a, tDeg,
+    (a0,tDeg0)=>get_orbit_derived(a0,tDeg0,orbit_fn,tri_type,pn,inv,inv_fn)) :
+    get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
+  return inv == "xn" ? inv_fn(ons_derived.o, ons_derived.s, xn) : xn;
 }
 
 function orbit_homothetic(a, tDeg) {
