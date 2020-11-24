@@ -121,6 +121,7 @@ vmid = (u,v) => [(u[0] + v[0])/2, (u[1] + v[1])/2];
 magn2 = (p) => p[0] * p[0] + p[1] * p[1];
 magn = (p) => sqrt(magn2(p));
 vinterp = (p1,p2,t) => vsum(p1,vscale(vdiff(p2,p1),t))
+vray = (p,n,t) => vsum(p,vscale(n,t))
 
 function circle_inversion(p, {ctr, R}) {
    const dp = vdiff(p, ctr);
@@ -247,4 +248,22 @@ function mulberry32(a) {
     t ^= t + Math.imul(t ^ t >>> 7, t | 61);
     return ((t ^ t >>> 14) >>> 0) / 4294967296;
   }
+}
+
+const get_det = ([[m11,m12],[m21,m22]]) => m11*m22 - m21*m12;
+
+function inter_rays(p1, n1, p2, n2) {
+  const m = [[n1[0], n2[0]], [n1[1], n2[1]]];
+  const det = get_det(m);
+  if (negl(det)) {
+    console.log("interRays Direct: parallel rays");
+    return ([0, 0]);
+  }
+  const b = vdiff(p2, p1);
+  const m1 = [
+    [b[0], m[0][1]],
+    [b[1], m[1][1]]
+  ];
+  const sol = get_det(m1) / det;
+  return vray(p1, n1, sol);
 }
