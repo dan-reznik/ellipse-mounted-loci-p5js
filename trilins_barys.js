@@ -97,6 +97,8 @@ function bary_moses_low(a,b,c) {
 }*/
 
 //f(a,b,c) : f(b,c,a) : f(c,a,b)     and     f(a,c,b) : f(b,a,c) : f(c,b,a)
+// incirlce inverses of the broacard points
+// compare: the beltrami are the circumcircle inverses of the brocards
 const bary_moses2 = ([a,b,c]) => [bary_moses_low(a,b,c),bary_moses_low(b,c,a),bary_moses_low(c,a,b)];
 const bary_moses1 = ([a,b,c]) => [bary_moses_low(a,c,b),bary_moses_low(b,a,c),bary_moses_low(c,b,a)];
 
