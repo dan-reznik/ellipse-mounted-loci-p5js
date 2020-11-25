@@ -50,7 +50,7 @@ body {
   height: 100%;
   width: 100%;
   grid-gap: 4pt 4pt;
-  grid-template-columns: minmax(292px, 292px) 50px 132px minmax(405px, 95%) 150px;
+  grid-template-columns: minmax(295px, 295px) 50px 132px minmax(405px, 95%) 150px;
   grid-template-rows: 50px minmax(100px, calc(100% - 50px));
   grid-template-areas:
     "config hamburger playPause title jukebox"
