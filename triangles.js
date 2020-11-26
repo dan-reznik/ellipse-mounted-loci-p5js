@@ -59,7 +59,13 @@ const tri_pfns_dict = {
 const tri_fns_inv_dict = {
   inv_f1:circle_f1,
   inv_f2:circle_f2,
-  inv_ctr:circle_ctr
+  inv_ctr:circle_ctr,
+};
+
+const tri_fns_cremona_dict = {
+  crem_f1:cremona_f1,
+  crem_f2:cremona_f2,
+  crem_ctr:cremona_ctr
 };
 
 function rotate_tri_left([p1,p2,p3]) {
@@ -700,6 +706,11 @@ function get_derived_tri(a, orbit, sides, tri_type, pn) {
       return { o: tri, s: tri_sides(tri) };     
      } else
        return { o: orbit, s: sides };
+  } else
+  if (tri_type in tri_fns_cremona_dict) {
+    const inv_fn = (tri, sides, p) => tri_fns_cremona_dict[tri_type](a,p)
+    const tri = invert_tri({ o: orbit, s: sides },inv_fn);
+    return tri;
   } else
   if (tri_type in tri_fns_inv_dict) {
     const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_inv_dict[tri_type](a))

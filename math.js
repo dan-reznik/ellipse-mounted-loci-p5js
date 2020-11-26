@@ -105,6 +105,7 @@ rot = (v,th) => rotSinCos(v,Math.sin(th),Math.cos(th))
 
 vNaN = (p) => isNaN(p[0])||isNaN(p[1]);
 vdiff = (u, v) => [u[0] - v[0], u[1] - v[1]];
+vinv = (u) => [1/u[0],1/u[1]]; // u.map(u0=>1/u0);
 vscale = (u, s) => [u[0]*s, u[1]*s];
 vflipx = (u) => [-u[0],u[1]];
 vflipy = (u) => [u[0],-u[1]];

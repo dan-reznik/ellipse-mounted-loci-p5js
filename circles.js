@@ -16,6 +16,26 @@ function circle_f2(a) {
     return { ctr:ctr, R:1, n:0 };
 }
 
+function cremona_inversion(p,p0) {
+    const rel = vdiff(p,p0);
+    return vsum(p0, vinv(rel));
+}
+
+function cremona_f1(a,p) {
+    const p0 = [-Math.sqrt(a*a-1),0];
+    return cremona_inversion(p,p0);
+}
+
+function cremona_f2(a,p) {
+    const p0 = [Math.sqrt(a*a-1),0];
+    return cremona_inversion(p,p0);
+}
+
+function cremona_ctr(a,p) {
+    const p0 = [0,0];
+    return cremona_inversion(p,p0);
+}
+
 function circle_circum(tri,sides) {
     const x3 = get_Xn_cartesians(3, tri, sides);
     const R =  edist(x3,tri[0]);
