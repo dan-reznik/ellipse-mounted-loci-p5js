@@ -258,7 +258,7 @@ function inter_rays(p1, n1, p2, n2) {
   const det = get_det(m);
   if (negl(det)) {
     console.log("inter_rays: parallel rays");
-    return ([0, 0]);
+    return p1; //([0, 0]);
   }
   const b = vdiff(p2, p1);
   const m1 = [

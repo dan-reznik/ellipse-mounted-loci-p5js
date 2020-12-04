@@ -97,7 +97,7 @@ function get_envelope_trilin(a,tDeg,trilFn1,trilFn2,dt=0.0001) {
   return inter_lines(p1,p2,p1_dt,p2_dt);
 }
 
-function get_envelope(a, tDeg, tri_fn, rot_n, eps = .001) {
+function get_envelope(a, tDeg, tri_fn, rot_n, eps = .01) {
   const bef = vec_rotate_left(tri_fn(a, tDeg - eps).o, rot_n);
   const aft = vec_rotate_left(tri_fn(a, tDeg + eps).o, rot_n);
   const inter = inter_rays(
