@@ -53,7 +53,8 @@ const tri_pfns_dict = {
   cevian     : cevian_triangle,
   anticevian : anticevian_triangle,
   pedal      : pedal_triangle,
-  antipedal  : antipedal_triangle
+  antipedal  : antipedal_triangle,
+  tripolar   : cevian_triangle
 };
 
 const tri_fns_inv_dict = {
@@ -702,7 +703,13 @@ function get_derived_tri(a, orbit, sides, tri_type, pn) {
       const bs = get_Xn_bary(sides, pn);
       const ts_p = bary_to_trilin(bs,sides);
       const ts = tri_pfns_dict[tri_type](sides,ts_p);
-      const tri = generic_triangle(orbit,sides,ts);
+      let tri = generic_triangle(orbit,sides,ts);
+      if (tri_type=="tripolar") {
+        // needs to intersect orbit sides w/ cevian sides  
+        tri = orbit.map((v,i)=>inter_rays(
+          v,vdiff(orbit[i==2?0:i+1],v),
+          tri[i],vdiff(tri[i==2?0:i+1],tri[i])));
+      }
       return { o: tri, s: tri_sides(tri) };     
      } else
        return { o: orbit, s: sides };

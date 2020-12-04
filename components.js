@@ -141,6 +141,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                 <option value="p_anticevian">*anticevian*</option>
                 <option value="p_pedal">*pedal*</option>
                 <option value="p_antipedal">*antipedal*</option>
+                <option value="p_tripolar">*tripolar*</option>
                 <option value="anticompl">anticompl</option>
                 <option value="bci">bci</option>
                 <option value="brocard1">brocard 1</option>
