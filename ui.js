@@ -1236,7 +1236,7 @@ function setup_jukebox_playlist_oninput() {
       control_params.seconds_next_run = 1;
       control_params.list_index = 0;
       glob.ui.jukebox_playlist = this.value; 
-      clearLocusSubpolysVariables();
+      //clearLocusSubpolysVariables();
       if (glob.ui.jukebox_playlist != 'off' &&  glob.jsonIsReady) {
          const aux = glob.ui.jukebox_playlist;
          reset_ui();
