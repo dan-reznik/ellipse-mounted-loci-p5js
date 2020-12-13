@@ -61,9 +61,11 @@ function set_ui_variables() {
          }
          document.getElementById(x).value = glob.ui[y];
          if(['locus_type_1', 'locus_type_2', 'locus_type_3', 'locus_type_4'].includes(x)){
+            const loc_number = x.slice(-1);
             var loc = document.getElementById(x)
-            var demo = document.getElementById('demo_Xn'+x.slice(-1))
-            change_clr_locus_txt(loc, demo);
+            var demo = document.getElementById('demo_Xn'+loc_number)
+            let triDemo = document.getElementById('demo_Pn'+loc_number);
+            change_clr_txt_on_locus_change(loc, demo, triDemo);
          }
       }
    });
@@ -557,24 +559,33 @@ function setup_a_speed_onchange() {
    })
 }
 
-function change_clr_locus_txt(loc, demo){
-   if(loc.value == 'trilins')
-      demo.style.color = 'black'
-   else
-      demo.style.color = 'gray'
+function change_clr_txt_on_locus_change(loc, locusDemo, triDemo){
+
+   if(loc.value == 'trilins'){
+      triDemo.style.color = 'gray';
+      locusDemo.style.color = 'black'
+   } else if(loc.value == 'env'){
+      triDemo.style.color = 'black';
+      locusDemo.style.color = 'black';
+   } else{
+      triDemo.style.color = 'gray';
+      locusDemo.style.color = 'gray';
+   }
 }
 
 function setup_locus_type_onchange() {
    for (let loc_number = 1; loc_number < 5; loc_number++){
-      var loc_Xn = document.getElementById("locus_type_"+loc_number);
-      var demo_Xn = document.getElementById("demo_Xn"+loc_number);
+      const loc_Xn = document.getElementById("locus_type_"+loc_number);
+      const demo_Xn = document.getElementById("demo_Xn"+loc_number);
+      const demo_Tri = document.getElementById("demo_Pn"+loc_number);
+
       loc_Xn.addEventListener("change", function () {
          glob.ui['locus_type_'+loc_number] = this.value;
          tandem_bar_variables('loc', glob.ui['locus_type_'+loc_number]);
          glob.ui.tandem_loc ? ui_changed_type(true) : ui_changed(loc_number, true);
          redraw();
          glob.ui.tandem_loc ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(loc_number);
-         change_clr_locus_txt(loc_Xn, demo_Xn);
+         change_clr_txt_on_locus_change(loc_Xn, demo_Xn, demo_Tri);
       });
    };
 }
