@@ -78,7 +78,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
         const env = locus_type in caustic_n_dict ? get_side_envelope(a, tDeg, tri_fn, caustic_n_dict[locus_type]) :
         locus_type == "env" && (n != pn) ? get_two_point_envelope(a, tDeg,
                 tri_fn, get_fn_bary(n), get_fn_bary(pn)) : [0, 0];
-        if (draw_tri && locus_type == "env" && (n != pn)) {
+        if (dr_tri && locus_type == "env" && (n != pn)) {
             const [p1, p2] = get_two_points(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn));
             draw_line_dashed2(...collinear_endpoints([p1, p2, env]), clr, stroke_w);
             draw_point2(p1, clr, stroke_w / 2);
