@@ -49,7 +49,7 @@ const dict_orbit_fn = {
     brocard: orbit_brocard
 };
 
-function get_mounted_derived(a,tDeg,mounting,tri_type,pn,circ,inv) {
+function get_mounted_derived(a, tDeg, mounting, tri_type, pn, circ, inv) {
     const inv_fn = get_inv_fn(a, circ, inv);
     const [v2, v3] = getV2V3(a, mounting, 0.001);
     const ons = get_mounted_tri(a, tDeg, v2, v3);
@@ -72,15 +72,25 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
         if (circ != "off" && inv == "tri")
             draw_mounted(ons_derived, clr, stroke_w, false, false);
     }
+
     if (locus_type != 'none') {
-        const env = locus_type in caustic_n_dict ? get_envelope(a, tDeg,
-            (a0, tDeg0) => get_mounted_derived(a0, tDeg0, mounting, tri_type, pn, circ, inv),
-            caustic_n_dict[locus_type]):
-             [0, 0];
-        draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
+        const tri_fn = (a0, tDeg0) => get_mounted_derived(a0, tDeg0, mounting, tri_type, pn, circ, inv);
+        const env = locus_type in caustic_n_dict ? get_side_envelope(a, tDeg, tri_fn, caustic_n_dict[locus_type]) :
+        locus_type == "env" && (n != pn) ? get_two_point_envelope(a, tDeg,
+                tri_fn, get_fn_bary(n), get_fn_bary(pn)) : [0, 0];
+        if (locus_type == "env" && (n != pn)) {
+            const [p1, p2] = get_two_points(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn));
+            draw_line_dashed2(...collinear_endpoints([p1, p2, env]), clr, stroke_w);
+            draw_point2(p1, clr, stroke_w / 2);
+            draw_text2_rot('X' + n, p1, clr, .66 * stroke_w, -dict_rot[rot], true);
+            draw_point2(p2, clr, stroke_w / 2);
+            draw_text2_rot('X' + pn, p2, clr, .66 * stroke_w, -dict_rot[rot], true);
+        }
+        draw_locus_branched(locus_branches, ons_derived, n, pn, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv == "xn" ? inv_fn : inv_fn_identity,
             inv == "tri" || tri_type in tri_fns_inv_dict || tri_type in tri_fns_cremona_dict, env);
     }
+    // dr label on center of circle
     if (dr_tri) {
         var o = null;
         if (circ in circles_dict)
@@ -128,10 +138,23 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
     }
 
     if (locus_type != 'none') {
-       const env = locus_type in caustic_n_dict && mounting in dict_orbit_fn ? get_envelope(a, tDeg,
-            (a0, tDeg0) => get_orbit_derived(a0, tDeg0, dict_orbit_fn[mounting], tri_type, pn, inv, inv_fn),
-            caustic_n_dict[locus_type]) : [0, 0];
-        draw_locus_branched(locus_branches, ons_derived, n, clr, stroke_w,
+        let env = [0, 0];
+        if (mounting in dict_orbit_fn) {
+            const tri_fn = (a0, tDeg0) => get_orbit_derived(a0, tDeg0, dict_orbit_fn[mounting], tri_type, pn, inv, inv_fn);
+            env = locus_type in caustic_n_dict ? get_side_envelope(a, tDeg, tri_fn, caustic_n_dict[locus_type]) :
+                locus_type == "env" && (n != pn) ? get_two_point_envelope(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn))
+                    : [0, 0];
+
+            if (locus_type == "env" && (n != pn)) {
+                const [p1, p2] = get_two_points(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn));
+                draw_line_dashed2(...collinear_endpoints([p1, p2, env]), clr, stroke_w);
+                draw_point2(p1, clr, stroke_w / 2);
+                draw_text2_rot('X' + n, p1, clr, .66 * stroke_w, -dict_rot[rot], true);
+                draw_point2(p2, clr, stroke_w / 2);
+                draw_text2_rot('X' + pn, p2, clr, .66 * stroke_w, -dict_rot[rot], true);
+            }
+        }
+        draw_locus_branched(locus_branches, ons_derived, n, pn, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv == "xn" ? inv_fn : inv_fn_identity,
             inv == "tri" || tri_type in tri_fns_inv_dict || tri_type in tri_fns_cremona_dict, env);
     }
@@ -224,11 +247,12 @@ function create_locus_branches(a, tDegStep, tDegMax, r_max, xn_fn) {
     return locus_array;
 }
 
+// controls how many cyclic permutations are made to vertices to compute *side* caustics
 const caustic_n_dict = {
-    caustic:0,
-    caustic12:0,
-    caustic23:1,
-    caustic31:2
+    caustic: 0,
+    caustic12: 0,
+    caustic23: 1,
+    caustic31: 2
 }
 
 // why so many ellipses, lemma 4, tan t*
@@ -245,9 +269,9 @@ function get_inv_fn(a, circ, inv) {
     return (inv != "off" && (circ in circles_dict)) ?
         (tri, sides, p) => circle_inversion(p, circles_dict[circ](tri, sides)) :
         ((inv != "off" && (circ in tri_fns_inv_dict)) ?
-            (tri, sides, p) => circle_inversion(p, tri_fns_inv_dict[circ](a)) : 
-            (inv != "off" && (circ in tri_fns_cremona_dict)) ? (tri, sides, p) => tri_fns_cremona_dict[circ](a,p) :
-            inv_fn_identity);
+            (tri, sides, p) => circle_inversion(p, tri_fns_inv_dict[circ](a)) :
+            (inv != "off" && (circ in tri_fns_cremona_dict)) ? (tri, sides, p) => tri_fns_cremona_dict[circ](a, p) :
+                inv_fn_identity);
 }
 // no asymptotes
 // to do caustic needs to process locus_type=="caustic"
@@ -262,15 +286,14 @@ function make_locus_branched(a, tDegStep, r_max,
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
             (a0, tDeg0) =>
                 get_Xn_poncelet(a0, tDeg0, dict_orbit_fn[mounting], bary_fn, tri_type, pn, inv, inv_fn,
-                    locus_type in caustic_n_dict ? caustic_n_dict[locus_type] : -1));
+                    locus_type));
     } else {// non-poncelet
         const eps = 0.001;
         let [v2, v3] = getV2V3(a, mounting, eps);
         //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, bary_fn);
         locus_array = create_locus_branches(a, tDegStep, 360, r_max,
             (a0, tDeg0) => {
-                let [v1, xn] = get_Xn_mounted(a0, tDeg0, v2, v3, bary_fn, tri_type, pn, inv, inv_fn,
-                    locus_type in caustic_n_dict ? caustic_n_dict[locus_type] : -1);
+                let [v1, xn] = get_Xn_mounted(a0, tDeg0, v2, v3, bary_fn, tri_type, pn, inv, inv_fn, locus_type);
                 return xn;
             });
     }

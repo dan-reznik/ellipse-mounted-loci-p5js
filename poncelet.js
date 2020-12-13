@@ -52,6 +52,11 @@ function farthestPoint(ps,p0) {
   return ps[imax];
 }
 
+function collinear_endpoints(ps) {
+  const ps_sort = ps.slice().sort((a, b) => a[0] - b[0]);
+  return [ps_sort[0],ps_sort[2]];
+}
+
 function ell_norm(a, [x, y]) {
   return vnorm([-x, -y * a * a]);
 }
@@ -97,7 +102,7 @@ function get_envelope_trilin(a,tDeg,trilFn1,trilFn2,dt=0.0001) {
   return inter_lines(p1,p2,p1_dt,p2_dt);
 }
 
-function get_envelope(a, tDeg, tri_fn, rot_n, eps = .01) {
+function get_side_envelope(a, tDeg, tri_fn, rot_n, eps = .01) {
   const bef = vec_rotate_left(tri_fn(a, tDeg - eps).o, rot_n);
   const aft = vec_rotate_left(tri_fn(a, tDeg + eps).o, rot_n);
   const inter = inter_rays(
@@ -107,20 +112,43 @@ function get_envelope(a, tDeg, tri_fn, rot_n, eps = .01) {
   return inter;
 }
 
+function get_two_point_envelope(a, tDeg, tri_fn, bary_fn_1, bary_fn_2, eps = .01) {
+  const ons_bef = tri_fn(a, tDeg - eps);
+  const x1_bef = get_Xn_low_bary(ons_bef.o, ons_bef.s, bary_fn_1);
+  const x2_bef = get_Xn_low_bary(ons_bef.o, ons_bef.s, bary_fn_2);
+
+  const ons_aft = tri_fn(a, tDeg + eps);
+  const x1_aft = get_Xn_low_bary(ons_aft.o, ons_aft.s, bary_fn_1);
+  const x2_aft = get_Xn_low_bary(ons_aft.o, ons_aft.s, bary_fn_2);
+  
+  const inter = inter_rays(
+    x1_bef, vdiff(x2_bef, x1_bef),
+    x1_aft, vdiff(x2_aft, x1_aft)
+  );
+  //console.log(inter);
+  return inter;
+}
+
+function get_two_points(a, tDeg, tri_fn, bary_fn_1, bary_fn_2) {
+  const ons = tri_fn(a, tDeg);
+  const x1 = get_Xn_low_bary(ons.o, ons.s, bary_fn_1);
+  const x2 = get_Xn_low_bary(ons.o, ons.s, bary_fn_2);
+  return [x1,x2];
+}
+
+
 function get_orbit_derived(a,tDeg,orbit_fn,tri_type,pn,inv,inv_fn) {
   const ons = orbit_fn(a, tDeg);
   const ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, pn);
   return inv == "tri"? invert_tri(ons_derived, inv_fn) : ons_derived;
 }
 
-function get_Xn_poncelet(a, tDeg, orbit_fn, bary_fn, tri_type, pn, inv, inv_fn, caustic_n) {
+function get_Xn_poncelet(a, tDeg, orbit_fn, bary_fn, tri_type, pn, inv, inv_fn, locus_type) {
   const ons_derived = get_orbit_derived(a,tDeg,orbit_fn,tri_type,pn,inv,inv_fn);
-  //const ons = orbit_fn(a, tDeg);
- // let ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, pn);
- // if (inv == "tri")
- //   ons_derived = invert_tri(ons_derived, inv_fn);
-  const xn = caustic_n>=0 ? get_envelope(a, tDeg,
-    (a0,tDeg0)=>get_orbit_derived(a0,tDeg0,orbit_fn,tri_type,pn,inv,inv_fn),caustic_n) :
+  const caustic_n = locus_type in caustic_n_dict ? caustic_n_dict[locus_type] : -1;
+  const tri_fn = (a0,tDeg0)=>get_orbit_derived(a0,tDeg0,orbit_fn,tri_type,pn,inv,inv_fn);
+  const xn = caustic_n>=0 ? get_side_envelope(a, tDeg, tri_fn,caustic_n) :
+  locus_type=="env" ? get_two_point_envelope(a, tDeg, tri_fn, bary_fn, get_fn_bary(pn)) :
     get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
   return inv == "xn" ? inv_fn(ons_derived.o, ons_derived.s, xn) : xn;
 }

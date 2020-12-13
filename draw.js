@@ -71,7 +71,7 @@ get_rgba_str = (rgb, alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
 
 const vtx_dict = {vtx:0,vtx2:1,vtx3:2};
 
-function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
+function draw_locus_branched(locus_branches, ons, xnum, pn, rgb, stroke_w,
   locus_type, ell_detect, rot, draw_label, inv_fn, inv_tri, env) {
   const is_filled = locus_type.substr(0, 2) == "f_";
   if (is_filled)
@@ -81,7 +81,7 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
   // handles vtx,vtx2,vtx3
   if (locus_type in vtx_dict)
     xn = ons.o[vtx_dict[locus_type]];
-  else if (locus_type.substr(0,7) == "caustic") {
+  else if (locus_type.substr(0,7) == "caustic" || locus_type == "env") {
     xn = env;
   } else {
     const bs = locus_type in fn_any_dict ? fn_any_dict[locus_type](ons.s) : get_Xn_bary(ons.s, xnum); // "trilins"
@@ -108,6 +108,7 @@ function draw_locus_branched(locus_branches, ons, xnum, rgb, stroke_w,
     rotate(-dict_rot[rot]);
     if (locus_type in label_dict) 
       draw_text2(label_dict[locus_type] +
+        (locus_type=="env"?xnum+","+pn:"") +
         (locus_type=="trilins"?xnum:"") +
         (inv_tri||inv_fn!=inv_fn_identity?"'":"") +
         ell_detect_suffix, [0, 0], rgb, stroke_w);
@@ -325,6 +326,15 @@ function draw_tri_dashed2([p1, p2, p3], rgb, stroke_w) {
   linedash(p1, p2, 0.025);
   linedash(p2, p3, 0.025);
   linedash(p3, p1, 0.025);
+  pop();
+}
+
+function draw_line_dashed2(p1, p2, rgb, stroke_w) {
+  push();
+  noFill();
+  stroke(rgb);
+  strokeWeight(stroke_w);
+  linedash(p1, p2, 0.025);
   pop();
 }
 

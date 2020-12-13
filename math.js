@@ -258,15 +258,16 @@ function inter_rays(p1, n1, p2, n2) {
   const det = get_det(m);
   if (negl(det)) {
     console.log("inter_rays: parallel rays");
-    return p1; //([0, 0]);
+    return JSON.parse(JSON.stringify(p1)); //([0, 0]);
+  } else {
+    const b = vdiff(p2, p1);
+    const m1 = [
+      [b[0], m[0][1]],
+      [b[1], m[1][1]]
+    ];
+    const sol = get_det(m1) / det;
+    return vray(p1, n1, sol);
   }
-  const b = vdiff(p2, p1);
-  const m1 = [
-    [b[0], m[0][1]],
-    [b[1], m[1][1]]
-  ];
-  const sol = get_det(m1) / det;
-  return vray(p1, n1, sol);
 }
 
 function vec_rotate_left(v,n) {

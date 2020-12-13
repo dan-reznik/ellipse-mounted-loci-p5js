@@ -11,6 +11,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="vtx">v1</option>
                     <option value="vtx2">v2</option>
                     <option value="vtx3">v3</option>
+                    <option value="env">env</option>
                     <option value="caustic">e12</option>
                     <option value="caustic23">e23</option>
                     <option value="caustic31">e31</option>
