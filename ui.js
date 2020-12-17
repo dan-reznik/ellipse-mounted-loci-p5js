@@ -1369,7 +1369,7 @@ function hamburgerMenu() {
       windowResized();
    } else {
       gridContainer.style.gridTemplateAreas = '"config hamburger playPause title jukebox" "selector graphic graphic graphic graphic"';
-      gridContainer.style.gridTemplateColumns = 'minmax(292px, 292px) 50px 132px minmax(405px, 95%) 150px';
+      gridContainer.style.gridTemplateColumns = 'minmax(300px, 300px) 50px 132px minmax(405px, 95%) 150px';
       menu.style.display = "flex";
       menuConfig.style.display = "inline-flex";
       finalWindowSize = get_window_width_height();
