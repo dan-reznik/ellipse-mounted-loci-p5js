@@ -112,6 +112,8 @@ body {
   border-width: 2px;
   margin-right: 1px;
   margin-left: 1px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 };
 
 .input_Xn{
@@ -122,6 +124,8 @@ body {
 }
 
 .input_Xn>*{
+  display: flex;
+  align-items: center;
   margin-right: auto;
   margin-left: auto;
 }
