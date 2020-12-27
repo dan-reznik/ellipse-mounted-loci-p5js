@@ -201,7 +201,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <button class='small_button' id='Bbox_`+xn_number+`'>bbox</button>
         </div>
         <div id='conic_type'>
-                <p id='conic_type_`+xn_number+`'></p>
+                <p id='conic_type_`+xn_number+`' style="margin: auto"></p>
         </div>
 
     </div>
