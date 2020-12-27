@@ -4,8 +4,10 @@ const fromUiToUrl = {
     ctr1: 'cy',
     a: 'a', a_speed: 'asp', a_min: 'amn', a_max: 'amx', ell: 'ell',
     locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3', locus_type_4: 'lc4',
-    Xn1: 'xn1', Xn2: 'xn2', Xn3: 'xn3', Xn4: 'xn4', Pn1: 'pn1', Pn2: 'pn2', Pn3: 'pn3', Pn4: 'pn4',
+    Xn1: 'xn1', Xn2: 'xn2', Xn3: 'xn3', Xn4: 'xn4',
+    Pn1: 'pn1', Pn2: 'pn2', Pn3: 'pn3', Pn4: 'pn4',
     tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3', tri_type_4: 'tr4',
+    cpn_1: 'cpn1', cpn_2: 'cpn2', cpn_3: 'cpn3', cpn_4: 'cpn4',
     draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3', draw_tri_4: 'dr4',
     mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3', mounting_Xn4: 'mt4',
     animStep0: 'aS', rot: 'rot', rmax: 'rmx', bg: 'bg',
@@ -168,7 +170,6 @@ const Pn2_fn = {encode(Pn2_init_value){return getConfigFromVariablesDefault('Pn2
 const Pn3_fn = {encode(Pn3_init_value){return getConfigFromVariablesDefault('Pn3', Pn3_init_value)}, decode(url_Pn3_value){glob.ui.Pn3 = +url_Pn3_value;}};
 const Pn4_fn = {encode(Pn4_init_value){return getConfigFromVariablesDefault('Pn4', Pn4_init_value)}, decode(url_Pn4_value){glob.ui.Pn4 = +url_Pn4_value;}};
 
-
 const ell_fn = {encode(ell_init_val){return getConfigFromVariablesDefault('ell', ell_init_val)}, decode(url_ell_value){glob.ui.ell = (url_ell_value == 'true');}};
 const draw_tri_1_fn = {encode(draw_tri_1_init_val){return getConfigFromVariablesDefault('draw_tri_1', draw_tri_1_init_val)}, decode(url_draw_tri_1_value){glob.ui.draw_tri_1 = (url_draw_tri_1_value == 'true');}};
 const draw_tri_2_fn = {encode(draw_tri_2_init_val){return getConfigFromVariablesDefault('draw_tri_2', draw_tri_2_init_val)}, decode(url_draw_tri_2_value){glob.ui.draw_tri_2 = (url_draw_tri_2_value == 'true');}};
@@ -190,6 +191,10 @@ const tri_type_1_fn = {encode(tri_type_1_init_val){return getConfigFromVariables
 const tri_type_2_fn = {encode(tri_type_2_init_val){return getConfigFromVariablesDefault('tri_type_2', tri_type_2_init_val)}, decode(url_tri_type_2_value){glob.ui.tri_type_2 = url_tri_type_2_value}};
 const tri_type_3_fn = {encode(tri_type_3_init_val){return getConfigFromVariablesDefault('tri_type_3', tri_type_3_init_val)}, decode(url_tri_type_3_value){glob.ui.tri_type_3 = url_tri_type_3_value}};
 const tri_type_4_fn = {encode(tri_type_4_init_val){return getConfigFromVariablesDefault('tri_type_4', tri_type_4_init_val)}, decode(url_tri_type_4_value){glob.ui.tri_type_4 = url_tri_type_4_value}};
+const cpn_1_fn = {encode(cpn_1_init_val){return getConfigFromVariablesDefault('cpn_1', cpn_1_init_val)}, decode(url_cpn_1_value){glob.ui.cpn_1 = url_cpn_1_value}};
+const cpn_2_fn = {encode(cpn_2_init_val){return getConfigFromVariablesDefault('cpn_2', cpn_2_init_val)}, decode(url_cpn_2_value){glob.ui.cpn_2 = url_cpn_2_value}};
+const cpn_3_fn = {encode(cpn_3_init_val){return getConfigFromVariablesDefault('cpn_3', cpn_3_init_val)}, decode(url_cpn_3_value){glob.ui.cpn_3 = url_cpn_3_value}};
+const cpn_4_fn = {encode(cpn_4_init_val){return getConfigFromVariablesDefault('cpn_4', cpn_4_init_val)}, decode(url_cpn_4_value){glob.ui.cpn_4 = url_cpn_4_value}};
 const mounting_Xn1_fn = {encode(mounting_Xn1_init_val){return getConfigFromVariablesDefault('mounting_Xn1', mounting_Xn1_init_val)}, decode(url_mounting_Xn1_value){glob.ui.mounting_Xn1 = url_mounting_Xn1_value}};
 const mounting_Xn2_fn = {encode(mounting_Xn2_init_val){return getConfigFromVariablesDefault('mounting_Xn2', mounting_Xn2_init_val)}, decode(url_mounting_Xn2_value){glob.ui.mounting_Xn2 = url_mounting_Xn2_value}};
 const mounting_Xn3_fn = {encode(mounting_Xn3_init_val){return getConfigFromVariablesDefault('mounting_Xn3', mounting_Xn3_init_val)}, decode(url_mounting_Xn3_value){glob.ui.mounting_Xn3 = url_mounting_Xn3_value}};
@@ -253,6 +258,7 @@ const config_Url = {
    a_min: {encode: a_min_fn.encode, decode: a_min_fn.decode, init_val: glob.ui0.a_min}, a_max: {encode: a_max_fn.encode, decode: a_max_fn.decode, init_val: glob.ui0.a_max}, 
    locus_type_1: {encode: locus_type_1_fn.encode, decode: locus_type_1_fn.decode, init_val: glob.ui0.locus_type_1}, locus_type_2: {encode: locus_type_2_fn.encode, decode: locus_type_2_fn.decode, init_val: glob.ui0.locus_type_2}, locus_type_3: {encode: locus_type_3_fn.encode, decode: locus_type_3_fn.decode, init_val: glob.ui0.locus_type_3}, locus_type_4: {encode: locus_type_4_fn.encode, decode: locus_type_4_fn.decode, init_val: glob.ui0.locus_type_4},
    tri_type_1: {encode: tri_type_1_fn.encode, decode: tri_type_1_fn.decode, init_val: glob.ui0.tri_type_1}, tri_type_2: {encode: tri_type_2_fn.encode, decode: tri_type_2_fn.decode, init_val: glob.ui0.tri_type_2}, tri_type_3: {encode: tri_type_3_fn.encode, decode: tri_type_3_fn.decode, init_val: glob.ui0.tri_type_3}, tri_type_4: {encode: tri_type_4_fn.encode, decode: tri_type_4_fn.decode, init_val: glob.ui0.tri_type_4},
+   cpn_1: {encode: cpn_1_fn.encode, decode: cpn_1_fn.decode, init_val: glob.ui0.cpn_1}, cpn_2: {encode: cpn_2_fn.encode, decode: cpn_2_fn.decode, init_val: glob.ui0.cpn_2}, cpn_3: {encode: cpn_3_fn.encode, decode: cpn_3_fn.decode, init_val: glob.ui0.cpn_3}, cpn_4: {encode: cpn_4_fn.encode, decode: cpn_4_fn.decode, init_val: glob.ui0.cpn_4},
    mounting_Xn1: {encode: mounting_Xn1_fn.encode, decode: mounting_Xn1_fn.decode, init_val: glob.ui0.mounting_Xn1}, mounting_Xn2: {encode: mounting_Xn2_fn.encode, decode: mounting_Xn2_fn.decode, init_val: glob.ui0.mounting_Xn2}, mounting_Xn3: {encode: mounting_Xn3_fn.encode, decode: mounting_Xn3_fn.decode, init_val: glob.ui0.mounting_Xn3}, mounting_Xn4: {encode: mounting_Xn4_fn.encode, decode: mounting_Xn4_fn.decode, init_val: glob.ui0.mounting_Xn4},
    rot: {encode: rot_fn.encode, decode: rot_fn.decode, init_val: glob.ui0.rot}, 
    rmax: {encode: rmax_fn.encode, decode: rmax_fn.decode, init_val: glob.ui0.rmax},

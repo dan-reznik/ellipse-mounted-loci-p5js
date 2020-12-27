@@ -33,6 +33,7 @@ let glob = {
       Xn1: '1', Xn2: '1', Xn3: '1', Xn4: '1',
       Pn1: '1', Pn2: '1', Pn3: '1', Pn4: '1',
       tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference', tri_type_4: 'reference',
+      cpn_1: 'off', cpn_2: 'off', cpn_3: 'off', cpn_4: 'off',
       draw_tri_1: true, draw_tri_2: false, draw_tri_3: false, draw_tri_4: false,
       mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
       clr1: clr_invert_ui(clr_red), clr2: clr_invert_ui(clr_dark_green),
@@ -55,6 +56,7 @@ function get_glob_indexed() {
       dr_tris: [glob.ui.draw_tri_1, glob.ui.draw_tri_2, glob.ui.draw_tri_3, glob.ui.draw_tri_4],
       mountings: [glob.ui.mounting_Xn1, glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4],
       t_types: [glob.ui.tri_type_1, glob.ui.tri_type_2, glob.ui.tri_type_3, glob.ui.tri_type_4],
+      cpns: [glob.ui.cpn_1, glob.ui.cpn_2, glob.ui.cpn_3, glob.ui.cpn_4],
       clrs : [glob.ui.clr1,glob.ui.clr2,glob.ui.clr3,glob.ui.clr4],
       invs : [glob.ui.inv1,glob.ui.inv2,glob.ui.inv3,glob.ui.inv4],
       circs: [glob.ui.circ1,glob.ui.circ2,glob.ui.circ3,glob.ui.circ4]

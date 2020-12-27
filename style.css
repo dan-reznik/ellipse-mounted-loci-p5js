@@ -140,6 +140,13 @@ body {
   font-size: 11px;
 }
 
+.cpn{
+  width: 62px;
+  margin-left: 2px;
+  margin-right: 2px;
+  font-size: 11px;
+}
+
 #demo_a{
   display: block;
   width: 40px;

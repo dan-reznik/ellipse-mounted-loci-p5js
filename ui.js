@@ -20,7 +20,8 @@ function set_ui_variables() {
    var variables_change_value = ['a', 'a_speed', 'a_min', 'a_max', 'a_input_text'
       , 'locus_type_1', 'locus_type_2', 'locus_type_3', 'locus_type_4', 'Xn1', 'demo_Xn1', 'Xn2'
       , 'demo_Xn2', 'Xn3', 'demo_Xn3', 'Xn4', 'demo_Xn4', 'Pn1', 'Pn2', 'Pn3', 'Pn4', 'demo_Pn1', 'demo_Pn2', 'demo_Pn3', 'demo_Pn4',
-      , 'tri_type_1', 'tri_type_2', 'tri_type_3', 'tri_type_4', 'mounting_Xn1', 'mounting_Xn2'
+      , 'tri_type_1', 'tri_type_2', 'tri_type_3', 'tri_type_4'
+      , 'cpn_1', 'cpn_2', 'cpn_3', 'cpn_4', 'mounting_Xn1', 'mounting_Xn2'
       , 'mounting_Xn3', 'mounting_Xn4', 'animStep0', 'rot', 'rmax', 'bg', 'clr1', 'clr2', 'clr3', 'clr4'
       , 'jukebox_playlist', 'clr_fill_border', 'fill_alpha', 'circ1', 'circ2', 'circ3', 'circ4', 'inv1', 'inv2', 'inv3', 'inv4']
 
@@ -611,6 +612,19 @@ function setup_tri_type_onchange() {
          glob.ui.tandem_tri ? ui_changed_type(true) : ui_changed(tri_type_number, true);
          redraw();
          glob.ui.tandem_tri ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(tri_type_number);
+      })
+   }      
+};
+
+function setup_cpn_onchange() {
+   for (let cpn_number = 1; cpn_number < 5; cpn_number++){
+      document.getElementById(`cpn_${cpn_number}`).addEventListener("change", function () {
+         var demo = document.getElementById('demo_Pn'+cpn_number);
+                  
+         glob.ui['cpn_'+cpn_number] = this.value;
+         ui_changed(cpn_number, true);
+         set_conic_type_ui(cpn_number);
+         redraw();
       })
    }      
 };
@@ -1387,6 +1401,7 @@ function setup_ui() {
    setup_tri_onchange();
    setup_a_speed_onchange();
    setup_tri_type_onchange();
+   setup_cpn_onchange();
    setup_a_text_input();
    setup_ell_onchange();
    setup_export_JSON_onclick();

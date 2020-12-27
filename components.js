@@ -122,7 +122,9 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
               <input id='clr`+xn_number+`' class='bg' name="clr`+xn_number+`" type="color" value="`+hex_color+`"></input>
             </div>
             <input type="image" id="pallete_`+xn_number+`" style="margin-right:2px;margin-left:2px;height:20px;width:20px;" src="pallete.png"/>
-
+            <div style='display: inline-flex;margin-left:2px;margin-right:2px;flex-grow:1'>
+                <button class='small_button' id='Bbox_`+xn_number+`'>bbox</button>
+            </div>
     </div>
 
     <div class="input_Xn">
@@ -130,75 +132,82 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <label for="draw_tri_`+xn_number+`">tri</label>
             <input class = "sub_checkbox" type="checkbox" id="draw_tri_`+xn_number+`" `+tri_selected+` name="draw_tri_`+xn_number+`">
         </div>
-            <select class='tri_type' id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
-                <option value="reference">*reference*</option>
-                <option value="inv_f1">*inv-f1*</option>
-                <option value="inv_f2">*inv-f2*</option>
-                <option value="inv_ctr">*inv-ctr*</option>
-                <option value="crem_f1">*crem-f1*</option>
-                <option value="crem_f2">*crem-f2*</option>
-                <option value="crem_ctr">*crem-ctr*</option>
-                <option value="p_cevian">*cevian*</option>
-                <option value="p_anticevian">*anticevian*</option>
-                <option value="p_circumcevian">*circumcev*</option>
-                <option value="p_pedal">*pedal*</option>
-                <option value="p_antipedal">*antipedal*</option>
-                <option value="p_tripolar">*tripolar*</option>
-                <option value="anticompl">anticompl</option>
-                <option value="bci">bci</option>
-                <option value="brocard1">brocard 1</option>
-                <option value="brocard2">brocard 2</option>
-                <option value="brocard3">brocard 3</option>
-                <option value="brocard4">brocard 4</option>
-                <option value="brocard5">brocard 5</option>
-                <option value="brocard6">brocard 6</option>
-                <option value="brocard7">brocard 7</option>
-                <option value="circummedial">circummedial</option>
-                <option value="circumorthic">circumorthic</option>
-                <option value="circummidarc">circummidarc</option>
-                <option value="excentral">excentral</option>
-                <option value="extouch">extouch</option>
-                <option value="euler">euler</option>
-                <option value="extangents">extangents</option>
-                <option value="feuerbach">feuerbach</option>
-                <option value="fuhrmann">fuhrmann</option>
-                <option value="halfaltitude">half-altitude</option>
-                <option value="hexyl">hexyl</option>
-                <option value="incentral">incentral</option>
-                <option value="innervecten">inner vecten</option>
-                <option value="intangents">intangents</option>
-                <option value="intouch">intouch</option>
-                <option value="johnson">johnson</option>
-                <option value="lemoine">lemoine</option>
-                <option value="lucascentral">lucas central</option>
-                <option value="lucasinner">lucas inner</option>
-                <option value="lucastangents">lucas tangs</option>
-                <option value="macbeath">macbeath</option>
-                <option value="medial">medial</option>
-                <option value="mixtilinear">mixtilinear</option>
-                <option value="morley1">morley adj 1</option>
-                <option value="morley2">morley adj 2</option>
-                <option value="morley3">morley adj 3</option>
-                <option value="neuberg1">neuberg 1</option>
-                <option value="neuberg2">neuberg 2</option>  
-                <option value="orthic">orthic</option>
-                <option value="outervecten">outer vecten</option>
-                <option value="reflection">reflection</option>
-                <option value="steiner">steiner</option>
-                <option value="symmedial">symmedial</option>
-                <option value="tangential">tangential</option>
-                <option value="tangentialmidarc">tang'l midarc</option>
-                <option value="yffcentral">yff central</option>
-                <option value="yffcontact">yff contact</option>  
-            </select>
+        <select class='tri_type' id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
+            <option value="reference">*reference*</option>
+            <option value="inv_f1">*inv-f1*</option>
+            <option value="inv_f2">*inv-f2*</option>
+            <option value="inv_ctr">*inv-ctr*</option>
+            <option value="crem_f1">*crem-f1*</option>
+            <option value="crem_f2">*crem-f2*</option>
+            <option value="crem_ctr">*crem-ctr*</option>
+            <option value="p_cevian">*cevian*</option>
+            <option value="p_anticevian">*anticevian*</option>
+            <option value="p_circumcevian">*circumcev*</option>
+            <option value="p_pedal">*pedal*</option>
+            <option value="p_antipedal">*antipedal*</option>
+            <option value="p_tripolar">*tripolar*</option>
+            <option value="anticompl">anticompl</option>
+            <option value="bci">bci</option>
+            <option value="brocard1">brocard 1</option>
+            <option value="brocard2">brocard 2</option>
+            <option value="brocard3">brocard 3</option>
+            <option value="brocard4">brocard 4</option>
+            <option value="brocard5">brocard 5</option>
+            <option value="brocard6">brocard 6</option>
+            <option value="brocard7">brocard 7</option>
+            <option value="circummedial">circummedial</option>
+            <option value="circumorthic">circumorthic</option>
+            <option value="circummidarc">circummidarc</option>
+            <option value="excentral">excentral</option>
+            <option value="extouch">extouch</option>
+            <option value="euler">euler</option>
+            <option value="extangents">extangents</option>
+            <option value="feuerbach">feuerbach</option>
+            <option value="fuhrmann">fuhrmann</option>
+            <option value="halfaltitude">half-altitude</option>
+            <option value="hexyl">hexyl</option>
+            <option value="incentral">incentral</option>
+            <option value="innervecten">inner vecten</option>
+            <option value="intangents">intangents</option>
+            <option value="intouch">intouch</option>
+            <option value="johnson">johnson</option>
+            <option value="lemoine">lemoine</option>
+            <option value="lucascentral">lucas central</option>
+            <option value="lucasinner">lucas inner</option>
+            <option value="lucastangents">lucas tangs</option>
+            <option value="macbeath">macbeath</option>
+            <option value="medial">medial</option>
+            <option value="mixtilinear">mixtilinear</option>
+            <option value="morley1">morley adj 1</option>
+            <option value="morley2">morley adj 2</option>
+            <option value="morley3">morley adj 3</option>
+            <option value="neuberg1">neuberg 1</option>
+            <option value="neuberg2">neuberg 2</option>  
+            <option value="orthic">orthic</option>
+            <option value="outervecten">outer vecten</option>
+            <option value="reflection">reflection</option>
+            <option value="steiner">steiner</option>
+            <option value="symmedial">symmedial</option>
+            <option value="tangential">tangential</option>
+            <option value="tangentialmidarc">tang'l midarc</option>
+            <option value="yffcentral">yff central</option>
+            <option value="yffcontact">yff contact</option>  
+        </select>
         
+        <select class='cpn' id="cpn_`+xn_number+`" name="cpn_`+xn_number+`">
+            <option value="off">*pn off*</option>
+            <option value="cevian">*cevian*</option>
+            <option value="anticevian">*anticevian*</option>
+            <option value="circumcevian">*circumcev*</option>
+            <option value="pedal">*pedal*</option>
+            <option value="antipedal">*antipedal*</option>
+            <option value="tripolar">*tripolar*</option>
+        </select>
+
         <div class='P_input_text'>
             <button id="minus_Pn`+xn_number+`" class="plus_minus minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
             <input type="text" class = "demo_Pn" id="demo_Pn`+xn_number+`" value="1">
             <button id="plus_Pn`+xn_number+`" class="plus_minus plus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-        </div>
-        <div style='display: inline-flex;margin-left:2px;margin-right:2px;flex-grow:1'>
-            <button class='small_button' id='Bbox_`+xn_number+`'>bbox</button>
         </div>
         <div id='conic_type'>
                 <p id='conic_type_`+xn_number+`' style="margin: auto"></p>
