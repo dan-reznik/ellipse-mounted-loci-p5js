@@ -4,7 +4,7 @@ const fromUiToUrl = {
     ctr1: 'cy',
     a: 'a', a_speed: 'asp', a_min: 'amn', a_max: 'amx', ell: 'ell',
     locus_type_1: 'lc1', locus_type_2: 'lc2', locus_type_3: 'lc3', locus_type_4: 'lc4',
-    Xn1: 'Xn1', Xn2: 'Xn2', Xn3: 'Xn3', Xn4: 'Xn4', Pn1: 'Pn1', Pn2: 'Pn2', Pn3: 'Pn3', Pn4: 'Pn4',
+    Xn1: 'xn1', Xn2: 'xn2', Xn3: 'xn3', Xn4: 'xn4', Pn1: 'pn1', Pn2: 'pn2', Pn3: 'pn3', Pn4: 'pn4',
     tri_type_1: 'tr1', tri_type_2: 'tr2', tri_type_3: 'tr3', tri_type_4: 'tr4',
     draw_tri_1: 'dr1', draw_tri_2: 'dr2', draw_tri_3: 'dr3', draw_tri_4: 'dr4',
     mounting_Xn1: 'mt1', mounting_Xn2: 'mt2', mounting_Xn3: 'mt3', mounting_Xn4: 'mt4',
