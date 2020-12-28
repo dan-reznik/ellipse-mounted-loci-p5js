@@ -71,6 +71,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
         if (tri_type != "reference" || cpn!="off") draw_mounted(ons_derived0, clr, stroke_w, false, true);
         if (cpn in tri_pfns_dict) { // ons_derived0 will have intermediate fields o_deriv, s_deriv
             const pn_deriv = get_Xn_low_bary(ons_derived0.o_deriv, ons_derived0.s_deriv, get_fn_bary(pn));
+            if(tri_type!="reference") draw_tri2(ons_derived0.o_deriv, clr, stroke_w/2);
             draw_point2(pn_deriv, clr, stroke_w / 2);
             draw_text2_rot('X' + pn, pn_deriv, clr, .66 * stroke_w, -dict_rot[rot], true);
         }
@@ -143,6 +144,7 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
         if (tri_type != "reference" || cpn!="off") draw_orbit(ons_derived0, clr, stroke_w, false, true, false);
         if (cpn in tri_pfns_dict) { // ons_derived0 will have intermediate fields o_deriv, s_deriv
             const pn_deriv = get_Xn_low_bary(ons_derived0.o_deriv, ons_derived0.s_deriv, get_fn_bary(pn));
+            if(tri_type!="reference") draw_tri2(ons_derived0.o_deriv, clr, stroke_w/2);
             draw_point2(pn_deriv, clr, stroke_w / 2);
             draw_text2_rot('X' + pn, pn_deriv, clr, .66 * stroke_w, -dict_rot[rot], true);
         }
