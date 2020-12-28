@@ -1,3 +1,4 @@
+//Use keys in lowerCase
 const fromUiToUrl = {
     scale: 'sc',
     ctr0: 'cx',
@@ -286,17 +287,24 @@ function get_link_params() {
 }
 
 function set_url_params(url_params) {
-   //Need to be here for back-compatibility
+   var key, keys = Object.keys(url_params);
+   var n = keys.length;
+   var url_params_lowerCase={};
+   while (n--) {
+     key = keys[n];
+     url_params_lowerCase[key.toLowerCase()] = url_params[key];
+   }
 
+   //Need to be here for back-compatibility
    clearLocusSubpolysVariables()
-   clrs_shuffled_seeds_fn.decode(url_params);
-   ['seed1', 'seed2', 'seed3', 'seed4'].map(function(seed){delete url_params[seed]});
+   clrs_shuffled_seeds_fn.decode(url_params_lowerCase);
+   ['seed1', 'seed2', 'seed3', 'seed4'].map(function(seed){delete url_params_lowerCase[seed]});
    //
    
-   Object.keys(url_params).map(function(urlVariable){
+   Object.keys(url_params_lowerCase).map(function(urlVariable){
       const uiVariable = fromUrlToUi[urlVariable];
       if(uiVariable)
-         config_Url[uiVariable].decode(url_params[urlVariable]);
+         config_Url[uiVariable].decode(url_params_lowerCase[urlVariable]);
    });
 
    set_ui_variables(glob.ui);
