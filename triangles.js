@@ -697,7 +697,7 @@ function get_mounted_tri(a, tDeg, v2, v3) {
   return { o: tri, n: normals, s: sides };
 }
 
-function get_derived_tri(a, orbit, sides, tri_type, pn) {
+/* function get_derived_tri_old(a, orbit, sides, tri_type, pn) {
   if (tri_type.substr(0, 2) == "p_") {
     tri_type = tri_type.substr(2);
     if (tri_type in tri_pfns_dict) {
@@ -731,6 +731,38 @@ function get_derived_tri(a, orbit, sides, tri_type, pn) {
           return { o: tri, s: tri_sides(tri) };
         } else
           return { o: orbit, s: sides };
+} */
+
+function get_derived_tri(a, orbit, sides, tri_type, cpn, pn) {
+  let ret_tri = { o: orbit, s: sides };
+
+  if (tri_type in tri_fns_cremona_dict) {
+    const inv_fn = (tri, sides, p) => tri_fns_cremona_dict[tri_type](a, p)
+    ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
+  } else if (tri_type in tri_fns_inv_dict) {
+    const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_inv_dict[tri_type](a))
+    ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
+  } else if (tri_type in tri_fns_dict) { // "reference" returns itself
+    const ts = tri_fns_dict[tri_type](sides);
+    const tri0 = generic_triangle(orbit, sides, ts);
+    ret_tri = { o: tri0, s: tri_sides(tri0) };
+  }
+  
+  if (cpn in tri_pfns_dict) {
+    const bs = get_Xn_bary(ret_tri.s, pn);
+    const ts_p = bary_to_trilin(bs, ret_tri.s);
+    const ts = tri_pfns_dict[cpn](ret_tri.s, ts_p);
+    let tri0 = generic_triangle(ret_tri.o, ret_tri.s, ts);
+    // this looks wrong, tripolar should not depend on cpn
+    if (cpn == "tripolar") {
+      // needs to intersect orbit sides w/ cevian sides  
+      tri0 = ret_tri.o.map((v, i) => inter_rays(
+        v, vdiff(ret_tri.o[i == 2 ? 0 : i + 1], v),
+        tri0[i], vdiff(tri0[i == 2 ? 0 : i + 1], tri0[i])));
+    }
+    ret_tri = { o: tri0, s: tri_sides(tri0), o_deriv:ret_tri.o, s_deriv:ret_tri.s };
+  } 
+  return ret_tri;
 }
 
 function invert_tri({ o, s }, inv_fn) {
@@ -740,17 +772,17 @@ function invert_tri({ o, s }, inv_fn) {
 }
 
 // for debugging
-function get_tri_generic(a, tDeg, mounting, tri_type, pn) {
+function get_tri_generic(a, tDeg, mounting, tri_type, cpn, pn) {
   //
   let ons, ons_derived;
   if (mounting in dict_orbit_fn) {
     const orbit_fn = dict_orbit_fn[mounting];
     ons = orbit_fn(a, tDeg);
-    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, pn);
+    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn);
   } else {
     const [v2, v3] = getV2V3(a, mounting, 0.001);
     ons = get_mounted_tri(a, tDeg, v2, v3);
-    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, pn);
+    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn);
   }
   return {
     a: a, tDeg: tDeg, mounting: mounting, tri_type: tri_type,
@@ -760,8 +792,8 @@ function get_tri_generic(a, tDeg, mounting, tri_type, pn) {
 
 // tri_side_ratio(1.3,20.0,"poristic","tangential","intangents")
 function tri_side_ratio(a, tDeg, mounting, tri_type_1, tri_type_2) {
-  const tri1 = get_tri_generic(a, tDeg, mounting, tri_type_1, 0);
-  const tri2 = get_tri_generic(a, tDeg, mounting, tri_type_2, 0);
+  const tri1 = get_tri_generic(a, tDeg, mounting, tri_type_1, "off", 0);
+  const tri2 = get_tri_generic(a, tDeg, mounting, tri_type_2, "off", 0);
   return tri1.derived_s.map((s, i) => s / tri2.derived_s[i]);
 }
 

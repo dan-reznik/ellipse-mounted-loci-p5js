@@ -140,12 +140,6 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="crem_f1">*crem-f1*</option>
             <option value="crem_f2">*crem-f2*</option>
             <option value="crem_ctr">*crem-ctr*</option>
-            <option value="p_cevian">*cevian*</option>
-            <option value="p_anticevian">*anticevian*</option>
-            <option value="p_circumcevian">*circumcev*</option>
-            <option value="p_pedal">*pedal*</option>
-            <option value="p_antipedal">*antipedal*</option>
-            <option value="p_tripolar">*tripolar*</option>
             <option value="anticompl">anticompl</option>
             <option value="bci">bci</option>
             <option value="brocard1">brocard 1</option>
@@ -195,13 +189,13 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
         </select>
         
         <select class='cpn' id="cpn_`+xn_number+`" name="cpn_`+xn_number+`">
-            <option value="off">*pn off*</option>
-            <option value="cevian">*cevian*</option>
-            <option value="anticevian">*anticevian*</option>
-            <option value="circumcevian">*circumcev*</option>
-            <option value="pedal">*pedal*</option>
-            <option value="antipedal">*antipedal*</option>
-            <option value="tripolar">*tripolar*</option>
+            <option value="off">pn off</option>
+            <option value="cevian">cevian</option>
+            <option value="anticevian">anticevian</option>
+            <option value="circumcevian">circumcev</option>
+            <option value="pedal">pedal</option>
+            <option value="antipedal">antipedal</option>
+            <option value="tripolar">tripolar</option>
         </select>
 
         <div class='P_input_text'>

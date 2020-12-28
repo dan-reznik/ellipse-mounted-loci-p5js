@@ -161,7 +161,7 @@ circ="off",inv="off") {
         // a, tDegStep, r_max, n, mounting, locus_type, tri_type, pn (pedal, cevians), circ, inv
 
         locus = make_locus_branched(a, tDegStep, r_max, i, mnt, "trilins", tri_type,
-        0, circ, inv);
+        "off", 0, circ, inv);
         let type = locus_conic(locus);
         if (type in dict_locus_type)
            results[dict_locus_type[type]].push(i);

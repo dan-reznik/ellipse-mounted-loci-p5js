@@ -13,7 +13,7 @@ let glob = {
    loop : true,
    tDeg : 0,
    slider_focus : 'X',
-   tri_type_p_selected : true,
+   // tri_type_p_selected : true,
    locus_branched : [null,null,null,null],
    locus_subpolys : [null,null,null,null],
    clrs_shuffled : [null,null,null,null],
@@ -78,6 +78,7 @@ function create_locus(locus_type_changed, init) {
             g_ind.mountings[i],
             g_ind.l_types[i],
             g_ind.t_types[i],
+            g_ind.cpns[i],
             g_ind.Pns[i],
             g_ind.circs[i],
             g_ind.invs[i]);
@@ -215,7 +216,7 @@ function draw() {
    for (let i = 0; i < g_ind.Xns.length; i++) {
       draw_billiard_or_mounted_branched(a, glob.tDeg, glob.ui.rot, stroke_w, glob.ui.ell,
          g_ind.clrs[i], g_ind.Xns[i], glob.locus_branched[i], g_ind.l_types[i], g_ind.dr_tris[i], g_ind.mountings[i],
-         g_ind.t_types[i], g_ind.Pns[i], glob.ell_detects[i], glob.locus_subpolys[i]==null,
+         g_ind.t_types[i], g_ind.cpns[i], g_ind.Pns[i], glob.ell_detects[i], glob.locus_subpolys[i]==null,
          g_ind.circs[i],g_ind.invs[i], clr_brown); //isBackgroundLuminanceLow(glob.ui.bg)?clr_brown:clr_wheat);
 
          // experimenting with coloring &&&
