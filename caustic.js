@@ -15,6 +15,26 @@ function caustic_homothetic(a) {
     return [a/2.0,0.5];
 }
 
+// if an external ellipse with axes (a,1) is given.
+function caustic_excentral_inner(a) {
+    const a2=a*a;
+    const rad = Math.sqrt(1 + 14*a2 + a2*a2);
+    const denom = 2 - 2*a2;
+    const ac = (a*(3 + a2 - rad))/denom;
+    const bc = (1 + 3*a2 - rad)/denom;
+    return [ac,bc];
+}
+
+// if true caustic w axes (a,1) is given
+// https://dan-reznik.github.io/why-so-many-ellipses/
+function caustic_excentral(a) {
+    const b = 1;
+   const d = getDelta(a,b);
+   const ae=(b*b+d)/a;
+   const be=(a*a+d)/b;
+   return [ae,be];
+}
+
 function caustic_incircle(a) {
     const r = (a)/(a+1);
     return [r,r];

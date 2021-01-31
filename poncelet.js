@@ -91,6 +91,19 @@ function orbit_normals(a, tDeg) {
   };
   return obj;
 }
+
+function orbit_excentral(a, tDeg) {
+  let ons = orbit_normals(a,tDeg);
+  const ts = excentral_triangle(ons.s);
+  const exc = generic_triangle(ons.o,ons.s,ts);
+  let obj = {
+    o: exc,
+    s: tri_sides(exc)
+  };
+  return obj;
+}
+
+
 // intersection of current P1P2(t) with P1P2(t+dt)
 function get_envelope_trilin(a,tDeg,trilFn1,trilFn2,dt=0.0001) {
   let ons = orbit_normals(a, tDeg-0.5*dt);

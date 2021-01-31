@@ -36,7 +36,8 @@ const dict_caustic = {
     inellipse: caustic_inellipse,
     dual: caustic_dual,
     poristic: caustic_poristic,
-    brocard: caustic_brocard
+    brocard: caustic_brocard,
+    excentral: caustic_excentral
 };
 
 const dict_orbit_fn = {
@@ -46,7 +47,8 @@ const dict_orbit_fn = {
     inellipse: orbit_inellipse,
     dual: orbit_dual,
     poristic: orbit_poristic,
-    brocard: orbit_brocard
+    brocard: orbit_brocard,
+    excentral: orbit_excentral
 };
 
 function get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
