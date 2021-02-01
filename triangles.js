@@ -59,9 +59,10 @@ const tri_pfns_dict = {
 };
 
 const tri_fns_inv_dict = {
-  inv_f1: circle_f1,
-  inv_f2: circle_f2,
-  inv_ctr: circle_ctr,
+  inv_f1: {fn:circle_f1,caustic:false},
+  inv_f1c: {fn:circle_f1c,caustic:true},
+  inv_f2: {fn:circle_f2,caustic:false},
+  inv_ctr: {fn:circle_ctr,caustic:false}
 };
 
 const tri_fns_cremona_dict = {
@@ -697,50 +698,14 @@ function get_mounted_tri(a, tDeg, v2, v3) {
   return { o: tri, n: normals, s: sides };
 }
 
-/* function get_derived_tri_old(a, orbit, sides, tri_type, pn) {
-  if (tri_type.substr(0, 2) == "p_") {
-    tri_type = tri_type.substr(2);
-    if (tri_type in tri_pfns_dict) {
-      const bs = get_Xn_bary(sides, pn);
-      const ts_p = bary_to_trilin(bs, sides);
-      const ts = tri_pfns_dict[tri_type](sides, ts_p);
-      let tri = generic_triangle(orbit, sides, ts);
-      if (tri_type == "tripolar") {
-        // needs to intersect orbit sides w/ cevian sides  
-        tri = orbit.map((v, i) => inter_rays(
-          v, vdiff(orbit[i == 2 ? 0 : i + 1], v),
-          tri[i], vdiff(tri[i == 2 ? 0 : i + 1], tri[i])));
-      }
-      return { o: tri, s: tri_sides(tri) };
-    } else
-      return { o: orbit, s: sides };
-  } else
-    if (tri_type in tri_fns_cremona_dict) {
-      const inv_fn = (tri, sides, p) => tri_fns_cremona_dict[tri_type](a, p)
-      const tri = invert_tri({ o: orbit, s: sides }, inv_fn);
-      return tri;
-    } else
-      if (tri_type in tri_fns_inv_dict) {
-        const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_inv_dict[tri_type](a))
-        const tri = invert_tri({ o: orbit, s: sides }, inv_fn);
-        return tri;
-      } else
-        if (tri_type in tri_fns_dict) { // "reference" returns itself
-          const ts = tri_fns_dict[tri_type](sides);
-          const tri = generic_triangle(orbit, sides, ts);
-          return { o: tri, s: tri_sides(tri) };
-        } else
-          return { o: orbit, s: sides };
-} */
-
-function get_derived_tri(a, orbit, sides, tri_type, cpn, pn) {
+function get_derived_tri(a, orbit, sides, tri_type, cpn, p, mounting) {
   let ret_tri = { o: orbit, s: sides };
 
   if (tri_type in tri_fns_cremona_dict) {
     const inv_fn = (tri, sides, p) => tri_fns_cremona_dict[tri_type](a, p)
     ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
   } else if (tri_type in tri_fns_inv_dict) {
-    const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_inv_dict[tri_type](a))
+    const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_invert(tri_type, a, mounting) /*tri_fns_inv_dict[tri_type].fn(a)*/)
     ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
   } else if (tri_type in tri_fns_dict) { // "reference" returns itself
     const ts = tri_fns_dict[tri_type](sides);
@@ -778,11 +743,11 @@ function get_tri_generic(a, tDeg, mounting, tri_type, cpn, pn) {
   if (mounting in dict_orbit_fn) {
     const orbit_fn = dict_orbit_fn[mounting];
     ons = orbit_fn(a, tDeg);
-    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn);
+    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
   } else {
     const [v2, v3] = getV2V3(a, mounting, 0.001);
     ons = get_mounted_tri(a, tDeg, v2, v3);
-    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn);
+    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
   }
   return {
     a: a, tDeg: tDeg, mounting: mounting, tri_type: tri_type,

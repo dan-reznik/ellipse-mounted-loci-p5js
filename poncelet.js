@@ -150,16 +150,16 @@ function get_two_points(a, tDeg, tri_fn, bary_fn_1, bary_fn_2) {
 }
 
 
-function get_orbit_derived(a,tDeg,orbit_fn,tri_type,cpn, pn,inv,inv_fn) {
+function get_orbit_derived(a,tDeg,orbit_fn,tri_type,cpn, pn,inv,inv_fn, mounting) {
   const ons = orbit_fn(a, tDeg);
-  const ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn);
+  const ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
   return inv == "tri"? invert_tri(ons_derived, inv_fn) : ons_derived;
 }
 
-function get_Xn_poncelet(a, tDeg, orbit_fn, bary_fn, tri_type, cpn, pn, inv, inv_fn, locus_type) {
-  const ons_derived = get_orbit_derived(a,tDeg,orbit_fn,tri_type,cpn, pn,inv,inv_fn);
+function get_Xn_poncelet(a, tDeg, orbit_fn, bary_fn, tri_type, cpn, pn, inv, inv_fn, locus_type, mounting) {
+  const ons_derived = get_orbit_derived(a,tDeg,orbit_fn,tri_type,cpn, pn,inv,inv_fn, mounting);
   const caustic_n = locus_type in caustic_n_dict ? caustic_n_dict[locus_type] : -1;
-  const tri_fn = (a0,tDeg0)=>get_orbit_derived(a0,tDeg0,orbit_fn,tri_type,cpn,pn,inv,inv_fn);
+  const tri_fn = (a0,tDeg0)=>get_orbit_derived(a0,tDeg0,orbit_fn,tri_type,cpn,pn,inv,inv_fn, mounting);
   const xn = caustic_n>=0 ? get_side_envelope(a, tDeg, tri_fn,caustic_n) :
   locus_type=="env" ? get_two_point_envelope(a, tDeg, tri_fn, bary_fn, get_fn_bary(pn)) :
     get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);

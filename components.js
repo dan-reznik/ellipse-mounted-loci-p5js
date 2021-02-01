@@ -69,6 +69,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                 <select id="circ`+xn_number+`">
                     <option value="off">circs off</option>
                     <option value="inv_f1">*f1*</option>
+                    <option value="inv_f1c">*f1c*</option>
                     <option value="inv_f2">*f2*</option>
                     <option value="inv_ctr">*ctr*</option>
                     <option value="crem_f1">*crem-f1*</option>
@@ -136,6 +137,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
         <select class='tri_type' id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
             <option value="reference">*reference*</option>
             <option value="inv_f1">*inv-f1*</option>
+            <option value="inv_f1c">*inv-f1c*</option>
             <option value="inv_f2">*inv-f2*</option>
             <option value="inv_ctr">*inv-ctr*</option>
             <option value="crem_f1">*crem-f1*</option>
