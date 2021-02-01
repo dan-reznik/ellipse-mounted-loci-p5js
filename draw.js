@@ -208,10 +208,10 @@ function draw_center() {
   draw_point([0, 0], [150, 0, 0])
 }
 
-function draw_foci(a, clr, stroke_w) {
-  let c = Math.sqrt(a * a - 1);
-  draw_point2([c, 0], clr, stroke_w / 2);
-  draw_point2([-c, 0], clr, stroke_w / 2);
+function draw_foci(a, b, clr, stroke_w) {
+  let c = Math.sqrt(Math.abs(a*a - b*b));
+  draw_point2(a>b?[c, 0]:[0,c], clr, stroke_w / 2);
+  draw_point2(a>b?[-c, 0]:[0,-c], clr, stroke_w / 2);
 }
 
 function draw_boundary(a, b, rgb, stroke_w) {
@@ -234,11 +234,11 @@ function draw_circle_low([cx, cy], r, rgb, stroke_w = 0.0125, dr_ctr = true) {
 }
 
 //glob.ui.bg
-function draw_ellipse(a,  clr_ell, clr_axes, stroke_w, dr_foci) {
+function draw_ellipse(a, clr_ell, clr_axes, stroke_w, dr_foci) {
   //const ellipseColor = isBackgroundLuminanceLow(bg) ? clr_white : clr_invert_ui(clr_white); 
   draw_axes(a, clr_axes, stroke_w);
   draw_boundary(a, 1, clr_ell, stroke_w);
-  if (dr_foci) draw_foci(a, clr_ell, stroke_w);
+  if (dr_foci) draw_foci(a, 1, clr_ell, stroke_w);
   //draw_center();
 }
 

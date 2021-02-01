@@ -141,8 +141,11 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
                     translate(...bp.x3);
                     draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
                     pop();
-                } else
-                    draw_boundary(...dict_caustic[mounting](a), clr_caustic, stroke_w);
+                } else {
+                    const caustic_axes = dict_caustic[mounting](a);
+                    draw_boundary(...caustic_axes, clr_caustic, stroke_w);
+                    if (mounting!="billiard") draw_foci(...caustic_axes, clr_caustic, stroke_w);
+                }
         }
         draw_orbit(ons, clr, stroke_w, false, true, false);
         if (tri_type != "reference" || cpn != "off") draw_orbit(ons_derived0, clr, stroke_w, false, true, false);
