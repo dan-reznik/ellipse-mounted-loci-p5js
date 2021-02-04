@@ -698,7 +698,7 @@ function get_mounted_tri(a, tDeg, v2, v3) {
   return { o: tri, n: normals, s: sides };
 }
 
-function get_derived_tri(a, orbit, sides, tri_type, cpn, p, mounting) {
+function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   let ret_tri = { o: orbit, s: sides };
 
   if (tri_type in tri_fns_cremona_dict) {
