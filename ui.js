@@ -55,10 +55,10 @@ function set_ui_variables() {
             }
             else
                demo_elem.value = glob.ui[y];
-            if(x.slice(0,6) == 'demo_P'){
+            /* if(x.slice(0,6) == 'demo_P'){
                var demo_elem = document.getElementById(x);
                change_clr_tri_txt(glob.ui['tri_type_'+x.slice(-1)], demo_elem)
-            }
+            } */
          }
          document.getElementById(x).value = glob.ui[y];
          if(['locus_type_1', 'locus_type_2', 'locus_type_3', 'locus_type_4'].includes(x)){
@@ -66,7 +66,7 @@ function set_ui_variables() {
             var loc = document.getElementById(x)
             var demo = document.getElementById('demo_Xn'+loc_number)
             let triDemo = document.getElementById('demo_Pn'+loc_number);
-            change_clr_txt_on_locus_change(loc, demo, triDemo);
+            //change_clr_txt_on_locus_change(loc, demo, triDemo);
          }
       }
    });
@@ -596,7 +596,7 @@ function setup_locus_type_onchange() {
          glob.ui.tandem_loc ? ui_changed_type(true) : ui_changed(loc_number, true);
          redraw();
          glob.ui.tandem_loc ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(loc_number);
-         change_clr_txt_on_locus_change(loc_Xn, demo_Xn, demo_Tri);
+         //change_clr_txt_on_locus_change(loc_Xn, demo_Xn, demo_Tri);
       });
    };
 }
@@ -615,7 +615,7 @@ function setup_tri_type_onchange() {
       document.getElementById(`tri_type_${tri_type_number}`).addEventListener("change", function () {
          var demo = document.getElementById('demo_Pn'+tri_type_number);
          
-         change_clr_tri_txt(this.value, demo)
+         //change_clr_tri_txt(this.value, demo)
          
          glob.ui['tri_type_'+tri_type_number] = this.value;
          tandem_bar_variables('tri', glob.ui['tri_type_'+tri_type_number]);
