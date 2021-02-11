@@ -285,6 +285,8 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
          glob.slider_focus = glob_variable[0];
          if (glob.slider_focus == 'X')
             glob.ui.tandem_xn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
+         if (glob.slider_focus == 'P')
+            glob.ui.tandem_pn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
          slider.focus();
       }
    });
@@ -304,8 +306,11 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
          }
          redraw();
          glob.slider_focus = glob_variable[0];
-         if (glob_variable[0] == 'X')
+         
+         if (glob.slider_focus == 'X')
             glob.ui.tandem_xn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
+         if (glob.slider_focus == 'P')
+            glob.ui.tandem_pn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
          slider.focus();
       }
    });
@@ -326,6 +331,8 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
       redraw();
       if (glob.slider_focus == 'X')
          glob.ui.tandem_xn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
+      if (glob.slider_focus == 'P')
+         glob.ui.tandem_pn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
    });
 
    text.addEventListener("input", function () {
@@ -353,8 +360,10 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
          redraw();
          e.preventDefault();
          glob.slider_focus = glob_variable[0];
-         if (glob_variable[0] == 'X')
+         if (glob.slider_focus == 'X')
             glob.ui.tandem_xn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
+         if (glob.slider_focus == 'P')
+            glob.ui.tandem_pn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
          slider.focus();
       }
    })
@@ -377,8 +386,10 @@ function slider_text_changed(sliderId, textId, minus_id, plus_id, ell_detect, gl
          }
          redraw();
          glob.slider_focus = glob_variable[0];
-         if (glob_variable[0] == 'X')
+         if (glob.slider_focus == 'X')
             glob.ui.tandem_xn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
+         if (glob.slider_focus == 'P')
+            glob.ui.tandem_pn ? ['1', '2', '3', '4'].map(set_conic_type_ui) : set_conic_type_ui(ell_detect);
          slider.focus();
       }
    })
@@ -395,7 +406,6 @@ function setup_ui_variables_behavior() {
    slider_text_changed("Xn3", "demo_Xn3", "minus_Xn3", "plus_Xn3", "3", 'Xn3');
    //Xn4
    slider_text_changed("Xn4", "demo_Xn4", "minus_Xn4", "plus_Xn4", "4", 'Xn4');
-
    //Pn1
    slider_text_changed("Xn1", "demo_Pn1", "minus_Pn1", "plus_Pn1", "1", 'Pn1');
    //Pn2
