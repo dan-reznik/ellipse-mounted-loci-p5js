@@ -187,7 +187,7 @@ function get_brocard_orbit_sides(orbit, sides, n) {
 function get_fn_any(locus_type, n) {
   if (locus_type.substr(0,2)=="f_")
      locus_type = locus_type.substr(2);
-  const fn = locus_type in fn_any_dict ? fn_any_dict[locus_type] : get_fn_bary(n);
+  const fn = locus_type in dict_fn_any ? dict_fn_any[locus_type] : get_fn_bary(n);
   return fn;
 }
 

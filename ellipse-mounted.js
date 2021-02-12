@@ -2,7 +2,7 @@ function getV2V3(a, mounting, eps) {
     c = Math.sqrt(a * a - 1);
     f1 = [-c, 0];
     f2 = [c, 0];
-    const v2v3_dict = {
+    const dict_v2v3 = {
         fs: [f1, f2],
         fsCtr: [f2, [eps, eps]],
         fsLeft: [f1, [a, 0]],
@@ -21,7 +21,7 @@ function getV2V3(a, mounting, eps) {
         TL_ctr: [[-a, -1], [eps, eps]],
         TL_BR: [[-a, -1], [a, 1]]
     };
-    return mounting in v2v3_dict ? v2v3_dict[mounting] : [[-a, 1], [a, -1]];
+    return mounting in dict_v2v3 ? dict_v2v3[mounting] : [[-a, 1], [a, -1]];
     /*  
      switch (mounting) {
          case "fs": return [f1, f2];
@@ -57,7 +57,7 @@ function get_Xn_mounted_low(a,tDeg,v2,v3,tri_type,cpn,pn,inv,inv_fn,mounting) {
 function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, cpn, pn, inv, inv_fn, locus_type, mounting) {
     ons_derived = get_Xn_mounted_low(a,tDeg,v2,v3,tri_type,cpn,pn,inv,inv_fn,mounting);
     const tri_fn = (a0,tDeg0)=>get_Xn_mounted_low(a0,tDeg0,v2,v3,tri_type,cpn,pn,inv,inv_fn,mounting);
-    const xn = locus_type in caustic_n_dict ? get_side_envelope(a, tDeg, tri_fn, caustic_n_dict[locus_type]) :
+    const xn = locus_type in dict_caustic_n ? get_side_envelope(a, tDeg, tri_fn, dict_caustic_n[locus_type]) :
     locus_type=="env" ? get_two_point_envelope(a, tDeg, tri_fn, bary_fn, get_fn_bary(pn)) :
             get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
     const xn_inv = inv=="xn"?inv_fn(ons_derived.o,ons_derived.s, xn):xn;

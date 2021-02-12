@@ -1,4 +1,4 @@
-const fn_any_dict = {
+const dict_fn_any = {
   brocard_1  : bary_brocard1,
   brocard_2  : bary_brocard2,
   beltrami_1 : bary_beltrami1,
@@ -69,7 +69,7 @@ function draw_one_locus_branch_filled(locus, fill_rgb) {
 
 get_rgba_str = (rgb, alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
 
-const vtx_dict = {vtx:0,vtx2:1,vtx3:2};
+const dict_vtx = {vtx:0,vtx2:1,vtx3:2};
 
 function draw_locus_branched(locus_branches, ons, xnum, pn, rgb, stroke_w,
   locus_type, ell_detect, rot, draw_label, inv_fn, inv_tri, env) {
@@ -79,12 +79,12 @@ function draw_locus_branched(locus_branches, ons, xnum, pn, rgb, stroke_w,
 
   let xn;
   // handles vtx,vtx2,vtx3
-  if (locus_type in vtx_dict)
-    xn = ons.o[vtx_dict[locus_type]];
+  if (locus_type in dict_vtx)
+    xn = ons.o[dict_vtx[locus_type]];
   else if (locus_type.substr(0,7) == "caustic" || locus_type == "env") {
     xn = env;
   } else {
-    const bs = locus_type in fn_any_dict ? fn_any_dict[locus_type](ons.s) : get_Xn_bary(ons.s, xnum); // "trilins"
+    const bs = locus_type in dict_fn_any ? dict_fn_any[locus_type](ons.s) : get_Xn_bary(ons.s, xnum); // "trilins"
     xn = barys_to_cartesian(ons.o, bs);
   }
   // invert
@@ -106,8 +106,8 @@ function draw_locus_branched(locus_branches, ons, xnum, pn, rgb, stroke_w,
     const ell_detect_suffix = ell_detect == "X" ? "" : '(' + ell_detect + ')';
     translate(xn[0], xn[1]);
     rotate(-dict_rot[rot]);
-    if (locus_type in label_dict) 
-      draw_text2(label_dict[locus_type] +
+    if (locus_type in dict_label) 
+      draw_text2(dict_label[locus_type] +
         (locus_type=="env"?xnum+","+pn:"") +
         (locus_type=="trilins"?xnum:"") +
         (inv_tri||inv_fn!=inv_fn_identity?"'":"") +

@@ -11,6 +11,14 @@ function circle_f1(a) {
     return { ctr:ctr, R:1, n:0 };
 }
 
+// bicentric_tri = antipedal_triangle(tri, [alpha_f1,beta_f1,gamma_f1]);
+// lim2_pedal = pedal_triangle(bicentric_tri, [alpha_lim2, beta_lim2, gamma_lim2]); 
+function circle_lim2(a) {
+    const c = Math.sqrt(a*a-1);
+    const ctr = [-c+1/c,0];
+    return { ctr:ctr, R:1, n:0 };
+}
+
 function circle_f1c(ac,bc) {
     const ctr = ac>bc?[-Math.sqrt(ac*ac-bc*bc),0]:[0,Math.sqrt(bc*bc-ac*ac)];
     return { ctr:ctr, R:1, n:0 };

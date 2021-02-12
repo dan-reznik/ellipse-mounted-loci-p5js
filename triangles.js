@@ -1,4 +1,4 @@
-const tri_fns_dict = {
+const dict_tri_fns = {
   // reference        : reference_triangle,
   excentral: excentral_triangle,
   medial: medial_triangle,
@@ -48,7 +48,7 @@ const tri_fns_dict = {
   lucastangents: lucas_tangents_triangle
 };
 
-const tri_pfns_dict = {
+const dict_tri_pfns = {
   // reference        : reference_triangle,
   cevian: cevian_triangle,
   anticevian: anticevian_triangle,
@@ -58,14 +58,15 @@ const tri_pfns_dict = {
   tripolar: cevian_triangle
 };
 
-const tri_fns_inv_dict = {
+const dict_tri_fns_inv = {
   inv_f1: {fn:circle_f1,caustic:false},
   inv_f1c: {fn:circle_f1c,caustic:true},
   inv_f2: {fn:circle_f2,caustic:false},
-  inv_ctr: {fn:circle_ctr,caustic:false}
+  inv_ctr: {fn:circle_ctr,caustic:false},
+  // not inversion proper but pedal of bicentric wrt to f2
 };
 
-const tri_fns_cremona_dict = {
+const dict_tri_fns_cremona = {
   crem_f1: cremona_f1,
   crem_f2: cremona_f2,
   crem_ctr: cremona_ctr
@@ -701,22 +702,22 @@ function get_mounted_tri(a, tDeg, v2, v3) {
 function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   let ret_tri = { o: orbit, s: sides };
 
-  if (tri_type in tri_fns_cremona_dict) {
-    const inv_fn = (tri, sides, p) => tri_fns_cremona_dict[tri_type](a, p)
+  if (tri_type in dict_tri_fns_cremona) {
+    const inv_fn = (tri, sides, p) => dict_tri_fns_cremona[tri_type](a, p)
     ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
-  } else if (tri_type in tri_fns_inv_dict) {
-    const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_invert(tri_type, a, mounting) /*tri_fns_inv_dict[tri_type].fn(a)*/)
+  } else if (tri_type in dict_tri_fns_inv) {
+    const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_invert(tri_type, a, mounting) /*dict_tri_fns_inv[tri_type].fn(a)*/)
     ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
-  } else if (tri_type in tri_fns_dict) { // "reference" returns itself
-    const ts = tri_fns_dict[tri_type](sides);
+  } else if (tri_type in dict_tri_fns) { // "reference" returns itself
+    const ts = dict_tri_fns[tri_type](sides);
     const tri0 = generic_triangle(orbit, sides, ts);
     ret_tri = { o: tri0, s: tri_sides(tri0) };
   }
   
-  if (cpn in tri_pfns_dict) {
+  if (cpn in dict_tri_pfns) {
     const bs = get_Xn_bary(ret_tri.s, pn);
     const ts_p = bary_to_trilin(bs, ret_tri.s);
-    const ts = tri_pfns_dict[cpn](ret_tri.s, ts_p);
+    const ts = dict_tri_pfns[cpn](ret_tri.s, ts_p);
     let tri0 = generic_triangle(ret_tri.o, ret_tri.s, ts);
     // this looks wrong, tripolar should not depend on cpn
     if (cpn == "tripolar") {
@@ -763,8 +764,8 @@ function tri_side_ratio(a, tDeg, mounting, tri_type_1, tri_type_2) {
 }
 
 function get_derived_tri_v1_barys(sides, tri_type) {
-  if (tri_type in tri_fns_dict) { // "reference" returns itself
-    const ts = tri_fns_dict[tri_type](sides);
+  if (tri_type in dict_tri_fns) { // "reference" returns itself
+    const ts = dict_tri_fns[tri_type](sides);
     // multiply by sides to get barys
     const bs = ts[0].map((t, i) => t * sides[i]);
     return bs;

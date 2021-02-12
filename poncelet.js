@@ -158,7 +158,7 @@ function get_orbit_derived(a,tDeg,orbit_fn,tri_type,cpn, pn,inv,inv_fn, mounting
 
 function get_Xn_poncelet(a, tDeg, orbit_fn, bary_fn, tri_type, cpn, pn, inv, inv_fn, locus_type, mounting) {
   const ons_derived = get_orbit_derived(a,tDeg,orbit_fn,tri_type,cpn, pn,inv,inv_fn, mounting);
-  const caustic_n = locus_type in caustic_n_dict ? caustic_n_dict[locus_type] : -1;
+  const caustic_n = locus_type in dict_caustic_n ? dict_caustic_n[locus_type] : -1;
   const tri_fn = (a0,tDeg0)=>get_orbit_derived(a0,tDeg0,orbit_fn,tri_type,cpn,pn,inv,inv_fn, mounting);
   const xn = caustic_n>=0 ? get_side_envelope(a, tDeg, tri_fn,caustic_n) :
   locus_type=="env" ? get_two_point_envelope(a, tDeg, tri_fn, bary_fn, get_fn_bary(pn)) :

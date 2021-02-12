@@ -1,4 +1,4 @@
-const circles_dict = {
+const dict_circles = {
     adams: circle_adams,
     apollonius: circle_apollonius,
     bevan: circle_bevan,
@@ -35,11 +35,11 @@ const dict_caustic = {
 };
 
 function tri_fns_invert(circ, a, mounting) {
-    if (tri_fns_inv_dict[circ].caustic && mounting in dict_caustic) {
+    if (dict_tri_fns_inv[circ].caustic && mounting in dict_caustic) {
         const [ac, bc] = dict_caustic[mounting](a);
-        return tri_fns_inv_dict[circ].fn(ac, bc);
+        return dict_tri_fns_inv[circ].fn(ac, bc);
     } else
-       return tri_fns_inv_dict[circ].fn(a);
+       return dict_tri_fns_inv[circ].fn(a);
 }
 
 const dict_orbit_fn = {
@@ -73,7 +73,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     if (dr_tri) {
         draw_mounted(ons, clr, stroke_w, false, true);
         if (tri_type != "reference" || cpn != "off") draw_mounted(ons_derived0, clr, stroke_w, false, true);
-        if (cpn in tri_pfns_dict) { // ons_derived0 will have intermediate fields o_deriv, s_deriv
+        if (cpn in dict_tri_pfns) { // ons_derived0 will have intermediate fields o_deriv, s_deriv
             const pn_deriv = get_Xn_low_bary(ons_derived0.o_deriv, ons_derived0.s_deriv, get_fn_bary(pn));
             if (tri_type != "reference") draw_tri2(ons_derived0.o_deriv, clr, stroke_w / 2);
             draw_point2(pn_deriv, clr, stroke_w / 2);
@@ -86,7 +86,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
 
     if (locus_type != 'none') {
         const tri_fn = (a0, tDeg0) => get_mounted_derived(a0, tDeg0, mounting, tri_type, cpn, pn, circ, inv);
-        const env = locus_type in caustic_n_dict ? get_side_envelope(a, tDeg, tri_fn, caustic_n_dict[locus_type]) :
+        const env = locus_type in dict_caustic_n ? get_side_envelope(a, tDeg, tri_fn, dict_caustic_n[locus_type]) :
             locus_type == "env" && (n != pn) ? get_two_point_envelope(a, tDeg,
                 tri_fn, get_fn_bary(n), get_fn_bary(pn)) : [0, 0];
         if (dr_tri && locus_type == "env" && (n != pn)) {
@@ -99,16 +99,16 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
         }
         draw_locus_branched(locus_branches, ons_derived, n, pn, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv == "xn" ? inv_fn : inv_fn_identity,
-            inv == "tri" || tri_type in tri_fns_inv_dict || tri_type in tri_fns_cremona_dict, env);
+            inv == "tri" || tri_type in dict_tri_fns_inv || tri_type in dict_tri_fns_cremona, env);
     }
     // dr label on center of circle
     if (dr_tri) {
         var o = null;
-        if (circ in circles_dict)
+        if (circ in dict_circles)
             // &&& was ons_derived
-            o = circles_dict[circ](ons_derived0.o, ons_derived0.s);
-        else if (circ in tri_fns_inv_dict) {
-            o = tri_fns_invert(circ,a,mounting); // tri_fns_inv_dict[circ].fn(a);
+            o = dict_circles[circ](ons_derived0.o, ons_derived0.s);
+        else if (circ in dict_tri_fns_inv) {
+            o = tri_fns_invert(circ,a,mounting); // dict_tri_fns_inv[circ].fn(a);
         }
         if (o) {
             const { ctr, R, n } = o;
@@ -149,7 +149,7 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
         }
         draw_orbit(ons, clr, stroke_w, false, true, false);
         if (tri_type != "reference" || cpn != "off") draw_orbit(ons_derived0, clr, stroke_w, false, true, false);
-        if (cpn in tri_pfns_dict) { // ons_derived0 will have intermediate fields o_deriv, s_deriv
+        if (cpn in dict_tri_pfns) { // ons_derived0 will have intermediate fields o_deriv, s_deriv
             const pn_deriv = get_Xn_low_bary(ons_derived0.o_deriv, ons_derived0.s_deriv, get_fn_bary(pn));
             if (tri_type != "reference") draw_tri2(ons_derived0.o_deriv, clr, stroke_w / 2);
             draw_point2(pn_deriv, clr, stroke_w / 2);
@@ -162,7 +162,7 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
         let env = [0, 0];
         if (mounting in dict_orbit_fn) {
             const tri_fn = (a0, tDeg0) => get_orbit_derived(a0, tDeg0, dict_orbit_fn[mounting], tri_type, cpn, pn, inv, inv_fn, mounting);
-            env = locus_type in caustic_n_dict ? get_side_envelope(a, tDeg, tri_fn, caustic_n_dict[locus_type]) :
+            env = locus_type in dict_caustic_n ? get_side_envelope(a, tDeg, tri_fn, dict_caustic_n[locus_type]) :
                 locus_type == "env" && (n != pn) ? get_two_point_envelope(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn))
                     : [0, 0];
 
@@ -177,15 +177,15 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
         }
         draw_locus_branched(locus_branches, ons_derived, n, pn, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv == "xn" ? inv_fn : inv_fn_identity,
-            inv == "tri" || tri_type in tri_fns_inv_dict || tri_type in tri_fns_cremona_dict, env);
+            inv == "tri" || tri_type in dict_tri_fns_inv || tri_type in dict_tri_fns_cremona, env);
     }
     if (dr_tri) {
         var o = null;
-        if (circ in circles_dict)
+        if (circ in dict_circles)
             // &&& was derived
-            o = circles_dict[circ](ons_derived0.o, ons_derived0.s);
-        else if (circ in tri_fns_inv_dict) {
-            o =  tri_fns_invert(circ,a,mounting); // tri_fns_inv_dict[circ].fn(a);
+            o = dict_circles[circ](ons_derived0.o, ons_derived0.s);
+        else if (circ in dict_tri_fns_inv) {
+            o =  tri_fns_invert(circ,a,mounting); // dict_tri_fns_inv[circ].fn(a);
         }
         if (o) {
             const { ctr, R, n } = o;
@@ -269,7 +269,7 @@ function create_locus_branches(a, tDegStep, tDegMax, r_max, xn_fn) {
 }
 
 // controls how many cyclic permutations are made to vertices to compute *side* caustics
-const caustic_n_dict = {
+const dict_caustic_n = {
     caustic: 0,
     caustic12: 0,
     caustic23: 1,
@@ -287,11 +287,11 @@ function billiard_tDegMax(a, b) {
 const inv_fn_identity = (tri, sides, p) => p;
 
 function get_inv_fn(a, circ, inv, mounting) {
-    return (inv != "off" && (circ in circles_dict)) ?
-        (tri, sides, p) => circle_inversion(p, circles_dict[circ](tri, sides)) :
-        ((inv != "off" && (circ in tri_fns_inv_dict)) ?
-            (tri, sides, p) => circle_inversion(p,  tri_fns_invert(circ,a,mounting) /*tri_fns_inv_dict[circ].fn(a)*/) :
-            (inv != "off" && (circ in tri_fns_cremona_dict)) ? (tri, sides, p) => tri_fns_cremona_dict[circ](a, p) :
+    return (inv != "off" && (circ in dict_circles)) ?
+        (tri, sides, p) => circle_inversion(p, dict_circles[circ](tri, sides)) :
+        ((inv != "off" && (circ in dict_tri_fns_inv)) ?
+            (tri, sides, p) => circle_inversion(p,  tri_fns_invert(circ,a,mounting) /*dict_tri_fns_inv[circ].fn(a)*/) :
+            (inv != "off" && (circ in dict_tri_fns_cremona)) ? (tri, sides, p) => dict_tri_fns_cremona[circ](a, p) :
                 inv_fn_identity);
 }
 // no asymptotes

@@ -6,7 +6,7 @@ const dict_rot = {
     "-90": -Math.PI / 2
 };
 
-const label_dict = {
+const dict_label = {
     trilins:'X',
     brocard_1:'Ω1',
     brocard_2:'Ω2',
