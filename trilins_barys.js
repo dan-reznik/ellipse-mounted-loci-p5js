@@ -174,7 +174,6 @@ function bary_bickart2([a,b,c]) {
 }
 */
 
-
  function get_brocard(n) {
   let brocard_name = sprintf("bary_brocard%d", n);
   return window[brocard_name];
@@ -191,6 +190,15 @@ function get_fn_any(locus_type, n) {
   return fn;
 }
 
-function bary_to_trilin(bs,sides)  {
-  return bs.map((b,i)=>b/sides[i]);
+function get_barys([x,y],[[x1,y1], [x2, y2],[x3, y3]]) { 
+   const detT = (x1 - x3)*(y2 - y3) - (x2 - x3)*(y1 - y3);
+   const l1 = ((y2 - y3)*(x - x3) + (x3 - x2)*(y - y3))/detT;
+   const l2 = ((y3 - y1)*(x - x3) + (x1 - x3)*(y - y3))/detT;
+   const l3 = 1 - l1 - l2;
+   return[l1, l2, l3];
+}
+
+function get_trilins(p,tri,sides) {
+  const bs = get_barys(p,tri);
+  return barys_to_trilins(bs,sides);
 }

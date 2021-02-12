@@ -72,6 +72,11 @@ const dict_tri_fns_cremona = {
   crem_ctr: cremona_ctr
 };
 
+const dict_tri_fns_bicentric = {
+  ped_lim2: get_polar_pedal_lim2,
+  pol_f1: get_polar_f1
+};
+
 function rotate_tri_left([p1, p2, p3]) {
   return [p2, p3, p1];
 }
@@ -702,7 +707,10 @@ function get_mounted_tri(a, tDeg, v2, v3) {
 function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   let ret_tri = { o: orbit, s: sides };
 
-  if (tri_type in dict_tri_fns_cremona) {
+  if (tri_type in dict_tri_fns_bicentric) {
+    const tri0 = dict_tri_fns_bicentric[tri_type](a,1,orbit,sides);
+    ret_tri = { o: tri0, s: tri_sides(tri0) };
+  } else if (tri_type in dict_tri_fns_cremona) {
     const inv_fn = (tri, sides, p) => dict_tri_fns_cremona[tri_type](a, p)
     ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
   } else if (tri_type in dict_tri_fns_inv) {
@@ -716,7 +724,7 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   
   if (cpn in dict_tri_pfns) {
     const bs = get_Xn_bary(ret_tri.s, pn);
-    const ts_p = bary_to_trilin(bs, ret_tri.s);
+    const ts_p = barys_to_trilins(bs, ret_tri.s);
     const ts = dict_tri_pfns[cpn](ret_tri.s, ts_p);
     let tri0 = generic_triangle(ret_tri.o, ret_tri.s, ts);
     // this looks wrong, tripolar should not depend on cpn
@@ -763,12 +771,28 @@ function tri_side_ratio(a, tDeg, mounting, tri_type_1, tri_type_2) {
   return tri1.derived_s.map((s, i) => s / tri2.derived_s[i]);
 }
 
+// function bary_to_trilin(bs,sides)  {
+//  return bs.map((b,i)=>b/sides[i]);
+// }
+function barys_to_trilins(bs,sides) {
+    // divide by sides to get trilins
+    const ts = bs.map((b, i) => b / sides[i]);
+    return ts;
+}
+
+function trilins_to_barys(ts,sides) {
+  // multiply by sides to get barys
+  const bs = ts.map((t, i) => t * sides[i]);
+  return bs;
+}
+
 function get_derived_tri_v1_barys(sides, tri_type) {
   if (tri_type in dict_tri_fns) { // "reference" returns itself
     const ts = dict_tri_fns[tri_type](sides);
+    return trilin_to_barys(ts[0],sides);
     // multiply by sides to get barys
-    const bs = ts[0].map((t, i) => t * sides[i]);
-    return bs;
+    //const bs = ts[0].map((t, i) => t * sides[i]);
+    //return bs;
   } else
     return [sides[0], 0, 0]; // reference tri v1 in baris
 }
@@ -788,4 +812,38 @@ function get_tri_v3_barys(sides) {
 
 function get_caustic_v12_barys(sides) {
   return [sides[0], 0, 0];
+}
+
+function get_antipedal(tri,sides,p) {
+  const ts_p = get_trilins(p,tri,sides);
+  const ant_ts = antipedal_triangle(sides, ts_p);
+  const ant_tri = generic_triangle(tri,sides,ant_ts);
+  return ant_tri;
+}
+
+function get_pedal(tri,sides,p) {
+  const ts_p = get_trilins(p,tri,sides);
+  const ped_ts = pedal_triangle(sides, ts_p);
+  const ped_tri = generic_triangle(tri,sides,ped_ts);
+  return ped_tri;
+}
+
+function get_polar_f1(a,b,tri,sides) {
+  const c = Math.sqrt(a*a-b*b);
+  const f1 = [-c,0];
+  const circ = {ctr:f1,R:1};
+  const tri_inv = tri.map(v=>circle_inversion(v, circ)); 
+  // bicentric
+  return get_antipedal(tri_inv, tri_sides(tri_inv), f1);
+}
+
+function get_polar_pedal_lim2(a,b,tri,sides) {
+  const c = Math.sqrt(a*a-b*b);
+  // bicentric
+  const bic_tri = get_polar_f1(a,b,tri,sides);
+  const bic_sides = tri_sides(bic_tri);
+  // pedal wrt lim2
+  const lim2 = [-c+1/c,0];
+  const lim_tri = get_pedal(bic_tri,bic_sides,lim2); 
+  return lim_tri;
 }
