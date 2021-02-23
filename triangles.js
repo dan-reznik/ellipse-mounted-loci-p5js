@@ -797,6 +797,29 @@ function invert_tri({ o, s }, inv_fn) {
   return { o: o_inv, s: sides_inv };
 }
 
+function get_ctr_R(o,s,circ,a,mounting) {
+  var o0 = null;
+  if (circ in dict_circles)
+    o0 = dict_circles[circ](o,s);
+  else if (circ in dict_tri_fns_inv) {
+    o0 = tri_fns_invert(circ, a, mounting); // dict_tri_fns_inv[circ].fn(a);
+  }
+  return o0;
+}
+
+function polar_tri({ o, s }, inv_fn, circ,a,mounting) {
+  const o0 = get_ctr_R(o,s,circ,a,mounting);
+  if (o0) {
+    const { ctr, R, n } = o0;
+    const o_inv = o.map(v => inv_fn(o, s, v));
+    const perps = o_inv.map(v => vperp(vdiff(v, ctr)));
+    const polar = o_inv.map((v, k) => inter_rays(v, perps[k], o_inv[k == 2 ? 0 : k + 1], perps[k == 2 ? 0 : k + 1]));
+    const polar_sides = tri_sides(polar);
+    return { o: polar, s: polar_sides };
+  } else
+    return { o: o, s: s };
+}
+
 // for debugging
 function get_tri_generic(a, tDeg, mounting, tri_type, cpn, pn) {
   //

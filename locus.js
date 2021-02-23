@@ -58,7 +58,8 @@ function get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
     const [v2, v3] = getV2V3(a, mounting, 0.001);
     const ons = get_mounted_tri(a, tDeg, v2, v3);
     const ons_derived0 = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
-    const ons_derived = inv == "tri" ? invert_tri(ons_derived0, inv_fn) : ons_derived0;
+    const ons_derived = inv == "tri" ? invert_tri(ons_derived0, inv_fn) :
+    inv=="polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting) : ons_derived0;
     return ons_derived;
 }
 
@@ -68,7 +69,8 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     const [v2, v3] = getV2V3(a, mounting, 0.001);
     const ons = get_mounted_tri(a, tDeg, v2, v3);
     const ons_derived0 = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
-    const ons_derived = inv == "tri" ? invert_tri(ons_derived0, inv_fn) : ons_derived0;
+    const ons_derived = inv == "tri" ? invert_tri(ons_derived0, inv_fn) :
+    inv=="polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting) : ons_derived0;
 
     if (dr_tri) {
         draw_mounted(ons, clr, stroke_w, false, true);
@@ -80,7 +82,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
             draw_text2_rot('X' + pn, pn_deriv, clr, .66 * stroke_w, -dict_rot[rot], true);
         }
 
-        if (circ != "off" && inv == "tri")
+        if (circ != "off" && (inv == "tri"||inv == "polar"))
             draw_mounted(ons_derived, clr, stroke_w, false, false);
     }
 
@@ -99,7 +101,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
         }
         draw_locus_branched(locus_branches, ons_derived, n, pn, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv == "xn" ? inv_fn : inv_fn_identity,
-            inv == "tri" || tri_type in dict_tri_fns_inv || tri_type in dict_tri_fns_cremona, env);
+            inv == "tri" || inv == "polar" || tri_type in dict_tri_fns_inv || tri_type in dict_tri_fns_cremona, env);
     }
     // dr label on center of circle
     if (dr_tri) {
@@ -124,7 +126,8 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
     const inv_fn = get_inv_fn(a, circ, inv, mounting);
     let ons = orbit_fn(a, tDeg);
     const ons_derived0 = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
-    const ons_derived = inv == "tri" ? invert_tri(ons_derived0, inv_fn) : ons_derived0;
+    const ons_derived = inv == "tri" ? invert_tri(ons_derived0, inv_fn) :
+    inv=="polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting)  : ons_derived0;
 
     if (dr_tri) {
         if (mounting in dict_caustic && dr_caustic) {
@@ -155,13 +158,14 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
             draw_point2(pn_deriv, clr, stroke_w / 2);
             draw_text2_rot('X' + pn, pn_deriv, clr, .66 * stroke_w, -dict_rot[rot], true);
         }
-        if (circ != "off" && inv == "tri") draw_orbit(ons_derived, clr, stroke_w, false, false, false);
+        if (circ != "off" && (inv == "tri"||inv == "polar"))
+        draw_orbit(ons_derived, clr, stroke_w, false, false, false);
     }
 
     if (locus_type != 'none') {
         let env = [0, 0];
         if (mounting in dict_orbit_fn) {
-            const tri_fn = (a0, tDeg0) => get_orbit_derived(a0, tDeg0, dict_orbit_fn[mounting], tri_type, cpn, pn, inv, inv_fn, mounting);
+            const tri_fn = (a0, tDeg0) => get_orbit_derived(a0, tDeg0, dict_orbit_fn[mounting], tri_type, cpn, pn, inv, inv_fn, mountin, circ);
             env = locus_type in dict_caustic_n ? get_side_envelope(a, tDeg, tri_fn, dict_caustic_n[locus_type]) :
                 locus_type == "env" && (n != pn) ? get_two_point_envelope(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn))
                     : [0, 0];
@@ -177,7 +181,7 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
         }
         draw_locus_branched(locus_branches, ons_derived, n, pn, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv == "xn" ? inv_fn : inv_fn_identity,
-            inv == "tri" || tri_type in dict_tri_fns_inv || tri_type in dict_tri_fns_cremona, env);
+            inv == "tri" || inv == "polar" || tri_type in dict_tri_fns_inv || tri_type in dict_tri_fns_cremona, env);
     }
     if (dr_tri) {
         var o = null;
@@ -287,12 +291,11 @@ function billiard_tDegMax(a, b) {
 const inv_fn_identity = (tri, sides, p) => p;
 
 function get_inv_fn(a, circ, inv, mounting) {
-    return (inv != "off" && (circ in dict_circles)) ?
-        (tri, sides, p) => circle_inversion(p, dict_circles[circ](tri, sides)) :
-        ((inv != "off" && (circ in dict_tri_fns_inv)) ?
-            (tri, sides, p) => circle_inversion(p,  tri_fns_invert(circ,a,mounting) /*dict_tri_fns_inv[circ].fn(a)*/) :
-            (inv != "off" && (circ in dict_tri_fns_cremona)) ? (tri, sides, p) => dict_tri_fns_cremona[circ](a, p) :
-                inv_fn_identity);
+    return inv=="off"?inv_fn_identity:
+    (circ in dict_circles) ?  (tri, sides, p) => circle_inversion(p, dict_circles[circ](tri, sides)) :
+        (circ in dict_tri_fns_inv) ? (tri, sides, p) => circle_inversion(p, tri_fns_invert(circ,a,mounting) ) :
+            (circ in dict_tri_fns_cremona) ? (tri, sides, p) => dict_tri_fns_cremona[circ](a, p) :
+                inv_fn_identity;
 }
 // no asymptotes
 // to do caustic needs to process locus_type=="caustic"
@@ -307,14 +310,14 @@ function make_locus_branched(a, tDegStep, r_max,
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
             (a0, tDeg0) =>
                 get_Xn_poncelet(a0, tDeg0, dict_orbit_fn[mounting], bary_fn, tri_type, cpn, pn, inv, inv_fn,
-                    locus_type,mounting));
+                    locus_type,mounting, circ));
     } else {// non-poncelet
         const eps = 0.001;
         let [v2, v3] = getV2V3(a, mounting, eps);
         //let [v3, xn] = get_Xn_mounted(a, 0 + eps, v1, v2, bary_fn);
         locus_array = create_locus_branches(a, tDegStep, 360, r_max,
             (a0, tDeg0) => {
-                let [v1, xn] = get_Xn_mounted(a0, tDeg0, v2, v3, bary_fn, tri_type, cpn, pn, inv, inv_fn, locus_type, mounting);
+                let [v1, xn] = get_Xn_mounted(a0, tDeg0, v2, v3, bary_fn, tri_type, cpn, pn, inv, inv_fn, locus_type, mounting, circ);
                 return xn;
             });
     }

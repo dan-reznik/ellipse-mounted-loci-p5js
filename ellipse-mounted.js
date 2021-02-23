@@ -45,18 +45,19 @@ function getV2V3(a, mounting, eps) {
      } */
 }
 
-function get_Xn_mounted_low(a,tDeg,v2,v3,tri_type,cpn,pn,inv,inv_fn,mounting) {
+function get_Xn_mounted_low(a,tDeg,v2,v3,tri_type,cpn,pn,inv,inv_fn,mounting,circ) {
     let t = toRad(tDeg);
     let v1 = [a * Math.cos(t), Math.sin(t)];
     let tri = [v1, v2, v3];
     let sides = tri_sides(tri);
     const ons_derived = get_derived_tri(a, tri, sides, tri_type, cpn,pn, mounting);
-    return inv=="tri" ? invert_tri(ons_derived,inv_fn) : ons_derived;
+    return inv=="tri" ? invert_tri(ons_derived,inv_fn) :
+    inv=="polar" ? polar_tri(ons_derived, inv_fn, circ, a, mounting) : ons_derived;
 }
 
-function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, cpn, pn, inv, inv_fn, locus_type, mounting) {
-    ons_derived = get_Xn_mounted_low(a,tDeg,v2,v3,tri_type,cpn,pn,inv,inv_fn,mounting);
-    const tri_fn = (a0,tDeg0)=>get_Xn_mounted_low(a0,tDeg0,v2,v3,tri_type,cpn,pn,inv,inv_fn,mounting);
+function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, cpn, pn, inv, inv_fn, locus_type, mounting,circ) {
+    ons_derived = get_Xn_mounted_low(a,tDeg,v2,v3,tri_type,cpn,pn,inv,inv_fn,mounting,circ);
+    const tri_fn = (a0,tDeg0)=>get_Xn_mounted_low(a0,tDeg0,v2,v3,tri_type,cpn,pn,inv,inv_fn,mounting,circ);
     const xn = locus_type in dict_caustic_n ? get_side_envelope(a, tDeg, tri_fn, dict_caustic_n[locus_type]) :
     locus_type=="env" ? get_two_point_envelope(a, tDeg, tri_fn, bary_fn, get_fn_bary(pn)) :
             get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
