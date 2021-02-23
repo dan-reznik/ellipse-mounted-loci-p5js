@@ -50,12 +50,14 @@ const dict_tri_fns = {
 
 const dict_tri_pfns = {
   // reference        : reference_triangle,
-  cevian: cevian_triangle,
-  anticevian: anticevian_triangle,
-  circumcevian: circumcevian_triangle,
-  pedal: pedal_triangle,
-  antipedal: antipedal_triangle,
-  tripolar: cevian_triangle
+  cevian: {fn:cevian_triangle,needs_tri:false},
+  anticevian: {fn:anticevian_triangle,needs_tri:false},
+  circumcevian: {fn: circumcevian_triangle,needs_tri:false},
+  pedal: {fn:pedal_triangle, needs_tri:false},
+  antipedal: {fn:antipedal_triangle, needs_tri:false},
+  tripolar: {fn:tripolar_triangle, needs_tri:true},
+  polar: {fn:polar_triangle, needs_tri:true},
+  antipolar: {fn:antipolar_triangle, needs_tri:true}
 };
 
 const dict_tri_fns_inv = {
@@ -164,6 +166,38 @@ function circumcevian_triangle([a, b, c], [alpha, beta, gamma]) {
   const t3 = [(a * beta + b * alpha) * alpha, (a * beta + b * alpha) * beta, -c * alpha * beta];
   return [t1, t2, t3];
 }
+
+// intersect sides of reference w cevian.
+function tripolar_triangle(o, s, ts) {
+  const cev_ts = cevian_triangle(s, ts);
+  const cev = generic_triangle(o, s, cev_ts);
+  const tripolar = o.map((v, i) => inter_rays(v, vdiff(o[i == 2 ? 0 : i + 1], v),
+    cev[i], vdiff(cev[i == 2 ? 0 : i + 1], cev[i])));
+  return tripolar;
+}
+
+// (i) invert, and (ii) get antipedal
+function polar_triangle(o, s, ts) {
+  const xn = trilin_to_cartesian(o,s,ts);
+  const inv_fn = (tri, sides, p) => circle_inversion(p, {ctr:xn,R:1});
+  const inv_tri = invert_tri({o,s},inv_fn);
+  const inv_ts = get_trilins(xn,inv_tri.o,inv_tri.s);
+  const antiped_ts = antipedal_triangle(inv_tri.s,inv_ts);
+  const antiped = generic_triangle(inv_tri.o, inv_tri.s, antiped_ts)
+  return antiped;
+}
+
+// (i) get pedal, and (ii) invert
+function antipolar_triangle(o, s, ts) {
+  const xn = trilin_to_cartesian(o,s,ts);
+  const ped_ts = pedal_triangle(s,ts);
+  const ped_tri = generic_triangle(o, s, ped_ts);
+  const inv_fn = (tri, sides, p) => circle_inversion(p, {ctr:xn,R:1});
+  const inv_tri = invert_tri({o:ped_tri,s:tri_sides(ped_tri)},inv_fn);
+  return inv_tri.o;
+}
+
+
 
 function pedal_triangle([a, b, c], [alpha, beta, gamma]) {
   const cA = law_of_cosines(a, b, c);
@@ -725,14 +759,12 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   if (cpn in dict_tri_pfns) {
     const bs = get_Xn_bary(ret_tri.s, pn);
     const ts_p = barys_to_trilins(bs, ret_tri.s);
-    const ts = dict_tri_pfns[cpn](ret_tri.s, ts_p);
-    let tri0 = generic_triangle(ret_tri.o, ret_tri.s, ts);
-    // this looks wrong, tripolar should not depend on cpn
-    if (cpn == "tripolar") {
-      // needs to intersect orbit sides w/ cevian sides  
-      tri0 = ret_tri.o.map((v, i) => inter_rays(
-        v, vdiff(ret_tri.o[i == 2 ? 0 : i + 1], v),
-        tri0[i], vdiff(tri0[i == 2 ? 0 : i + 1], tri0[i])));
+    let tri0;
+    if (dict_tri_pfns[cpn].needs_tri)
+       tri0 = dict_tri_pfns[cpn].fn(ret_tri.o,ret_tri.s,ts_p);
+    else {
+      const ts = dict_tri_pfns[cpn].fn(ret_tri.s, ts_p);
+      tri0 = generic_triangle(ret_tri.o, ret_tri.s, ts);
     }
     ret_tri = { o: tri0, s: tri_sides(tri0), o_deriv:ret_tri.o, s_deriv:ret_tri.s };
   } 

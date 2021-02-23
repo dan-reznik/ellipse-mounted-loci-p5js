@@ -200,7 +200,9 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="circumcevian">circumcev</option>
             <option value="pedal">pedal</option>
             <option value="antipedal">antipedal</option>
-            <option value="tripolar">tripolar</option>
+            <option value="tripolar">trilin-polar</option>
+            <option value="polar">polar</option>
+            <option value="antipolar">antipolar</option>
         </select>
 
         <div class='P_input_text'>
