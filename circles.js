@@ -66,6 +66,16 @@ function circle_cosine(tri,sides) {
     return { ctr:x6, R:R, n:6 };
 }
 
+function get_excircles(tri,sides) {
+    const ts_exc = excentral_triangle(sides);
+    const exc = generic_triangle(tri,sides,ts_exc);
+    const area = tri_area(sides);
+    const s = get_semiperimeter(sides);
+    // https://mathworld.wolfram.com/Exradius.html
+    const Rs = sides.map(li=>area/(s-li));
+    return exc.map((e,i)=> ({ ctr:e, R:Rs[i] }));
+}
+
 function circle_excircle(tri,sides) {
     const ts_exc = excentral_triangle(sides);
     const exc = generic_triangle(tri,sides,ts_exc);

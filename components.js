@@ -146,6 +146,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="crem_f2">*crem-f2*</option>
             <option value="crem_ctr">*crem-ctr*</option>
             <option value="anticompl">anticompl</option>
+            <option value="atik">atik</option>
             <option value="bci">bci</option>
             <option value="brocard1">brocard 1</option>
             <option value="brocard2">brocard 2</option>
@@ -202,6 +203,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="antipedal">antipedal</option>
             <option value="tripolar">trilin-polar</option>
             <option value="polar">polar</option>
+            <option value="polar_exc">polar-exc</option>
         </select>
 
         <div class='P_input_text'>

@@ -45,7 +45,8 @@ const dict_tri_fns = {
   mixtilinear: mixtilinear_triangle,
   lucascentral: lucas_central_triangle,
   lucasinner: lucas_inner_triangle,
-  lucastangents: lucas_tangents_triangle
+  lucastangents: lucas_tangents_triangle,
+  atik: atik_triangle
 };
 
 const dict_tri_pfns = {
@@ -56,7 +57,8 @@ const dict_tri_pfns = {
   pedal: {fn:pedal_triangle, needs_tri:false},
   antipedal: {fn:antipedal_triangle, needs_tri:false},
   tripolar: {fn:tripolar_triangle, needs_tri:true},
-  polar: {fn:polar_triangle, needs_tri:true}
+  polar: {fn:polar_triangle, needs_tri:true},
+  polar_exc: {fn:polar_exc_triangle, needs_tri:true}
 };
 
 const dict_tri_fns_inv = {
@@ -194,6 +196,16 @@ function antipolar_triangle(o, s, ts) {
   const inv_fn = (tri, sides, p) => circle_inversion(p, {ctr:xn,R:1});
   const inv_tri = invert_tri({o:ped_tri,s:tri_sides(ped_tri)},inv_fn);
   return inv_tri.o;
+}
+
+// get excircles, calculate polars, intersect them
+function polar_exc_triangle(o, s, ts) {
+  const xn = trilin_to_cartesian(o,s,ts);
+  const excircles = get_excircles(o,s);
+  const invs = excircles.map(e=>circle_inversion(xn,e));
+  const perps = invs.map(i=>vperp(vdiff(i,xn)));
+  const tri = invs.map((i, k) => inter_rays(i, perps[k], invs[k==2?0:k+1], perps[k==2?0:k+1]));
+  return tri;
 }
 
 function pedal_triangle([a, b, c], [alpha, beta, gamma]) {
@@ -501,6 +513,17 @@ function bci_triangle([a, b, c]) {
   ];
   return ts; // generic_triangle(orbit,[a,b,c],ts);
 }
+
+function atik_triangle([a,b,c]) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  const ts = [
+    [-((b+c)*a2-2*(b2+c2)*a+Math.pow(b+c,3))/a , a2-2*(b-c)*a+(b+3*c)*(b-c), a2-2*(c-b)*a+(c+3*b)*(c-b)],
+    [b2-2*(a-c)*b+(a+3*c)*(a-c),-((c+a)*b2-2*(c2+a2)*b+Math.pow(c+a,3))/b , b2-2*(c-a)*b+(c+3*a)*(c-a)],
+    [c2-2*(a-b)*c+(a+3*b)*(a-b), c2-2*(b-a)*c+(b+3*a)*(b-a),-((a+b)*c2-2*(a2+b2)*c+Math.pow(a+b,3))/c]
+  ];
+  return ts;
+}
+
 
 function circumorthic_triangle([a, b, c]) {
   // x,y,z should be secants and not cos as in
