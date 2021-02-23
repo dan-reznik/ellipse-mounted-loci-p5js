@@ -56,8 +56,7 @@ const dict_tri_pfns = {
   pedal: {fn:pedal_triangle, needs_tri:false},
   antipedal: {fn:antipedal_triangle, needs_tri:false},
   tripolar: {fn:tripolar_triangle, needs_tri:true},
-  polar: {fn:polar_triangle, needs_tri:true},
-  antipolar: {fn:antipolar_triangle, needs_tri:true}
+  polar: {fn:polar_triangle, needs_tri:true}
 };
 
 const dict_tri_fns_inv = {
@@ -187,7 +186,7 @@ function polar_triangle(o, s, ts) {
   return antiped;
 }
 
-// (i) get pedal, and (ii) invert
+// (i) get pedal, and (ii) invert: actually congruent with polar, so not used!
 function antipolar_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o,s,ts);
   const ped_ts = pedal_triangle(s,ts);
@@ -196,8 +195,6 @@ function antipolar_triangle(o, s, ts) {
   const inv_tri = invert_tri({o:ped_tri,s:tri_sides(ped_tri)},inv_fn);
   return inv_tri.o;
 }
-
-
 
 function pedal_triangle([a, b, c], [alpha, beta, gamma]) {
   const cA = law_of_cosines(a, b, c);
