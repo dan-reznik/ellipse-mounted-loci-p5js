@@ -165,7 +165,7 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
     if (locus_type != 'none') {
         let env = [0, 0];
         if (mounting in dict_orbit_fn) {
-            const tri_fn = (a0, tDeg0) => get_orbit_derived(a0, tDeg0, dict_orbit_fn[mounting], tri_type, cpn, pn, inv, inv_fn, mountin, circ);
+            const tri_fn = (a0, tDeg0) => get_orbit_derived(a0, tDeg0, dict_orbit_fn[mounting], tri_type, cpn, pn, inv, inv_fn, mounting, circ);
             env = locus_type in dict_caustic_n ? get_side_envelope(a, tDeg, tri_fn, dict_caustic_n[locus_type]) :
                 locus_type == "env" && (n != pn) ? get_two_point_envelope(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn))
                     : [0, 0];
