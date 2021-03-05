@@ -165,6 +165,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="extangents">extangents</option>
             <option value="feuerbach">feuerbach</option>
             <option value="fuhrmann">fuhrmann</option>
+            <option value="graves">graves</option>
             <option value="halfaltitude">half-altitude</option>
             <option value="hexyl">hexyl</option>
             <option value="incentral">incentral</option>

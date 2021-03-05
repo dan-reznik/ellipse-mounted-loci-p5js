@@ -149,7 +149,6 @@ function get_two_points(a, tDeg, tri_fn, bary_fn_1, bary_fn_2) {
   return [x1,x2];
 }
 
-
 function get_orbit_derived(a,tDeg,orbit_fn,tri_type,cpn, pn,inv,inv_fn, mounting, circ) {
   const ons = orbit_fn(a, tDeg);
   const ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
@@ -234,20 +233,6 @@ function orbit_dual(a, tDeg) {
    return { o: tri, s: tri_sides(tri) };
 }
 
-/*
-poristicVertices[R_, r_, t_] := Module[{d, w, ct, st, p1, p2, p3, d0},
-  d = Sqrt[R (R - 2 r)];
-  ct = Cos@t;
-  st = Sin@t;
-  w = Sqrt[R^2 - (d ct + r)^2];
-  d0 = (d ct + r);
-  p1 = {ct d0 - w st + d, d0 st + w ct};
-  p2 = {ct d0 + w st + d, d0 st - w ct};
-  p3 = {R (2 d R - (R^2 + d^2) ct), 
-      R (d^2 - R^2) st}/(R^2 - 2 d R ct + d^2) + {d, 0};
-  {p1, p2, p3}];
-*/
-
 function chapple_d(r,R) {
   return sqrt(R*R - 2*r*R);
 }
@@ -283,30 +268,6 @@ function getBrocardInellipseIsosceles(a,b) {
   const v3p = vflipx(v2p);
   return [[v1, v2, v3], [v1p, v2p, v3p]];
 }
-
-/*
-showPonceletBrocardInellipsePerp[a_, b_, tDeg_, OptionsPattern[]] := 
- Module[{ell, c, fs, gr, pr, pl, v1, v2, v3, brocs, isos, isosL, x3s, 
-   x6s, Rs, clrs, x186s, x39, ws, s1s, s2s, s3s, As, t, p0, v1s, 
-   tangs, feet, tris, trisL},
-  isos = getBrocardInellipseIsosceles[a, b];
-  isosL = triLengthsRL /@ isos;
-  x3s = MapThread[getCircumcenterTrilin[#1, #2] &, {isos, isosL}];
-  Rs = MapThread[magn[#1[[1]] - #2] &, {isos, x3s}];
-  clrs = {OptionValue@clrTri1, OptionValue@clrTri2};
-  t = toRad@tDeg;
-  p0 = {-Sin@t, Cos@t};
-  v1s = MapThread[(#1 p0 + #2) &, {Rs, x3s}];
-  tangs = ellTangentsbUnprotNoAbs[a, b, #] & /@ v1s;
-  feet = Transpose@
-    Table[MapThread[
-      farthestPoint[
-        interRayCirc[#1, #2, #3, #4[[i]] - #3], #3] &, {x3s, Rs, v1s, 
-       tangs}], {i, 2}];
-  (*Print@{"x3s",x3s,"Rs",Rs,"v1s",v1s,"tangs",tangs,"feet",feet};*)
-  tris = Table[{v1s[[i]], feet[[i, 1]], feet[[i, 2]]}, {i, 2}];
-  trisL = triLengthsRL /@ tris;
-*/
 
 // derived by ronaldo garcia, Sept 2020.
 function orbit_brocard(a, tDeg) {

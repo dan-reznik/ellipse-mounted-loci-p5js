@@ -758,6 +758,11 @@ function get_mounted_tri(a, tDeg, v2, v3) {
   return { o: tri, n: normals, s: sides };
 }
 
+function get_graves_triangle(p1,ac,bc) {
+  const ts = ellTangentsb(ac,bc,p1);
+  return [p1,ts[0],ts[1]];
+}
+
 function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   let ret_tri = { o: orbit, s: sides };
 
@@ -770,6 +775,11 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   } else if (tri_type in dict_tri_fns_inv) {
     const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_invert(tri_type, a, mounting) /*dict_tri_fns_inv[tri_type].fn(a)*/)
     ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
+  } else if (tri_type=="graves") {
+    // some poncelet families have the "caustic" wrong.
+    const [ac,bc] = ["inellipse","brocard","excentral"].includes(mounting)?[a,1]:dict_caustic[mounting](a);
+    const tri0 = get_graves_triangle(orbit[0],ac,bc);
+    ret_tri = { o: tri0, s: tri_sides(tri0) };
   } else if (tri_type in dict_tri_fns) { // "reference" returns itself
     const ts = dict_tri_fns[tri_type](sides);
     const tri0 = generic_triangle(orbit, sides, ts);
@@ -861,6 +871,7 @@ function trilins_to_barys(ts,sides) {
   return bs;
 }
 
+/*
 function get_derived_tri_v1_barys(sides, tri_type) {
   if (tri_type in dict_tri_fns) { // "reference" returns itself
     const ts = dict_tri_fns[tri_type](sides);
@@ -871,6 +882,7 @@ function get_derived_tri_v1_barys(sides, tri_type) {
   } else
     return [sides[0], 0, 0]; // reference tri v1 in baris
 }
+*/
 
 //barycentrics of vertex are opposite sidelengths
 function get_tri_v1_barys(sides) {

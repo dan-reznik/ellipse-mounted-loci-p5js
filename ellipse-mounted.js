@@ -22,27 +22,6 @@ function getV2V3(a, mounting, eps) {
         TL_BR: [[-a, -1], [a, 1]]
     };
     return mounting in dict_v2v3 ? dict_v2v3[mounting] : [[-a, 1], [a, -1]];
-    /*  
-     switch (mounting) {
-         case "fs": return [f1, f2];
-         case "fsCtr": return [f2, [eps, eps]];
-         case "fsLeft": return [f1, [a, 0]];
-         case "fsRight": return [f2, [a, 0]];
-         case "fsTop": return [f2, [0, -1]];
-         case "major": return [[-a, 0], [a, 0]];
-         case "minor": return [[0, 1], [0, -1]];
-         case "mixed": return [[a, 0], [0, -1]];
-         case "ctrMajor": return [[eps, 0], [a, 0]];
-         case "ctrMinor": return [[eps, 0], [0, -1]];
-         case "cornerTL_BL": return [[-a, -1], [-a, 1]];
-         case "cornerTL_TR": return [[-a, -1], [a, -1]];
-         case "cornerTL_vtxL": return [[-a, -1], [-a, 0]];
-         case "cornerTL_vtxT": return [[-a, -1], [0, -1]];
-         case "cornerTL_vtxB": return [[-a, -1], [0, 1]];
-         case "cornerTL_ctr": return [[-a, -1], [eps, eps]];
-         case "cornerTL_BR": return [[-a, -1], [a, 1]];
-         default: return [[-a, 1], [a, -1]];
-     } */
 }
 
 function get_Xn_mounted_low(a,tDeg,v2,v3,tri_type,cpn,pn,inv,inv_fn,mounting,circ) {
