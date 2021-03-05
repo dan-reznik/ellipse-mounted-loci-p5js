@@ -775,7 +775,7 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   } else if (tri_type in dict_tri_fns_inv) {
     const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_invert(tri_type, a, mounting) /*dict_tri_fns_inv[tri_type].fn(a)*/)
     ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
-  } else if (tri_type=="graves") {
+  } else if (mounting in dict_caustic && tri_type=="graves") {
     // some poncelet families have the "caustic" wrong.
     const [ac,bc] = ["inellipse","brocard","excentral"].includes(mounting)?[a,1]:dict_caustic[mounting](a);
     const tri0 = get_graves_triangle(orbit[0],ac,bc);
