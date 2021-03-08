@@ -206,7 +206,8 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="tripolar">trilin-polar</option>
             <option value="polar">polar</option>
             <option value="polar_exc">polar-exc</option>
-        </select>
+            <option value="three_ctrs">3-ctrs</option>
+            </select>
 
         <div class='P_input_text'>
             <button id="minus_Pn`+xn_number+`" class="plus_minus minus"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>

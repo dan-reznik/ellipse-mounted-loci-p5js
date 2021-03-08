@@ -58,7 +58,8 @@ const dict_tri_pfns = {
   antipedal: {fn:antipedal_triangle, needs_tri:false},
   tripolar: {fn:tripolar_triangle, needs_tri:true},
   polar: {fn:polar_triangle, needs_tri:true},
-  polar_exc: {fn:polar_exc_triangle, needs_tri:true}
+  polar_exc: {fn:polar_exc_triangle, needs_tri:true},
+  three_ctrs: {fn: three_ctrs_triangle,needs_tri:true},
 };
 
 const dict_tri_fns_inv = {
@@ -79,6 +80,18 @@ const dict_tri_fns_bicentric = {
   ped_lim2: get_polar_pedal_lim2,
   pol_f1: get_polar_f1
 };
+
+function get_circumcenter(tri) {
+  const sides = tri_sides(tri);
+  const x3 = get_Xn_cartesians(3,tri,sides);
+  return x3;
+}
+
+function get_incenter(tri) {
+  const sides = tri_sides(tri);
+  const x1 = get_Xn_cartesians(1,tri,sides);
+  return x1;
+}
 
 function rotate_tri_left([p1, p2, p3]) {
   return [p2, p3, p1];
@@ -207,6 +220,13 @@ function polar_exc_triangle(o, s, ts) {
   const tri = invs.map((i, k) => inter_rays(i, perps[k], invs[k==2?0:k+1], perps[k==2?0:k+1]));
   return tri;
 }
+
+function three_ctrs_triangle(o, s, ts) {
+  const xn = trilin_to_cartesian(o,s,ts);
+  const tri = o.map((v,k)=>get_circumcenter([xn,v,o[k==2?0:k+1]]));
+  return tri;
+}
+
 
 function pedal_triangle([a, b, c], [alpha, beta, gamma]) {
   const cA = law_of_cosines(a, b, c);
