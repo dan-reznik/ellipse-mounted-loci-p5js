@@ -28,14 +28,14 @@ const tri_area = (sides) => Math.sqrt(tri_area2(sides));
 function get_inradius(sides) {
   const area = tri_area(sides);
   const s = get_semiperimeter(sides);
-  return area / s;
+  return safe_div(area, s);
 }
 
 function get_circumradius(sides) {
   const abc = product(sides);
   const r = get_inradius(sides);
   const s = get_semiperimeter(sides);
-  return abc / (4 * r * s);
+  return safe_div(abc, (4 * r * s));
 }
 
 function cot_omega(sides) {

@@ -60,7 +60,7 @@ function get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
     const ons_derived0 = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
     const ons_derived = inv == "tri" ? invert_tri(ons_derived0, inv_fn) :
     inv=="polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting) : ons_derived0;
-    return ons_derived;
+    return {inv_fn:inv_fn,ons:ons,derived0:ons_derived0,derived:ons_derived};
 }
 
 function get_poncelet_derived(a, tDeg, orbit_fn, mounting, tri_type, cpn, pn, circ, inv) {
@@ -69,7 +69,7 @@ function get_poncelet_derived(a, tDeg, orbit_fn, mounting, tri_type, cpn, pn, ci
     const ons_derived0 = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
     const ons_derived = inv == "tri" ? invert_tri(ons_derived0, inv_fn) :
     inv=="polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting)  : ons_derived0;
-    return ons_derived;
+    return {inv_fn:inv_fn,ons:ons,derived0:ons_derived0,derived:ons_derived};
 }
 
 function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus_type, dr_tri,
@@ -96,7 +96,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     }
 
     if (locus_type != 'none') {
-        const tri_fn = (a0, tDeg0) => get_mounted_derived(a0, tDeg0, mounting, tri_type, cpn, pn, circ, inv);
+        const tri_fn = (a0, tDeg0) => get_mounted_derived(a0, tDeg0, mounting, tri_type, cpn, pn, circ, inv).derived;
         const env = locus_type in dict_caustic_n ? get_side_envelope(a, tDeg, tri_fn, dict_caustic_n[locus_type]) :
             locus_type == "env" && (n != pn) ? get_two_point_envelope(a, tDeg,
                 tri_fn, get_fn_bary(n), get_fn_bary(pn)) : [0, 0];

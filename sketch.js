@@ -1,33 +1,33 @@
 let glob = {
-   width:0,
-   height:0,
-   ctr0:[0,0],
-   ctr:[0,0],
-   mouse:[0,0],
-   scale0 : 6,
+   width: 0,
+   height: 0,
+   ctr0: [0, 0],
+   ctr: [0, 0],
+   mouse: [0, 0],
+   scale0: 6,
    // scale, scale0 should be on ui
-   scale : 6, // = scale0
-   dragged : false,
-   click_ell : false,
-   loop_ccw : true,
-   loop : true,
-   tDeg : 0,
-   slider_focus : 'X',
+   scale: 6, // = scale0
+   dragged: false,
+   click_ell: false,
+   loop_ccw: true,
+   loop: true,
+   tDeg: 0,
+   slider_focus: 'X',
    // tri_type_p_selected : true,
-   locus_branched : [null,null,null,null],
-   locus_subpolys : [null,null,null,null],
-   clrs_shuffled : [null,null,null,null],
-   clrs_shuffled_seeds : [[],[],[],[]],
-   ell_detects : ['X','X','X','X'],
+   locus_branched: [null, null, null, null],
+   locus_subpolys: [null, null, null, null],
+   clrs_shuffled: [null, null, null, null],
+   clrs_shuffled_seeds: [[], [], [], []],
+   ell_detects: ['X', 'X', 'X', 'X'],
    jukebox_id: 0, jukebox_json: {}, jukebox_image_index: 0, jsonIsReady: false, jukeboxClicked: 0, jukebox_countdown: 0,
-   scaleFactor : 1,
-   ui0 : {
-      a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4, 
+   scaleFactor: 1,
+   ui0: {
+      a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4,
       ell: true,
       animStep0: "0.500",
-      bg: [5,5,25],
-      rmax : 10.0,
-      rot : "0", // "90", "180", "270"
+      bg: [5, 5, 25],
+      rmax: 10.0,
+      rot: "0", // "90", "180", "270"
       // needs to refactor this
       locus_type_1: 'trilins', locus_type_2: 'none', locus_type_3: 'none', locus_type_4: 'none',
       Xn1: '1', Xn2: '1', Xn3: '1', Xn4: '1',
@@ -40,12 +40,12 @@ let glob = {
       clr3: clr_invert_ui(clr_blue), clr4: clr_invert_ui(clr_purple),
       tandem_loc: false, tandem_mnt: false, tandem_xn: false, tandem_tri: false, tandem_pn: false,
       jukebox_playlist: 'off',
-      fill_alpha: .5, clr_fill_border : clr_white,
-      inv1:'off',inv2:'off',inv3:'off',inv4:'off',
-      circ1:'off',circ2:'off',circ3:'off',circ4:'off'
+      fill_alpha: .5, clr_fill_border: clr_white,
+      inv1: 'off', inv2: 'off', inv3: 'off', inv4: 'off',
+      circ1: 'off', circ2: 'off', circ3: 'off', circ4: 'off'
    },
-   ui : null,
-   url_params : {},
+   ui: null,
+   url_params: {},
 }
 
 function get_glob_indexed() {
@@ -57,9 +57,9 @@ function get_glob_indexed() {
       mountings: [glob.ui.mounting_Xn1, glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4],
       t_types: [glob.ui.tri_type_1, glob.ui.tri_type_2, glob.ui.tri_type_3, glob.ui.tri_type_4],
       cpns: [glob.ui.cpn_1, glob.ui.cpn_2, glob.ui.cpn_3, glob.ui.cpn_4],
-      clrs : [glob.ui.clr1,glob.ui.clr2,glob.ui.clr3,glob.ui.clr4],
-      invs : [glob.ui.inv1,glob.ui.inv2,glob.ui.inv3,glob.ui.inv4],
-      circs: [glob.ui.circ1,glob.ui.circ2,glob.ui.circ3,glob.ui.circ4]
+      clrs: [glob.ui.clr1, glob.ui.clr2, glob.ui.clr3, glob.ui.clr4],
+      invs: [glob.ui.inv1, glob.ui.inv2, glob.ui.inv3, glob.ui.inv4],
+      circs: [glob.ui.circ1, glob.ui.circ2, glob.ui.circ3, glob.ui.circ4]
    }
 }
 
@@ -83,7 +83,7 @@ function create_locus(locus_type_changed, init) {
             g_ind.circs[i],
             g_ind.invs[i]);
          glob.ell_detects[i] = locus_conic(glob.locus_branched[i]);
-         if(init != true){
+         if (init != true) {
             glob.locus_subpolys[i] = null;
             glob.clrs_shuffled_seeds[i] = [];
             glob.clrs_shuffled[i] = null;
@@ -92,15 +92,15 @@ function create_locus(locus_type_changed, init) {
 }
 
 function create_shuffled_clrs(i) {
-   if (glob.clrs_shuffled_seeds[i].length>0) {
-      glob.clrs_shuffled[i] = shuffle_seeded(clrs_crayola.map(c=>c.rgb),
-      glob.clrs_shuffled_seeds[i].last());
+   if (glob.clrs_shuffled_seeds[i].length > 0) {
+      glob.clrs_shuffled[i] = shuffle_seeded(clrs_crayola.map(c => c.rgb),
+         glob.clrs_shuffled_seeds[i].last());
    }
 }
 
-function clicked_on_palette_button(n, right_arrow=true) {
+function clicked_on_palette_button(n, right_arrow = true) {
    const seed = random32() & 0xffff; // 16 bits
-   if(right_arrow)
+   if (right_arrow)
       glob.clrs_shuffled_seeds[n].push(seed);
    else
       glob.clrs_shuffled_seeds[n].pop(seed);
@@ -114,13 +114,13 @@ function clicked_on_palette_button(n, right_arrow=true) {
 }
 
 function create_locus_subpolys(n) {
-   if (glob.locus_branched[n]!=null && glob.locus_subpolys[n] == null) {
-      let finite_loci = glob.locus_branched[n].filter(l=>l.length>20);
-      if (finite_loci.length>0) {
+   if (glob.locus_branched[n] != null && glob.locus_subpolys[n] == null) {
+      let finite_loci = glob.locus_branched[n].filter(l => l.length > 20);
+      if (finite_loci.length > 0) {
          glob.locus_subpolys[n] = locus_subpolys(finite_loci, 0);
          //const seed = +glob.clrs_shuffled_seeds[n].last();
          //if (seed==undefined) console.log("create_locus_subpolys(): undefined seed");
-      //glob.locus_subpolys = locus_separate(glob.locus_branched.filter(l=>l.length>4));
+         //glob.locus_subpolys = locus_separate(glob.locus_branched.filter(l=>l.length>4));
       }
    }
 }
@@ -138,18 +138,18 @@ function recenter() {
    glob.mouse = [glob.width / 2, glob.height / 2];
 }
 
-function fixHamburguerPosition(){
+function fixHamburguerPosition() {
    var canvas = document.getElementById('canvas');
-   
+
    var hamburguerMenu = document.getElementById('menuHamburguer');
    canvas.appendChild(hamburguerMenu)
 }
 
 function windowResized() {
    const locus_types = [glob.ui.locus_type_1, glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4];
-   const locus_ids = ["1","2","3","4"];
+   const locus_ids = ["1", "2", "3", "4"];
    [glob.width, glob.height] = get_window_width_height();
-   locus_ids.map((li,i) => {
+   locus_ids.map((li, i) => {
       if (locus_types[i] !== 'none') {
          ui_changed(li, false);
          redraw()
@@ -170,7 +170,7 @@ function bbox_rescale(n) {
    const locus_types = [glob.ui.locus_type_1, glob.ui.locus_type_2, glob.ui.locus_type_3, glob.ui.locus_type_4];
    const bbox = locus_bbox_ctr(+glob.ui.a, locus_types[n - 1], glob.locus_branched[n - 1], glob.width / glob.height, glob.scale0);
    glob.scale = bbox.scale;
-   glob.ctr = [glob.width/2-bbox.ctr_x*(glob.width/glob.scale),glob.height/2-bbox.ctr_y*(glob.width/glob.scale)];
+   glob.ctr = [glob.width / 2 - bbox.ctr_x * (glob.width / glob.scale), glob.height / 2 - bbox.ctr_y * (glob.width / glob.scale)];
    ui_changed_type(false);
    redraw();
 }
@@ -180,7 +180,7 @@ function setup() {
    recenter();
    reset_ui();
    url_params = getURLParams();
-   if(Object.keys(url_params).length > 0) {set_url_params(url_params);}
+   if (Object.keys(url_params).length > 0) { set_url_params(url_params); }
    let canvas = createCanvas(glob.width, glob.height);
    canvas.parent('canvas');
    setup_ui();
@@ -189,31 +189,44 @@ function setup() {
    //frameRate(15);
 }
 
-isBackgroundLuminanceLow = (bg) => get_luminance(bg)<0.5;
+isBackgroundLuminanceLow = (bg) => get_luminance(bg) < 0.5;
 
 function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
    const orbit = mounting in dict_orbit_fn ?
-   get_poncelet_derived(a, tDeg, dict_orbit_fn[mounting], mounting, tri_type, cpn, pn, circ, inv):
-   get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv);
-   return orbit;
+      get_poncelet_derived(a, tDeg, dict_orbit_fn[mounting], mounting, tri_type, cpn, pn, circ, inv) :
+      get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv);
+   const A = tri_area(orbit.ons.s);
+   const L = 2.0 * get_semiperimeter(orbit.ons.s);
+   const r = get_inradius(orbit.ons.s);
+   const R = get_circumradius(orbit.ons.s);
+   const not_ref = tri_type != "reference" || inv != "off" || cpn != "off";
+   const derA = not_ref ? tri_area(orbit.derived.s) : A;
+   const derL = not_ref ? 2.0 * get_semiperimeter(orbit.derived.s) : L;
+   const derr = not_ref ? get_inradius(orbit.derived.s) : r;
+   const derR = not_ref ? get_circumradius(orbit.derived.s) : R;
+
+   const str = not_ref ?
+      sprintf("L=%.5f, A=%.5f. r=%.5f, R=%.5f, r/R=%.5f\nL'=%.5f, A'=%.5f, r'=%.5f, R'=%.5f, r'/R'=%.5f\nL'/L=%.5f, A'/A=%.5f", L, A, r, R, safe_div(r, R), derL, derA, derr, derR, safe_div(derr, derR), safe_div(derL, L), safe_div(derA, A)) :
+      sprintf("L=%.5f, A=%.5f, r=%.5f, R=%.5f, r/R=%.5f", L, A, r, R, safe_div(r, R));
+   return { o: orbit.derived.o, s: orbit.derived.s, L: L, A: A, str: str, lines: not_ref ? 3 : 1 };
 }
 
 function draw() {
-   const dict_rot = {"0":0, "90":PI/2, "180":PI, "270":-PI/2, "-90":-PI/2};
+   const dict_rot = { "0": 0, "90": PI / 2, "180": PI, "270": -PI / 2, "-90": -PI / 2 };
    // vamos usar glob.bg;
    background(...glob.ui.bg); // (220, 220, 200);
 
    push();
    translate(glob.ctr[0], glob.ctr[1]);
-   scale(glob.width / (glob.scale*glob.scaleFactor));
+   scale(glob.width / (glob.scale * glob.scaleFactor));
    rotate(dict_rot[glob.ui.rot]);
-   let stroke_w = sqrt(glob.scale*glob.scaleFactor/glob.scale0)*.02;
+   let stroke_w = sqrt(glob.scale * glob.scaleFactor / glob.scale0) * .02;
 
-   if(glob.ui.ell)
-      draw_ellipse(glob.ui.mounting_Xn1=="poristic"?1:+glob.ui.a,
-      isBackgroundLuminanceLow(glob.ui.bg) ? clr_white : clr_black,
-      isBackgroundLuminanceLow(glob.ui.bg) ? clr_gray : clr_light_gray,
-      stroke_w,glob.ui.mounting_Xn1!=="poristic");
+   if (glob.ui.ell)
+      draw_ellipse(glob.ui.mounting_Xn1 == "poristic" ? 1 : +glob.ui.a,
+         isBackgroundLuminanceLow(glob.ui.bg) ? clr_white : clr_black,
+         isBackgroundLuminanceLow(glob.ui.bg) ? clr_gray : clr_light_gray,
+         stroke_w, glob.ui.mounting_Xn1 !== "poristic");
 
    // need to refactor glob.* so there is one object
 
@@ -223,28 +236,27 @@ function draw() {
    for (let i = 0; i < g_ind.Xns.length; i++) {
       draw_billiard_or_mounted_branched(a, glob.tDeg, glob.ui.rot, stroke_w, glob.ui.ell,
          g_ind.clrs[i], g_ind.Xns[i], glob.locus_branched[i], g_ind.l_types[i], g_ind.dr_tris[i], g_ind.mountings[i],
-         g_ind.t_types[i], g_ind.cpns[i], g_ind.Pns[i], glob.ell_detects[i], glob.locus_subpolys[i]==null,
-         g_ind.circs[i],g_ind.invs[i], clr_brown); //isBackgroundLuminanceLow(glob.ui.bg)?clr_brown:clr_wheat);
+         g_ind.t_types[i], g_ind.cpns[i], g_ind.Pns[i], glob.ell_detects[i], glob.locus_subpolys[i] == null,
+         g_ind.circs[i], g_ind.invs[i], clr_brown); //isBackgroundLuminanceLow(glob.ui.bg)?clr_brown:clr_wheat);
 
-         // experimenting with coloring &&&
-         //create_locus_subpolys(0)
-         draw_locus_subpolys(glob.locus_subpolys[i], glob.clrs_shuffled[i],  stroke_w, glob.ui.fill_alpha, glob.ui.clr_fill_border);
-      }
+      // experimenting with coloring &&&
+      //create_locus_subpolys(0)
+      draw_locus_subpolys(glob.locus_subpolys[i], glob.clrs_shuffled[i], stroke_w, glob.ui.fill_alpha, glob.ui.clr_fill_border);
+   }
    a_anim();
 
    pop();
-   
-   const canvasTextColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_blue) : clr_blue; 
+
+   const canvasTextColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_blue) : clr_blue;
    // &&& WORKING HERE
-   const orbit_info = get_orbit_info_both(a, glob.tDeg, g_ind.mountings[0], g_ind.t_types[0],
-      g_ind.cpns[0], g_ind.Pns[0], g_ind.circs[0],g_ind.invs[0]);
-   const orbit_info_A = tri_area(orbit_info.s);
-   const orbit_info_L = 2.0*get_semiperimeter(orbit_info.s);
-   const orbit_info_str = sprintf("L=%.5f, A=%.5f", orbit_info_L,orbit_info_A);
-   draw_text_full(orbit_info_str,[10, glob.height - 10], canvasTextColor);
+   if (glob.ui.ell) {
+      const orbit_info = get_orbit_info_both(a, glob.tDeg, g_ind.mountings[0], g_ind.t_types[0],
+         g_ind.cpns[0], g_ind.Pns[0], g_ind.circs[0], g_ind.invs[0]);
+      draw_text_full(orbit_info.str, [10, glob.height - 12 * orbit_info.lines], canvasTextColor);
+   }
 
 
-   if(glob.jsonIsReady && glob.ui.jukebox_playlist != 'off'){
+   if (glob.jsonIsReady && glob.ui.jukebox_playlist != 'off') {
       draw_text_full(glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['name'][glob.jukebox_image_index], [5, 15], canvasTextColor);
       draw_text_full(`http://bit.ly/${glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['bit.ly'][glob.jukebox_image_index]}`, [5, 30], canvasTextColor);
    }
@@ -278,7 +290,7 @@ function mouseDragged() {
       if (!glob.loop) {
          ui_changed_type(false);
          redraw();
-      } 
+      }
    }
 }
 
