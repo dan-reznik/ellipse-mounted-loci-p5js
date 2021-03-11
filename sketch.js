@@ -199,25 +199,42 @@ function get_LArR(sides) {
    return {L:L,A:A,r:r,R:R,rR:safe_div(r,R)};
 }
 
+function get_info_arr(info,not_ref) {
+   return not_ref?
+   [info.L, info.A, info.r, info.R, info.rR, info_der.L, info_der.A, info_der.r, info_der.R, info_der.rR,
+   safe_div(info_der.L, info.L), safe_div(info_der.A, info.A), info_der.A*info.A]:
+   [info.L, info.A, info.r, info.R, info.rR];
+}
+
 function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
+   const not_ref = tri_type != "reference" || (inv != "off"&&circ!="off") || cpn != "off";
    const orbit = mounting in dict_orbit_fn ?
       get_poncelet_derived(a, tDeg, dict_orbit_fn[mounting], mounting, tri_type, cpn, pn, circ, inv) :
       get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv);
    const info = get_LArR(orbit.ons.s);
-   const not_ref = tri_type != "reference" || (inv != "off"&&circ!="off") || cpn != "off";
-   const info_der = not_ref ? get_LArR(orbit.derived.s) : info;
+   //const info_der = not_ref ? get_LArR(orbit.derived.s) : info;
 
-   /* to do ... only show invariants &&& */
-   /*const orbit2 = mounting in dict_orbit_fn ?
-      get_poncelet_derived(a, tDeg+11., dict_orbit_fn[mounting], mounting, tri_type, cpn, pn, circ, inv) :
-      get_mounted_derived(a, tDeg+11., mounting, tri_type, cpn, pn, circ, inv);*/
+      /* to do ... only show invariants &&& */
+   const orbit2 = mounting in dict_orbit_fn ?
+      get_poncelet_derived(a, tDeg+5., dict_orbit_fn[mounting], mounting, tri_type, cpn, pn, circ, inv) :
+      get_mounted_derived(a, tDeg+5., mounting, tri_type, cpn, pn, circ, inv);
+   const info2 = get_LArR(orbit2.ons.s);
+   //const info2_der = not_ref ? get_LArR(orbit2.derived.s) : info;
 
-   const str0 = sprintf("L=%.5f, A=%.5f, r=%.5f, R=%.5f, r/R=%.5f", info.L, info.A, info.r, info.R, info.rR);
-   const str = not_ref ? str0 + sprintf("\nL'=%.5f, A'=%.5f, r'=%.5f, R'=%.5f, r'/R'=%.5f"+
-      "\nL'/L=%.5f, A'/A=%.5f, A'.A=%.5f",
-      info_der.L, info_der.A, info_der.r, info_der.R, info_der.rR,
-      safe_div(info_der.L, info.L), safe_div(info_der.A, info.A), info_der.A*info.A) : str0;
-   return { o: orbit.derived.o, s: orbit.derived.s, L: info.L, A: info.A, str: str, lines: not_ref ? 3 : 1 };
+   const labs = not_ref ?
+   ["L", "A", "r", "R", "r/R", "L'", "A'", "r'", "R'", "r'/R'","L'/L", "A'/A", "A'.A"]:
+   ["L", "A", "r", "R", "r/R"];
+   const vals = get_info_arr(info,not_ref);
+   const vals2 = get_info_arr(info2,not_ref);
+   let str_invs = [];
+   labs.map((l,i)=> {if(!negl2(vals[i]*vals2[i])&&negl(vals[i]-vals2[i])) str_invs.push(sprintf(l+"=%.5f",vals[i]));});
+
+   //const str0 = sprintf("L=%.5f, A=%.5f, r=%.5f, R=%.5f, r/R=%.5f", info.L, info.A, info.r, info.R, info.rR);
+   //const str = not_ref ? str0 + sprintf("\nL'=%.5f, A'=%.5f, r'=%.5f, R'=%.5f, r'/R'=%.5f"+
+   //   "\nL'/L=%.5f, A'/A=%.5f, A'.A=%.5f",
+   //   info_der.L, info_der.A, info_der.r, info_der.R, info_der.rR,
+   //   safe_div(info_der.L, info.L), safe_div(info_der.A, info.A), info_der.A*info.A) : str0;
+   return { o: orbit.derived.o, s: orbit.derived.s, L: info.L, A: info.A, str: str_invs.join(", "), lines: not_ref ? /*3*/1 : 1 };
 }
 
 function draw() {
