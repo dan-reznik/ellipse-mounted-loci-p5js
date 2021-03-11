@@ -191,6 +191,13 @@ function setup() {
 
 isBackgroundLuminanceLow = (bg) => get_luminance(bg)<0.5;
 
+function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
+   const orbit = mounting in dict_orbit_fn ?
+   get_poncelet_derived(a, tDeg, dict_orbit_fn[mounting], mounting, tri_type, cpn, pn, circ, inv):
+   get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv);
+   return orbit;
+}
+
 function draw() {
    const dict_rot = {"0":0, "90":PI/2, "180":PI, "270":-PI/2, "-90":-PI/2};
    // vamos usar glob.bg;
@@ -226,7 +233,16 @@ function draw() {
    a_anim();
 
    pop();
+   
    const canvasTextColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_blue) : clr_blue; 
+   // &&& WORKING HERE
+   const orbit_info = get_orbit_info_both(a, glob.tDeg, g_ind.mountings[0], g_ind.t_types[0],
+      g_ind.cpns[0], g_ind.Pns[0], g_ind.circs[0],g_ind.invs[0]);
+   const orbit_info_A = tri_area(orbit_info.s);
+   const orbit_info_L = 2.0*get_semiperimeter(orbit_info.s);
+   const orbit_info_str = sprintf("L=%.4f, A=%.4f", orbit_info_A,orbit_info_L);
+   draw_text_full(orbit_info_str,[10, glob.height - 10], canvasTextColor);
+
 
    if(glob.jsonIsReady && glob.ui.jukebox_playlist != 'off'){
       draw_text_full(glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['name'][glob.jukebox_image_index], [5, 15], canvasTextColor);

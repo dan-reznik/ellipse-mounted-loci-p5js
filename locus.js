@@ -63,6 +63,15 @@ function get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
     return ons_derived;
 }
 
+function get_poncelet_derived(a, tDeg, orbit_fn, mounting, tri_type, cpn, pn, circ, inv) {
+    const inv_fn = get_inv_fn(a, circ, inv, mounting);
+    let ons = orbit_fn(a, tDeg);
+    const ons_derived0 = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
+    const ons_derived = inv == "tri" ? invert_tri(ons_derived0, inv_fn) :
+    inv=="polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting)  : ons_derived0;
+    return ons_derived;
+}
+
 function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus_type, dr_tri,
     mounting, tri_type, cpn, pn, stroke_w, ell_detect, draw_label, circ, inv) {
     const inv_fn = get_inv_fn(a, circ, inv, mounting);
