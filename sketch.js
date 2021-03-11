@@ -191,27 +191,33 @@ function setup() {
 
 isBackgroundLuminanceLow = (bg) => get_luminance(bg) < 0.5;
 
+function get_LArR(sides) {
+   const L = 2.0 * get_semiperimeter(sides);
+   const A = tri_area(sides);
+   const r = get_inradius(sides);
+   const R = get_circumradius(sides);
+   return {L:L,A:A,r:r,R:R,rR:safe_div(r,R)};
+}
+
 function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
    const orbit = mounting in dict_orbit_fn ?
       get_poncelet_derived(a, tDeg, dict_orbit_fn[mounting], mounting, tri_type, cpn, pn, circ, inv) :
       get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv);
-   const A = tri_area(orbit.ons.s);
-   const L = 2.0 * get_semiperimeter(orbit.ons.s);
-   const r = get_inradius(orbit.ons.s);
-   const R = get_circumradius(orbit.ons.s);
-   const not_ref = tri_type != "reference" || inv != "off" || cpn != "off";
-   const derA = not_ref ? tri_area(orbit.derived.s) : A;
-   const derL = not_ref ? 2.0 * get_semiperimeter(orbit.derived.s) : L;
-   const derr = not_ref ? get_inradius(orbit.derived.s) : r;
-   const derR = not_ref ? get_circumradius(orbit.derived.s) : R;
+   const info = get_LArR(orbit.ons.s);
+   const not_ref = tri_type != "reference" || (inv != "off"&&circ!="off") || cpn != "off";
+   const info_der = not_ref ? get_LArR(orbit.derived.s) : info;
 
-   const str = not_ref ?
-      sprintf("L=%.5f, A=%.5f. r=%.5f, R=%.5f, r/R=%.5f"+
-      "\nL'=%.5f, A'=%.5f, r'=%.5f, R'=%.5f, r'/R'=%.5f"+
+   /* to do ... only show invariants &&& */
+   /*const orbit2 = mounting in dict_orbit_fn ?
+      get_poncelet_derived(a, tDeg+11., dict_orbit_fn[mounting], mounting, tri_type, cpn, pn, circ, inv) :
+      get_mounted_derived(a, tDeg+11., mounting, tri_type, cpn, pn, circ, inv);*/
+
+   const str0 = sprintf("L=%.5f, A=%.5f, r=%.5f, R=%.5f, r/R=%.5f", info.L, info.A, info.r, info.R, info.rR);
+   const str = not_ref ? str0 + sprintf("\nL'=%.5f, A'=%.5f, r'=%.5f, R'=%.5f, r'/R'=%.5f"+
       "\nL'/L=%.5f, A'/A=%.5f, A'.A=%.5f",
-      L, A, r, R, safe_div(r, R), derL, derA, derr, derR, safe_div(derr, derR), safe_div(derL, L), safe_div(derA, A), derA*A) :
-      sprintf("L=%.5f, A=%.5f, r=%.5f, R=%.5f, r/R=%.5f", L, A, r, R, safe_div(r, R));
-   return { o: orbit.derived.o, s: orbit.derived.s, L: L, A: A, str: str, lines: not_ref ? 3 : 1 };
+      info_der.L, info_der.A, info_der.r, info_der.R, info_der.rR,
+      safe_div(info_der.L, info.L), safe_div(info_der.A, info.A), info_der.A*info.A) : str0;
+   return { o: orbit.derived.o, s: orbit.derived.s, L: info.L, A: info.A, str: str, lines: not_ref ? 3 : 1 };
 }
 
 function draw() {
