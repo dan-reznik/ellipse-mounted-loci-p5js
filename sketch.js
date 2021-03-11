@@ -206,7 +206,10 @@ function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
    const derR = not_ref ? get_circumradius(orbit.derived.s) : R;
 
    const str = not_ref ?
-      sprintf("L=%.5f, A=%.5f. r=%.5f, R=%.5f, r/R=%.5f\nL'=%.5f, A'=%.5f, r'=%.5f, R'=%.5f, r'/R'=%.5f\nL'/L=%.5f, A'/A=%.5f", L, A, r, R, safe_div(r, R), derL, derA, derr, derR, safe_div(derr, derR), safe_div(derL, L), safe_div(derA, A)) :
+      sprintf("L=%.5f, A=%.5f. r=%.5f, R=%.5f, r/R=%.5f"+
+      "\nL'=%.5f, A'=%.5f, r'=%.5f, R'=%.5f, r'/R'=%.5f"+
+      "\nL'/L=%.5f, A'/A=%.5f, A'.A=%.5f",
+      L, A, r, R, safe_div(r, R), derL, derA, derr, derR, safe_div(derr, derR), safe_div(derL, L), safe_div(derA, A), derA*A) :
       sprintf("L=%.5f, A=%.5f, r=%.5f, R=%.5f, r/R=%.5f", L, A, r, R, safe_div(r, R));
    return { o: orbit.derived.o, s: orbit.derived.s, L: L, A: A, str: str, lines: not_ref ? 3 : 1 };
 }
