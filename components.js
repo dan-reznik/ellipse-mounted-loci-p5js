@@ -146,6 +146,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="crem_f1">*crem-f1*</option>
             <option value="crem_f2">*crem-f2*</option>
             <option value="crem_ctr">*crem-ctr*</option>
+            <option value="andromeda">andromeda</option>
             <option value="anticompl">anticompl</option>
             <option value="atik">atik</option>
             <option value="bci">bci</option>

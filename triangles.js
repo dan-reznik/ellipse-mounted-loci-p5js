@@ -46,7 +46,8 @@ const dict_tri_fns = {
   lucascentral: lucas_central_triangle,
   lucasinner: lucas_inner_triangle,
   lucastangents: lucas_tangents_triangle,
-  atik: atik_triangle
+  atik: atik_triangle,
+  andromeda: andromeda_triangle
 };
 
 const dict_tri_pfns = {
@@ -532,6 +533,28 @@ function bci_triangle([a, b, c]) {
     [1 + 2 * chb, 1 + 2 * cha, 1]
   ];
   return ts; // generic_triangle(orbit,[a,b,c],ts);
+}
+
+/*
+function template_triangle([a,b,c]) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  const ts = [
+    [, , ,],
+    [, , ,],
+    [, , ,]
+  ];
+  return ts;
+}
+*/
+
+function andromeda_triangle([a,b,c]) {
+  const row_fn = (a,b,c) => {const a2=a*a,bc2=(b-c)**2; return [(a2+3*bc2)/(3*a2+bc2), 1, 1]};
+  const ts = [
+    row_fn(a,b,c),
+    rotate_tri_right(row_fn(b,c,a)),
+    rotate_tri_left(row_fn(c,a,b))
+  ];
+  return ts;
 }
 
 function atik_triangle([a,b,c]) {
