@@ -240,7 +240,7 @@ function draw() {
       g_ind.cpns[0], g_ind.Pns[0], g_ind.circs[0],g_ind.invs[0]);
    const orbit_info_A = tri_area(orbit_info.s);
    const orbit_info_L = 2.0*get_semiperimeter(orbit_info.s);
-   const orbit_info_str = sprintf("L=%.4f, A=%.4f", orbit_info_A,orbit_info_L);
+   const orbit_info_str = sprintf("L=%.5f, A=%.5f", orbit_info_L,orbit_info_A);
    draw_text_full(orbit_info_str,[10, glob.height - 10], canvasTextColor);
 
 
