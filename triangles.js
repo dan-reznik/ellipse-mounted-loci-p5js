@@ -1,96 +1,12 @@
-const dict_tri_fns = {
-  // reference        : reference_triangle,
-  excentral: excentral_triangle,
-  medial: medial_triangle,
-  anticompl: anticompl_triangle,
-  orthic: orthic_triangle,
-  intouch: intouch_triangle,
-  extouch: extouch_triangle,
-  tangential: tangential_triangle,
-  tangentialmidarc: tangential_midarc_triangle,
-  extangents: extangents_triangle,
-  intangents: intangents_triangle,
-  euler: euler_triangle,
-  halfaltitude: halfaltitude_triangle,
-  hexyl: hexyl_triangle,
-  feuerbach: feuerbach_triangle,
-  symmedial: symmedial_triangle,
-  circumorthic: circumorthic_triangle,
-  circummedial: circummedial_triangle,
-  circummidarc: circummidarc_triangle,
-  morley1: first_morley_adjunct_triangle,
-  morley2: second_morley_adjunct_triangle,
-  morley3: third_morley_adjunct_triangle,
-  incentral: incentral_triangle,
-  fuhrmann: fuhrmann_triangle,
-  macbeath: macbeath_triangle,
-  steiner: steiner_triangle,
-  lemoine: lemoine_triangle,
-  johnson: johnson_triangle,
-  bci: bci_triangle,
-  yffcontact: yffcontact_triangle,
-  yffcentral: yffcentral_triangle,
-  reflection: reflection_triangle,
-  brocard1: first_brocard_triangle,
-  brocard2: second_brocard_triangle,
-  brocard3: third_brocard_triangle,
-  brocard4: fourth_brocard_triangle,
-  brocard5: fifth_brocard_triangle,
-  brocard6: sixth_brocard_triangle,
-  brocard7: seventh_brocard_triangle,
-  neuberg1: first_neuberg_triangle,
-  neuberg2: second_neuberg_triangle,
-  outervecten: outer_vecten_triangle,
-  innervecten: inner_vecten_triangle,
-  mixtilinear: mixtilinear_triangle,
-  lucascentral: lucas_central_triangle,
-  lucasinner: lucas_inner_triangle,
-  lucastangents: lucas_tangents_triangle,
-  atik: atik_triangle,
-  andromeda: andromeda_triangle
-};
-
-const dict_tri_pfns = {
-  // reference        : reference_triangle,
-  cevian: {fn:cevian_triangle,needs_tri:false},
-  anticevian: {fn:anticevian_triangle,needs_tri:false},
-  circumcevian: {fn: circumcevian_triangle,needs_tri:false},
-  pedal: {fn:pedal_triangle, needs_tri:false},
-  antipedal: {fn:antipedal_triangle, needs_tri:false},
-  tripolar: {fn:tripolar_triangle, needs_tri:true},
-  polar: {fn:polar_triangle, needs_tri:true},
-  polar_exc: {fn:polar_exc_triangle, needs_tri:true},
-  three_ctrs: {fn: three_ctrs_triangle,needs_tri:true},
-};
-
-const dict_tri_fns_inv = {
-  inv_f1: {fn:circle_f1,caustic:false},
-  inv_f1c: {fn:circle_f1c,caustic:true},
-  inv_f2: {fn:circle_f2,caustic:false},
-  inv_ctr: {fn:circle_ctr,caustic:false},
-  // not inversion proper but pedal of bicentric wrt to f2
-};
-
-const dict_tri_fns_cremona = {
-  crem_f1: cremona_f1,
-  crem_f2: cremona_f2,
-  crem_ctr: cremona_ctr
-};
-
-const dict_tri_fns_bicentric = {
-  ped_lim2: get_polar_pedal_lim2,
-  pol_f1: get_polar_f1
-};
-
 function get_circumcenter(tri) {
   const sides = tri_sides(tri);
-  const x3 = get_Xn_cartesians(3,tri,sides);
+  const x3 = get_Xn_cartesians(3, tri, sides);
   return x3;
 }
 
 function get_incenter(tri) {
   const sides = tri_sides(tri);
-  const x1 = get_Xn_cartesians(1,tri,sides);
+  const x1 = get_Xn_cartesians(1, tri, sides);
   return x1;
 }
 
@@ -193,38 +109,38 @@ function tripolar_triangle(o, s, ts) {
 
 // (i) invert, and (ii) get antipedal
 function polar_triangle(o, s, ts) {
-  const xn = trilin_to_cartesian(o,s,ts);
-  const inv_fn = (tri, sides, p) => circle_inversion(p, {ctr:xn,R:1});
-  const inv_tri = invert_tri({o,s},inv_fn);
-  const inv_ts = get_trilins(xn,inv_tri.o,inv_tri.s);
-  const antiped_ts = antipedal_triangle(inv_tri.s,inv_ts);
+  const xn = trilin_to_cartesian(o, s, ts);
+  const inv_fn = (tri, sides, p) => circle_inversion(p, { ctr: xn, R: 1 });
+  const inv_tri = invert_tri({ o, s }, inv_fn);
+  const inv_ts = get_trilins(xn, inv_tri.o, inv_tri.s);
+  const antiped_ts = antipedal_triangle(inv_tri.s, inv_ts);
   const antiped = generic_triangle(inv_tri.o, inv_tri.s, antiped_ts)
   return antiped;
 }
 
 // (i) get pedal, and (ii) invert: actually congruent with polar, so not used!
 function antipolar_triangle(o, s, ts) {
-  const xn = trilin_to_cartesian(o,s,ts);
-  const ped_ts = pedal_triangle(s,ts);
+  const xn = trilin_to_cartesian(o, s, ts);
+  const ped_ts = pedal_triangle(s, ts);
   const ped_tri = generic_triangle(o, s, ped_ts);
-  const inv_fn = (tri, sides, p) => circle_inversion(p, {ctr:xn,R:1});
-  const inv_tri = invert_tri({o:ped_tri,s:tri_sides(ped_tri)},inv_fn);
+  const inv_fn = (tri, sides, p) => circle_inversion(p, { ctr: xn, R: 1 });
+  const inv_tri = invert_tri({ o: ped_tri, s: tri_sides(ped_tri) }, inv_fn);
   return inv_tri.o;
 }
 
 // get excircles, calculate polars, intersect them
 function polar_exc_triangle(o, s, ts) {
-  const xn = trilin_to_cartesian(o,s,ts);
-  const excircles = get_excircles(o,s);
-  const invs = excircles.map(e=>circle_inversion(xn,e));
-  const perps = invs.map(i=>vperp(vdiff(i,xn)));
-  const tri = invs.map((i, k) => inter_rays(i, perps[k], invs[k==2?0:k+1], perps[k==2?0:k+1]));
+  const xn = trilin_to_cartesian(o, s, ts);
+  const excircles = get_excircles(o, s);
+  const invs = excircles.map(e => circle_inversion(xn, e));
+  const perps = invs.map(i => vperp(vdiff(i, xn)));
+  const tri = invs.map((i, k) => inter_rays(i, perps[k], invs[k == 2 ? 0 : k + 1], perps[k == 2 ? 0 : k + 1]));
   return tri;
 }
 
 function three_ctrs_triangle(o, s, ts) {
-  const xn = trilin_to_cartesian(o,s,ts);
-  const tri = o.map((v,k)=>get_circumcenter([xn,v,o[k==2?0:k+1]]));
+  const xn = trilin_to_cartesian(o, s, ts);
+  const tri = o.map((v, k) => get_circumcenter([xn, v, o[k == 2 ? 0 : k + 1]]));
   return tri;
 }
 
@@ -535,43 +451,10 @@ function bci_triangle([a, b, c]) {
   return ts; // generic_triangle(orbit,[a,b,c],ts);
 }
 
-/*
-function template_triangle([a,b,c]) {
-  const a2=a*a,b2=b*b,c2=c*c;
-  const ts = [
-    [, , ,],
-    [, , ,],
-    [, , ,]
-  ];
-  return ts;
-}
-*/
-
-function andromeda_triangle([a,b,c]) {
-  const row_fn = (a,b,c) => {const a2=a*a,bc2=(b-c)**2; return [(a2+3*bc2)/(3*a2+bc2), 1, 1]};
-  const ts = [
-    row_fn(a,b,c),
-    rotate_tri_right(row_fn(b,c,a)),
-    rotate_tri_left(row_fn(c,a,b))
-  ];
-  return ts;
-}
-
-function atik_triangle([a,b,c]) {
-  const a2=a*a,b2=b*b,c2=c*c;
-  const ts = [
-    [-((b+c)*a2-2*(b2+c2)*a+Math.pow(b+c,3))/a , a2-2*(b-c)*a+(b+3*c)*(b-c), a2-2*(c-b)*a+(c+3*b)*(c-b)],
-    [b2-2*(a-c)*b+(a+3*c)*(a-c),-((c+a)*b2-2*(c2+a2)*b+Math.pow(c+a,3))/b , b2-2*(c-a)*b+(c+3*a)*(c-a)],
-    [c2-2*(a-b)*c+(a+3*b)*(a-b), c2-2*(b-a)*c+(b+3*a)*(b-a),-((a+b)*c2-2*(a2+b2)*c+Math.pow(a+b,3))/c]
-  ];
-  return ts;
-}
-
-
 function circumorthic_triangle([a, b, c]) {
   // x,y,z should be secants and not cos as in
   // https://mathworld.wolfram.com/Circum-OrthicTriangle.html
-  const [x, y, z] = tri_cosines([a, b, c]).map(c0=>1/c0);
+  const [x, y, z] = tri_cosines([a, b, c]).map(c0 => 1 / c0);
   const ts = [
     [-a * y * z, (b * z + c * y) * y, (b * z + c * y) * z],
     [(c * x + a * z) * x, -b * z * x, (c * x + a * z) * z],
@@ -590,7 +473,7 @@ function circummedial_triangle([a, b, c]) {
   //  [c * ca2, -abc, a * ca2],
   //  [b * ab2, a * ab2, -abc]
   //];
-  const [x, y, z] = [a,b,c].map(c0=>1/c0);
+  const [x, y, z] = [a, b, c].map(c0 => 1 / c0);
   const ts = [
     [-a * y * z, (b * z + c * y) * y, (b * z + c * y) * z],
     [(c * x + a * z) * x, -b * z * x, (c * x + a * z) * z],
@@ -801,47 +684,9 @@ function get_mounted_tri(a, tDeg, v2, v3) {
   return { o: tri, n: normals, s: sides };
 }
 
-function get_graves_triangle(p1,ac,bc) {
-  const ts = ellTangentsb(ac,bc,p1);
-  return [p1,ts[0],ts[1]];
-}
-
-function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
-  let ret_tri = { o: orbit, s: sides };
-
-  if (tri_type in dict_tri_fns_bicentric) {
-    const tri0 = dict_tri_fns_bicentric[tri_type](a,1,orbit,sides);
-    ret_tri = { o: tri0, s: tri_sides(tri0) };
-  } else if (tri_type in dict_tri_fns_cremona) {
-    const inv_fn = (tri, sides, p) => dict_tri_fns_cremona[tri_type](a, p)
-    ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
-  } else if (tri_type in dict_tri_fns_inv) {
-    const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_invert(tri_type, a, mounting) /*dict_tri_fns_inv[tri_type].fn(a)*/)
-    ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
-  } else if (mounting in dict_caustic && tri_type=="graves") {
-    // some poncelet families have the "caustic" wrong.
-    const [ac,bc] = ["inellipse","brocard","excentral"].includes(mounting)?[a,1]:dict_caustic[mounting](a);
-    const tri0 = get_graves_triangle(orbit[0],ac,bc);
-    ret_tri = { o: tri0, s: tri_sides(tri0) };
-  } else if (tri_type in dict_tri_fns) { // "reference" returns itself
-    const ts = dict_tri_fns[tri_type](sides);
-    const tri0 = generic_triangle(orbit, sides, ts);
-    ret_tri = { o: tri0, s: tri_sides(tri0) };
-  }
-  
-  if (cpn in dict_tri_pfns) {
-    const bs = get_Xn_bary(ret_tri.s, pn);
-    const ts_p = barys_to_trilins(bs, ret_tri.s);
-    let tri0;
-    if (dict_tri_pfns[cpn].needs_tri)
-       tri0 = dict_tri_pfns[cpn].fn(ret_tri.o,ret_tri.s,ts_p);
-    else {
-      const ts = dict_tri_pfns[cpn].fn(ret_tri.s, ts_p);
-      tri0 = generic_triangle(ret_tri.o, ret_tri.s, ts);
-    }
-    ret_tri = { o: tri0, s: tri_sides(tri0), o_deriv:ret_tri.o, s_deriv:ret_tri.s };
-  } 
-  return ret_tri;
+function get_graves_triangle(p1, ac, bc) {
+  const ts = ellTangentsb(ac, bc, p1);
+  return [p1, ts[0], ts[1]];
 }
 
 function invert_tri({ o, s }, inv_fn) {
@@ -850,18 +695,8 @@ function invert_tri({ o, s }, inv_fn) {
   return { o: o_inv, s: sides_inv };
 }
 
-function get_ctr_R(o,s,circ,a,mounting) {
-  var o0 = null;
-  if (circ in dict_circles)
-    o0 = dict_circles[circ](o,s);
-  else if (circ in dict_tri_fns_inv) {
-    o0 = tri_fns_invert(circ, a, mounting); // dict_tri_fns_inv[circ].fn(a);
-  }
-  return o0;
-}
-
-function polar_tri({ o, s }, inv_fn, circ,a,mounting) {
-  const o0 = get_ctr_R(o,s,circ,a,mounting);
+function polar_tri({ o, s }, inv_fn, circ, a, mounting) {
+  const o0 = get_ctr_R(o, s, circ, a, mounting);
   if (o0) {
     const { ctr, R, n } = o0;
     const o_inv = o.map(v => inv_fn(o, s, v));
@@ -871,25 +706,6 @@ function polar_tri({ o, s }, inv_fn, circ,a,mounting) {
     return { o: polar, s: polar_sides };
   } else
     return { o: o, s: s };
-}
-
-// for debugging
-function get_tri_generic(a, tDeg, mounting, tri_type, cpn, pn) {
-  //
-  let ons, ons_derived;
-  if (mounting in dict_orbit_fn) {
-    const orbit_fn = dict_orbit_fn[mounting];
-    ons = orbit_fn(a, tDeg);
-    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
-  } else {
-    const [v2, v3] = getV2V3(a, mounting, 0.001);
-    ons = get_mounted_tri(a, tDeg, v2, v3);
-    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
-  }
-  return {
-    a: a, tDeg: tDeg, mounting: mounting, tri_type: tri_type,
-    tri: ons.o, tri_s: ons.s, derived: ons_derived.o, derived_s: ons_derived.s
-  };
 }
 
 // tri_side_ratio(1.3,20.0,"poristic","tangential","intangents")
@@ -902,13 +718,13 @@ function tri_side_ratio(a, tDeg, mounting, tri_type_1, tri_type_2) {
 // function bary_to_trilin(bs,sides)  {
 //  return bs.map((b,i)=>b/sides[i]);
 // }
-function barys_to_trilins(bs,sides) {
-    // divide by sides to get trilins
-    const ts = bs.map((b, i) => b / sides[i]);
-    return ts;
+function barys_to_trilins(bs, sides) {
+  // divide by sides to get trilins
+  const ts = bs.map((b, i) => b / sides[i]);
+  return ts;
 }
 
-function trilins_to_barys(ts,sides) {
+function trilins_to_barys(ts, sides) {
   // multiply by sides to get barys
   const bs = ts.map((t, i) => t * sides[i]);
   return bs;
@@ -944,36 +760,208 @@ function get_caustic_v12_barys(sides) {
   return [sides[0], 0, 0];
 }
 
-function get_antipedal(tri,sides,p) {
-  const ts_p = get_trilins(p,tri,sides);
+function get_antipedal(tri, sides, p) {
+  const ts_p = get_trilins(p, tri, sides);
   const ant_ts = antipedal_triangle(sides, ts_p);
-  const ant_tri = generic_triangle(tri,sides,ant_ts);
+  const ant_tri = generic_triangle(tri, sides, ant_ts);
   return ant_tri;
 }
 
-function get_pedal(tri,sides,p) {
-  const ts_p = get_trilins(p,tri,sides);
+function get_pedal(tri, sides, p) {
+  const ts_p = get_trilins(p, tri, sides);
   const ped_ts = pedal_triangle(sides, ts_p);
-  const ped_tri = generic_triangle(tri,sides,ped_ts);
+  const ped_tri = generic_triangle(tri, sides, ped_ts);
   return ped_tri;
 }
 
-function get_polar_f1(a,b,tri,sides) {
-  const c = Math.sqrt(a*a-b*b);
-  const f1 = [-c,0];
-  const circ = {ctr:f1,R:1};
-  const tri_inv = tri.map(v=>circle_inversion(v, circ)); 
+function get_polar_f1(a, b, tri, sides) {
+  const c = Math.sqrt(a * a - b * b);
+  const f1 = [-c, 0];
+  const circ = { ctr: f1, R: 1 };
+  const tri_inv = tri.map(v => circle_inversion(v, circ));
   // bicentric
   return get_antipedal(tri_inv, tri_sides(tri_inv), f1);
 }
 
-function get_polar_pedal_lim2(a,b,tri,sides) {
-  const c = Math.sqrt(a*a-b*b);
+function get_polar_pedal_lim2(a, b, tri, sides) {
+  const c = Math.sqrt(a * a - b * b);
   // bicentric
-  const bic_tri = get_polar_f1(a,b,tri,sides);
+  const bic_tri = get_polar_f1(a, b, tri, sides);
   const bic_sides = tri_sides(bic_tri);
   // pedal wrt lim2
-  const lim2 = [-c+1/c,0];
-  const lim_tri = get_pedal(bic_tri,bic_sides,lim2); 
+  const lim2 = [-c + 1 / c, 0];
+  const lim_tri = get_pedal(bic_tri, bic_sides, lim2);
   return lim_tri;
+}
+
+/// DICTS
+
+const dict_tri_fns = {
+  // reference        : reference_triangle,
+  excentral: excentral_triangle,
+  medial: medial_triangle,
+  anticompl: anticompl_triangle,
+  orthic: orthic_triangle,
+  intouch: intouch_triangle,
+  extouch: extouch_triangle,
+  tangential: tangential_triangle,
+  tangentialmidarc: tangential_midarc_triangle,
+  extangents: extangents_triangle,
+  intangents: intangents_triangle,
+  euler: euler_triangle,
+  halfaltitude: halfaltitude_triangle,
+  hexyl: hexyl_triangle,
+  feuerbach: feuerbach_triangle,
+  symmedial: symmedial_triangle,
+  circumorthic: circumorthic_triangle,
+  circummedial: circummedial_triangle,
+  circummidarc: circummidarc_triangle,
+  morley1: first_morley_adjunct_triangle,
+  morley2: second_morley_adjunct_triangle,
+  morley3: third_morley_adjunct_triangle,
+  incentral: incentral_triangle,
+  fuhrmann: fuhrmann_triangle,
+  macbeath: macbeath_triangle,
+  steiner: steiner_triangle,
+  lemoine: lemoine_triangle,
+  johnson: johnson_triangle,
+  bci: bci_triangle,
+  yffcontact: yffcontact_triangle,
+  yffcentral: yffcentral_triangle,
+  reflection: reflection_triangle,
+  brocard1: first_brocard_triangle,
+  brocard2: second_brocard_triangle,
+  brocard3: third_brocard_triangle,
+  brocard4: fourth_brocard_triangle,
+  brocard5: fifth_brocard_triangle,
+  brocard6: sixth_brocard_triangle,
+  brocard7: seventh_brocard_triangle,
+  neuberg1: first_neuberg_triangle,
+  neuberg2: second_neuberg_triangle,
+  outervecten: outer_vecten_triangle,
+  innervecten: inner_vecten_triangle,
+  mixtilinear: mixtilinear_triangle,
+  lucascentral: lucas_central_triangle,
+  lucasinner: lucas_inner_triangle,
+  lucastangents: lucas_tangents_triangle,
+  // cezar lozada
+  atik: atik_triangle,
+  andromeda: andromeda_triangle,
+  apus: apus_triangle,
+  antlia: antlia_triangle,
+  apollonius: apollonius_triangle,
+  ayme: ayme_triangle,
+  bevan_antipodal: bevan_antipodal_triangle,
+  circumperp1: first_circumperp_triangle,
+  circumperp2: second_circumperp_triangle,
+  exc_inc_refl: excenters_incenter_reflection_triangle,
+  exc_midpoint: excenters_midpoint_triangle,
+  honsberger: honsberger_triangle,
+  inv_exc: inverse_in_excircles_triangle,
+  inv_inc: inverse_in_incircle_triangle,
+  kosnita: kosnita_triangle,
+  mandart_exc: mandart_excircles_triangle,
+  mandart_inc: mandart_incircle_triangle,
+  ursa_major: ursa_major_triangle,
+  ursa_minor: ursa_minor_triangle,
+  x3_abc_refl: x3_abc_reflections_triangle
+};
+
+const dict_tri_pfns = {
+  // reference        : reference_triangle,
+  cevian: { fn: cevian_triangle, needs_tri: false },
+  anticevian: { fn: anticevian_triangle, needs_tri: false },
+  circumcevian: { fn: circumcevian_triangle, needs_tri: false },
+  pedal: { fn: pedal_triangle, needs_tri: false },
+  antipedal: { fn: antipedal_triangle, needs_tri: false },
+  tripolar: { fn: tripolar_triangle, needs_tri: true },
+  polar: { fn: polar_triangle, needs_tri: true },
+  polar_exc: { fn: polar_exc_triangle, needs_tri: true },
+  three_ctrs: { fn: three_ctrs_triangle, needs_tri: true },
+};
+
+const dict_tri_fns_inv = {
+  inv_f1: { fn: circle_f1, caustic: false },
+  inv_f1c: { fn: circle_f1c, caustic: true },
+  inv_f2: { fn: circle_f2, caustic: false },
+  inv_ctr: { fn: circle_ctr, caustic: false },
+  // not inversion proper but pedal of bicentric wrt to f2
+};
+
+const dict_tri_fns_cremona = {
+  crem_f1: cremona_f1,
+  crem_f2: cremona_f2,
+  crem_ctr: cremona_ctr
+};
+
+const dict_tri_fns_bicentric = {
+  ped_lim2: get_polar_pedal_lim2,
+  pol_f1: get_polar_f1
+};
+
+function get_ctr_R(o, s, circ, a, mounting) {
+  var o0 = null;
+  if (circ in dict_circles)
+    o0 = dict_circles[circ](o, s);
+  else if (circ in dict_tri_fns_inv) {
+    o0 = tri_fns_invert(circ, a, mounting); // dict_tri_fns_inv[circ].fn(a);
+  }
+  return o0;
+}
+
+// for debugging
+function get_tri_generic(a, tDeg, mounting, tri_type, cpn, pn) {
+  //
+  let ons, ons_derived;
+  if (mounting in dict_orbit_fn) {
+    const orbit_fn = dict_orbit_fn[mounting];
+    ons = orbit_fn(a, tDeg);
+    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
+  } else {
+    const [v2, v3] = getV2V3(a, mounting, 0.001);
+    ons = get_mounted_tri(a, tDeg, v2, v3);
+    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
+  }
+  return {
+    a: a, tDeg: tDeg, mounting: mounting, tri_type: tri_type,
+    tri: ons.o, tri_s: ons.s, derived: ons_derived.o, derived_s: ons_derived.s
+  };
+}
+
+function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
+  let ret_tri = { o: orbit, s: sides };
+
+  if (tri_type in dict_tri_fns_bicentric) {
+    const tri0 = dict_tri_fns_bicentric[tri_type](a, 1, orbit, sides);
+    ret_tri = { o: tri0, s: tri_sides(tri0) };
+  } else if (tri_type in dict_tri_fns_cremona) {
+    const inv_fn = (tri, sides, p) => dict_tri_fns_cremona[tri_type](a, p)
+    ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
+  } else if (tri_type in dict_tri_fns_inv) {
+    const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_invert(tri_type, a, mounting) /*dict_tri_fns_inv[tri_type].fn(a)*/)
+    ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
+  } else if (mounting in dict_caustic && tri_type == "graves") {
+    // some poncelet families have the "caustic" wrong.
+    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
+    const tri0 = get_graves_triangle(orbit[0], ac, bc);
+    ret_tri = { o: tri0, s: tri_sides(tri0) };
+  } else if (tri_type in dict_tri_fns) { // "reference" returns itself
+    const ts = dict_tri_fns[tri_type](sides);
+    const tri0 = generic_triangle(orbit, sides, ts);
+    ret_tri = { o: tri0, s: tri_sides(tri0) };
+  }
+
+  if (cpn in dict_tri_pfns) {
+    const bs = get_Xn_bary(ret_tri.s, pn);
+    const ts_p = barys_to_trilins(bs, ret_tri.s);
+    let tri0;
+    if (dict_tri_pfns[cpn].needs_tri)
+      tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p);
+    else {
+      const ts = dict_tri_pfns[cpn].fn(ret_tri.s, ts_p);
+      tri0 = generic_triangle(ret_tri.o, ret_tri.s, ts);
+    }
+    ret_tri = { o: tri0, s: tri_sides(tri0), o_deriv: ret_tri.o, s_deriv: ret_tri.s };
+  }
+  return ret_tri;
 }
