@@ -43,7 +43,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="dual">*dual*</option>
                     <option value="poristic">*poristic*</option>
                     <option value="brocard">*brocard*</option>
-                    <option value="excentral">*excentrl*</option>
+                    <option value="excentral">*excs*</option>
                     <option value="major">major</option>
                     <option value="minor">minor</option>
                     <option value="mixed">mixed</option>
@@ -223,11 +223,12 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="pedal">pedal</option>
             <option value="antipedal">antipedal</option>
             <option value="tripolar">trilin-polar</option>
+            <option value="invert">invert</option>
             <option value="polar">polar</option>
             <option value="polar_exc">polar-exc</option>
-            <option value="three_ctrs">3-ctrs</option>
-            <option value="abc_refl">abc-refl</option>
-            <option value="inv_exc">inv-exc</option>
+            <option value="three_ctrs">3-circums</option>
+            <option value="abc_refl">reflect</option>
+            <option value="inv_exc">inv-excircs</option>
             </select>
 
         <div class='P_input_text'>

@@ -118,6 +118,13 @@ function polar_triangle(o, s, ts) {
   return antiped;
 }
 
+function invert_triangle(o, s, ts) {
+  const xn = trilin_to_cartesian(o, s, ts);
+  const inv_fn = (tri, sides, p) => circle_inversion(p, { ctr: xn, R: 1 });
+  const inv_tri = invert_tri({ o, s }, inv_fn);
+  return inv_tri.o;
+}
+
 // (i) get pedal, and (ii) invert: actually congruent with polar, so not used!
 function antipolar_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o, s, ts);
@@ -887,6 +894,7 @@ const dict_tri_pfns = {
   pedal: { fn: pedal_triangle, needs_tri: false },
   antipedal: { fn: antipedal_triangle, needs_tri: false },
   tripolar: { fn: tripolar_triangle, needs_tri: true },
+  invert: { fn: invert_triangle, needs_tri: true },
   polar: { fn: polar_triangle, needs_tri: true },
   polar_exc: { fn: polar_exc_triangle, needs_tri: true },
   three_ctrs: { fn: three_ctrs_triangle, needs_tri: true },

@@ -35,6 +35,7 @@ toDeg = (tRad) => tRad * 180/ PI;
 negl = (v) => (Math.abs(v)<1.0e-9);
 negl2 = (v) => (v*v<1.0e-9);
 safe_div = (a,b) => negl(b)?0:a/b;
+same_triple = ([v1,v2,v3]) => negl(v1-v2)&&negl(v2-v3)&&negl(v3-v1);
 
 trunc_xy = ([x,y],digs) => [+(x.toFixed(digs)),+(y.toFixed(digs))];
 
