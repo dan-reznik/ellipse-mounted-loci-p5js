@@ -793,7 +793,14 @@ function get_pedal(tri, sides, p) {
   return ped_tri;
 }
 
-function get_polar_f1(a, b, tri, sides) {
+function get_polar_ctr(a, b, tri, sides, mounting) {
+  const circ = { ctr: [0,0], R: 1 };
+  const tri_inv = tri.map(v => circle_inversion(v, circ));
+  // bicentric
+  return get_antipedal(tri_inv, tri_sides(tri_inv), [0,0]);
+}
+
+function get_polar_f1(a, b, tri, sides, mounting) {
   const c = Math.sqrt(a * a - b * b);
   const f1 = [-c, 0];
   const circ = { ctr: f1, R: 1 };
@@ -802,7 +809,12 @@ function get_polar_f1(a, b, tri, sides) {
   return get_antipedal(tri_inv, tri_sides(tri_inv), f1);
 }
 
-function get_polar_pedal_lim2(a, b, tri, sides) {
+function get_polar_f1c(a, b, tri, sides, mounting) {
+  const [ac,bc] = mounting in dict_caustic? dict_caustic[mounting](a) : [a,b];
+  return get_polar_f1(ac, bc, tri, sides, mounting);
+}
+
+function get_polar_pedal_lim2(a, b, tri, sides, mounting) {
   const c = Math.sqrt(a * a - b * b);
   // bicentric
   const bic_tri = get_polar_f1(a, b, tri, sides);
@@ -918,7 +930,9 @@ const dict_tri_fns_cremona = {
 
 const dict_tri_fns_bicentric = {
   ped_lim2: get_polar_pedal_lim2,
-  pol_f1: get_polar_f1
+  pol_ctr: get_polar_ctr,
+  pol_f1: get_polar_f1,
+  pol_f1c: get_polar_f1c
 };
 
 function get_ctr_R(o, s, circ, a, mounting) {
@@ -954,7 +968,7 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   let ret_tri = { o: orbit, s: sides };
 
   if (tri_type in dict_tri_fns_bicentric) {
-    const tri0 = dict_tri_fns_bicentric[tri_type](a, 1, orbit, sides);
+    const tri0 = dict_tri_fns_bicentric[tri_type](a, 1, orbit, sides, mounting);
     ret_tri = { o: tri0, s: tri_sides(tri0) };
   } else if (tri_type in dict_tri_fns_cremona) {
     const inv_fn = (tri, sides, p) => dict_tri_fns_cremona[tri_type](a, p)
