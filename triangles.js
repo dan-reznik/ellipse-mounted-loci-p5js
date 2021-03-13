@@ -801,8 +801,8 @@ function get_polar_ctr(a, b, tri, sides, mounting) {
 }
 
 function get_polar_f1(a, b, tri, sides, mounting) {
-  const c = Math.sqrt(a * a - b * b);
-  const f1 = [-c, 0];
+  const c = Math.sqrt(Math.abs(a * a - b * b));
+  const f1 = a>b?[-c, 0]:[0,c];
   const circ = { ctr: f1, R: 1 };
   const tri_inv = tri.map(v => circle_inversion(v, circ));
   // bicentric
@@ -810,7 +810,7 @@ function get_polar_f1(a, b, tri, sides, mounting) {
 }
 
 function get_polar_f1c(a, b, tri, sides, mounting) {
-  const [ac,bc] = mounting in dict_caustic? dict_caustic[mounting](a) : [a,b];
+  const [ac,bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a,b];
   return get_polar_f1(ac, bc, tri, sides, mounting);
 }
 
