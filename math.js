@@ -124,6 +124,13 @@ magn2 = (p) => p[0] * p[0] + p[1] * p[1];
 magn = (p) => sqrt(magn2(p));
 vinterp = (p1,p2,t) => vsum(p1,vscale(vdiff(p2,p1),t));
 vray = (p,n,t) => vsum(p,vscale(n,t));
+vdot = (u,v) => u[0]*v[0]+u[1]*v[1];
+
+function closest_perp(p,l1,l2) {
+  const dl =vdiff(l2,l1);
+  const s = safe_div(vdot(vdiff(p, l1),dl), magn2(dl));
+  return vray(l1, dl, s);
+}
 
 function circle_inversion(p, {ctr, R}) {
    const dp = vdiff(p, ctr);

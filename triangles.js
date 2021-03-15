@@ -151,9 +151,16 @@ function three_ctrs_triangle(o, s, ts) {
   return tri;
 }
 
-function abc_refl_triangle(o, s, ts) {
+function vtx_refl_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o, s, ts);
-  const tri = o.map((v, k) => vray(xn,vdiff(v,xn),2));
+  const tri = o.map(v => vray(xn,vdiff(v,xn),2));
+  return tri;
+}
+
+function side_refl_triangle(o, s, ts) {
+  const xn = trilin_to_cartesian(o, s, ts);
+  const perps = o.map((v,i)=>closest_perp(xn,v,i==2?o[0]:o[i+1]));
+  const tri = perps.map(v => vray(xn,vdiff(v,xn),2));
   return tri;
 }
 
@@ -910,7 +917,8 @@ const dict_tri_pfns = {
   polar: { fn: polar_triangle, needs_tri: true },
   polar_exc: { fn: polar_exc_triangle, needs_tri: true },
   three_ctrs: { fn: three_ctrs_triangle, needs_tri: true },
-  abc_refl: { fn: abc_refl_triangle, needs_tri: true },
+  vtx_refl: { fn: vtx_refl_triangle, needs_tri: true },
+  side_refl: { fn: side_refl_triangle, needs_tri: true },
   inv_exc: { fn: inv_exc_triangle, needs_tri: true },
 };
 

@@ -229,7 +229,8 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="polar">polar</option>
             <option value="polar_exc">polar-exc</option>
             <option value="three_ctrs">3-circums</option>
-            <option value="abc_refl">reflect</option>
+            <option value="vtx_refl">vtx-refl</option>
+            <option value="side_refl">side-refl</option>
             <option value="inv_exc">inv-excircs</option>
             </select>
 
