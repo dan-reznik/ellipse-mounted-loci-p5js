@@ -52,7 +52,7 @@ function get_orbit_info_low(sides) {
     //const ll = labs0.lengths;
      labs.map((l, i) => {
          //if ([ll, 2 * ll].includes(i)) str_invs.push("\n");
-         if (same_triple([biz1, biz2, biz3].map(b => b.info.vals[i])))
+         if (!negl(biz1.info.vals[i])&&same_triple([biz1, biz2, biz3].map(b => b.info.vals[i])))
              str_invs.push(sprintf(l + "=%.5f", biz1.info.vals[i]));
      });
     const str_join = str_invs.join(", ");
