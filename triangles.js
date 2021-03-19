@@ -816,6 +816,57 @@ function get_polar_f1(a, b, tri, sides, mounting) {
   return get_antipedal(tri_inv, tri_sides(tri_inv), f1);
 }
 
+function outer_ab_inellipse(a) {
+
+}
+
+const dict_weird_outer = {
+  inellipse:caustic_inellipse,
+  brocard:caustic_brocard,
+  excentral:caustic_excentral,
+  poristic:((a)=>[1+a,1+a])
+};
+
+function get_infinity_y(a, b, tri, sides, mounting) {
+  const x3 = ["brocard","poristic"].includes(mounting) ? get_circumcenter(tri): [0,0];
+  const [ar,br] = mounting in dict_weird_outer ? dict_weird_outer[mounting](a) : [a,b];
+  const cs = tri.map(v=>(v[0]-x3[0])/ar);;
+  const ss = tri.map(v=>(v[1]-x3[1])/br);
+  // s2t = 2 st ct
+  const new_tri = tri.map((v,i)=>[v[0],x3[1]+br*2*ss[i]*cs[i]]);
+  return new_tri;
+}
+
+function get_infinity_y2(a, b, tri, sides, mounting) {
+  const x3 = ["brocard","poristic"].includes(mounting) ? get_circumcenter(tri): [0,0];
+  const [ar,br] = mounting in dict_weird_outer ? dict_weird_outer[mounting](a) : [a,b];
+  const cs = tri.map(v=>(v[0]-x3[0])/ar);;
+  const ss = tri.map(v=>(v[1]-x3[1])/br);
+  // s2t = 2 st ct
+  const new_tri = tri.map((v,i)=>[v[0],x3[1]+Math.abs(v[1]-x3[1])*(br*2*ss[i]*cs[i])]);
+  return new_tri;
+}
+
+function get_infinity_x(a, b, tri, sides, mounting) {
+  const x3 = ["brocard","poristic"].includes(mounting) ? get_circumcenter(tri): [0,0];
+  const [ar,br] = mounting in dict_weird_outer ? dict_weird_outer[mounting](a) : [a,b];
+  const cs = tri.map(v=>(v[0]-x3[0])/ar);;
+  const ss = tri.map(v=>(v[1]-x3[1])/br);
+  // c2t = ct^2-st^2
+  const new_tri = tri.map((v,i)=>[x3[0]+ar*(2*ss[i]*cs[i]),v[1]]);
+  return new_tri;
+}
+
+function get_infinity_x2(a, b, tri, sides, mounting) {
+  const x3 = ["brocard","poristic"].includes(mounting) ? get_circumcenter(tri): [0,0];
+  const [ar,br] = mounting in dict_weird_outer ? dict_weird_outer[mounting](a) : [a,b];
+  const cs = tri.map(v=>(v[0]-x3[0])/ar);;
+  const ss = tri.map(v=>(v[1]-x3[1])/br);
+  // c2t = ct^2-st^2
+  const new_tri = tri.map((v,i)=>[x3[0]+Math.abs(v[0]-x3[0])*(2*ss[i]*cs[i]),v[1]]);
+  return new_tri;
+}
+
 function get_polar_f1c(a, b, tri, sides, mounting) {
   const [ac,bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a,b];
   return get_polar_f1(ac, bc, tri, sides, mounting);
@@ -940,7 +991,11 @@ const dict_tri_fns_bicentric = {
   ped_lim2: get_polar_pedal_lim2,
   pol_ctr: get_polar_ctr,
   pol_f1: get_polar_f1,
-  pol_f1c: get_polar_f1c
+  pol_f1c: get_polar_f1c,
+  inf_x: get_infinity_x,
+  inf_y: get_infinity_y,
+  inf_x2: get_infinity_x2,
+  inf_y2: get_infinity_y2
 };
 
 function get_ctr_R(o, s, circ, a, mounting) {

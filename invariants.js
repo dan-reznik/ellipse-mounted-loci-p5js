@@ -30,7 +30,7 @@ function get_orbit_info_low(sides) {
     return {info:info, info_der:info_der, vals:vals};
  }
  
- //  ["L", "A", "r", "R", "r/R", "cot(ω)", "Σs^2","Σ(1/s)","Σs^-2","∏cos","∏s"
+ //  ["L", "A", "r", "R", "r/R", "cot(ω)", "Σs^2","Σ(1/s)","Σs^-2","∏cos","∏s"]
  
  function get_orbit_biz(a, tDeg, mounting, tri_type, cpn, pn, circ, inv, not_ref) {
     const orbit = mounting in dict_orbit_fn ?
@@ -47,6 +47,7 @@ function get_orbit_info_low(sides) {
     const biz3 = get_orbit_biz(a, tDeg-10., mounting, tri_type, cpn, pn, circ, inv, not_ref);
     
     const labs0 = ["L", "A", "r", "R", "r/R", "cot(ω)", "Σs^2","Σ(1/s)","Σs^-2","∏cos","∏s"];
+    // add marker 1,2,3 prior to each string and push "\n" first time you see one
     const labs = not_ref ? labs0.concat(labs0.map(l=>l+"'")).concat(["L'/L", "A'/A", "A'.A"]): labs0;
     let str_invs = [];
     //const ll = labs0.lengths;
@@ -58,6 +59,6 @@ function get_orbit_info_low(sides) {
     const str_join = str_invs.join(", ");
     //const str_repl = str_join.replace(/(, \n)+, /g,"\n").replace(/, \n$/g,"");
     //return { o: biz1.derived.o, s: biz1.derived.s, str: str_repl, lines: str_repl.split("\n").length };
-    return { o: biz1.derived.o, s: biz1.derived.s, str: str_join, lines: 1 };
+    return { o: biz1.derived.o, s: biz1.derived.s, str: str_join, lines: str_join.split("\n").length };
  }
  
