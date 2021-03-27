@@ -619,15 +619,6 @@ function lucas_tangents_triangle([a, b, c]) {
   return ts; // generic_triangle(orbit,[a,b,c],ts);
 }
 
-/*
-firstMorleyTriangle[orbit_, {a_, b_, c_}] := Module[{cs, cs3},
-   cs = lawOfCosines3[a, b, c];
-   cs3 = cosThird /@ cs;
-   trilinearMatrixToCartesian[orbit, {a, b, c},
-    {{1, 2 cs3[[3]], 2 cs3[[2]]},
-     {2 cs3[[3]], 1, 2 cs3[[1]]},
-     {2 cs3[[2]], 2 cs3[[1]], 1}}]];
-*/
 function first_morley_triangle(sides) {
   const cs = tri_cosines(sides);
   const c3 = cs.map(cos_third);
@@ -637,6 +628,40 @@ function first_morley_triangle(sides) {
     [2 * c3[1], 2 * c3[0], 1]];
   return ts; // generic_triangle(orbit,sides,ts);
 }
+
+function second_morley_triangle(sides) {
+  const cs = tri_cosines(sides);
+  const cs3 = cs.map(cos_third);
+  const ss3 = cs3.map(c=>Math.sqrt(1-c*c));
+  const c2p3 = -0.5, s2p3 = 0.5*Math.sqrt(3);
+  const a12 = cs3[2]*c2p3 + ss3[2]*s2p3;
+  const a13 = cs3[1]*c2p3 + ss3[1]*s2p3;
+  const a23 = cs3[0]*c2p3 + ss3[0]*s2p3;
+
+  const ts = [
+    [1, 2 * a12, 2 * a13],
+    [2 * a12, 1, 2 * a23],
+    [2 * a13, 2 * a23, 1]];
+  return ts;
+}
+
+function third_morley_triangle(sides) {
+  const cs = tri_cosines(sides);
+  const cs3 = cs.map(cos_third);
+  const ss3 = cs3.map(c=>Math.sqrt(1-c*c));
+  const c2p3 = -0.5, s2p3 = -0.5*Math.sqrt(3);
+  const a12 = cs3[2]*c2p3 + ss3[2]*s2p3;
+  const a13 = cs3[1]*c2p3 + ss3[1]*s2p3;
+  const a23 = cs3[0]*c2p3 + ss3[0]*s2p3;
+
+  const ts = [
+    [1, 2 * a12, 2 * a13],
+    [2 * a12, 1, 2 * a23],
+    [2 * a13, 2 * a23, 1]];
+  return ts;
+}
+
+
 
 function first_morley_adjunct_triangle(sides) {
   const cs = tri_cosines(sides);
@@ -905,9 +930,12 @@ const dict_tri_fns = {
   circumorthic: circumorthic_triangle,
   circummedial: circummedial_triangle,
   circummidarc: circummidarc_triangle,
-  morley1: first_morley_adjunct_triangle,
-  morley2: second_morley_adjunct_triangle,
-  morley3: third_morley_adjunct_triangle,
+  morley1: first_morley_triangle,
+  morley2: second_morley_triangle,
+  morley3: third_morley_triangle,
+  morley_adj1: first_morley_adjunct_triangle,
+  morley_adj2: second_morley_adjunct_triangle,
+  morley_adj3: third_morley_adjunct_triangle,
   incentral: incentral_triangle,
   fuhrmann: fuhrmann_triangle,
   macbeath: macbeath_triangle,

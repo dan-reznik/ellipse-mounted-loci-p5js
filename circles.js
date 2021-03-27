@@ -121,7 +121,7 @@ function circle_lemoine(tri,sides) {
     const s2w = sin2_omega(sides);
     const cosw = Math.sqrt(1-s2w);
     const R = .5*theR/cosw;
-    return { ctr:x182, R:R, n:181 };
+    return { ctr:x182, R:R, n:182 };
 }
 
 function circle_adams(tri,[a,b,c]) {
