@@ -34,6 +34,11 @@ const dict_caustic = {
     excentral: caustic_excentral
 };
 
+const dict_two_point = {
+    env: get_two_point_envelope,
+    ort: get_two_point_orthopole
+}
+
 function tri_fns_invert(circ, a, mounting) {
     if (dict_tri_fns_inv[circ].caustic && mounting in dict_caustic) {
         const [ac, bc] = dict_caustic[mounting](a);
@@ -98,9 +103,9 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     if (locus_type != 'none') {
         const tri_fn = (a0, tDeg0) => get_mounted_derived(a0, tDeg0, mounting, tri_type, cpn, pn, circ, inv).derived;
         const env = locus_type in dict_caustic_n ? get_side_envelope(a, tDeg, tri_fn, dict_caustic_n[locus_type]) :
-            locus_type == "env" && (n != pn) ? get_two_point_envelope(a, tDeg,
-                tri_fn, get_fn_bary(n), get_fn_bary(pn)) : [0, 0];
-        if (dr_tri && locus_type == "env" && (n != pn)) {
+            (n!=pn)&&(locus_type in dict_two_point) ? dict_two_point[locus_type](a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn)) :
+            [0, 0];
+        if (dr_tri && (locus_type == "env"||locus_type=="ort") && (n != pn)) {
             const [p1, p2] = get_two_points(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn));
             draw_line_dashed2(...collinear_endpoints([p1, p2, env]), clr, stroke_w);
             draw_point2(p1, clr, stroke_w / 2);
@@ -175,10 +180,10 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
         if (mounting in dict_orbit_fn) {
             const tri_fn = (a0, tDeg0) => get_orbit_derived(a0, tDeg0, dict_orbit_fn[mounting], tri_type, cpn, pn, inv, inv_fn, mounting, circ);
             env = locus_type in dict_caustic_n ? get_side_envelope(a, tDeg, tri_fn, dict_caustic_n[locus_type]) :
-                locus_type == "env" && (n != pn) ? get_two_point_envelope(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn))
-                    : [0, 0];
-
-            if (dr_tri && locus_type == "env" && (n != pn)) {
+                (n!=pn)&& (locus_type in dict_two_point) ?
+                dict_two_point[locus_type](a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn)) :
+                [0, 0];
+            if (dr_tri && (locus_type == "env"||locus_type=="ort") && (n != pn)) {
                 const [p1, p2] = get_two_points(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn));
                 draw_line_dashed2(...collinear_endpoints([p1, p2, env]), clr, stroke_w);
                 draw_point2(p1, clr, stroke_w / 2);
@@ -314,7 +319,7 @@ function make_locus_branched(a, tDegStep, r_max,
     const bary_fn = get_fn_any(locus_type, n);
     let locus_array;
     if (mounting in dict_orbit_fn) { //poncelet
-        const tDegMax = tri_type=="graves"||["vtx", "vtx2", "vtx3", "caustic", "caustic23", "caustic31", "f_vtx"].includes(locus_type) || ["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
+        const tDegMax = tri_type=="graves"||["vtx", "vtx2", "vtx3", "caustic", "caustic23", "caustic31", "f_vtx","ort"].includes(locus_type) || ["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
             (a0, tDeg0) =>
                 get_Xn_poncelet(a0, tDeg0, dict_orbit_fn[mounting], bary_fn, tri_type, cpn, pn, inv, inv_fn,

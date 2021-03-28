@@ -81,6 +81,24 @@ function get_two_point_envelope(a, tDeg, tri_fn, bary_fn_1, bary_fn_2, eps = .01
   return inter;
 }
 
+function get_two_point_orthopole(a, tDeg, tri_fn, bary_fn_1, bary_fn_2) {
+  const ons = tri_fn(a, tDeg);
+  const x1 = get_Xn_low_bary(ons.o, ons.s, bary_fn_1);
+  const x2 = get_Xn_low_bary(ons.o, ons.s, bary_fn_2);
+
+  const feet_L = ons.o.map(v=>closest_perp(v,x1,x2));
+  const tri_left = rotate_tri_left(ons.o);
+  const tri_right = rotate_tri_right(ons.o);
+  const feet_sides = feet_L.map((f,i)=>closest_perp(f,tri_left[i],tri_right[i]));
+  
+  const inter = inter_rays(
+    feet_L[0], vdiff(feet_sides[0],feet_L[0]),
+    feet_L[1], vdiff(feet_sides[1],feet_L[1]),
+  );
+  //console.log(inter);
+  return inter;
+}
+
 function get_two_points(a, tDeg, tri_fn, bary_fn_1, bary_fn_2) {
   const ons = tri_fn(a, tDeg);
   const x1 = get_Xn_low_bary(ons.o, ons.s, bary_fn_1);
@@ -100,7 +118,7 @@ function get_Xn_poncelet(a, tDeg, orbit_fn, bary_fn, tri_type, cpn, pn, inv, inv
   const caustic_n = locus_type in dict_caustic_n ? dict_caustic_n[locus_type] : -1;
   const tri_fn = (a0,tDeg0)=>get_orbit_derived(a0,tDeg0,orbit_fn,tri_type,cpn,pn,inv,inv_fn, mounting, circ);
   const xn = caustic_n>=0 ? get_side_envelope(a, tDeg, tri_fn,caustic_n) :
-  locus_type=="env" ? get_two_point_envelope(a, tDeg, tri_fn, bary_fn, get_fn_bary(pn)) :
+  locus_type in dict_two_point ? dict_two_point[locus_type](a, tDeg, tri_fn, bary_fn, get_fn_bary(pn)) :
     get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
   return inv == "xn" ? inv_fn(ons_derived.o, ons_derived.s, xn) : xn;
 }
