@@ -108,7 +108,7 @@ function draw_locus_branched(locus_branches, ons, xnum, pn, rgb, stroke_w,
     rotate(-dict_rot[rot]);
     if (locus_type in dict_label) 
       draw_text2(dict_label[locus_type] +
-        (locus_type=="env"?xnum+","+pn:"") +
+        (locus_type=="env"||locus_type=="ort"?xnum+","+pn:"") +
         (locus_type=="trilins"?xnum:"") +
         (inv_tri||inv_fn!=inv_fn_identity?"'":"") +
         ell_detect_suffix, [0, 0], rgb, stroke_w);

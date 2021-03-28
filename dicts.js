@@ -22,7 +22,8 @@ const dict_label = {
     caustic:'Ɛ12',
     caustic23:'Ɛ23',
     caustic31:'Ɛ31',
-    env:'Ɛ'
+    env:'Ɛ',
+    ort:'⟂'
   };
 
   const dict_locus_type = { "*":"points", L:"lines", C:"circles", E:"ellipses", H:"hyperbolas", P:"parabolas" };
