@@ -999,6 +999,17 @@ const dict_tri_pfns = {
   vtx_refl: { fn: vtx_refl_triangle, needs_tri: true },
   side_refl: { fn: side_refl_triangle, needs_tri: true },
   inv_exc: { fn: inv_exc_triangle, needs_tri: true },
+  subtri_x1: { fn: subtri_x1, needs_tri: true },
+  subtri_x2: { fn: subtri_x2, needs_tri: true },
+  subtri_x3: { fn: subtri_x3, needs_tri: true },
+  subtri_x4: { fn: subtri_x4, needs_tri: true },
+  subtri_x5: { fn: subtri_x5, needs_tri: true },
+  subtri_x6: { fn: subtri_x6, needs_tri: true },
+  subtri_x7: { fn: subtri_x7, needs_tri: true },
+  subtri_x8: { fn: subtri_x8, needs_tri: true },
+  subtri_x9: { fn: subtri_x9, needs_tri: true },
+  subtri_x10: { fn: subtri_x10, needs_tri: true },
+  subtri_x11: { fn: subtri_x11, needs_tri: true }
 };
 
 const dict_tri_fns_inv = {

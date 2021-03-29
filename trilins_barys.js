@@ -15,14 +15,14 @@ function trilin_to_cartesian(
     return fn_trilin(orbit,sides);
   }
 
-  function get_fn_trilin(n) {
-    let fn_name = sprintf("trilin_X%d",n);
-    return window[fn_name];
-  }
+  //function get_fn_trilin(n) {
+  //  let fn_name = sprintf("trilin_X%d",n);
+  //  return window[fn_name];
+  //}
 
-  function get_Xn(orbit, sides, n) {
-    return get_Xn_low(orbit, sides, get_fn_trilin(n));
-  }
+//  function get_Xn(orbit, sides, n) {
+//    return get_Xn_low(orbit, sides, get_fn_trilin(n));
+//  }
 
   // vs = vertices (2-vectors), bs = barycentrics (scalars)
   function barys_to_cartesian(vs, bs) {
