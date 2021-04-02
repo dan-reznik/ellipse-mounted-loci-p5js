@@ -238,6 +238,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="vtx_refl">vtx-refl</option>
             <option value="side_refl">side-refl</option>
             <option value="inv_exc">inv-excircs</option>
+            <option value="inter_circs">inter-circs</option>
             <option value="subtri_x1">subtri-x1</option>
             <option value="subtri_x2">subtri-x2</option>
             <option value="subtri_x3">subtri-x3</option>

@@ -269,3 +269,36 @@ function vec_rotate_left(v,n) {
   const l = v.length;
   return v.map((vi,i)=>v[i+n>=l?i+n-l:i+n]);
 }
+
+/*
+circleInter[c1_, r1_, c2_, r2_] := Module[{d, x, y, chat},
+   d = magn[c2 - c1];
+   chat = (c2 - c1)/d;
+   x = (d^2 - r2^2 + r1^2)/(2 d);
+   y = Sqrt[r1^2 - x^2];
+   {c1 + x chat + y perp[chat], c1 + x chat - y perp[chat]}];
+*/
+
+function circle_circle_inter(c1,r1,c2,r2) {
+    const d = edist(c2,c1);
+    const chat = vscale(vdiff(c2,c1),1/d);
+    const x = (d*d - r2*r2 + r1*r1)/(2*d);
+    const y = Math.sqrt(r1*r1 - x*x);
+    const c1_add = vsum(c1, vscale(chat,x));
+    const chat_scale = vscale(vperp(chat),y);
+    const i1 = vsum(c1_add, chat_scale);
+    const i2 = vdiff(c1_add, chat_scale);
+    return [i1,y2]
+}
+
+function circle_circle_inter_rsqr(c1,r1_sqr,c2,r2_sqr) {
+  const d = edist(c2,c1);
+  const chat = vscale(vdiff(c2,c1),1/d);
+  const x = (d*d - r2_sqr + r1_sqr)/(2*d);
+  const y = Math.sqrt(r1_sqr - x*x);
+  const c1_add = vsum(c1, vscale(chat,x));
+  const chat_scale = vscale(vperp(chat),y);
+  const i1 = vsum(c1_add, chat_scale);
+  const i2 = vdiff(c1_add, chat_scale);
+  return [i1,i2]
+}

@@ -145,9 +145,19 @@ function polar_exc_triangle(o, s, ts) {
   return tri;
 }
 
+// identical to subtris-x3
 function three_ctrs_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o, s, ts);
   const tri = o.map((v, k) => get_circumcenter([xn, v, o[k == 2 ? 0 : k + 1]]));
+  return tri;
+}
+
+function inter_circs_triangle(o, s, ts) {
+  const xn = trilin_to_cartesian(o, s, ts);
+  const tri = o.map((v, k) => {const vnext = o[k == 2 ? 0 : k + 1]; 
+    const i12 = circle_circle_inter_rsqr(v, edist2(xn, v), vnext, edist2(xn, vnext));
+    return negl(edist2(i12[0],xn))?i12[1]:i12[0];
+  });
   return tri;
 }
 
@@ -999,6 +1009,7 @@ const dict_tri_pfns = {
   vtx_refl: { fn: vtx_refl_triangle, needs_tri: true },
   side_refl: { fn: side_refl_triangle, needs_tri: true },
   inv_exc: { fn: inv_exc_triangle, needs_tri: true },
+  inter_circs : { fn: inter_circs_triangle, needs_tri: true},
   subtri_x1: { fn: subtri_x1, needs_tri: true },
   subtri_x2: { fn: subtri_x2, needs_tri: true },
   subtri_x3: { fn: subtri_x3, needs_tri: true },
