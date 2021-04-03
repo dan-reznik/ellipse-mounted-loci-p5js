@@ -152,13 +152,18 @@ function three_ctrs_triangle(o, s, ts) {
   return tri;
 }
 
+function get_x3_inv_low(tri, M) {
+  const tri_inv = tri.map((v, k) => {
+    const vnext = tri[k == 2 ? 0 : k + 1];
+    const i12 = circle_circle_inter_rsqr(v, edist2(M, v), vnext, edist2(M, vnext));
+    return negl(edist2(i12[0], M)) ? i12[1] : i12[0];
+  });
+  return tri_inv;
+}
+
 function inter_circs_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o, s, ts);
-  const tri = o.map((v, k) => {const vnext = o[k == 2 ? 0 : k + 1]; 
-    const i12 = circle_circle_inter_rsqr(v, edist2(xn, v), vnext, edist2(xn, vnext));
-    return negl(edist2(i12[0],xn))?i12[1]:i12[0];
-  });
-  return tri;
+  return get_x3_inv_low(tri, xn);
 }
 
 function vtx_refl_triangle(o, s, ts) {
@@ -861,10 +866,25 @@ function get_x3_map_ctr(a, b, tri, sides, mounting) {
 function get_x3_map_f1(a, b, tri, sides, mounting) {
   const c = Math.sqrt(Math.abs(a * a - b * b));
   const f1 = a>b?[-c, 0]:[0,c];
-  // here &&&
   const x3s = tri.map((v,i)=>get_circumcenter([f1,v,tri[i==2?0:i+1]]));
   // bicentric
   return x3s;
+}
+
+function get_x3_inv_f1(a, b, tri, sides, mounting) {
+  const c = Math.sqrt(Math.abs(a * a - b * b));
+  const f1 = a>b?[-c, 0]:[0,c];
+  return get_x3_inv_low(tri, f1);
+}
+
+function get_x3_inv_f1c(a, b, tri, sides, mounting) {
+  const [ac,bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a,b];
+  return get_x3_inv_f1(ac, bc, tri, sides, mounting);
+}
+
+function get_x3_inv_ctr(a, b, tri, sides, mounting) {
+  const c = Math.sqrt(Math.abs(a * a - b * b));
+  return get_x3_inv_low(tri, [0,0]);
 }
 
 function get_x3_map_f1c(a, b, tri, sides, mounting) {
@@ -1062,6 +1082,9 @@ const dict_tri_fns_bicentric = {
   x3_map_ctr: get_x3_map_ctr,
   x3_map_f1: get_x3_map_f1,
   x3_map_f1c: get_x3_map_f1c,
+  x3_inv_ctr: get_x3_inv_ctr,
+  x3_inv_f1: get_x3_inv_f1,
+  x3_inv_f1c: get_x3_inv_f1c,
   inf_x: get_infinity_x,
   inf_y: get_infinity_y,
   inf_x2: get_infinity_x2,
