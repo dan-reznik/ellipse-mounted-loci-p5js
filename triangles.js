@@ -851,6 +851,13 @@ function get_polar_f1(a, b, tri, sides, mounting) {
   return get_antipedal(tri_inv, tri_sides(tri_inv), f1);
 }
 
+function get_x3_map_ctr(a, b, tri, sides, mounting) {
+  // here &&&
+  const x3s = tri.map((v,i)=>get_circumcenter([[0,0],v,tri[i==2?0:i+1]]));
+  // bicentric
+  return x3s;
+}
+
 function get_x3_map_f1(a, b, tri, sides, mounting) {
   const c = Math.sqrt(Math.abs(a * a - b * b));
   const f1 = a>b?[-c, 0]:[0,c];
@@ -1052,6 +1059,7 @@ const dict_tri_fns_bicentric = {
   pol_ctr: get_polar_ctr,
   pol_f1: get_polar_f1,
   pol_f1c: get_polar_f1c,
+  x3_map_ctr: get_x3_map_ctr,
   x3_map_f1: get_x3_map_f1,
   x3_map_f1c: get_x3_map_f1c,
   inf_x: get_infinity_x,
