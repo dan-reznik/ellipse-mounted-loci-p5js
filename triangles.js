@@ -851,8 +851,18 @@ function get_polar_f1(a, b, tri, sides, mounting) {
   return get_antipedal(tri_inv, tri_sides(tri_inv), f1);
 }
 
-function outer_ab_inellipse(a) {
+function get_x3_map_f1(a, b, tri, sides, mounting) {
+  const c = Math.sqrt(Math.abs(a * a - b * b));
+  const f1 = a>b?[-c, 0]:[0,c];
+  // here &&&
+  const x3s = tri.map((v,i)=>get_circumcenter([f1,v,tri[i==2?0:i+1]]));
+  // bicentric
+  return x3s;
+}
 
+function get_x3_map_f1c(a, b, tri, sides, mounting) {
+  const [ac,bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a,b];
+  return get_x3_map_f1(ac, bc, tri, sides, mounting);
 }
 
 const dict_weird_outer = {
@@ -1042,6 +1052,8 @@ const dict_tri_fns_bicentric = {
   pol_ctr: get_polar_ctr,
   pol_f1: get_polar_f1,
   pol_f1c: get_polar_f1c,
+  x3_map_f1: get_x3_map_f1,
+  x3_map_f1c: get_x3_map_f1c,
   inf_x: get_infinity_x,
   inf_y: get_infinity_y,
   inf_x2: get_infinity_x2,
