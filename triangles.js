@@ -145,7 +145,7 @@ function polar_exc_triangle(o, s, ts) {
   return tri;
 }
 
-// identical to subtris-x3
+// identical to x3-map
 function three_ctrs_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o, s, ts);
   const tri = o.map((v, k) => get_circumcenter([xn, v, o[k == 2 ? 0 : k + 1]]));
@@ -161,9 +161,9 @@ function get_x3_inv_low(tri, M) {
   return tri_inv;
 }
 
-function inter_circs_triangle(o, s, ts) {
+function x3_inv_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o, s, ts);
-  return get_x3_inv_low(tri, xn);
+  return get_x3_inv_low(o, xn);
 }
 
 function vtx_refl_triangle(o, s, ts) {
@@ -1046,18 +1046,18 @@ const dict_tri_pfns = {
   vtx_refl: { fn: vtx_refl_triangle, needs_tri: true },
   side_refl: { fn: side_refl_triangle, needs_tri: true },
   inv_exc: { fn: inv_exc_triangle, needs_tri: true },
-  inter_circs : { fn: inter_circs_triangle, needs_tri: true},
-  subtri_x1: { fn: subtri_x1, needs_tri: true },
-  subtri_x2: { fn: subtri_x2, needs_tri: true },
-  subtri_x3: { fn: subtri_x3, needs_tri: true },
-  subtri_x4: { fn: subtri_x4, needs_tri: true },
-  subtri_x5: { fn: subtri_x5, needs_tri: true },
-  subtri_x6: { fn: subtri_x6, needs_tri: true },
-  subtri_x7: { fn: subtri_x7, needs_tri: true },
-  subtri_x8: { fn: subtri_x8, needs_tri: true },
-  subtri_x9: { fn: subtri_x9, needs_tri: true },
-  subtri_x10: { fn: subtri_x10, needs_tri: true },
-  subtri_x11: { fn: subtri_x11, needs_tri: true }
+  x3_inv : { fn: x3_inv_triangle, needs_tri: true},
+  x1_map: { fn: x1_map_triangle, needs_tri: true },
+  x2_map: { fn: x2_map_triangle, needs_tri: true },
+  x3_map: { fn: x3_map_triangle, needs_tri: true },
+  x4_map: { fn: x4_map_triangle, needs_tri: true },
+  x5_map: { fn: x5_map_triangle, needs_tri: true },
+  x6_map: { fn: x6_map_triangle, needs_tri: true },
+  x7_map: { fn: x7_map_triangle, needs_tri: true },
+  x8_map: { fn: x8_map_triangle, needs_tri: true },
+  x9_map: { fn: x9_map_triangle, needs_tri: true },
+  x10_map: { fn: x10_map_triangle, needs_tri: true },
+  x11_map: { fn: x11_map_triangle, needs_tri: true }
 };
 
 const dict_tri_fns_inv = {
