@@ -66,6 +66,16 @@ function circle_cosine(tri,sides) {
     return { ctr:x6, R:R, n:6 };
 }
 
+// Darij Grinberg, "Ehrmann's 3rd Lemoine Circle" -- https://jcgeometry.org/Articles/Volume1/JCG2012V1pp40-52.pdf
+function circle_ehrmann(tri,sides) {
+    // x576 = X3 + 1.5*(X6-X3)
+    const x576 = get_Xn_cartesians(576, tri, sides);
+    const circumR = get_circumradius(sides);
+    const cosineR = product(sides)/sum_sqr(sides);
+    const R = Math.sqrt(9*cosineR*cosineR+circumR*circumR)
+    return { ctr:x576, R:R, n:576 };
+}
+
 function get_excircles(tri,sides) {
     const ts_exc = excentral_triangle(sides);
     const exc = generic_triangle(tri,sides,ts_exc);

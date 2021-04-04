@@ -84,6 +84,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="conway">conway</option>
                     <option value="cosine">cosine</option>
                     <option value="cosine_exc">cos. exc</option>
+                    <option value="ehrmann">ehrmann</option>
                     <option value="excircle">excircle</option>
                     <option value="euler">euler</option>
                     <option value="fuhrmann">furhmann</option>

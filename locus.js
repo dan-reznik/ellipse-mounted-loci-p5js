@@ -8,6 +8,7 @@ const dict_circles = {
     conway: circle_conway,
     cosine: circle_cosine,
     cosine_exc: circle_cosine_exc,
+    ehrmann: circle_ehrmann,
     excircle: circle_excircle,
     euler: circle_euler,
     fuhrmann: circle_fuhrmann,
