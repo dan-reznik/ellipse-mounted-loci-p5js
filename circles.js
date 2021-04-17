@@ -125,6 +125,20 @@ function circle_moses(tri,sides) {
     return { ctr:x39, R:R, n:39};
 }
 
+function circle_moses_radical(tri,sides) {
+    const x647 = get_Xn_cartesians(647,tri,sides);
+    const x15 = get_Xn_cartesians(15,tri,sides);
+    const R = edist(x647,x15);
+    return { ctr:x647, R:R, n:647};
+}
+
+function circle_gheorghe(tri,sides) {
+    const x649 = get_Xn_cartesians(649,tri,sides);
+    const x15 = get_Xn_cartesians(15,tri,sides);
+    const R = edist(x649,x15);
+    return { ctr:x649, R:R, n:649};
+}
+
 function circle_lemoine(tri,sides) {
     const x182 = get_Xn_cartesians(182,tri,sides);
     const theR = get_circumradius(sides);
