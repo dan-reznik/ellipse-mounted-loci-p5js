@@ -16,6 +16,7 @@ const dict_circles = {
     gheorghe: circle_gheorghe,
     incircle: circle_incircle,
     lemoine: circle_lemoine,
+    lester: circle_lester,
     mandart: circle_mandart,
     moses: circle_moses,
     moses_radical: circle_moses_radical,

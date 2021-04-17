@@ -92,6 +92,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="gheorghe">gheorghe</option>
                     <option value="incircle">incircle</option>
                     <option value="lemoine">lemoine</option>
+                    <option value="lester">lester</option>
                     <option value="mandart">mandart</option>
                     <option value="moses">moses</option>
                     <option value="moses_radical">moses rad</option>

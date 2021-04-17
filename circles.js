@@ -239,3 +239,12 @@ function circle_schoutte(tri,sides) {
     return { ctr:x187, R:R, n:187};  
 }
 
+// using "extra" barycentric
+function circle_lester(tri,sides) {
+    const bs = bary_X1116(sides);
+    const x1116 = barys_to_cartesian(tri,bs);
+    const x13 = get_Xn_cartesians(13,tri,sides)
+    const R = edist(x1116,x13);
+    return { ctr:x1116, R:R, n:1116}; 
+}
+
