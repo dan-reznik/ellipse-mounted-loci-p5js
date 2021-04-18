@@ -318,6 +318,25 @@ function cartesian_prod(arr) {
   return res;
 }
 
+function cartesian_triples(arr) {
+  const res = [];
+  for (let i = 0; i < arr.length-1; i++)
+     for (let j = i+1; j < arr.length; j++)
+        for (let k = j+1; k < arr.length; k++)
+        res.push([arr[i],arr[j],arr[k]]);
+  return res;
+}
+
+function cartesian_quads(arr) {
+  const res = [];
+  for (let i = 0; i < arr.length-1; i++)
+     for (let j = i+1; j < arr.length; j++)
+        for (let k = j+1; k < arr.length; k++)
+           for (let l = k+1; l < arr.length; l++)
+        res.push([arr[i],arr[j],arr[k],arr[l]]);
+  return res;
+}
+
 function int_seq(min,max) {
   const arr = [];
   for (let i = min; i<=max; i++)
