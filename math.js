@@ -157,6 +157,13 @@ function tri_sides([p1,p2,p3]) {
   return [s1,s2,s3];
 }
 
+function tri_sides_sqr([p1,p2,p3]) {
+  let s1 = edist2(p2, p3);
+  let s2 = edist2(p3, p1);
+  let s3 = edist2(p1, p2);
+  return [s1,s2,s3];
+}
+
 function tri_cosines([a,b,c]) {
   let x=law_of_cosines(a,b,c);
   let y=law_of_cosines(b,c,a);
@@ -301,4 +308,19 @@ function circle_circle_inter_rsqr(c1,r1_sqr,c2,r2_sqr) {
   const i1 = vsum(c1_add, chat_scale);
   const i2 = vdiff(c1_add, chat_scale);
   return [i1,i2]
+}
+
+function cartesian_prod(arr) {
+  const res = [];
+  for (let i = 0; i < arr.length-1; i++)
+     for (let j = i+1; j < arr.length; j++)
+        res.push([arr[i],arr[j]]);
+  return res;
+}
+
+function int_seq(min,max) {
+  const arr = [];
+  for (let i = min; i<=max; i++)
+      arr.push(i);
+  return(arr);
 }
