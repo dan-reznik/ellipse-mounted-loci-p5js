@@ -50,12 +50,6 @@ function test_concyclic_known() {
     return 0;
 }
 
-// MAIN CALL
-const concyclic_derived_pairs_csv = (Xks) => console.log("derived,k1,k2\n"+concyclic_derived_pairs(Xks)
-.map(e => e.tri+","+e.k1+","+e.k2)
-.join("\n"));
-
-
 function concyclicN(vs) {
     const x3 = get_circumcenter([vs[0],vs[1],vs[2]]);
     const R2 = edist2(vs[0],x3);
@@ -94,12 +88,7 @@ function concyclic_derived_triples(Xks) {
     return results;
 }
 
-const concyclic_derived_triples_csv = (Xks) => console.log("derived,k1,k2,k3\n"+concyclic_derived_triples(Xks)
-.map(e => e.tri+","+e.k1+","+e.k2+","+e.k3)
-.join("\n"));
-
 // quadruples of concyclality
-
 function concyclic_derived4(tri,sides,k1,k2,k3,k4,derived_str) {
     const Xk1 = get_Xn_cartesians(k1,tri,sides);
     const Xk2 = get_Xn_cartesians(k2,tri,sides);
@@ -129,6 +118,19 @@ function concyclic_derived_quads(Xks) {
     return results;
 }
 
+// MAIN CALLs
+
+//concyclic_derived_pairs_csv(int_seq(1,40))
+const concyclic_derived_pairs_csv = (Xks) => console.log("derived,k1,k2\n"+concyclic_derived_pairs(Xks)
+.map(e => e.tri+","+e.k1+","+e.k2)
+.join("\n"));
+
+//concyclic_derived_triples_csv(int_seq(1,40))
+const concyclic_derived_triples_csv = (Xks) => console.log("derived,k1,k2,k3\n"+concyclic_derived_triples(Xks)
+.map(e => e.tri+","+e.k1+","+e.k2+","+e.k3)
+.join("\n"));
+
+//concyclic_derived_quads_csv(int_seq(1,40))
 const concyclic_derived_quads_csv = (Xks) => console.log("derived,k1,k2,k3,k4\n"+concyclic_derived_quads(Xks)
 .map(e => e.tri+","+e.k1+","+e.k2+","+e.k3+","+e.k4)
 .join("\n"));
