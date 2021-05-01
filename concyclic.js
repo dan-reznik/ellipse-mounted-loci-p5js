@@ -39,8 +39,6 @@ function concyclic_derived_pairs(Xks) {
     return results;
 }
 
-
-
 function test_concyclic_known() {
     const sides = tri_sides(g_tri);
     let test;
