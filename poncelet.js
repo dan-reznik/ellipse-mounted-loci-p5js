@@ -42,6 +42,23 @@ function orbit_excentral(a, tDeg) {
   return obj;
 }
 
+// s = b*(delta-c^2)/a^3
+function orbit_excentral_affine(a, tDeg) {
+  let ons = orbit_normals(a,tDeg);
+  const ts = excentral_triangle(ons.s);
+  const exc = generic_triangle(ons.o,ons.s,ts);
+  const b = 1;
+  const d = getDelta(a,b);
+  const c2 = a*a-b*b;
+  const s = b*(d-c2)/(a*a*a);
+  const exc_aff = exc.map(v=>[s*v[0],v[1]]);
+  let obj = {
+    o: exc_aff,
+    s: tri_sides(exc_aff)
+  };
+  return obj;
+}
+
 
 // intersection of current P1P2(t) with P1P2(t+dt)
 function get_envelope_trilin(a,tDeg,trilFn1,trilFn2,dt=0.0001) {

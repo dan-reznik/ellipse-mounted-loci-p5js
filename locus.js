@@ -35,7 +35,8 @@ const dict_caustic = {
     dual: caustic_dual,
     poristic: caustic_poristic,
     brocard: caustic_brocard,
-    excentral: caustic_excentral
+    excentral: caustic_excentral,
+    excentral_affine: caustic_excentral_affine
 };
 
 const dict_two_point = {
@@ -59,7 +60,8 @@ const dict_orbit_fn = {
     dual: orbit_dual,
     poristic: orbit_poristic,
     brocard: orbit_brocard,
-    excentral: orbit_excentral
+    excentral: orbit_excentral,
+    excentral_affine: orbit_excentral_affine
 };
 
 function get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
@@ -161,7 +163,7 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
                     translate(...bp.x3);
                     draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
                     pop();
-                } else {
+              } else {
                     const caustic_axes = dict_caustic[mounting](a);
                     draw_boundary(...caustic_axes, clr_caustic, stroke_w);
                     if (mounting!="billiard") draw_foci(...caustic_axes, clr_caustic, stroke_w);
