@@ -347,7 +347,7 @@ function draw_tri_filled([p1, p2, p3], rgb, alpha = 0.1) {
 }
 
 function draw_normal(p, n, lgt, stroke_w) {
-  draw_line2(p, ray(p, n, lgt), clr_invert_ui(clr_black), stroke_w);
+  draw_line2(p, vray(p, n, lgt), clr_invert_ui(clr_black), stroke_w);
 }
 
 // old probably not used

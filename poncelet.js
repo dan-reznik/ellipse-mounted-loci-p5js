@@ -1,29 +1,29 @@
 // ELLIPTIC BILLIARD
 
 function cos_alpha(a, x) {
-  let a2 = a * a;
-  let a4 = a2 * a2;
-  delta = sqrt(a4 - a2 + 1);
-  let num = a2 * sqrt(2 * delta - a2 - 1);
-  let denom = (a2 - 1) * sqrt(a4 - (a2 - 1) * x * x);
+  const a2 = a * a;
+  const a4 = a2 * a2;
+  const delta = sqrt(a4 - a2 + 1);
+  const num = a2 * sqrt(2 * delta - a2 - 1);
+  const denom = (a2 - 1) * sqrt(a4 - (a2 - 1) * x * x);
   return num / denom;
 }
 
 // ORBITS
 
 function orbit_normals(a, tDeg) {
-  let t = toRad(tDeg);
-  let p1 = [a * cos(t), sin(-t)];
-  let n1 = ell_norm(a, p1);
-  let ca = cos_alpha(a, p1[0]);
-  let sa = sqrt(1 - ca * ca);
-  let nrot = rotSinCos(n1, sa, ca);
-  let nrotNeg = rotSinCos(n1, -sa, ca);
-  let p2 = ellInterRay(a, p1, nrot);
-  let p3 = ellInterRay(a, p1, nrotNeg);
-  let n2 = ell_norm(a, p2);
-  let n3 = ell_norm(a, p3);
-  let obj = {
+  const t = toRad(tDeg);
+  const p1 = [a * Math.cos(t), Math.sin(-t)];
+  const n1 = ell_norm(a, p1);
+  const ca = cos_alpha(a, p1[0]);
+  const sa = Math.sqrt(1 - ca * ca);
+  const nrot = rotSinCos(n1, sa, ca);
+  const nrotNeg = rotSinCos(n1, -sa, ca);
+  const p2 = ellInterRay(a, p1, nrot);
+  const p3 = ellInterRay(a, p1, nrotNeg);
+  const n2 = ell_norm(a, p2);
+  const n3 = ell_norm(a, p3);
+  const obj = {
     o: [p1, p2, p3],
     n: [n1, n2, n3],
     s: tri_sides([p1, p2, p3])
@@ -32,10 +32,10 @@ function orbit_normals(a, tDeg) {
 }
 
 function orbit_excentral(a, tDeg) {
-  let ons = orbit_normals(a,tDeg);
+  const ons = orbit_normals(a,tDeg);
   const ts = excentral_triangle(ons.s);
   const exc = generic_triangle(ons.o,ons.s,ts);
-  let obj = {
+  const obj = {
     o: exc,
     s: tri_sides(exc)
   };
@@ -44,7 +44,7 @@ function orbit_excentral(a, tDeg) {
 
 // s = b*(delta-c^2)/a^3
 function orbit_excentral_affine(a, tDeg) {
-  let ons = orbit_normals(a,tDeg);
+  const ons = orbit_normals(a,tDeg);
   const ts = excentral_triangle(ons.s);
   const exc = generic_triangle(ons.o,ons.s,ts);
   const b = 1;
@@ -52,7 +52,7 @@ function orbit_excentral_affine(a, tDeg) {
   const c2 = a*a-b*b;
   const s = b*(d-c2)/(a*a*a);
   const exc_aff = exc.map(v=>[s*v[0],v[1]]);
-  let obj = {
+  const obj = {
     o: exc_aff,
     s: tri_sides(exc_aff)
   };
@@ -62,12 +62,12 @@ function orbit_excentral_affine(a, tDeg) {
 
 // intersection of current P1P2(t) with P1P2(t+dt)
 function get_envelope_trilin(a,tDeg,trilFn1,trilFn2,dt=0.0001) {
-  let ons = orbit_normals(a, tDeg-0.5*dt);
-  let ons_dt = orbit_normals(a, tDeg+0.5*dt);
-  let p1=trilFn1(ons.o, ons.s);
-  let p1_dt=trilFn1(ons_dt.o, ons_dt.s);
-  let p2=trilFn2(ons.o, ons.s);
-  let p2_dt=trilFn2(ons_dt.o, ons_dt.s);
+  const ons = orbit_normals(a, tDeg-0.5*dt);
+  const ons_dt = orbit_normals(a, tDeg+0.5*dt);
+  const p1=trilFn1(ons.o, ons.s);
+  const p1_dt=trilFn1(ons_dt.o, ons_dt.s);
+  const p2=trilFn2(ons.o, ons.s);
+  const p2_dt=trilFn2(ons_dt.o, ons_dt.s);
   return inter_lines(p1,p2,p1_dt,p2_dt);
 }
 
@@ -141,9 +141,9 @@ function get_Xn_poncelet(a, tDeg, orbit_fn, bary_fn, tri_type, cpn, pn, inv, inv
 }
 
 function orbit_homothetic(a, tDeg) {
-  let tri0 = regularPoly(3);
-  let triRot = rotPoly(tri0, toRad(tDeg));
-  let triScale = scalePoly(triRot, a, 1);
+  const tri0 = regularPoly(3);
+  const triRot = rotPoly(tri0, toRad(tDeg));
+  const triScale = scalePoly(triRot, a, 1);
   return { o: triScale, s: tri_sides(triScale) };
 }
 
