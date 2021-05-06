@@ -86,15 +86,38 @@ function get_excircles(tri,sides) {
     return exc.map((e,i)=> ({ ctr:e, R:Rs[i] }));
 }
 
-function circle_excircle(tri,sides) {
+function circle_excircle_low(tri,sides,n) {
     const ts_exc = excentral_triangle(sides);
     const exc = generic_triangle(tri,sides,ts_exc);
     const area = tri_area(sides);
     const s = get_semiperimeter(sides);
     // https://mathworld.wolfram.com/Exradius.html
-    const R = area/(s-sides[0]);
-    return { ctr:exc[0], R:R, n:0 };
+    const R = area/(s-sides[n]);
+    return { ctr:exc[n], R:R, n:0 };
 }
+
+const circle_excircle_1 = (tri,sides) => circle_excircle_low(tri,sides,0);
+const circle_excircle_2 = (tri,sides) => circle_excircle_low(tri,sides,1);
+const circle_excircle_3 = (tri,sides) => circle_excircle_low(tri,sides,2);
+
+/*
+x15 = getFirstIsodynamicTrilin[tri, triL];
+x16 = getSecondIsodynamicTrilin[tri, triL];
+apX3s = getCircumcenterTrilin[{#, x15, x16}, 
+     triLengthsRL@{#, x15, x16}] & /@ tri;
+apRs = MapThread[magn[#1 - #2] &, {tri, apX3s}];
+*/
+function circle_apollonius_isodyn_low(tri,sides,n) {
+    const x15 = get_Xn_cartesians(15, tri, sides);
+    const x16 = get_Xn_cartesians(16, tri, sides);
+    const ctr = get_circumcenter([x15,x16,tri[n]]);
+    const R = edist(ctr,tri[n]);
+    return { ctr:ctr, R:R, n:0 };
+}
+
+const circle_apollonius_isodyn_1 = (tri,sides) => circle_apollonius_isodyn_low(tri,sides,0);
+const circle_apollonius_isodyn_2 = (tri,sides) => circle_apollonius_isodyn_low(tri,sides,1);
+const circle_apollonius_isodyn_3 = (tri,sides) => circle_apollonius_isodyn_low(tri,sides,2);
 
 function circle_cosine_exc(tri,sides) {
     const exc_ts = excentral_triangle(tri,sides);
