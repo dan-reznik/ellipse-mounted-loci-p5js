@@ -52,6 +52,12 @@ const dict_two_point = {
     ort: get_two_point_orthopole
 }
 
+const dict_vtx_xn = {
+    env1x: 0,
+    env2x: 1,
+    env3x: 2
+  };
+
 function tri_fns_invert(circ, a, mounting) {
     if (dict_tri_fns_inv[circ].caustic && mounting in dict_caustic) {
         const [ac, bc] = dict_caustic[mounting](a);
@@ -120,12 +126,14 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
             (n!=pn)&&(locus_type in dict_two_point) ? dict_two_point[locus_type](a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn)) :
             [0, 0];
         if (dr_tri && (locus_type in dict_two_point) && (n != pn)) {
-            const [p1, p2] = get_two_points(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn));
+            const [p1, p2] = locus_type in dict_vtx_xn ?
+            get_vtx_xn(a, tDeg, tri_fn, get_fn_bary(n), dict_vtx_xn[locus_type]) :
+            get_two_points(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn));
             draw_line_dashed2(...collinear_endpoints([p1, p2, env]), clr, stroke_w);
             draw_point2(p1, clr, stroke_w / 2);
             draw_text2_rot('X' + n, p1, clr, .66 * stroke_w, -dict_rot[rot], true);
             draw_point2(p2, clr, stroke_w / 2);
-            draw_text2_rot('X' + pn, p2, clr, .66 * stroke_w, -dict_rot[rot], true);
+            draw_text2_rot(locus_type in dict_vtx_xn? ('P'+(1+dict_vtx_xn[locus_type])):('X' + pn), p2, clr, .66 * stroke_w, -dict_rot[rot], true);
         }
         draw_locus_branched(locus_branches, ons_derived, n, pn, clr, stroke_w,
             locus_type, ell_detect, rot, draw_label, inv == "xn" ? inv_fn : inv_fn_identity,
@@ -198,12 +206,14 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
                 dict_two_point[locus_type](a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn)) :
                 [0, 0];
             if (dr_tri && (locus_type in dict_two_point) && (n != pn)) {
-                const [p1, p2] = get_two_points(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn));
+                const [p1, p2] = locus_type in dict_vtx_xn ?
+                 get_vtx_xn(a, tDeg, tri_fn, get_fn_bary(n), dict_vtx_xn[locus_type]) :
+                 get_two_points(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn));
                 draw_line_dashed2(...collinear_endpoints([p1, p2, env]), clr, stroke_w);
                 draw_point2(p1, clr, stroke_w / 2);
                 draw_text2_rot('X' + n, p1, clr, .66 * stroke_w, -dict_rot[rot], true);
                 draw_point2(p2, clr, stroke_w / 2);
-                draw_text2_rot('X' + pn, p2, clr, .66 * stroke_w, -dict_rot[rot], true);
+                draw_text2_rot(locus_type in dict_vtx_xn? ('P'+(1+dict_vtx_xn[locus_type])):('X' + pn), p2, clr, .66 * stroke_w, -dict_rot[rot], true);
             }
         }
         draw_locus_branched(locus_branches, ons_derived, n, pn, clr, stroke_w,

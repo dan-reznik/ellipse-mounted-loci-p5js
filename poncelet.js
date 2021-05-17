@@ -145,6 +145,13 @@ function get_two_points(a, tDeg, tri_fn, bary_fn_1, bary_fn_2) {
   return [x1,x2];
 }
 
+function get_vtx_xn(a, tDeg, tri_fn, bary_fn, n) {
+  const ons = tri_fn(a, tDeg);
+  const v = ons.o[n];
+  const x = get_Xn_low_bary(ons.o, ons.s, bary_fn);
+  return [x,v]; // returns X first
+}
+
 function get_orbit_derived(a,tDeg,orbit_fn,tri_type,cpn, pn,inv,inv_fn, mounting, circ) {
   const ons = orbit_fn(a, tDeg);
   const ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
