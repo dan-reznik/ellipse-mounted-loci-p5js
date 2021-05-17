@@ -23,6 +23,9 @@ const dict_label = {
     caustic23:'Ɛ23',
     caustic31:'Ɛ31',
     env:'Ɛ',
+    env1x:'Ɛ1x',
+    env2x:'Ɛ2x',
+    env3x:'Ɛ3x',
     ort:'⟂'
   };
 

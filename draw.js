@@ -81,7 +81,7 @@ function draw_locus_branched(locus_branches, ons, xnum, pn, rgb, stroke_w,
   // handles vtx,vtx2,vtx3
   if (locus_type in dict_vtx)
     xn = ons.o[dict_vtx[locus_type]];
-  else if (locus_type.substr(0,7) == "caustic" || locus_type == "env" || locus_type=="ort") {
+  else if (locus_type.substr(0,7) == "caustic" || locus_type in dict_two_point ) {
     xn = env;
   } else {
     const bs = locus_type in dict_fn_any ? dict_fn_any[locus_type](ons.s) : get_Xn_bary(ons.s, xnum); // "trilins"
@@ -108,7 +108,7 @@ function draw_locus_branched(locus_branches, ons, xnum, pn, rgb, stroke_w,
     rotate(-dict_rot[rot]);
     if (locus_type in dict_label) 
       draw_text2(dict_label[locus_type] +
-        (locus_type=="env"||locus_type=="ort"?xnum+","+pn:"") +
+        (locus_type in dict_two_point?xnum+","+pn:"") +
         (locus_type=="trilins"?xnum:"") +
         (inv_tri||inv_fn!=inv_fn_identity?"'":"") +
         ell_detect_suffix, [0, 0], rgb, stroke_w);

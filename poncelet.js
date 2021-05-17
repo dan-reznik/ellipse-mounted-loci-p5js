@@ -98,6 +98,28 @@ function get_two_point_envelope(a, tDeg, tri_fn, bary_fn_1, bary_fn_2, eps = .01
   return inter;
 }
 
+function get_v_x_envelope_low(a, tDeg, tri_fn, bary_fn_1, v, eps = .01) {
+  const ons_bef = tri_fn(a, tDeg - eps);
+  const v_bef = ons_bef.o[v];
+  const x_bef = get_Xn_low_bary(ons_bef.o, ons_bef.s, bary_fn_1);
+
+  const ons_aft = tri_fn(a, tDeg + eps);
+  const v_aft = ons_aft.o[v];
+  const x_aft = get_Xn_low_bary(ons_aft.o, ons_aft.s, bary_fn_1);
+  
+  const inter = inter_rays(
+    v_bef, vdiff(x_bef, v_bef),
+    v_aft, vdiff(x_aft, v_aft)
+  );
+  //console.log(inter);
+  return inter;
+}
+
+const get_v1_x_envelope = (a, tDeg, tri_fn, bary_fn_1, bary_fn_2) => get_v_x_envelope_low(a, tDeg, tri_fn, bary_fn_1, 0);
+const get_v2_x_envelope = (a, tDeg, tri_fn, bary_fn_1, bary_fn_2) => get_v_x_envelope_low(a, tDeg, tri_fn, bary_fn_1, 1);
+const get_v3_x_envelope = (a, tDeg, tri_fn, bary_fn_1, bary_fn_2) => get_v_x_envelope_low(a, tDeg, tri_fn, bary_fn_1, 2);
+
+
 function get_two_point_orthopole(a, tDeg, tri_fn, bary_fn_1, bary_fn_2) {
   const ons = tri_fn(a, tDeg);
   const x1 = get_Xn_low_bary(ons.o, ons.s, bary_fn_1);
