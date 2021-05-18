@@ -123,9 +123,9 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     if (locus_type != 'none') {
         const tri_fn = (a0, tDeg0) => get_mounted_derived(a0, tDeg0, mounting, tri_type, cpn, pn, circ, inv).derived;
         const env = locus_type in dict_caustic_n ? get_side_envelope(a, tDeg, tri_fn, dict_caustic_n[locus_type]) :
-            (n!=pn)&&(locus_type in dict_two_point) ? dict_two_point[locus_type](a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn)) :
+            (locus_type in dict_vtx_xn||n!=pn)&&(locus_type in dict_two_point) ? dict_two_point[locus_type](a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn)) :
             [0, 0];
-        if (dr_tri && (locus_type in dict_two_point) && (n != pn)) {
+        if (dr_tri && (locus_type in dict_two_point) && (locus_type in dict_vtx_xn ||n != pn)) {
             const [p1, p2] = locus_type in dict_vtx_xn ?
             get_vtx_xn(a, tDeg, tri_fn, get_fn_bary(n), dict_vtx_xn[locus_type]) :
             get_two_points(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn));
@@ -202,10 +202,10 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
         if (mounting in dict_orbit_fn) {
             const tri_fn = (a0, tDeg0) => get_orbit_derived(a0, tDeg0, dict_orbit_fn[mounting], tri_type, cpn, pn, inv, inv_fn, mounting, circ);
             env = locus_type in dict_caustic_n ? get_side_envelope(a, tDeg, tri_fn, dict_caustic_n[locus_type]) :
-                (n!=pn)&& (locus_type in dict_two_point) ?
+                (locus_type in dict_vtx_xn || n!=pn)&& (locus_type in dict_two_point) ?
                 dict_two_point[locus_type](a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn)) :
                 [0, 0];
-            if (dr_tri && (locus_type in dict_two_point) && (n != pn)) {
+            if (dr_tri && (locus_type in dict_two_point) && (locus_type in dict_vtx_xn || n != pn)) {
                 const [p1, p2] = locus_type in dict_vtx_xn ?
                  get_vtx_xn(a, tDeg, tri_fn, get_fn_bary(n), dict_vtx_xn[locus_type]) :
                  get_two_points(a, tDeg, tri_fn, get_fn_bary(n), get_fn_bary(pn));

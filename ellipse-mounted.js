@@ -38,6 +38,7 @@ function get_Xn_mounted(a, tDeg, v2, v3, bary_fn, tri_type, cpn, pn, inv, inv_fn
     ons_derived = get_Xn_mounted_low(a,tDeg,v2,v3,tri_type,cpn,pn,inv,inv_fn,mounting,circ);
     const tri_fn = (a0,tDeg0)=>get_Xn_mounted_low(a0,tDeg0,v2,v3,tri_type,cpn,pn,inv,inv_fn,mounting,circ);
     const xn = locus_type in dict_caustic_n ? get_side_envelope(a, tDeg, tri_fn, dict_caustic_n[locus_type]) :
+    // may need dict_vtx_xn
     locus_type in dict_two_point ? dict_two_point[locus_type](a, tDeg, tri_fn, bary_fn, get_fn_bary(pn)) :
          get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
     const xn_inv = inv=="xn"?inv_fn(ons_derived.o,ons_derived.s, xn):xn;
