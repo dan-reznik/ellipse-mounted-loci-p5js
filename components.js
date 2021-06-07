@@ -153,27 +153,6 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
         </div>
         <select class='tri_type' id="tri_type_`+xn_number+`" name="tri_type_`+xn_number+`">
             <option value="reference">*reference*</option>
-            <option value="inv_f1">*inv-f1*</option>
-            <option value="inv_f1c">*inv-f1c*</option>
-            <option value="inv_f2">*inv-f2*</option>
-            <option value="inv_ctr">*inv-ctr*</option>
-            <option value="pol_ctr">*pol-ctr*</option>
-            <option value="pol_f1">*pol-f1*</option>
-            <option value="pol_f1c">*pol-f1c*</option>
-            <option value="ped_lim2">*ped-lim2*</option>
-            <option value="x3_map_ctr">*x3map-ctr*</option>
-            <option value="x3_map_f1">*x3map-f1*</option>
-            <option value="x3_map_f1c">*x3map-f1c*</option>
-            <option value="x3_inv_ctr">*x3inv-ctr*</option>
-            <option value="x3_inv_f1">*x3inv-f1*</option>
-            <option value="x3_inv_f1c">*x3inv-f1c*</option>
-            <option value="crem_f1">*crem-f1*</option>
-            <option value="crem_f2">*crem-f2*</option>
-            <option value="crem_ctr">*crem-ctr*</option>
-            <option value="inf_x">*inf-x*</option>
-            <option value="inf_y">*inf-y*</option>
-            <option value="inf_x2">*inf-x2*</option>
-            <option value="inf_y2">*inf-y2*</option>
             <option value="anticompl">anticompl</option>
             <option value="bci">bci</option>
             <option value="brocard1">brocard 1</option>
@@ -243,6 +222,27 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="mandart_inc">.mndrt-inc</option>
             <option value="ursa_major">.ursa-major</option>
             <option value="ursa_minor">.ursa-minor</option>
+            <option value="inv_ctr">*inv-ctr*</option>
+            <option value="inv_f1">*inv-f1*</option>
+            <option value="inv_f1c">*inv-f1c*</option>
+            <option value="inv_f2">*inv-f2*</option>
+            <option value="pol_ctr">*pol-ctr*</option>
+            <option value="pol_f1">*pol-f1*</option>
+            <option value="pol_f1c">*pol-f1c*</option>
+            <option value="ped_lim2">*ped-lim2*</option>
+            <option value="x3_map_ctr">*x3map-ctr*</option>
+            <option value="x3_map_f1">*x3map-f1*</option>
+            <option value="x3_map_f1c">*x3map-f1c*</option>
+            <option value="x3_inv_ctr">*x3inv-ctr*</option>
+            <option value="x3_inv_f1">*x3inv-f1*</option>
+            <option value="x3_inv_f1c">*x3inv-f1c*</option>
+            <option value="crem_ctr">*crem-ctr*</option>
+            <option value="crem_f1">*crem-f1*</option>
+            <option value="crem_f2">*crem-f2*</option>
+            <option value="inf_x">*inf-x*</option>
+            <option value="inf_y">*inf-y*</option>
+            <option value="inf_x2">*inf-x2*</option>
+            <option value="inf_y2">*inf-y2*</option>
         </select>
         
         <select class='cpn' id="cpn_`+xn_number+`" name="cpn_`+xn_number+`">
