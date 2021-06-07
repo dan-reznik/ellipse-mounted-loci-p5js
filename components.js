@@ -77,11 +77,11 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="inv_f1">*f1*</option>
                     <option value="inv_f1c">*f1c*</option>
                     <option value="inv_f2">*f2*</option>
-                    <option value="inv_ctr">*ctr*</option>
-                    <option value="crem_f1">*crem-f1*</option>
-                    <option value="crem_f2">*crem-f2*</option>
-                    <option value="crem_ctr">*crem-ctr*</option>
-                    <option value="adams">adams</option>
+                    <option value="inv_ctr">*ctr*</option>`+
+                    //<option value="crem_f1">*crem-f1*</option>
+                    //<option value="crem_f2">*crem-f2*</option>
+                    //<option value="crem_ctr">*crem-ctr*</option>
+                    `<option value="adams">adams</option>
                     <option value="apollonius_isodyn1">appollon1</option>
                     <option value="apollonius_isodyn2">appollon2</option>
                     <option value="apollonius_isodyn3">appollon3</option>
@@ -121,6 +121,8 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="xn">inv xn</option>
                     <option value="tri">inv tri</option>
                     <option value="polar">pol tri</option>
+                    <option value="crem_xn">cre xn</option>
+                    <option value="crem_tri">cre tri</option>
                 </select>
         </div>
     </div>
@@ -254,10 +256,10 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="invert">invert</option>
             <option value="polar">polar</option>
             <option value="polar_exc">polar-exc</option>
+            <option value="inv_exc">inv-excircs</option>
             <option value="three_ctrs">3-circums</option>
             <option value="vtx_refl">vtx-refl</option>
             <option value="side_refl">side-refl</option>
-            <option value="inv_exc">inv-excircs</option>
             <option value="x3_inv">x3-inv</option>
             <option value="x1_map">x1-map</option>
             <option value="x2_map">x2-map</option>

@@ -155,7 +155,7 @@ function get_vtx_xn(a, tDeg, tri_fn, bary_fn, n) {
 function get_orbit_derived(a,tDeg,orbit_fn,tri_type,cpn, pn,inv,inv_fn, mounting, circ) {
   const ons = orbit_fn(a, tDeg);
   const ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
-  return inv == "tri"? invert_tri(ons_derived, inv_fn) :
+  return (inv == "tri"||inv=="crem_tri")? invert_tri(ons_derived, inv_fn) :
   inv=="polar" ? polar_tri(ons_derived, inv_fn, circ, a, mounting) : ons_derived;
 }
 
@@ -166,7 +166,7 @@ function get_Xn_poncelet(a, tDeg, orbit_fn, bary_fn, tri_type, cpn, pn, inv, inv
   const xn = caustic_n>=0 ? get_side_envelope(a, tDeg, tri_fn,caustic_n) :
   locus_type in dict_two_point ? dict_two_point[locus_type](a, tDeg, tri_fn, bary_fn, get_fn_bary(pn)) :
     get_Xn_low_bary(ons_derived.o, ons_derived.s, bary_fn);
-  return inv == "xn" ? inv_fn(ons_derived.o, ons_derived.s, xn) : xn;
+  return (inv == "xn"||inv=="crem_xn") ? inv_fn(ons_derived.o, ons_derived.s, xn) : xn;
 }
 
 function orbit_homothetic(a, tDeg) {

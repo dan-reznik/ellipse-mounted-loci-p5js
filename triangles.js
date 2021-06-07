@@ -152,6 +152,7 @@ function three_ctrs_triangle(o, s, ts) {
   return tri;
 }
 
+
 function get_x3_inv_low(tri, M) {
   const tri_inv = tri.map((v, k) => {
     const vnext = tri[k == 2 ? 0 : k + 1];
@@ -161,11 +162,13 @@ function get_x3_inv_low(tri, M) {
   return tri_inv;
 }
 
+// in fact this is the inverse of the x3-map.
 function x3_inv_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o, s, ts);
   return get_x3_inv_low(o, xn);
 }
 
+// reflect Xn on 3 vertices
 function vtx_refl_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o, s, ts);
   const tri = o.map(v => vray(xn, vdiff(v, xn), 2));
@@ -1073,11 +1076,11 @@ const dict_tri_fns_inv = {
   // not inversion proper but pedal of bicentric wrt to f2
 };
 
-const dict_tri_fns_cremona = {
-  crem_f1: cremona_f1,
-  crem_f2: cremona_f2,
-  crem_ctr: cremona_ctr
-};
+//const dict_tri_fns_cremona = {
+//  crem_f1: cremona_f1,
+//  crem_f2: cremona_f2,
+//  crem_ctr: cremona_ctr
+//};
 
 const dict_tri_fns_bicentric = {
   ped_lim2: get_polar_pedal_lim2,
@@ -1131,10 +1134,10 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   if (tri_type in dict_tri_fns_bicentric) {
     const tri0 = dict_tri_fns_bicentric[tri_type](a, 1, orbit, sides, mounting);
     ret_tri = { o: tri0, s: tri_sides(tri0) };
-  } else if (tri_type in dict_tri_fns_cremona) {
+  } /*else if (tri_type in dict_tri_fns_cremona) {
     const inv_fn = (tri, sides, p) => dict_tri_fns_cremona[tri_type](a, p)
     ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
-  } else if (tri_type in dict_tri_fns_inv) {
+  } */else if (tri_type in dict_tri_fns_inv) {
     const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_invert(tri_type, a, mounting) /*dict_tri_fns_inv[tri_type].fn(a)*/)
     ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
   } else if (mounting in dict_caustic && tri_type == "graves") {
