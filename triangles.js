@@ -781,11 +781,22 @@ function get_focal_inter(p, a,b, f1,f2) {
    return ii;
 }
 
-function get_focal_inter_triangle(o, a, b) {
+function get_focal_inter_triangle(o, a, b, outer_ctr) {
   let c = Math.sqrt(Math.abs(a*a - b*b));
-  const f1= a>b?[c, 0]:[0,c];
-  const f2= a>b?[-c, 0]:[0,-c];
-  const tri = o.map(v=>get_focal_inter(v, a,b, f1,f2));
+  const f1= vdiff(a>b?[c, 0]:[0,c],outer_ctr);
+  const f2= vdiff(a>b?[-c, 0]:[0,-c], outer_ctr);
+  const tri = o.map(v=>vsum(get_focal_inter(vdiff(v,outer_ctr), a,b, f1,f2),outer_ctr));
+  return tri;
+}
+
+function get_focal_inter_triangle_caustic(o, a,b,ac,bc, outer_ctr) {
+  let cc = Math.sqrt(Math.abs(ac*ac - bc*bc));
+  const f1= vdiff(ac>bc?[cc, 0]:[0,cc],outer_ctr);
+  const f2= vdiff(ac>bc?[-cc, 0]:[0,-cc],outer_ctr);
+
+  // poristic: translate(-d, 0);
+  // brocard; translate(...bp.x3);
+  const tri = o.map(v=>vsum(get_focal_inter(vdiff(v,outer_ctr), a,b, f1,f2),outer_ctr));
   return tri;
 }
 
@@ -1174,11 +1185,17 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
     const tri0 = get_graves_triangle(orbit[0], ac, bc);
     ret_tri = { o: tri0, s: tri_sides(tri0) };
   } else if (mounting in dict_caustic && tri_type == "focal_ints") {
-    const tri0 = get_focal_inter_triangle(orbit, a, 1);
+    const outer_ctr = mounting=="poristic"?[-chapple_d(1, a + 1),0]:mounting=="brocard"?brocard_porism(a).x3:[0,0];
+    const tri0 = get_focal_inter_triangle(orbit, a, 1, outer_ctr);
     ret_tri = { o: tri0, s: tri_sides(tri0) };
   } else if (mounting in dict_caustic && tri_type == "focalc_ints") {
-    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
-    const tri0 = get_focal_inter_triangle(orbit, ac, bc);
+    const ab_mnt = dict_caustic[mounting](a);
+    // poristic: translate(-d, 0);
+    // brocard; translate(...bp.x3);
+    const [ae, be] = ["inellipse", "brocard", "excentral"].includes(mounting) ? ab_mnt : [a, 1];
+    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : ab_mnt;
+    const outer_ctr = mounting=="poristic"?[-chapple_d(1, a + 1),0]:mounting=="brocard"?brocard_porism(a).x3:[0,0];
+    const tri0 = get_focal_inter_triangle_caustic(orbit, ae, be, ac, bc, outer_ctr);
     ret_tri = { o: tri0, s: tri_sides(tri0) };
   } else if (tri_type in dict_tri_fns) { // "reference" returns itself
     const ts = dict_tri_fns[tri_type](sides);
