@@ -138,7 +138,12 @@ function antipolar_triangle(o, s, ts) {
 
 function ellcevian_triangle(o, s, ts, a) {
   const xn = trilin_to_cartesian(o, s, ts);
-  return o.map(v=>ellInterRay(a, v, vdiff(xn,v)));
+  return o.map(v => ellInterRay(a, v, vdiff(xn, v)));
+}
+
+function caucevian_triangle(o, s, ts, ac,bc) {
+  const xn = trilin_to_cartesian(o, s, ts);
+  return o.map(v => ellInterRayb(ac, bc, v, vdiff(xn, v)));
 }
 
 // get excircles, calculate polars, intersect them
@@ -1038,6 +1043,7 @@ const dict_tri_pfns = {
   anticevian: { fn: anticevian_triangle, needs: "none" },
   circumcevian: { fn: circumcevian_triangle, needs: "none" },
   ellcevian: { fn: ellcevian_triangle, needs: "ell" }, // sends tri too
+  caucevian: { fn: caucevian_triangle, needs: "cau" }, // sends tri too
   pedal: { fn: pedal_triangle, needs: "none" },
   antipedal: { fn: antipedal_triangle, needs: "none" },
   tripolar: { fn: tripolar_triangle, needs: "tri" },
@@ -1149,13 +1155,18 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
     const bs = get_Xn_bary(ret_tri.s, pn);
     const ts_p = barys_to_trilins(bs, ret_tri.s);
     let tri0;
-    if (dict_tri_pfns[cpn].needs == "tri")
-      tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p);
-    else if (dict_tri_pfns[cpn].needs == "ell")
-      tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, a);
-    else {
-      const ts = dict_tri_pfns[cpn].fn(ret_tri.s, ts_p);
-      tri0 = generic_triangle(ret_tri.o, ret_tri.s, ts);
+    switch (dict_tri_pfns[cpn].needs) {
+      case "tri": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p); break;
+      case "ell": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, a); break;
+      case "cau": {
+        const [ac, bc] = !(mounting in dict_caustic) || ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
+        tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, ac,bc);
+        break;
+      };
+      default: {
+        const ts = dict_tri_pfns[cpn].fn(ret_tri.s, ts_p);
+        tri0 = generic_triangle(ret_tri.o, ret_tri.s, ts);
+      }
     }
     ret_tri = { o: tri0, s: tri_sides(tri0), o_deriv: ret_tri.o, s_deriv: ret_tri.s };
   }

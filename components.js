@@ -251,6 +251,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="anticevian">anticevian</option>
             <option value="circumcevian">circumcev</option>
             <option value="ellcevian">ell-cev</option>
+            <option value="caucevian">cau-cev</option>
             <option value="pedal">pedal</option>
             <option value="antipedal">antipedal</option>
             <option value="tripolar">trilin-polar</option>
