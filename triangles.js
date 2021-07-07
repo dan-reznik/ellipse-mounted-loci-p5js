@@ -107,6 +107,7 @@ function tripolar_triangle(o, s, ts) {
   return tripolar;
 }
 
+
 // (i) invert, and (ii) get antipedal
 function polar_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o, s, ts);
@@ -133,6 +134,11 @@ function antipolar_triangle(o, s, ts) {
   const inv_fn = (tri, sides, p) => circle_inversion(p, { ctr: xn, R: 1 });
   const inv_tri = invert_tri({ o: ped_tri, s: tri_sides(ped_tri) }, inv_fn);
   return inv_tri.o;
+}
+
+function ellcevian_triangle(o, s, ts, a) {
+  const xn = trilin_to_cartesian(o, s, ts);
+  return o.map(v=>ellInterRay(a, v, vdiff(xn,v)));
 }
 
 // get excircles, calculate polars, intersect them
@@ -804,19 +810,6 @@ function trilins_to_barys(ts, sides) {
   return bs;
 }
 
-/*
-function get_derived_tri_v1_barys(sides, tri_type) {
-  if (tri_type in dict_tri_fns) { // "reference" returns itself
-    const ts = dict_tri_fns[tri_type](sides);
-    return trilin_to_barys(ts[0],sides);
-    // multiply by sides to get barys
-    //const bs = ts[0].map((t, i) => t * sides[i]);
-    //return bs;
-  } else
-    return [sides[0], 0, 0]; // reference tri v1 in baris
-}
-*/
-
 //barycentrics of vertex are opposite sidelengths
 function get_tri_v1_barys(sides) {
   return [sides[0], 0, 0];
@@ -1041,31 +1034,32 @@ const dict_tri_fns = {
 
 const dict_tri_pfns = {
   // reference        : reference_triangle,
-  cevian: { fn: cevian_triangle, needs_tri: false },
-  anticevian: { fn: anticevian_triangle, needs_tri: false },
-  circumcevian: { fn: circumcevian_triangle, needs_tri: false },
-  pedal: { fn: pedal_triangle, needs_tri: false },
-  antipedal: { fn: antipedal_triangle, needs_tri: false },
-  tripolar: { fn: tripolar_triangle, needs_tri: true },
-  invert: { fn: invert_triangle, needs_tri: true },
-  polar: { fn: polar_triangle, needs_tri: true },
-  polar_exc: { fn: polar_exc_triangle, needs_tri: true },
-  three_ctrs: { fn: three_ctrs_triangle, needs_tri: true },
-  vtx_refl: { fn: vtx_refl_triangle, needs_tri: true },
-  side_refl: { fn: side_refl_triangle, needs_tri: true },
-  inv_exc: { fn: inv_exc_triangle, needs_tri: true },
-  x3_inv: { fn: x3_inv_triangle, needs_tri: true },
-  x1_map: { fn: x1_map_triangle, needs_tri: true },
-  x2_map: { fn: x2_map_triangle, needs_tri: true },
-  x3_map: { fn: x3_map_triangle, needs_tri: true },
-  x4_map: { fn: x4_map_triangle, needs_tri: true },
-  x5_map: { fn: x5_map_triangle, needs_tri: true },
-  x6_map: { fn: x6_map_triangle, needs_tri: true },
-  x7_map: { fn: x7_map_triangle, needs_tri: true },
-  x8_map: { fn: x8_map_triangle, needs_tri: true },
-  x9_map: { fn: x9_map_triangle, needs_tri: true },
-  x10_map: { fn: x10_map_triangle, needs_tri: true },
-  x11_map: { fn: x11_map_triangle, needs_tri: true }
+  cevian: { fn: cevian_triangle, needs: "none" },
+  anticevian: { fn: anticevian_triangle, needs: "none" },
+  circumcevian: { fn: circumcevian_triangle, needs: "none" },
+  ellcevian: { fn: ellcevian_triangle, needs: "ell" }, // sends tri too
+  pedal: { fn: pedal_triangle, needs: "none" },
+  antipedal: { fn: antipedal_triangle, needs: "none" },
+  tripolar: { fn: tripolar_triangle, needs: "tri" },
+  invert: { fn: invert_triangle, needs: "tri" },
+  polar: { fn: polar_triangle, needs: "tri" },
+  polar_exc: { fn: polar_exc_triangle, needs: "tri" },
+  three_ctrs: { fn: three_ctrs_triangle, needs: "tri" },
+  vtx_refl: { fn: vtx_refl_triangle, needs: "tri" },
+  side_refl: { fn: side_refl_triangle, needs: "tri" },
+  inv_exc: { fn: inv_exc_triangle, needs: "tri" },
+  x3_inv: { fn: x3_inv_triangle, needs: "tri" },
+  x1_map: { fn: x1_map_triangle, needs: "tri" },
+  x2_map: { fn: x2_map_triangle, needs: "tri" },
+  x3_map: { fn: x3_map_triangle, needs: "tri" },
+  x4_map: { fn: x4_map_triangle, needs: "tri" },
+  x5_map: { fn: x5_map_triangle, needs: "tri" },
+  x6_map: { fn: x6_map_triangle, needs: "tri" },
+  x7_map: { fn: x7_map_triangle, needs: "tri" },
+  x8_map: { fn: x8_map_triangle, needs: "tri" },
+  x9_map: { fn: x9_map_triangle, needs: "tri" },
+  x10_map: { fn: x10_map_triangle, needs: "tri" },
+  x11_map: { fn: x11_map_triangle, needs: "tri" }
 };
 
 const dict_tri_fns_inv = {
@@ -1155,8 +1149,10 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
     const bs = get_Xn_bary(ret_tri.s, pn);
     const ts_p = barys_to_trilins(bs, ret_tri.s);
     let tri0;
-    if (dict_tri_pfns[cpn].needs_tri)
+    if (dict_tri_pfns[cpn].needs == "tri")
       tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p);
+    else if (dict_tri_pfns[cpn].needs == "ell")
+      tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, a);
     else {
       const ts = dict_tri_pfns[cpn].fn(ret_tri.s, ts_p);
       tri0 = generic_triangle(ret_tri.o, ret_tri.s, ts);
