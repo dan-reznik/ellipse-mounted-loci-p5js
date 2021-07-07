@@ -774,6 +774,21 @@ function get_graves_triangle(p1, ac, bc) {
   return [p1, ts[0], ts[1]];
 }
 
+function get_focal_inter(p, a,b, f1,f2) {
+   const i1 = farthestPoint(ellInterRaybBoth(a,b,p,vdiff(f1,p)),p);
+   const i2 = farthestPoint(ellInterRaybBoth(a,b,p,vdiff(f2,p)),p);
+   const ii = inter_rays(i1,vdiff(f2,i1),i2,vdiff(f1,i2));
+   return ii;
+}
+
+function get_focal_inter_triangle(o, a, b) {
+  let c = Math.sqrt(Math.abs(a*a - b*b));
+  const f1= a>b?[c, 0]:[0,c];
+  const f2= a>b?[-c, 0]:[0,-c];
+  const tri = o.map(v=>get_focal_inter(v, a,b, f1,f2));
+  return tri;
+}
+
 function invert_tri({ o, s }, inv_fn) {
   const o_inv = o.map(v => inv_fn(o, s, v));
   const sides_inv = tri_sides(o_inv);
@@ -862,6 +877,12 @@ function get_polar_f1(a, b, tri, sides, mounting) {
   return get_antipedal(tri_inv, tri_sides(tri_inv), f1);
 }
 
+function get_cevian_f1(a, b, tri, sides, mounting) {
+  const c = Math.sqrt(Math.abs(a * a - b * b));
+  const f1 = a > b ? [-c, 0] : [0, c];
+  return tri.map(v=>ellInterRayb(a,b,v,vdiff(f1,v)));
+}
+
 function get_x3_map_ctr(a, b, tri, sides, mounting) {
   // here &&&
   const x3s = tri.map((v, i) => get_circumcenter([[0, 0], v, tri[i == 2 ? 0 : i + 1]]));
@@ -948,6 +969,11 @@ function get_infinity_x2(a, b, tri, sides, mounting) {
 function get_polar_f1c(a, b, tri, sides, mounting) {
   const [ac, bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a, b];
   return get_polar_f1(ac, bc, tri, sides, mounting);
+}
+
+function get_cevian_f1c(a, b, tri, sides, mounting) {
+  const [ac, bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a, b];
+  return get_cevian_f1(ac,bc,tri,sides,mounting);
 }
 
 function get_polar_pedal_lim2(a, b, tri, sides, mounting) {
@@ -1087,6 +1113,8 @@ const dict_tri_fns_bicentric = {
   pol_ctr: get_polar_ctr,
   pol_f1: get_polar_f1,
   pol_f1c: get_polar_f1c,
+  cev_f1: get_cevian_f1,
+  cev_f1c: get_cevian_f1c,
   x3_map_ctr: get_x3_map_ctr,
   x3_map_f1: get_x3_map_f1,
   x3_map_f1c: get_x3_map_f1c,
@@ -1144,6 +1172,13 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
     // some poncelet families have the "caustic" wrong.
     const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
     const tri0 = get_graves_triangle(orbit[0], ac, bc);
+    ret_tri = { o: tri0, s: tri_sides(tri0) };
+  } else if (mounting in dict_caustic && tri_type == "focal_ints") {
+    const tri0 = get_focal_inter_triangle(orbit, a, 1);
+    ret_tri = { o: tri0, s: tri_sides(tri0) };
+  } else if (mounting in dict_caustic && tri_type == "focalc_ints") {
+    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
+    const tri0 = get_focal_inter_triangle(orbit, ac, bc);
     ret_tri = { o: tri0, s: tri_sides(tri0) };
   } else if (tri_type in dict_tri_fns) { // "reference" returns itself
     const ts = dict_tri_fns[tri_type](sides);
