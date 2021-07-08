@@ -141,7 +141,7 @@ function ellcevian_triangle(o, s, ts, a) {
   return o.map(v => ellInterRay(a, v, vdiff(xn, v)));
 }
 
-function caucevian_triangle(o, s, ts, ac,bc) {
+function caucevian_triangle(o, s, ts, ac, bc) {
   const xn = trilin_to_cartesian(o, s, ts);
   return o.map(v => ellInterRayb(ac, bc, v, vdiff(xn, v)));
 }
@@ -774,30 +774,11 @@ function get_graves_triangle(p1, ac, bc) {
   return [p1, ts[0], ts[1]];
 }
 
-function get_focal_inter(p, a,b, f1,f2) {
-   const i1 = farthestPoint(ellInterRaybBoth(a,b,p,vdiff(f1,p)),p);
-   const i2 = farthestPoint(ellInterRaybBoth(a,b,p,vdiff(f2,p)),p);
-   const ii = inter_rays(i1,vdiff(f2,i1),i2,vdiff(f1,i2));
-   return ii;
-}
-
-function get_focal_inter_triangle(o, a, b, outer_ctr) {
-  let c = Math.sqrt(Math.abs(a*a - b*b));
-  const f1= vdiff(a>b?[c, 0]:[0,c],outer_ctr);
-  const f2= vdiff(a>b?[-c, 0]:[0,-c], outer_ctr);
-  const tri = o.map(v=>vsum(get_focal_inter(vdiff(v,outer_ctr), a,b, f1,f2),outer_ctr));
-  return tri;
-}
-
-function get_focal_inter_triangle_caustic(o, a,b,ac,bc, outer_ctr) {
-  let cc = Math.sqrt(Math.abs(ac*ac - bc*bc));
-  const f1= vdiff(ac>bc?[cc, 0]:[0,cc],outer_ctr);
-  const f2= vdiff(ac>bc?[-cc, 0]:[0,-cc],outer_ctr);
-
-  // poristic: translate(-d, 0);
-  // brocard; translate(...bp.x3);
-  const tri = o.map(v=>vsum(get_focal_inter(vdiff(v,outer_ctr), a,b, f1,f2),outer_ctr));
-  return tri;
+function get_focal_inter(p, a, b, f1, f2) {
+  const i1 = farthestPoint(ellInterRaybBoth(a, b, p, vdiff(f1, p)), p);
+  const i2 = farthestPoint(ellInterRaybBoth(a, b, p, vdiff(f2, p)), p);
+  const ii = inter_rays(i1, vdiff(f2, i1), i2, vdiff(f1, i2));
+  return ii;
 }
 
 function invert_tri({ o, s }, inv_fn) {
@@ -879,6 +860,8 @@ function get_polar_ctr(a, b, tri, sides, mounting) {
   return get_antipedal(tri_inv, tri_sides(tri_inv), [0, 0]);
 }
 
+
+
 function get_polar_f1(a, b, tri, sides, mounting) {
   const c = Math.sqrt(Math.abs(a * a - b * b));
   const f1 = a > b ? [-c, 0] : [0, c];
@@ -886,12 +869,6 @@ function get_polar_f1(a, b, tri, sides, mounting) {
   const tri_inv = tri.map(v => circle_inversion(v, circ));
   // bicentric
   return get_antipedal(tri_inv, tri_sides(tri_inv), f1);
-}
-
-function get_cevian_f1(a, b, tri, sides, mounting) {
-  const c = Math.sqrt(Math.abs(a * a - b * b));
-  const f1 = a > b ? [-c, 0] : [0, c];
-  return tri.map(v=>ellInterRayb(a,b,v,vdiff(f1,v)));
 }
 
 function get_x3_map_ctr(a, b, tri, sides, mounting) {
@@ -929,6 +906,59 @@ function get_x3_map_f1c(a, b, tri, sides, mounting) {
   const [ac, bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a, b];
   return get_x3_map_f1(ac, bc, tri, sides, mounting);
 }
+
+function get_true_axes(a, mounting) {
+  if (mounting in dict_caustic) {
+    const ab_mnt = dict_caustic[mounting](a);
+    const [ae, be] = ["inellipse", "brocard", "excentral"].includes(mounting) ? ab_mnt : [a, 1];
+    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : ab_mnt;
+    const ctr = mounting == "poristic" ?
+    [-chapple_d(1, a + 1), 0] : mounting == "brocard" ?
+    brocard_porism(a).x3 : [0, 0];
+    let c = Math.sqrt(Math.abs(ae * ae - be * be));
+    const f1 = vdiff(ae > be ? [c, 0] : [0, c], ctr);
+    const f2 = vdiff(ae > be ? [-c, 0] : [0, -c], ctr);
+    let cc = Math.sqrt(Math.abs(ac * ac - bc * bc));
+    const f1c = vdiff(ac > bc ? [cc, 0] : [0, cc], ctr);
+    const f2c = vdiff(ac > bc ? [-cc, 0] : [0, -cc], ctr);
+
+    return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1:f1,f2:f2,f1c:f1c,f2c:f2c };
+  } else {
+    return { ae: a, be: 1, ac: a, bc: 1, ctr:[0,0] };
+  }
+}
+
+//function get_focal_inter_triangle(o, a, b, outer_ctr) {
+function get_focal_inter_triangle(a, b, o, sides, mounting) {
+  const ta = get_true_axes(a, mounting);
+  const tri = o.map(v => vsum(get_focal_inter(vdiff(v, ta.ctr), ta.ae, ta.be, ta.f1, ta.f2), ta.ctr));
+  return tri;
+}
+
+//function get_focal_inter_triangle_caustic(o, a,b,ac,bc, outer_ctr) {
+  function get_focal_inter_triangle_caustic(a, b, o, sides, mounting) {
+    const ta = get_true_axes(a, mounting);
+    const tri = o.map(v => vsum(get_focal_inter(vdiff(v, ta.ctr), ta.ae, ta.be, ta.f1c, ta.f2c), ta.ctr));
+    return tri;
+  }
+
+function get_cevian_f1(a, b, tri, sides, mounting) {
+  const ta = get_true_axes(a, mounting);
+  const tri0 = tri.map(v => vdiff(v, ta.ctr))
+      .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.f1)), v))
+      .map(v => vsum(v, ta.ctr));
+  return tri0;
+}
+
+function get_cevian_f1c(a, b, tri, sides, mounting) {
+  const ta = get_true_axes(a, mounting);
+  const tri0 = tri.map(v => vdiff(v, ta.ctr))
+      .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.f1c)), v))
+      .map(v => vsum(v, ta.ctr));
+  return tri0;
+}
+
+
 
 const dict_weird_outer = {
   inellipse: caustic_inellipse,
@@ -980,11 +1010,6 @@ function get_infinity_x2(a, b, tri, sides, mounting) {
 function get_polar_f1c(a, b, tri, sides, mounting) {
   const [ac, bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a, b];
   return get_polar_f1(ac, bc, tri, sides, mounting);
-}
-
-function get_cevian_f1c(a, b, tri, sides, mounting) {
-  const [ac, bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a, b];
-  return get_cevian_f1(ac,bc,tri,sides,mounting);
 }
 
 function get_polar_pedal_lim2(a, b, tri, sides, mounting) {
@@ -1135,7 +1160,9 @@ const dict_tri_fns_bicentric = {
   inf_x: get_infinity_x,
   inf_y: get_infinity_y,
   inf_x2: get_infinity_x2,
-  inf_y2: get_infinity_y2
+  inf_y2: get_infinity_y2,
+  ints_f12: get_focal_inter_triangle,
+  ints_f12c: get_focal_inter_triangle_caustic
 };
 
 function get_ctr_R(o, s, circ, a, mounting) {
@@ -1184,19 +1211,6 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
     const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
     const tri0 = get_graves_triangle(orbit[0], ac, bc);
     ret_tri = { o: tri0, s: tri_sides(tri0) };
-  } else if (mounting in dict_caustic && tri_type == "focal_ints") {
-    const outer_ctr = mounting=="poristic"?[-chapple_d(1, a + 1),0]:mounting=="brocard"?brocard_porism(a).x3:[0,0];
-    const tri0 = get_focal_inter_triangle(orbit, a, 1, outer_ctr);
-    ret_tri = { o: tri0, s: tri_sides(tri0) };
-  } else if (mounting in dict_caustic && tri_type == "focalc_ints") {
-    const ab_mnt = dict_caustic[mounting](a);
-    // poristic: translate(-d, 0);
-    // brocard; translate(...bp.x3);
-    const [ae, be] = ["inellipse", "brocard", "excentral"].includes(mounting) ? ab_mnt : [a, 1];
-    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : ab_mnt;
-    const outer_ctr = mounting=="poristic"?[-chapple_d(1, a + 1),0]:mounting=="brocard"?brocard_porism(a).x3:[0,0];
-    const tri0 = get_focal_inter_triangle_caustic(orbit, ae, be, ac, bc, outer_ctr);
-    ret_tri = { o: tri0, s: tri_sides(tri0) };
   } else if (tri_type in dict_tri_fns) { // "reference" returns itself
     const ts = dict_tri_fns[tri_type](sides);
     const tri0 = generic_triangle(orbit, sides, ts);
@@ -1212,7 +1226,7 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
       case "ell": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, a); break;
       case "cau": {
         const [ac, bc] = !(mounting in dict_caustic) || ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
-        tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, ac,bc);
+        tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, ac, bc);
         break;
       };
       default: {
@@ -1224,3 +1238,4 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   }
   return ret_tri;
 }
+
