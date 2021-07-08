@@ -63,6 +63,7 @@ function caustic_dual(a) {
 }
 
 // assume incircle at 0,0
+// R=1+a;
 function caustic_poristic(a) {
     return [1, 1];
 }

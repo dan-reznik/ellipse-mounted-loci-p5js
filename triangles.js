@@ -860,8 +860,6 @@ function get_polar_ctr(a, b, tri, sides, mounting) {
   return get_antipedal(tri_inv, tri_sides(tri_inv), [0, 0]);
 }
 
-
-
 function get_polar_f1(a, b, tri, sides, mounting) {
   const c = Math.sqrt(Math.abs(a * a - b * b));
   const f1 = a > b ? [-c, 0] : [0, c];
@@ -908,20 +906,27 @@ function get_x3_map_f1c(a, b, tri, sides, mounting) {
 }
 
 function get_true_axes(a, mounting) {
-  if (mounting in dict_caustic) {
+  let ae,be,ac,bc,f1,f2,f1c,f2c,ctr;
+  if (mounting == "poristic") {
+    const d = chapple_d(1, a + 1);
+    [ae,be]=[1+a,1+a];
+    [ac,bc]=[1,1];
+    ctr = [-d,0];
+    f1 = [0,0]; f2 = [0,0];
+    f1c = [d, 0]; f2c = [d, 0];
+    return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1:f1,f2:f2,f1c:f1c,f2c:f2c };
+  } else if (mounting in dict_caustic) {
     const ab_mnt = dict_caustic[mounting](a);
-    const [ae, be] = ["inellipse", "brocard", "excentral"].includes(mounting) ? ab_mnt : [a, 1];
-    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : ab_mnt;
-    const ctr = mounting == "poristic" ?
-    [-chapple_d(1, a + 1), 0] : mounting == "brocard" ?
-    brocard_porism(a).x3 : [0, 0];
-    let c = Math.sqrt(Math.abs(ae * ae - be * be));
-    const f1 = vdiff(ae > be ? [c, 0] : [0, c], ctr);
-    const f2 = vdiff(ae > be ? [-c, 0] : [0, -c], ctr);
-    let cc = Math.sqrt(Math.abs(ac * ac - bc * bc));
-    const f1c = vdiff(ac > bc ? [cc, 0] : [0, cc], ctr);
-    const f2c = vdiff(ac > bc ? [-cc, 0] : [0, -cc], ctr);
-
+    const [ae, be] = ["inellipse", "brocard", "excentral"].includes(mounting) ? ab_mnt:
+    [a, 1];
+    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1]:
+    ab_mnt;
+    const c = Math.sqrt(Math.abs(ae * ae - be * be));
+    f1 = vdiff(ae > be ? [c, 0] : [0, c], ctr);
+    f2 = vdiff(ae > be ? [-c, 0] : [0, -c], ctr);
+    const cc = Math.sqrt(Math.abs(ac * ac - bc * bc));
+    f1c = vdiff(ac > bc ? [cc, 0] : [0, cc], ctr);
+    f2c = vdiff(ac > bc ? [-cc, 0] : [0, -cc], ctr);
     return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1:f1,f2:f2,f1c:f1c,f2c:f2c };
   } else {
     return { ae: a, be: 1, ac: a, bc: 1, ctr:[0,0] };
@@ -957,8 +962,6 @@ function get_cevian_f1c(a, b, tri, sides, mounting) {
       .map(v => vsum(v, ta.ctr));
   return tri0;
 }
-
-
 
 const dict_weird_outer = {
   inellipse: caustic_inellipse,
