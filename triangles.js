@@ -1026,6 +1026,18 @@ function get_polar_pedal_lim2(a, b, tri, sides, mounting) {
   return lim_tri;
 }
 
+/*
+function get_inv_lim2(a, b, tri, sides, mounting) {
+  const c = Math.sqrt(a * a - b * b);
+  // bicentric
+  const bic_tri = get_polar_f1(a, b, tri, sides);
+  const bic_sides = tri_sides(bic_tri);
+  // inversion wrt lim2
+  const lim2 = [-c + 1 / c, 0];
+  const lim_tri = invert_triangle(bic_tri, bic_sides, lim2);
+  return lim_tri;
+} */
+
 /// DICTS
 
 const dict_tri_fns = {
@@ -1149,6 +1161,7 @@ const dict_tri_fns_inv = {
 
 const dict_tri_fns_bicentric = {
   ped_lim2: get_polar_pedal_lim2,
+  //inv_lim2: get_inv_lim2,
   pol_ctr: get_polar_ctr,
   pol_f1: get_polar_f1,
   pol_f1c: get_polar_f1c,
