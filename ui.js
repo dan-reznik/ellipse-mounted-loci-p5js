@@ -1252,7 +1252,7 @@ function setup_jukebox_playlist_oninput() {
    var start = Date.now();
    var output_text_jukebox = document.getElementById('output_text_jukebox')
    const sheetsID = '1iSjH-dUliUoS9DWntZnn2S7dLzRYlD1z4TqdMRWWd5A'
-   
+   /*
    fetch(`https://spreadsheets.google.com/feeds/worksheets/${sheetsID}/public/values?alt=json`)
    .then(response => {
       return response.json();
@@ -1263,7 +1263,7 @@ function setup_jukebox_playlist_oninput() {
    }).catch(err => {
       // Do something for an error here
       alert(`.json not found\nerror: ${err}`)
-   });
+   });*/
 
 
    document.getElementById('jukebox_playlist').addEventListener('input', function () {
