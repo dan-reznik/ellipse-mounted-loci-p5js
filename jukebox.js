@@ -1,7 +1,7 @@
-[
+const glob_juke = [
   {
-    "name": "01 single line",
-    "df": {
+    "sheet": "01 single line",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48],
       "sec": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       "name": ["X(138) Orthic Swirls", "X(98) Mushroom", "X(121) Double-Header", "X(138) Orthic Swirls II", "X(67) Orthic ctrMajor", "X(129) Orthic ctrMajor", "Not Your Grandpa's Spyrograph", "The Joys of Focus-Mounted X(136)-of-Orthic", "TL-BR mounted X(138)-of-Orthic", "Billiard X(128)-of-Orthic", "X(129)-of-Orthic on Billiard Ain't Bad Looking", "Billiard X(98)-of-Orthic", "Major-Mounted X(128)-of-Orthic", "The Sinews of Focus-Mounted X(131)-of-Feuerbach", "Major-Mounted X(138)-of-Orthic", "Focus-Mounted X(134)-of-Tangential", "Homothetic X(138)-of-Tangential", "Is the Focus-Mounted X(130)-of-Tangential Alive?", "X(67) Lightning Bolt", "Homothetic X(126)-of-Circumorthic", "Batman returns: Major-Mounted X(135)-of-Incentral", "The Harmonious Focus-Mounted X(99)-of-Incentral", "Focus-Mounted X(135)-of-Incentral", "Billiard X(162)-of-MacBeath", "Billiard X(186)-of-MacBeath", "The Talented Homothetic X(186)-of-Macbeath", "Focus-Mounted X(115)-of-Macbeath", "Billiard X(136)-of-Reflection", "Fly Away X(139)!", "Focus-Mounted X(134)-of-2nd-Brocard", "Focus-Mounted X(134)-of-Reference", "Give the X(11)-of-Yff-Contact a Bone", "In spades! Major-Mounted X(67)-of-Circumorthic", "Them Kidneys of X(139)", "Pleasing to the Eye: Major-Mounted X(136)-of-Orthic", "Homothetic Circles of X13-X16", "Elliptic spaghetti: Minor-Mounted X(44)-of-Yff-Contact", "Orchideal Minor-mounted X(134)-of-Yff-Contact", "Elliptic Picasso I: Mixed-Mounted X(135)-of-4th-Brocard", "Elliptic Picasso II: the Talented X(67)-of-Orthic", "Moorish Art: Focus-Mounted X(36)-of-MacBeath", "Minor-Mounted X(109): a Star-of-David is Born", "X(139) Never Disappoints", "Elliptic Hamburger or the Prehensile Locus of X(88)", "Space-Invading X(129)", "Dancing X(185)", "The Loopy Mane of Focus-Mounted X(137)-of-Reflection", "Elliptic Fleur de Lis or X(106) Propeller"],
@@ -11,8 +11,8 @@
     }
   },
   {
-    "name": "02 colored lines",
-    "df": {
+    "sheet": "02 colored lines",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
       "sec": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       "name": ["Navajo Loci: Three Mounts for X(11)-of-Orthic", "Swirls of X(135) Under Three Mounts", "Smoother Swirls of X(135) Under Three Mounts", "Flowery Tricolore X(139)", "Major-Mounted X(138)-of-Circumorthic", "Butterfly in the 130s", "Moorish Loci of the Inellipse 3rd-Brocard", "La tessiture de X(134)", "Uneventful Billiard X(116)-of-Hexyl", "Crabby Billiard X(134)-of-Hexyl", "Legged Homothetic X(131)-of-Hexyl", "Homothetic Dear X(137)-of-Hexyl: a friggin' artist!", "Spread thy wings oh mighty creature", "Excircular trumpets"],
@@ -22,8 +22,8 @@
     }
   },
   {
-    "name": "03 dark mode",
-    "df": {
+    "sheet": "03 dark mode",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57],
       "sec": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       "name": ["Pacmen", "Mighty hexapod", "Oh but the horns they're blowin' that sound", "Minor-mounted X(162)-of-hexyl", "Abstract Ellipse Art", "Moth from elliptic chrysalis", "Focus-mounted X(134)-of-hexyls", "Pagliaccio", "A star is born", "Round claws", "Sharp claws", "Maltese cross", "Wonderful zig-zag", "Curlies", "Flowery", "Rodin Rears", "One's imagination", "Devil's barrel", "Dog-friendly", "Angelic", "Elliptic Cornucopia", "Ballsy creature", "Alien Ghost", "Double arrow", "Butterflying", "Clownish ears", "Knotty Kitty", "Human mushroom", "Phagocytosis", "Circle Gobbler", "Squid Love", "Zorro Nurse I", "Zorro Nurse II", "Hasidic Elliptic", "Touareg", "Venetian Carnival I", "Venetian Carnival II", "Venetian Carnival III", "Venetian Carnival IV", "Focal Flashpoints", "Infiniteeth", "All ears", "Loops to nowhere", "Escape to infinity", "Winged Alien", "Wing anatomy", "Libellule I", "Libellule II", "Roman Vase", "Coat-of-arms", "Ramen Noodles", "Geawemetry: Poncelet Hourglass", "Explosive foci of X(470)", "I got the world on a string", "Visage elliptique", "The circulatory system of an ellipse", "Multi-track gravitas"],
@@ -33,8 +33,8 @@
     }
   },
   {
-    "name": "04 region filled",
-    "df": {
+    "sheet": "04 region filled",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 60, 32, 33, 34, 35, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100, 102, 103, 104, 105, 106],
       "sec": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       "name": ["Picasso Chicken", "Elliptic crest and appendages", "Elliptic Mardi Gras II", "Elliptic flowers are a-burstin'", "Meet in the center", "Side Turbulence", "Move over Pablo", "All roads lead to Rome!", "Venus fly-trap", "Flores astrais", "Beaulliptic Butterfly", "Parry Mandala", "Schoutte Mandala", "Schoutte Flower", "Está Preñada", "Elliptic Stradivarius I", "A starfish is born", "Arlequim", "Mickey Ears I", "Mickey Ears II", "Mickey Ears III", "Mickey Ears IV", "Mickey Ears V", "United we stand", "The Turtles", "H-Infinity", "Budding Mandala", "Double Escargot", "Elliptic Stradivarius II", "Talisman I", "Talisman II", "Talisman III", "Elliptic Football", "Scarabeus", "Scaffold", "Hot doggin' it", "Matisse Dance", "I am all ears I", "I am all ears II", "Complicité", "Bijou I", "Bijou II", "He is looking at you, kid", "Davidian Mandala", "Many directions", "Hard core", "Mambo Jambo", "Cordes à l'infini", "Suspendu", "À Bras Ouverts", "Spiky cushion", "Flattened bug", "À quatre pattes", "Insémination", "Eversion", "Four-foldedness", "Six-foldedness", "Eight-foldedness", "Batmanish", "Ra", "Kidneys", "Apparition I", "Apparition II", "Grasshopper", "Crab", "Double Rabbit", "Brothel", "Chef", "Leafy I", "Leafy II", "Garcia's Scarab I", "Garcia's Scarab II", "Citrus", "Galleys"],
@@ -44,8 +44,8 @@
     }
   },
   {
-    "name": "05 envelopes",
-    "df": {
+    "sheet": "05 envelopes",
+    "data": {
       "id": [1, 2, 3, 4],
       "sec": [5, 5, 5, 5],
       "name": ["Batman X(1)X(5) over focus-mounted", "More X(1)X(5) Batman spikes", "Red Batman Wings", "Batman's Spear"],
@@ -55,8 +55,8 @@
     }
   },
   {
-    "name": "06 cevians",
-    "df": {
+    "sheet": "06 cevians",
+    "data": {
       "id": [1, 2, 3],
       "sec": [5, 5, 5],
       "name": ["Billiard Cevian Star 1", "Billiard Cevian Star 2", "Billiard Cevian Star 3"],
@@ -66,8 +66,8 @@
     }
   },
   {
-    "name": "07 inversives",
-    "df": {
+    "sheet": "07 inversives",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       "sec": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
       "name": ["Inversive+Bicentric+Polar", "Doppelgängern", "Locus of X7s and X9s", "Pascal Limaçons I", "Pascal Limaçons II", "Coinciding X100 Circles", "X100 Circles = Bicentric Caustic", "Bicentrics+Billiard+Limaçon", "Tangent X99 Loci", "Infinity Curve I: X101", "Infinity Curve II: X110"],
@@ -77,8 +77,8 @@
     }
   },
   {
-    "name": "08 constant power",
-    "df": {
+    "sheet": "08 constant power",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       "sec": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       "name": ["Anticompl. Circle over Homothetic Family", "Bevan Circle over Confocal Family", "Spieker Circle over Confocal Family", "Mandart Circle over Confocal Family", "Extouch's Euler Circle over Confocal Family", "Anticompl. Circle over Dual Family", "Intouch's Euler Circle over Incircle Family", "Medial's Euler Circle over Homothetic Family", "Euler Triangle's Euler Circle over Circumcircle Family", "Euler Triangle's Euler Circle over Dual Family", "Orthic's Incircle over Circumcircle Family"],
@@ -88,8 +88,8 @@
     }
   },
   {
-    "name": "09 poncelet",
-    "df": {
+    "sheet": "09 poncelet",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9],
       "sec": [10, 10, 10, 10, 10, 10, 10, 10, 10],
       "name": ["Excentral Family: Stationary Cosine Circle", "Homothetic Family: Circular Loci of X13-X16", "Confocal Family: External-Internal Locus (X88 missing)", "Circumcircle Family: External-Internal Locus", "Incircle Family: External-Internal Locus", "Excentral Family: External-Internal Locus", "Dual Family: External-Internal Locus", "Poristic Family: Polar wrt X3 (X1' & X174' stationary)", "Excentral Family: Polar wrt f1 (new porism X20 stationary)"],
@@ -99,8 +99,8 @@
     }
   },
   {
-    "name": "10 polar",
-    "df": {
+    "sheet": "10 polar",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8],
       "sec": [10, 10, 10, 10, 10, 10, 10, 10],
       "name": ["Circular locus of X1 of polar trris wrt X3 (for small a/b)", "Non-circular locus of X1 of polar tris wrt X3 (large a/b)", "Polar wrt X2 over homothetics is new homothetic family", "Polar wrt X3 is the tangential triangle. Its X1 is the reference's X3", "Polar wrt to X4 has congruent X4", "Locus of X6 over homothetics of polar wrt X6 is an ellipse", "Polar wrt X1 over incircle family is homothetic to contact triangle", "Homoth polar wrt f1 has stationary X7 and line-like X20"],
@@ -110,8 +110,8 @@
     }
   },
   {
-    "name": "11 graves",
-    "df": {
+    "sheet": "11 graves",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
       "sec": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       "name": ["Homothetic Graves X2 is on Caustic", "Incircle Graves X1 is on Caustic", "Incircle Graves X3 is an Ellipse", "Incircle Graves X59 sweep Outer Ellipse!!!", "Incircle Graves X99,100,101,107... sweep Outer Ellipse!!!", "Incircle Graves X74,98,102,103... are stationary at the Center!", "Dual Graves X4 is the Caustic", "Poristic Graves X1 is the Caustic", "Poristic Graves X3,X4 circles & X6 ellipse all intersect on Caustic", "Poristic Graves X59,99,100,101,... sweep Outer Ellipse!!!", "Porisitic Graves X74,98,102,103,... stationary at Center!!!", "Circumcircle Graves X11", "Incircle family: Circumcircle of Graves passes thru origin and locus of X3 is ellipse", "Incircle family and Circumcircle of Graves Triangle II", "Incircle family Graves' Circumcircle and Locus of X3"],
@@ -121,8 +121,8 @@
     }
   },
   {
-    "name": "12 truckload I: pole-polars",
-    "df": {
+    "sheet": "12 truckload I: pole-polars",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35],
       "sec": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       "name": ["Billiard inverse wrt incircle: A'/A", "Billiard polar wrt ctr: A'/A", "Billiard polar wrt incircle: A'/A", "Incircle inverse wrt ctr: R', Σs^2', ∏cos', A'/A", "Incircle inverse wrt Bevan,cosine,exc-cos,Lemoine,Parry,Schoutte circles: R'", "Circumcircle inverse wrt f1: R' (obv.), A'/A", "Circumcircle inverse wrt cosine,Euler,Lemoine circles: R'", "Circumcircle inverse wrt Parry,Schoutte circles: R'=R=const.", "Poristic inverse wrt ctr (X1): R' (obv.), A'/A, Σs^2', ∏cos'", "Poristic inverse wrt cosine,exc-cos,Lemoine circles: R'", "Poristic inverse wrt Parry (and Schoutte) circle: R'=R=const", "Brocard inverse wrt ctr: R' (obv), ω',  Σs^-2' (recurrent porism)", "Brocard inverse wrt f1: R' (obv.), L'/L, A'/A (recurrent porism)", "Brocard inverse wrt 2nd Brocard: R' (obv.), L'/L, A'/A (recurrent porism)", "Homothetic polar wrt ctr: Σs^2', A' (recurrent porism)", "Incircle polar wrt ctr: R', Σs^2', ∏cos', A'/A (new circumcircle porism)", "Incircle polar wrt exc cosine circle: A'/A", "Circumcircle polar wrt ctr: r',R',A'/A (new incircle porism)", "Circumcircle polar wrt 2nd Brocard: r'/R'", "Circumcircle polar wrt circumcircle: R', A'/A (new incircle porism)", "Circumircle polar wrt cosine circle: A'/A", "Dual polar wrt caustic f1: R' (new non-conc circumcircle porism)", "Dual polar wrt ctr: A'/A (recurrent porism)", "Porisitc polar wrt X3: r' (obv.), X174' (new non-conc incircle porism)", "Poristic polar wrt exc. cosine circle: A'/A", "Poristic polar wrt ctr: R' (obv.), Σs^2', ∏cos', A'/A", "Brocard polar wrt f1: R', L'/L, A'/A (recurrent porism)", "Brocard polar wrt X6 (center of fixed cosine circle):A' (new homothetic porism)", "Homothetic polar wrt f1c: R' (new Brocard porism)", "Excentral polar wrt ctr: A'/A (new concentric porism)", "Excentral polar wrt 2nd Brocard: r'/R'", "Excentral polar wrt circumcircle: r'/R, A'/A", "Homothetic inverse wrt ctr: ω'", "Excentral inverse wrt ctr: ∏cos'", "Excentral Family: Polar wrt f1: R' (obv.), Σs^2', ∏cos (new porism X20 stationary)"],
@@ -132,8 +132,8 @@
     }
   },
   {
-    "name": "13 truckload II: billiard cevs & peds",
-    "df": {
+    "sheet": "13 truckload II: billiard cevs & peds",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       "sec": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       "name": ["Billiard inverse f1,f2: r/R', L' (X7 stationary), L'/L", "Billiard X7-cevian: ∏cos', A'/A", "Billiard X8-cevian: A'/A (Mandart porism)", "Billiard Xk-cevian, k=100,190: A'/A", "Biiliard Xk-anticevian, k=9,11: A'/A", "Billiard Xk-circumcevian, k=1,36: ∏cos', A'/A", "Billiard Xk-pedal, k=7,9: A'.A", "Billiard Xk-pedal,k=8,35,46,55,56,57,65,165: A'/A", "Billiard X36-pedal: ∏cos', A'/A", "Billiard X143-pedal (orthic 9pt-ctr): L', L'/L", "Billiard Xk-antipedal, k=7,8,9,21,56,84,90: A'/A", "Billiard X8-antipedal: A'/A (env. is Talbot's curve?)", "Billiard X80-antipedal: ∏cos', A'/A", "Billiard Xk-inverse, k=1,36: ∏cos'", "Billiard Xk-polar, k=1,80: ∏cos'", "Billiard Xk-polar, k=2,55,57,200: A'.A", "Billiard X4-polar, r'/R' = r/R", "Billiard Xk-polar, k=7,9: A'/A", "Billiard 3-circums Xk, k=1,80: ∏cos', A'/A", "Billiard 3-circums Xk, k=7,8,9,21,56,79,84,90: A'/A"],
@@ -143,8 +143,8 @@
     }
   },
   {
-    "name": "14 truckload III: incircle cevs & peds",
-    "df": {
+    "sheet": "14 truckload III: incircle cevs & peds",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
       "sec": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       "name": ["Incircle X4-cevian (X4-pedal, orthic): R', L'/L", "Incircle X7-cevian (intouch): R', Σs^2', ∏cos', A'/A", "Incircke Xk-cevian, k=8: A'/A", "Incircle X1-anticevian (intouch): R', Σs^2', ∏cos', A'/A", "Incircle X6-anticevian (tangential): r'", "Incircle Xk-anticevian, k=9,11: A'/A", "Incircle Xk-circumcevian, k=1,36: R' (obv.), Σs^2', ∏cos', A'/A", "Incircle X4-circumcevian (circumorthic): R' (obv.), L'/L", "Incircle Xk-pedal, k=8,35,40,46,55,56,57,65,165: A'/A", "Incircle X36-pedal: R', Σs^2', ∏cos', A'/A", "Incircle Xk-pedal, k=80: R'", "Incircle X143-pedal: L'/L", "Incircle Xk-antipedal, k=7,8,9,21,56,79,84,90: A'/A", "Incircle X57-antipedal, A'.A", "Incircle X80-antipedal: R', Σs^2', ∏cos', A'/A", "Incircle X3-inverse: r', R', Σs^2', ∏cos', A'/A", "Incircle X8-inverse: R', R'/R", "Incircle X36-inverse: R', Σs^2', ∏cos', A'/A", "Incircle k-inverse, k=40,46,55,56,57,65,165: R'", "Incircle k-polar, k=2,55,57,200: A'.A", "Incircle k-polar, k=8,56: A'/A", "Incircle k-polar, k=8,56: ∏cos'", "Incircle X176-polar: r'", "Incircle X1-excircle-polar (Atik): R', Σs^2', ∏cos', A'/A", "Incircle Xk-excircle-polar, k=9: A'/A", "Incircle X40-excircle-polar: r'/R' = r/R", "Incircle Xk-three-circums, k=1,80: R', Σs^2', ∏cos', A'/A", "Incircle X3-three-circums: r'", "Incircle Xk-three-circums, k=7,8,9,21,84,90: A'/A", "Incircle Xk-three-circums, k=57: A'.A"],
@@ -154,8 +154,8 @@
     }
   },
   {
-    "name": "15 truckload IV: homoth cevs & peds",
-    "df": {
+    "sheet": "15 truckload IV: homoth cevs & peds",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
       "sec": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       "name": ["Homoth. Xk-circumcevian,\nk=2,6,23,32,39,61,62,182,187: ω'", "Homoth. Xk-pedal, k=6,32,39,62,182,187: A', Σs^2', ω' (cor.)", "Homoth. Xk-pedal, k=13,14: R'", "Homoth. Xk-pedal, k=23: ω'", "Homoth. Xk-pedal, k=76,183: A'", "Homoth. Xk-antipedal, k=6,67,190: ω'", "Homoth. Xk-antipedal, k=17,18,76,83: A', Σs^2', ω' (cor.)", "Homoth. Xk-antipedal, k=32: A'", "Homoth. Xk-inverse, k=3,6,23,32,39,61,62,182,187: ω'", "Homoth. Xk-polar, k=4,6,17,18,67,76,83,190: ω'", "Homoth. Xk-exc-polar, k=40: ω'", "Homoth 3-circums Xk, k=2,17,18,76,83: A', Σs^2', ω' (cor.)", "Homoth 3-circums Xk, k=6,67,190: ω'", "Homoth 3-circums Xk, k=32: A'"],
@@ -165,8 +165,8 @@
     }
   },
   {
-    "name": "16 subtris",
-    "df": {
+    "sheet": "16 subtris",
+    "data": {
       "id": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
       "sec": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
       "name": ["Subtri Mandala I", "Subtri Mandala II", "Interlagos", "Forget the Impossible", "Lágrima I", "Lágrima II", "Avelã", "Tessitura I", "Tessitura II", "Alien I", "Alien II", "Fleur d’Ellipsys", "Orchid I", "Pomegranate", "A kind of love I", "A kind of love II"],
@@ -176,8 +176,8 @@
     }
   },
   {
-    "name": "17 concurring normals",
-    "df": {
+    "sheet": "17 concurring normals",
+    "data": {
       "id": [1, 2, 3, 4, 5],
       "sec": [5, 5, 5, 5, 5],
       "name": ["Confocal normals concur at X(1)", "Incircle normals concur at X(84)", "Homothetic normals concur at X(4)", "Circumcircle normals concur at X(3)", "Excentral normals concur at X(64)"],
@@ -187,8 +187,8 @@
     }
   },
   {
-    "name": "18 focal ints and cevs",
-    "df": {
+    "sheet": "18 focal ints and cevs",
+    "data": {
       "id": [1, 2, 3],
       "sec": [10, 10, 10],
       "name": ["Brocard porism generates homothetic", "Homothetic generates homothetic (outer foci)", "Homothetic generates homothetic (inner foci)"],
@@ -197,4 +197,4 @@
       "config": ["dan-reznik.github.io/ellipse-mounted-loci-p5js/?sc=10.775&cx=569&cy=194&a=1.604&xn3=2&lc1=vtx&lc2=caustic&lc3=trilins&tr1=ints_f12c&tr2=ints_f12c&tr3=ints_f12c&tr4=ints_f12c&mt1=brocard&mt2=brocard&mt3=brocard&mt4=brocard&rot=180", "dan-reznik.github.io/ellipse-mounted-loci-p5js/?sc=4.411&a=1.445&xn3=2&lc1=vtx&lc2=caustic&lc3=trilins&tr1=ints_f12&tr2=ints_f12&tr3=ints_f12&tr4=ints_f12&mt1=homothetic&mt2=homothetic&mt3=homothetic&mt4=homothetic&rot=180", "dan-reznik.github.io/ellipse-mounted-loci-p5js/?sc=4.411&a=1.445&xn3=2&lc1=vtx&lc2=caustic&lc3=trilins&tr1=ints_f12c&tr2=ints_f12c&tr3=ints_f12c&tr4=ints_f12c&mt1=homothetic&mt2=homothetic&mt3=homothetic&mt4=homothetic&rot=180"]
     }
   }
-]
+];
