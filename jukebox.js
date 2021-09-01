@@ -1,3 +1,6 @@
+// github R project: 'ellipse-mounted-triangles'
+// markdown file:    'juke sheet conversion to json.Rmd'
+// google sheets id: '1iSjH-dUliUoS9DWntZnn2S7dLzRYlD1z4TqdMRWWd5A'
 const glob_juke = [
   {
     "sheet": "01 single line",
