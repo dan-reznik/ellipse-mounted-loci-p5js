@@ -1,6 +1,6 @@
 const dict_circles = {
     adams: circle_adams,
-    apollonius: circle_apollonius,
+    apollonius_outer: circle_apollonius_outer,
     bevan: circle_bevan,
     brocard: circle_brocard,
     brocard2: circle_brocard2,

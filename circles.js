@@ -186,12 +186,12 @@ function circle_spieker(tri,sides) {
     return { ctr:x10, R:R, n:10 };
 }
 
-function circle_apollonius(tri,sides) {
-    const x940 = get_Xn_cartesians(940,tri,sides);
+function circle_apollonius_outer(tri,sides) {
+    const x970 = get_Xn_cartesians(970,tri,sides);
     const s = get_semiperimeter(sides);
     const r = get_inradius(sides);
     const R = (r*r+s*s)/(4*r);
-    return { ctr:x940, R:R, n:940 };
+    return { ctr:x970, R:R, n:970 };
 }
 
 function circle_conway(tri,sides) {
