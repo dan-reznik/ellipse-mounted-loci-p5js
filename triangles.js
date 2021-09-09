@@ -974,7 +974,7 @@ function get_focal_inter_triangle(a, b, o, sides, mounting) {
     return tri;
   }
 
-function get_cevian_ctr(a, b, tri, sides, mounting) {
+function get_ellcevian_ctr(a, b, tri, sides, mounting) {
     const ta = get_true_axes(a, mounting);
     const tri0 = tri.map(v => vdiff(v, ta.ctr))
         .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.ctr)), v))
@@ -982,7 +982,7 @@ function get_cevian_ctr(a, b, tri, sides, mounting) {
     return tri0;
 }
 
-function get_cevian_f1(a, b, tri, sides, mounting) {
+function get_ellcevian_f1(a, b, tri, sides, mounting) {
   const ta = get_true_axes(a, mounting);
   const tri0 = tri.map(v => vdiff(v, ta.ctr))
       .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.f1)), v))
@@ -990,7 +990,7 @@ function get_cevian_f1(a, b, tri, sides, mounting) {
   return tri0;
 }
 
-function get_cevian_f1c(a, b, tri, sides, mounting) {
+function get_ellcevian_f1c(a, b, tri, sides, mounting) {
   const ta = get_true_axes(a, mounting);
   const tri0 = tri.map(v => vdiff(v, ta.ctr))
       .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.f1c)), v))
@@ -1201,9 +1201,9 @@ const dict_tri_fns_bicentric = {
   pol_ctr: get_polar_ctr,
   pol_f1: get_polar_f1,
   pol_f1c: get_polar_f1c,
-  cev_ctr: get_cevian_ctr,
-  cev_f1: get_cevian_f1,
-  cev_f1c: get_cevian_f1c,
+  ellcev_ctr: get_ellcevian_ctr,
+  ellcev_f1: get_ellcevian_f1,
+  ellcev_f1c: get_ellcevian_f1c,
   x3_map_ctr: get_x3_map_ctr,
   x3_map_f1: get_x3_map_f1,
   x3_map_f1c: get_x3_map_f1c,
