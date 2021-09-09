@@ -276,6 +276,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="three_ctrs">3-circums</option>
             <option value="vtx_refl">vtx-refl</option>
             <option value="side_refl">side-refl</option>
+            <option value="flank">flank</option>
             <option value="x3_inv">x3-inv</option>
             <option value="x1_map">x1-map</option>
             <option value="x2_map">x2-map</option>

@@ -107,7 +107,6 @@ function tripolar_triangle(o, s, ts) {
   return tripolar;
 }
 
-
 // (i) invert, and (ii) get antipedal
 function polar_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o, s, ts);
@@ -124,6 +123,34 @@ function invert_triangle(o, s, ts) {
   const inv_fn = (tri, sides, p) => circle_inversion(p, { ctr: xn, R: 1 });
   const inv_tri = invert_tri({ o, s }, inv_fn);
   return inv_tri.o;
+}
+
+/*
+getFlankTriangle[tri_, k_] := 
+  Module[{(*triL,*)flanks, perps, Xks, quads},
+   (*triL=triLengthsRL@tri;*)
+   perps = MapThread[perp[#2 - #1] &, {tri, RotateLeft@tri}];
+   flanks = 
+    MapThread[{#1, #1 - #2, #1 - #3} &, {tri, RotateRight@perps, 
+      perps}];
+   quads = 
+    MapThread[{#1, #2, #2 - #3, #1 - #3} &, {tri, RotateLeft@tri, 
+      perps}];
+   Xks = getMosesX[k, #, triLengthsRL@#] & /@ flanks;
+   <|"tri0" -> tri, "flanks" -> flanks, "quads" -> quads, 
+    "tri" -> Xks, "triL" -> (triLengthsRL@Xks)|>];
+*/
+
+function flank_triangle(o0, s, pn) {
+  const o = vccw(...o0)?o0:tri_rev(o0);
+  //const xn = trilin_to_cartesian(o, s, ts);
+  const perps = o.map((v,i)=>vperp(vdiff(o[i==2?0:i+1],v)));
+  //MapThread[{#1, #1 - #2, #1 - #3} &, {tri, RotateRight@perps, perps}];
+  const flanks = o.map((v,i)=>[v,vdiff(v,perps[i==0?2:i-1]),vdiff(v,perps[i])]);
+  const flank_sides = flanks.map(tri_sides);
+  const bss = flank_sides.map(ss=>get_Xn_bary(ss, pn));
+  const Xks = flanks.map((t,i)=>barys_to_cartesian(t,bss[i]));
+  return Xks;
 }
 
 // (i) get pedal, and (ii) invert: actually congruent with polar, so not used!
@@ -1131,6 +1158,7 @@ const dict_tri_pfns = {
   vtx_refl: { fn: vtx_refl_triangle, needs: "tri" },
   side_refl: { fn: side_refl_triangle, needs: "tri" },
   inv_exc: { fn: inv_exc_triangle, needs: "tri" },
+  flank: { fn: flank_triangle, needs: "tri_pn" },
   x3_inv: { fn: x3_inv_triangle, needs: "tri" },
   x1_map: { fn: x1_map_triangle, needs: "tri" },
   x2_map: { fn: x2_map_triangle, needs: "tri" },
@@ -1239,6 +1267,7 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
     let tri0;
     switch (dict_tri_pfns[cpn].needs) {
       case "tri": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p); break;
+      case "tri_pn": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, pn); break;
       case "ell": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, a); break;
       case "cau": {
         const [ac, bc] = !(mounting in dict_caustic) || ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);

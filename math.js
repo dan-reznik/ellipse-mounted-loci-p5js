@@ -136,8 +136,10 @@ function circle_inversion(p, { ctr, R }) {
 }
 
 const edist2 = (p1, p2) => magn2(vdiff(p1, p2));
-const edist = (p1, p2) => sqrt(edist2(p1, p2));
+const edist = (p1, p2) => Math.sqrt(edist2(p1, p2));
 const vnorm = (p) => vscale(p,1/magn(p));
+
+const tri_rev = ([p1,p2,p3]) => [p3,p2,p1];
 
 function tri_sides([p1, p2, p3]) {
   let s1 = edist(p2, p3);
