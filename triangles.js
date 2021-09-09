@@ -933,7 +933,7 @@ function get_x3_map_f1c(a, b, tri, sides, mounting) {
 }
 
 function get_true_axes(a, mounting) {
-  let ae,be,ac,bc,f1,f2,f1c,f2c,ctr;
+  let ae,be,ac,bc,f1,f2,f1c,f2c,ctr=[0,0];
   if (mounting == "poristic") {
     const d = chapple_d(1, a + 1);
     [ae,be]=[1+a,1+a];
@@ -973,6 +973,14 @@ function get_focal_inter_triangle(a, b, o, sides, mounting) {
     const tri = o.map(v => vsum(get_focal_inter(vdiff(v, ta.ctr), ta.ae, ta.be, ta.f1c, ta.f2c), ta.ctr));
     return tri;
   }
+
+function get_cevian_ctr(a, b, tri, sides, mounting) {
+    const ta = get_true_axes(a, mounting);
+    const tri0 = tri.map(v => vdiff(v, ta.ctr))
+        .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.ctr)), v))
+        .map(v => vsum(v, ta.ctr));
+    return tri0;
+}
 
 function get_cevian_f1(a, b, tri, sides, mounting) {
   const ta = get_true_axes(a, mounting);
@@ -1193,6 +1201,7 @@ const dict_tri_fns_bicentric = {
   pol_ctr: get_polar_ctr,
   pol_f1: get_polar_f1,
   pol_f1c: get_polar_f1c,
+  cev_ctr: get_cevian_ctr,
   cev_f1: get_cevian_f1,
   cev_f1c: get_cevian_f1c,
   x3_map_ctr: get_x3_map_ctr,
