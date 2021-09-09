@@ -125,7 +125,8 @@ function circle_neuberg_low(tri, [s23, s31, s12], n, refl_circ=false) {
     const sides = tri.map((v, i) => vdiff(tri[i == 2 ? 0 : i + 1],v));
     //ctrs = MapThread[(#1 + #2/2 + perp[#2] cotW/2) &, {tri, sides}];
     const v1 = vsum(tri[n], vscale(sides[n], .5));
-    const v2 = vscale(vperp(sides[n]), refl_circ ? cotW/2 : -cotW/2);
+    const the_sign = (refl_circ?-1:1)*(vccw(...tri)?1:-1);
+    const v2 = vscale(vperp(sides[n]), the_sign * cotW/2);
     const ctr = vsum(v1, v2);
     return { ctr: ctr, R: r, n: 0 };
 }
