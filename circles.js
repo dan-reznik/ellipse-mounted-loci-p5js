@@ -100,6 +100,21 @@ const circle_excircle_1 = (tri,sides) => circle_excircle_low(tri,sides,0);
 const circle_excircle_2 = (tri,sides) => circle_excircle_low(tri,sides,1);
 const circle_excircle_3 = (tri,sides) => circle_excircle_low(tri,sides,2);
 
+// working on this, closest_perp, then circle_mixtilinear_1
+function circle_mixtilinear_low(tri,sides,n) {
+    const ts = mixtilinear_triangle(sides);
+    const mixt = generic_triangle(tri,sides,ts);
+    const perp = closest_perp(mixt[n],tri[n],tri[n==2?0:n+1]);
+    // https://mathworld.wolfram.com/Exradius.html
+    //to do:
+    const R=edist(mixt[n],perp);
+    return { ctr:mixt[n], R:R, n:0 };
+}
+
+const circle_mixtilinear_1 = (tri,sides) => circle_mixtilinear_low(tri,sides,0);
+const circle_mixtilinear_2 = (tri,sides) => circle_mixtilinear_low(tri,sides,1);
+const circle_mixtilinear_3 = (tri,sides) => circle_mixtilinear_low(tri,sides,2);
+
 /*
 x15 = getFirstIsodynamicTrilin[tri, triL];
 x16 = getSecondIsodynamicTrilin[tri, triL];
