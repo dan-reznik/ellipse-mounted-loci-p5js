@@ -115,13 +115,29 @@ const circle_mixtilinear_1 = (tri,sides) => circle_mixtilinear_low(tri,sides,0);
 const circle_mixtilinear_2 = (tri,sides) => circle_mixtilinear_low(tri,sides,1);
 const circle_mixtilinear_3 = (tri,sides) => circle_mixtilinear_low(tri,sides,2);
 
-/*
-x15 = getFirstIsodynamicTrilin[tri, triL];
-x16 = getSecondIsodynamicTrilin[tri, triL];
-apX3s = getCircumcenterTrilin[{#, x15, x16}, 
-     triLengthsRL@{#, x15, x16}] & /@ tri;
-apRs = MapThread[magn[#1 - #2] &, {tri, apX3s}];
-*/
+function circle_neuberg_low(tri, [s23, s31, s12], n, refl_circ=false) {
+    const triL = [s12, s23, s31];
+    const tri2L = triL.map(v => v * v);
+    const triA = tri_area(triL);
+    const cotW = sum(tri2L) / (4 * triA);
+    const k = Math.sqrt(cotW * cotW - 3) / 2;
+    const r = k * triL[n];
+    const sides = tri.map((v, i) => vdiff(tri[i == 2 ? 0 : i + 1],v));
+    //ctrs = MapThread[(#1 + #2/2 + perp[#2] cotW/2) &, {tri, sides}];
+    const v1 = vsum(tri[n], vscale(sides[n], .5));
+    const v2 = vscale(vperp(sides[n]), refl_circ ? cotW/2 : -cotW/2);
+    const ctr = vsum(v1, v2);
+    return { ctr: ctr, R: r, n: 0 };
+}
+
+const circle_neuberg_1 = (tri,sides) => circle_neuberg_low(tri,sides,0);
+const circle_neuberg_2 = (tri,sides) => circle_neuberg_low(tri,sides,1);
+const circle_neuberg_3 = (tri,sides) => circle_neuberg_low(tri,sides,2);
+
+const circle_neuberg_refl_1 = (tri,sides) => circle_neuberg_low(tri,sides,0,true);
+const circle_neuberg_refl_2 = (tri,sides) => circle_neuberg_low(tri,sides,1,true);
+const circle_neuberg_refl_3 = (tri,sides) => circle_neuberg_low(tri,sides,2,true);
+
 function circle_apollonius_isodyn_low(tri,sides,n) {
     const x15 = get_Xn_cartesians(15, tri, sides);
     const x16 = get_Xn_cartesians(16, tri, sides);
