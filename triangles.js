@@ -827,7 +827,32 @@ function mixtilinear4th_triangle([a,b,c]) {
 return ts;
 }
 
-//
+// peter moses, sept-10-2021
+// a*(a^2 + 2*a*b - 3*b^2 + 2*a*c + 6*b*c - 3*c^2),
+// -2*b^2*(-a + b - c)
+// 2*(a + b - c)*c^2
+function mixtilinear8th_triangle([a,b,c]) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  const ts = [
+    [a2+2*a*b-3*b2+2*a*c+6*b*c-3*c2,-2*b*(-a+b-c),2*c*(a+b-c)],
+    [2*a*(b+c-a),b2+2*b*c-3*c2+2*b*a+6*c*a-3*a2,-2*c*(-b+c-a)],
+    [-2*a*(-c+a-b),2*b*(c+a-b),c2+2*c*a-3*a2+2*c*b+6*a*b-3*b2]];
+return ts;
+}
+
+// peter moses, sept-10-2021
+// a*(a^2 - 2*a*b - 3*b^2 - 2*a*c + 6*b*c - 3*c^2), 
+// 2*b^2*(a + b - c),
+// 2*c^2*(a - b + c)}
+function mixtilinear9th_triangle([a,b,c]) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  const ts = [
+    [a2-2*a*b-3*b2-2*a*c+6*b*c-3*c2,2*b*(a+b-c),2*c*(a-b+c)],
+    [2*a*(b-c+a),b2-2*b*c-3*c2-2*b*a+6*c*a-3*a2,2*c*(b+c-a)],
+    [2*a*(c+a-b),2*b*(c-a+b),c2-2*c*a-3*a2-2*c*b+6*a*b-3*b2]];
+return ts;
+}
+
 function get_mounted_tri(a, tDeg, v2, v3) {
   const t = toRad(tDeg);
   const v1 = [a * Math.cos(t), Math.sin(t)];
@@ -1167,6 +1192,8 @@ const dict_tri_fns = {
   mixtilinear2: mixtilinear2nd_triangle,
   mixtilinear3: mixtilinear3rd_triangle,
   mixtilinear4: mixtilinear4th_triangle,
+  mixtilinear8: mixtilinear8th_triangle,
+  mixtilinear9: mixtilinear9th_triangle,
   lucascentral: lucas_central_triangle,
   lucasinner: lucas_inner_triangle,
   lucastangents: lucas_tangents_triangle,
