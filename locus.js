@@ -45,13 +45,35 @@ const dict_circles = {
 };
 
 const dict_circle_triples = {
-    apollonius_isodyns : [circle_apollonius_isodyn_1,circle_apollonius_isodyn_2,circle_apollonius_isodyn_3],
-    excircles: [circle_excircle_1,circle_excircle_2,circle_excircle_3],
-    mixtilinears: [circle_mixtilinear_1,circle_mixtilinear_2,circle_mixtilinear_3],
-    mixtilinear_excs: [circle_mixtilinear_excircle_1,circle_mixtilinear_excircle_2,circle_mixtilinear_excircle_3],
-    neubergs: [circle_neuberg_1,circle_neuberg_2,circle_neuberg_3],
-    neuberg_refls: [circle_neuberg_refl_1,circle_neuberg_refl_2,circle_neuberg_refl_3]
-};
+    apollonius_isodyns : {
+        fns:[circle_apollonius_isodyn_1,circle_apollonius_isodyn_2,circle_apollonius_isodyn_3],
+        names:["apollonius1","apollonius2","apollonius3"]
+    },
+    excircles: {
+        fns:[circle_excircle_1,circle_excircle_2,circle_excircle_3],
+        names:["excircle1","excircle2","excircle3"]
+    },
+    mixtilinears: {
+        fns:[circle_mixtilinear_1,circle_mixtilinear_2,circle_mixtilinear_3],
+        names:["mixtilinear1","mixtilinear2","mixtilinear3"]
+    },
+    mixtilinear_excs: {
+        fns: [circle_mixtilinear_excircle_1,circle_mixtilinear_excircle_2,circle_mixtilinear_excircle_3],
+        names: ["mixtil_exc1","mixtil_exc2","mixtil_exc3"]
+    },
+    neubergs: {
+        fns: [circle_neuberg_1,circle_neuberg_2,circle_neuberg_3],
+        names: ["neuberg1","neuberg2","neuberg3"]
+    },
+    neuberg_refls: {
+        fns: [circle_neuberg_refl_1,circle_neuberg_refl_2,circle_neuberg_refl_3],
+        names: ["neuberg1r","neuberg2r","neuberg3r"]
+    },
+    inc_cir_eul: {
+        fns: [circle_incircle,circle_circum,circle_euler],
+        names: ["incircle","circum","euler"]
+    }
+    };
 
 const dict_caustic = {
     billiard: caustic_billiard,
@@ -178,10 +200,11 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     // circle triples
     if (dr_tri && circ in dict_circle_triples) {
         // &&& was ons_derived
-        const os = dict_circle_triples[circ].map(fn => fn(ons_derived0.o, ons_derived0.s));
-        os.map(o => {
+        const os = dict_circle_triples[circ].fns.map(f => f(ons_derived0.o, ons_derived0.s));
+        const names = dict_circle_triples[circ].names;
+        os.map((o,i) => {
             draw_circle_low(o.ctr, o.R, clr, stroke_w, true);
-            draw_text2_rot(circ + (o.n > 0 ? '(X' + o.n + ')' : ''), o.ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
+            draw_text2_rot(names[i] + (o.n > 0 ? '(X' + o.n + ')' : ''), o.ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
         });
     }
 }
@@ -267,10 +290,11 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
     // circle triples
     if (dr_tri && circ in dict_circle_triples) {
         // &&& was ons_derived
-        const os = dict_circle_triples[circ].map(fn => fn(ons_derived0.o, ons_derived0.s));
-        os.map(o => {
+        const os = dict_circle_triples[circ].fns.map(f => f(ons_derived0.o, ons_derived0.s));
+        const names = dict_circle_triples[circ].names;
+        os.map((o,i) => {
             draw_circle_low(o.ctr, o.R, clr, stroke_w, true);
-            draw_text2_rot(circ + (o.n > 0 ? '(X' + o.n + ')' : ''), o.ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
+            draw_text2_rot(names[i] + (o.n > 0 ? '(X' + o.n + ')' : ''), o.ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
         });
     }
 }

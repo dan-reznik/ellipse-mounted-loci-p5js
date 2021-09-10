@@ -104,6 +104,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="gallatly">gallatly</option>
                     <option value="gheorghe">gheorghe</option>
                     <option value="incircle">incircle</option>
+                    <option value="inc_cir_eul">inc,cir,eul</option>
                     <option value="lemoine">lemoine</option>
                     <option value="lester">lester</option>
                     <option value="mandart">mandart</option>
