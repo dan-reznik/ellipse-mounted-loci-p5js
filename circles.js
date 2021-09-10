@@ -100,7 +100,6 @@ const circle_excircle_1 = (tri,sides) => circle_excircle_low(tri,sides,0);
 const circle_excircle_2 = (tri,sides) => circle_excircle_low(tri,sides,1);
 const circle_excircle_3 = (tri,sides) => circle_excircle_low(tri,sides,2);
 
-// working on this, closest_perp, then circle_mixtilinear_1
 function circle_mixtilinear_low(tri,sides,n) {
     const ts = mixtilinear_triangle(sides);
     const mixt = generic_triangle(tri,sides,ts);
@@ -114,6 +113,19 @@ function circle_mixtilinear_low(tri,sides,n) {
 const circle_mixtilinear_1 = (tri,sides) => circle_mixtilinear_low(tri,sides,0);
 const circle_mixtilinear_2 = (tri,sides) => circle_mixtilinear_low(tri,sides,1);
 const circle_mixtilinear_3 = (tri,sides) => circle_mixtilinear_low(tri,sides,2);
+
+function circle_mixtilinear_excircle_low(tri,sides,n) {
+    const ts = mixtilinear2nd_triangle(sides);
+    const mixt_exc = generic_triangle(tri,sides,ts);
+    const x3 = get_Xn_cartesians(3, tri, sides);
+    const R = edist(x3,tri[0]);
+    const r=edist(mixt_exc[n],x3)-R;
+    return { ctr:mixt_exc[n], R:r, n:0 };
+}
+
+const circle_mixtilinear_excircle_1 = (tri,sides) => circle_mixtilinear_excircle_low(tri,sides,0);
+const circle_mixtilinear_excircle_2 = (tri,sides) => circle_mixtilinear_excircle_low(tri,sides,1);
+const circle_mixtilinear_excircle_3 = (tri,sides) => circle_mixtilinear_excircle_low(tri,sides,2);
 
 function circle_neuberg_low(tri, [s23, s31, s12], n, refl_circ=false) {
     const triL = [s12, s23, s31];

@@ -9,12 +9,6 @@ const dict_circles = {
     cosine: circle_cosine,
     cosine_exc: circle_cosine_exc,
     ehrmann: circle_ehrmann,
-    excircle1: circle_excircle_1,
-    excircle2: circle_excircle_2,
-    excircle3: circle_excircle_3,
-    apollonius_isodyn1: circle_apollonius_isodyn_1,
-    apollonius_isodyn2: circle_apollonius_isodyn_2,
-    apollonius_isodyn3: circle_apollonius_isodyn_3,
     euler: circle_euler,
     fuhrmann: circle_fuhrmann,
     gallatly: circle_gallatly,
@@ -23,22 +17,40 @@ const dict_circles = {
     lemoine: circle_lemoine,
     lester: circle_lester,
     mandart: circle_mandart,
+    apollonius_isodyn1: circle_apollonius_isodyn_1,
+    apollonius_isodyn2: circle_apollonius_isodyn_2,
+    apollonius_isodyn3: circle_apollonius_isodyn_3,
+    excircle1: circle_excircle_1,
+    excircle2: circle_excircle_2,
+    excircle3: circle_excircle_3,
     mixtilinear1: circle_mixtilinear_1,
     mixtilinear2: circle_mixtilinear_2,
     mixtilinear3: circle_mixtilinear_3,
-    moses: circle_moses,
+    mixtilinear1_exc: circle_mixtilinear_excircle_1,
+    mixtilinear2_exc: circle_mixtilinear_excircle_2,
+    mixtilinear3_exc: circle_mixtilinear_excircle_3,
     neuberg1: circle_neuberg_1,
     neuberg2: circle_neuberg_2,
     neuberg3: circle_neuberg_3,
     neuberg1r: circle_neuberg_refl_1,
     neuberg2r: circle_neuberg_refl_2,
     neuberg3r: circle_neuberg_refl_3,
+    moses: circle_moses,
     moses_radical: circle_moses_radical,
     spieker: circle_spieker,
     parry: circle_parry,
     reflection: circle_reflection,
     schoutte: circle_schoutte,
     taylor: circle_taylor
+};
+
+const dict_circle_triples = {
+    apollonius_isodyns : [circle_apollonius_isodyn_1,circle_apollonius_isodyn_2,circle_apollonius_isodyn_3],
+    excircles: [circle_excircle_1,circle_excircle_2,circle_excircle_3],
+    mixtilinears: [circle_mixtilinear_1,circle_mixtilinear_2,circle_mixtilinear_3],
+    mixtilinear_excs: [circle_mixtilinear_excircle_1,circle_mixtilinear_excircle_2,circle_mixtilinear_excircle_3],
+    neubergs: [circle_neuberg_1,circle_neuberg_2,circle_neuberg_3],
+    neuberg_refls: [circle_neuberg_refl_1,circle_neuberg_refl_2,circle_neuberg_refl_3]
 };
 
 const dict_caustic = {
@@ -163,6 +175,15 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
             draw_text2_rot(circ + (n > 0 ? '(X' + n + ')' : ''), ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
         }
     }
+    // circle triples
+    if (dr_tri && circ in dict_circle_triples) {
+        // &&& was ons_derived
+        const os = dict_circle_triples[circ].map(fn => fn(ons_derived0.o, ons_derived0.s));
+        os.map(o => {
+            draw_circle_low(o.ctr, o.R, clr, stroke_w, true);
+            draw_text2_rot(circ + (o.n > 0 ? '(X' + o.n + ')' : ''), o.ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
+        });
+    }
 }
 
 function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus_branches, clr, locus_type,
@@ -242,6 +263,15 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
             draw_circle_low(ctr, R, clr, stroke_w, true);
             draw_text2_rot(circ + (n > 0 ? '(X' + n + ')' : ''), ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
         }
+    }
+    // circle triples
+    if (dr_tri && circ in dict_circle_triples) {
+        // &&& was ons_derived
+        const os = dict_circle_triples[circ].map(fn => fn(ons_derived0.o, ons_derived0.s));
+        os.map(o => {
+            draw_circle_low(o.ctr, o.R, clr, stroke_w, true);
+            draw_text2_rot(circ + (o.n > 0 ? '(X' + o.n + ')' : ''), o.ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
+        });
     }
 }
 
@@ -335,16 +365,6 @@ function billiard_tDegMax(a, b) {
 }
 
 const inv_fn_identity = (tri, sides, p) => p;
-
-/*
-function get_inv_fn_old(a, circ, inv, mounting) {
-    return inv == "off" ? inv_fn_identity :
-        (circ in dict_circles) ? (tri, sides, p) => circle_inversion(p, dict_circles[circ](tri, sides)) :
-            (circ in dict_tri_fns_inv) ? (tri, sides, p) => circle_inversion(p, tri_fns_invert(circ, a, mounting)) :
-                (circ in dict_tri_fns_cremona) ? (tri, sides, p) => dict_tri_fns_cremona[circ](a, p) :
-                    inv_fn_identity;
-}
-*/
 
 function get_inv_fn(a, circ, inv, mounting) {
     switch (inv) {

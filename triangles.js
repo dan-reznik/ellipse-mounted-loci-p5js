@@ -776,14 +776,55 @@ function inner_vecten_triangle([a, b, c]) {
   return ts; // generic_triangle(orbit,[a,b,c],ts);
 }
 
+// vertices are the centers of the mixtilinear incircles
+// https://mathworld.wolfram.com/MixtilinearTriangle.html
 function mixtilinear_triangle(sides) {
   const [cA, cB, cC] = tri_cosines(sides);
   const ts = [
-    [(cA - cB - cC + 1) / 2, 1, 1],
-    [1, (-cA + cB - cC + 1) / 2, 1],
-    [1, 1, (-cA - cB + cC + 1) / 2]
+    [(cA - cB - cC + 1)/2, 1, 1],
+    [1, (-cA + cB - cC + 1)/2, 1],
+    [1, 1, (-cA - cB + cC + 1)/2]
   ];
-  return ts; // generic_triangle(orbit,sides,ts);
+  return ts;
+}
+
+// https://faculty.evansville.edu/ck6/encyclopedia/IndexOfTrianglesReferencedInETC.html
+// vertices are the centers of the mixtilinear excircles
+// (a^3-(b+c)*a^2-(b+c)^2*a+(b^2-c^2)*(b-c))/(4*a*b*c) : 1 : 1
+function mixtilinear2nd_triangle([a,b,c]) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  const a3=a2*a,b3=b2*b,c3=c2*c;
+  const abc = a*b*c;
+  const ts = [
+    [ (a3-(b+c)*a2-sqr(b+c)*a+(b2-c2)*(b-c))/(4*abc), 1, 1],
+    [ 1, (b3-(c+a)*b2-sqr(c+a)*b+(c2-a2)*(c-a))/(4*abc), 1],
+    [ 1, 1, (c3-(a+b)*c2-sqr(a+b)*c+(a2-b2)*(a-b))/(4*abc)]
+  ];
+  return ts; 
+}
+
+// https://faculty.evansville.edu/ck6/encyclopedia/IndexOfTrianglesReferencedInETC.html
+// vertices the touchpoints of the circumcircle and the mixtilinear incircles
+//  -1 : 2*b/(a-b+c) : 2*c/(a+b-c)
+function mixtilinear3rd_triangle([a,b,c]) {
+    const ts = [
+    [-1, 2*b/(a-b+c), 2*c/(a+b-c)],
+    [2*a/(b+c-a), -1, 2*c/(b-c+a)],
+    [2*a/(c-a+b), 2*b/(c+a-b), -1]
+  ];
+  return ts;
+}
+
+// https://faculty.evansville.edu/ck6/encyclopedia/IndexOfTrianglesReferencedInETC.html
+// vertices the touchpoints of the circumcircle and the mixtilinear excircles
+// -1 : 2*b/(a+b-c) : 2*c/(a-b+c)
+function mixtilinear4th_triangle([a,b,c]) {
+  const ts = [
+  [-1, 2*b/(a+b-c), 2*c/(a-b+c)],
+  [2*a/(b-c+a), -1, 2*c/(b+c-a)],
+  [2*a/(c+a-b), 2*b/(c-a+b), -1]
+];
+return ts;
 }
 
 //
@@ -1123,6 +1164,9 @@ const dict_tri_fns = {
   outervecten: outer_vecten_triangle,
   innervecten: inner_vecten_triangle,
   mixtilinear: mixtilinear_triangle,
+  mixtilinear2: mixtilinear2nd_triangle,
+  mixtilinear3: mixtilinear3rd_triangle,
+  mixtilinear4: mixtilinear4th_triangle,
   lucascentral: lucas_central_triangle,
   lucasinner: lucas_inner_triangle,
   lucastangents: lucas_tangents_triangle,
