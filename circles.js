@@ -114,6 +114,30 @@ const circle_mixtilinear_1 = (tri,sides) => circle_mixtilinear_low(tri,sides,0);
 const circle_mixtilinear_2 = (tri,sides) => circle_mixtilinear_low(tri,sides,1);
 const circle_mixtilinear_3 = (tri,sides) => circle_mixtilinear_low(tri,sides,2);
 
+// Thm 12: https://forumgeom.fau.edu/FG2006volume6/FG200601.pdf
+function circle_mixtilinear_apollonius_inner(tri,sides) {
+    const x1 = get_Xn_cartesians(1, tri, sides);
+    const r = get_inradius(sides);
+    const x3 = get_Xn_cartesians(3, tri, sides);
+    const R = edist(x3,tri[0]);
+    // divides OI in 4R : r
+    const ctr = vinterp(x3, x1, (4*R)/(r+4*R));
+    const theR = (3*R*r)/(4*R+r);
+    return { ctr:ctr, R:theR, n:0 };
+}
+
+// Thm 11: https://forumgeom.fau.edu/FG2006volume6/FG200601.pdf
+function circle_mixtilinear_excircle_apollonius_outer(tri,sides) {
+    const x1 = get_Xn_cartesians(1, tri, sides);
+    const r = get_inradius(sides);
+    const x3 = get_Xn_cartesians(3, tri, sides);
+    const R = edist(x3,tri[0]);
+    // divides OI in -4R : 4R+r
+    const ctr = vinterp(x3, x1, (-4*R)/r);
+    const theR = (R/r)*(4*R-3*r);
+    return { ctr:ctr, R:theR, n:0 };
+}
+
 function circle_mixtilinear_excircle_low(tri,sides,n) {
     const ts = mixtilinear2nd_triangle(sides);
     const mixt_exc = generic_triangle(tri,sides,ts);
