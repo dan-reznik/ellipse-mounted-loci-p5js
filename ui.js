@@ -1112,6 +1112,7 @@ function waitForJson() {
       //dispatch input event, jukebox start's a loop depending on url.
       document.getElementById('jukebox_playlist').value = glob.ui.jukebox_playlist;
       document.getElementById('jukebox_playlist').dispatchEvent(new Event('input', { value: glob.ui.jukebox_playlist }));
+      document.getElementById("output_text_jukebox").innerHTML = "ready";
    } else{
       setTimeout(waitForJson,delay);
    }
@@ -1153,7 +1154,7 @@ function setup_jukebox_playlist_oninput() {
       window.clearInterval(glob.jukebox_id)
       control_params.seconds_next_run = 1;
       control_params.list_index = 0;
-      glob.ui.jukebox_playlist = this.value; 
+      glob.ui.jukebox_playlist = this.value;
       //clearLocusSubpolysVariables();
       if (glob.ui.jukebox_playlist != 'off' &&  glob.jsonIsReady) {
          const aux = glob.ui.jukebox_playlist;
