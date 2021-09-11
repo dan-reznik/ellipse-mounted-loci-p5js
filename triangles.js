@@ -125,22 +125,6 @@ function invert_triangle(o, s, ts) {
   return inv_tri.o;
 }
 
-/*
-getFlankTriangle[tri_, k_] := 
-  Module[{(*triL,*)flanks, perps, Xks, quads},
-   (*triL=triLengthsRL@tri;*)
-   perps = MapThread[perp[#2 - #1] &, {tri, RotateLeft@tri}];
-   flanks = 
-    MapThread[{#1, #1 - #2, #1 - #3} &, {tri, RotateRight@perps, 
-      perps}];
-   quads = 
-    MapThread[{#1, #2, #2 - #3, #1 - #3} &, {tri, RotateLeft@tri, 
-      perps}];
-   Xks = getMosesX[k, #, triLengthsRL@#] & /@ flanks;
-   <|"tri0" -> tri, "flanks" -> flanks, "quads" -> quads, 
-    "tri" -> Xks, "triL" -> (triLengthsRL@Xks)|>];
-*/
-
 function flank_triangle(o0, s, pn) {
   const o = vccw(...o0)?o0:tri_rev(o0);
   //const xn = trilin_to_cartesian(o, s, ts);
