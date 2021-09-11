@@ -120,6 +120,8 @@ const magn = (p) => sqrt(magn2(p));
 const vinterp = (p1,p2,t) => vsum(p1,vscale(vdiff(p2,p1),t));
 const vray = (p,n,t) => vsum(p,vscale(n,t));
 const vdot = (u,v) => u[0]*v[0]+u[1]*v[1];
+const vcross = (u,v) => vdot(vperp(u),v);
+const vccw = (u,v,w) => vcross(vdiff(v,u),vdiff(w,v))>0
 
 function closest_perp(p, l1, l2) {
   const dl = vdiff(l2, l1);
@@ -134,8 +136,10 @@ function circle_inversion(p, { ctr, R }) {
 }
 
 const edist2 = (p1, p2) => magn2(vdiff(p1, p2));
-const edist = (p1, p2) => sqrt(edist2(p1, p2));
+const edist = (p1, p2) => Math.sqrt(edist2(p1, p2));
 const vnorm = (p) => vscale(p,1/magn(p));
+
+const tri_rev = ([p1,p2,p3]) => [p3,p2,p1];
 
 function tri_sides([p1, p2, p3]) {
   let s1 = edist(p2, p3);

@@ -100,13 +100,81 @@ const circle_excircle_1 = (tri,sides) => circle_excircle_low(tri,sides,0);
 const circle_excircle_2 = (tri,sides) => circle_excircle_low(tri,sides,1);
 const circle_excircle_3 = (tri,sides) => circle_excircle_low(tri,sides,2);
 
-/*
-x15 = getFirstIsodynamicTrilin[tri, triL];
-x16 = getSecondIsodynamicTrilin[tri, triL];
-apX3s = getCircumcenterTrilin[{#, x15, x16}, 
-     triLengthsRL@{#, x15, x16}] & /@ tri;
-apRs = MapThread[magn[#1 - #2] &, {tri, apX3s}];
-*/
+function circle_mixtilinear_low(tri,sides,n) {
+    const ts = mixtilinear_triangle(sides);
+    const mixt = generic_triangle(tri,sides,ts);
+    const perp = closest_perp(mixt[n],tri[n],tri[n==2?0:n+1]);
+    // https://mathworld.wolfram.com/Exradius.html
+    //to do:
+    const R=edist(mixt[n],perp);
+    return { ctr:mixt[n], R:R, n:0 };
+}
+
+const circle_mixtilinear_1 = (tri,sides) => circle_mixtilinear_low(tri,sides,0);
+const circle_mixtilinear_2 = (tri,sides) => circle_mixtilinear_low(tri,sides,1);
+const circle_mixtilinear_3 = (tri,sides) => circle_mixtilinear_low(tri,sides,2);
+
+// Thm 12: https://forumgeom.fau.edu/FG2006volume6/FG200601.pdf
+function circle_mixtilinear_apollonius_inner(tri,sides) {
+    const x1 = get_Xn_cartesians(1, tri, sides);
+    const r = get_inradius(sides);
+    const x3 = get_Xn_cartesians(3, tri, sides);
+    const R = edist(x3,tri[0]);
+    // divides OI in 4R : r
+    const ctr = vinterp(x3, x1, (4*R)/(r+4*R));
+    const theR = (3*R*r)/(4*R+r);
+    return { ctr:ctr, R:theR, n:0 };
+}
+
+// Thm 11: https://forumgeom.fau.edu/FG2006volume6/FG200601.pdf
+function circle_mixtilinear_excircle_apollonius_outer(tri,sides) {
+    const x1 = get_Xn_cartesians(1, tri, sides);
+    const r = get_inradius(sides);
+    const x3 = get_Xn_cartesians(3, tri, sides);
+    const R = edist(x3,tri[0]);
+    // divides OI in -4R : 4R+r
+    const ctr = vinterp(x3, x1, (-4*R)/r);
+    const theR = (R/r)*(4*R-3*r);
+    return { ctr:ctr, R:theR, n:0 };
+}
+
+function circle_mixtilinear_excircle_low(tri,sides,n) {
+    const ts = mixtilinear2nd_triangle(sides);
+    const mixt_exc = generic_triangle(tri,sides,ts);
+    const x3 = get_Xn_cartesians(3, tri, sides);
+    const R = edist(x3,tri[0]);
+    const r=edist(mixt_exc[n],x3)-R;
+    return { ctr:mixt_exc[n], R:r, n:0 };
+}
+
+const circle_mixtilinear_excircle_1 = (tri,sides) => circle_mixtilinear_excircle_low(tri,sides,0);
+const circle_mixtilinear_excircle_2 = (tri,sides) => circle_mixtilinear_excircle_low(tri,sides,1);
+const circle_mixtilinear_excircle_3 = (tri,sides) => circle_mixtilinear_excircle_low(tri,sides,2);
+
+function circle_neuberg_low(tri, [s23, s31, s12], n, refl_circ=false) {
+    const triL = [s12, s23, s31];
+    const tri2L = triL.map(v => v * v);
+    const triA = tri_area(triL);
+    const cotW = sum(tri2L) / (4 * triA);
+    const k = Math.sqrt(cotW * cotW - 3) / 2;
+    const r = k * triL[n];
+    const sides = tri.map((v, i) => vdiff(tri[i == 2 ? 0 : i + 1],v));
+    //ctrs = MapThread[(#1 + #2/2 + perp[#2] cotW/2) &, {tri, sides}];
+    const v1 = vsum(tri[n], vscale(sides[n], .5));
+    const the_sign = (refl_circ?-1:1)*(vccw(...tri)?1:-1);
+    const v2 = vscale(vperp(sides[n]), the_sign * cotW/2);
+    const ctr = vsum(v1, v2);
+    return { ctr: ctr, R: r, n: 0 };
+}
+
+const circle_neuberg_1 = (tri,sides) => circle_neuberg_low(tri,sides,0);
+const circle_neuberg_2 = (tri,sides) => circle_neuberg_low(tri,sides,1);
+const circle_neuberg_3 = (tri,sides) => circle_neuberg_low(tri,sides,2);
+
+const circle_neuberg_refl_1 = (tri,sides) => circle_neuberg_low(tri,sides,0,true);
+const circle_neuberg_refl_2 = (tri,sides) => circle_neuberg_low(tri,sides,1,true);
+const circle_neuberg_refl_3 = (tri,sides) => circle_neuberg_low(tri,sides,2,true);
+
 function circle_apollonius_isodyn_low(tri,sides,n) {
     const x15 = get_Xn_cartesians(15, tri, sides);
     const x16 = get_Xn_cartesians(16, tri, sides);
@@ -186,12 +254,12 @@ function circle_spieker(tri,sides) {
     return { ctr:x10, R:R, n:10 };
 }
 
-function circle_apollonius(tri,sides) {
-    const x940 = get_Xn_cartesians(940,tri,sides);
+function circle_apollonius_outer(tri,sides) {
+    const x970 = get_Xn_cartesians(970,tri,sides);
     const s = get_semiperimeter(sides);
     const r = get_inradius(sides);
     const R = (r*r+s*s)/(4*r);
-    return { ctr:x940, R:R, n:940 };
+    return { ctr:x970, R:R, n:970 };
 }
 
 function circle_conway(tri,sides) {

@@ -1,6 +1,6 @@
 const dict_circles = {
     adams: circle_adams,
-    apollonius: circle_apollonius,
+    apollonius_outer: circle_apollonius_outer,
     bevan: circle_bevan,
     brocard: circle_brocard,
     brocard2: circle_brocard2,
@@ -9,12 +9,6 @@ const dict_circles = {
     cosine: circle_cosine,
     cosine_exc: circle_cosine_exc,
     ehrmann: circle_ehrmann,
-    excircle1: circle_excircle_1,
-    excircle2: circle_excircle_2,
-    excircle3: circle_excircle_3,
-    apollonius_isodyn1: circle_apollonius_isodyn_1,
-    apollonius_isodyn2: circle_apollonius_isodyn_2,
-    apollonius_isodyn3: circle_apollonius_isodyn_3,
     euler: circle_euler,
     fuhrmann: circle_fuhrmann,
     gallatly: circle_gallatly,
@@ -23,6 +17,26 @@ const dict_circles = {
     lemoine: circle_lemoine,
     lester: circle_lester,
     mandart: circle_mandart,
+    apollonius_isodyn1: circle_apollonius_isodyn_1,
+    apollonius_isodyn2: circle_apollonius_isodyn_2,
+    apollonius_isodyn3: circle_apollonius_isodyn_3,
+    excircle1: circle_excircle_1,
+    excircle2: circle_excircle_2,
+    excircle3: circle_excircle_3,
+    mixtilinear1: circle_mixtilinear_1,
+    mixtilinear2: circle_mixtilinear_2,
+    mixtilinear3: circle_mixtilinear_3,
+    mixtilinear_apollonius_inner: circle_mixtilinear_apollonius_inner,
+    mixtilinear1_exc: circle_mixtilinear_excircle_1,
+    mixtilinear2_exc: circle_mixtilinear_excircle_2,
+    mixtilinear3_exc: circle_mixtilinear_excircle_3,
+    mixtilinear_exc_apollonius_outer: circle_mixtilinear_excircle_apollonius_outer,
+    neuberg1: circle_neuberg_1,
+    neuberg2: circle_neuberg_2,
+    neuberg3: circle_neuberg_3,
+    neuberg1r: circle_neuberg_refl_1,
+    neuberg2r: circle_neuberg_refl_2,
+    neuberg3r: circle_neuberg_refl_3,
     moses: circle_moses,
     moses_radical: circle_moses_radical,
     spieker: circle_spieker,
@@ -31,6 +45,37 @@ const dict_circles = {
     schoutte: circle_schoutte,
     taylor: circle_taylor
 };
+
+const dict_circle_triples = {
+    apollonius_isodyns : {
+        fns:[circle_apollonius_isodyn_1,circle_apollonius_isodyn_2,circle_apollonius_isodyn_3],
+        names:["apollonius1","apollonius2","apollonius3"]
+    },
+    excircles: {
+        fns:[circle_excircle_1,circle_excircle_2,circle_excircle_3],
+        names:["excircle1","excircle2","excircle3"]
+    },
+    mixtilinears: {
+        fns:[circle_mixtilinear_1,circle_mixtilinear_2,circle_mixtilinear_3],
+        names:["mixtilinear1","mixtilinear2","mixtilinear3"]
+    },
+    mixtilinear_excs: {
+        fns: [circle_mixtilinear_excircle_1,circle_mixtilinear_excircle_2,circle_mixtilinear_excircle_3],
+        names: ["mixtil_exc1","mixtil_exc2","mixtil_exc3"]
+    },
+    neubergs: {
+        fns: [circle_neuberg_1,circle_neuberg_2,circle_neuberg_3],
+        names: ["neuberg1","neuberg2","neuberg3"]
+    },
+    neuberg_refls: {
+        fns: [circle_neuberg_refl_1,circle_neuberg_refl_2,circle_neuberg_refl_3],
+        names: ["neuberg1r","neuberg2r","neuberg3r"]
+    },
+    inc_cir_eul: {
+        fns: [circle_incircle,circle_circum,circle_euler],
+        names: ["incircle","circum","euler"]
+    }
+    };
 
 const dict_caustic = {
     billiard: caustic_billiard,
@@ -154,6 +199,16 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
             draw_text2_rot(circ + (n > 0 ? '(X' + n + ')' : ''), ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
         }
     }
+    // circle triples
+    if (dr_tri && circ in dict_circle_triples) {
+        // &&& was ons_derived
+        const os = dict_circle_triples[circ].fns.map(f => f(ons_derived0.o, ons_derived0.s));
+        const names = dict_circle_triples[circ].names;
+        os.map((o,i) => {
+            draw_circle_low(o.ctr, o.R, clr, stroke_w, true);
+            draw_text2_rot(names[i] + (o.n > 0 ? '(X' + o.n + ')' : ''), o.ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
+        });
+    }
 }
 
 function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus_branches, clr, locus_type,
@@ -233,6 +288,16 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
             draw_circle_low(ctr, R, clr, stroke_w, true);
             draw_text2_rot(circ + (n > 0 ? '(X' + n + ')' : ''), ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
         }
+    }
+    // circle triples
+    if (dr_tri && circ in dict_circle_triples) {
+        // &&& was ons_derived
+        const os = dict_circle_triples[circ].fns.map(f => f(ons_derived0.o, ons_derived0.s));
+        const names = dict_circle_triples[circ].names;
+        os.map((o,i) => {
+            draw_circle_low(o.ctr, o.R, clr, stroke_w, true);
+            draw_text2_rot(names[i] + (o.n > 0 ? '(X' + o.n + ')' : ''), o.ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
+        });
     }
 }
 
@@ -326,16 +391,6 @@ function billiard_tDegMax(a, b) {
 }
 
 const inv_fn_identity = (tri, sides, p) => p;
-
-/*
-function get_inv_fn_old(a, circ, inv, mounting) {
-    return inv == "off" ? inv_fn_identity :
-        (circ in dict_circles) ? (tri, sides, p) => circle_inversion(p, dict_circles[circ](tri, sides)) :
-            (circ in dict_tri_fns_inv) ? (tri, sides, p) => circle_inversion(p, tri_fns_invert(circ, a, mounting)) :
-                (circ in dict_tri_fns_cremona) ? (tri, sides, p) => dict_tri_fns_cremona[circ](a, p) :
-                    inv_fn_identity;
-}
-*/
 
 function get_inv_fn(a, circ, inv, mounting) {
     switch (inv) {

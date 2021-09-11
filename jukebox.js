@@ -199,5 +199,16 @@ const glob_juke = [
       "bit.ly": ["bit.ly/3qXgQl3", "bit.ly/3xwl4mk", "bit.ly/3qTcr2G"],
       "config": ["dan-reznik.github.io/ellipse-mounted-loci-p5js/?sc=10.775&cx=569&cy=194&a=1.604&xn3=2&lc1=vtx&lc2=caustic&lc3=trilins&tr1=ints_f12c&tr2=ints_f12c&tr3=ints_f12c&tr4=ints_f12c&mt1=brocard&mt2=brocard&mt3=brocard&mt4=brocard&rot=180", "dan-reznik.github.io/ellipse-mounted-loci-p5js/?sc=4.411&a=1.445&xn3=2&lc1=vtx&lc2=caustic&lc3=trilins&tr1=ints_f12&tr2=ints_f12&tr3=ints_f12&tr4=ints_f12&mt1=homothetic&mt2=homothetic&mt3=homothetic&mt4=homothetic&rot=180", "dan-reznik.github.io/ellipse-mounted-loci-p5js/?sc=4.411&a=1.445&xn3=2&lc1=vtx&lc2=caustic&lc3=trilins&tr1=ints_f12c&tr2=ints_f12c&tr3=ints_f12c&tr4=ints_f12c&mt1=homothetic&mt2=homothetic&mt3=homothetic&mt4=homothetic&rot=180"]
     }
+  },
+  {
+    "sheet": "19 mixtilinears",
+    "data": {
+      "id": [1, 2, 3, 4, 5, 6, 7],
+      "sec": [10, 10, 10, 10, 10, 10, 10],
+      "name": ["Incircle family mixtilinears: invariant sum(1/ri), area product", "Incircle family outer mixtilinears: invariant sum(1/ri), area product", "Poristic mixtilinears (ponceletian): invariant sum(1/ri), area product, stationary inner mixt. apollonius", "Poristic outer mixtilinears (ponceletian): invariant sum(1/ri), area product, stationary outer mixt. apollonius", "Poristic 3rd mixtilinears (touchpts): ponceletian", "Poristic 3rd outer mixtilinears (touchpts): ponceletian, centered on X3", "8th mixtilinear triangle over poristics (fixed circumcircle)"],
+      "date": ["2021-09-10", "2021-09-10", "2021-09-10", "2021-09-10", "2021-09-10", "2021-09-10", "2021-09-10"],
+      "bit.ly": ["bit.ly/3tvNgo2", "bit.ly/3z0upCM", "bit.ly/2VvirDw", "bit.ly/2X65pgm", "bit.ly/3lc8pA1", "bit.ly/3lbsAhA", "bit.ly/2X42tAK"],
+      "config": ["sc=6.222&a=1.865&dr2=true&dr3=true&lc1=none&tr1=mixtilinear&mt1=incircle&mt2=incircle&mt3=incircle&mt4=incircle&crc2=mixtilinear_apollonius_inner&crc3=mixtilinears", "sc=32.603&cx=434&cy=249&a=1.865&dr2=true&dr3=true&dr4=true&lc1=none&tr1=mixtilinear2&mt1=incircle&mt2=incircle&mt3=incircle&mt4=incircle&crc2=mixtilinear_exc_apollonius_outer&crc3=mixtilinear_excs&crc4=circum", "sc=12.044&cx=659&cy=304&a=2.008&dr2=true&dr3=true&dr4=true&lc1=none&tr1=mixtilinear&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic&crc2=mixtilinear_apollonius_inner&crc3=mixtilinears&crc4=circum", "sc=98.647&cx=703&cy=293&a=1.865&dr2=true&dr3=true&dr4=true&lc1=vtx&lc4=caustic&tr1=mixtilinear2&tr4=mixtilinear2&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic&rmx=50&crc2=mixtilinear_exc_apollonius_outer&crc3=mixtilinear_excs", "sc=10.160&cx=584&cy=302&dr2=true&dr3=true&lc1=caustic&lc3=vtx&lc4=caustic&tr1=mixtilinear3&tr3=mixtilinear&tr4=mixtilinear&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic&crc2=mixtilinears", "sc=26.028&cx=635&cy=308&a=1.568&dr2=true&dr3=true&lc3=caustic&tr3=mixtilinear4&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic&crc1=mixtilinear_excs&crc2=mixtilinear_exc_apollonius_outer", "sc=79.450&cx=744&cy=309&dr2=true&dr3=true&tr1=mixtilinear9&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic&crc2=mixtilinear_excs&crc3=mixtilinear_exc_apollonius_outer"]
+    }
   }
 ];

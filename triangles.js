@@ -107,7 +107,6 @@ function tripolar_triangle(o, s, ts) {
   return tripolar;
 }
 
-
 // (i) invert, and (ii) get antipedal
 function polar_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o, s, ts);
@@ -124,6 +123,34 @@ function invert_triangle(o, s, ts) {
   const inv_fn = (tri, sides, p) => circle_inversion(p, { ctr: xn, R: 1 });
   const inv_tri = invert_tri({ o, s }, inv_fn);
   return inv_tri.o;
+}
+
+/*
+getFlankTriangle[tri_, k_] := 
+  Module[{(*triL,*)flanks, perps, Xks, quads},
+   (*triL=triLengthsRL@tri;*)
+   perps = MapThread[perp[#2 - #1] &, {tri, RotateLeft@tri}];
+   flanks = 
+    MapThread[{#1, #1 - #2, #1 - #3} &, {tri, RotateRight@perps, 
+      perps}];
+   quads = 
+    MapThread[{#1, #2, #2 - #3, #1 - #3} &, {tri, RotateLeft@tri, 
+      perps}];
+   Xks = getMosesX[k, #, triLengthsRL@#] & /@ flanks;
+   <|"tri0" -> tri, "flanks" -> flanks, "quads" -> quads, 
+    "tri" -> Xks, "triL" -> (triLengthsRL@Xks)|>];
+*/
+
+function flank_triangle(o0, s, pn) {
+  const o = vccw(...o0)?o0:tri_rev(o0);
+  //const xn = trilin_to_cartesian(o, s, ts);
+  const perps = o.map((v,i)=>vperp(vdiff(o[i==2?0:i+1],v)));
+  //MapThread[{#1, #1 - #2, #1 - #3} &, {tri, RotateRight@perps, perps}];
+  const flanks = o.map((v,i)=>[v,vdiff(v,perps[i==0?2:i-1]),vdiff(v,perps[i])]);
+  const flank_sides = flanks.map(tri_sides);
+  const bss = flank_sides.map(ss=>get_Xn_bary(ss, pn));
+  const Xks = flanks.map((t,i)=>barys_to_cartesian(t,bss[i]));
+  return Xks;
 }
 
 // (i) get pedal, and (ii) invert: actually congruent with polar, so not used!
@@ -749,17 +776,83 @@ function inner_vecten_triangle([a, b, c]) {
   return ts; // generic_triangle(orbit,[a,b,c],ts);
 }
 
+// vertices are the centers of the mixtilinear incircles
+// https://mathworld.wolfram.com/MixtilinearTriangle.html
 function mixtilinear_triangle(sides) {
   const [cA, cB, cC] = tri_cosines(sides);
   const ts = [
-    [(cA - cB - cC + 1) / 2, 1, 1],
-    [1, (-cA + cB - cC + 1) / 2, 1],
-    [1, 1, (-cA - cB + cC + 1) / 2]
+    [(cA - cB - cC + 1)/2, 1, 1],
+    [1, (-cA + cB - cC + 1)/2, 1],
+    [1, 1, (-cA - cB + cC + 1)/2]
   ];
-  return ts; // generic_triangle(orbit,sides,ts);
+  return ts;
 }
 
-//
+// https://faculty.evansville.edu/ck6/encyclopedia/IndexOfTrianglesReferencedInETC.html
+// vertices are the centers of the mixtilinear excircles
+// (a^3-(b+c)*a^2-(b+c)^2*a+(b^2-c^2)*(b-c))/(4*a*b*c) : 1 : 1
+function mixtilinear2nd_triangle([a,b,c]) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  const a3=a2*a,b3=b2*b,c3=c2*c;
+  const abc = a*b*c;
+  const ts = [
+    [ (a3-(b+c)*a2-sqr(b+c)*a+(b2-c2)*(b-c))/(4*abc), 1, 1],
+    [ 1, (b3-(c+a)*b2-sqr(c+a)*b+(c2-a2)*(c-a))/(4*abc), 1],
+    [ 1, 1, (c3-(a+b)*c2-sqr(a+b)*c+(a2-b2)*(a-b))/(4*abc)]
+  ];
+  return ts; 
+}
+
+// https://faculty.evansville.edu/ck6/encyclopedia/IndexOfTrianglesReferencedInETC.html
+// vertices the touchpoints of the circumcircle and the mixtilinear incircles
+//  -1 : 2*b/(a-b+c) : 2*c/(a+b-c)
+function mixtilinear3rd_triangle([a,b,c]) {
+    const ts = [
+    [-1, 2*b/(a-b+c), 2*c/(a+b-c)],
+    [2*a/(b+c-a), -1, 2*c/(b-c+a)],
+    [2*a/(c-a+b), 2*b/(c+a-b), -1]
+  ];
+  return ts;
+}
+
+// https://faculty.evansville.edu/ck6/encyclopedia/IndexOfTrianglesReferencedInETC.html
+// vertices the touchpoints of the circumcircle and the mixtilinear excircles
+// -1 : 2*b/(a+b-c) : 2*c/(a-b+c)
+function mixtilinear4th_triangle([a,b,c]) {
+  const ts = [
+  [-1, 2*b/(a+b-c), 2*c/(a-b+c)],
+  [2*a/(b-c+a), -1, 2*c/(b+c-a)],
+  [2*a/(c+a-b), 2*b/(c-a+b), -1]
+];
+return ts;
+}
+
+// peter moses, sept-10-2021
+// a*(a^2 + 2*a*b - 3*b^2 + 2*a*c + 6*b*c - 3*c^2),
+// -2*b^2*(-a + b - c)
+// 2*(a + b - c)*c^2
+function mixtilinear8th_triangle([a,b,c]) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  const ts = [
+    [a2+2*a*b-3*b2+2*a*c+6*b*c-3*c2,-2*b*(-a+b-c),2*c*(a+b-c)],
+    [2*a*(b+c-a),b2+2*b*c-3*c2+2*b*a+6*c*a-3*a2,-2*c*(-b+c-a)],
+    [-2*a*(-c+a-b),2*b*(c+a-b),c2+2*c*a-3*a2+2*c*b+6*a*b-3*b2]];
+return ts;
+}
+
+// peter moses, sept-10-2021
+// a*(a^2 - 2*a*b - 3*b^2 - 2*a*c + 6*b*c - 3*c^2), 
+// 2*b^2*(a + b - c),
+// 2*c^2*(a - b + c)}
+function mixtilinear9th_triangle([a,b,c]) {
+  const a2=a*a,b2=b*b,c2=c*c;
+  const ts = [
+    [a2-2*a*b-3*b2-2*a*c+6*b*c-3*c2,2*b*(a+b-c),2*c*(a-b+c)],
+    [2*a*(b-c+a),b2-2*b*c-3*c2-2*b*a+6*c*a-3*a2,2*c*(b+c-a)],
+    [2*a*(c+a-b),2*b*(c-a+b),c2-2*c*a-3*a2-2*c*b+6*a*b-3*b2]];
+return ts;
+}
+
 function get_mounted_tri(a, tDeg, v2, v3) {
   const t = toRad(tDeg);
   const v1 = [a * Math.cos(t), Math.sin(t)];
@@ -906,7 +999,7 @@ function get_x3_map_f1c(a, b, tri, sides, mounting) {
 }
 
 function get_true_axes(a, mounting) {
-  let ae,be,ac,bc,f1,f2,f1c,f2c,ctr;
+  let ae,be,ac,bc,f1,f2,f1c,f2c,ctr=[0,0];
   if (mounting == "poristic") {
     const d = chapple_d(1, a + 1);
     [ae,be]=[1+a,1+a];
@@ -947,7 +1040,15 @@ function get_focal_inter_triangle(a, b, o, sides, mounting) {
     return tri;
   }
 
-function get_cevian_f1(a, b, tri, sides, mounting) {
+function get_ellcevian_ctr(a, b, tri, sides, mounting) {
+    const ta = get_true_axes(a, mounting);
+    const tri0 = tri.map(v => vdiff(v, ta.ctr))
+        .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.ctr)), v))
+        .map(v => vsum(v, ta.ctr));
+    return tri0;
+}
+
+function get_ellcevian_f1(a, b, tri, sides, mounting) {
   const ta = get_true_axes(a, mounting);
   const tri0 = tri.map(v => vdiff(v, ta.ctr))
       .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.f1)), v))
@@ -955,7 +1056,7 @@ function get_cevian_f1(a, b, tri, sides, mounting) {
   return tri0;
 }
 
-function get_cevian_f1c(a, b, tri, sides, mounting) {
+function get_ellcevian_f1c(a, b, tri, sides, mounting) {
   const ta = get_true_axes(a, mounting);
   const tri0 = tri.map(v => vdiff(v, ta.ctr))
       .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.f1c)), v))
@@ -1088,6 +1189,11 @@ const dict_tri_fns = {
   outervecten: outer_vecten_triangle,
   innervecten: inner_vecten_triangle,
   mixtilinear: mixtilinear_triangle,
+  mixtilinear2: mixtilinear2nd_triangle,
+  mixtilinear3: mixtilinear3rd_triangle,
+  mixtilinear4: mixtilinear4th_triangle,
+  mixtilinear8: mixtilinear8th_triangle,
+  mixtilinear9: mixtilinear9th_triangle,
   lucascentral: lucas_central_triangle,
   lucasinner: lucas_inner_triangle,
   lucastangents: lucas_tangents_triangle,
@@ -1131,6 +1237,7 @@ const dict_tri_pfns = {
   vtx_refl: { fn: vtx_refl_triangle, needs: "tri" },
   side_refl: { fn: side_refl_triangle, needs: "tri" },
   inv_exc: { fn: inv_exc_triangle, needs: "tri" },
+  flank: { fn: flank_triangle, needs: "tri_pn" },
   x3_inv: { fn: x3_inv_triangle, needs: "tri" },
   x1_map: { fn: x1_map_triangle, needs: "tri" },
   x2_map: { fn: x2_map_triangle, needs: "tri" },
@@ -1165,8 +1272,9 @@ const dict_tri_fns_bicentric = {
   pol_ctr: get_polar_ctr,
   pol_f1: get_polar_f1,
   pol_f1c: get_polar_f1c,
-  cev_f1: get_cevian_f1,
-  cev_f1c: get_cevian_f1c,
+  ellcev_ctr: get_ellcevian_ctr,
+  ellcev_f1: get_ellcevian_f1,
+  ellcev_f1c: get_ellcevian_f1c,
   x3_map_ctr: get_x3_map_ctr,
   x3_map_f1: get_x3_map_f1,
   x3_map_f1c: get_x3_map_f1c,
@@ -1239,6 +1347,7 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
     let tri0;
     switch (dict_tri_pfns[cpn].needs) {
       case "tri": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p); break;
+      case "tri_pn": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, pn); break;
       case "ell": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, a); break;
       case "cau": {
         const [ac, bc] = !(mounting in dict_caustic) || ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
