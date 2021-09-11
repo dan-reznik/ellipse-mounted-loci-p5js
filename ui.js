@@ -1098,7 +1098,7 @@ function wait1secJsonReady(){
    var delay=1000; //1 seconds
    setTimeout(function(){
       if(glob.ui.jukebox_playlist != 'off'){
-         if(!Object.keys(glob.jukebox_json).includes(glob.ui.jukebox_playlist)){
+         if(!Object.keys(glob_juke).includes(glob.ui.jukebox_playlist)){
             alert('playlist inexistente, reiniciando...');
             reset_ui();
          }
@@ -1116,120 +1116,13 @@ function waitForJson() {
       setTimeout(waitForJson,delay);
    }
 }
-function gsheetToJson ({
-   id,
-   sheetNumber = 1,
-   query = '',
-   useIntegers = true,
-   showRows = true,
-   showColumns = true,
-   last = false
- }) {
-   const url = `https://spreadsheets.google.com/feeds/list/${id}/${sheetNumber}/public/values?alt=json`;
-   var responseObj = {};
-   fetch(url)
-     .then(response => response.json())
-     .then((data) => {
-       const rows = [];
-       const columns = {};
- 
-       for (let i = 0; i < data.feed.entry.length; i += 1) {
-         const entry = data.feed.entry[i];
-         const keys = Object.keys(entry);
-         const newRow = {};
-         let queried = false;
- 
-         for (let j = 0; j < keys.length; j += 1) {
-           const gsxCheck = keys[j].indexOf('gsx$');
-           if (gsxCheck > -1) {
-             const key = keys[j];
-             const name = key.substring(4);
-             const content = entry[key];
-             let value = content.$t;
- 
-             if (value.toLowerCase().indexOf(query.toLowerCase()) > -1) {
-               queried = true;
-             }
- 
-             if (useIntegers && !Number.isNaN(Number(value))) {
-               value = Number(value);
-             }
- 
-             newRow[name] = value;
- 
-             if (queried) {
-               if (!Object.prototype.hasOwnProperty.call(columns, name)) {
-                 columns[name] = [];
-                 columns[name].push(value);
-               } else {
-                 columns[name].push(value);
-               }
-             }
-           }
-         }
- 
-         if (queried) {
-           rows.push(newRow);
-         }
-       }
-       if (showColumns) {
-         //responseObj.columns = columns;
-         responseObj.columns = columns;
-       }
- 
-       if (showRows) {
-         responseObj.rows = rows;
-       }
-      
-      glob.jukebox_json[+sheetNumber-1].values = responseObj
-
-     })
-     .catch((error) => {
-       throw new Error(`Spreadsheet to JSON: There has been a problem with your fetch operation: ${error.message}`);
-     });
- }
-
-function getsheetsValues(sheetsNumber, sheetsID, last){
-   gsheetToJson({
-        id: sheetsID,
-         sheetNumber: sheetsNumber,
-         query: '',
-         useIntegers: false,
-         showRows: false,
-         showColumns: true,
-         last: last,
-      });
-}
-
-function handleResponseJson(data, sheetsID){
-   const worksheetsAttributes = data.feed.entry;
-   var sheetsName;
-   let sheetsData = {}
-   var lastGet = false
-   for (sheetsNumber in worksheetsAttributes){
-      if(sheetsNumber == 'last'){
-         wait1secJsonReady()
-         break;
-      }
-
-      if(sheetsNumber == data.feed.entry.length-1)
-         lastGet = true
-
-      sheetsName = worksheetsAttributes[sheetsNumber].title.$t;
-      if(sheetsName[0] != '_'){
-         glob.jukebox_json[+sheetsNumber] = {name: sheetsName.slice(3,)};
-         getsheetsValues(+sheetsNumber+1, sheetsID, lastGet);
-      }
-   }
-   addOptionToSelectJuke();
-}
 
 function addOptionToSelectJuke(){
    select = document.getElementById('jukebox_playlist');
-   for(i in glob.jukebox_json){
+   for(i in glob_juke){
          var opt = document.createElement('option');
          opt.value = i;
-         opt.innerHTML = glob.jukebox_json[i].name;
+         opt.innerHTML = glob_juke[i].sheet;
          select.appendChild(opt);
    }
 }
@@ -1251,20 +1144,10 @@ function setup_jukebox_playlist_oninput() {
                         ,jukeboxIsRunning : true};
    var start = Date.now();
    var output_text_jukebox = document.getElementById('output_text_jukebox')
-   const sheetsID = '1iSjH-dUliUoS9DWntZnn2S7dLzRYlD1z4TqdMRWWd5A'
-   /*
-   fetch(`https://spreadsheets.google.com/feeds/worksheets/${sheetsID}/public/values?alt=json`)
-   .then(response => {
-      return response.json();
-   }).then(data => {
-      // Work with JSON data here
-      handleResponseJson(data, sheetsID)
-      waitForJson();
-   }).catch(err => {
-      // Do something for an error here
-      alert(`.json not found\nerror: ${err}`)
-   });*/
-
+   
+   addOptionToSelectJuke();
+   glob.jsonIsReady = true;
+   waitForJson();
 
    document.getElementById('jukebox_playlist').addEventListener('input', function () {
       window.clearInterval(glob.jukebox_id)
@@ -1276,7 +1159,7 @@ function setup_jukebox_playlist_oninput() {
          const aux = glob.ui.jukebox_playlist;
          reset_ui();
          glob.ui.jukebox_playlist = aux;
-         playlist = glob.jukebox_json[glob.ui.jukebox_playlist].values.columns;
+         playlist = glob_juke[glob.ui.jukebox_playlist].data;
          start = Date.now();
          output_text_jukebox.innerHTML = "1/" + playlist['sec'].length;
          document.getElementById("output_text_jukebox").innerHTML = "working";

@@ -19,7 +19,7 @@ let glob = {
    clrs_shuffled: [null, null, null, null],
    clrs_shuffled_seeds: [[], [], [], []],
    ell_detects: ['X', 'X', 'X', 'X'],
-   jukebox_id: 0, jukebox_json: {}, jukebox_image_index: 0, jsonIsReady: false, jukeboxClicked: 0, jukebox_countdown: 0,
+   jukebox_id: 0, jukebox_image_index: 0, jsonIsReady: false, jukeboxClicked: 0, jukebox_countdown: 0,
    scaleFactor: 1,
    ui0: {
       a: 1.618, a_speed: 0, a_min: 1.01, a_max: 4,
@@ -237,8 +237,8 @@ function draw() {
 
 
    if (glob.jsonIsReady && glob.ui.jukebox_playlist != 'off') {
-      draw_text_full(glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['name'][glob.jukebox_image_index], [5, 15], canvasTextColor);
-      draw_text_full(`http://bit.ly/${glob.jukebox_json[glob.ui.jukebox_playlist].values.columns['bit.ly'][glob.jukebox_image_index]}`, [5, 30], canvasTextColor);
+      draw_text_full(glob_juke[glob.ui.jukebox_playlist].data['name'][glob.jukebox_image_index], [5, 15], canvasTextColor);
+      draw_text_full(`http://bit.ly/${glob_juke[glob.ui.jukebox_playlist].data['bit.ly'][glob.jukebox_image_index]}`, [5, 30], canvasTextColor);
    }
 
    draw_text_full("(c) 2020 Darlan & Reznik", [glob.width - 150, glob.height - 24], canvasTextColor);
