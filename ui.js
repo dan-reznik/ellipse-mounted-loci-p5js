@@ -1121,6 +1121,9 @@ function waitForJson() {
 function addOptionToSelectJuke(){
    select = document.getElementById('jukebox_playlist');
    for(i in glob_juke){
+         if (i == 'last'){
+            break;
+         }
          var opt = document.createElement('option');
          opt.value = i;
          opt.innerHTML = glob_juke[i].sheet;
