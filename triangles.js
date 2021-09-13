@@ -125,18 +125,6 @@ function invert_triangle(o, s, ts) {
   return inv_tri.o;
 }
 
-function flank_triangle(o0, s, pn) {
-  const o = vccw(...o0)?o0:tri_rev(o0);
-  //const xn = trilin_to_cartesian(o, s, ts);
-  const perps = o.map((v,i)=>vperp(vdiff(o[i==2?0:i+1],v)));
-  //MapThread[{#1, #1 - #2, #1 - #3} &, {tri, RotateRight@perps, perps}];
-  const flanks = o.map((v,i)=>[v,vdiff(v,perps[i==0?2:i-1]),vdiff(v,perps[i])]);
-  const flank_sides = flanks.map(tri_sides);
-  const bss = flank_sides.map(ss=>get_Xn_bary(ss, pn));
-  const Xks = flanks.map((t,i)=>barys_to_cartesian(t,bss[i]));
-  return Xks;
-}
-
 // (i) get pedal, and (ii) invert: actually congruent with polar, so not used!
 function antipolar_triangle(o, s, ts) {
   const xn = trilin_to_cartesian(o, s, ts);
@@ -567,6 +555,65 @@ function fuhrmann_triangle([a, b, c]) {
     [(b2 - c2 + a * b) / a, (a2 - c2 + a * b) / b, c]
   ];
   return ts; // generic_triangle(orbit,[a,b,c],ts);
+}
+
+/*
+getFlankTriangleMoses[tri_, {a_, b_, c_}] := 
+  Module[{a2 = a a, b2 = b b, c2 = c c, S = 2 triAreaHeron[{a, b, c}],
+     bs},
+   bs = {
+     {1, 0, 0},
+     {(a2 + b2 - c2) + 2 S, -2 b2, (-a2 + b2 + c2)},
+     {(a2 - b2 + c2) + 2 S, (-a2 + b2 + c2), -2 c2}
+     };
+   barycentricMatrixToCartesian[tri, bs]];
+
+getMosesFlanks[tri_, triL_] := 
+  getFlankTriangleMoses[RotateLeft[tri, #], 
+     RotateLeft[triL, #]] & /@ {0, 1, 2};
+*/
+
+function flank_triangle(o0, s, pn) {
+  const o = vccw(...o0)?o0:tri_rev(o0);
+  //const xn = trilin_to_cartesian(o, s, ts);
+  const perps = o.map((v,i)=>vperp(vdiff(o[i==2?0:i+1],v)));
+  //MapThread[{#1, #1 - #2, #1 - #3} &, {tri, RotateRight@perps, perps}];
+  const flanks = o.map((v,i)=>[v,vdiff(v,perps[i==0?2:i-1]),vdiff(v,perps[i])]);
+  const flank_sides = flanks.map(tri_sides);
+  const bss = flank_sides.map(ss=>get_Xn_bary(ss, pn));
+  const Xks = flanks.map((t,i)=>barys_to_cartesian(t,bss[i]));
+  return Xks;
+}
+
+function flank1_triangle([a, b, c]) {
+  const a2 = a * a, b2 = b * b, c2 = c * c, S = 2*tri_area([a, b, c]);
+  const ts = [
+    [1 / a, 0, 0],
+    [((a2 + b2 - c2) + 2 * S) / a, -2 * b, (-a2 + b2 + c2) / c],
+    [((a2 - b2 + c2) + 2 * S) / a, (-a2 + b2 + c2) / b, -2 * c]
+  ];
+  return ts; // generic_triangle(orbit,[a,b,c],ts);
+}
+
+// faking rotation
+function flank2_triangle([b, c, a]) {
+  const a2 = a * a, b2 = b * b, c2 = c * c, S = 2*tri_area([a, b, c]);
+  const ts = [
+    [-2 * b, (-a2 + b2 + c2) / c, ((a2 + b2 - c2) + 2 * S) / a],
+    [(-a2 + b2 + c2) / b, -2 * c, ((a2 - b2 + c2) + 2 * S) / a],
+    [0, 0, 1 / a]
+  ];
+  return ts;
+}
+
+function flank3_triangle([c, a, b]) {
+  const a2 = a * a, b2 = b * b, c2 = c * c, S = 2*tri_area([a, b, c]);
+  const ts = [
+    [-2 * c, ((a2 - b2 + c2) + 2 * S) / a,(-a2 + b2 + c2) / b],
+    [0, 1 / a,0],
+    [(-a2 + b2 + c2) / c, ((a2 + b2 - c2) + 2 * S) / a,-2 * b],
+  ];
+  return ts;
 }
 
 /*
@@ -1152,6 +1199,9 @@ const dict_tri_fns = {
   morley_adj2: second_morley_adjunct_triangle,
   morley_adj3: third_morley_adjunct_triangle,
   incentral: incentral_triangle,
+  flank1: flank1_triangle,
+  flank2: flank2_triangle,
+  flank3: flank3_triangle,
   fuhrmann: fuhrmann_triangle,
   macbeath: macbeath_triangle,
   steiner: steiner_triangle,
