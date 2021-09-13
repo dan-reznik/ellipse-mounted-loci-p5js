@@ -417,7 +417,7 @@ function make_locus_branched(a, tDegStep, r_max,
     let locus_array;
     if (mounting in dict_orbit_fn) { //poncelet
         const tDegMax = 
-        ["graves","flank1","flank2","flank3"].includes(tri_type) ||
+        ["graves","flank1","flank2","flank3","ext_outer1","ext_outer2","ext_outer3"].includes(tri_type) ||
         ["vtx", "vtx2", "vtx3", "caustic", "caustic23", "caustic31",
         "f_vtx", "ort", "env1x", "env2x", "env3x"].includes(locus_type) ||
         ["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);

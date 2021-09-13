@@ -585,6 +585,30 @@ function flank_triangle(o0, s, pn) {
   return Xks;
 }
 
+/*
+bsA = {{0, s - b, s - c}, {-s + b, 0, s}, {-s + c, s, 0}};
+bsB = {{0, -s + a, s}, {s - a, 0, s - c}, {s, -s + c, 0}};
+bsC = {{0, s, -s + a}, {s, 0, -s + b}, {s - a, s - b, 0}};
+*/
+
+function extouch_outer1_triangle([a, b, c]) {
+  const s = (a+b+c)/2;
+  const bs = [[0, s - 1, s - 1], [-s + b, 0, s], [-s + c, s, 0]];
+  return bs.map(b0=>barys_to_trilins(b0,[a,b,c]));
+}
+
+function extouch_outer2_triangle([a, b, c]) {
+  const s = (a+b+c)/2;
+  const bs = [[0, -s + a, s], [s - a, 0, s - c], [s, -s + c, 0]];
+  return bs.map(b0=>barys_to_trilins(b0,[a,b,c]));
+}
+
+function extouch_outer3_triangle([a, b, c]) {
+  const s = (a+b+c)/2;
+  const bs = [[0, s, -s + a], [s, 0, -s + b], [s - a, s - b, 0]];
+  return bs.map(b0=>barys_to_trilins(b0,[a,b,c]));
+}
+
 function flank1_triangle([a, b, c]) {
   const a2 = a * a, b2 = b * b, c2 = c * c, S = 2*tri_area([a, b, c]);
   const ts = [
@@ -1180,6 +1204,9 @@ const dict_tri_fns = {
   orthic: orthic_triangle,
   intouch: intouch_triangle,
   extouch: extouch_triangle,
+  ext_outer1: extouch_outer1_triangle,
+  ext_outer2: extouch_outer2_triangle,
+  ext_outer3: extouch_outer3_triangle,
   tangential: tangential_triangle,
   tangentialmidarc: tangential_midarc_triangle,
   extangents: extangents_triangle,
