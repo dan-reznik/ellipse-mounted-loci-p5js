@@ -47,35 +47,35 @@ const dict_circles = {
 };
 
 const dict_circle_triples = {
-    apollonius_isodyns : {
-        fns:[circle_apollonius_isodyn_1,circle_apollonius_isodyn_2,circle_apollonius_isodyn_3],
-        names:["apollonius1","apollonius2","apollonius3"]
+    apollonius_isodyns: {
+        fns: [circle_apollonius_isodyn_1, circle_apollonius_isodyn_2, circle_apollonius_isodyn_3],
+        names: ["apollonius1", "apollonius2", "apollonius3"]
     },
     excircles: {
-        fns:[circle_excircle_1,circle_excircle_2,circle_excircle_3],
-        names:["excircle1","excircle2","excircle3"]
+        fns: [circle_excircle_1, circle_excircle_2, circle_excircle_3],
+        names: ["excircle1", "excircle2", "excircle3"]
     },
     mixtilinears: {
-        fns:[circle_mixtilinear_1,circle_mixtilinear_2,circle_mixtilinear_3],
-        names:["mixtilinear1","mixtilinear2","mixtilinear3"]
+        fns: [circle_mixtilinear_1, circle_mixtilinear_2, circle_mixtilinear_3],
+        names: ["mixtilinear1", "mixtilinear2", "mixtilinear3"]
     },
     mixtilinear_excs: {
-        fns: [circle_mixtilinear_excircle_1,circle_mixtilinear_excircle_2,circle_mixtilinear_excircle_3],
-        names: ["mixtil_exc1","mixtil_exc2","mixtil_exc3"]
+        fns: [circle_mixtilinear_excircle_1, circle_mixtilinear_excircle_2, circle_mixtilinear_excircle_3],
+        names: ["mixtil_exc1", "mixtil_exc2", "mixtil_exc3"]
     },
     neubergs: {
-        fns: [circle_neuberg_1,circle_neuberg_2,circle_neuberg_3],
-        names: ["neuberg1","neuberg2","neuberg3"]
+        fns: [circle_neuberg_1, circle_neuberg_2, circle_neuberg_3],
+        names: ["neuberg1", "neuberg2", "neuberg3"]
     },
     neuberg_refls: {
-        fns: [circle_neuberg_refl_1,circle_neuberg_refl_2,circle_neuberg_refl_3],
-        names: ["neuberg1r","neuberg2r","neuberg3r"]
+        fns: [circle_neuberg_refl_1, circle_neuberg_refl_2, circle_neuberg_refl_3],
+        names: ["neuberg1r", "neuberg2r", "neuberg3r"]
     },
     inc_cir_eul: {
-        fns: [circle_incircle,circle_circum,circle_euler],
-        names: ["incircle","circum","euler"]
+        fns: [circle_incircle, circle_circum, circle_euler],
+        names: ["incircle", "circum", "euler"]
     }
-    };
+};
 
 const dict_caustic = {
     billiard: caustic_billiard,
@@ -128,7 +128,7 @@ function get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
     const [v2, v3] = getV2V3(a, mounting, 0.001);
     const ons = get_mounted_tri(a, tDeg, v2, v3);
     const ons_derived0 = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
-    const ons_derived = (inv == "tri"||inv=="crem_tri") ? invert_tri(ons_derived0, inv_fn) :
+    const ons_derived = (inv == "tri" || inv == "crem_tri") ? invert_tri(ons_derived0, inv_fn) :
         inv == "polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting) : ons_derived0;
     return { inv_fn: inv_fn, ons: ons, derived0: ons_derived0, derived: ons_derived };
 }
@@ -137,7 +137,7 @@ function get_poncelet_derived(a, tDeg, orbit_fn, mounting, tri_type, cpn, pn, ci
     const inv_fn = get_inv_fn(a, circ, inv, mounting);
     let ons = orbit_fn(a, tDeg);
     const ons_derived0 = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
-    const ons_derived = (inv == "tri"||inv=="crem_tri") ? invert_tri(ons_derived0, inv_fn) :
+    const ons_derived = (inv == "tri" || inv == "crem_tri") ? invert_tri(ons_derived0, inv_fn) :
         inv == "polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting) : ons_derived0;
     return { inv_fn: inv_fn, ons: ons, derived0: ons_derived0, derived: ons_derived };
 }
@@ -148,21 +148,24 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     const [v2, v3] = getV2V3(a, mounting, 0.001);
     const ons = get_mounted_tri(a, tDeg, v2, v3);
     const ons_derived0 = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
-    const ons_derived = (inv == "tri"||inv=="crem_tri") ? invert_tri(ons_derived0, inv_fn) :
+    const ons_derived = (inv == "tri" || inv == "crem_tri") ? invert_tri(ons_derived0, inv_fn) :
         inv == "polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting) : ons_derived0;
 
     if (dr_tri) {
         draw_mounted(ons, clr, stroke_w, false, true);
         if (tri_type != "reference" || cpn != "off") draw_mounted(ons_derived0, clr, stroke_w, false, true);
-        // to do: flank and ext tris must draw Xn on each vertex
-        if (cpn in dict_tri_pfns) { // ons_derived0 will have intermediate fields o_deriv, s_deriv
-            const pn_deriv = get_Xn_low_bary(ons_derived0.o_deriv, ons_derived0.s_deriv, get_fn_bary(pn));
+        if (cpn in dict_tri_pfns) {
             if (tri_type != "reference") draw_tri2(ons_derived0.o_deriv, clr, stroke_w / 2);
-            draw_point2(pn_deriv, clr, stroke_w / 2);
-            draw_text2_rot('X' + pn, pn_deriv, clr, .66 * stroke_w, -dict_rot[rot], true);
+            if (["flank", "extouch_outer"].includes(cpn)) { // draw X on each vertex
+                ons_derived.o.map(vtx0 => draw_text2_rot('X' + pn, vtx0, clr, .66 * stroke_w, -dict_rot[rot], true));
+            } else { // ons_derived0 will have intermediate fields o_deriv, s_deriv
+                const pn_deriv = get_Xn_low_bary(ons_derived0.o_deriv, ons_derived0.s_deriv, get_fn_bary(pn));
+                draw_point2(pn_deriv, clr, stroke_w / 2);
+                draw_text2_rot('X' + pn, pn_deriv, clr, .66 * stroke_w, -dict_rot[rot], true);
+            }
         }
 
-        if (circ != "off" && ["tri","polar","crem_tri"].includes(inv))
+        if (circ != "off" && ["tri", "polar", "crem_tri"].includes(inv))
             draw_mounted(ons_derived, clr, stroke_w, false, false);
     }
 
@@ -182,8 +185,8 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
             draw_text2_rot(locus_type in dict_vtx_xn ? ('P' + (1 + dict_vtx_xn[locus_type])) : ('X' + pn), p2, clr, .66 * stroke_w, -dict_rot[rot], true);
         }
         draw_locus_branched(locus_branches, ons_derived, n, pn, clr, stroke_w,
-            locus_type, ell_detect, rot, draw_label, (inv == "xn"||inv=="crem_xn") ? inv_fn : inv_fn_identity,
-            ["","tri","polar","crem_tri"].includes(inv) || tri_type in dict_tri_fns_inv /*|| tri_type in dict_tri_fns_cremona*/, env);
+            locus_type, ell_detect, rot, draw_label, (inv == "xn" || inv == "crem_xn") ? inv_fn : inv_fn_identity,
+            ["", "tri", "polar", "crem_tri"].includes(inv) || tri_type in dict_tri_fns_inv /*|| tri_type in dict_tri_fns_cremona*/, env);
     }
     // dr label on center of circle
     if (dr_tri) {
@@ -205,7 +208,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
         // &&& was ons_derived
         const os = dict_circle_triples[circ].fns.map(f => f(ons_derived0.o, ons_derived0.s));
         const names = dict_circle_triples[circ].names;
-        os.map((o,i) => {
+        os.map((o, i) => {
             draw_circle_low(o.ctr, o.R, clr, stroke_w, true);
             draw_text2_rot(names[i] + (o.n > 0 ? '(X' + o.n + ')' : ''), o.ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
         });
@@ -218,7 +221,7 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
     const inv_fn = get_inv_fn(a, circ, inv, mounting);
     let ons = orbit_fn(a, tDeg);
     const ons_derived0 = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
-    const ons_derived = (inv == "tri"||inv=="crem_tri") ? invert_tri(ons_derived0, inv_fn) :
+    const ons_derived = (inv == "tri" || inv == "crem_tri") ? invert_tri(ons_derived0, inv_fn) :
         inv == "polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting) : ons_derived0;
 
     if (dr_tri) {
@@ -243,13 +246,17 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
         }
         draw_orbit(ons, clr, stroke_w, false, true, false);
         if (tri_type != "reference" || cpn != "off") draw_orbit(ons_derived0, clr, stroke_w, false, true, false);
-        if (cpn in dict_tri_pfns) { // ons_derived0 will have intermediate fields o_deriv, s_deriv
-            const pn_deriv = get_Xn_low_bary(ons_derived0.o_deriv, ons_derived0.s_deriv, get_fn_bary(pn));
+        if (cpn in dict_tri_pfns) {
             if (tri_type != "reference") draw_tri2(ons_derived0.o_deriv, clr, stroke_w / 2);
-            draw_point2(pn_deriv, clr, stroke_w / 2);
-            draw_text2_rot('X' + pn, pn_deriv, clr, .66 * stroke_w, -dict_rot[rot], true);
+            if (["flank", "extouch_outer"].includes(cpn)) { // draw X on each vertex
+                ons_derived.o.map(vtx0 => draw_text2_rot('X' + pn, vtx0, clr, .66 * stroke_w, -dict_rot[rot], true));
+            } else { // ons_derived0 will have intermediate fields o_deriv, s_deriv
+                const pn_deriv = get_Xn_low_bary(ons_derived0.o_deriv, ons_derived0.s_deriv, get_fn_bary(pn));
+                draw_point2(pn_deriv, clr, stroke_w / 2);
+                draw_text2_rot('X' + pn, pn_deriv, clr, .66 * stroke_w, -dict_rot[rot], true);
+            }
         }
-        if (circ != "off" && ["tri","polar","crem_tri"].includes(inv))
+        if (circ != "off" && ["tri", "polar", "crem_tri"].includes(inv))
             draw_orbit(ons_derived, clr, stroke_w, false, false, false);
     }
 
@@ -273,8 +280,8 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
             }
         }
         draw_locus_branched(locus_branches, ons_derived, n, pn, clr, stroke_w,
-            locus_type, ell_detect, rot, draw_label, (inv == "xn"||inv=="crem_xn") ? inv_fn : inv_fn_identity,
-            ["tri","polar","crem_tri"].includes(inv) || tri_type in dict_tri_fns_inv /*|| tri_type in dict_tri_fns_cremona*/, env);
+            locus_type, ell_detect, rot, draw_label, (inv == "xn" || inv == "crem_xn") ? inv_fn : inv_fn_identity,
+            ["tri", "polar", "crem_tri"].includes(inv) || tri_type in dict_tri_fns_inv /*|| tri_type in dict_tri_fns_cremona*/, env);
     }
     if (dr_tri) {
         var o = null;
@@ -295,7 +302,7 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
         // &&& was ons_derived
         const os = dict_circle_triples[circ].fns.map(f => f(ons_derived0.o, ons_derived0.s));
         const names = dict_circle_triples[circ].names;
-        os.map((o,i) => {
+        os.map((o, i) => {
             draw_circle_low(o.ctr, o.R, clr, stroke_w, true);
             draw_text2_rot(names[i] + (o.n > 0 ? '(X' + o.n + ')' : ''), o.ctr, clr, .66 * stroke_w, -dict_rot[rot], true);
         });
@@ -397,14 +404,14 @@ function get_inv_fn(a, circ, inv, mounting) {
     switch (inv) {
         case "off": return inv_fn_identity;
         case "crem_xn":
-        case "crem_tri": 
-         return (circ in dict_circles) ?
-             (tri, sides, p) => cremona_inversion(p,dict_circles[circ](tri, sides).ctr) :
-             (circ in dict_tri_fns_inv) ? (tri, sides, p) => cremona_inversion(p,tri_fns_invert(circ, a, mounting).ctr):
-             inv_fn_identity;
+        case "crem_tri":
+            return (circ in dict_circles) ?
+                (tri, sides, p) => cremona_inversion(p, dict_circles[circ](tri, sides).ctr) :
+                (circ in dict_tri_fns_inv) ? (tri, sides, p) => cremona_inversion(p, tri_fns_invert(circ, a, mounting).ctr) :
+                    inv_fn_identity;
         default:
-        return (circ in dict_circles) ? (tri, sides, p) => circle_inversion(p, dict_circles[circ](tri, sides)) :
-            (circ in dict_tri_fns_inv) ? (tri, sides, p) => circle_inversion(p, tri_fns_invert(circ, a, mounting)) :
+            return (circ in dict_circles) ? (tri, sides, p) => circle_inversion(p, dict_circles[circ](tri, sides)) :
+                (circ in dict_tri_fns_inv) ? (tri, sides, p) => circle_inversion(p, tri_fns_invert(circ, a, mounting)) :
                     inv_fn_identity;
     }
 }
@@ -417,12 +424,12 @@ function make_locus_branched(a, tDegStep, r_max,
     const bary_fn = get_fn_any(locus_type, n);
     let locus_array;
     if (mounting in dict_orbit_fn) { //poncelet
-        const tDegMax = 
-        ["graves","flank1","flank2","flank3","ext_outer1","ext_outer2","ext_outer3"].includes(tri_type) ||
-        ["vtx", "vtx2", "vtx3", "caustic", "caustic23", "caustic31",
-        "f_vtx", "ort", "env1x", "env2x", "env3x"].includes(locus_type) ||
-        ["extouch_outer"].includes(cpn) ||
-        ["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
+        const tDegMax =
+            ["graves", "flank1", "flank2", "flank3", "ext_outer1", "ext_outer2", "ext_outer3"].includes(tri_type) ||
+                ["vtx", "vtx2", "vtx3", "caustic", "caustic23", "caustic31",
+                    "f_vtx", "ort", "env1x", "env2x", "env3x"].includes(locus_type) ||
+                ["extouch_outer"].includes(cpn) ||
+                ["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
             (a0, tDeg0) =>
                 get_Xn_poncelet(a0, tDeg0, dict_orbit_fn[mounting], bary_fn, tri_type, cpn, pn, inv, inv_fn,
