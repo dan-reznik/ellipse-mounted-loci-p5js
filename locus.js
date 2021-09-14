@@ -154,6 +154,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     if (dr_tri) {
         draw_mounted(ons, clr, stroke_w, false, true);
         if (tri_type != "reference" || cpn != "off") draw_mounted(ons_derived0, clr, stroke_w, false, true);
+        // flank and ext tris must draw Xn on each vertex
         if (cpn in dict_tri_pfns) { // ons_derived0 will have intermediate fields o_deriv, s_deriv
             const pn_deriv = get_Xn_low_bary(ons_derived0.o_deriv, ons_derived0.s_deriv, get_fn_bary(pn));
             if (tri_type != "reference") draw_tri2(ons_derived0.o_deriv, clr, stroke_w / 2);

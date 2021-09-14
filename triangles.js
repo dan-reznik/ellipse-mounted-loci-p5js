@@ -258,10 +258,22 @@ function orthic_triangle(sides) {
 }
 
 function extouch_triangle([a, b, c]) {
-  const ts = [[0, (a - b + c) / b, (a + b - c) / c],
+  const ts = [
+    [0, (a - b + c) / b, (a + b - c) / c],
   [(-a + b + c) / a, 0, (a + b - c) / c],
   [(-a + b + c) / a, (a - b + c) / b, 0]];
   return ts; // generic_triangle(orbit,[a,b,c],ts);
+}
+
+// {2*a*(b + c), -a^2 - b^2 + c^2, -a^2 + b^2 - c^2}.
+function second_extouch_triangle([a,b,c]) {
+  const a2 = a * a, b2 = b * b, c2 = c * c;
+  const ts =
+  [[2*(b+c), (-a2-b2+c2)/b, (-a2+b2-c2)/c],
+  [(-b2+c2-a2)/a, 2*(c+a), (-b2-c2+a2)/c],
+  [(-c2-a2+b2)/a,(-c2+a2-b2)/b, 2*(a+b)]];
+  
+  return ts;
 }
 
 function intouch_triangle([a, b, c]) {
@@ -1204,6 +1216,7 @@ const dict_tri_fns = {
   orthic: orthic_triangle,
   intouch: intouch_triangle,
   extouch: extouch_triangle,
+  extouch2: second_extouch_triangle,
   ext_outer1: extouch_outer1_triangle,
   ext_outer2: extouch_outer2_triangle,
   ext_outer3: extouch_outer3_triangle,
