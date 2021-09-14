@@ -612,7 +612,7 @@ bsC = {{0, s, -s + a}, {s, 0, -s + b}, {s - a, s - b, 0}};
 
 function extouch_outer1_triangle([a, b, c]) {
   const s = (a+b+c)/2;
-  const bs = [[0, s - 1, s - 1], [-s + b, 0, s], [-s + c, s, 0]];
+  const bs = [[0, s - b, s - c], [-s + b, 0, s], [-s + c, s, 0]];
   return bs.map(b0=>barys_to_trilins(b0,[a,b,c]));
 }
 
