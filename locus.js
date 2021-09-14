@@ -154,7 +154,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     if (dr_tri) {
         draw_mounted(ons, clr, stroke_w, false, true);
         if (tri_type != "reference" || cpn != "off") draw_mounted(ons_derived0, clr, stroke_w, false, true);
-        // flank and ext tris must draw Xn on each vertex
+        // to do: flank and ext tris must draw Xn on each vertex
         if (cpn in dict_tri_pfns) { // ons_derived0 will have intermediate fields o_deriv, s_deriv
             const pn_deriv = get_Xn_low_bary(ons_derived0.o_deriv, ons_derived0.s_deriv, get_fn_bary(pn));
             if (tri_type != "reference") draw_tri2(ons_derived0.o_deriv, clr, stroke_w / 2);
@@ -421,6 +421,7 @@ function make_locus_branched(a, tDegStep, r_max,
         ["graves","flank1","flank2","flank3","ext_outer1","ext_outer2","ext_outer3"].includes(tri_type) ||
         ["vtx", "vtx2", "vtx3", "caustic", "caustic23", "caustic31",
         "f_vtx", "ort", "env1x", "env2x", "env3x"].includes(locus_type) ||
+        ["extouch_outer"].includes(cpn) ||
         ["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
             (a0, tDeg0) =>

@@ -597,6 +597,13 @@ function flank_triangle(o0, s, pn) {
   return Xks;
 }
 
+function outer_extouch_triangle(tri, sides, pn) {
+  const tss = [extouch_outer1_triangle(sides),extouch_outer2_triangle(sides),extouch_outer3_triangle(sides)];
+  const tris = tss.map(ts=>generic_triangle(tri,sides,ts));
+  const Xks = tris.map(t=>get_Xn_cartesians(pn,t,tri_sides(t)));
+  return Xks;
+}
+
 /*
 bsA = {{0, s - b, s - c}, {-s + b, 0, s}, {-s + c, s, 0}};
 bsB = {{0, -s + a, s}, {s - a, 0, s - c}, {s, -s + c, 0}};
@@ -1312,6 +1319,7 @@ const dict_tri_pfns = {
   side_refl: { fn: side_refl_triangle, needs: "tri" },
   inv_exc: { fn: inv_exc_triangle, needs: "tri" },
   flank: { fn: flank_triangle, needs: "tri_pn" },
+  extouch_outer: { fn: outer_extouch_triangle, needs: "tri_pn" },
   x3_inv: { fn: x3_inv_triangle, needs: "tri" },
   x1_map: { fn: x1_map_triangle, needs: "tri" },
   x2_map: { fn: x2_map_triangle, needs: "tri" },
