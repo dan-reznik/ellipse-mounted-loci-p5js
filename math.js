@@ -162,6 +162,24 @@ function tri_cosines([a, b, c]) {
   return [x, y, z];
 }
 
+function tri_sines(sides) {
+  const cs = tri_cosines(sides);
+  return cs.map(c=>Math.sqrt(1-c*c));
+}
+
+// does not use tri_sines not to have to compute cosines twice
+function tri_cotangents(sides) {
+  const cs = tri_cosines(sides);
+  const ss = cs.map(c=>Math.sqrt(1-c*c));
+  return cs.map((c,i)=>c/ss[i]);
+}
+
+function tri_tangents(sides) {
+  const cs = tri_cosines(sides);
+  const ss = cs.map(c=>Math.sqrt(1-c*c));
+  return cs.map((c,i)=>ss[i]/c);
+}
+
 const det = ([[a, b], [c, d]]) => a * d - b * c;
 
 function inter_lines([x1, y1], [x2, y2], [x3, y3], [x4, y4]) {
