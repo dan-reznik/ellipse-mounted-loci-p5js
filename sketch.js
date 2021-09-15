@@ -34,6 +34,7 @@ let glob = {
       Pn1: '1', Pn2: '1', Pn3: '1', Pn4: '1',
       tri_type_1: 'reference', tri_type_2: 'reference', tri_type_3: 'reference', tri_type_4: 'reference',
       cpn_1: 'off', cpn_2: 'off', cpn_3: 'off', cpn_4: 'off',
+      cpnSel_1: 'xn', cpnSel_2: 'xn', cpnSel_3: 'xn', cpnSel_4: 'xn', 
       draw_tri_1: true, draw_tri_2: false, draw_tri_3: false, draw_tri_4: false,
       mounting_Xn1: 'billiard', mounting_Xn2: 'billiard', mounting_Xn3: 'billiard', mounting_Xn4: 'billiard',
       clr1: clr_invert_ui(clr_red), clr2: clr_invert_ui(clr_dark_green),
@@ -57,6 +58,7 @@ function get_glob_indexed() {
       mountings: [glob.ui.mounting_Xn1, glob.ui.mounting_Xn2, glob.ui.mounting_Xn3, glob.ui.mounting_Xn4],
       t_types: [glob.ui.tri_type_1, glob.ui.tri_type_2, glob.ui.tri_type_3, glob.ui.tri_type_4],
       cpns: [glob.ui.cpn_1, glob.ui.cpn_2, glob.ui.cpn_3, glob.ui.cpn_4],
+      cpnSels: [glob.ui.cpnSel_1, glob.ui.cpnSel_2, glob.ui.cpnSel_3, glob.ui.cpnSel_4],
       clrs: [glob.ui.clr1, glob.ui.clr2, glob.ui.clr3, glob.ui.clr4],
       invs: [glob.ui.inv1, glob.ui.inv2, glob.ui.inv3, glob.ui.inv4],
       circs: [glob.ui.circ1, glob.ui.circ2, glob.ui.circ3, glob.ui.circ4]
@@ -79,6 +81,7 @@ function create_locus(locus_type_changed, init) {
             g_ind.l_types[i],
             g_ind.t_types[i],
             g_ind.cpns[i],
+            g_ind.cpnSels[i],
             g_ind.Pns[i],
             g_ind.circs[i],
             g_ind.invs[i]);
@@ -216,7 +219,7 @@ function draw() {
    for (let i = 0; i < g_ind.Xns.length; i++) {
       draw_billiard_or_mounted_branched(a, glob.tDeg, glob.ui.rot, stroke_w, glob.ui.ell,
          g_ind.clrs[i], g_ind.Xns[i], glob.locus_branched[i], g_ind.l_types[i], g_ind.dr_tris[i], g_ind.mountings[i],
-         g_ind.t_types[i], g_ind.cpns[i], g_ind.Pns[i], glob.ell_detects[i], glob.locus_subpolys[i] == null,
+         g_ind.t_types[i], g_ind.cpns[i], g_ind.cpnSels[i], g_ind.Pns[i], glob.ell_detects[i], glob.locus_subpolys[i] == null,
          g_ind.circs[i], g_ind.invs[i], clr_brown); //isBackgroundLuminanceLow(glob.ui.bg)?clr_brown:clr_wheat);
 
       // experimenting with coloring &&&
@@ -228,10 +231,9 @@ function draw() {
    pop();
 
    const canvasTextColor = isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(clr_blue) : clr_blue;
-   // &&& WORKING HERE
    if (glob.ui.ell) {
       const orbit_info = get_orbit_info_both(a, glob.tDeg, g_ind.mountings[0], g_ind.t_types[0],
-         g_ind.cpns[0], g_ind.Pns[0], g_ind.circs[0], g_ind.invs[0]);
+         g_ind.cpns[0], g_ind.cpnSels[0], g_ind.Pns[0], g_ind.circs[0], g_ind.invs[0]);
       draw_text_full(orbit_info.str, [10, glob.height - 12 * orbit_info.lines], canvasTextColor);
    }
 

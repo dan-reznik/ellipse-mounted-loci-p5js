@@ -46,7 +46,7 @@ function get_orbit_info_low(tri,sides,circ) {
     return {info:orbit_info,orbit:orbit.ons,derived:orbit.derived};
  }
  
- function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
+ function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, cpnSel, pn, circ, inv) {
     const not_ref = tri_type != "reference" || (inv != "off"&&circ!="off") || cpn != "off";
     const biz1 = get_orbit_biz(a, tDeg, mounting, tri_type, cpn, pn, circ, inv, not_ref);
     const biz2 = get_orbit_biz(a, tDeg+5., mounting, tri_type, cpn, pn, circ, inv, not_ref);

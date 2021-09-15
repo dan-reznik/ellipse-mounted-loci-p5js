@@ -313,7 +313,7 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
 //    stroke_w, draw_caustic, ell_detect) 
 
 function draw_billiard_or_mounted_branched(a, tDeg, rot, stroke_w, draw_caustic,
-    clr, n, locus_branches, locus_type, dr_tri, mounting, tri_type, cpn, pn, ell_detect, draw_label,
+    clr, n, locus_branches, locus_type, dr_tri, mounting, tri_type, cpn, cpnSel, pn, ell_detect, draw_label,
     circ, inv, clr_caustic) {
     if (mounting in dict_orbit_fn)
         draw_poncelet_locus_branched(n, a, tDeg, rot, dict_orbit_fn[mounting],
@@ -419,7 +419,7 @@ function get_inv_fn(a, circ, inv, mounting) {
 // to do caustic needs to process locus_type=="caustic"
 function make_locus_branched(a, tDegStep, r_max,
     // indexed
-    n, mounting, locus_type, tri_type, cpn, pn, circ, inv) {
+    n, mounting, locus_type, tri_type, cpn, cpnSel, pn, circ, inv) {
     const inv_fn = get_inv_fn(a, circ, inv, mounting);
     const bary_fn = get_fn_any(locus_type, n);
     let locus_array;
