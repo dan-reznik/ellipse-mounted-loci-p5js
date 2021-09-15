@@ -3,6 +3,7 @@ function get_orbit_info_low(tri, sides, circ) {
    const A = tri_area(sides);
    const r = get_inradius(sides);
    const R = get_circumradius(sides);
+   const rOvR = safe_div(r, R);
    const l2 = sum(sides.map(s => s * s));
    const linv = sum(sides.map(s => 1 / s));
    const l2inv = sum(sides.map(s => 1 / (s * s)));
@@ -18,11 +19,10 @@ function get_orbit_info_low(tri, sides, circ) {
    const sinsum = sum(ss);
    const sinprod = product(ss);
    const lprod = product(sides);
-
    const the_circ = (circ in dict_circles) ? dict_circles[circ](tri, sides) : 0;
 
    return {
-      L: L, A: A, r: r, R: R,
+      L: L, A: A, r: r, R: R, rOvR: rOvR,
       cotw: cotw, // cotsum
       cossum: cossum, sinsum: sinsum, tansum: tansum,
       cosprod: cosprod, sinprod: sinprod, cotprod: cotprod,
@@ -45,14 +45,14 @@ function get_orbit_info_low(tri, sides, circ) {
  */
 
 function get_info_arr(info, info_der, not_ref) {
-   const basics = [info.L, info.A, info.r, info.R,
-      info.cotw,
+   const basics = [info.L, info.A, info.r, info.R, info.rOvR,
+   info.cotw,
    info.cossum, info.sinsum, info.tansum,
    info.cosprod, info.sinprod, info.cotprod,
    info.l2, info.linv, info.l2inv, info.lprod, info.circR];
    return not_ref ?
       basics.concat([
-         info_der.L, info_der.A, info_der.r, info_der.R,
+         info_der.L, info_der.A, info_der.r, info_der.R, info_der.rOvR,
          info_der.cotw,
          info_der.cossum, info_der.sinsum, info_der.tansum,
          info_der.cosprod, info_der.sinprod, info_der.cotprod,
@@ -86,11 +86,11 @@ function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, cpnSel, pn, circ,
    const biz3 = get_orbit_biz(a, tDeg - 10.1, mounting, tri_type, cpn, pn, circ, inv, not_ref);
 
    const labs0 = [
-      "L", "A", "r", "R", "cot(ω)", "Σcos", "Σsin", "Σtan", 
+      "L", "A", "r", "R", "r/R", "cot(ω)", "Σcos", "Σsin", "Σtan",
       "∏cos", "∏sin", "∏cot",
-      "Σs^2","Σ(1/s)","Σs^-2","∏s", "Rc"
+      "Σs^2", "Σ(1/s)", "Σs^-2", "∏s", "Rc"
    ];
-      //"L", "A", "r", "R", "r/R", "cot(ω)", "Σtan", "∏cot", "Σs^2", "Σ(1/s)", "Σs^-2", "∏cos", "∏s", "Rc"];
+   //"L", "A", "r", "R", "r/R", "cot(ω)", "Σtan", "∏cot", "Σs^2", "Σ(1/s)", "Σs^-2", "∏cos", "∏s", "Rc"];
    // add marker 1,2,3 prior to each string and push "\n" first time you see one
    const labs = not_ref ? labs0.concat(labs0.map(l => l + "'")).concat(["L'/L", "A'/A", "A'.A", "Rc'/Rc"]) : labs0;
    let str_invs = [];
