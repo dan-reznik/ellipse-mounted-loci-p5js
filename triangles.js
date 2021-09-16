@@ -1036,6 +1036,15 @@ function get_polar_f1(a, b, tri, sides, mounting) {
   return get_antipedal(tri_inv, tri_sides(tri_inv), f1);
 }
 
+function get_polar_f2(a, b, tri, sides, mounting) {
+  const c = Math.sqrt(Math.abs(a * a - b * b));
+  const f2 = a > b ? [c, 0] : [0, -c];
+  const circ = { ctr: f2, R: 1 };
+  const tri_inv = tri.map(v => circle_inversion(v, circ));
+  // bicentric
+  return get_antipedal(tri_inv, tri_sides(tri_inv), f2);
+}
+
 function get_x3_map_ctr(a, b, tri, sides, mounting) {
   // here &&&
   const x3s = tri.map((v, i) => get_circumcenter([[0, 0], v, tri[i == 2 ? 0 : i + 1]]));
@@ -1190,6 +1199,11 @@ function get_polar_f1c(a, b, tri, sides, mounting) {
   return get_polar_f1(ac, bc, tri, sides, mounting);
 }
 
+function get_polar_f2c(a, b, tri, sides, mounting) {
+  const [ac, bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a, b];
+  return get_polar_f2(ac, bc, tri, sides, mounting);
+}
+
 function get_polar_pedal_lim2(a, b, tri, sides, mounting) {
   const c = Math.sqrt(a * a - b * b);
   // bicentric
@@ -1338,6 +1352,7 @@ const dict_tri_fns_inv = {
   inv_f1: { fn: circle_f1, caustic: false },
   inv_f1c: { fn: circle_f1c, caustic: true },
   inv_f2: { fn: circle_f2, caustic: false },
+  inv_f2c: { fn: circle_f2c, caustic: true },
   inv_ctr: { fn: circle_ctr, caustic: false },
   // not inversion proper but pedal of bicentric wrt to f2
 };
@@ -1353,7 +1368,9 @@ const dict_tri_fns_bicentric = {
   //inv_lim2: get_inv_lim2,
   pol_ctr: get_polar_ctr,
   pol_f1: get_polar_f1,
+  pol_f2: get_polar_f2,
   pol_f1c: get_polar_f1c,
+  pol_f2c: get_polar_f2c,
   ellcev_ctr: get_ellcevian_ctr,
   ellcev_f1: get_ellcevian_f1,
   ellcev_f1c: get_ellcevian_f1c,

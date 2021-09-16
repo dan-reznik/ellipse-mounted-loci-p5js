@@ -16,6 +16,11 @@ function circle_f1c(ac,bc) {
     return { ctr:ctr, R:1, n:0 };
 }
 
+function circle_f2c(ac,bc) {
+    const ctr = ac>bc?[Math.sqrt(ac*ac-bc*bc),0]:[0,-Math.sqrt(bc*bc-ac*ac)];
+    return { ctr:ctr, R:1, n:0 };
+}
+
 function circle_f2(a) {
     const ctr = [Math.sqrt(a*a-1),0];
     return { ctr:ctr, R:1, n:0 };
