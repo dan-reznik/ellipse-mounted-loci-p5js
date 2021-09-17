@@ -112,7 +112,9 @@ function draw_locus_branched(locus_branches, ons, xnum, pn, rgb, stroke_w,
         (locus_type in dict_vtx_xn?","+xnum:"") +
         (locus_type=="trilins"?xnum:"") +
         (inv_tri||inv_fn!=inv_fn_identity?"'":"") +
-        ell_detect_suffix, [0, 0], rgb, stroke_w);
+        ell_detect_suffix, [0, 0], rgb, stroke_w, 
+        // makes envelope labels be drawn below
+        dict_label[locus_type][0]=="Ɛ");
   }
   pop();
 }
