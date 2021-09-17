@@ -1349,11 +1349,12 @@ const dict_tri_pfns = {
 };
 
 const dict_tri_fns_inv = {
-  inv_f1: { fn: circle_f1, caustic: false },
-  inv_f1c: { fn: circle_f1c, caustic: true },
-  inv_f2: { fn: circle_f2, caustic: false },
-  inv_f2c: { fn: circle_f2c, caustic: true },
   inv_ctr: { fn: circle_ctr, caustic: false },
+  inv_f1: { fn: circle_f1, caustic: false },
+  inv_f2: { fn: circle_f2, caustic: false },
+  inv_f1c: { fn: circle_f1c, caustic: true },
+  inv_f2c: { fn: circle_f2c, caustic: true }
+  
   // not inversion proper but pedal of bicentric wrt to f2
 };
 
