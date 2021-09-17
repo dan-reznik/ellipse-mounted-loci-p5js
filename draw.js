@@ -256,7 +256,9 @@ function draw_orbit(ons, clr, stroke_w, dr_sidelengths = true, dr_dashed = false
     draw_tri2(ons.o, clr, stroke_w)
   for (let i = 0; i < 3; i++) {
     if (dr_normals) draw_normal(ons.o[i], ons.n[i], lgt, stroke_w);
-    draw_point2(ons.o[i], clr_invert_ui(i == 0 ? clr_black : clr), stroke_w);
+    const vtx_clr = i==0? clr_black:clr;
+    draw_point2(ons.o[i], 
+      isBackgroundLuminanceLow(glob.ui.bg) ? clr_invert_ui(vtx_clr):vtx_clr, stroke_w);
     if (dr_sidelengths) {
       let midpoint = vmid(ons.o[i], ons.o[(i + 1) % 3]);
       draw_point2(midpoint, clr_invert_ui(clr_black), stroke_w);
