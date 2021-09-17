@@ -217,33 +217,34 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
 
 function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus_branches, clr, locus_type,
     dr_tri, tri_type, cpn, pn,
-    stroke_w, dr_caustic, ell_detect, draw_label, circ, inv, clr_caustic) {
+    stroke_w, draw_caustic, ell_detect, draw_label, circ, inv, clr_caustic) {
     const inv_fn = get_inv_fn(a, circ, inv, mounting);
     let ons = orbit_fn(a, tDeg);
     const ons_derived0 = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
     const ons_derived = (inv == "tri" || inv == "crem_tri") ? invert_tri(ons_derived0, inv_fn) :
         inv == "polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting) : ons_derived0;
 
-    if (dr_tri) {
-        if (mounting in dict_caustic && dr_caustic) {
-            if (mounting == "poristic") {
-                const d = chapple_d(1, a + 1);
-                push();
-                translate(-d, 0);
-                draw_boundary(1 + a, 1 + a, clr_caustic, stroke_w);
-                pop();
-            } else if (mounting == "brocard") {
-                const bp = brocard_porism(a);
-                push();
-                translate(...bp.x3);
-                draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
-                pop();
-            } else {
-                const caustic_axes = dict_caustic[mounting](a);
-                draw_boundary(...caustic_axes, clr_caustic, stroke_w);
-                if (mounting != "billiard") draw_foci(...caustic_axes, clr_caustic, stroke_w);
-            }
+    if (mounting in dict_caustic && draw_caustic) {
+        if (mounting == "poristic") {
+            const d = chapple_d(1, a + 1);
+            push();
+            translate(-d, 0);
+            draw_boundary(1 + a, 1 + a, clr_caustic, stroke_w);
+            pop();
+        } else if (mounting == "brocard") {
+            const bp = brocard_porism(a);
+            push();
+            translate(...bp.x3);
+            draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
+            pop();
+        } else {
+            const caustic_axes = dict_caustic[mounting](a);
+            draw_boundary(...caustic_axes, clr_caustic, stroke_w);
+            if (mounting != "billiard") draw_foci(...caustic_axes, clr_caustic, stroke_w);
         }
+    }
+    if (dr_tri) {
+
         draw_orbit(ons, clr, stroke_w, false, true, false);
         if (tri_type != "reference" || cpn != "off") draw_orbit(ons_derived0, clr, stroke_w, false, true, false);
         if (cpn in dict_tri_pfns) {
