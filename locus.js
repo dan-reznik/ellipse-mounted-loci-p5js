@@ -224,26 +224,26 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
     const ons_derived = (inv == "tri" || inv == "crem_tri") ? invert_tri(ons_derived0, inv_fn) :
         inv == "polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting) : ons_derived0;
 
-    if (mounting in dict_caustic && draw_caustic) {
-        if (mounting == "poristic") {
-            const d = chapple_d(1, a + 1);
-            push();
-            translate(-d, 0);
-            draw_boundary(1 + a, 1 + a, clr_caustic, stroke_w);
-            pop();
-        } else if (mounting == "brocard") {
-            const bp = brocard_porism(a);
-            push();
-            translate(...bp.x3);
-            draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
-            pop();
-        } else {
-            const caustic_axes = dict_caustic[mounting](a);
-            draw_boundary(...caustic_axes, clr_caustic, stroke_w);
-            if (mounting != "billiard") draw_foci(...caustic_axes, clr_caustic, stroke_w);
-        }
-    }
     if (dr_tri) {
+        if (mounting in dict_caustic && draw_caustic) {
+            if (mounting == "poristic") {
+                const d = chapple_d(1, a + 1);
+                push();
+                translate(-d, 0);
+                draw_boundary(1 + a, 1 + a, clr_caustic, stroke_w);
+                pop();
+            } else if (mounting == "brocard") {
+                const bp = brocard_porism(a);
+                push();
+                translate(...bp.x3);
+                draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
+                pop();
+            } else {
+                const caustic_axes = dict_caustic[mounting](a);
+                draw_boundary(...caustic_axes, clr_caustic, stroke_w);
+                if (mounting != "billiard") draw_foci(...caustic_axes, clr_caustic, stroke_w);
+            }
+        }
 
         draw_orbit(ons, clr, stroke_w, false, true, false);
         if (tri_type != "reference" || cpn != "off") draw_orbit(ons_derived0, clr, stroke_w, false, true, false);
