@@ -431,7 +431,7 @@ function make_locus_branched(a, tDegStep, r_max,
             ["graves", "flank1", "flank2", "flank3", "ext_outer1", "ext_outer2", "ext_outer3"].includes(tri_type) ||
                 ["vtx", "vtx2", "vtx3", "caustic", "caustic23", "caustic31",
                     "f_vtx", "ort", "env1x", "env2x", "env3x"].includes(locus_type) ||
-                ["extouch_outer", "subcevian1", "subcevian2", "subcevian3", "subanticev1", "subanticev2", "subanticev3"].includes(cpn) ||
+                ["extouch_outer", "subcevian1",  "subanticev1","subpedal1","subantiped1"].includes(cpn) ||
                 ["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
             (a0, tDeg0) =>

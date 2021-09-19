@@ -237,6 +237,16 @@ function pedal_triangle([a, b, c], [alpha, beta, gamma]) {
   return [t1, t2, t3];  //   generic_triangle(orbit,[a,b,c],[t1,t2,t3]);
 }
 
+function subpedal1_triangle([a, b, c], [alpha, beta, gamma]) {
+  const cA = law_of_cosines(a, b, c);
+  const cB = law_of_cosines(b, c, a);
+  const cC = law_of_cosines(c, a, b);
+  const t1 = [1, 0, 0];
+  const t2 = [alpha + beta * cC, 0, gamma + beta * cA];
+  const t3 = [alpha + gamma * cB, beta + gamma * cA, 0];
+  return [t1, t2, t3];  //   generic_triangle(orbit,[a,b,c],[t1,t2,t3]);
+}
+
 function antipedal_triangle([a, b, c], [alpha, beta, gamma]) {
   const cA = law_of_cosines(a, b, c);
   const cB = law_of_cosines(b, c, a);
@@ -247,6 +257,20 @@ function antipedal_triangle([a, b, c], [alpha, beta, gamma]) {
   const t3 = [(cB * alpha + gamma) * (beta + cA * gamma), (cA * beta + gamma) * (alpha + cB * gamma), -(beta + cA * gamma) * (alpha + cB * gamma)];
   return [t1, t2, t3];  //   generic_triangle(orbit,[a,b,c],[t1,t2,t3]);
 }
+
+function subantipedal1_triangle([a, b, c], [alpha, beta, gamma]) {
+  const cA = law_of_cosines(a, b, c);
+  const cB = law_of_cosines(b, c, a);
+  const cC = law_of_cosines(c, a, b);
+
+  //const t1 = [-(cC * alpha + beta) * (cB * alpha + gamma), (alpha + cC * beta) * (cB * alpha + gamma), (cC * alpha + beta) * (alpha + cB * gamma)];
+  //const t2 = [(cC * alpha + beta) * (cA * beta + gamma), -(alpha + cC * beta) * (cA * beta + gamma), (alpha + cC * beta) * (beta + cA * gamma)];
+  const t1 = [1,0,0];
+  const t2 = [0,1,0];
+  const t3 = [(cB * alpha + gamma) * (beta + cA * gamma), (cA * beta + gamma) * (alpha + cB * gamma), -(beta + cA * gamma) * (alpha + cB * gamma)];
+  return [t1, t2, t3];  //   generic_triangle(orbit,[a,b,c],[t1,t2,t3]);
+}
+
 
 function reference_triangle(sides) {
   const ts = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
@@ -1381,9 +1405,9 @@ const dict_tri_pfns = {
   flank: { fn: flank_triangle, needs: "tri_pn" },
   extouch_outer: { fn: outer_extouch_triangle, needs: "tri_pn" },
   subcevian1: { fn: subcevian1_triangle, needs: "none" },
-  subcevian2: { fn: subcevian2_triangle, needs: "none" },
-  subcevian3: { fn: subcevian3_triangle, needs: "none" },
   subanticev1: { fn: subanticevian1_triangle, needs: "none" },
+  subpedal1: { fn: subpedal1_triangle, needs: "none" },
+  subantiped1: { fn: subantipedal1_triangle, needs: "none" },
   x3_inv: { fn: x3_inv_triangle, needs: "tri" },
   x1_map: { fn: x1_map_triangle, needs: "tri" },
   x2_map: { fn: x2_map_triangle, needs: "tri" },
