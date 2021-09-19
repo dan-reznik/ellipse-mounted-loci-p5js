@@ -224,26 +224,29 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
     const ons_derived = (inv == "tri" || inv == "crem_tri") ? invert_tri(ons_derived0, inv_fn) :
         inv == "polar" ? polar_tri(ons_derived0, inv_fn, circ, a, mounting) : ons_derived0;
 
+        
+
     if (dr_tri) {
-        if (mounting in dict_caustic && draw_caustic) {
-            if (mounting == "poristic") {
-                const d = chapple_d(1, a + 1);
-                push();
-                translate(-d, 0);
-                draw_boundary(1 + a, 1 + a, clr_caustic, stroke_w);
-                pop();
-            } else if (mounting == "brocard") {
-                const bp = brocard_porism(a);
-                push();
-                translate(...bp.x3);
-                draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
-                pop();
-            } else {
-                const caustic_axes = dict_caustic[mounting](a);
-                draw_boundary(...caustic_axes, clr_caustic, stroke_w);
-                if (mounting != "billiard") draw_foci(...caustic_axes, clr_caustic, stroke_w);
-            }
+    // draw caustic
+    if (mounting in dict_caustic && draw_caustic) {
+        if (mounting == "poristic") {
+            const d = chapple_d(1, a + 1);
+            push();
+            translate(-d, 0);
+            draw_boundary(1 + a, 1 + a, clr_caustic, stroke_w);
+            pop();
+        } else if (mounting == "brocard") {
+            const bp = brocard_porism(a);
+            push();
+            translate(...bp.x3);
+            draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
+            pop();
+        } else {
+            const caustic_axes = dict_caustic[mounting](a);
+            draw_boundary(...caustic_axes, clr_caustic, stroke_w);
+            if (mounting != "billiard") draw_foci(...caustic_axes, clr_caustic, stroke_w);
         }
+    }
 
         draw_orbit(ons, clr, stroke_w, false, true, false);
         if (tri_type != "reference" || cpn != "off") draw_orbit(ons_derived0, clr, stroke_w, false, true, false);
@@ -284,6 +287,7 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
             locus_type, ell_detect, rot, draw_label, (inv == "xn" || inv == "crem_xn") ? inv_fn : inv_fn_identity,
             ["tri", "polar", "crem_tri"].includes(inv) || tri_type in dict_tri_fns_inv /*|| tri_type in dict_tri_fns_cremona*/, env);
     }
+
     if (dr_tri) {
         var o = null;
         if (circ in dict_circles)
@@ -429,7 +433,7 @@ function make_locus_branched(a, tDegStep, r_max,
             ["graves", "flank1", "flank2", "flank3", "ext_outer1", "ext_outer2", "ext_outer3"].includes(tri_type) ||
                 ["vtx", "vtx2", "vtx3", "caustic", "caustic23", "caustic31",
                     "f_vtx", "ort", "env1x", "env2x", "env3x"].includes(locus_type) ||
-                ["extouch_outer"].includes(cpn) ||
+                ["extouch_outer", "subcevian1", "subcevian2", "subcevian3", "subanticev1", "subanticev2", "subanticev3"].includes(cpn) ||
                 ["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
             (a0, tDeg0) =>

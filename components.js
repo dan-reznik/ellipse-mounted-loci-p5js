@@ -291,7 +291,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
         <select class='cpn' id="cpn_`+xn_number+`" name="cpn_`+xn_number+`">
             <option value="off">pn off</option>
             <option value="cevian">cevian</option>
-            <option value="anticevian">anticevian</option>
+            <option value="anticevian">anticev</option>
             <option value="circumcevian">circumcev</option>
             <option value="ellcevian">ell-cev</option>
             <option value="caucevian">cau-cev</option>
@@ -306,6 +306,8 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="vtx_refl">vtx-refl</option>
             <option value="side_refl">side-refl</option>
             <option value="flank">flank</option>
+            <option value="subcevian1">subcevian 1</option>
+            <option value="subanticev1">subanticev 1</option>
             <option value="extouch_outer">extouch</option>
             <option value="x3_inv">x3-inv</option>
             <option value="x1_map">x1-map</option>

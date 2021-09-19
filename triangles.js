@@ -84,10 +84,38 @@ function cevian_triangle([a, b, c], [alpha, beta, gamma]) {
   return [t1, t2, t3];
 }
 
+function subcevian1_triangle([a, b, c], [alpha, beta, gamma]) {
+  const t1 = [1, 0, 0];
+  const t2 = [alpha, 0, gamma];
+  const t3 = [alpha, beta, 0];
+  return [t1, t2, t3];
+}
+
+function subcevian2_triangle([a, b, c], [alpha, beta, gamma]) {
+  const t1 = [0, beta, gamma];
+  const t2 = [0, 1, 0];
+  const t3 = [alpha, beta, 0];
+  return [t1, t2, t3];
+}
+
+function subcevian3_triangle([a, b, c], [alpha, beta, gamma]) {
+  const t1 = [0, beta, gamma];
+  const t2 = [alpha, 0, gamma];
+  const t3 = [0, 0, 1];
+  return [t1, t2, t3];
+}
+
 function anticevian_triangle([a, b, c], [alpha, beta, gamma]) {
   const t1 = [-alpha, beta, gamma];
   const t2 = [alpha, -beta, gamma];
   const t3 = [alpha, beta, -gamma];
+  return [t1, t2, t3];
+}
+
+function subanticevian1_triangle([a, b, c], [alpha, beta, gamma]) {
+  const t1 = [-alpha, beta, gamma];
+  const t2 = [0,1,0];
+  const t3 = [0,0,1];
   return [t1, t2, t3];
 }
 
@@ -1334,6 +1362,10 @@ const dict_tri_pfns = {
   inv_exc: { fn: inv_exc_triangle, needs: "tri" },
   flank: { fn: flank_triangle, needs: "tri_pn" },
   extouch_outer: { fn: outer_extouch_triangle, needs: "tri_pn" },
+  subcevian1: { fn: subcevian1_triangle, needs: "none" },
+  subcevian2: { fn: subcevian2_triangle, needs: "none" },
+  subcevian3: { fn: subcevian3_triangle, needs: "none" },
+  subanticev1: { fn: subanticevian1_triangle, needs: "none" },
   x3_inv: { fn: x3_inv_triangle, needs: "tri" },
   x1_map: { fn: x1_map_triangle, needs: "tri" },
   x2_map: { fn: x2_map_triangle, needs: "tri" },
