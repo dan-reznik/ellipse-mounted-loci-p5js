@@ -964,9 +964,19 @@ function get_mounted_tri(a, tDeg, v2, v3) {
   return { o: tri, n: normals, s: sides };
 }
 
-function get_graves_triangle(p1, ac, bc) {
-  const ts = ellTangentsb(ac, bc, p1);
+function get_graves_triangle(p1, ta /* true axes */) {
+  const ts = ellTangentsb(ta.ac, ta.bc, p1);
   return [p1, ts[0], ts[1]];
+}
+
+
+// not used: caustic will close poncelet.
+function get_ellcevian1_triangle(p1, ta) {
+  // assume caustic ctr always at [0,0]
+  const ts = ellTangentsb(ta.ac, ta.bc, p1);
+  const ts_ints = ts.map(t => farthestPoint(ellInterRaybBoth(ta.ae, ta.be,
+    vdiff(p1, ta.ctr), vdiff(t, p1)).map(t => vsum(t, ta.ctr)), p1));
+  return [p1, ts_ints[0], ts_ints[1]];
 }
 
 function get_focal_inter(p, a, b, f1, f2) {
@@ -1158,6 +1168,14 @@ function get_ellcevian_ctr(a, b, tri, sides, mounting) {
         .map(v => vsum(v, ta.ctr));
     return tri0;
 }
+
+/*
+function extouch_outer1_triangle([a, b, c]) {
+  const s = (a+b+c)/2;
+  const bs = [[0, s - b, s - c], [-s + b, 0, s], [-s + c, s, 0]];
+  return bs.map(b0=>barys_to_trilins(b0,[a,b,c]));
+}
+*/
 
 function get_ellcevian_f1(a, b, tri, sides, mounting) {
   const ta = get_true_axes(a, mounting);
@@ -1450,6 +1468,12 @@ function get_tri_generic(a, tDeg, mounting, tri_type, cpn, pn) {
   };
 }
 
+// these are different: they require a first tri vertex and the true axes
+const dict_graves = {
+   graves: get_graves_triangle,
+   //ell_cev1: get_ellcevian1_triangle // doesn't make sense perfect poncelet
+}
+
 function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   let ret_tri = { o: orbit, s: sides };
 
@@ -1462,11 +1486,12 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   } */else if (tri_type in dict_tri_fns_inv) {
     const inv_fn = (tri, sides, p) => circle_inversion(p, tri_fns_invert(tri_type, a, mounting) /*dict_tri_fns_inv[tri_type].fn(a)*/)
     ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
-  } else if (mounting in dict_caustic && tri_type == "graves") {
+  } else if (mounting in dict_caustic && tri_type in dict_graves) {
     // some poncelet families have the "caustic" wrong.
-    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
-    const tri0 = get_graves_triangle(orbit[0], ac, bc);
-    ret_tri = { o: tri0, s: tri_sides(tri0) };
+    const ta = get_true_axes(a,mounting);
+    //const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
+    const tri0 = dict_graves[tri_type](orbit[0], ta);
+    ret_tri = { o: tri0, s: tri_sides(tri0) }; 
   } else if (tri_type in dict_tri_fns) { // "reference" returns itself
     const ts = dict_tri_fns[tri_type](sides);
     const tri0 = generic_triangle(orbit, sides, ts);
