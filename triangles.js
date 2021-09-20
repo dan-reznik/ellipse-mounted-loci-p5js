@@ -119,6 +119,20 @@ function subanticevian1_triangle([a, b, c], [alpha, beta, gamma]) {
   return [t1, t2, t3];
 }
 
+function subanticevian2_triangle([a, b, c], [alpha, beta, gamma]) {
+  const t1 = [1,0,0];
+  const t2 = [alpha, -beta, gamma];
+  const t3 = [0,0,1];
+  return [t1, t2, t3];
+}
+
+function subanticevian3_triangle([a, b, c], [alpha, beta, gamma]) {
+  const t1 = [1,0,0];
+  const t2 = [0,1,0];
+  const t3 = [alpha, beta, -gamma];
+  return [t1, t2, t3];
+}
+
 function circumcevian_triangle([a, b, c], [alpha, beta, gamma]) {
   const t1 = [-a * beta * gamma, (b * gamma + c * beta) * beta, (b * gamma + c * beta) * gamma];
   const t2 = [(c * alpha + a * gamma) * alpha, -b * gamma * alpha, (c * alpha + a * gamma) * gamma];
@@ -1285,6 +1299,34 @@ function get_polar_pedal_lim2(a, b, tri, sides, mounting) {
   return lim_tri;
 }
 
+function get_subtris(o,ctr) {
+  return  [
+   [ctr,o[1],o[2]],
+   [ctr,o[2],o[0]],
+   [ctr,o[0],o[1]]];
+}
+
+function xn_map_triangle(o, s, ts, xk) {
+   const xn = trilin_to_cartesian(o, s, ts);
+   const subtris = get_subtris(o,xn);
+   const xks = subtris.map((t,i)=>get_Xn_cartesians(xk,t,tri_sides(t)));
+   return xks;
+}
+
+function xn_subcevian_triangle(o, s, ts, xk) {
+   const ts_tris = [subcevian1_triangle,subcevian2_triangle,subcevian3_triangle].map(t=>t(s,ts));
+   const tris = ts_tris.map(t=>generic_triangle(o,s,t));
+   const xks = tris.map((t,i)=>get_Xn_cartesians(xk,t,tri_sides(t)));
+   return xks;
+}
+
+function xn_subanticevian_triangle(o, s, ts, xk) {
+  const ts_tris = [subanticevian1_triangle,subanticevian2_triangle,subanticevian3_triangle].map(t=>t(s,ts));
+  const tris = ts_tris.map(t=>generic_triangle(o,s,t));
+  const xks = tris.map((t,i)=>get_Xn_cartesians(xk,t,tri_sides(t)));
+  return xks;
+}
+
 /*
 function get_inv_lim2(a, b, tri, sides, mounting) {
   const c = Math.sqrt(a * a - b * b);
@@ -1408,18 +1450,34 @@ const dict_tri_pfns = {
   subanticev1: { fn: subanticevian1_triangle, needs: "none" },
   subpedal1: { fn: subpedal1_triangle, needs: "none" },
   subantiped1: { fn: subantipedal1_triangle, needs: "none" },
+  x1_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:1},
+  x2_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:2},
+  x6_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:6},
+  x7_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:7},
+  x8_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:8},
+  x9_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:9},
+  x10_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:10},
+  x11_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:11},
+  x1_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:1},
+  x2_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:2},
+  x6_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:6},
+  x7_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:7},
+  x8_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:8},
+  x9_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:9},
+  x10_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:10},
+  x11_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:11},
   x3_inv: { fn: x3_inv_triangle, needs: "tri" },
-  x1_map: { fn: x1_map_triangle, needs: "tri" },
-  x2_map: { fn: x2_map_triangle, needs: "tri" },
-  x3_map: { fn: x3_map_triangle, needs: "tri" },
-  x4_map: { fn: x4_map_triangle, needs: "tri" },
-  x5_map: { fn: x5_map_triangle, needs: "tri" },
-  x6_map: { fn: x6_map_triangle, needs: "tri" },
-  x7_map: { fn: x7_map_triangle, needs: "tri" },
-  x8_map: { fn: x8_map_triangle, needs: "tri" },
-  x9_map: { fn: x9_map_triangle, needs: "tri" },
-  x10_map: { fn: x10_map_triangle, needs: "tri" },
-  x11_map: { fn: x11_map_triangle, needs: "tri" }
+  x1_map: { fn: xn_map_triangle, needs: "tri_xk", xk:1 },
+  x2_map: { fn: xn_map_triangle, needs: "tri_xk", xk:2 },
+  x3_map: { fn: xn_map_triangle, needs: "tri_xk", xk:3 },
+  x4_map: { fn: xn_map_triangle, needs: "tri_xk", xk:4 },
+  x5_map: { fn: xn_map_triangle, needs: "tri_xk", xk:5 },
+  x6_map: { fn: xn_map_triangle, needs: "tri_xk", xk:6 },
+  x7_map: { fn: xn_map_triangle, needs: "tri_xk", xk:7 },
+  x8_map: { fn: xn_map_triangle, needs: "tri_xk", xk:8 },
+  x9_map: { fn: xn_map_triangle, needs: "tri_xk", xk:9 },
+  x10_map: { fn: xn_map_triangle, needs: "tri_xk", xk:10 },
+  x11_map: { fn: xn_map_triangle, needs: "tri_xk", xk:11 }
 };
 
 const dict_tri_fns_inv = {
@@ -1528,6 +1586,7 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
     let tri0;
     switch (dict_tri_pfns[cpn].needs) {
       case "tri": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p); break;
+      case "tri_xk": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, dict_tri_pfns[cpn].xk); break;
       case "tri_pn": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, pn); break;
       case "ell": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, a); break;
       case "cau": {

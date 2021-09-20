@@ -323,6 +323,22 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="x9_map">x9-map</option>
             <option value="x10_map">x10-map</option>
             <option value="x11_map">x11-map</option>
+            <option value="x1_subcevian">x1-subcev</option>
+            <option value="x2_subcevian">x2-subcev</option>
+            <option value="x6_subcevian">x6-subcev</option>
+            <option value="x7_subcevian">x7-subcev</option>
+            <option value="x8_subcevian">x8-subcev</option>
+            <option value="x9_subcevian">x9-subcev</option>
+            <option value="x10_subcevian">x10-subcev</option>
+            <option value="x11_subcevian">x11-subcev</option>
+            <option value="x1_subanticev">x1-subanticev</option>
+            <option value="x2_subanticev">x2-subanticev</option>
+            <option value="x6_subanticev">x6-subanticev</option>
+            <option value="x7_subanticev">x7-subanticev</option>
+            <option value="x8_subanticev">x8-subanticev</option>
+            <option value="x9_subanticev">x9-subanticev</option>
+            <option value="x10_subanticev">x10-subanticev</option>
+            <option value="x11_subanticev">x11-subanticev</option>
             </select>
 
         <div class='P_input_text'>
