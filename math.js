@@ -135,6 +135,13 @@ function circle_inversion(p, { ctr, R }) {
   return vsum(ctr, vscale(dp2, R * R));
 }
 
+// returns where the polar of a point passes thru and in what direction
+function polar_line(p, ctr, R) {
+  const inv = circle_inversion(p, {ctr,R});
+  const perp = vperp(vdiff(p,ctr));
+  return {p:inv, dir:perp};
+}
+
 const edist2 = (p1, p2) => magn2(vdiff(p1, p2));
 const edist = (p1, p2) => Math.sqrt(edist2(p1, p2));
 const vnorm = (p) => vscale(p,1/magn(p));

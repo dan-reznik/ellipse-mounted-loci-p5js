@@ -114,21 +114,21 @@ function anticevian_triangle([a, b, c], [alpha, beta, gamma]) {
 
 function subanticevian1_triangle([a, b, c], [alpha, beta, gamma]) {
   const t1 = [-alpha, beta, gamma];
-  const t2 = [0,1,0];
-  const t3 = [0,0,1];
+  const t2 = [0, 1, 0];
+  const t3 = [0, 0, 1];
   return [t1, t2, t3];
 }
 
 function subanticevian2_triangle([a, b, c], [alpha, beta, gamma]) {
-  const t1 = [1,0,0];
+  const t1 = [1, 0, 0];
   const t2 = [alpha, -beta, gamma];
-  const t3 = [0,0,1];
+  const t3 = [0, 0, 1];
   return [t1, t2, t3];
 }
 
 function subanticevian3_triangle([a, b, c], [alpha, beta, gamma]) {
-  const t1 = [1,0,0];
-  const t2 = [0,1,0];
+  const t1 = [1, 0, 0];
+  const t2 = [0, 1, 0];
   const t3 = [alpha, beta, -gamma];
   return [t1, t2, t3];
 }
@@ -279,8 +279,8 @@ function subantipedal1_triangle([a, b, c], [alpha, beta, gamma]) {
 
   //const t1 = [-(cC * alpha + beta) * (cB * alpha + gamma), (alpha + cC * beta) * (cB * alpha + gamma), (cC * alpha + beta) * (alpha + cB * gamma)];
   //const t2 = [(cC * alpha + beta) * (cA * beta + gamma), -(alpha + cC * beta) * (cA * beta + gamma), (alpha + cC * beta) * (beta + cA * gamma)];
-  const t1 = [1,0,0];
-  const t2 = [0,1,0];
+  const t1 = [1, 0, 0];
+  const t2 = [0, 1, 0];
   const t3 = [(cB * alpha + gamma) * (beta + cA * gamma), (cA * beta + gamma) * (alpha + cB * gamma), -(beta + cA * gamma) * (alpha + cB * gamma)];
   return [t1, t2, t3];  //   generic_triangle(orbit,[a,b,c],[t1,t2,t3]);
 }
@@ -326,19 +326,19 @@ function orthic_triangle(sides) {
 function extouch_triangle([a, b, c]) {
   const ts = [
     [0, (a - b + c) / b, (a + b - c) / c],
-  [(-a + b + c) / a, 0, (a + b - c) / c],
-  [(-a + b + c) / a, (a - b + c) / b, 0]];
+    [(-a + b + c) / a, 0, (a + b - c) / c],
+    [(-a + b + c) / a, (a - b + c) / b, 0]];
   return ts; // generic_triangle(orbit,[a,b,c],ts);
 }
 
 // {2*a*(b + c), -a^2 - b^2 + c^2, -a^2 + b^2 - c^2}.
-function second_extouch_triangle([a,b,c]) {
+function second_extouch_triangle([a, b, c]) {
   const a2 = a * a, b2 = b * b, c2 = c * c;
   const ts =
-  [[2*(b+c), (-a2-b2+c2)/b, (-a2+b2-c2)/c],
-  [(-b2+c2-a2)/a, 2*(c+a), (-b2-c2+a2)/c],
-  [(-c2-a2+b2)/a,(-c2+a2-b2)/b, 2*(a+b)]];
-  
+    [[2 * (b + c), (-a2 - b2 + c2) / b, (-a2 + b2 - c2) / c],
+    [(-b2 + c2 - a2) / a, 2 * (c + a), (-b2 - c2 + a2) / c],
+    [(-c2 - a2 + b2) / a, (-c2 + a2 - b2) / b, 2 * (a + b)]];
+
   return ts;
 }
 
@@ -652,21 +652,21 @@ getMosesFlanks[tri_, triL_] :=
 */
 
 function flank_triangle(o0, s, pn) {
-  const o = vccw(...o0)?o0:tri_rev(o0);
+  const o = vccw(...o0) ? o0 : tri_rev(o0);
   //const xn = trilin_to_cartesian(o, s, ts);
-  const perps = o.map((v,i)=>vperp(vdiff(o[i==2?0:i+1],v)));
+  const perps = o.map((v, i) => vperp(vdiff(o[i == 2 ? 0 : i + 1], v)));
   //MapThread[{#1, #1 - #2, #1 - #3} &, {tri, RotateRight@perps, perps}];
-  const flanks = o.map((v,i)=>[v,vdiff(v,perps[i==0?2:i-1]),vdiff(v,perps[i])]);
+  const flanks = o.map((v, i) => [v, vdiff(v, perps[i == 0 ? 2 : i - 1]), vdiff(v, perps[i])]);
   const flank_sides = flanks.map(tri_sides);
-  const bss = flank_sides.map(ss=>get_Xn_bary(ss, pn));
-  const Xks = flanks.map((t,i)=>barys_to_cartesian(t,bss[i]));
+  const bss = flank_sides.map(ss => get_Xn_bary(ss, pn));
+  const Xks = flanks.map((t, i) => barys_to_cartesian(t, bss[i]));
   return Xks;
 }
 
 function outer_extouch_triangle(tri, sides, pn) {
-  const tss = [extouch_outer1_triangle(sides),extouch_outer2_triangle(sides),extouch_outer3_triangle(sides)];
-  const tris = tss.map(ts=>generic_triangle(tri,sides,ts));
-  const Xks = tris.map(t=>get_Xn_cartesians(pn,t,tri_sides(t)));
+  const tss = [extouch_outer1_triangle(sides), extouch_outer2_triangle(sides), extouch_outer3_triangle(sides)];
+  const tris = tss.map(ts => generic_triangle(tri, sides, ts));
+  const Xks = tris.map(t => get_Xn_cartesians(pn, t, tri_sides(t)));
   return Xks;
 }
 
@@ -677,25 +677,25 @@ bsC = {{0, s, -s + a}, {s, 0, -s + b}, {s - a, s - b, 0}};
 */
 
 function extouch_outer1_triangle([a, b, c]) {
-  const s = (a+b+c)/2;
+  const s = (a + b + c) / 2;
   const bs = [[0, s - b, s - c], [-s + b, 0, s], [-s + c, s, 0]];
-  return bs.map(b0=>barys_to_trilins(b0,[a,b,c]));
+  return bs.map(b0 => barys_to_trilins(b0, [a, b, c]));
 }
 
 function extouch_outer2_triangle([a, b, c]) {
-  const s = (a+b+c)/2;
+  const s = (a + b + c) / 2;
   const bs = [[0, -s + a, s], [s - a, 0, s - c], [s, -s + c, 0]];
-  return bs.map(b0=>barys_to_trilins(b0,[a,b,c]));
+  return bs.map(b0 => barys_to_trilins(b0, [a, b, c]));
 }
 
 function extouch_outer3_triangle([a, b, c]) {
-  const s = (a+b+c)/2;
+  const s = (a + b + c) / 2;
   const bs = [[0, s, -s + a], [s, 0, -s + b], [s - a, s - b, 0]];
-  return bs.map(b0=>barys_to_trilins(b0,[a,b,c]));
+  return bs.map(b0 => barys_to_trilins(b0, [a, b, c]));
 }
 
 function flank1_triangle([a, b, c]) {
-  const a2 = a * a, b2 = b * b, c2 = c * c, S = 2*tri_area([a, b, c]);
+  const a2 = a * a, b2 = b * b, c2 = c * c, S = 2 * tri_area([a, b, c]);
   const ts = [
     [1 / a, 0, 0],
     [((a2 + b2 - c2) + 2 * S) / a, -2 * b, (-a2 + b2 + c2) / c],
@@ -706,7 +706,7 @@ function flank1_triangle([a, b, c]) {
 
 // faking rotation
 function flank2_triangle([b, c, a]) {
-  const a2 = a * a, b2 = b * b, c2 = c * c, S = 2*tri_area([a, b, c]);
+  const a2 = a * a, b2 = b * b, c2 = c * c, S = 2 * tri_area([a, b, c]);
   const ts = [
     [-2 * b, (-a2 + b2 + c2) / c, ((a2 + b2 - c2) + 2 * S) / a],
     [(-a2 + b2 + c2) / b, -2 * c, ((a2 - b2 + c2) + 2 * S) / a],
@@ -716,11 +716,11 @@ function flank2_triangle([b, c, a]) {
 }
 
 function flank3_triangle([c, a, b]) {
-  const a2 = a * a, b2 = b * b, c2 = c * c, S = 2*tri_area([a, b, c]);
+  const a2 = a * a, b2 = b * b, c2 = c * c, S = 2 * tri_area([a, b, c]);
   const ts = [
-    [-2 * c, ((a2 - b2 + c2) + 2 * S) / a,(-a2 + b2 + c2) / b],
-    [0, 1 / a,0],
-    [(-a2 + b2 + c2) / c, ((a2 + b2 - c2) + 2 * S) / a,-2 * b],
+    [-2 * c, ((a2 - b2 + c2) + 2 * S) / a, (-a2 + b2 + c2) / b],
+    [0, 1 / a, 0],
+    [(-a2 + b2 + c2) / c, ((a2 + b2 - c2) + 2 * S) / a, -2 * b],
   ];
   return ts;
 }
@@ -921,9 +921,9 @@ function inner_vecten_triangle([a, b, c]) {
 function mixtilinear_triangle(sides) {
   const [cA, cB, cC] = tri_cosines(sides);
   const ts = [
-    [(cA - cB - cC + 1)/2, 1, 1],
-    [1, (-cA + cB - cC + 1)/2, 1],
-    [1, 1, (-cA - cB + cC + 1)/2]
+    [(cA - cB - cC + 1) / 2, 1, 1],
+    [1, (-cA + cB - cC + 1) / 2, 1],
+    [1, 1, (-cA - cB + cC + 1) / 2]
   ];
   return ts;
 }
@@ -931,26 +931,26 @@ function mixtilinear_triangle(sides) {
 // https://faculty.evansville.edu/ck6/encyclopedia/IndexOfTrianglesReferencedInETC.html
 // vertices are the centers of the mixtilinear excircles
 // (a^3-(b+c)*a^2-(b+c)^2*a+(b^2-c^2)*(b-c))/(4*a*b*c) : 1 : 1
-function mixtilinear2nd_triangle([a,b,c]) {
-  const a2=a*a,b2=b*b,c2=c*c;
-  const a3=a2*a,b3=b2*b,c3=c2*c;
-  const abc = a*b*c;
+function mixtilinear2nd_triangle([a, b, c]) {
+  const a2 = a * a, b2 = b * b, c2 = c * c;
+  const a3 = a2 * a, b3 = b2 * b, c3 = c2 * c;
+  const abc = a * b * c;
   const ts = [
-    [ (a3-(b+c)*a2-sqr(b+c)*a+(b2-c2)*(b-c))/(4*abc), 1, 1],
-    [ 1, (b3-(c+a)*b2-sqr(c+a)*b+(c2-a2)*(c-a))/(4*abc), 1],
-    [ 1, 1, (c3-(a+b)*c2-sqr(a+b)*c+(a2-b2)*(a-b))/(4*abc)]
+    [(a3 - (b + c) * a2 - sqr(b + c) * a + (b2 - c2) * (b - c)) / (4 * abc), 1, 1],
+    [1, (b3 - (c + a) * b2 - sqr(c + a) * b + (c2 - a2) * (c - a)) / (4 * abc), 1],
+    [1, 1, (c3 - (a + b) * c2 - sqr(a + b) * c + (a2 - b2) * (a - b)) / (4 * abc)]
   ];
-  return ts; 
+  return ts;
 }
 
 // https://faculty.evansville.edu/ck6/encyclopedia/IndexOfTrianglesReferencedInETC.html
 // vertices the touchpoints of the circumcircle and the mixtilinear incircles
 //  -1 : 2*b/(a-b+c) : 2*c/(a+b-c)
-function mixtilinear3rd_triangle([a,b,c]) {
-    const ts = [
-    [-1, 2*b/(a-b+c), 2*c/(a+b-c)],
-    [2*a/(b+c-a), -1, 2*c/(b-c+a)],
-    [2*a/(c-a+b), 2*b/(c+a-b), -1]
+function mixtilinear3rd_triangle([a, b, c]) {
+  const ts = [
+    [-1, 2 * b / (a - b + c), 2 * c / (a + b - c)],
+    [2 * a / (b + c - a), -1, 2 * c / (b - c + a)],
+    [2 * a / (c - a + b), 2 * b / (c + a - b), -1]
   ];
   return ts;
 }
@@ -958,39 +958,39 @@ function mixtilinear3rd_triangle([a,b,c]) {
 // https://faculty.evansville.edu/ck6/encyclopedia/IndexOfTrianglesReferencedInETC.html
 // vertices the touchpoints of the circumcircle and the mixtilinear excircles
 // -1 : 2*b/(a+b-c) : 2*c/(a-b+c)
-function mixtilinear4th_triangle([a,b,c]) {
+function mixtilinear4th_triangle([a, b, c]) {
   const ts = [
-  [-1, 2*b/(a+b-c), 2*c/(a-b+c)],
-  [2*a/(b-c+a), -1, 2*c/(b+c-a)],
-  [2*a/(c+a-b), 2*b/(c-a+b), -1]
-];
-return ts;
+    [-1, 2 * b / (a + b - c), 2 * c / (a - b + c)],
+    [2 * a / (b - c + a), -1, 2 * c / (b + c - a)],
+    [2 * a / (c + a - b), 2 * b / (c - a + b), -1]
+  ];
+  return ts;
 }
 
 // peter moses, sept-10-2021
 // a*(a^2 + 2*a*b - 3*b^2 + 2*a*c + 6*b*c - 3*c^2),
 // -2*b^2*(-a + b - c)
 // 2*(a + b - c)*c^2
-function mixtilinear8th_triangle([a,b,c]) {
-  const a2=a*a,b2=b*b,c2=c*c;
+function mixtilinear8th_triangle([a, b, c]) {
+  const a2 = a * a, b2 = b * b, c2 = c * c;
   const ts = [
-    [a2+2*a*b-3*b2+2*a*c+6*b*c-3*c2,-2*b*(-a+b-c),2*c*(a+b-c)],
-    [2*a*(b+c-a),b2+2*b*c-3*c2+2*b*a+6*c*a-3*a2,-2*c*(-b+c-a)],
-    [-2*a*(-c+a-b),2*b*(c+a-b),c2+2*c*a-3*a2+2*c*b+6*a*b-3*b2]];
-return ts;
+    [a2 + 2 * a * b - 3 * b2 + 2 * a * c + 6 * b * c - 3 * c2, -2 * b * (-a + b - c), 2 * c * (a + b - c)],
+    [2 * a * (b + c - a), b2 + 2 * b * c - 3 * c2 + 2 * b * a + 6 * c * a - 3 * a2, -2 * c * (-b + c - a)],
+    [-2 * a * (-c + a - b), 2 * b * (c + a - b), c2 + 2 * c * a - 3 * a2 + 2 * c * b + 6 * a * b - 3 * b2]];
+  return ts;
 }
 
 // peter moses, sept-10-2021
 // a*(a^2 - 2*a*b - 3*b^2 - 2*a*c + 6*b*c - 3*c^2), 
 // 2*b^2*(a + b - c),
 // 2*c^2*(a - b + c)}
-function mixtilinear9th_triangle([a,b,c]) {
-  const a2=a*a,b2=b*b,c2=c*c;
+function mixtilinear9th_triangle([a, b, c]) {
+  const a2 = a * a, b2 = b * b, c2 = c * c;
   const ts = [
-    [a2-2*a*b-3*b2-2*a*c+6*b*c-3*c2,2*b*(a+b-c),2*c*(a-b+c)],
-    [2*a*(b-c+a),b2-2*b*c-3*c2-2*b*a+6*c*a-3*a2,2*c*(b+c-a)],
-    [2*a*(c+a-b),2*b*(c-a+b),c2-2*c*a-3*a2-2*c*b+6*a*b-3*b2]];
-return ts;
+    [a2 - 2 * a * b - 3 * b2 - 2 * a * c + 6 * b * c - 3 * c2, 2 * b * (a + b - c), 2 * c * (a - b + c)],
+    [2 * a * (b - c + a), b2 - 2 * b * c - 3 * c2 - 2 * b * a + 6 * c * a - 3 * a2, 2 * c * (b + c - a)],
+    [2 * a * (c + a - b), 2 * b * (c - a + b), c2 - 2 * c * a - 3 * a2 - 2 * c * b + 6 * a * b - 3 * b2]];
+  return ts;
 }
 
 function get_mounted_tri(a, tDeg, v2, v3) {
@@ -1031,16 +1031,27 @@ function invert_tri({ o, s }, inv_fn) {
 }
 
 function polar_tri({ o, s }, inv_fn, circ, a, mounting) {
-  const o0 = get_ctr_R(o, s, circ, a, mounting);
-  if (o0) {
-    const { ctr, R, n } = o0;
-    const o_inv = o.map(v => inv_fn(o, s, v));
-    const perps = o_inv.map(v => vperp(vdiff(v, ctr)));
-    const polar = o_inv.map((v, k) => inter_rays(v, perps[k], o_inv[k == 2 ? 0 : k + 1], perps[k == 2 ? 0 : k + 1]));
+  if (circ in dict_circle_triples) { // e.g., excircles123
+    const ctrRs = dict_circle_triples[circ].fns.map(f => f(o, s));
+    // strange, should o_inv be simply o?
+    const o_inv = o.map(v => inv_fn(o, s, v)); 
+    const polars = o_inv.map((p, k) => polar_line(p, ctrRs[k].ctr, ctrRs[k].R));
+    const polar = polars.map((v, k) => inter_rays(v.p, v.dir,
+      polars[k == 2 ? 0 : k + 1].p, polars[k == 2 ? 0 : k + 1].dir));
     const polar_sides = tri_sides(polar);
     return { o: polar, s: polar_sides };
-  } else
-    return { o: o, s: s };
+  } else {
+    const o0 = get_ctr_R(o, s, circ, a, mounting);
+    if (o0) {
+      const { ctr, R, n } = o0;
+      const o_inv = o.map(v => inv_fn(o, s, v));
+      const perps = o_inv.map(v => vperp(vdiff(v, ctr)));
+      const polar = o_inv.map((v, k) => inter_rays(v, perps[k], o_inv[k == 2 ? 0 : k + 1], perps[k == 2 ? 0 : k + 1]));
+      const polar_sides = tri_sides(polar);
+      return { o: polar, s: polar_sides };
+    } else
+      return { o: o, s: s };
+  }
 }
 
 // tri_side_ratio(1.3,20.0,"poristic","tangential","intangents")
@@ -1158,30 +1169,30 @@ function get_x3_map_f1c(a, b, tri, sides, mounting) {
 }
 
 function get_true_axes(a, mounting) {
-  let ae,be,ac,bc,f1,f2,f1c,f2c,ctr=[0,0];
+  let ae, be, ac, bc, f1, f2, f1c, f2c, ctr = [0, 0];
   if (mounting == "poristic") {
     const d = chapple_d(1, a + 1);
-    [ae,be]=[1+a,1+a];
-    [ac,bc]=[1,1];
-    ctr = [-d,0];
-    f1 = [0,0]; f2 = [0,0];
+    [ae, be] = [1 + a, 1 + a];
+    [ac, bc] = [1, 1];
+    ctr = [-d, 0];
+    f1 = [0, 0]; f2 = [0, 0];
     f1c = [d, 0]; f2c = [d, 0];
-    return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1:f1,f2:f2,f1c:f1c,f2c:f2c };
+    return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1: f1, f2: f2, f1c: f1c, f2c: f2c };
   } else if (mounting in dict_caustic) {
     const ab_mnt = dict_caustic[mounting](a);
-    const [ae, be] = ["inellipse", "brocard", "excentral"].includes(mounting) ? ab_mnt:
-    [a, 1];
-    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1]:
-    ab_mnt;
+    const [ae, be] = ["inellipse", "brocard", "excentral"].includes(mounting) ? ab_mnt :
+      [a, 1];
+    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] :
+      ab_mnt;
     const c = Math.sqrt(Math.abs(ae * ae - be * be));
     f1 = vdiff(ae > be ? [c, 0] : [0, c], ctr);
     f2 = vdiff(ae > be ? [-c, 0] : [0, -c], ctr);
     const cc = Math.sqrt(Math.abs(ac * ac - bc * bc));
     f1c = vdiff(ac > bc ? [cc, 0] : [0, cc], ctr);
     f2c = vdiff(ac > bc ? [-cc, 0] : [0, -cc], ctr);
-    return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1:f1,f2:f2,f1c:f1c,f2c:f2c };
+    return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1: f1, f2: f2, f1c: f1c, f2c: f2c };
   } else {
-    return { ae: a, be: 1, ac: a, bc: 1, ctr:[0,0] };
+    return { ae: a, be: 1, ac: a, bc: 1, ctr: [0, 0] };
   }
 }
 
@@ -1193,18 +1204,18 @@ function get_focal_inter_triangle(a, b, o, sides, mounting) {
 }
 
 //function get_focal_inter_triangle_caustic(o, a,b,ac,bc, outer_ctr) {
-  function get_focal_inter_triangle_caustic(a, b, o, sides, mounting) {
-    const ta = get_true_axes(a, mounting);
-    const tri = o.map(v => vsum(get_focal_inter(vdiff(v, ta.ctr), ta.ae, ta.be, ta.f1c, ta.f2c), ta.ctr));
-    return tri;
-  }
+function get_focal_inter_triangle_caustic(a, b, o, sides, mounting) {
+  const ta = get_true_axes(a, mounting);
+  const tri = o.map(v => vsum(get_focal_inter(vdiff(v, ta.ctr), ta.ae, ta.be, ta.f1c, ta.f2c), ta.ctr));
+  return tri;
+}
 
 function get_ellcevian_ctr(a, b, tri, sides, mounting) {
-    const ta = get_true_axes(a, mounting);
-    const tri0 = tri.map(v => vdiff(v, ta.ctr))
-        .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.ctr)), v))
-        .map(v => vsum(v, ta.ctr));
-    return tri0;
+  const ta = get_true_axes(a, mounting);
+  const tri0 = tri.map(v => vdiff(v, ta.ctr))
+    .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.ctr)), v))
+    .map(v => vsum(v, ta.ctr));
+  return tri0;
 }
 
 /*
@@ -1218,16 +1229,16 @@ function extouch_outer1_triangle([a, b, c]) {
 function get_ellcevian_f1(a, b, tri, sides, mounting) {
   const ta = get_true_axes(a, mounting);
   const tri0 = tri.map(v => vdiff(v, ta.ctr))
-      .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.f1)), v))
-      .map(v => vsum(v, ta.ctr));
+    .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.f1)), v))
+    .map(v => vsum(v, ta.ctr));
   return tri0;
 }
 
 function get_ellcevian_f1c(a, b, tri, sides, mounting) {
   const ta = get_true_axes(a, mounting);
   const tri0 = tri.map(v => vdiff(v, ta.ctr))
-      .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.f1c)), v))
-      .map(v => vsum(v, ta.ctr));
+    .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.f1c)), v))
+    .map(v => vsum(v, ta.ctr));
   return tri0;
 }
 
@@ -1299,31 +1310,31 @@ function get_polar_pedal_lim2(a, b, tri, sides, mounting) {
   return lim_tri;
 }
 
-function get_subtris(o,ctr) {
-  return  [
-   [ctr,o[1],o[2]],
-   [ctr,o[2],o[0]],
-   [ctr,o[0],o[1]]];
+function get_subtris(o, ctr) {
+  return [
+    [ctr, o[1], o[2]],
+    [ctr, o[2], o[0]],
+    [ctr, o[0], o[1]]];
 }
 
 function xn_map_triangle(o, s, ts, xk) {
-   const xn = trilin_to_cartesian(o, s, ts);
-   const subtris = get_subtris(o,xn);
-   const xks = subtris.map((t,i)=>get_Xn_cartesians(xk,t,tri_sides(t)));
-   return xks;
+  const xn = trilin_to_cartesian(o, s, ts);
+  const subtris = get_subtris(o, xn);
+  const xks = subtris.map((t, i) => get_Xn_cartesians(xk, t, tri_sides(t)));
+  return xks;
 }
 
 function xn_subcevian_triangle(o, s, ts, xk) {
-   const ts_tris = [subcevian1_triangle,subcevian2_triangle,subcevian3_triangle].map(t=>t(s,ts));
-   const tris = ts_tris.map(t=>generic_triangle(o,s,t));
-   const xks = tris.map((t,i)=>get_Xn_cartesians(xk,t,tri_sides(t)));
-   return xks;
+  const ts_tris = [subcevian1_triangle, subcevian2_triangle, subcevian3_triangle].map(t => t(s, ts));
+  const tris = ts_tris.map(t => generic_triangle(o, s, t));
+  const xks = tris.map((t, i) => get_Xn_cartesians(xk, t, tri_sides(t)));
+  return xks;
 }
 
 function xn_subanticevian_triangle(o, s, ts, xk) {
-  const ts_tris = [subanticevian1_triangle,subanticevian2_triangle,subanticevian3_triangle].map(t=>t(s,ts));
-  const tris = ts_tris.map(t=>generic_triangle(o,s,t));
-  const xks = tris.map((t,i)=>get_Xn_cartesians(xk,t,tri_sides(t)));
+  const ts_tris = [subanticevian1_triangle, subanticevian2_triangle, subanticevian3_triangle].map(t => t(s, ts));
+  const tris = ts_tris.map(t => generic_triangle(o, s, t));
+  const xks = tris.map((t, i) => get_Xn_cartesians(xk, t, tri_sides(t)));
   return xks;
 }
 
@@ -1450,34 +1461,34 @@ const dict_tri_pfns = {
   subanticev1: { fn: subanticevian1_triangle, needs: "none" },
   subpedal1: { fn: subpedal1_triangle, needs: "none" },
   subantiped1: { fn: subantipedal1_triangle, needs: "none" },
-  x1_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:1},
-  x2_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:2},
-  x6_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:6},
-  x7_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:7},
-  x8_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:8},
-  x9_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:9},
-  x10_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:10},
-  x11_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk:11},
-  x1_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:1},
-  x2_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:2},
-  x6_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:6},
-  x7_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:7},
-  x8_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:8},
-  x9_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:9},
-  x10_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:10},
-  x11_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk:11},
+  x1_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk: 1 },
+  x2_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk: 2 },
+  x6_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk: 6 },
+  x7_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk: 7 },
+  x8_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk: 8 },
+  x9_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk: 9 },
+  x10_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk: 10 },
+  x11_subcevian: { fn: xn_subcevian_triangle, needs: "tri_xk", xk: 11 },
+  x1_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk: 1 },
+  x2_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk: 2 },
+  x6_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk: 6 },
+  x7_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk: 7 },
+  x8_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk: 8 },
+  x9_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk: 9 },
+  x10_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk: 10 },
+  x11_subanticev: { fn: xn_subanticevian_triangle, needs: "tri_xk", xk: 11 },
   x3_inv: { fn: x3_inv_triangle, needs: "tri" },
-  x1_map: { fn: xn_map_triangle, needs: "tri_xk", xk:1 },
-  x2_map: { fn: xn_map_triangle, needs: "tri_xk", xk:2 },
-  x3_map: { fn: xn_map_triangle, needs: "tri_xk", xk:3 },
-  x4_map: { fn: xn_map_triangle, needs: "tri_xk", xk:4 },
-  x5_map: { fn: xn_map_triangle, needs: "tri_xk", xk:5 },
-  x6_map: { fn: xn_map_triangle, needs: "tri_xk", xk:6 },
-  x7_map: { fn: xn_map_triangle, needs: "tri_xk", xk:7 },
-  x8_map: { fn: xn_map_triangle, needs: "tri_xk", xk:8 },
-  x9_map: { fn: xn_map_triangle, needs: "tri_xk", xk:9 },
-  x10_map: { fn: xn_map_triangle, needs: "tri_xk", xk:10 },
-  x11_map: { fn: xn_map_triangle, needs: "tri_xk", xk:11 }
+  x1_map: { fn: xn_map_triangle, needs: "tri_xk", xk: 1 },
+  x2_map: { fn: xn_map_triangle, needs: "tri_xk", xk: 2 },
+  x3_map: { fn: xn_map_triangle, needs: "tri_xk", xk: 3 },
+  x4_map: { fn: xn_map_triangle, needs: "tri_xk", xk: 4 },
+  x5_map: { fn: xn_map_triangle, needs: "tri_xk", xk: 5 },
+  x6_map: { fn: xn_map_triangle, needs: "tri_xk", xk: 6 },
+  x7_map: { fn: xn_map_triangle, needs: "tri_xk", xk: 7 },
+  x8_map: { fn: xn_map_triangle, needs: "tri_xk", xk: 8 },
+  x9_map: { fn: xn_map_triangle, needs: "tri_xk", xk: 9 },
+  x10_map: { fn: xn_map_triangle, needs: "tri_xk", xk: 10 },
+  x11_map: { fn: xn_map_triangle, needs: "tri_xk", xk: 11 }
 };
 
 const dict_tri_fns_inv = {
@@ -1486,7 +1497,7 @@ const dict_tri_fns_inv = {
   inv_f2: { fn: circle_f2, caustic: false },
   inv_f1c: { fn: circle_f1c, caustic: true },
   inv_f2c: { fn: circle_f2c, caustic: true }
-  
+
   // not inversion proper but pedal of bicentric wrt to f2
 };
 
@@ -1552,8 +1563,8 @@ function get_tri_generic(a, tDeg, mounting, tri_type, cpn, pn) {
 
 // these are different: they require a first tri vertex and the true axes
 const dict_graves = {
-   graves: get_graves_triangle,
-   //ell_cev1: get_ellcevian1_triangle // doesn't make sense perfect poncelet
+  graves: get_graves_triangle,
+  //ell_cev1: get_ellcevian1_triangle // doesn't make sense perfect poncelet
 }
 
 function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
@@ -1570,10 +1581,10 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
     ret_tri = invert_tri({ o: orbit, s: sides }, inv_fn);
   } else if (mounting in dict_caustic && tri_type in dict_graves) {
     // some poncelet families have the "caustic" wrong.
-    const ta = get_true_axes(a,mounting);
+    const ta = get_true_axes(a, mounting);
     //const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
     const tri0 = dict_graves[tri_type](orbit[0], ta);
-    ret_tri = { o: tri0, s: tri_sides(tri0) }; 
+    ret_tri = { o: tri0, s: tri_sides(tri0) };
   } else if (tri_type in dict_tri_fns) { // "reference" returns itself
     const ts = dict_tri_fns[tri_type](sides);
     const tri0 = generic_triangle(orbit, sides, ts);
