@@ -4,7 +4,6 @@ const get_polar_f2 = (a, b, tri, sides, mounting) => get_polar(tri, sides, get_t
 const get_polar_f1c = (a, b, tri, sides, mounting) => get_polar(tri, sides, get_true_axes(a, mounting).f1c, 1);
 const get_polar_f2c = (a, b, tri, sides, mounting) => get_polar(tri, sides, get_true_axes(a, mounting).f2c, 1);
 
-
 const get_pedal_ctr = (a, b, tri, sides, mounting) => get_pedal(tri, sides, get_true_axes(a, mounting).ctr);
 const get_pedal_f1 = (a, b, tri, sides, mounting) => get_pedal(tri, sides, get_true_axes(a, mounting).f1);
 const get_pedal_f2 = (a, b, tri, sides, mounting) => get_pedal(tri, sides, get_true_axes(a, mounting).f2);
@@ -16,7 +15,6 @@ const get_antipedal_f1 = (a, b, tri, sides, mounting) => get_antipedal(tri, side
 const get_antipedal_f2 = (a, b, tri, sides, mounting) => get_antipedal(tri, sides, get_true_axes(a, mounting).f2);
 const get_antipedal_f1c = (a, b, tri, sides, mounting) => get_antipedal(tri, sides, get_true_axes(a, mounting).f1c);
 const get_antipedal_f2c = (a, b, tri, sides, mounting) => get_antipedal(tri, sides, get_true_axes(a, mounting).f2c);
-
 
 const get_x3_map_ctr = (a, b, tri, sides, mounting) => tri.map((v, i) => get_circumcenter([get_true_axes(a, mounting).ctr, v, tri[i == 2 ? 0 : i + 1]]));
 const get_x3_map_f1 = (a, b, tri, sides, mounting) => tri.map((v, i) => get_circumcenter([get_true_axes(a, mounting).f1, v, tri[i == 2 ? 0 : i + 1]]));
@@ -109,37 +107,3 @@ function get_polar_pedal_lim2(a, b, tri, sides, mounting) {
     return lim_tri;
 }
 
-const dict_tri_fns_bicentric = {
-    ped_lim2: get_polar_pedal_lim2,
-    //inv_lim2: get_inv_lim2,
-    pol_ctr: get_polar_ctr,
-    pol_f1: get_polar_f1,
-    pol_f2: get_polar_f2,
-    pol_f1c: get_polar_f1c,
-    pol_f2c: get_polar_f2c,
-    ped_ctr: get_pedal_ctr,
-    ped_f1: get_pedal_f1,
-    ped_f2: get_pedal_f2,
-    ped_f1c: get_pedal_f1c,
-    ped_f2c: get_pedal_f2c,
-    antiped_ctr: get_antipedal_ctr,
-    antiped_f1: get_antipedal_f1,
-    antiped_f2: get_antipedal_f2,
-    antiped_f1c: get_antipedal_f1c,
-    antiped_f2c: get_antipedal_f2c,
-    ellcev_ctr: get_ellcevian_ctr,
-    ellcev_f1: get_ellcevian_f1,
-    ellcev_f1c: get_ellcevian_f1c,
-    x3_map_ctr: get_x3_map_ctr,
-    x3_map_f1: get_x3_map_f1,
-    x3_map_f1c: get_x3_map_f1c,
-    x3_inv_ctr: get_x3_inv_ctr,
-    x3_inv_f1: get_x3_inv_f1,
-    x3_inv_f1c: get_x3_inv_f1c,
-    inf_x: get_infinity_x,
-    inf_y: get_infinity_y,
-    inf_x2: get_infinity_x2,
-    inf_y2: get_infinity_y2,
-    ints_f12: get_focal_inter_triangle,
-    ints_f12c: get_focal_inter_triangle_caustic
-};

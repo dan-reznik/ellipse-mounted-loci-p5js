@@ -1237,7 +1237,42 @@ const dict_tri_fns_inv = {
 const dict_graves = {
   graves: get_graves_triangle,
   //ell_cev1: get_ellcevian1_triangle // doesn't make sense perfect poncelet
-}
+};
+
+const dict_tri_fns_bicentric = {
+  ped_lim2: get_polar_pedal_lim2,
+  //inv_lim2: get_inv_lim2,
+  pol_ctr: get_polar_ctr,
+  pol_f1: get_polar_f1,
+  pol_f2: get_polar_f2,
+  pol_f1c: get_polar_f1c,
+  pol_f2c: get_polar_f2c,
+  ped_ctr: get_pedal_ctr,
+  ped_f1: get_pedal_f1,
+  ped_f2: get_pedal_f2,
+  ped_f1c: get_pedal_f1c,
+  ped_f2c: get_pedal_f2c,
+  antiped_ctr: get_antipedal_ctr,
+  antiped_f1: get_antipedal_f1,
+  antiped_f2: get_antipedal_f2,
+  antiped_f1c: get_antipedal_f1c,
+  antiped_f2c: get_antipedal_f2c,
+  ellcev_ctr: get_ellcevian_ctr,
+  ellcev_f1: get_ellcevian_f1,
+  ellcev_f1c: get_ellcevian_f1c,
+  x3_map_ctr: get_x3_map_ctr,
+  x3_map_f1: get_x3_map_f1,
+  x3_map_f1c: get_x3_map_f1c,
+  x3_inv_ctr: get_x3_inv_ctr,
+  x3_inv_f1: get_x3_inv_f1,
+  x3_inv_f1c: get_x3_inv_f1c,
+  inf_x: get_infinity_x,
+  inf_y: get_infinity_y,
+  inf_x2: get_infinity_x2,
+  inf_y2: get_infinity_y2,
+  ints_f12: get_focal_inter_triangle,
+  ints_f12c: get_focal_inter_triangle_caustic
+};
 
 function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   let ret_tri = { o: orbit, s: sides };
