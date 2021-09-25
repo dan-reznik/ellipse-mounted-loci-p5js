@@ -17,40 +17,15 @@ const get_antipedal_f2 = (a, b, tri, sides, mounting) => get_antipedal(tri, side
 const get_antipedal_f1c = (a, b, tri, sides, mounting) => get_antipedal(tri, sides, get_true_axes(a, mounting).f1c);
 const get_antipedal_f2c = (a, b, tri, sides, mounting) => get_antipedal(tri, sides, get_true_axes(a, mounting).f2c);
 
-function get_x3_map_ctr(a, b, tri, sides, mounting) {
-    const ctr = get_true_axes(a, mounting).ctr;
-    const x3s = tri.map((v, i) => get_circumcenter([ctr, v, tri[i == 2 ? 0 : i + 1]]));
-    // bicentric
-    return x3s;
-}
 
-function get_x3_map_f1(a, b, tri, sides, mounting) {
-    const f1 = get_true_axes(a, mounting).f1;
-    const x3s = tri.map((v, i) => get_circumcenter([f1, v, tri[i == 2 ? 0 : i + 1]]));
-    // bicentric
-    return x3s;
-}
+const get_x3_map_ctr = (a, b, tri, sides, mounting) => tri.map((v, i) => get_circumcenter([get_true_axes(a, mounting).ctr, v, tri[i == 2 ? 0 : i + 1]]));
+const get_x3_map_f1 = (a, b, tri, sides, mounting) => tri.map((v, i) => get_circumcenter([get_true_axes(a, mounting).f1, v, tri[i == 2 ? 0 : i + 1]]));
+const get_x3_map_f1c = (a, b, tri, sides, mounting) => tri.map((v, i) => get_circumcenter([get_true_axes(a, mounting).f1c, v, tri[i == 2 ? 0 : i + 1]]));
 
-function get_x3_map_f1c(a, b, tri, sides, mounting) {
-    const f1c = get_true_axes(a, mounting).f1c;
-    const x3s = tri.map((v, i) => get_circumcenter([f1c, v, tri[i == 2 ? 0 : i + 1]]));
-    return x3s;
-}
 
-function get_x3_inv_f1(a, b, tri, sides, mounting) {
-    const f1 = get_true_axes(a, mounting).f1;
-    return get_x3_inv_low(tri, f1);
-}
-
-function get_x3_inv_f1c(a, b, tri, sides, mounting) {
-    const f1c = get_true_axes(a, mounting).f1c;
-    return get_x3_inv_low(tri, f1c);
-}
-
-function get_x3_inv_ctr(a, b, tri, sides, mounting) {
-    const ctr = get_true_axes(a, mounting).ctr;
-    return get_x3_inv_low(tri, ctr);
-}
+const get_x3_inv_ctr = (a, b, tri, sides, mounting) => get_x3_inv_low(tri, get_true_axes(a, mounting).ctr);
+const get_x3_inv_f1 = (a, b, tri, sides, mounting) => get_x3_inv_low(tri, get_true_axes(a, mounting).f1);
+const get_x3_inv_f1c= (a, b, tri, sides, mounting) => get_x3_inv_low(tri, get_true_axes(a, mounting).f1c);
 
 function get_ellcevian_ctr(a, b, tri, sides, mounting) {
     const ta = get_true_axes(a, mounting);
@@ -59,14 +34,6 @@ function get_ellcevian_ctr(a, b, tri, sides, mounting) {
         .map(v => vsum(v, ta.ctr));
     return tri0;
 }
-
-/*
-function extouch_outer1_triangle([a, b, c]) {
-  const s = (a+b+c)/2;
-  const bs = [[0, s - b, s - c], [-s + b, 0, s], [-s + c, s, 0]];
-  return bs.map(b0=>barys_to_trilins(b0,[a,b,c]));
-}
-*/
 
 function get_ellcevian_f1(a, b, tri, sides, mounting) {
     const ta = get_true_axes(a, mounting);
@@ -130,8 +97,6 @@ function get_infinity_x2(a, b, tri, sides, mounting) {
     const new_tri = tri.map((v, i) => [x3[0] + Math.abs(v[0] - x3[0]) * (2 * ss[i] * cs[i]), v[1]]);
     return new_tri;
 }
-
-
 
 function get_polar_pedal_lim2(a, b, tri, sides, mounting) {
     const c = Math.sqrt(a * a - b * b);
