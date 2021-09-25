@@ -132,11 +132,13 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     //<option value="neuberg3r">neuberg3r</option>
                     `<option value="neuberg_refls">neubs.123r</option>
                     <option value="parry">parry</option>
-                    <option value="power_circle1">pwr.circs1</option>
-                    <option value="power_circles">pwr.circs123</option>
+                    <option value="power1">power1</option>
+                    <option value="powers">powers123</option>
                     <option value="reflection">reflection</option>
                     <option value="schoutte">schoutte</option>
                     <option value="spieker">spieker</option>
+                    <option value="tangent1">tangent1</option>
+                    <option value="tangents">tangents123</option>
                     <option value="taylor">taylor</option>
                 </select>
             </div>

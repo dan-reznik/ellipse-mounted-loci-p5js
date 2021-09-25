@@ -42,9 +42,10 @@ const dict_circles = {
     moses_radical: circle_moses_radical,
     spieker: circle_spieker,
     parry: circle_parry,
-    power_circle1: circle_power_1,
+    power1: circle_power_1,
     reflection: circle_reflection,
     schoutte: circle_schoutte,
+    tangent1: circle_tangent_1,
     taylor: circle_taylor
 };
 
@@ -59,7 +60,7 @@ const dict_circle_triples = {
     },
     mixtilinears: {
         fns: [circle_mixtilinear_1, circle_mixtilinear_2, circle_mixtilinear_3],
-        names: ["mixtilinear1", "mixtilinear2", "mixtilinear3"]
+        names: ["mixtilin1", "mixtilin2", "mixtilin3"]
     },
     mixtilinear_excs: {
         fns: [circle_mixtilinear_excircle_1, circle_mixtilinear_excircle_2, circle_mixtilinear_excircle_3],
@@ -81,9 +82,13 @@ const dict_circle_triples = {
         fns: [circle_incircle, circle_circum, circle_euler],
         names: ["incircle", "circum", "euler"]
     },
-    power_circles: {
+    powers: {
         fns: [circle_power_1, circle_power_2, circle_power_3],
-        names: ["pwr_circ1","pwr_circ2","pwr_circ3"]
+        names: ["power1","power2","power3"]
+    },
+    tangents: {
+        fns: [circle_tangent_1, circle_tangent_2, circle_tangent_3],
+        names: ["tangent1","tangent2","tangent"]
     }
 };
 
