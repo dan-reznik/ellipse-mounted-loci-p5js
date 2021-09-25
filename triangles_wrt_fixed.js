@@ -1,72 +1,21 @@
-/// ctr, f1, f2, f1c, f2c
-function get_polar_ctr(a, b, tri, sides, mounting) {
-    const ctr = get_true_axes(a, mounting).ctr;
-    const circ = { ctr: ctr, R: 1 };
-    const tri_inv = tri.map(v => circle_inversion(v, circ));
-    // bicentric
-    return get_antipedal(tri_inv, tri_sides(tri_inv), ctr);
-}
+const get_polar_ctr = (a, b, tri, sides, mounting) => get_polar(tri, sides, get_true_axes(a, mounting).ctr, 1);
+const get_polar_f1 = (a, b, tri, sides, mounting) => get_polar(tri, sides, get_true_axes(a, mounting).f1, 1);
+const get_polar_f2 = (a, b, tri, sides, mounting) => get_polar(tri, sides, get_true_axes(a, mounting).f2, 1);
+const get_polar_f1c = (a, b, tri, sides, mounting) => get_polar(tri, sides, get_true_axes(a, mounting).f1c, 1);
+const get_polar_f2c = (a, b, tri, sides, mounting) => get_polar(tri, sides, get_true_axes(a, mounting).f2c, 1);
 
 
-function get_polar_f1(a, b, tri, sides, mounting) {
-    const f1 = get_true_axes(a, mounting).f1;
-    const circ = { ctr: f1, R: 1 };
-    const tri_inv = tri.map(v => circle_inversion(v, circ));
-    // bicentric
-    return get_antipedal(tri_inv, tri_sides(tri_inv), f1);
-}
+const get_pedal_ctr = (a, b, tri, sides, mounting) => get_pedal(tri, sides, get_true_axes(a, mounting).ctr);
+const get_pedal_f1 = (a, b, tri, sides, mounting) => get_pedal(tri, sides, get_true_axes(a, mounting).f1);
+const get_pedal_f2 = (a, b, tri, sides, mounting) => get_pedal(tri, sides, get_true_axes(a, mounting).f2);
+const get_pedal_f1c = (a, b, tri, sides, mounting) => get_pedal(tri, sides, get_true_axes(a, mounting).f1c);
+const get_pedal_f2c = (a, b, tri, sides, mounting) => get_pedal(tri, sides, get_true_axes(a, mounting).f2c);
 
-function get_polar_f2(a, b, tri, sides, mounting) {
-    const f2 = get_true_axes(a, mounting).f2;
-    const circ = { ctr: f2, R: 1 };
-    const tri_inv = tri.map(v => circle_inversion(v, circ));
-    // bicentric
-    return get_antipedal(tri_inv, tri_sides(tri_inv), f2);
-}
-
-function get_polar_f1c(a, b, tri, sides, mounting) {
-    const f1c = get_true_axes(a, mounting).f1c;
-    const circ = { ctr: f1c, R: 1 };
-    const tri_inv = tri.map(v => circle_inversion(v, circ));
-    // bicentric
-    return get_antipedal(tri_inv, tri_sides(tri_inv), f1c);
-}
-
-function get_polar_f2c(a, b, tri, sides, mounting) {
-    const f2c = get_true_axes(a, mounting).f2c;
-    const circ = { ctr: f2c, R: 1 };
-    const tri_inv = tri.map(v => circle_inversion(v, circ));
-    // bicentric
-    return get_antipedal(tri_inv, tri_sides(tri_inv), f2c);
-}
-
-function get_pedal_ctr(a, b, tri, sides, mounting) {
-    const ctr = get_true_axes(a, mounting).ctr;
-    return get_pedal(tri, sides, ctr);
-}
-
-function get_pedal_f1(a, b, tri, sides, mounting) {
-    //const c = Math.sqrt(Math.abs(a * a - b * b));
-    //const f1 = a > b ? [-c, 0] : [0, c];
-    const f1 = get_true_axes(a, mounting).f1;
-    return get_pedal(tri, sides, f1);
-}
-
-function get_pedal_f2(a, b, tri, sides, mounting) {
-    const f2 = get_true_axes(a, mounting).f2;
-    return get_pedal(tri, sides, f2);
-}
-
-function get_pedal_f1c(a, b, tri, sides, mounting) {
-    //const [ac, bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a, b];
-    const f1c = get_true_axes(a, mounting).f1c;
-    return get_pedal(tri, sides, f1c);
-}
-
-function get_pedal_f2c(a, b, tri, sides, mounting) {
-    const f2c = get_true_axes(a, mounting).f2c;
-    return get_pedal(tri, sides, f2c);
-}
+const get_antipedal_ctr = (a, b, tri, sides, mounting) => get_antipedal(tri, sides, get_true_axes(a, mounting).ctr);
+const get_antipedal_f1 = (a, b, tri, sides, mounting) => get_antipedal(tri, sides, get_true_axes(a, mounting).f1);
+const get_antipedal_f2 = (a, b, tri, sides, mounting) => get_antipedal(tri, sides, get_true_axes(a, mounting).f2);
+const get_antipedal_f1c = (a, b, tri, sides, mounting) => get_antipedal(tri, sides, get_true_axes(a, mounting).f1c);
+const get_antipedal_f2c = (a, b, tri, sides, mounting) => get_antipedal(tri, sides, get_true_axes(a, mounting).f2c);
 
 function get_x3_map_ctr(a, b, tri, sides, mounting) {
     const ctr = get_true_axes(a, mounting).ctr;
@@ -208,6 +157,11 @@ const dict_tri_fns_bicentric = {
     ped_f2: get_pedal_f2,
     ped_f1c: get_pedal_f1c,
     ped_f2c: get_pedal_f2c,
+    antiped_ctr: get_antipedal_ctr,
+    antiped_f1: get_antipedal_f1,
+    antiped_f2: get_antipedal_f2,
+    antiped_f1c: get_antipedal_f1c,
+    antiped_f2c: get_antipedal_f2c,
     ellcev_ctr: get_ellcevian_ctr,
     ellcev_f1: get_ellcevian_f1,
     ellcev_f1c: get_ellcevian_f1c,

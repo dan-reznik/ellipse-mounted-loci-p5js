@@ -1022,20 +1022,6 @@ function get_caustic_v12_barys(sides) {
   return [sides[0], 0, 0];
 }
 
-function get_antipedal(tri, sides, p) {
-  const ts_p = get_trilins(p, tri, sides);
-  const ant_ts = antipedal_triangle(sides, ts_p);
-  const ant_tri = generic_triangle(tri, sides, ant_ts);
-  return ant_tri;
-}
-
-function get_pedal(tri, sides, p) {
-  const ts_p = get_trilins(p, tri, sides);
-  const ped_ts = pedal_triangle(sides, ts_p);
-  const ped_tri = generic_triangle(tri, sides, ped_ts);
-  return ped_tri;
-}
-
 //function get_focal_inter_triangle(o, a, b, outer_ctr) {
 function get_focal_inter_triangle(a, b, o, sides, mounting) {
   const ta = get_true_axes(a, mounting);

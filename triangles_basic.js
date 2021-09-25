@@ -110,8 +110,8 @@ function get_true_axes(a, mounting) {
     f2c = vdiff(ac > bc ? [cc, 0] : [0, cc], ctr);
     return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1: f1, f2: f2, f1c: f1c, f2c: f2c };
   } else {
-    const c = Math.sqrt(a^2-1);
-    return { ae: a, be: 1, ac: a, bc: 1, ctr: [0, 0], f1:[-c,0],f2:[c,0],f1c:[-c,0],f2c:[c,0]};
+    const c = Math.sqrt(a ^ 2 - 1);
+    return { ae: a, be: 1, ac: a, bc: 1, ctr: [0, 0], f1: [-c, 0], f2: [c, 0], f1c: [-c, 0], f2c: [c, 0] };
   }
 }
 
@@ -126,6 +126,28 @@ function get_incenter(tri) {
   const x1 = get_Xn_cartesians(1, tri, sides);
   return x1;
 }
+
+function get_antipedal(tri, sides, p) {
+  const ts_p = get_trilins(p, tri, sides);
+  const ant_ts = antipedal_triangle(sides, ts_p);
+  const ant_tri = generic_triangle(tri, sides, ant_ts);
+  return ant_tri;
+}
+
+function get_pedal(tri, sides, p) {
+  const ts_p = get_trilins(p, tri, sides);
+  const ped_ts = pedal_triangle(sides, ts_p);
+  const ped_tri = generic_triangle(tri, sides, ped_ts);
+  return ped_tri;
+}
+
+function get_polar(tri, sides, ctr, R) {
+  const circ = { ctr: ctr, R: R };
+  const tri_inv = tri.map(v => circle_inversion(v, circ));
+  // bicentric
+  return get_antipedal(tri_inv, tri_sides(tri_inv), ctr);
+}
+
 
 function rotate_tri_left([p1, p2, p3]) {
   return [p2, p3, p1];
@@ -204,15 +226,15 @@ function invert_tri({ o, s }, inv_fn) {
 //  return bs.map((b,i)=>b/sides[i]);
 // }
 function barys_to_trilins(bs, sides) {
-    // divide by sides to get trilins
-    const ts = bs.map((b, i) => b / sides[i]);
-    return ts;
-  }
-  
-  function trilins_to_barys(ts, sides) {
-    // multiply by sides to get barys
-    const bs = ts.map((t, i) => t * sides[i]);
-    return bs;
+  // divide by sides to get trilins
+  const ts = bs.map((b, i) => b / sides[i]);
+  return ts;
+}
+
+function trilins_to_barys(ts, sides) {
+  // multiply by sides to get barys
+  const bs = ts.map((t, i) => t * sides[i]);
+  return bs;
 }
 
 function get_true_axes(a, mounting) {
@@ -239,8 +261,8 @@ function get_true_axes(a, mounting) {
     f2c = vdiff(ac > bc ? [cc, 0] : [0, cc], ctr);
     return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1: f1, f2: f2, f1c: f1c, f2c: f2c };
   } else {
-    const c = Math.sqrt(a^2-1);
-    return { ae: a, be: 1, ac: a, bc: 1, ctr: [0, 0], f1:[-c,0],f2:[c,0],f1c:[-c,0],f2c:[c,0]};
+    const c = Math.sqrt(a ^ 2 - 1);
+    return { ae: a, be: 1, ac: a, bc: 1, ctr: [0, 0], f1: [-c, 0], f2: [c, 0], f1c: [-c, 0], f2c: [c, 0] };
   }
 }
 
