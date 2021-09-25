@@ -36,6 +36,8 @@ function get_Xn_mounted_low(a, tDeg, v2, v3, tri_type, cpn, pn, inv, inv_fn, mou
             return invert_tri(ons_derived, inv_fn);
         case "polar":
             return polar_tri(ons_derived, inv_fn, circ, a, mounting);
+        case "polar_sides":
+            return polar_tri_sides(ons_derived, inv_fn, circ, a, mounting);
         default:
             return ons_derived;
     }

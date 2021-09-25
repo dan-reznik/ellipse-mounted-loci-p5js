@@ -142,6 +142,12 @@ function polar_line(p, ctr, R) {
   return {p:inv, dir:perp};
 }
 
+function line_pole(from, to, ctr, R) {
+  const clo = closest_perp(ctr, from, to);
+  const inv = circle_inversion(clo, {ctr,R});
+  return inv;
+}
+
 const edist2 = (p1, p2) => magn2(vdiff(p1, p2));
 const edist = (p1, p2) => Math.sqrt(edist2(p1, p2));
 const vnorm = (p) => vscale(p,1/magn(p));

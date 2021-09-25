@@ -150,6 +150,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="xn">inv xn</option>
                     <option value="tri">inv tri</option>
                     <option value="polar">pol tri</option>
+                    <option value="polar_sides">pol.sd</option>
                     <option value="crem_xn">cre xn</option>
                     <option value="crem_tri">cre tri</option>
                 </select>

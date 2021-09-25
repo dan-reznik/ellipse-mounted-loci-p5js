@@ -156,7 +156,8 @@ function get_orbit_derived(a,tDeg,orbit_fn,tri_type,cpn, pn,inv,inv_fn, mounting
   const ons = orbit_fn(a, tDeg);
   const ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
   return (inv == "tri"||inv=="crem_tri")? invert_tri(ons_derived, inv_fn) :
-  inv=="polar" ? polar_tri(ons_derived, inv_fn, circ, a, mounting) : ons_derived;
+  inv=="polar" ? polar_tri(ons_derived, inv_fn, circ, a, mounting) :
+  inv=="polar_sides" ? polar_tri_sides(ons_derived, inv_fn, circ, a, mounting) : ons_derived;
 }
 
 function get_Xn_poncelet(a, tDeg, orbit_fn, bary_fn, tri_type, cpn, pn, inv, inv_fn, locus_type, mounting, circ) {

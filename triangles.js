@@ -1030,6 +1030,28 @@ function invert_tri({ o, s }, inv_fn) {
   return { o: o_inv, s: sides_inv };
 }
 
+function polar_tri_sides({ o, s }, inv_fn, circ, a, mounting) {
+  if (circ in dict_circle_triples) { // e.g., excircles123
+    const ctrRs = dict_circle_triples[circ].fns.map(f => f(o, s));
+    // strange, should o_inv be simply o?
+    const o_inv = o.map(v => inv_fn(o, s, v)); 
+    const poles = ctrRs.map((cr, k) => line_pole(o_inv[k==2?0:k+1], o_inv[k==0?2:k-1],
+      cr.ctr, cr.R));
+    const pole_sides = tri_sides(poles);
+    return { o: poles, s: pole_sides };
+  } else {
+    const o0 = get_ctr_R(o, s, circ, a, mounting);
+    if (o0) {
+      const { ctr, R, n } = o0;
+      const o_inv = o.map(v => inv_fn(o, s, v));
+      const poles = o_inv.map((p, k) => line_pole(o_inv[k==2?0:k+1], o_inv[k==0?2:k-1], ctr, R));
+      const pole_sides = tri_sides(poles);
+      return { o: poles, s: pole_sides };
+    } else
+      return { o: o, s: s };
+  }
+}
+
 function polar_tri({ o, s }, inv_fn, circ, a, mounting) {
   if (circ in dict_circle_triples) { // e.g., excircles123
     const ctrRs = dict_circle_triples[circ].fns.map(f => f(o, s));
