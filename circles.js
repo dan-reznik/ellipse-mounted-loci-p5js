@@ -180,6 +180,16 @@ const circle_neuberg_refl_1 = (tri,sides) => circle_neuberg_low(tri,sides,0,true
 const circle_neuberg_refl_2 = (tri,sides) => circle_neuberg_low(tri,sides,1,true);
 const circle_neuberg_refl_3 = (tri,sides) => circle_neuberg_low(tri,sides,2,true);
 
+function circle_power_low(tri,sides,n) {
+    const ctr = vmid(tri[n==2?0:n+1],tri[n==0?2:n-1]);
+    const R = edist(ctr,tri[n]);
+    return { ctr:ctr, R:R, n:0 };
+}
+
+const circle_power_1 = (tri,sides) => circle_power_low(tri,sides,0);
+const circle_power_2 = (tri,sides) => circle_power_low(tri,sides,1);
+const circle_power_3 = (tri,sides) => circle_power_low(tri,sides,2);
+
 function circle_apollonius_isodyn_low(tri,sides,n) {
     const x15 = get_Xn_cartesians(15, tri, sides);
     const x16 = get_Xn_cartesians(16, tri, sides);

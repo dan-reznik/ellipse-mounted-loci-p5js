@@ -74,6 +74,10 @@ const dict_circle_triples = {
     inc_cir_eul: {
         fns: [circle_incircle, circle_circum, circle_euler],
         names: ["incircle", "circum", "euler"]
+    },
+    power_circles: {
+        fns: [circle_power_1, circle_power_2, circle_power_3],
+        names: ["pwr_circ1","pwr_circ2","pwr_circ3"]
     }
 };
 
