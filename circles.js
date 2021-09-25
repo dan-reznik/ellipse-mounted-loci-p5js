@@ -91,12 +91,23 @@ function get_excircles(tri,sides) {
     return exc.map((e,i)=> ({ ctr:e, R:Rs[i] }));
 }
 
+//https://mathworld.wolfram.com/JohnsonCircles.html
+function circle_johnson_low(tri,sides,n) {
+    const x4 = get_Xn_cartesians(4, tri, sides);
+    const x3_jhn = get_circumcenter([x4,tri[n==2?0:n+1],tri[n==0?2:n-1]]);
+    const R = edist(x3_jhn, x4);
+    return { ctr:x3_jhn, R:R, n:0 };
+}
+
+const circle_johnson_1 = (tri,sides) => circle_johnson_low(tri,sides,0);
+const circle_johnson_2 = (tri,sides) => circle_johnson_low(tri,sides,1);
+const circle_johnson_3 = (tri,sides) => circle_johnson_low(tri,sides,2);
+
 function circle_excircle_low(tri,sides,n) {
     const ts_exc = excentral_triangle(sides);
     const exc = generic_triangle(tri,sides,ts_exc);
     const area = tri_area(sides);
     const s = get_semiperimeter(sides);
-    // https://mathworld.wolfram.com/Exradius.html
     const R = area/(s-sides[n]);
     return { ctr:exc[n], R:R, n:0 };
 }

@@ -23,6 +23,7 @@ const dict_circles = {
     excircle1: circle_excircle_1,
     excircle2: circle_excircle_2,
     excircle3: circle_excircle_3,
+    johnson1: circle_johnson_1,
     mixtilinear1: circle_mixtilinear_1,
     mixtilinear2: circle_mixtilinear_2,
     mixtilinear3: circle_mixtilinear_3,
@@ -41,6 +42,7 @@ const dict_circles = {
     moses_radical: circle_moses_radical,
     spieker: circle_spieker,
     parry: circle_parry,
+    power_circle1: circle_power_1,
     reflection: circle_reflection,
     schoutte: circle_schoutte,
     taylor: circle_taylor
@@ -62,6 +64,10 @@ const dict_circle_triples = {
     mixtilinear_excs: {
         fns: [circle_mixtilinear_excircle_1, circle_mixtilinear_excircle_2, circle_mixtilinear_excircle_3],
         names: ["mixtil_exc1", "mixtil_exc2", "mixtil_exc3"]
+    },
+    johnsons: {
+        fns: [circle_johnson_1, circle_johnson_2, circle_johnson_3],
+        names: ["johnson1","johnson2","johnson3"]
     },
     neubergs: {
         fns: [circle_neuberg_1, circle_neuberg_2, circle_neuberg_3],
