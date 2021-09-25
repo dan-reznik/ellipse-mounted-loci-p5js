@@ -377,3 +377,13 @@ function circle_lester(tri,sides) {
     return { ctr:x1116, R:R, n:1116}; 
 }
 
+function get_ctr_R(o, s, circ, a, mounting) {
+    var o0 = null;
+    if (circ in dict_circles)
+      o0 = dict_circles[circ](o, s);
+    else if (circ in dict_tri_fns_inv) {
+      o0 = tri_fns_invert(circ, a, mounting); // dict_tri_fns_inv[circ].fn(a);
+    }
+    return o0;
+  }
+

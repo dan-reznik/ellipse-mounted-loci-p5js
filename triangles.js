@@ -1,58 +1,5 @@
-function get_circumcenter(tri) {
-  const sides = tri_sides(tri);
-  const x3 = get_Xn_cartesians(3, tri, sides);
-  return x3;
-}
 
-function get_incenter(tri) {
-  const sides = tri_sides(tri);
-  const x1 = get_Xn_cartesians(1, tri, sides);
-  return x1;
-}
-
-function rotate_tri_left([p1, p2, p3]) {
-  return [p2, p3, p1];
-}
-
-function get_semiperimeter(sides) {
-  return 0.5 * sum(sides);
-}
-
-function tri_area2([a, b, c]) {
-  const s = get_semiperimeter([a, b, c]);
-  return s * (s - a) * (s - b) * (s - c);
-}
-
-const tri_area = (sides) => Math.sqrt(tri_area2(sides));
-
-function get_inradius(sides) {
-  const area = tri_area(sides);
-  const s = get_semiperimeter(sides);
-  return safe_div(area, s);
-}
-
-function get_circumradius(sides) {
-  const abc = product(sides);
-  const r = get_inradius(sides);
-  const s = get_semiperimeter(sides);
-  return safe_div(abc, (4 * r * s));
-}
-
-function cot_omega(sides) {
-  const area = tri_area(sides);
-  const l2 = sum_sqr(sides);
-  return l2 / (4 * area);
-}
-
-function sin2_omega([a, b, c]) {
-  const area2 = tri_area2([a, b, c]);
-  const a2 = a * a, b2 = b * b, c2 = c * c;
-  const denom = a2 * b2 + b2 * c2 + c2 * a2;
-  return 4 * area2 / denom;
-}
-
-const omega_e2 = (sides) => 1 - 4 * sin2_omega(sides);
-const omega_e = (sides) => Math.sqrt(omega_e2(sides));
+/// traditional triangles
 
 function get_conway([a, b, c]) {
   const a2 = a * a, b2 = b * b, c2 = c * c;
@@ -63,18 +10,6 @@ function get_conway([a, b, c]) {
   const Sc = (a2 + b2 - c2) / 2;
   const Sw = (a2 + b2 + c2) / 2;
   return { area: area, S: S, Sa: Sa, Sb: Sb, Sc: Sc, Sw: Sw };
-}
-
-function rotate_tri_right([p1, p2, p3]) {
-  return [p3, p1, p2];
-}
-
-function get_tri_centroid([v1, v2, v3]) {
-  return [(v1[0] + v2[0] + v3[0]) / 3, (v1[1] + v2[1] + v3[1]) / 3];
-}
-
-function generic_triangle(orbit, sides, ts) {
-  return ts.map(t => trilin_to_cartesian(orbit, sides, t));
 }
 
 function cevian_triangle([a, b, c], [alpha, beta, gamma]) {
@@ -993,14 +928,7 @@ function mixtilinear9th_triangle([a, b, c]) {
   return ts;
 }
 
-function get_mounted_tri(a, tDeg, v2, v3) {
-  const t = toRad(tDeg);
-  const v1 = [a * Math.cos(t), Math.sin(t)];
-  const tri = [v1, v2, v3];
-  const sides = tri_sides(tri);
-  const normals = tri.map(v => ell_norm(a, v));
-  return { o: tri, n: normals, s: sides };
-}
+
 
 function get_graves_triangle(p1, ta /* true axes */) {
   const ts = ellTangentsb(ta.ac, ta.bc, p1);
@@ -1022,12 +950,6 @@ function get_focal_inter(p, a, b, f1, f2) {
   const i2 = farthestPoint(ellInterRaybBoth(a, b, p, vdiff(f2, p)), p);
   const ii = inter_rays(i1, vdiff(f2, i1), i2, vdiff(f1, i2));
   return ii;
-}
-
-function invert_tri({ o, s }, inv_fn) {
-  const o_inv = o.map(v => inv_fn(o, s, v));
-  const sides_inv = tri_sides(o_inv);
-  return { o: o_inv, s: sides_inv };
 }
 
 function polar_tri_sides({ o, s }, inv_fn, circ, a, mounting) {
@@ -1083,21 +1005,6 @@ function tri_side_ratio(a, tDeg, mounting, tri_type_1, tri_type_2) {
   return tri1.derived_s.map((s, i) => s / tri2.derived_s[i]);
 }
 
-// function bary_to_trilin(bs,sides)  {
-//  return bs.map((b,i)=>b/sides[i]);
-// }
-function barys_to_trilins(bs, sides) {
-  // divide by sides to get trilins
-  const ts = bs.map((b, i) => b / sides[i]);
-  return ts;
-}
-
-function trilins_to_barys(ts, sides) {
-  // multiply by sides to get barys
-  const bs = ts.map((t, i) => t * sides[i]);
-  return bs;
-}
-
 //barycentrics of vertex are opposite sidelengths
 function get_tri_v1_barys(sides) {
   return [sides[0], 0, 0];
@@ -1129,95 +1036,6 @@ function get_pedal(tri, sides, p) {
   return ped_tri;
 }
 
-function get_polar_ctr(a, b, tri, sides, mounting) {
-  const circ = { ctr: [0, 0], R: 1 };
-  const tri_inv = tri.map(v => circle_inversion(v, circ));
-  // bicentric
-  return get_antipedal(tri_inv, tri_sides(tri_inv), [0, 0]);
-}
-
-function get_polar_f1(a, b, tri, sides, mounting) {
-  const c = Math.sqrt(Math.abs(a * a - b * b));
-  const f1 = a > b ? [-c, 0] : [0, c];
-  const circ = { ctr: f1, R: 1 };
-  const tri_inv = tri.map(v => circle_inversion(v, circ));
-  // bicentric
-  return get_antipedal(tri_inv, tri_sides(tri_inv), f1);
-}
-
-function get_polar_f2(a, b, tri, sides, mounting) {
-  const c = Math.sqrt(Math.abs(a * a - b * b));
-  const f2 = a > b ? [c, 0] : [0, -c];
-  const circ = { ctr: f2, R: 1 };
-  const tri_inv = tri.map(v => circle_inversion(v, circ));
-  // bicentric
-  return get_antipedal(tri_inv, tri_sides(tri_inv), f2);
-}
-
-function get_x3_map_ctr(a, b, tri, sides, mounting) {
-  // here &&&
-  const x3s = tri.map((v, i) => get_circumcenter([[0, 0], v, tri[i == 2 ? 0 : i + 1]]));
-  // bicentric
-  return x3s;
-}
-
-function get_x3_map_f1(a, b, tri, sides, mounting) {
-  const c = Math.sqrt(Math.abs(a * a - b * b));
-  const f1 = a > b ? [-c, 0] : [0, c];
-  const x3s = tri.map((v, i) => get_circumcenter([f1, v, tri[i == 2 ? 0 : i + 1]]));
-  // bicentric
-  return x3s;
-}
-
-function get_x3_inv_f1(a, b, tri, sides, mounting) {
-  const c = Math.sqrt(Math.abs(a * a - b * b));
-  const f1 = a > b ? [-c, 0] : [0, c];
-  return get_x3_inv_low(tri, f1);
-}
-
-function get_x3_inv_f1c(a, b, tri, sides, mounting) {
-  const [ac, bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a, b];
-  return get_x3_inv_f1(ac, bc, tri, sides, mounting);
-}
-
-function get_x3_inv_ctr(a, b, tri, sides, mounting) {
-  const c = Math.sqrt(Math.abs(a * a - b * b));
-  return get_x3_inv_low(tri, [0, 0]);
-}
-
-function get_x3_map_f1c(a, b, tri, sides, mounting) {
-  const [ac, bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a, b];
-  return get_x3_map_f1(ac, bc, tri, sides, mounting);
-}
-
-function get_true_axes(a, mounting) {
-  let ae, be, ac, bc, f1, f2, f1c, f2c, ctr = [0, 0];
-  if (mounting == "poristic") {
-    const d = chapple_d(1, a + 1);
-    [ae, be] = [1 + a, 1 + a];
-    [ac, bc] = [1, 1];
-    ctr = [-d, 0];
-    f1 = [0, 0]; f2 = [0, 0];
-    f1c = [d, 0]; f2c = [d, 0];
-    return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1: f1, f2: f2, f1c: f1c, f2c: f2c };
-  } else if (mounting in dict_caustic) {
-    const ab_mnt = dict_caustic[mounting](a);
-    const [ae, be] = ["inellipse", "brocard", "excentral"].includes(mounting) ? ab_mnt :
-      [a, 1];
-    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] :
-      ab_mnt;
-    const c = Math.sqrt(Math.abs(ae * ae - be * be));
-    f1 = vdiff(ae > be ? [c, 0] : [0, c], ctr);
-    f2 = vdiff(ae > be ? [-c, 0] : [0, -c], ctr);
-    const cc = Math.sqrt(Math.abs(ac * ac - bc * bc));
-    f1c = vdiff(ac > bc ? [cc, 0] : [0, cc], ctr);
-    f2c = vdiff(ac > bc ? [-cc, 0] : [0, -cc], ctr);
-    return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1: f1, f2: f2, f1c: f1c, f2c: f2c };
-  } else {
-    return { ae: a, be: 1, ac: a, bc: 1, ctr: [0, 0] };
-  }
-}
-
 //function get_focal_inter_triangle(o, a, b, outer_ctr) {
 function get_focal_inter_triangle(a, b, o, sides, mounting) {
   const ta = get_true_axes(a, mounting);
@@ -1230,106 +1048,6 @@ function get_focal_inter_triangle_caustic(a, b, o, sides, mounting) {
   const ta = get_true_axes(a, mounting);
   const tri = o.map(v => vsum(get_focal_inter(vdiff(v, ta.ctr), ta.ae, ta.be, ta.f1c, ta.f2c), ta.ctr));
   return tri;
-}
-
-function get_ellcevian_ctr(a, b, tri, sides, mounting) {
-  const ta = get_true_axes(a, mounting);
-  const tri0 = tri.map(v => vdiff(v, ta.ctr))
-    .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.ctr)), v))
-    .map(v => vsum(v, ta.ctr));
-  return tri0;
-}
-
-/*
-function extouch_outer1_triangle([a, b, c]) {
-  const s = (a+b+c)/2;
-  const bs = [[0, s - b, s - c], [-s + b, 0, s], [-s + c, s, 0]];
-  return bs.map(b0=>barys_to_trilins(b0,[a,b,c]));
-}
-*/
-
-function get_ellcevian_f1(a, b, tri, sides, mounting) {
-  const ta = get_true_axes(a, mounting);
-  const tri0 = tri.map(v => vdiff(v, ta.ctr))
-    .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.f1)), v))
-    .map(v => vsum(v, ta.ctr));
-  return tri0;
-}
-
-function get_ellcevian_f1c(a, b, tri, sides, mounting) {
-  const ta = get_true_axes(a, mounting);
-  const tri0 = tri.map(v => vdiff(v, ta.ctr))
-    .map(v => farthestPoint(ellInterRaybBoth(ta.ae, ta.be, v, vdiff(v, ta.f1c)), v))
-    .map(v => vsum(v, ta.ctr));
-  return tri0;
-}
-
-const dict_weird_outer = {
-  inellipse: caustic_inellipse,
-  brocard: caustic_brocard,
-  excentral: caustic_excentral,
-  poristic: ((a) => [1 + a, 1 + a])
-};
-
-function get_infinity_y(a, b, tri, sides, mounting) {
-  const x3 = ["brocard", "poristic"].includes(mounting) ? get_circumcenter(tri) : [0, 0];
-  const [ar, br] = mounting in dict_weird_outer ? dict_weird_outer[mounting](a) : [a, b];
-  const cs = tri.map(v => (v[0] - x3[0]) / ar);;
-  const ss = tri.map(v => (v[1] - x3[1]) / br);
-  // s2t = 2 st ct
-  const new_tri = tri.map((v, i) => [v[0], x3[1] + br * 2 * ss[i] * cs[i]]);
-  return new_tri;
-}
-
-function get_infinity_y2(a, b, tri, sides, mounting) {
-  const x3 = ["brocard", "poristic"].includes(mounting) ? get_circumcenter(tri) : [0, 0];
-  const [ar, br] = mounting in dict_weird_outer ? dict_weird_outer[mounting](a) : [a, b];
-  const cs = tri.map(v => (v[0] - x3[0]) / ar);;
-  const ss = tri.map(v => (v[1] - x3[1]) / br);
-  // s2t = 2 st ct
-  const new_tri = tri.map((v, i) => [v[0], x3[1] + Math.abs(v[1] - x3[1]) * (br * 2 * ss[i] * cs[i])]);
-  return new_tri;
-}
-
-function get_infinity_x(a, b, tri, sides, mounting) {
-  const x3 = ["brocard", "poristic"].includes(mounting) ? get_circumcenter(tri) : [0, 0];
-  const [ar, br] = mounting in dict_weird_outer ? dict_weird_outer[mounting](a) : [a, b];
-  const cs = tri.map(v => (v[0] - x3[0]) / ar);;
-  const ss = tri.map(v => (v[1] - x3[1]) / br);
-  // c2t = ct^2-st^2
-  const new_tri = tri.map((v, i) => [x3[0] + ar * (2 * ss[i] * cs[i]), v[1]]);
-  return new_tri;
-}
-
-function get_infinity_x2(a, b, tri, sides, mounting) {
-  const x3 = ["brocard", "poristic"].includes(mounting) ? get_circumcenter(tri) : [0, 0];
-  const [ar, br] = mounting in dict_weird_outer ? dict_weird_outer[mounting](a) : [a, b];
-  const cs = tri.map(v => (v[0] - x3[0]) / ar);;
-  const ss = tri.map(v => (v[1] - x3[1]) / br);
-  // c2t = ct^2-st^2
-  const new_tri = tri.map((v, i) => [x3[0] + Math.abs(v[0] - x3[0]) * (2 * ss[i] * cs[i]), v[1]]);
-  return new_tri;
-}
-
-function get_polar_f1c(a, b, tri, sides, mounting) {
-  const [ac, bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a, b];
-  return get_polar_f1(ac, bc, tri, sides, mounting);
-}
-
-function get_polar_f2c(a, b, tri, sides, mounting) {
-  const [ac, bc] = mounting in dict_caustic ? dict_caustic[mounting](a) : [a, b];
-  return get_polar_f2(ac, bc, tri, sides, mounting);
-}
-
-function get_polar_pedal_lim2(a, b, tri, sides, mounting) {
-  const c = Math.sqrt(a * a - b * b);
-  // bicentric
-  const bic_tri = get_polar_f1(a, b, tri, sides);
-  const bic_sides = tri_sides(bic_tri);
-  // pedal wrt lim2
-  const lim2 = [-c + 1 / c, 0];
-  const lim_tri = get_pedal(bic_tri, bic_sides, lim2);
-  return lim_tri;
 }
 
 function get_subtris(o, ctr) {
@@ -1529,60 +1247,6 @@ const dict_tri_fns_inv = {
 //  crem_ctr: cremona_ctr
 //};
 
-const dict_tri_fns_bicentric = {
-  ped_lim2: get_polar_pedal_lim2,
-  //inv_lim2: get_inv_lim2,
-  pol_ctr: get_polar_ctr,
-  pol_f1: get_polar_f1,
-  pol_f2: get_polar_f2,
-  pol_f1c: get_polar_f1c,
-  pol_f2c: get_polar_f2c,
-  ellcev_ctr: get_ellcevian_ctr,
-  ellcev_f1: get_ellcevian_f1,
-  ellcev_f1c: get_ellcevian_f1c,
-  x3_map_ctr: get_x3_map_ctr,
-  x3_map_f1: get_x3_map_f1,
-  x3_map_f1c: get_x3_map_f1c,
-  x3_inv_ctr: get_x3_inv_ctr,
-  x3_inv_f1: get_x3_inv_f1,
-  x3_inv_f1c: get_x3_inv_f1c,
-  inf_x: get_infinity_x,
-  inf_y: get_infinity_y,
-  inf_x2: get_infinity_x2,
-  inf_y2: get_infinity_y2,
-  ints_f12: get_focal_inter_triangle,
-  ints_f12c: get_focal_inter_triangle_caustic
-};
-
-function get_ctr_R(o, s, circ, a, mounting) {
-  var o0 = null;
-  if (circ in dict_circles)
-    o0 = dict_circles[circ](o, s);
-  else if (circ in dict_tri_fns_inv) {
-    o0 = tri_fns_invert(circ, a, mounting); // dict_tri_fns_inv[circ].fn(a);
-  }
-  return o0;
-}
-
-// for debugging
-function get_tri_generic(a, tDeg, mounting, tri_type, cpn, pn) {
-  //
-  let ons, ons_derived;
-  if (mounting in dict_orbit_fn) {
-    const orbit_fn = dict_orbit_fn[mounting];
-    ons = orbit_fn(a, tDeg);
-    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
-  } else {
-    const [v2, v3] = getV2V3(a, mounting, 0.001);
-    ons = get_mounted_tri(a, tDeg, v2, v3);
-    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
-  }
-  return {
-    a: a, tDeg: tDeg, mounting: mounting, tri_type: tri_type,
-    tri: ons.o, tri_s: ons.s, derived: ons_derived.o, derived_s: ons_derived.s
-  };
-}
-
 // these are different: they require a first tri vertex and the true axes
 const dict_graves = {
   graves: get_graves_triangle,
@@ -1635,5 +1299,24 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
     ret_tri = { o: tri0, s: tri_sides(tri0), o_deriv: ret_tri.o, s_deriv: ret_tri.s };
   }
   return ret_tri;
+}
+
+// for debugging
+function get_tri_generic(a, tDeg, mounting, tri_type, cpn, pn) {
+  //
+  let ons, ons_derived;
+  if (mounting in dict_orbit_fn) {
+    const orbit_fn = dict_orbit_fn[mounting];
+    ons = orbit_fn(a, tDeg);
+    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
+  } else {
+    const [v2, v3] = getV2V3(a, mounting, 0.001);
+    ons = get_mounted_tri(a, tDeg, v2, v3);
+    ons_derived = get_derived_tri(a, ons.o, ons.s, tri_type, cpn, pn, mounting);
+  }
+  return {
+    a: a, tDeg: tDeg, mounting: mounting, tri_type: tri_type,
+    tri: ons.o, tri_s: ons.s, derived: ons_derived.o, derived_s: ons_derived.s
+  };
 }
 
