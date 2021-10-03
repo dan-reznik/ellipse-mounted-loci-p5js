@@ -58,6 +58,14 @@ const dict_circle_triples = {
         fns: [circle_excircle_1, circle_excircle_2, circle_excircle_3],
         names: ["excircle1", "excircle2", "excircle3"]
     },
+    lemoines: {
+        fns: [circle_lemoine, circle_cosine, circle_ehrmann],
+        names: ["lemoine", "cosine", "ehrmann"]
+    },
+    brocards: {
+        fns: [circle_brocard, circle_brocard2, circle_moses],
+        names: ["brocard", "brocard2", "moses"]
+    },
     mixtilinears: {
         fns: [circle_mixtilinear_1, circle_mixtilinear_2, circle_mixtilinear_3],
         names: ["mixtilin1", "mixtilin2", "mixtilin3"]
