@@ -13,7 +13,9 @@ function get_orbit_info_low(tri, sides, circ) {
    const tans = ss.map((s, i) => s / cs[i]);
    // tan(t/2) = sqrt[(1-cos)/(1+cos)]
    const tansHalf = cs.map(c => Math.sqrt((1-c)/(1+c)));
-   const tanHalfsum= sum(tansHalf);
+   const tanHalfsum = sum(tansHalf);
+   const cotsHalf =  cs.map(c => Math.sqrt((1+c)/(1-c)));
+   const cotHalfsum = sum(cotsHalf);
    const cots = tans.map(t => 1 / t);
    const cotw = sum(cots); //  l2/(4*A);
    const cotprod = product(cots);
@@ -30,6 +32,8 @@ function get_orbit_info_low(tri, sides, circ) {
    const sinHalfsum= sum(sinsHalf);
    const tansDouble = cossDouble.map(c=>sinsDouble[i]/c);
    const tanDoublesum = sum(tansDouble);
+   const cotsDouble = cossDouble.map(c=>c/sinsDouble[i]);
+   const cotDoublesum = sum(cotsDouble);
    const cossHalf = cs.map(c=>Math.sqrt((1+c)/2));
    const cosHalfsum = sum(cossHalf)
    const sinprod = product(ss);
@@ -41,7 +45,8 @@ function get_orbit_info_low(tri, sides, circ) {
       cotw: cotw, // cotsum
       cossum: cossum, sinsum: sinsum, tansum: tansum,
       sinDoublesum: sinDoublesum, cosDoublesum: cosDoublesum, tanDoublesum: tanDoublesum,
-      sinHalfsum: sinHalfsum, cosHalfsum: cosHalfsum, tanHalfsum: tanHalfsum, 
+      cotDoublesum: cotDoublesum,
+      sinHalfsum: sinHalfsum, cosHalfsum: cosHalfsum, tanHalfsum: tanHalfsum, cotHalfsum: cotHalfsum,
       cosprod: cosprod, sinprod: sinprod, cotprod: cotprod,
       l2: l2, linv: linv, l2inv: l2inv, lprod: lprod, circR: the_circ.R
    };
@@ -51,8 +56,8 @@ function get_info_arr(info, info_der, not_ref) {
    const basics = [info.L, info.A, info.r, info.R, info.rOvR,
    info.cotw,
    info.cossum, info.sinsum, info.tansum,
-   info.sinDoublesum, info.cosDoublesum, info.tanDoublesum,
-   info.sinHalfsum, info.cosHalfsum, info.tanHalfsum, 
+   info.sinDoublesum, info.cosDoublesum, info.tanDoublesum, info.cotDoublesum,
+   info.sinHalfsum, info.cosHalfsum, info.tanHalfsum, info.cotHalfsum,
    info.cosprod, info.sinprod, info.cotprod,
    info.l2, info.linv, info.l2inv, info.lprod, info.circR];
    return not_ref ?
@@ -60,8 +65,8 @@ function get_info_arr(info, info_der, not_ref) {
          info_der.L, info_der.A, info_der.r, info_der.R, info_der.rOvR,
          info_der.cotw,
          info_der.cossum, info_der.sinsum, info_der.tansum,
-         info_der.sinDoublesum, info_der.cosDoublesum, info_der.tanDoublesum,
-         info_der.sinHalfsum, info_der.cosHalfsum, info_der.tanHalfsum, 
+         info_der.sinDoublesum, info_der.cosDoublesum, info_der.tanDoublesum, info_der.cotDoublesum,
+         info_der.sinHalfsum, info_der.cosHalfsum, info_der.tanHalfsum, info_der.cotHalfsum,
          info_der.cosprod, info_der.sinprod, info_der.cotprod,
          info_der.l2, info_der.linv, info_der.l2inv, info_der.lprod, info_der.circR,
          // ["L'/L", "A'/A", "A'.A","Rc'/Rc"]
@@ -94,8 +99,8 @@ function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, cpnSel, pn, circ,
 
    const labs0 = [
       "L", "A", "r", "R", "r/R", "cot(ω)", "Σcos", "Σsin", "Σtan",
-      "Σsin(2t)","Σcos(2t)","Σtan(2t)",
-      "Σsin(t/2)","Σcos(t/2)","Σtan(t/2)",
+      "Σsin(2t)","Σcos(2t)","Σtan(2t)","Σcot(2t)",
+      "Σsin(t/2)","Σcos(t/2)","Σtan(t/2)","Σcot(t/2)",
       "∏cos", "∏sin", "∏cot",
       "Σs^2", "Σ(1/s)", "Σs^-2", "∏s", "Rc"
    ];
