@@ -320,6 +320,15 @@ function circle_circle_inter(c1, r1, c2, r2) {
   return [i1, y2]
 }
 
+// from quadratic curve cxx x^2 + cyy y^2 + cx x + cy y + k
+// https://mathworld.wolfram.com/Circle.html
+function get_circ_ctr([cxx,cyy,cx,cy,k]) {
+  return [-cx/(2*cxx),-cy/(2*cxx)];
+}
+function get_circ_rad([cxx,cyy,cx,cy,k]) {
+  return Math.sqrt((cx*cx+cy*cy)/(4*cxx*cxx)-k/cxx);
+}
+
 function circle_circle_inter_rsqr(c1, r1_sqr, c2, r2_sqr) {
   const d = edist(c2, c1);
   const chat = vscale(vdiff(c2, c1), 1 / d);

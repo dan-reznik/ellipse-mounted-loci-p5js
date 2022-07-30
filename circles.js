@@ -116,6 +116,28 @@ const circle_excircle_1 = (tri,sides) => circle_excircle_low(tri,sides,0);
 const circle_excircle_2 = (tri,sides) => circle_excircle_low(tri,sides,1);
 const circle_excircle_3 = (tri,sides) => circle_excircle_low(tri,sides,2);
 
+// https://en.wikipedia.org/wiki/Poincar%C3%A9_disk_model
+function get_poinc_coeffs([u1,u2], [v1,v2]) {
+    const denom = u1*v2 - u2*v1;
+    const cx = (u2*(v1*v1+v2*v2+1)-v2*(u1*u1+u2*u2+1))/denom;
+    const cy = (v1*(u1*u1+u2*u2+1)-u1*(v1*v1+v2*v2+1))/denom;
+    return [1,1,cx,cy,1];
+}
+
+// https://en.wikipedia.org/wiki/Poincar%C3%A9_disk_model
+function circle_poinc_low(tri,sides,n) {
+    const from = tri[n];
+    const to = tri[n == 2 ? 0 : n + 1];
+    const coeffs = get_poinc_coeffs(from, to);
+    const ctr = get_circ_ctr(coeffs);
+    const R = get_circ_R(coeffs);
+    return { ctr:ctr, R:R, n:0 };
+}
+
+const circle_poinc_1 = (tri,sides) => circle_poinc_low(tri,sides,0);
+const circle_poinc_2 = (tri,sides) => circle_poinc_low(tri,sides,1);
+const circle_poinc_3 = (tri,sides) => circle_poinc_low(tri,sides,2);
+
 function circle_mixtilinear_low(tri,sides,n) {
     const ts = mixtilinear_triangle(sides);
     const mixt = generic_triangle(tri,sides,ts);
