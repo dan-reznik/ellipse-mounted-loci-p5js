@@ -25,6 +25,12 @@ const get_x3_inv_ctr = (a, b, tri, sides, mounting) => get_x3_inv_low(tri, get_t
 const get_x3_inv_f1 = (a, b, tri, sides, mounting) => get_x3_inv_low(tri, get_true_axes(a, mounting).f1);
 const get_x3_inv_f1c= (a, b, tri, sides, mounting) => get_x3_inv_low(tri, get_true_axes(a, mounting).f1c);
 
+
+function get_poinc_circum(a, b, o, s, mounting) {
+    const tri = [0,1,2].map(i => circle_poinc_low(o,s,i).ctr);
+    return tri;
+}
+
 function get_ellcevian_ctr(a, b, tri, sides, mounting) {
     const ta = get_true_axes(a, mounting);
     const tri0 = tri.map(v => vdiff(v, ta.ctr))

@@ -1271,7 +1271,8 @@ const dict_tri_fns_bicentric = {
   inf_x2: get_infinity_x2,
   inf_y2: get_infinity_y2,
   ints_f12: get_focal_inter_triangle,
-  ints_f12c: get_focal_inter_triangle_caustic
+  ints_f12c: get_focal_inter_triangle_caustic,
+  poinc: get_poinc_circum
 };
 
 function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {

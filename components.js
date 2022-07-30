@@ -243,6 +243,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="neuberg2">neuberg 2</option>  
             <option value="orthic">orthic</option>
             <option value="outervecten">outer vecten</option>
+            <option value="poinc">poincaré</option>
             <option value="reflection">reflection</option>
             <option value="steiner">steiner</option>
             <option value="symmedial">symmedial</option>
