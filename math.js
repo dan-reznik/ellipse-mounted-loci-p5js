@@ -326,7 +326,9 @@ function get_circ_ctr([cxx,cyy,cx,cy,k]) {
   return [-cx/(2*cxx),-cy/(2*cxx)];
 }
 function get_circ_rad([cxx,cyy,cx,cy,k]) {
-  return Math.sqrt((cx*cx+cy*cy)/(4*cxx*cxx)-k/cxx);
+  const term1 = (cx*cx+cy*cy)/(4*cxx*cxx);
+  const term2 = k/cxx;
+  return Math.sqrt(term1-term2);
 }
 
 function circle_circle_inter_rsqr(c1, r1_sqr, c2, r2_sqr) {

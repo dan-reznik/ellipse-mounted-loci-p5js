@@ -90,8 +90,8 @@ const dict_circle_triples = {
         fns: [circle_incircle, circle_circum, circle_euler],
         names: ["incircle", "circum", "euler"]
     },
-    poincs: { // poincaré arcs with respect to the circumcirlce
-        fns: [circle_poinc_1, circle_poinc_2, cirlce_poinc_3],
+    poincs: { // poincaré arcs with respect to the circumcircle
+        fns: [circle_poinc_1, circle_poinc_2, circle_poinc_3],
         names: ["poinc1","poinc2","poinc3"]
     },
     powers: {
