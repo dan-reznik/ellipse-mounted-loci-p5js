@@ -76,11 +76,11 @@ function circumcevian_triangle([a, b, c], [alpha, beta, gamma]) {
 }
 
 // with barycentrics
-function template_ptriangle([a,b,c], ts, row_pfn) {
+function template_ptriangle([a,b,c], [al,be,ga], row_pfn) {
   const mtx = [
-      row_pfn([a, b, c],ts),
-      rotate_tri_right(row_pfn([b, c, a],ts)),
-      rotate_tri_left(row_pfn([c, a, b],ts))
+      row_pfn([a, b, c],[al,be,ga]),
+      rotate_tri_right(row_pfn([b, c, a],[be,ga,al])),
+      rotate_tri_left(row_pfn([c, a, b],[ga,al,be]))
   ];
   return mtx;
 }
