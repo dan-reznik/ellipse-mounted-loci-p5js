@@ -75,6 +75,40 @@ function circumcevian_triangle([a, b, c], [alpha, beta, gamma]) {
   return [t1, t2, t3];
 }
 
+// with barycentrics
+function template_ptriangle([a,b,c], ts, row_pfn) {
+  const mtx = [
+      row_pfn([a, b, c],ts),
+      rotate_tri_right(row_pfn([b, c, a],ts)),
+      rotate_tri_left(row_pfn([c, a, b],ts))
+  ];
+  return mtx;
+}
+
+const circumsimson_row_pfn = ([a, b, c],[alpha,beta,gamma]) => {
+  // moses' code in barycentrics
+  const p = alpha * a, q = beta * b, r = gamma * c;
+  const p2 = p * p;
+  const a2 = a * a, b2 = b * b, c2 = c * c;
+  const a4 = a2 * a2, b4 = b2 * b2, c4 = c2 * c2;
+  //console.log([p,q,r,p2,a2,b2,c2,a4,b4,c4]);
+  const z1 = a2 * (2 * b2 * p + a2 * q + b2 * q - c2 * q) * (2 * c2 * p + a2 * r - b2 * r + c2 * r) *
+    (a2 * b2 * p2 - b4 * p2 + a2 * c2 * p2 + 2 * b2 * c2 * p2 - c4 * p2 + a4 * p * q - a2 * b2 * p * q +
+      a2 * c2 * p * q + a4 * p * r + a2 * b2 * p * r - a2 * c2 * p * r + 2 * a4 * q * r);
+  const z2 = -((a2 * p + b2 * p - c2 * p + 2 * a2 * q) * (a2 * c2 * p + b2 * c2 * p - c4 * p + a4 * r -
+    a2 * b2 * r - a2 * c2 * r) * (a2 * b2 * p2 - b4 * p2 + b2 * c2 * p2 + a4 * p * q - a2 * b2 * p * q -
+      a2 * c2 * p * q + 2 * a2 * b2 * p * r + a4 * q * r + a2 * b2 * q * r - a2 * c2 * q * r));
+  const z3 = -((a2 * b2 * p - b4 * p + b2 * c2 * p + a4 * q - a2 * b2 * q - a2 * c2 * q) *
+    (a2 * p - b2 * p + c2 * p + 2 * a2 * r) * (a2 * c2 * p2 + b2 * c2 * p2 - c4 * p2 + 2 * a2 * c2 * p * q +
+      a4 * p * r - a2 * b2 * p * r - a2 * c2 * p * r + a4 * q * r - a2 * b2 * q * r + a2 * c2 * q * r));
+  return [z1 / a, z2 / b, z3 / c];
+};
+
+function circumsimson_triangle([a, b, c], [alpha, beta, gamma]) {
+  return template_ptriangle([a, b, c], [alpha,beta,gamma], circumsimson_row_pfn);
+}
+
+
 // intersect sides of reference w cevian.
 function tripolar_triangle(o, s, ts) {
   const cev_ts = cevian_triangle(s, ts);
@@ -956,8 +990,8 @@ function polar_tri_sides({ o, s }, inv_fn, circ, a, mounting) {
   if (circ in dict_circle_triples) { // e.g., excircles123
     const ctrRs = dict_circle_triples[circ].fns.map(f => f(o, s));
     // strange, should o_inv be simply o?
-    const o_inv = o.map(v => inv_fn(o, s, v)); 
-    const poles = ctrRs.map((cr, k) => line_pole(o_inv[k==2?0:k+1], o_inv[k==0?2:k-1],
+    const o_inv = o.map(v => inv_fn(o, s, v));
+    const poles = ctrRs.map((cr, k) => line_pole(o_inv[k == 2 ? 0 : k + 1], o_inv[k == 0 ? 2 : k - 1],
       cr.ctr, cr.R));
     const pole_sides = tri_sides(poles);
     return { o: poles, s: pole_sides };
@@ -966,7 +1000,7 @@ function polar_tri_sides({ o, s }, inv_fn, circ, a, mounting) {
     if (o0) {
       const { ctr, R, n } = o0;
       const o_inv = o.map(v => inv_fn(o, s, v));
-      const poles = o_inv.map((p, k) => line_pole(o_inv[k==2?0:k+1], o_inv[k==0?2:k-1], ctr, R));
+      const poles = o_inv.map((p, k) => line_pole(o_inv[k == 2 ? 0 : k + 1], o_inv[k == 0 ? 2 : k - 1], ctr, R));
       const pole_sides = tri_sides(poles);
       return { o: poles, s: pole_sides };
     } else
@@ -978,7 +1012,7 @@ function polar_tri({ o, s }, inv_fn, circ, a, mounting) {
   if (circ in dict_circle_triples) { // e.g., excircles123
     const ctrRs = dict_circle_triples[circ].fns.map(f => f(o, s));
     // strange, should o_inv be simply o?
-    const o_inv = o.map(v => inv_fn(o, s, v)); 
+    const o_inv = o.map(v => inv_fn(o, s, v));
     const polars = o_inv.map((p, k) => polar_line(p, ctrRs[k].ctr, ctrRs[k].R));
     const polar = polars.map((v, k) => inter_rays(v.p, v.dir,
       polars[k == 2 ? 0 : k + 1].p, polars[k == 2 ? 0 : k + 1].dir));
@@ -1169,6 +1203,7 @@ const dict_tri_pfns = {
   cevian: { fn: cevian_triangle, needs: "none" },
   anticevian: { fn: anticevian_triangle, needs: "none" },
   circumcevian: { fn: circumcevian_triangle, needs: "none" },
+  circumsimson: { fn: circumsimson_triangle, needs: "none" },
   ellcevian: { fn: ellcevian_triangle, needs: "ell" }, // sends tri too
   caucevian: { fn: caucevian_triangle, needs: "cau" }, // sends tri too
   pedal: { fn: pedal_triangle, needs: "none" },
