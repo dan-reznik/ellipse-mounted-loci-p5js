@@ -218,6 +218,27 @@ const circle_neuberg_refl_1 = (tri,sides) => circle_neuberg_low(tri,sides,0,true
 const circle_neuberg_refl_2 = (tri,sides) => circle_neuberg_low(tri,sides,1,true);
 const circle_neuberg_refl_3 = (tri,sides) => circle_neuberg_low(tri,sides,2,true);
 
+function circle_bitang_ext_low(tri,sides,n) {
+    const ts_mtx = bitangent_ext_triangle(sides);
+    const ctr = trilin_to_cartesian(tri,sides,ts_mtx[n]);
+    const R = edist(ctr,tri[n]);
+    return { ctr:ctr, R:R, n:0 };
+}
+const circle_bitang_ext_1 = (tri,sides) => circle_bitang_ext_low(tri,sides,0);
+const circle_bitang_ext_2 = (tri,sides) => circle_bitang_ext_low(tri,sides,1);
+const circle_bitang_ext_3 = (tri,sides) => circle_bitang_ext_low(tri,sides,2);
+
+function circle_bitang_int_low(tri,sides,n) {
+    const ts_mtx = bitangent_int_triangle(sides);
+    const ctr = trilin_to_cartesian(tri,sides,ts_mtx[n]);
+    const R = edist(ctr,tri[n]);
+    return { ctr:ctr, R:R, n:0 };
+}
+const circle_bitang_int_1 = (tri,sides) => circle_bitang_int_low(tri,sides,0);
+const circle_bitang_int_2 = (tri,sides) => circle_bitang_int_low(tri,sides,1);
+const circle_bitang_int_3 = (tri,sides) => circle_bitang_int_low(tri,sides,2);
+
+
 // https://mathworld.wolfram.com/TangentCircles.html
 function circle_tangent_low(tri,sides,n) {
     const ctr = tri[n];

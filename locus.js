@@ -101,6 +101,14 @@ const dict_circle_triples = {
     tangents: {
         fns: [circle_tangent_1, circle_tangent_2, circle_tangent_3],
         names: ["tangent1","tangent2","tangent"]
+    },
+    bitangs_ext: {
+        fns: [circle_bitang_ext_1, circle_bitang_ext_2, circle_bitang_ext_3],
+        names: ["btg-ext1","btg-ext2","btg-ext3"]
+    },
+    bitangs_int: {
+        fns: [circle_bitang_int_1, circle_bitang_int_2, circle_bitang_int_3],
+        names: ["btg-int1","btg-int2","btg-int3"]
     }
 };
 
