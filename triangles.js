@@ -76,38 +76,6 @@ function circumcevian_triangle([a, b, c], [alpha, beta, gamma]) {
 }
 
 // with barycentrics
-function template_ptriangle([a,b,c], [al,be,ga], row_pfn) {
-  const mtx = [
-      row_pfn([a, b, c],[al,be,ga]),
-      rotate_tri_right(row_pfn([b, c, a],[be,ga,al])),
-      rotate_tri_left(row_pfn([c, a, b],[ga,al,be]))
-  ];
-  return mtx;
-}
-
-const circumsimson_row_pfn = ([a, b, c],[alpha,beta,gamma]) => {
-  // moses' code in barycentrics
-  const p = alpha * a, q = beta * b, r = gamma * c;
-  const p2 = p * p;
-  const a2 = a * a, b2 = b * b, c2 = c * c;
-  const a4 = a2 * a2, b4 = b2 * b2, c4 = c2 * c2;
-  //console.log([p,q,r,p2,a2,b2,c2,a4,b4,c4]);
-  const z1 = a2 * (2 * b2 * p + a2 * q + b2 * q - c2 * q) * (2 * c2 * p + a2 * r - b2 * r + c2 * r) *
-    (a2 * b2 * p2 - b4 * p2 + a2 * c2 * p2 + 2 * b2 * c2 * p2 - c4 * p2 + a4 * p * q - a2 * b2 * p * q +
-      a2 * c2 * p * q + a4 * p * r + a2 * b2 * p * r - a2 * c2 * p * r + 2 * a4 * q * r);
-  const z2 = -((a2 * p + b2 * p - c2 * p + 2 * a2 * q) * (a2 * c2 * p + b2 * c2 * p - c4 * p + a4 * r -
-    a2 * b2 * r - a2 * c2 * r) * (a2 * b2 * p2 - b4 * p2 + b2 * c2 * p2 + a4 * p * q - a2 * b2 * p * q -
-      a2 * c2 * p * q + 2 * a2 * b2 * p * r + a4 * q * r + a2 * b2 * q * r - a2 * c2 * q * r));
-  const z3 = -((a2 * b2 * p - b4 * p + b2 * c2 * p + a4 * q - a2 * b2 * q - a2 * c2 * q) *
-    (a2 * p - b2 * p + c2 * p + 2 * a2 * r) * (a2 * c2 * p2 + b2 * c2 * p2 - c4 * p2 + 2 * a2 * c2 * p * q +
-      a4 * p * r - a2 * b2 * p * r - a2 * c2 * p * r + a4 * q * r - a2 * b2 * q * r + a2 * c2 * q * r));
-  return [z1 / a, z2 / b, z3 / c];
-};
-
-function circumsimson_triangle([a, b, c], [alpha, beta, gamma]) {
-  return template_ptriangle([a, b, c], [alpha,beta,gamma], circumsimson_row_pfn);
-}
-
 
 // intersect sides of reference w cevian.
 function tripolar_triangle(o, s, ts) {
@@ -1183,6 +1151,8 @@ const dict_tri_fns = {
   apollonius: apollonius_triangle,
   ayme: ayme_triangle,
   bevan_antipodal: bevan_antipodal_triangle,
+  bitang_ext: bitangent_ext_triangle,
+  bitang_int: bitangent_int_triangle,
   circumperp1: first_circumperp_triangle,
   circumperp2: second_circumperp_triangle,
   exc_inc_refl: excenters_incenter_reflection_triangle,
