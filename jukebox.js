@@ -291,15 +291,15 @@ const glob_juke = [
     "items": 8
   },
   {
-    "sheet": "25 circumsimson",
+    "sheet": "25 new triangles",
     "data": {
-      "id": [1, 2, 3, 4],
-      "sec": [10, 10, 10, 10],
-      "name": ["X(1)-circumsimson [Wasat triangle] over poristics", "X(4)-circumsimson [anti-Wasat triangle] over poristics", "X(15)-circumcimson [an equilateral] over poristics", "X(16)-circumcimson [an equilateral] over poristics"],
-      "date": ["2022-08-02", "2022-08-02", "2022-08-02", "2022-08-02"],
-      "bit.ly": ["3zSAO6T", "3vAMBUT", "3bolq8G", "3oPaJ23"],
-      "config": ["sc=13.718&cx=549&cy=300&a=2.094&lc1=vtx&lc2=caustic&lc3=trilins&cpn1=circumsimson&cpn2=circumsimson&cpn3=circumsimson&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic", "sc=13.718&cx=536&cy=281&a=2.479&xn1=1&xn2=1&xn3=1&xn4=1&pn1=4&pn2=4&pn3=4&pn4=4&lc1=vtx&lc2=caustic&lc3=trilins&cpn1=circumsimson&cpn2=circumsimson&cpn3=circumsimson&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic", "sc=13.718&cx=549&cy=300&a=2.479&xn3=2&pn1=15&pn2=15&pn3=15&pn4=15&lc1=vtx&lc2=caustic&lc3=trilins&cpn1=circumsimson&cpn2=circumsimson&cpn3=circumsimson&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic", "sc=13.718&cx=549&cy=300&a=2.479&xn3=2&pn1=16&pn2=16&pn3=16&pn4=16&lc1=vtx&lc2=caustic&lc3=trilins&cpn1=circumsimson&cpn2=circumsimson&cpn3=circumsimson&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic"]
+      "id": [1, 2, 3, 4, 5, 6, 7],
+      "sec": [10, 10, 10, 10, 10, 10, 10],
+      "name": ["X(1)-circumsimson [Wasat triangle] over poristics", "X(4)-circumsimson [anti-Wasat triangle] over poristics", "X(15)-circumcimson [an equilateral] over poristics", "X(16)-circumcimson [an equilateral] over poristics", "X(16)-circumcimson [an equilateral] over poristics colored", "Bitangent Ext. over poristics: X(2) is stationary", "Bitangent Int. over poristics: X(2) is stationary"],
+      "date": ["2022-08-02", "2022-08-02", "2022-08-02", "2022-08-02", "2022-08-02", "2022-08-04", "2022-08-04"],
+      "bit.ly": ["3zSAO6T", "3vAMBUT", "3bolq8G", "3oPaJ23", "3zw6RrS", "3cZyIsF", "3Jt92B2"],
+      "config": ["sc=13.718&cx=549&cy=300&a=2.094&lc1=vtx&lc2=caustic&lc3=trilins&cpn1=circumsimson&cpn2=circumsimson&cpn3=circumsimson&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic", "sc=13.718&cx=536&cy=281&a=2.479&xn1=1&xn2=1&xn3=1&xn4=1&pn1=4&pn2=4&pn3=4&pn4=4&lc1=vtx&lc2=caustic&lc3=trilins&cpn1=circumsimson&cpn2=circumsimson&cpn3=circumsimson&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic", "sc=13.718&cx=549&cy=300&a=2.479&xn3=2&pn1=15&pn2=15&pn3=15&pn4=15&lc1=vtx&lc2=caustic&lc3=trilins&cpn1=circumsimson&cpn2=circumsimson&cpn3=circumsimson&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic", "sc=13.718&cx=549&cy=300&a=2.479&xn3=2&pn1=16&pn2=16&pn3=16&pn4=16&lc1=vtx&lc2=caustic&lc3=trilins&cpn1=circumsimson&cpn2=circumsimson&cpn3=circumsimson&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic", "seed1=4b9f&seed2=411&seed3=e496&sc=13.718&cx=549&cy=300&a=2.479&xn3=2&pn1=16&pn2=16&pn3=16&pn4=16&lc1=vtx&lc2=caustic&lc3=trilins&cpn1=circumsimson&cpn2=circumsimson&cpn3=circumsimson&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic", "sc=13.615&cx=710&cy=301&a=2.545&xn4=2&dr2=true&lc1=none&lc2=vtx&lc3=caustic&lc4=trilins&tr2=bitang_ext&tr3=bitang_ext&tr4=bitang_ext&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic&crc1=bitangs_ext", "sc=13.615&cx=710&cy=301&a=2.545&xn4=2&dr2=true&lc1=none&lc2=vtx&lc3=caustic&lc4=trilins&tr2=bitang_int&tr3=bitang_int&tr4=bitang_ext&mt1=poristic&mt2=poristic&mt3=poristic&mt4=poristic&crc1=bitangs_int"]
     },
-    "items": 4
+    "items": 7
   }
 ];
