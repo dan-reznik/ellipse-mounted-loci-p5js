@@ -1153,6 +1153,8 @@ const dict_tri_fns = {
   bevan_antipodal: bevan_antipodal_triangle,
   bitang_ext: bitangent_ext_triangle,
   bitang_int: bitangent_int_triangle,
+  bitang_inc_ext: bitangent_inc_ext_triangle,
+  bitang_inc_int: bitangent_inc_int_triangle,
   circumperp1: first_circumperp_triangle,
   circumperp2: second_circumperp_triangle,
   exc_inc_refl: excenters_incenter_reflection_triangle,

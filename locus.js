@@ -109,6 +109,14 @@ const dict_circle_triples = {
     bitangs_int: {
         fns: [circle_bitang_int_1, circle_bitang_int_2, circle_bitang_int_3],
         names: ["btg-int1","btg-int2","btg-int3"]
+    },
+    bitangs_inc_ext: {
+        fns: [circle_bitang_inc_ext_1, circle_bitang_inc_ext_2, circle_bitang_inc_ext_3],
+        names: ["btg-ext1","btg-ext2","btg-ext3"]
+    },
+    bitangs_inc_int: {
+        fns: [circle_bitang_inc_int_1, circle_bitang_inc_int_2, circle_bitang_inc_int_3],
+        names: ["btg-int1","btg-int2","btg-int3"]
     }
 };
 
@@ -232,7 +240,9 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
         var o = null;
         if (circ in dict_circles)
             // &&& was ons_derived
-            o = dict_circles[circ](ons_derived0.o, ons_derived0.s);
+            o = inv=="ref"?
+            dict_circles[circ](ons.o, ons.s) : 
+            dict_circles[circ](ons_derived0.o, ons_derived0.s);
         else if (circ in dict_tri_fns_inv) {
             o = tri_fns_invert(circ, a, mounting); // dict_tri_fns_inv[circ].fn(a);
         }
@@ -245,7 +255,7 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     // circle triples
     if (dr_tri && circ in dict_circle_triples) {
         // &&& was ons_derived
-        const os = dict_circle_triples[circ].fns.map(f => f(ons_derived0.o, ons_derived0.s));
+        const os = dict_circle_triples[circ].fns.map(f => (inv=="ref"?f(ons.o, ons.s):f(ons_derived0.o, ons_derived0.s)));
         const names = dict_circle_triples[circ].names;
         os.map((o, i) => {
             draw_circle_low(o.ctr, o.R, clr, stroke_w, true);
@@ -330,7 +340,9 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
         var o = null;
         if (circ in dict_circles)
             // &&& was derived
-            o = dict_circles[circ](ons_derived0.o, ons_derived0.s);
+            o = inv=="ref"?
+            dict_circles[circ](ons.o, ons.s) : 
+            dict_circles[circ](ons_derived0.o, ons_derived0.s);
         else if (circ in dict_tri_fns_inv) {
             o = tri_fns_invert(circ, a, mounting); // dict_tri_fns_inv[circ].fn(a);
         }
@@ -343,7 +355,7 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
     // circle triples
     if (dr_tri && circ in dict_circle_triples) {
         // &&& was ons_derived
-        const os = dict_circle_triples[circ].fns.map(f => f(ons_derived0.o, ons_derived0.s));
+        const os = dict_circle_triples[circ].fns.map(f => (inv=="ref"?f(ons.o, ons.s):f(ons_derived0.o, ons_derived0.s)));
         const names = dict_circle_triples[circ].names;
         os.map((o, i) => {
             draw_circle_low(o.ctr, o.R, clr, stroke_w, true);

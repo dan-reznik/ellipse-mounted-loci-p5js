@@ -92,7 +92,7 @@ function get_orbit_biz(a, tDeg, mounting, tri_type, cpn, pn, circ, inv, not_ref)
 }
 
 function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, cpnSel, pn, circ, inv) {
-   const not_ref = tri_type != "reference" || (inv != "off" && circ != "off") || cpn != "off";
+   const not_ref = tri_type != "reference" || (inv != "off" && inv != "ref" && circ != "off") || cpn != "off";
    const biz1 = get_orbit_biz(a, tDeg + .1, mounting, tri_type, cpn, pn, circ, inv, not_ref);
    const biz2 = get_orbit_biz(a, tDeg + 5.1, mounting, tri_type, cpn, pn, circ, inv, not_ref);
    const biz3 = get_orbit_biz(a, tDeg - 10.1, mounting, tri_type, cpn, pn, circ, inv, not_ref);

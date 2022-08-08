@@ -239,6 +239,31 @@ const circle_bitang_int_2 = (tri,sides) => circle_bitang_int_low(tri,sides,1);
 const circle_bitang_int_3 = (tri,sides) => circle_bitang_int_low(tri,sides,2);
 
 
+function circle_bitang_inc_ext_low(tri,sides,n) {
+    const ts_mtx = bitangent_inc_ext_triangle(sides);
+    const ts_int_mtx = intouch_triangle(sides);
+    const ctr = trilin_to_cartesian(tri,sides,ts_mtx[n]);
+    const int = trilin_to_cartesian(tri,sides,ts_int_mtx[n]);
+    const R = edist(ctr,int);
+    return { ctr:ctr, R:R, n:0 };
+}
+const circle_bitang_inc_ext_1 = (tri,sides) => circle_bitang_inc_ext_low(tri,sides,0);
+const circle_bitang_inc_ext_2 = (tri,sides) => circle_bitang_inc_ext_low(tri,sides,1);
+const circle_bitang_inc_ext_3 = (tri,sides) => circle_bitang_inc_ext_low(tri,sides,2);
+
+function circle_bitang_inc_int_low(tri,sides,n) {
+    const ts_mtx = bitangent_inc_int_triangle(sides);
+    const ts_int_mtx = intouch_triangle(sides);
+    const ctr = trilin_to_cartesian(tri,sides,ts_mtx[n]);
+    const int = trilin_to_cartesian(tri,sides,ts_int_mtx[n]);
+    const R = edist(ctr,int);
+    return { ctr:ctr, R:R, n:0 };
+}
+const circle_bitang_inc_int_1 = (tri,sides) => circle_bitang_inc_int_low(tri,sides,0);
+const circle_bitang_inc_int_2 = (tri,sides) => circle_bitang_inc_int_low(tri,sides,1);
+const circle_bitang_inc_int_3 = (tri,sides) => circle_bitang_inc_int_low(tri,sides,2);
+
+
 // https://mathworld.wolfram.com/TangentCircles.html
 function circle_tangent_low(tri,sides,n) {
     const ctr = tri[n];
