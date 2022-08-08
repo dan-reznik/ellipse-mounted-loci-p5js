@@ -31,10 +31,7 @@ function circumsimson_triangle([a, b, c], [alpha, beta, gamma]) {
 
 
 // Tangent to circumcircle at A,B,C, externally-tangent to incircle
-// Peter Moses, 4-aug-2022. Tangent to incircle at:
-// z1= -(a*b - b2 + a*c + 2*b*c - c2)2;
-// z2 = b2*(-a + b - c)*(-a + b + c)
-// z3 = (a - b - c)*(a + b - c)*c2;
+// Peter Moses, 4-aug-2022.
 function bitangent_ext_triangle([a, b, c]) {
   const row_fn = (a, b, c) => {
     // moses' code in barycentrics
@@ -54,19 +51,32 @@ function bitangent_ext_triangle([a, b, c]) {
   return template_triangle([a, b, c], row_fn);
 }
 
-
-// Tangent to circumcircle at A,B,C, internally-tangent to incircle
-// Peter Moses, 4-aug-2022.  Tangent to incircle at:
-// z1= (b - c)2*(a + b - c)*(a - b + c);
-// z2= b2*(a + b - c)*(-a + b + c);
-// z3= -((a - b - c)*c^2*(a - b + c));
-function bitangent_int_triangle([a, b, c]) {
+function bitangent_ext_contact_triangle([a, b, c]) {
   const row_fn = (a, b, c) => {
     // moses' code in barycentrics
+    const b2 = b * b, c2 = c * c;
+
+    //{-(a*b - b^2 + a*c + 2*b*c - c^2)^2, b^2*(-a + b - c)*(-a + b + c), (a - b - c)*(a + b - c)*c^2}
+
+    const z10 = (a * b - b2 + a * c + 2 * b * c - c2);
+    const z1 = -z10 * z10;
+    const z2 = b2 * (-a + b - c) * (-a + b + c);
+    const z3 = (a - b - c) * (a + b - c) * c2;
+
+    return [z1 / a, z2 / b, z3 / c];
+  };
+  return template_triangle([a, b, c], row_fn);
+}
+
+
+// Tangent to circumcircle at A,B,C, internally-tangent to incircle
+// Peter Moses, 4-aug-2022.
+function bitangent_int_triangle([a, b, c]) {
+  const row_fn = (a, b, c) => {
     const a2 = a * a, b2 = b * b, c2 = c * c;
     const b3 = b * b2, c3 = c * c2;
     const b4 = b2 * b2, c4 = c2 * c2;
-
+    // tangent to incircle:
     const z1 = a2 * b2 - b4 - 4 * a2 * b * c + 4 * b3 * c + a2 * c2 - 6 * b2 * c2 + 4 * b * c3 - c4;
     const z2 = b2 * (-a2 + b2 - c2);
     const z3 = c2 * (-a2 - b2 + c2);
@@ -76,11 +86,21 @@ function bitangent_int_triangle([a, b, c]) {
   return template_triangle([a, b, c], row_fn);
 }
 
+function bitangent_int_contact_triangle([a, b, c]) {
+  const row_fn = (a, b, c) => {
+    const b2 = b * b, c2 = c * c;
+    // Tangent to incircle:
+    const z1 = (b - c) * (b - c) * (a + b - c) * (a - b + c);
+    const z2 = b2 * (a + b - c) * (-a + b + c);
+    const z3 = -((a - b - c) * c2 * (a - b + c));
+
+    return [z1 / a, z2 / b, z3 / c];
+  };
+  return template_triangle([a, b, c], row_fn);
+}
+
 // Externally-tangent to incircle at vertices of intouch triangle
-// Peter Moses, 8-aug-2022. Touchpoints on circumcircle:
-// z1 = a2*(a + b - c)*(a - b + c);
-// z2 = b*(a + b - c)*(-(a*b) + b2 - a*c - 2*b*c + c2);
-// z3 = c*(a - b + c)*(-(a*b) + b2 - a*c - 2*b*c + c2);
+// Peter Moses, 8-aug-2022.
 function bitangent_inc_ext_triangle([a, b, c]) {
   const row_fn = (a, b, c) => {
     // moses' code in barycentrics
@@ -96,11 +116,20 @@ function bitangent_inc_ext_triangle([a, b, c]) {
   return template_triangle([a, b, c], row_fn);
 }
 
+function bitangent_inc_ext_contact_triangle([a, b, c]) {
+  const row_fn = (a, b, c) => {
+    const a2 = a * a, b2 = b * b, c2 = c * c;
+    // tangent to circumcircle:
+    z1 = a2 * (a + b - c) * (a - b + c);
+    z2 = b * (a + b - c) * (-(a * b) + b2 - a * c - 2 * b * c + c2);
+    z3 = c * (a - b + c) * (-(a * b) + b2 - a * c - 2 * b * c + c2);
+    return [z1 / a, z2 / b, z3 / c];
+  };
+  return template_triangle([a, b, c], row_fn);
+}
+
 // Internally-tangent to incircle at vertices of intouch triangle
-// Peter Moses, 8-aug-2022. Touchpoints on circumcircle:
-// z1 = a2*(a + b - c)*(a - b + c);
-// z2 = b*(b - c)*(a + b - c)*(-a + b + c); 
-// z3 = (a - b - c)*(b - c)*c*(a - b + c);
+// Peter Moses, 8-aug-2022.
 function bitangent_inc_int_triangle([a, b, c]) {
   const row_fn = (a, b, c) => {
     // moses' code in barycentrics
@@ -110,8 +139,18 @@ function bitangent_inc_int_triangle([a, b, c]) {
     const z1 = 2 * a4;
     const z2 = a2 * (a2 + 2 * a * b - b2 - 2 * a * c + c2);
     const z3 = a2 * (a2 - 2 * a * b + b2 + 2 * a * c - c2);
+    return [z1 / a, z2 / b, z3 / c];
+  };
+  return template_triangle([a, b, c], row_fn);
+}
 
-
+function bitangent_inc_int_contact_triangle([a, b, c]) {
+  const row_fn = (a, b, c) => {
+    const a2 = a * a;
+    // tangent to circumcircle:
+    z1 = a2 * (a + b - c) * (a - b + c);
+    z2 = b * (b - c) * (a + b - c) * (-a + b + c);
+    z3 = (a - b - c) * (b - c) * c * (a - b + c);
     return [z1 / a, z2 / b, z3 / c];
   };
   return template_triangle([a, b, c], row_fn);
