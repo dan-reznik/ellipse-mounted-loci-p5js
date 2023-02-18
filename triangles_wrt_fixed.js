@@ -59,11 +59,12 @@ const dict_weird_outer = {
     inellipse: caustic_inellipse,
     brocard: caustic_brocard,
     excentral: caustic_excentral,
-    poristic: ((a) => [1 + a, 1 + a])
+    poristic: ((a) => [1 + a, 1 + a]),
+    macbeath: caustic_macbeath
 };
 
 function get_infinity_y(a, b, tri, sides, mounting) {
-    const x3 = ["brocard", "poristic"].includes(mounting) ? get_circumcenter(tri) : [0, 0];
+    const x3 = ["brocard", "poristic", "macbeath"].includes(mounting) ? get_circumcenter(tri) : [0, 0];
     const [ar, br] = mounting in dict_weird_outer ? dict_weird_outer[mounting](a) : [a, b];
     const cs = tri.map(v => (v[0] - x3[0]) / ar);;
     const ss = tri.map(v => (v[1] - x3[1]) / br);
@@ -73,7 +74,7 @@ function get_infinity_y(a, b, tri, sides, mounting) {
 }
 
 function get_infinity_y2(a, b, tri, sides, mounting) {
-    const x3 = ["brocard", "poristic"].includes(mounting) ? get_circumcenter(tri) : [0, 0];
+    const x3 = ["brocard", "poristic", "macbeath"].includes(mounting) ? get_circumcenter(tri) : [0, 0];
     const [ar, br] = mounting in dict_weird_outer ? dict_weird_outer[mounting](a) : [a, b];
     const cs = tri.map(v => (v[0] - x3[0]) / ar);;
     const ss = tri.map(v => (v[1] - x3[1]) / br);
@@ -83,7 +84,7 @@ function get_infinity_y2(a, b, tri, sides, mounting) {
 }
 
 function get_infinity_x(a, b, tri, sides, mounting) {
-    const x3 = ["brocard", "poristic"].includes(mounting) ? get_circumcenter(tri) : [0, 0];
+    const x3 = ["brocard", "poristic", "macbeath"].includes(mounting) ? get_circumcenter(tri) : [0, 0];
     const [ar, br] = mounting in dict_weird_outer ? dict_weird_outer[mounting](a) : [a, b];
     const cs = tri.map(v => (v[0] - x3[0]) / ar);;
     const ss = tri.map(v => (v[1] - x3[1]) / br);
@@ -93,7 +94,7 @@ function get_infinity_x(a, b, tri, sides, mounting) {
 }
 
 function get_infinity_x2(a, b, tri, sides, mounting) {
-    const x3 = ["brocard", "poristic"].includes(mounting) ? get_circumcenter(tri) : [0, 0];
+    const x3 = ["brocard", "poristic", "macbeath"].includes(mounting) ? get_circumcenter(tri) : [0, 0];
     const [ar, br] = mounting in dict_weird_outer ? dict_weird_outer[mounting](a) : [a, b];
     const cs = tri.map(v => (v[0] - x3[0]) / ar);;
     const ss = tri.map(v => (v[1] - x3[1]) / br);

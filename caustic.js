@@ -81,3 +81,15 @@ function brocard_porism(a) {
     const R = edist(isos[0][0], x3);
     return { R: R, x3: x3 };
 }
+
+// what comes in is axes of macbeath, where is circle (a,1)
+function caustic_macbeath(a) {
+    R=2*a;
+    return [R, R];
+}
+
+function macbeath_porism(a) {
+    const R = 2*a;
+    const c = Math.sqrt(a*a-1);
+    return { R: R, x3: [-c,0] };  
+}

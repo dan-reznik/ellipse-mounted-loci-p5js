@@ -129,7 +129,8 @@ const dict_caustic = {
     poristic: caustic_poristic,
     brocard: caustic_brocard,
     excentral: caustic_excentral,
-    excentral_affine: caustic_excentral_affine
+    excentral_affine: caustic_excentral_affine,
+    macbeath: caustic_macbeath
 };
 
 const dict_two_point = {
@@ -162,6 +163,7 @@ const dict_orbit_fn = {
     dual: orbit_dual,
     poristic: orbit_poristic,
     brocard: orbit_brocard,
+    macbeath: orbit_macbeath,
     excentral: orbit_excentral,
     excentral_affine: orbit_excentral_affine
 };
@@ -285,6 +287,12 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
                 pop();
             } else if (mounting == "brocard") {
                 const bp = brocard_porism(a);
+                push();
+                translate(...bp.x3);
+                draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
+                pop();
+            } else if (mounting == "macbeath") {
+                const bp = macbeath_porism(a);
                 push();
                 translate(...bp.x3);
                 draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);

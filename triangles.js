@@ -1301,7 +1301,7 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
   } else if (mounting in dict_caustic && tri_type in dict_graves) {
     // some poncelet families have the "caustic" wrong.
     const ta = get_true_axes(a, mounting);
-    //const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
+    //const [ac, bc] = ["inellipse", "brocard", "excentral", "macbeath"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
     const tri0 = dict_graves[tri_type](orbit[0], ta);
     ret_tri = { o: tri0, s: tri_sides(tri0) };
   } else if (tri_type in dict_tri_fns) { // "reference" returns itself
@@ -1320,7 +1320,7 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
       case "tri_pn": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, pn); break;
       case "ell": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, a); break;
       case "cau": {
-        const [ac, bc] = !(mounting in dict_caustic) || ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
+        const [ac, bc] = !(mounting in dict_caustic) || ["inellipse", "brocard", "excentral", "macbeath"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
         tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, ac, bc);
         break;
       };

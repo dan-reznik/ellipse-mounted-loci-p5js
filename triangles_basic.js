@@ -98,9 +98,9 @@ function get_true_axes(a, mounting) {
     return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1: f1, f2: f2, f1c: f1c, f2c: f2c };
   } else if (mounting in dict_caustic) {
     const ab_mnt = dict_caustic[mounting](a);
-    const [ae, be] = ["inellipse", "brocard", "excentral"].includes(mounting) ? ab_mnt :
+    const [ae, be] = ["inellipse", "brocard", "excentral", "macbeath"].includes(mounting) ? ab_mnt :
       [a, 1];
-    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] :
+    const [ac, bc] = ["inellipse", "brocard", "excentral", "macbeath"].includes(mounting) ? [a, 1] :
       ab_mnt;
     const c = Math.sqrt(Math.abs(ae * ae - be * be));
     f1 = vdiff(ae > be ? [-c, 0] : [0, -c], ctr);
@@ -249,9 +249,9 @@ function get_true_axes(a, mounting) {
     return { ae: ae, be: be, ac: ac, bc: bc, ctr: ctr, f1: f1, f2: f2, f1c: f1c, f2c: f2c };
   } else if (mounting in dict_caustic) {
     const ab_mnt = dict_caustic[mounting](a);
-    const [ae, be] = ["inellipse", "brocard", "excentral"].includes(mounting) ? ab_mnt :
+    const [ae, be] = ["inellipse", "brocard", "excentral", "macbeath"].includes(mounting) ? ab_mnt :
       [a, 1];
-    const [ac, bc] = ["inellipse", "brocard", "excentral"].includes(mounting) ? [a, 1] :
+    const [ac, bc] = ["inellipse", "brocard", "excentral", "macbeath"].includes(mounting) ? [a, 1] :
       ab_mnt;
     const c = Math.sqrt(Math.abs(ae * ae - be * be));
     f1 = vdiff(ae > be ? [-c, 0] : [0, -c], ctr);

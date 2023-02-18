@@ -299,7 +299,7 @@ const circle_apollonius_isodyn_2 = (tri,sides) => circle_apollonius_isodyn_low(t
 const circle_apollonius_isodyn_3 = (tri,sides) => circle_apollonius_isodyn_low(tri,sides,2);
 
 function circle_cosine_exc(tri,sides) {
-    const exc_ts = excentral_triangle(tri,sides);
+    const exc_ts = excentral_triangle(sides);
     const exc = generic_triangle(tri,sides,exc_ts);
     let cc_exc = circle_cosine(exc,tri_sides(exc));
     cc_exc.n=9;

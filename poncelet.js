@@ -307,4 +307,36 @@ function orbit_brocard(a, tDeg) {
   return { o: tri, s: tri_sides(tri) };
 }
 
+// what parameter "x" must be passed to orbit_poristic so that its
+// excentral's MacBeath (call it E) has aspect ratio a, the UI-established caustic major axis?
+// Let a', b' be the semiaxes of E. Observing E, a' = Rpor = (1+a).
+// since we want a'/b' = (1+a)/b' = a, then b' must be (1+a)/a.
+// per Peter Moses, b' = sqrt(Rexc^2-|OH|^2)/2. Per odehnal, Rexc = 2*(1+a).
+// observing the poristic: H (resp. O) of the excentral is X1 (resp. X40) of the poristic.
+// X40 is the reflection of X1 on X3. Euler's formula: |X1X3|^2 = R(R-2r).
+// so |OH| of the excentral will be 2*sqrt(R(R-2r)), with rpor = 1.
+// So |OH|^2 = 4*R*(R-2) = 4*(a+1)*(a-1) = 4*(a^2-1) = 4*c^2 [Rpor = 1+a].
+// therefore b' = sqrt(Rexc^2-|OH|^2)/2 = sqrt(4*(1+a)^2-4*(a^2-1))/2 =
+// b' = sqrt( (1+a)^2 - (a^2-1) ) = sqrt( 1+2a+a^2 - a^2+1) = sqrt(2+2a).
+// a'/b' = (1+x)/sqrt(2+2x) = a
+// x = 2 a^2 - 1.
+
+
+function orbit_macbeath(a, tDeg) {
+  const x = 2*a*a-1; // Excentral's Macbeath should have aspect ratio of "a".
+  const op = orbit_poristic(x, tDeg);
+  const exc_ts = excentral_triangle(op.s);
+  // the excentral of orbit_poristic has a caustic whose axes are a'=Rpor=1+a and b'=?.
+  // however, I want the caustic to have a' = a.
+  // 
+  const exc = generic_triangle(op.o,op.s,exc_ts);
+  //const se = tri_sides(exc);
+  const x3e = get_Xn_cartesians(40,op.o,op.s); // X(40) of ref is X(3) if excentral
+  const c = sqrt(a*a-1);
+  const ctr = [-c,0];
+  const Rexc = 2*(1+x); // twice what's calc'd in orbit_poristic.
+  const Rmb = 2*a; // from caustic_macbeath.
+  const exc_adj = exc.map(v=>vsum(vscale(vdiff(v,x3e),Rmb/Rexc),ctr));
+  return { o: exc_adj, s: tri_sides(exc_adj) };
+}
 
