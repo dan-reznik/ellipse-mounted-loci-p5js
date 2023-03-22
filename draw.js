@@ -48,13 +48,13 @@ function draw_locus_only(locus, rgb, stroke_w) {
   strokeWeight(stroke_w);
   stroke(rgb);
   for (let i = 0; i < locus.length - 1; i++)
-    line(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
+    line_(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
   pop();
 }
 
 function draw_one_locus_branch(locus) {
   for (let i = 0; i < locus.length - 1; i++)
-    line(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
+    line_(locus[i][0], locus[i][1], locus[i + 1][0], locus[i + 1][1]);
 }
 
 function draw_one_locus_branch_filled(locus, fill_rgb) {
@@ -125,7 +125,7 @@ function draw_line([frx, fry], [tox, toy], rgb) {
   push();
   stroke(rgb);
   strokeWeight(0.01);
-  line(frx, fry, tox, toy);
+  line_(frx, fry, tox, toy);
   pop();
 }
 
@@ -133,7 +133,7 @@ function draw_line2([frx, fry], [tox, toy], rgb, stroke_w) {
   push();
   stroke(rgb);
   strokeWeight(stroke_w);
-  line(frx, fry, tox, toy);
+  line_(frx, fry, tox, toy);
   pop();
 }
 
@@ -142,8 +142,8 @@ function draw_axes(a, axesColor, stroke_w) {
   strokeWeight(stroke_w);
   //const axesColor = isBackgroundLuminanceLow() ? clr_white : clr_invert_ui(clr_white); 
   stroke(axesColor);
-  line(-a, 0, a, 0);
-  line(0, -1, 0, 1);
+  line_(-a, 0, a, 0);
+  line_(0, -1, 0, 1);
   pop();
 }
 
@@ -299,7 +299,7 @@ function linedash(p1, p2, dd) {
     if (flag) {
       let from = vsum(p1, vscale(phat, d));
       let to = vsum(from, vscale(phat, dd));
-      line(from[0], from[1], to[0], to[1]);
+      line_(from[0], from[1], to[0], to[1]);
     } else d += dd;
     flag = !flag;
   }

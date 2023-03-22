@@ -1,0 +1,1 @@
+On 22/03/2023. Changed within p5.min.js: replaced occurrences of p5.js:line with "line_" to avoid weird race condition in the new chorme which was causing "line" to be overwritten.

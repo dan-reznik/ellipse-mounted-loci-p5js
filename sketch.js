@@ -195,7 +195,8 @@ function setup() {
 isBackgroundLuminanceLow = (bg) => get_luminance(bg) < 0.5;
 
 function draw() {
-   const dict_rot = { "0": 0, "90": PI / 2, "180": PI, "270": -PI / 2, "-90": -PI / 2 };
+   const dict_rot = 
+   { "0": 0, "90": PI / 2, "180": PI, "270": -PI / 2, "-90": -PI / 2 };
    // vamos usar glob.bg;
    background(...glob.ui.bg); // (220, 220, 200);
 
