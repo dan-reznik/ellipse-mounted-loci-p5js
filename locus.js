@@ -17,6 +17,7 @@ const dict_circles = {
     lemoine: circle_lemoine,
     lester: circle_lester,
     mandart: circle_mandart,
+    midarc1: circle_midarc_1,
     apollonius_isodyn1: circle_apollonius_isodyn_1,
     apollonius_isodyn2: circle_apollonius_isodyn_2,
     apollonius_isodyn3: circle_apollonius_isodyn_3,
@@ -65,6 +66,10 @@ const dict_circle_triples = {
     brocards: {
         fns: [circle_brocard, circle_brocard2, circle_moses],
         names: ["brocard", "brocard2", "moses"]
+    },
+    midarcs: {
+        fns: [circle_midarc_1, circle_midarc_2, circle_midarc_3],
+        names: ["midarc1", "midarc2", "midarc3"]
     },
     mixtilinears: {
         fns: [circle_mixtilinear_1, circle_mixtilinear_2, circle_mixtilinear_3],

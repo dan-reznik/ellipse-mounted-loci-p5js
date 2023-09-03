@@ -702,6 +702,38 @@ function tangential_midarc_triangle(sides) {
   return ts; // generic_triangle(orbit,sides,ts);
 }
 
+function midarc_triangle(sides) {
+  const cs = tri_cosines(sides);
+  const [x, y, z] = cs.map(half_cos);
+  const [x2, y2, z2] = [x,y,z].map(sqr);
+  const ts = [
+    [sqr(y+z),x2,x2],
+    [y2,sqr(x+z),y2],
+    [z2,z2,sqr(x+y)]
+  ];
+  return ts; // generic_triangle(orbit,sides,ts);
+}
+
+// centers of the 3 midarc circles
+// these are tangent to the incircle and two sides.
+
+// peter moses:
+// A' = {
+// -2*Cos[A/4]^2*(2*Cos[A/2] + Sin[A] + 2*Sin[B] + 2*Sin[C]),
+// Cot[A/4]*(-1 + Sin[A/2])*Sin[B],
+// Cot[A/4]*(-1 + Sin[A/2])*Sin[C]
+// }
+function midarc_circs_triangle(a, b, tri, sides, mounting) {
+  const ma_ts = midarc_triangle(sides);
+  const ma = generic_triangle(tri,sides,ma_ts);
+  const X1 = get_incenter(tri);
+  const ds = tri.map((v,i)=>edist(v,ma[i])/edist(v,vrefl(ma[i],X1)));
+  const new_tri = tri.map((v,i)=>vinterp(v,X1,ds[i]));
+  //const new_ts = get_trilins(new_tri, tri, sides);
+  //return new_ts;
+  return new_tri;
+}
+
 function halfaltitude_triangle(sides) {
   const [cA, cB, cC] = tri_cosines(sides);
   const ts = [
@@ -1104,6 +1136,7 @@ const dict_tri_fns = {
   circumorthic: circumorthic_triangle,
   circummedial: circummedial_triangle,
   circummidarc: circummidarc_triangle,
+  midarc: midarc_triangle,
   morley1: first_morley_triangle,
   morley2: second_morley_triangle,
   morley3: third_morley_triangle,
@@ -1251,6 +1284,7 @@ const dict_graves = {
 };
 
 const dict_tri_fns_bicentric = {
+  midarc_circs: midarc_circs_triangle,
   ped_lim2: get_polar_pedal_lim2,
   //inv_lim2: get_inv_lim2,
   pol_ctr: get_polar_ctr,

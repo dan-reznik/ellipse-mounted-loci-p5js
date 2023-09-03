@@ -105,11 +105,14 @@ const vinv = (u) => [1/u[0],1/u[1]]; // u.map(u0=>1/u0);
 const vscale = (u, s) => [u[0]*s, u[1]*s];
 const vflipx = (u) => [-u[0],u[1]];
 const vflipy = (u) => [u[0],-u[1]];
-const vneg = (u) => [-u[1],-u[0]];
+const vneg = (u) => [-u[0],-u[1]];
 const vperp = (u) => [-u[1],u[0]];
 const vperpNeg = (u) => [u[1],-u[0]];
 const vscale_xy = (u, sx, sy) => [u[0]*sx, u[1]*sy];
 const vsum = (u, v) => [u[0] + v[0], u[1] + v[1]];
+const vsub = (u, v) => [u[0]-v[0],u[1]-v[1]];
+// reflect u about v: -(u-v)+v = 2v-u
+const vrefl = (u,v) => [2*v[0]-u[0],2*v[1]-u[1]];
 const vrandom = (eps) => vscale([Math.random(),Math.random()],eps); 
 const vnoise = (u,eps) => vsum(u,vrandom(eps));
 //const vrot = (u) => [-u[1],u[0]]

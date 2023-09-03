@@ -157,6 +157,7 @@ const circle_mixtilinear_1 = (tri,sides) => circle_mixtilinear_low(tri,sides,0);
 const circle_mixtilinear_2 = (tri,sides) => circle_mixtilinear_low(tri,sides,1);
 const circle_mixtilinear_3 = (tri,sides) => circle_mixtilinear_low(tri,sides,2);
 
+
 // Thm 12: https://forumgeom.fau.edu/FG2006volume6/FG200601.pdf
 function circle_mixtilinear_apollonius_inner(tri,sides) {
     const x1 = get_Xn_cartesians(1, tri, sides);
@@ -460,3 +461,24 @@ function get_ctr_R(o, s, circ, a, mounting) {
     return o0;
   }
 
+
+// Arseniy on 9/1/2023:
+// Let O = center of incircle, X1
+// Let X and Y be an intersection of OA with the incircle. 
+// find a point O', such (AO'/AX)=(AO/AY) => AO' = (AO/AY)*AX
+// call AO = 1, then AO' = AX/AY
+function circle_midarc_low(tri,sides,n) {
+    const A = tri[n];
+    const ts = midarc_triangle(sides);
+    const ma = generic_triangle(tri,sides,ts);
+    const X = ma[n];
+    const O = get_incenter(tri); // X1
+    const Y = vrefl(X,O); // the other intersection
+    Op = vinterp(A,O,edist(A,X)/edist(A,Y));
+    const R=edist(Op,X);
+    return { ctr:Op, R:R, n:0 };
+}
+
+const circle_midarc_1 = (tri,sides) => circle_midarc_low(tri,sides,0);
+const circle_midarc_2 = (tri,sides) => circle_midarc_low(tri,sides,1);
+const circle_midarc_3 = (tri,sides) => circle_midarc_low(tri,sides,2);
