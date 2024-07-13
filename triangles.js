@@ -1288,7 +1288,7 @@ const dict_tri_fns_bicentric = {
   midarc_circs: midarc_circs_triangle,
   ped_lim2: get_polar_pedal_lim2,
   //inv_lim2: get_inv_lim2,
-  pol_out: get_polar_out, // TEST
+  pol_out: get_polar_out,
   pol_ctr: get_polar_ctr,
   pol_f1: get_polar_f1,
   pol_f2: get_polar_f2,
