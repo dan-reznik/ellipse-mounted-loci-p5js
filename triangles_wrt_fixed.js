@@ -1,3 +1,10 @@
+const get_polar_out = (a, b, tri, sides, mounting) => { 
+    const ta = get_true_axes(a, mounting);
+    const non_conc = ["poristic","macbeath","brocard"].includes(mounting);
+    // hack
+    const ctr_adj = non_conc ? get_circumcenter(tri) : ta.ctr;
+    return get_polar_ell(tri, sides, ctr_adj, ta.ae, ta.be);
+}
 const get_polar_ctr = (a, b, tri, sides, mounting) => get_polar(tri, sides, get_true_axes(a, mounting).ctr, 1);
 const get_polar_f1 = (a, b, tri, sides, mounting) => get_polar(tri, sides, get_true_axes(a, mounting).f1, 1);
 const get_polar_f2 = (a, b, tri, sides, mounting) => get_polar(tri, sides, get_true_axes(a, mounting).f2, 1);

@@ -293,13 +293,13 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
             } else if (mounting == "brocard") {
                 const bp = brocard_porism(a);
                 push();
-                translate(...bp.x3);
+                translate(...bp.x3); // true center
                 draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
                 pop();
             } else if (mounting == "macbeath") {
                 const bp = macbeath_porism(a);
                 push();
-                translate(...bp.x3);
+                translate(...bp.x3); // true center
                 draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
                 pop();
             } else {

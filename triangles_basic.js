@@ -148,6 +148,12 @@ function get_polar(tri, sides, ctr, R) {
   return get_antipedal(tri_inv, tri_sides(tri_inv), ctr);
 }
 
+// assumes tri vertices on ell: ((x-ox)/a)^2+((y-oy)/b)^2 == 1
+function get_polar_ell(tri, sides, ctr, a, b) {
+  const ts = tri.map(v=>vtang(vsub(v,ctr),a,b));
+  const is = tri.map((v,i) => inter_rays(v, ts[i], tri[i==2?0:i+1], ts[i==2?0:i+1]));
+  return is;
+}
 
 function rotate_tri_left([p1, p2, p3]) {
   return [p2, p3, p1];

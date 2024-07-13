@@ -293,6 +293,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
             <option value="inv_f2">*inv-f2*</option>
             <option value="inv_f1c">*inv-f1c*</option>
             <option value="inv_f2c">*inv-f2c*</option>
+            <option value="pol_out">*pol-out*</option>
             <option value="pol_ctr">*pol-ctr*</option>
             <option value="pol_f1">*pol-f1*</option>
             <option value="pol_f2">*pol-f2*</option>

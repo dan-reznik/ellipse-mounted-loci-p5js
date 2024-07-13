@@ -100,7 +100,7 @@ const rotSinCos = ([x, y], st, ct) => [ct * x - st * y, st * x + ct * y];
 const vrot = (v,th) => rotSinCos(v,Math.sin(th),Math.cos(th)) 
 
 const vNaN = (p) => isNaN(p[0])||isNaN(p[1]);
-const vdiff = (u, v) => [u[0] - v[0], u[1] - v[1]];
+const vdiff = (u, v) => [u[0]-v[0], u[1]-v[1]];
 const vinv = (u) => [1/u[0],1/u[1]]; // u.map(u0=>1/u0);
 const vscale = (u, s) => [u[0]*s, u[1]*s];
 const vflipx = (u) => [-u[0],u[1]];
@@ -124,7 +124,10 @@ const vinterp = (p1,p2,t) => vsum(p1,vscale(vdiff(p2,p1),t));
 const vray = (p,n,t) => vsum(p,vscale(n,t));
 const vdot = (u,v) => u[0]*v[0]+u[1]*v[1];
 const vcross = (u,v) => vdot(vperp(u),v);
-const vccw = (u,v,w) => vcross(vdiff(v,u),vdiff(w,v))>0
+const vccw = (u,v,w) => vcross(vdiff(v,u),vdiff(w,v))>0;
+// ell: (x/a)^2+(y/b)^2=1, grad: [x/a^2,y/b^2]
+const vgrad = (u,a,b) => [u[0]/(a*a), u[1]/(b*b)];
+const vtang = (u,a,b) => vperp(vgrad(u,a,b));
 
 function closest_perp(p, l1, l2) {
   const dl = vdiff(l2, l1);

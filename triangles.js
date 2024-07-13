@@ -1221,6 +1221,7 @@ const dict_tri_pfns = {
   invert: { fn: invert_triangle, needs: "tri" },
   polar: { fn: polar_triangle, needs: "tri" },
   polar_exc: { fn: polar_exc_triangle, needs: "tri" },
+
   three_ctrs: { fn: three_ctrs_triangle, needs: "tri" },
   vtx_refl: { fn: vtx_refl_triangle, needs: "tri" },
   side_refl: { fn: side_refl_triangle, needs: "tri" },
@@ -1287,6 +1288,7 @@ const dict_tri_fns_bicentric = {
   midarc_circs: midarc_circs_triangle,
   ped_lim2: get_polar_pedal_lim2,
   //inv_lim2: get_inv_lim2,
+  pol_out: get_polar_out, // TEST
   pol_ctr: get_polar_ctr,
   pol_f1: get_polar_f1,
   pol_f2: get_polar_f2,
@@ -1352,6 +1354,7 @@ function get_derived_tri(a, orbit, sides, tri_type, cpn, pn, mounting) {
       case "tri": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p); break;
       case "tri_xk": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, dict_tri_pfns[cpn].xk); break;
       case "tri_pn": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, pn); break;
+      // what if the outer ell is "vertical" like in the excentral case?
       case "ell": tri0 = dict_tri_pfns[cpn].fn(ret_tri.o, ret_tri.s, ts_p, a); break;
       case "cau": {
         const [ac, bc] = !(mounting in dict_caustic) || ["inellipse", "brocard", "excentral", "macbeath"].includes(mounting) ? [a, 1] : dict_caustic[mounting](a);
