@@ -20,7 +20,7 @@ function get_orbit_info_low(tri, sides, circ) {
    const cotw = sum(cots); //  l2/(4*A);
    const cotprod = product(cots);
    const tansum = sum(tans);
-   const cosprod = product(tri_cosines(sides));
+   const cosprod = product(cs);
    const sinsum = sum(ss);
    // sin(2t)=2 sin cos
    const sinsDouble = ss.map((s, i) => 2*s[i]*cs[i]);
