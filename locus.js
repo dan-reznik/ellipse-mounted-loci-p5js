@@ -43,6 +43,7 @@ const dict_circles = {
     moses_radical: circle_moses_radical,
     spieker: circle_spieker,
     parry: circle_parry,
+    polar: circle_polar,
     power1: circle_power_1,
     reflection: circle_reflection,
     schoutte: circle_schoutte,

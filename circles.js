@@ -410,6 +410,15 @@ function circle_bevan(tri,sides) {
     return { ctr:x40, R:R, n:40 };
 }
 
+// 8/6/2024: https://mathworld.wolfram.com/PolarCircle.html
+function circle_polar(tri,sides) {
+    const x4 = get_Xn_cartesians(4,tri,sides);
+    const R = get_circumradius(sides);
+    const l2 = sum(sides.map(s => s * s));
+    const rpol2 = 4*R*R - l2/2; 
+    return { ctr:x4, R:sqrt(Math.abs(rpol2)), n:4 };
+}
+
 function circle_mandart(tri,sides) {
     const ext_ts = extouch_triangle(sides);
     const ext = generic_triangle(tri,sides,ext_ts);
