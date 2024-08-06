@@ -5,6 +5,7 @@ function get_orbit_info_low(tri, sides, circ) {
    const R = get_circumradius(sides);
    const rOvR = safe_div(r, R);
    const l2 = sum(sides.map(s => s * s));
+   const rpol2 = 4*R*R-l2/2;  // r^2 of polar circle: https://mathworld.wolfram.com/PolarCircle.html
    const linv = sum(sides.map(s => 1 / s));
    const l2inv = sum(sides.map(s => 1 / (s * s)));
    const cs = tri_cosines(sides);
@@ -48,7 +49,7 @@ function get_orbit_info_low(tri, sides, circ) {
       cotDoublesum: cotDoublesum,
       sinHalfsum: sinHalfsum, cosHalfsum: cosHalfsum, tanHalfsum: tanHalfsum, cotHalfsum: cotHalfsum,
       cosprod: cosprod, sinprod: sinprod, cotprod: cotprod,
-      l2: l2, linv: linv, l2inv: l2inv, lprod: lprod, circR: the_circ.R
+      l2: l2, linv: linv, l2inv: l2inv, lprod: lprod, circR: the_circ.R, rpol2: rpol2
    };
 }
 
@@ -59,7 +60,7 @@ function get_info_arr(info, info_der, not_ref) {
    info.sinDoublesum, info.cosDoublesum, info.tanDoublesum, info.cotDoublesum,
    info.sinHalfsum, info.cosHalfsum, info.tanHalfsum, info.cotHalfsum,
    info.cosprod, info.sinprod, info.cotprod,
-   info.l2, info.linv, info.l2inv, info.lprod, info.circR];
+   info.l2, info.linv, info.l2inv, info.lprod, info.circR, info.rpol2];
    return not_ref ?
       basics.concat([
          info_der.L, info_der.A, info_der.r, info_der.R, info_der.rOvR,
@@ -68,7 +69,7 @@ function get_info_arr(info, info_der, not_ref) {
          info_der.sinDoublesum, info_der.cosDoublesum, info_der.tanDoublesum, info_der.cotDoublesum,
          info_der.sinHalfsum, info_der.cosHalfsum, info_der.tanHalfsum, info_der.cotHalfsum,
          info_der.cosprod, info_der.sinprod, info_der.cotprod,
-         info_der.l2, info_der.linv, info_der.l2inv, info_der.lprod, info_der.circR,
+         info_der.l2, info_der.linv, info_der.l2inv, info_der.lprod, info_der.circR, info_der.rpol2,
          // ["L'/L", "A'/A", "A'.A","Rc'/Rc"]
          safe_div(info_der.L, info.L), safe_div(info_der.A, info.A), info_der.A * info.A,
          safe_div(info_der.circR, info.circR)]) :
@@ -102,7 +103,7 @@ function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, cpnSel, pn, circ,
       "Σsin(2t)","Σcos(2t)","Σtan(2t)","Σcot(2t)",
       "Σsin(t/2)","Σcos(t/2)","Σtan(t/2)","Σcot(t/2)",
       "∏cos", "∏sin", "∏cot",
-      "Σs^2", "Σ(1/s)", "Σs^-2", "∏s", "Rc"
+      "Σs^2", "Σ(1/s)", "Σs^-2", "∏s", "Rc", "rpol2"
    ];
    //"L", "A", "r", "R", "r/R", "cot(ω)", "Σtan",
    // "Σsin(2t)","Σcos(2t)","Σtan(2t)","Σsin(t/2)","Σcos(t/2)","Σtan(t/2)", 
