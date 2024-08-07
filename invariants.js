@@ -10,7 +10,11 @@ function get_orbit_info_low(tri, sides, circ) {
    const l2inv = sum(sides.map(s => 1 / (s * s)));
    const cs = tri_cosines(sides);
    const cossum = sum(cs);
+   const secs = cs.map(c=>1/c);
+   const secsum = sum(secs);
    const ss = cs.map(c => Math.sqrt(1 - c * c));
+   const csecs = ss.map(s=>1/s);
+   const csecsum = sum(csecs);
    const tans = ss.map((s, i) => s / cs[i]);
    // tan(t/2) = sqrt[(1-cos)/(1+cos)]
    const tansHalf = cs.map(c => Math.sqrt((1-c)/(1+c)));
@@ -45,6 +49,7 @@ function get_orbit_info_low(tri, sides, circ) {
       L: L, A: A, r: r, R: R, rOvR: rOvR,
       cotw: cotw, // cotsum
       cossum: cossum, sinsum: sinsum, tansum: tansum,
+      secsum: secsum, csecsum: csecsum,
       sinDoublesum: sinDoublesum, cosDoublesum: cosDoublesum, tanDoublesum: tanDoublesum,
       cotDoublesum: cotDoublesum,
       sinHalfsum: sinHalfsum, cosHalfsum: cosHalfsum, tanHalfsum: tanHalfsum, cotHalfsum: cotHalfsum,
@@ -57,7 +62,9 @@ function get_info_arr(info, info_der, not_ref) {
    const basics = [info.L, info.A, info.r, info.R, info.rOvR,
    info.cotw,
    info.cossum, info.sinsum, info.tansum,
-   info.sinDoublesum, info.cosDoublesum, info.tanDoublesum, info.cotDoublesum,
+   info.secsum, info.csecsum,
+   info.sinDoublesum, info.cosDoublesum, info.tanDoublesum,
+   info.cotDoublesum,
    info.sinHalfsum, info.cosHalfsum, info.tanHalfsum, info.cotHalfsum,
    info.cosprod, info.sinprod, info.cotprod,
    info.l2, info.linv, info.l2inv, info.lprod, info.circR, info.rpol2];
@@ -66,6 +73,7 @@ function get_info_arr(info, info_der, not_ref) {
          info_der.L, info_der.A, info_der.r, info_der.R, info_der.rOvR,
          info_der.cotw,
          info_der.cossum, info_der.sinsum, info_der.tansum,
+         info_der.secsum, info_der.csecsum,
          info_der.sinDoublesum, info_der.cosDoublesum, info_der.tanDoublesum, info_der.cotDoublesum,
          info_der.sinHalfsum, info_der.cosHalfsum, info_der.tanHalfsum, info_der.cotHalfsum,
          info_der.cosprod, info_der.sinprod, info_der.cotprod,
@@ -99,7 +107,9 @@ function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, cpnSel, pn, circ,
    const biz3 = get_orbit_biz(a, tDeg - 10.1, mounting, tri_type, cpn, pn, circ, inv, not_ref);
 
    const labs0 = [
-      "L", "A", "r", "R", "r/R", "cot(ω)", "Σcos", "Σsin", "Σtan",
+      "L", "A", "r", "R", "r/R", "cot(ω)",
+      "Σcos", "Σsin", "Σtan",
+      "Σsec", "Σcsec",
       "Σsin(2t)","Σcos(2t)","Σtan(2t)","Σcot(2t)",
       "Σsin(t/2)","Σcos(t/2)","Σtan(t/2)","Σcot(t/2)",
       "∏cos", "∏sin", "∏cot",
