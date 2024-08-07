@@ -103,20 +103,20 @@ function caustic_isobaric(a) {
     return { ctr: ctr, r: b/2 };  
  }
 
-  // TO DO
+  // Ronaldo 7-ago-2024
+  // ctr=[sqrt(4*a^4 - 5*a^2*b^2 + b^4)/(2*a), 0],  r=b^2/(2*a)
   function caustic_isogergonne(a) {
     const b=1,a2=a*a,b2=b*b;
-    const c2=a2-b2;
-    const cy=Math.sqrt(c2)*b/(2*a);
-    return [0,-cy];
+    const a4=a2*a2,b4=b2*b2;
+    const cx = Math.sqrt(4*a4-5*a2*b2+b4)/(2*a);
+    return [cx,0];
  }
 
- // TO DO
  function porism_isogergonne(a) {
     const b = 1;
     const ctr = caustic_isogergonne(a);
-    // TO DO
-    return { ctr: ctr, r: b/2 };  
+    const r = b*b/(2*a);
+    return { ctr: ctr, r: r };  
  }
 
 function caustic_incenterfocal(a) {
