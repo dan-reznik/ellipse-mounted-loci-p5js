@@ -140,7 +140,8 @@ const dict_caustic = {
     macbeath: caustic_macbeath,
     incenterfocal: caustic_incenterfocal,
     isobaric: caustic_isobaric,
-    orthofocal: caustic_orthofocal
+    orthofocal: caustic_orthofocal,
+    isogergonne: caustic_isogergonne
 };
 
 const dict_two_point = {
@@ -283,7 +284,8 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
 const dict_circ_caustic = {
     incenterfocal: porism_incenterfocal,
     isobaric: porism_isobaric,
-    orthofocal: porism_orthofocal
+    orthofocal: porism_orthofocal,
+    isogergonne: porism_isogergonne
 };
 
 function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus_branches, clr, locus_type,

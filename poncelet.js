@@ -355,4 +355,5 @@ return { o: tri, s: tri_sides(tri) };
 const orbit_orthofocal = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_orthofocal);
 const orbit_incenterfocal = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_incenterfocal);
 const orbit_isobaric = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_isobaric);
+const orbit_isogergonne = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_isogergonne);
 
