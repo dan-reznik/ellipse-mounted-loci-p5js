@@ -138,10 +138,10 @@ const dict_caustic = {
     poristic: caustic_bicentric,
     brocard: caustic_brocard,
     macbeath: caustic_macbeath,
-    incenterfocal: caustic_incenterfocal,
-    isobaric: caustic_isobaric,
-    orthofocal: caustic_orthofocal,
-    isogergonne: caustic_isogergonne
+    isoX1: caustic_isoX1,
+    isoX2: caustic_isoX2,
+    isoX4: caustic_isoX4,
+    isoX7: caustic_isoX7
 };
 
 const dict_two_point = {
@@ -178,10 +178,10 @@ const dict_orbit_fn = {
     poristic: orbit_bicentric,
     brocard: orbit_brocard,
     macbeath: orbit_macbeath,
-    incenterfocal: orbit_incenterfocal,
-    isobaric: orbit_isobaric,
-    orthofocal: orbit_orthofocal,
-    isogergonne: orbit_isogergonne
+    isoX1: orbit_isoX1,
+    isoX2: orbit_isoX2,
+    isoX4: orbit_isoX4,
+    isoX7: orbit_isoX7
 };
 
 function get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
@@ -283,10 +283,10 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
 }
 
 const dict_circ_caustic = {
-    incenterfocal: porism_incenterfocal,
-    isobaric: porism_isobaric,
-    orthofocal: porism_orthofocal,
-    isogergonne: porism_isogergonne
+    isoX1: porism_isoX1,
+    isoX2: porism_isoX2,
+    isoX4: porism_isoX4,
+    isoX7: porism_isoX7
 };
 
 function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus_branches, clr, locus_type,

@@ -70,7 +70,7 @@ function caustic_bicentric(a) {
 
 // derived by R. Garcia, Aug. 2024
 // ctr=[a^2*c/(2*a^2 - c^2), 0] e raio=a*(a^2 - c^2)/(2*a^2 - c^2)  tem X4=[c,0] 
-function caustic_orthofocal(a) {
+function caustic_isoX4(a) {
    const a2 = a*a, b2 = 1;
    const c2 = a2-b2;
    const c = Math.sqrt(c);
@@ -78,7 +78,7 @@ function caustic_orthofocal(a) {
    return [cx, 0];
 }
 
-function porism_orthofocal(a) {
+function porism_isoX4(a) {
    const a2 = a*a, b2 = 1;
    const c2 = a2-b2;
    const c = Math.sqrt(c2);
@@ -90,42 +90,42 @@ function porism_orthofocal(a) {
 
 // Ronaldo Garcia, 7-aug-2024, x2 stationary
 // ctr=[0,c*b/(2*a)], caustic radius=b/2, X2 [0,c*b/(3*a)]
-function caustic_isobaric(a) {
+function caustic_isoX2(a) {
     const b=1,a2=a*a,b2=b*b;
     const c2=a2-b2;
     const cy=Math.sqrt(c2)*b/(2*a);
     return [0,-cy];
  }
 
- function porism_isobaric(a) {
+ function porism_isoX2(a) {
     const b = 1;
-    const ctr = caustic_isobaric(a);
+    const ctr = caustic_isoX2(a);
     return { ctr: ctr, r: b/2 };  
  }
 
   // Ronaldo 7-ago-2024
   // ctr=[sqrt(4*a^4 - 5*a^2*b^2 + b^4)/(2*a), 0],  r=b^2/(2*a)
-  function caustic_isogergonne(a) {
+  function caustic_isoX7(a) {
     const b=1,a2=a*a,b2=b*b;
     const a4=a2*a2,b4=b2*b2;
     const cx = Math.sqrt(4*a4-5*a2*b2+b4)/(2*a);
     return [cx,0];
  }
 
- function porism_isogergonne(a) {
+ function porism_isoX7(a) {
     const b = 1;
-    const ctr = caustic_isogergonne(a);
+    const ctr = caustic_isoX7(a);
     const r = b*b/(2*a);
     return { ctr: ctr, r: r };  
  }
 
-function caustic_incenterfocal(a) {
+function caustic_isoX1(a) {
     const c = Math.sqrt(Math.abs(a*a - b*b));
     return [c, 0];
  }
  
  // DSR 8/7/24
- function porism_incenterfocal(a) {
+ function porism_isoX1(a) {
     const a2 = a*a, b2 = 1;
     const c2 = a2-b2;
     const c = Math.sqrt(c2);

@@ -352,8 +352,8 @@ function orbit_circ_caustic(a,tDeg,porism_fn) {
 return { o: tri, s: tri_sides(tri) };
 }
 
-const orbit_orthofocal = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_orthofocal);
-const orbit_incenterfocal = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_incenterfocal);
-const orbit_isobaric = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_isobaric);
-const orbit_isogergonne = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_isogergonne);
+const orbit_isoX4 = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_isoX4);
+const orbit_isoX1 = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_isoX1);
+const orbit_isoX2 = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_isoX2);
+const orbit_isoX7 = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_isoX7);
 
