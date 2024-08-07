@@ -46,9 +46,11 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="dual">*dual*</option>
                     <option value="excentral">*excs*</option>
                     <option value="inellipse">*inellipse*</option>
-                    <option value="poristic">*poristic*</option>
+                    <option value="poristic">*bicentric*</option>
                     <option value="brocard">*brocard*</option>
-                    <option value="macbeath">*macbeath*</option>`+
+                    <option value="macbeath">*macbeath*</option>
+                    <option value="incenterfocal">*inctrfocal*</option>
+                    <option value="orthofocal">*orthofocal*</option>`+
                     //needs to draw external ellipse as caustic assuming [a,1] of interface is its caustic
                     //<option value="excentral_affine">*exc-aff*</option>
                     `<option value="major">major</option>

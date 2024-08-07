@@ -241,7 +241,7 @@ function chapple_d(r,R) {
   return sqrt(R*R - 2*r*R);
 }
 
-function orbit_poristic(a, tDeg) {
+function orbit_bicentric(a, tDeg) {
   const R=1+a;
   const r = 1; // assume
   const R2 = R*R;
@@ -307,12 +307,12 @@ function orbit_brocard(a, tDeg) {
   return { o: tri, s: tri_sides(tri) };
 }
 
-// what parameter "x" must be passed to orbit_poristic so that its
+// what parameter "x" must be passed to orbit_bicentric so that its
 // excentral's MacBeath (call it E) has aspect ratio a, the UI-established caustic major axis?
 // Let a', b' be the semiaxes of E. Observing E, a' = Rpor = (1+a).
 // since we want a'/b' = (1+a)/b' = a, then b' must be (1+a)/a.
 // per Peter Moses, b' = sqrt(Rexc^2-|OH|^2)/2. Per odehnal, Rexc = 2*(1+a).
-// observing the poristic: H (resp. O) of the excentral is X1 (resp. X40) of the poristic.
+// observing the bicentric: H (resp. O) of the excentral is X1 (resp. X40) of the bicentric.
 // X40 is the reflection of X1 on X3. Euler's formula: |X1X3|^2 = R(R-2r).
 // so |OH| of the excentral will be 2*sqrt(R(R-2r)), with rpor = 1.
 // So |OH|^2 = 4*R*(R-2) = 4*(a+1)*(a-1) = 4*(a^2-1) = 4*c^2 [Rpor = 1+a].
@@ -324,9 +324,9 @@ function orbit_brocard(a, tDeg) {
 
 function orbit_macbeath(a, tDeg) {
   const x = 2*a*a-1; // Excentral's Macbeath should have aspect ratio of "a".
-  const op = orbit_poristic(x, tDeg);
+  const op = orbit_bicentric(x, tDeg);
   const exc_ts = excentral_triangle(op.s);
-  // the excentral of orbit_poristic has a caustic whose axes are a'=Rpor=1+a and b'=?.
+  // the excentral of orbit_bicentric has a caustic whose axes are a'=Rpor=1+a and b'=?.
   // however, I want the caustic to have a' = a.
   // 
   const exc = generic_triangle(op.o,op.s,exc_ts);
@@ -334,9 +334,35 @@ function orbit_macbeath(a, tDeg) {
   const x3e = get_Xn_cartesians(40,op.o,op.s); // X(40) of ref is X(3) if excentral
   const c = sqrt(a*a-1);
   const ctr = [-c,0];
-  const Rexc = 2*(1+x); // twice what's calc'd in orbit_poristic.
+  const Rexc = 2*(1+x); // twice what's calc'd in orbit_bicentric.
   const Rmb = 2*a; // from caustic_macbeath.
   const exc_adj = exc.map(v=>vsum(vscale(vdiff(v,x3e),Rmb/Rexc),ctr));
   return { o: exc_adj, s: tri_sides(exc_adj) };
+}
+
+function orbit_orthofocal(a, tDeg) {
+    // cannnot assume caustic ctr always at [0,0]
+    const t = tDeg*Math.PI/180.;
+    const op = porism_orthofocal(a);
+    const p1 = [a*Math.cos(t),Math.sin(t)];
+    const p1_adj = vdiff(p1, op.ctr);
+    const ts = ellTangentsb(op.r, op.r, p1_adj).map(tg => vsum(tg,op.ctr));
+    const ints = ts.map(tg => ellInterRaybBoth(a, 1, p1, vdiff(tg, p1)));
+    const [p2, p3] = ints.map(ints => farthestPoint(ints, p1));
+    const tri = [p1, p2, p3]
+  return { o: tri, s: tri_sides(tri) };
+}
+
+function orbit_incenterfocal(a, tDeg) {
+  // cannnot assume caustic ctr always at [0,0]
+  const t = tDeg*Math.PI/180.;
+  const op = porism_incenterfocal(a);
+  const p1 = [a*Math.cos(t),Math.sin(t)];
+  const p1_adj = vdiff(p1, op.ctr);
+  const ts = ellTangentsb(op.r, op.r, p1_adj).map(tg => vsum(tg,op.ctr));
+  const ints = ts.map(tg => ellInterRaybBoth(a, 1, p1, vdiff(tg, p1)));
+  const [p2, p3] = ints.map(ints => farthestPoint(ints, p1));
+  const tri = [p1, p2, p3]
+return { o: tri, s: tri_sides(tri) };
 }
 

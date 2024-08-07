@@ -64,9 +64,44 @@ function caustic_dual(a) {
 
 // assume incircle at 0,0
 // R=1+a;
-function caustic_poristic(a) {
+function caustic_bicentric(a) {
     return [1, 1];
 }
+
+// derived by R. Garcia, Aug. 2024
+// ctr=[a^2*c/(2*a^2 - c^2), 0] e raio=a*(a^2 - c^2)/(2*a^2 - c^2)  tem X4=[c,0] 
+function caustic_orthofocal(a) {
+   const a2 = a*a, b2 = b*b;
+   const c2 = a2-b2;
+   const c = Math.sqrt(c);
+   const cx = (a2*c)/(2*a2 - c2);
+   return [cx, 0];
+}
+
+function porism_orthofocal(a) {
+   const a2 = a*a, b2 = 1;
+   const c2 = a2-b2;
+   const c = Math.sqrt(c2);
+   const k = 2*a2 - c2;
+   const cx = (a2*c)/k;
+   const r = a*(a2 - c2)/k;
+   return { ctr: [cx, 0], r:  r };  
+}
+
+function caustic_incenterfocal(a) {
+    const c = Math.sqrt(Math.abs(a*a - b*b));
+    return [c, 0];
+ }
+ 
+ // DSR 8/7/24
+ function porism_incenterfocal(a) {
+    const a2 = a*a, b2 = 1;
+    const c2 = a2-b2;
+    const c = Math.sqrt(c2);
+    const denom2 = 3*a2 + 2*a*Math.sqrt(2*a2-1) - 1;
+    const r = 1/Math.sqrt(denom2);
+    return { ctr: [c, 0], r:  r };  
+ }
 
 function caustic_brocard(a) {
     const isos = getBrocardInellipseIsosceles(a, 1);
@@ -75,7 +110,7 @@ function caustic_brocard(a) {
     return [R, R];
 }
 
-function brocard_porism(a) {
+function porism_brocard(a) {
     const isos = getBrocardInellipseIsosceles(a, 1);
     const x3 = get_Xn_cartesians(3, isos[0], tri_sides(isos[0]));
     const R = edist(isos[0][0], x3);
@@ -88,7 +123,7 @@ function caustic_macbeath(a) {
     return [R, R];
 }
 
-function macbeath_porism(a) {
+function porism_macbeath(a) {
     const R = 2*a;
     const c = Math.sqrt(a*a-1);
     return { R: R, x3: [-c,0] };  

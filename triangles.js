@@ -962,13 +962,10 @@ function mixtilinear9th_triangle([a, b, c]) {
   return ts;
 }
 
-
-
 function get_graves_triangle(p1, ta /* true axes */) {
   const ts = ellTangentsb(ta.ac, ta.bc, p1);
   return [p1, ts[0], ts[1]];
 }
-
 
 // not used: caustic will close poncelet.
 function get_ellcevian1_triangle(p1, ta) {

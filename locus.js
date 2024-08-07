@@ -132,11 +132,14 @@ const dict_caustic = {
     incircle: caustic_incircle,
     inellipse: caustic_inellipse,
     dual: caustic_dual,
-    poristic: caustic_poristic,
-    brocard: caustic_brocard,
     excentral: caustic_excentral,
     excentral_affine: caustic_excentral_affine,
-    macbeath: caustic_macbeath
+    // non concentric
+    poristic: caustic_bicentric,
+    brocard: caustic_brocard,
+    macbeath: caustic_macbeath,
+    incenterfocal: caustic_incenterfocal,
+    orthofocal: caustic_orthofocal
 };
 
 const dict_two_point = {
@@ -167,11 +170,14 @@ const dict_orbit_fn = {
     incircle: orbit_incircle,
     inellipse: orbit_inellipse,
     dual: orbit_dual,
-    poristic: orbit_poristic,
+    excentral: orbit_excentral,
+    excentral_affine: orbit_excentral_affine,
+    // non-concentric
+    poristic: orbit_bicentric,
     brocard: orbit_brocard,
     macbeath: orbit_macbeath,
-    excentral: orbit_excentral,
-    excentral_affine: orbit_excentral_affine
+    incenterfocal: orbit_incenterfocal,
+    orthofocal: orbit_orthofocal
 };
 
 function get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
@@ -292,16 +298,30 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
                 draw_boundary(1 + a, 1 + a, clr_caustic, stroke_w);
                 pop();
             } else if (mounting == "brocard") {
-                const bp = brocard_porism(a);
+                const bp = porism_brocard(a);
                 push();
                 translate(...bp.x3); // true center
                 draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
                 pop();
             } else if (mounting == "macbeath") {
-                const bp = macbeath_porism(a);
+                const bp = porism_macbeath(a);
                 push();
                 translate(...bp.x3); // true center
                 draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
+                pop();
+            } else if (mounting == "orthofocal") {
+                const op = porism_orthofocal(a);
+                push();
+                translate(...op.ctr);
+                draw_boundary(op.r, op.r, clr_caustic, stroke_w);
+                draw_point2([0,0], clr_caustic, stroke_w / 2);
+                pop();
+            } else if (mounting == "incenterfocal") {
+                const ip = porism_incenterfocal(a);
+                push();
+                translate(...ip.ctr);
+                draw_boundary(ip.r, ip.r, clr_caustic, stroke_w);
+                draw_point2([0,0], clr_caustic, stroke_w / 2);
                 pop();
             } else {
                 const caustic_axes = dict_caustic[mounting](a);
