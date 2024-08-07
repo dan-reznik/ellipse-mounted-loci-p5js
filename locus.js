@@ -180,7 +180,8 @@ const dict_orbit_fn = {
     macbeath: orbit_macbeath,
     incenterfocal: orbit_incenterfocal,
     isobaric: orbit_isobaric,
-    orthofocal: orbit_orthofocal
+    orthofocal: orbit_orthofocal,
+    isogergonne: orbit_isogergonne
 };
 
 function get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {

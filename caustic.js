@@ -103,6 +103,22 @@ function caustic_isobaric(a) {
     return { ctr: ctr, r: b/2 };  
  }
 
+  // TO DO
+  function caustic_isogergonne(a) {
+    const b=1,a2=a*a,b2=b*b;
+    const c2=a2-b2;
+    const cy=Math.sqrt(c2)*b/(2*a);
+    return [0,-cy];
+ }
+
+ // TO DO
+ function porism_isogergonne(a) {
+    const b = 1;
+    const ctr = caustic_isogergonne(a);
+    // TO DO
+    return { ctr: ctr, r: b/2 };  
+ }
+
 function caustic_incenterfocal(a) {
     const c = Math.sqrt(Math.abs(a*a - b*b));
     return [c, 0];
@@ -118,19 +134,6 @@ function caustic_incenterfocal(a) {
     return { ctr: [c, 0], r:  r };  
  }
 
- function caustic_isogergonne(a) {
-    const b=1,a2=a*a,b2=b*b;
-    const c2=a2-b2;
-    const cy=Math.sqrt(c2)*b/(2*a);
-    return [0,-cy];
- }
-
- function porism_isogergonne(a) {
-    const b = 1;
-    const ctr = caustic_isogergonne(a);
-    // TO DO
-    return { ctr: ctr, r: b/2 };  
- }
 
 function caustic_brocard(a) {
     const isos = getBrocardInellipseIsosceles(a, 1);
