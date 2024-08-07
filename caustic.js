@@ -71,7 +71,7 @@ function caustic_bicentric(a) {
 // derived by R. Garcia, Aug. 2024
 // ctr=[a^2*c/(2*a^2 - c^2), 0] e raio=a*(a^2 - c^2)/(2*a^2 - c^2)  tem X4=[c,0] 
 function caustic_orthofocal(a) {
-   const a2 = a*a, b2 = b*b;
+   const a2 = a*a, b2 = 1;
    const c2 = a2-b2;
    const c = Math.sqrt(c);
    const cx = (a2*c)/(2*a2 - c2);
@@ -87,6 +87,21 @@ function porism_orthofocal(a) {
    const r = a*(a2 - c2)/k;
    return { ctr: [cx, 0], r:  r };  
 }
+
+// Ronaldo Garcia, 7-aug-2024, x2 stationary
+// ctr=[0,c*b/(2*a)], caustic radius=b/2, X2 [0,c*b/(3*a)]
+function caustic_isobaric(a) {
+    const b=1,a2=a*a,b2=b*b;
+    const c2=a2-b2;
+    const cy=Math.sqrt(c2)*b/(2*a);
+    return [0,-cy];
+ }
+
+ function porism_isobaric(a) {
+    const b = 1;
+    const ctr = caustic_isobaric(a);
+    return { ctr: ctr, r: b/2 };  
+ }
 
 function caustic_incenterfocal(a) {
     const c = Math.sqrt(Math.abs(a*a - b*b));

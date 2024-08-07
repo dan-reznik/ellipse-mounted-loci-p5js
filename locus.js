@@ -139,6 +139,7 @@ const dict_caustic = {
     brocard: caustic_brocard,
     macbeath: caustic_macbeath,
     incenterfocal: caustic_incenterfocal,
+    isobaric: caustic_isobaric,
     orthofocal: caustic_orthofocal
 };
 
@@ -177,6 +178,7 @@ const dict_orbit_fn = {
     brocard: orbit_brocard,
     macbeath: orbit_macbeath,
     incenterfocal: orbit_incenterfocal,
+    isobaric: orbit_isobaric,
     orthofocal: orbit_orthofocal
 };
 
@@ -278,6 +280,12 @@ function draw_mounted_locus_branched(n, a, tDeg, rot, locus_branches, clr, locus
     }
 }
 
+const dict_circ_caustic = {
+    incenterfocal: porism_incenterfocal,
+    isobaric: porism_isobaric,
+    orthofocal: porism_orthofocal
+};
+
 function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus_branches, clr, locus_type,
     dr_tri, tri_type, cpn, pn,
     stroke_w, draw_caustic, ell_detect, draw_label, circ, inv, clr_caustic) {
@@ -309,15 +317,8 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
                 translate(...bp.x3); // true center
                 draw_boundary(bp.R, bp.R, clr_caustic, stroke_w);
                 pop();
-            } else if (mounting == "orthofocal") {
-                const op = porism_orthofocal(a);
-                push();
-                translate(...op.ctr);
-                draw_boundary(op.r, op.r, clr_caustic, stroke_w);
-                draw_point2([0,0], clr_caustic, stroke_w / 2);
-                pop();
-            } else if (mounting == "incenterfocal") {
-                const ip = porism_incenterfocal(a);
+            } else if (mounting in dict_circ_caustic) {
+                const ip = dict_circ_caustic[mounting](a);
                 push();
                 translate(...ip.ctr);
                 draw_boundary(ip.r, ip.r, clr_caustic, stroke_w);

@@ -340,29 +340,19 @@ function orbit_macbeath(a, tDeg) {
   return { o: exc_adj, s: tri_sides(exc_adj) };
 }
 
-function orbit_orthofocal(a, tDeg) {
-    // cannnot assume caustic ctr always at [0,0]
-    const t = tDeg*Math.PI/180.;
-    const op = porism_orthofocal(a);
-    const p1 = [a*Math.cos(t),Math.sin(t)];
-    const p1_adj = vdiff(p1, op.ctr);
-    const ts = ellTangentsb(op.r, op.r, p1_adj).map(tg => vsum(tg,op.ctr));
-    const ints = ts.map(tg => ellInterRaybBoth(a, 1, p1, vdiff(tg, p1)));
-    const [p2, p3] = ints.map(ints => farthestPoint(ints, p1));
-    const tri = [p1, p2, p3]
-  return { o: tri, s: tri_sides(tri) };
-}
-
-function orbit_incenterfocal(a, tDeg) {
-  // cannnot assume caustic ctr always at [0,0]
-  const t = tDeg*Math.PI/180.;
-  const op = porism_incenterfocal(a);
-  const p1 = [a*Math.cos(t),Math.sin(t)];
-  const p1_adj = vdiff(p1, op.ctr);
-  const ts = ellTangentsb(op.r, op.r, p1_adj).map(tg => vsum(tg,op.ctr));
-  const ints = ts.map(tg => ellInterRaybBoth(a, 1, p1, vdiff(tg, p1)));
-  const [p2, p3] = ints.map(ints => farthestPoint(ints, p1));
-  const tri = [p1, p2, p3]
+function orbit_circ_caustic(a,tDeg,porism_fn) {
+ const t = tDeg*Math.PI/180.;
+ const op = porism_fn(a);
+ const p1 = [a*Math.cos(t),Math.sin(t)];
+ const p1_adj = vdiff(p1, op.ctr);
+ const ts = ellTangentsb(op.r, op.r, p1_adj).map(tg => vsum(tg,op.ctr));
+ const ints = ts.map(tg => ellInterRaybBoth(a, 1, p1, vdiff(tg, p1)));
+ const [p2, p3] = ints.map(ints => farthestPoint(ints, p1));
+ const tri = [p1, p2, p3]
 return { o: tri, s: tri_sides(tri) };
 }
+
+const orbit_orthofocal = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_orthofocal);
+const orbit_incenterfocal = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_incenterfocal);
+const orbit_isobaric = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_isobaric);
 
