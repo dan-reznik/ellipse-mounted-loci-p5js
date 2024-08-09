@@ -15,6 +15,9 @@ function atik_triangle([a, b, c]) {
     return template_triangle([a, b, c], row_fn);
 }
 
+// Cezar Lozada's list of triangles referenced on ETC
+// https://faculty.evansville.edu/ck6/encyclopedia/IndexOfTrianglesReferencedInETC.html
+
 function andromeda_triangle([a, b, c]) {
     const row_fn = (a, b, c) => { const a2 = a * a, bc2 = (b - c) ** 2; return [(a2 + 3 * bc2) / (3 * a2 + bc2), 1, 1] };
     return template_triangle([a, b, c], row_fn);
