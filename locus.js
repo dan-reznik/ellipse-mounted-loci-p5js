@@ -529,7 +529,8 @@ function make_locus_branched(a, tDegStep, r_max,
                 ["vtx", "vtx2", "vtx3", "caustic", "caustic23", "caustic31",
                     "f_vtx", "ort", "env1x", "env2x", "env3x"].includes(locus_type) ||
                 ["extouch_outer", "subcevian1",  "subanticev1","subpedal1","subantiped1"].includes(cpn) ||
-                ["excircle"].includes(circ) ? 360 : (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
+                ["excircle"].includes(circ) || ["circHalf"].includes(mounting) ? 360 :
+                (mounting == "billiard" ? billiard_tDegMax(a, 1) : 181);
         locus_array = create_locus_branches(a, tDegStep, tDegMax, r_max,
             (a0, tDeg0) =>
                 get_Xn_poncelet(a0, tDeg0, dict_orbit_fn[mounting], bary_fn, tri_type, cpn, pn, inv, inv_fn,
