@@ -4,10 +4,15 @@ function get_orbit_info_low(tri, sides, circ) {
    const r = get_inradius(sides);
    const R = get_circumradius(sides);
    const rOvR = safe_div(r, R);
-   const l2 = sum(sides.map(s => s*s));
+   // sides
+   const l2_sqrs = sides.map(s => s*s);
+   const l2 = sum(l2_sqrs);
    const rpol2 = 4*R*R-l2/2;  // r^2 of polar circle: https://mathworld.wolfram.com/PolarCircle.html
    const linv = sum(sides.map(s =>1/s));
-   const l2inv = sum(sides.map(s => 1/(s*s)));
+   const l2inv = sum(l2_sqrs.map(s => 1/s));
+   const lsqrts = sides.map(s=>Math.sqrt(s));
+   const lsqrt = sum(lsqrts);
+   const lsqrtinv = sum(lsqrts.map(s=>1/s));
    // trig basics
    const cs = tri_cosines(sides);
    const ss = cs.map(c => Math.sqrt(1 - c*c));
@@ -69,16 +74,17 @@ function get_orbit_info_low(tri, sides, circ) {
 
    return {
       L: L, A: A, r: r, R: R, rOvR: rOvR,
-      cotw: cotw, // cotsum
+      cotw: cotw, // cotw=cotsum
       csum: csum, ssum: ssum, tsum: tsum,
       secsum: secsum, cscsum: cscsum,
       sinDoublesum: sinDoublesum, cosDoublesum: cosDoublesum, tanDoublesum: tanDoublesum,
-      secDoublesum: secDoublesum, cscDoublesum: cscDoublesum, // new
-      cotDoublesum: cotDoublesum,
+      secDoublesum: secDoublesum, cscDoublesum: cscDoublesum, cotDoublesum: cotDoublesum,
       sinHalfsum: sinHalfsum, cosHalfsum: cosHalfsum, tanHalfsum: tanHalfsum, cotHalfsum: cotHalfsum,
-      secHalfsum: secHalfsum, cscHalfsum: cscHalfsum, // new
+      secHalfsum: secHalfsum, cscHalfsum: cscHalfsum,
       cosprod: cosprod, sinprod: sinprod, cotprod: cotprod,
-      l2: l2, linv: linv, l2inv: l2inv, lprod: lprod,
+      l2: l2, linv: linv, l2inv: l2inv,
+      lsqrt : lsqrt, lsqrtinv: lsqrtinv, // new
+      lprod: lprod,
       lsumcyc: lsumcyc, lsumcycinv: lsumcycinv, lsumcyc2: lsumcyc2, lsumcyc2inv: lsumcyc2inv, // new
       circR: the_circ.R, rpol2: rpol2
    };
@@ -87,26 +93,28 @@ function get_orbit_info_low(tri, sides, circ) {
 function get_info_arr(info, info_der, not_ref) {
    const basics = [info.L, info.A, info.r, info.R, info.rOvR,
    info.cotw,
-   info.csum, info.ssum, info.tsum,
-   info.secsum, info.cscsum,
+   info.csum, info.ssum, info.tsum, info.secsum, info.cscsum,
    info.sinDoublesum, info.cosDoublesum, info.tanDoublesum,
    info.secDoublesum, info.cscDoublesum, info.cotDoublesum,
    info.sinHalfsum, info.cosHalfsum, info.tanHalfsum,
    info.secHalfSum, info.cscHalfSum, info.cotHalfsum,
    info.cosprod, info.sinprod, info.cotprod,
-   info.l2, info.linv, info.l2inv, info.lprod, info.lsumcyc, info.lsumcycinv, info.lsumcyc2, info.lsumcyc2inv, info.circR, info.rpol2];
+   info.l2, info.linv, info.l2inv,
+   info.lsqrt, info.lsqrtinv, // new
+   info.lprod, info.lsumcyc, info.lsumcycinv, info.lsumcyc2, info.lsumcyc2inv, info.circR, info.rpol2];
    return not_ref ?
       basics.concat([
          info_der.L, info_der.A, info_der.r, info_der.R, info_der.rOvR,
          info_der.cotw,
-         info_der.csum, info_der.ssum, info_der.tsum,
-         info_der.secsum, info_der.cscsum,
+         info_der.csum, info_der.ssum, info_der.tsum, info_der.secsum, info_der.cscsum,
          info_der.sinDoublesum, info_der.cosDoublesum, info_der.tanDoublesum,
          info_der.secDoublesum, info_der.cscDoublesum, info_der.cotDoublesum,
          info_der.sinHalfsum, info_der.cosHalfsum, info_der.tanHalfsum,
          info_der.secHalfsum, info_der.cscHalfsum, info_der.cotHalfsum,
          info_der.cosprod, info_der.sinprod, info_der.cotprod,
-         info_der.l2, info_der.linv, info_der.l2inv, info_der.lprod,
+         info_der.l2, info_der.linv, info_der.l2inv,
+         info_der.lsqrt, info_der.lsqrtinv, // new
+         info_der.lprod,
          info_der.lsumcyc, info_der.lsumcycinv, info_der.lsumcyc2, info_der.lsumcyc2inv,
          info_der.circR, info_der.rpol2,
          // ["L'/L", "A'/A", "A'.A","Rc'/Rc"]
@@ -146,7 +154,9 @@ function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, cpnSel, pn, circ,
       "Σsin(t/2)","Σcos(t/2)","Σtan(t/2)",
       "Σsec(t/2)","Σcsc(t/2)","Σcot(t/2)",
       "∏cos", "∏sin", "∏cot",
-      "Σs^2", "Σ(1/s)", "Σs^-2", "∏s",
+      "Σs^2", "Σ(1/s)", "Σs^-2",
+      "Σ√s", "Σ1/√s",
+      "∏s",
       "Σs,cyc","Σ(1/s),cyc","Σs^2,cyc","Σs^-2,cyc",
       "Rc", "rpol2"
    ];
