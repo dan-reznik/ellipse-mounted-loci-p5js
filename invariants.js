@@ -61,14 +61,14 @@ function get_orbit_info_low(tri, sides, circ) {
    const cotprod = product(cots);
    const lprod = product(sides);
    // cyclicals
-   const cycs=[sides[0]*sides[1],sides[1]*sides[2],sides[2]*sides[0]];
-   const cycsinv=cycs.map(cyc=>1/cyc);
-   const cycs2=cycs.map(cyc=>cyc*cyc);
+   const sij=[sides[0]*sides[1],sides[1]*sides[2],sides[2]*sides[0]];
+   const sij_inv=sij.map(s=>1/s);
+   const sij2=sij.map(s=>s*s);
    // sums
-   const lsumcyc = sum(cycs);
-   const lsumcycinv = sum(cycsinv);
-   const lsumcyc2 = sum(cycs2);
-   const lsumcyc2inv = sum(cycs2.map(c=>1/c));
+   const lsumcyc = sum(sij);
+   const lsumcycinv = sum(sij_inv);
+   const lsumcyc2 = sum(sij2);
+   const lsumcyc2inv = sum(sij2.map(s=>1/s));
    // circle being displayed
    const the_circ = (circ in dict_circles) ? dict_circles[circ](tri, sides) : 0;
 
@@ -154,10 +154,10 @@ function get_orbit_info_both(a, tDeg, mounting, tri_type, cpn, cpnSel, pn, circ,
       "Σsin(t/2)","Σcos(t/2)","Σtan(t/2)",
       "Σsec(t/2)","Σcsc(t/2)","Σcot(t/2)",
       "∏cos", "∏sin", "∏cot",
-      "Σs^2", "Σ(1/s)", "Σs^-2",
+      "Σs^2", "Σs^-1", "Σs^-2",
       "Σ√s", "Σ1/√s",
       "∏s",
-      "Σs,cyc","Σ(1/s),cyc","Σs^2,cyc","Σs^-2,cyc",
+      "Σsij","Σsij^-1","Σsij^2","Σsij^-2",
       "Rc", "rpol2"
    ];
    //"L", "A", "r", "R", "r/R", "cot(ω)", "Σtan",
