@@ -110,6 +110,7 @@ function caustic_radius2(a,[x,y]) {
 }
 
 function caustic_circX1(a) {
+    const b=1;
     const c = Math.sqrt(Math.abs(a*a - b*b));
     return [c, 0];
 }
@@ -144,7 +145,7 @@ function porism_circX2(a) {
 function caustic_circX4(a) {
     const a2 = a*a, b2 = 1;
     const c2 = a2-b2;
-    const c = Math.sqrt(c);
+    const c = Math.sqrt(c2);
     const cx = (a2*c)/(2*a2 - c2);
     return [cx, 0];
  }
