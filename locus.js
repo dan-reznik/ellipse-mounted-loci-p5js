@@ -342,10 +342,15 @@ function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus
                 draw_boundary(ip.r, ip.r, clr_caustic, stroke_w);
                 draw_point2([0,0], clr_caustic, stroke_w / 2);
                 pop();
+                if (mounting.includes("circEqui")) {
+                    [ai,bi]=E_infinity_axes(a);
+                    draw_boundary(ai, bi, [0,128,0], stroke_w);
+                }
             } else {
                 const caustic_axes = dict_caustic[mounting](a);
                 draw_boundary(...caustic_axes, clr_caustic, stroke_w);
                 if (mounting != "billiard") draw_foci(...caustic_axes, clr_caustic, stroke_w);
+
             }
         }
 

@@ -213,12 +213,17 @@ function porism_circFourth(a) {
 // C is at the vertex of X(3) locus
 // X(36) locus becomes a line
 // the Poncelet family will contain an equilateral
-function E_infinity(a,t) {
+function E_infinity_axes(a) {
    const b=1;
    const a2=a*a,b2 = b*b, c2=a2-b2;
    const ai=c2*a/(a2 + 3*b2);
    const bi=c2*b/(b2 + 3*a2);
-   return [ai*Math.cos(t),bi*Math.sin(t)];
+   return [ai,bi];
+}
+
+function E_infinity(a,t) {
+    const [ai,bi] = E_infinity_axes(a);
+    return [ai*Math.cos(t),bi*Math.sin(t)];
 }
 
 const caustic_circEqui30 = (a) => E_infinity(a, toRad(-30.)); 
