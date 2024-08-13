@@ -358,4 +358,7 @@ const orbit_circX2 = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_circX2);
 const orbit_circX7 = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_circX7);
 const orbit_circHalf = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_circHalf);
 const orbit_circThird = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_circThird);
+const orbit_circFourth = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_circFourth);
+const orbit_circEqui30 = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_circEqui30);
+const orbit_circEqui60 = (a, tDeg) => orbit_circ_caustic(a,tDeg,porism_circEqui60);
 

@@ -143,7 +143,10 @@ const dict_caustic = {
     circX4: caustic_circX4,
     circX7: caustic_circX7,
     circHalf: caustic_circHalf,
-    circThird: caustic_circThird
+    circThird: caustic_circThird,
+    circFourth: caustic_circFourth,
+    circEqui30: caustic_circEqui30,
+    circEqui60: caustic_circEqui60
 };
 
 const dict_two_point = {
@@ -185,7 +188,10 @@ const dict_orbit_fn = {
     circX4: orbit_circX4,
     circX7: orbit_circX7,
     circHalf: orbit_circHalf,
-    circThird: orbit_circThird
+    circThird: orbit_circThird,
+    circFourth: orbit_circFourth,
+    circEqui30: orbit_circEqui30,
+    circEqui60: orbit_circEqui60
 };
 
 function get_mounted_derived(a, tDeg, mounting, tri_type, cpn, pn, circ, inv) {
@@ -292,7 +298,10 @@ const dict_circ_caustic = {
     circX4: porism_circX4,
     circX7: porism_circX7,
     circHalf: porism_circHalf,
-    circThird: porism_circThird
+    circThird: porism_circThird,
+    circFourth: porism_circFourth,
+    circEqui30: porism_circEqui30,
+    circEqui60: porism_circEqui60
 };
 
 function draw_poncelet_locus_branched(n, a, tDeg, rot, orbit_fn, mounting, locus_branches, clr, locus_type,

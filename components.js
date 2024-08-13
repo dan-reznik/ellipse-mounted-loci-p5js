@@ -54,7 +54,10 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                     <option value="circX4">*circ-X4*</option>
                     <option value="circX7">*circ-X7*</option>
                     <option value="circHalf">*circ-Half*</option>
-                    <option value="circThird">*circ-Third*</option>`+
+                    <option value="circThird">*circ-Third*</option>
+                    <option value="circFourth">*circ-Fourth*</option>
+                    <option value="circEqui30">*circ-Equi30*</option>
+                    <option value="circEqui60">*circ-Equi60*</option>`+
                     //needs to draw external ellipse as caustic assuming [a,1] of interface is its caustic
                     //<option value="excentral_affine">*exc-aff*</option>
                     `<option value="major">major</option>

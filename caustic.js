@@ -197,3 +197,41 @@ function porism_circThird(a) {
     const r2 = caustic_radius2(a,ctr);
     return { ctr: ctr, r: Math.sqrt(r2) };  
 }
+
+function caustic_circFourth(a) {
+    const ctr =[a/4,-1/4];
+    return ctr;
+ }
+
+function porism_circFourth(a) {
+    const ctr = caustic_circFourth(a);
+    const r2 = caustic_radius2(a,ctr);
+    return { ctr: ctr, r: Math.sqrt(r2) };  
+}
+
+// point C on the "infinity" ellipse for which
+// C is at the vertex of X(3) locus
+// X(36) locus becomes a line
+// the Poncelet family will contain an equilateral
+function E_infinity(a,t) {
+   const b=1;
+   const a2=a*a,b2 = b*b, c2=a2-b2;
+   const ai=c2*a/(a2 + 3*b2);
+   const bi=c2*b/(b2 + 3*a2);
+   return [ai*Math.cos(t),bi*Math.sin(t)];
+}
+
+const caustic_circEqui30 = (a) => E_infinity(a, toRad(-30.)); 
+const caustic_circEqui60 = (a) => E_infinity(a, toRad(-60.)); 
+
+function porism_circEqui30(a) {
+    const ctr = caustic_circEqui30(a);
+    const r2 = caustic_radius2(a,ctr);
+    return { ctr: ctr, r: Math.sqrt(r2) };  
+}
+
+function porism_circEqui60(a) {
+    const ctr = caustic_circEqui60(a);
+    const r2 = caustic_radius2(a,ctr);
+    return { ctr: ctr, r: Math.sqrt(r2) };  
+}
