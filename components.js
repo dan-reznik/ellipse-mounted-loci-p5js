@@ -187,7 +187,7 @@ var html = function(xn_number, trilins_selected, tri_selected, rgb_color, hex_co
                 <button id="plus_Xn`+xn_number+`" class="plus_minus plus"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
             </div>    
             <div class='slider_container'>
-                <input type="range" min="1" max="1000" value="1" class="slider" step="1" id="Xn`+xn_number+`">
+                <input type="range" min="1" max="9999" value="1" class="slider" step="1" id="Xn`+xn_number+`">
             </div>
             <div style="display: flex; justify-content: center; align-items: center;">
               <label for="clr`+xn_number+`"></label>
